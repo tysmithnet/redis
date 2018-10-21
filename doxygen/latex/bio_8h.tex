@@ -1,0 +1,138 @@
+\hypertarget{bio_8h}{}\section{src/bio.h File Reference}
+\label{bio_8h}\index{src/bio.\+h@{src/bio.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bio_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{bio_8h_ac5890d1af5c5d32376c47ad6b83c2af4}{B\+I\+O\+\_\+\+C\+L\+O\+S\+E\+\_\+\+F\+I\+LE}~0 /$\ast$ Deferred close(2) syscall. $\ast$/
+\item 
+\#define \hyperlink{bio_8h_a5d03c967316addafc61b7ed5d957984f}{B\+I\+O\+\_\+\+A\+O\+F\+\_\+\+F\+S\+Y\+NC}~1 /$\ast$ Deferred A\+OF fsync. $\ast$/
+\item 
+\#define \hyperlink{bio_8h_afdc82658b2e29c63afcdb2e808b8a510}{B\+I\+O\+\_\+\+L\+A\+Z\+Y\+\_\+\+F\+R\+EE}~2 /$\ast$ Deferred objects freeing. $\ast$/
+\item 
+\#define \hyperlink{bio_8h_a544b0595052937cbb10e0ffd1f56d163}{B\+I\+O\+\_\+\+N\+U\+M\+\_\+\+O\+PS}~3
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{bio_8h_a3e0959494cbc322c6f3ed132cd89dfb3}{bio\+Init} (void)
+\item 
+void \hyperlink{bio_8h_afa18e3b32629794afa3875dc9c06293c}{bio\+Create\+Background\+Job} (int type, void $\ast$arg1, void $\ast$arg2, void $\ast$arg3)
+\item 
+unsigned long long \hyperlink{bio_8h_aaa7c819608423673bf1da5f9b2c39eda}{bio\+Pending\+Jobs\+Of\+Type} (int type)
+\item 
+unsigned long long \hyperlink{bio_8h_ac8d3d46098f179d01c3cc766800d2a1a}{bio\+Wait\+Step\+Of\+Type} (int type)
+\item 
+time\+\_\+t \hyperlink{bio_8h_a647a9c387ae5359a6d55628bd3984b13}{bio\+Older\+Job\+Of\+Type} (int type)
+\item 
+void \hyperlink{bio_8h_a65b09a960dcb33222ceba0205e24f8cc}{bio\+Kill\+Threads} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{bio_8h_a5d03c967316addafc61b7ed5d957984f}\label{bio_8h_a5d03c967316addafc61b7ed5d957984f}} 
+\index{bio.\+h@{bio.\+h}!B\+I\+O\+\_\+\+A\+O\+F\+\_\+\+F\+S\+Y\+NC@{B\+I\+O\+\_\+\+A\+O\+F\+\_\+\+F\+S\+Y\+NC}}
+\index{B\+I\+O\+\_\+\+A\+O\+F\+\_\+\+F\+S\+Y\+NC@{B\+I\+O\+\_\+\+A\+O\+F\+\_\+\+F\+S\+Y\+NC}!bio.\+h@{bio.\+h}}
+\subsubsection{\texorpdfstring{B\+I\+O\+\_\+\+A\+O\+F\+\_\+\+F\+S\+Y\+NC}{BIO\_AOF\_FSYNC}}
+{\footnotesize\ttfamily \#define B\+I\+O\+\_\+\+A\+O\+F\+\_\+\+F\+S\+Y\+NC~1 /$\ast$ Deferred A\+OF fsync. $\ast$/}
+
+
+
+Definition at line 40 of file bio.\+h.
+
+\mbox{\Hypertarget{bio_8h_ac5890d1af5c5d32376c47ad6b83c2af4}\label{bio_8h_ac5890d1af5c5d32376c47ad6b83c2af4}} 
+\index{bio.\+h@{bio.\+h}!B\+I\+O\+\_\+\+C\+L\+O\+S\+E\+\_\+\+F\+I\+LE@{B\+I\+O\+\_\+\+C\+L\+O\+S\+E\+\_\+\+F\+I\+LE}}
+\index{B\+I\+O\+\_\+\+C\+L\+O\+S\+E\+\_\+\+F\+I\+LE@{B\+I\+O\+\_\+\+C\+L\+O\+S\+E\+\_\+\+F\+I\+LE}!bio.\+h@{bio.\+h}}
+\subsubsection{\texorpdfstring{B\+I\+O\+\_\+\+C\+L\+O\+S\+E\+\_\+\+F\+I\+LE}{BIO\_CLOSE\_FILE}}
+{\footnotesize\ttfamily \#define B\+I\+O\+\_\+\+C\+L\+O\+S\+E\+\_\+\+F\+I\+LE~0 /$\ast$ Deferred close(2) syscall. $\ast$/}
+
+
+
+Definition at line 39 of file bio.\+h.
+
+\mbox{\Hypertarget{bio_8h_afdc82658b2e29c63afcdb2e808b8a510}\label{bio_8h_afdc82658b2e29c63afcdb2e808b8a510}} 
+\index{bio.\+h@{bio.\+h}!B\+I\+O\+\_\+\+L\+A\+Z\+Y\+\_\+\+F\+R\+EE@{B\+I\+O\+\_\+\+L\+A\+Z\+Y\+\_\+\+F\+R\+EE}}
+\index{B\+I\+O\+\_\+\+L\+A\+Z\+Y\+\_\+\+F\+R\+EE@{B\+I\+O\+\_\+\+L\+A\+Z\+Y\+\_\+\+F\+R\+EE}!bio.\+h@{bio.\+h}}
+\subsubsection{\texorpdfstring{B\+I\+O\+\_\+\+L\+A\+Z\+Y\+\_\+\+F\+R\+EE}{BIO\_LAZY\_FREE}}
+{\footnotesize\ttfamily \#define B\+I\+O\+\_\+\+L\+A\+Z\+Y\+\_\+\+F\+R\+EE~2 /$\ast$ Deferred objects freeing. $\ast$/}
+
+
+
+Definition at line 41 of file bio.\+h.
+
+\mbox{\Hypertarget{bio_8h_a544b0595052937cbb10e0ffd1f56d163}\label{bio_8h_a544b0595052937cbb10e0ffd1f56d163}} 
+\index{bio.\+h@{bio.\+h}!B\+I\+O\+\_\+\+N\+U\+M\+\_\+\+O\+PS@{B\+I\+O\+\_\+\+N\+U\+M\+\_\+\+O\+PS}}
+\index{B\+I\+O\+\_\+\+N\+U\+M\+\_\+\+O\+PS@{B\+I\+O\+\_\+\+N\+U\+M\+\_\+\+O\+PS}!bio.\+h@{bio.\+h}}
+\subsubsection{\texorpdfstring{B\+I\+O\+\_\+\+N\+U\+M\+\_\+\+O\+PS}{BIO\_NUM\_OPS}}
+{\footnotesize\ttfamily \#define B\+I\+O\+\_\+\+N\+U\+M\+\_\+\+O\+PS~3}
+
+
+
+Definition at line 42 of file bio.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bio_8h_afa18e3b32629794afa3875dc9c06293c}\label{bio_8h_afa18e3b32629794afa3875dc9c06293c}} 
+\index{bio.\+h@{bio.\+h}!bio\+Create\+Background\+Job@{bio\+Create\+Background\+Job}}
+\index{bio\+Create\+Background\+Job@{bio\+Create\+Background\+Job}!bio.\+h@{bio.\+h}}
+\subsubsection{\texorpdfstring{bio\+Create\+Background\+Job()}{bioCreateBackgroundJob()}}
+{\footnotesize\ttfamily void bio\+Create\+Background\+Job (\begin{DoxyParamCaption}\item[{int}]{type,  }\item[{void $\ast$}]{arg1,  }\item[{void $\ast$}]{arg2,  }\item[{void $\ast$}]{arg3 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 131 of file bio.\+c.
+
+\mbox{\Hypertarget{bio_8h_a3e0959494cbc322c6f3ed132cd89dfb3}\label{bio_8h_a3e0959494cbc322c6f3ed132cd89dfb3}} 
+\index{bio.\+h@{bio.\+h}!bio\+Init@{bio\+Init}}
+\index{bio\+Init@{bio\+Init}!bio.\+h@{bio.\+h}}
+\subsubsection{\texorpdfstring{bio\+Init()}{bioInit()}}
+{\footnotesize\ttfamily void bio\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 96 of file bio.\+c.
+
+\mbox{\Hypertarget{bio_8h_a65b09a960dcb33222ceba0205e24f8cc}\label{bio_8h_a65b09a960dcb33222ceba0205e24f8cc}} 
+\index{bio.\+h@{bio.\+h}!bio\+Kill\+Threads@{bio\+Kill\+Threads}}
+\index{bio\+Kill\+Threads@{bio\+Kill\+Threads}!bio.\+h@{bio.\+h}}
+\subsubsection{\texorpdfstring{bio\+Kill\+Threads()}{bioKillThreads()}}
+{\footnotesize\ttfamily void bio\+Kill\+Threads (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 253 of file bio.\+c.
+
+\mbox{\Hypertarget{bio_8h_a647a9c387ae5359a6d55628bd3984b13}\label{bio_8h_a647a9c387ae5359a6d55628bd3984b13}} 
+\index{bio.\+h@{bio.\+h}!bio\+Older\+Job\+Of\+Type@{bio\+Older\+Job\+Of\+Type}}
+\index{bio\+Older\+Job\+Of\+Type@{bio\+Older\+Job\+Of\+Type}!bio.\+h@{bio.\+h}}
+\subsubsection{\texorpdfstring{bio\+Older\+Job\+Of\+Type()}{bioOlderJobOfType()}}
+{\footnotesize\ttfamily time\+\_\+t bio\+Older\+Job\+Of\+Type (\begin{DoxyParamCaption}\item[{int}]{type }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{bio_8h_aaa7c819608423673bf1da5f9b2c39eda}\label{bio_8h_aaa7c819608423673bf1da5f9b2c39eda}} 
+\index{bio.\+h@{bio.\+h}!bio\+Pending\+Jobs\+Of\+Type@{bio\+Pending\+Jobs\+Of\+Type}}
+\index{bio\+Pending\+Jobs\+Of\+Type@{bio\+Pending\+Jobs\+Of\+Type}!bio.\+h@{bio.\+h}}
+\subsubsection{\texorpdfstring{bio\+Pending\+Jobs\+Of\+Type()}{bioPendingJobsOfType()}}
+{\footnotesize\ttfamily unsigned long long bio\+Pending\+Jobs\+Of\+Type (\begin{DoxyParamCaption}\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 219 of file bio.\+c.
+
+\mbox{\Hypertarget{bio_8h_ac8d3d46098f179d01c3cc766800d2a1a}\label{bio_8h_ac8d3d46098f179d01c3cc766800d2a1a}} 
+\index{bio.\+h@{bio.\+h}!bio\+Wait\+Step\+Of\+Type@{bio\+Wait\+Step\+Of\+Type}}
+\index{bio\+Wait\+Step\+Of\+Type@{bio\+Wait\+Step\+Of\+Type}!bio.\+h@{bio.\+h}}
+\subsubsection{\texorpdfstring{bio\+Wait\+Step\+Of\+Type()}{bioWaitStepOfType()}}
+{\footnotesize\ttfamily unsigned long long bio\+Wait\+Step\+Of\+Type (\begin{DoxyParamCaption}\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 237 of file bio.\+c.
+

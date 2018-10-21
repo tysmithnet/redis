@@ -1,0 +1,167 @@
+\hypertarget{lzf__c_8c}{}\section{src/lzf\+\_\+c.c File Reference}
+\label{lzf__c_8c}\index{src/lzf\+\_\+c.\+c@{src/lzf\+\_\+c.\+c}}
+{\ttfamily \#include \char`\"{}lzf\+P.\+h\char`\"{}}\newline
+Include dependency graph for lzf\+\_\+c.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{lzf__c_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{lzf__c_8c_accbc671b9a49dadd822cddd2ef6af38f}{H\+S\+I\+ZE}~(1 $<$$<$ (\hyperlink{lzf_p_8h_aaa67275c53290bd99d516d4b9a5d7d76}{H\+L\+OG}))
+\item 
+\#define \hyperlink{lzf__c_8c_a61be8c5e877134668e5eb72181722432}{F\+R\+ST}(p)~(((p\mbox{[}0\mbox{]}) $<$$<$ 8) $\vert$ p\mbox{[}1\mbox{]})
+\item 
+\#define \hyperlink{lzf__c_8c_a7690f0d6b9709b87bb8bf162b6bd32e2}{N\+E\+XT}(v,  p)~(((v) $<$$<$ 8) $\vert$ p\mbox{[}2\mbox{]})
+\item 
+\#define \hyperlink{lzf__c_8c_afbc4dc0e5192c430576d8e81647d0ae8}{I\+DX}(h)~((( h             $>$$>$ (3$\ast$8 -\/ \hyperlink{lzf_p_8h_aaa67275c53290bd99d516d4b9a5d7d76}{H\+L\+OG})) -\/ h$\ast$5) \& (\hyperlink{lzf__c_8c_accbc671b9a49dadd822cddd2ef6af38f}{H\+S\+I\+ZE} -\/ 1))
+\item 
+\#define \hyperlink{lzf__c_8c_a8ff610436e92b6fdcefdc820c25760b2}{M\+A\+X\+\_\+\+L\+IT}~(1 $<$$<$  5)
+\item 
+\#define \hyperlink{lzf__c_8c_a836ed43c144629d6e1666999ed3b25f4}{M\+A\+X\+\_\+\+O\+FF}~(1 $<$$<$ 13)
+\item 
+\#define \hyperlink{lzf__c_8c_a6f931885fb233742f38eff99d953475b}{M\+A\+X\+\_\+\+R\+EF}~((1 $<$$<$ 8) + (1 $<$$<$ 3))
+\item 
+\#define \hyperlink{lzf__c_8c_a7d26a1c40d6107cf2f19558492591e67}{expect}(expr,  value)~(expr)
+\item 
+\#define \hyperlink{lzf__c_8c_a00d24c7231be28dbaf71f5408f30e44c}{inline}~static
+\item 
+\#define \hyperlink{lzf__c_8c_afc5fc140e1c36b6f0d3fc1699b038792}{expect\+\_\+false}(expr)~\hyperlink{lzf__c_8c_a7d26a1c40d6107cf2f19558492591e67}{expect} ((expr) != 0, 0)
+\item 
+\#define \hyperlink{lzf__c_8c_a6a6f76fb42528022b1fc8f9a1862e450}{expect\+\_\+true}(expr)~\hyperlink{lzf__c_8c_a7d26a1c40d6107cf2f19558492591e67}{expect} ((expr) != 0, 1)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \hyperlink{lzf__c_8c_a92cf28f93250bb1a0fdc8e32de82bb00}{lzf\+\_\+compress} (const void $\ast$const in\+\_\+data, unsigned int in\+\_\+len, void $\ast$out\+\_\+data, unsigned int out\+\_\+len)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{lzf__c_8c_a7d26a1c40d6107cf2f19558492591e67}\label{lzf__c_8c_a7d26a1c40d6107cf2f19558492591e67}} 
+\index{lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}!expect@{expect}}
+\index{expect@{expect}!lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}}
+\subsubsection{\texorpdfstring{expect}{expect}}
+{\footnotesize\ttfamily \#define expect(\begin{DoxyParamCaption}\item[{}]{expr,  }\item[{}]{value }\end{DoxyParamCaption})~(expr)}
+
+
+
+Definition at line 82 of file lzf\+\_\+c.\+c.
+
+\mbox{\Hypertarget{lzf__c_8c_afc5fc140e1c36b6f0d3fc1699b038792}\label{lzf__c_8c_afc5fc140e1c36b6f0d3fc1699b038792}} 
+\index{lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}!expect\+\_\+false@{expect\+\_\+false}}
+\index{expect\+\_\+false@{expect\+\_\+false}!lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}}
+\subsubsection{\texorpdfstring{expect\+\_\+false}{expect\_false}}
+{\footnotesize\ttfamily \#define expect\+\_\+false(\begin{DoxyParamCaption}\item[{}]{expr }\end{DoxyParamCaption})~\hyperlink{lzf__c_8c_a7d26a1c40d6107cf2f19558492591e67}{expect} ((expr) != 0, 0)}
+
+
+
+Definition at line 86 of file lzf\+\_\+c.\+c.
+
+\mbox{\Hypertarget{lzf__c_8c_a6a6f76fb42528022b1fc8f9a1862e450}\label{lzf__c_8c_a6a6f76fb42528022b1fc8f9a1862e450}} 
+\index{lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}!expect\+\_\+true@{expect\+\_\+true}}
+\index{expect\+\_\+true@{expect\+\_\+true}!lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}}
+\subsubsection{\texorpdfstring{expect\+\_\+true}{expect\_true}}
+{\footnotesize\ttfamily \#define expect\+\_\+true(\begin{DoxyParamCaption}\item[{}]{expr }\end{DoxyParamCaption})~\hyperlink{lzf__c_8c_a7d26a1c40d6107cf2f19558492591e67}{expect} ((expr) != 0, 1)}
+
+
+
+Definition at line 87 of file lzf\+\_\+c.\+c.
+
+\mbox{\Hypertarget{lzf__c_8c_a61be8c5e877134668e5eb72181722432}\label{lzf__c_8c_a61be8c5e877134668e5eb72181722432}} 
+\index{lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}!F\+R\+ST@{F\+R\+ST}}
+\index{F\+R\+ST@{F\+R\+ST}!lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}}
+\subsubsection{\texorpdfstring{F\+R\+ST}{FRST}}
+{\footnotesize\ttfamily \#define F\+R\+ST(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~(((p\mbox{[}0\mbox{]}) $<$$<$ 8) $\vert$ p\mbox{[}1\mbox{]})}
+
+
+
+Definition at line 48 of file lzf\+\_\+c.\+c.
+
+\mbox{\Hypertarget{lzf__c_8c_accbc671b9a49dadd822cddd2ef6af38f}\label{lzf__c_8c_accbc671b9a49dadd822cddd2ef6af38f}} 
+\index{lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}!H\+S\+I\+ZE@{H\+S\+I\+ZE}}
+\index{H\+S\+I\+ZE@{H\+S\+I\+ZE}!lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}}
+\subsubsection{\texorpdfstring{H\+S\+I\+ZE}{HSIZE}}
+{\footnotesize\ttfamily \#define H\+S\+I\+ZE~(1 $<$$<$ (\hyperlink{lzf_p_8h_aaa67275c53290bd99d516d4b9a5d7d76}{H\+L\+OG}))}
+
+
+
+Definition at line 39 of file lzf\+\_\+c.\+c.
+
+\mbox{\Hypertarget{lzf__c_8c_afbc4dc0e5192c430576d8e81647d0ae8}\label{lzf__c_8c_afbc4dc0e5192c430576d8e81647d0ae8}} 
+\index{lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}!I\+DX@{I\+DX}}
+\index{I\+DX@{I\+DX}!lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}}
+\subsubsection{\texorpdfstring{I\+DX}{IDX}}
+{\footnotesize\ttfamily \#define I\+DX(\begin{DoxyParamCaption}\item[{}]{h }\end{DoxyParamCaption})~((( h             $>$$>$ (3$\ast$8 -\/ \hyperlink{lzf_p_8h_aaa67275c53290bd99d516d4b9a5d7d76}{H\+L\+OG})) -\/ h$\ast$5) \& (\hyperlink{lzf__c_8c_accbc671b9a49dadd822cddd2ef6af38f}{H\+S\+I\+ZE} -\/ 1))}
+
+
+
+Definition at line 53 of file lzf\+\_\+c.\+c.
+
+\mbox{\Hypertarget{lzf__c_8c_a00d24c7231be28dbaf71f5408f30e44c}\label{lzf__c_8c_a00d24c7231be28dbaf71f5408f30e44c}} 
+\index{lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}!inline@{inline}}
+\index{inline@{inline}!lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}}
+\subsubsection{\texorpdfstring{inline}{inline}}
+{\footnotesize\ttfamily \#define inline~static}
+
+
+
+Definition at line 83 of file lzf\+\_\+c.\+c.
+
+\mbox{\Hypertarget{lzf__c_8c_a8ff610436e92b6fdcefdc820c25760b2}\label{lzf__c_8c_a8ff610436e92b6fdcefdc820c25760b2}} 
+\index{lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}!M\+A\+X\+\_\+\+L\+IT@{M\+A\+X\+\_\+\+L\+IT}}
+\index{M\+A\+X\+\_\+\+L\+IT@{M\+A\+X\+\_\+\+L\+IT}!lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+L\+IT}{MAX\_LIT}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+L\+IT~(1 $<$$<$  5)}
+
+
+
+Definition at line 74 of file lzf\+\_\+c.\+c.
+
+\mbox{\Hypertarget{lzf__c_8c_a836ed43c144629d6e1666999ed3b25f4}\label{lzf__c_8c_a836ed43c144629d6e1666999ed3b25f4}} 
+\index{lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}!M\+A\+X\+\_\+\+O\+FF@{M\+A\+X\+\_\+\+O\+FF}}
+\index{M\+A\+X\+\_\+\+O\+FF@{M\+A\+X\+\_\+\+O\+FF}!lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+O\+FF}{MAX\_OFF}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+O\+FF~(1 $<$$<$ 13)}
+
+
+
+Definition at line 75 of file lzf\+\_\+c.\+c.
+
+\mbox{\Hypertarget{lzf__c_8c_a6f931885fb233742f38eff99d953475b}\label{lzf__c_8c_a6f931885fb233742f38eff99d953475b}} 
+\index{lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}!M\+A\+X\+\_\+\+R\+EF@{M\+A\+X\+\_\+\+R\+EF}}
+\index{M\+A\+X\+\_\+\+R\+EF@{M\+A\+X\+\_\+\+R\+EF}!lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+R\+EF}{MAX\_REF}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+R\+EF~((1 $<$$<$ 8) + (1 $<$$<$ 3))}
+
+
+
+Definition at line 76 of file lzf\+\_\+c.\+c.
+
+\mbox{\Hypertarget{lzf__c_8c_a7690f0d6b9709b87bb8bf162b6bd32e2}\label{lzf__c_8c_a7690f0d6b9709b87bb8bf162b6bd32e2}} 
+\index{lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}!N\+E\+XT@{N\+E\+XT}}
+\index{N\+E\+XT@{N\+E\+XT}!lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}}
+\subsubsection{\texorpdfstring{N\+E\+XT}{NEXT}}
+{\footnotesize\ttfamily \#define N\+E\+XT(\begin{DoxyParamCaption}\item[{}]{v,  }\item[{}]{p }\end{DoxyParamCaption})~(((v) $<$$<$ 8) $\vert$ p\mbox{[}2\mbox{]})}
+
+
+
+Definition at line 49 of file lzf\+\_\+c.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{lzf__c_8c_a92cf28f93250bb1a0fdc8e32de82bb00}\label{lzf__c_8c_a92cf28f93250bb1a0fdc8e32de82bb00}} 
+\index{lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}!lzf\+\_\+compress@{lzf\+\_\+compress}}
+\index{lzf\+\_\+compress@{lzf\+\_\+compress}!lzf\+\_\+c.\+c@{lzf\+\_\+c.\+c}}
+\subsubsection{\texorpdfstring{lzf\+\_\+compress()}{lzf\_compress()}}
+{\footnotesize\ttfamily unsigned int lzf\+\_\+compress (\begin{DoxyParamCaption}\item[{const void $\ast$const}]{in\+\_\+data,  }\item[{unsigned int}]{in\+\_\+len,  }\item[{void $\ast$}]{out\+\_\+data,  }\item[{unsigned int}]{out\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 99 of file lzf\+\_\+c.\+c.
+

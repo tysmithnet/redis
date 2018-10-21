@@ -1,0 +1,235 @@
+\hypertarget{listpack_8h}{}\section{src/listpack.h File Reference}
+\label{listpack_8h}\index{src/listpack.\+h@{src/listpack.\+h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for listpack.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=155pt]{listpack_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{listpack_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{listpack_8h_ab31e5c173b595ae4e703b72eb435a6e9}{L\+P\+\_\+\+I\+N\+T\+B\+U\+F\+\_\+\+S\+I\+ZE}~21 /$\ast$ 20 digits of -\/2$^\wedge$63 + 1 null term = 21. $\ast$/
+\item 
+\#define \hyperlink{listpack_8h_a64de9ded0fe5ccb80bc2bc9fb8c6c3b2}{L\+P\+\_\+\+B\+E\+F\+O\+RE}~0
+\item 
+\#define \hyperlink{listpack_8h_ab57438590a2e825529df34cf1174a3a5}{L\+P\+\_\+\+A\+F\+T\+ER}~1
+\item 
+\#define \hyperlink{listpack_8h_a29d3b9a55d47053582a5025dd85d7fe6}{L\+P\+\_\+\+R\+E\+P\+L\+A\+CE}~2
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8h_a99523d640443dcaea6031f4cf10672a5}{lp\+New} (void)
+\item 
+void \hyperlink{listpack_8h_aa03e7c2b9d9fbb112e169514dc2b6125}{lp\+Free} (unsigned char $\ast$lp)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8h_abf204a043216f2bb3593bdb073965558}{lp\+Insert} (unsigned char $\ast$lp, unsigned char $\ast$ele, uint32\+\_\+t size, unsigned char $\ast$p, int where, unsigned char $\ast$$\ast$newp)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8h_ac4a00a910f148ad1fe155d804a1820fe}{lp\+Append} (unsigned char $\ast$lp, unsigned char $\ast$ele, uint32\+\_\+t size)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8h_a55b9a6bc62e44a1d45f723a4f1250c8f}{lp\+Delete} (unsigned char $\ast$lp, unsigned char $\ast$p, unsigned char $\ast$$\ast$newp)
+\item 
+uint32\+\_\+t \hyperlink{listpack_8h_ab45595f8f64080d09fc5bd9c1de138a2}{lp\+Length} (unsigned char $\ast$lp)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8h_a30f12fcf140c299b5f20a6a24bc18c6a}{lp\+Get} (unsigned char $\ast$p, int64\+\_\+t $\ast$count, unsigned char $\ast$intbuf)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8h_ad241a9bd2905ee3b0e82e02d01f4f372}{lp\+First} (unsigned char $\ast$lp)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8h_aa13b77ad8c7c6a22d9523f66731840f3}{lp\+Last} (unsigned char $\ast$lp)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8h_ac8d441ace9db50ccb9e8a93e1bfa5630}{lp\+Next} (unsigned char $\ast$lp, unsigned char $\ast$p)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8h_a0bfa5487a1cb14ae54e3ba6d33251f27}{lp\+Prev} (unsigned char $\ast$lp, unsigned char $\ast$p)
+\item 
+uint32\+\_\+t \hyperlink{listpack_8h_a087b2b4c2fcb972fb8c4b9466828d2e6}{lp\+Bytes} (unsigned char $\ast$lp)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8h_ac05c2d885bd03e1769b3aede9bd499f0}{lp\+Seek} (unsigned char $\ast$lp, long index)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{listpack_8h_ab57438590a2e825529df34cf1174a3a5}\label{listpack_8h_ab57438590a2e825529df34cf1174a3a5}} 
+\index{listpack.\+h@{listpack.\+h}!L\+P\+\_\+\+A\+F\+T\+ER@{L\+P\+\_\+\+A\+F\+T\+ER}}
+\index{L\+P\+\_\+\+A\+F\+T\+ER@{L\+P\+\_\+\+A\+F\+T\+ER}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+A\+F\+T\+ER}{LP\_AFTER}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+A\+F\+T\+ER~1}
+
+
+
+Definition at line 44 of file listpack.\+h.
+
+\mbox{\Hypertarget{listpack_8h_a64de9ded0fe5ccb80bc2bc9fb8c6c3b2}\label{listpack_8h_a64de9ded0fe5ccb80bc2bc9fb8c6c3b2}} 
+\index{listpack.\+h@{listpack.\+h}!L\+P\+\_\+\+B\+E\+F\+O\+RE@{L\+P\+\_\+\+B\+E\+F\+O\+RE}}
+\index{L\+P\+\_\+\+B\+E\+F\+O\+RE@{L\+P\+\_\+\+B\+E\+F\+O\+RE}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+B\+E\+F\+O\+RE}{LP\_BEFORE}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+B\+E\+F\+O\+RE~0}
+
+
+
+Definition at line 43 of file listpack.\+h.
+
+\mbox{\Hypertarget{listpack_8h_ab31e5c173b595ae4e703b72eb435a6e9}\label{listpack_8h_ab31e5c173b595ae4e703b72eb435a6e9}} 
+\index{listpack.\+h@{listpack.\+h}!L\+P\+\_\+\+I\+N\+T\+B\+U\+F\+\_\+\+S\+I\+ZE@{L\+P\+\_\+\+I\+N\+T\+B\+U\+F\+\_\+\+S\+I\+ZE}}
+\index{L\+P\+\_\+\+I\+N\+T\+B\+U\+F\+\_\+\+S\+I\+ZE@{L\+P\+\_\+\+I\+N\+T\+B\+U\+F\+\_\+\+S\+I\+ZE}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+I\+N\+T\+B\+U\+F\+\_\+\+S\+I\+ZE}{LP\_INTBUF\_SIZE}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+I\+N\+T\+B\+U\+F\+\_\+\+S\+I\+ZE~21 /$\ast$ 20 digits of -\/2$^\wedge$63 + 1 null term = 21. $\ast$/}
+
+
+
+Definition at line 40 of file listpack.\+h.
+
+\mbox{\Hypertarget{listpack_8h_a29d3b9a55d47053582a5025dd85d7fe6}\label{listpack_8h_a29d3b9a55d47053582a5025dd85d7fe6}} 
+\index{listpack.\+h@{listpack.\+h}!L\+P\+\_\+\+R\+E\+P\+L\+A\+CE@{L\+P\+\_\+\+R\+E\+P\+L\+A\+CE}}
+\index{L\+P\+\_\+\+R\+E\+P\+L\+A\+CE@{L\+P\+\_\+\+R\+E\+P\+L\+A\+CE}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+R\+E\+P\+L\+A\+CE}{LP\_REPLACE}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+R\+E\+P\+L\+A\+CE~2}
+
+
+
+Definition at line 45 of file listpack.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{listpack_8h_ac4a00a910f148ad1fe155d804a1820fe}\label{listpack_8h_ac4a00a910f148ad1fe155d804a1820fe}} 
+\index{listpack.\+h@{listpack.\+h}!lp\+Append@{lp\+Append}}
+\index{lp\+Append@{lp\+Append}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{lp\+Append()}{lpAppend()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Append (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp,  }\item[{unsigned char $\ast$}]{ele,  }\item[{uint32\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 736 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8h_a087b2b4c2fcb972fb8c4b9466828d2e6}\label{listpack_8h_a087b2b4c2fcb972fb8c4b9466828d2e6}} 
+\index{listpack.\+h@{listpack.\+h}!lp\+Bytes@{lp\+Bytes}}
+\index{lp\+Bytes@{lp\+Bytes}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{lp\+Bytes()}{lpBytes()}}
+{\footnotesize\ttfamily uint32\+\_\+t lp\+Bytes (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 751 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8h_a55b9a6bc62e44a1d45f723a4f1250c8f}\label{listpack_8h_a55b9a6bc62e44a1d45f723a4f1250c8f}} 
+\index{listpack.\+h@{listpack.\+h}!lp\+Delete@{lp\+Delete}}
+\index{lp\+Delete@{lp\+Delete}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{lp\+Delete()}{lpDelete()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Delete (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp,  }\item[{unsigned char $\ast$}]{p,  }\item[{unsigned char $\ast$$\ast$}]{newp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 746 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8h_ad241a9bd2905ee3b0e82e02d01f4f372}\label{listpack_8h_ad241a9bd2905ee3b0e82e02d01f4f372}} 
+\index{listpack.\+h@{listpack.\+h}!lp\+First@{lp\+First}}
+\index{lp\+First@{lp\+First}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{lp\+First()}{lpFirst()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+First (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 420 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8h_aa03e7c2b9d9fbb112e169514dc2b6125}\label{listpack_8h_aa03e7c2b9d9fbb112e169514dc2b6125}} 
+\index{listpack.\+h@{listpack.\+h}!lp\+Free@{lp\+Free}}
+\index{lp\+Free@{lp\+Free}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{lp\+Free()}{lpFree()}}
+{\footnotesize\ttfamily void lp\+Free (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 216 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8h_a30f12fcf140c299b5f20a6a24bc18c6a}\label{listpack_8h_a30f12fcf140c299b5f20a6a24bc18c6a}} 
+\index{listpack.\+h@{listpack.\+h}!lp\+Get@{lp\+Get}}
+\index{lp\+Get@{lp\+Get}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{lp\+Get()}{lpGet()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Get (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{int64\+\_\+t $\ast$}]{count,  }\item[{unsigned char $\ast$}]{intbuf }\end{DoxyParamCaption})}
+
+
+
+Definition at line 491 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8h_abf204a043216f2bb3593bdb073965558}\label{listpack_8h_abf204a043216f2bb3593bdb073965558}} 
+\index{listpack.\+h@{listpack.\+h}!lp\+Insert@{lp\+Insert}}
+\index{lp\+Insert@{lp\+Insert}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{lp\+Insert()}{lpInsert()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Insert (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp,  }\item[{unsigned char $\ast$}]{ele,  }\item[{uint32\+\_\+t}]{size,  }\item[{unsigned char $\ast$}]{p,  }\item[{int}]{where,  }\item[{unsigned char $\ast$$\ast$}]{newp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 595 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8h_aa13b77ad8c7c6a22d9523f66731840f3}\label{listpack_8h_aa13b77ad8c7c6a22d9523f66731840f3}} 
+\index{listpack.\+h@{listpack.\+h}!lp\+Last@{lp\+Last}}
+\index{lp\+Last@{lp\+Last}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{lp\+Last()}{lpLast()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Last (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 428 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8h_ab45595f8f64080d09fc5bd9c1de138a2}\label{listpack_8h_ab45595f8f64080d09fc5bd9c1de138a2}} 
+\index{listpack.\+h@{listpack.\+h}!lp\+Length@{lp\+Length}}
+\index{lp\+Length@{lp\+Length}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{lp\+Length()}{lpLength()}}
+{\footnotesize\ttfamily uint32\+\_\+t lp\+Length (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 438 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8h_a99523d640443dcaea6031f4cf10672a5}\label{listpack_8h_a99523d640443dcaea6031f4cf10672a5}} 
+\index{listpack.\+h@{listpack.\+h}!lp\+New@{lp\+New}}
+\index{lp\+New@{lp\+New}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{lp\+New()}{lpNew()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+New (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 206 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8h_ac8d441ace9db50ccb9e8a93e1bfa5630}\label{listpack_8h_ac8d441ace9db50ccb9e8a93e1bfa5630}} 
+\index{listpack.\+h@{listpack.\+h}!lp\+Next@{lp\+Next}}
+\index{lp\+Next@{lp\+Next}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{lp\+Next()}{lpNext()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Next (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp,  }\item[{unsigned char $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 400 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8h_a0bfa5487a1cb14ae54e3ba6d33251f27}\label{listpack_8h_a0bfa5487a1cb14ae54e3ba6d33251f27}} 
+\index{listpack.\+h@{listpack.\+h}!lp\+Prev@{lp\+Prev}}
+\index{lp\+Prev@{lp\+Prev}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{lp\+Prev()}{lpPrev()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Prev (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp,  }\item[{unsigned char $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 410 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8h_ac05c2d885bd03e1769b3aede9bd499f0}\label{listpack_8h_ac05c2d885bd03e1769b3aede9bd499f0}} 
+\index{listpack.\+h@{listpack.\+h}!lp\+Seek@{lp\+Seek}}
+\index{lp\+Seek@{lp\+Seek}!listpack.\+h@{listpack.\+h}}
+\subsubsection{\texorpdfstring{lp\+Seek()}{lpSeek()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Seek (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp,  }\item[{long}]{index }\end{DoxyParamCaption})}
+
+
+
+Definition at line 760 of file listpack.\+c.
+

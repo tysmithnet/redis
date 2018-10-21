@@ -1,0 +1,130 @@
+\hypertarget{redis-benchmark_8c}{}\section{src/redis-\/benchmark.c File Reference}
+\label{redis-benchmark_8c}\index{src/redis-\/benchmark.\+c@{src/redis-\/benchmark.\+c}}
+{\ttfamily \#include \char`\"{}fmacros.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$sds.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}ae.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}hiredis.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}adlist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}zmalloc.\+h\char`\"{}}\newline
+Include dependency graph for redis-\/benchmark.c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{redis-benchmark_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bfseries config}
+\item 
+struct \hyperlink{struct__client}{\+\_\+client}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{redis-benchmark_8c_ae7c9dc8f13568a9c856573751f1ee1ec}{U\+N\+U\+S\+ED}(V)~((void) V)
+\item 
+\#define \hyperlink{redis-benchmark_8c_aa36f1f87a96374eb350895416fc1affe}{R\+A\+N\+D\+P\+T\+R\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE}~8
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct__client}{\+\_\+client} $\ast$ \hyperlink{redis-benchmark_8c_a6bf8c3f34a9af09c5f641d813a37d0a7}{client}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{redis-benchmark_8c_a74bf03459da77735410345bcfa169d30}{parse\+Options} (int argc, const char $\ast$$\ast$argv)
+\item 
+int \hyperlink{redis-benchmark_8c_a79aaf5a27a13ca82710e13cd81a97362}{show\+Throughput} (struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, long long id, void $\ast$client\+Data)
+\item 
+int \hyperlink{redis-benchmark_8c_a9e8afa52639855135cffe1d230c80a84}{test\+\_\+is\+\_\+selected} (char $\ast$name)
+\item 
+int \hyperlink{redis-benchmark_8c_a217dbf8b442f20279ea00b898af96f52}{main} (int argc, const char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{redis-benchmark_8c_aa36f1f87a96374eb350895416fc1affe}\label{redis-benchmark_8c_aa36f1f87a96374eb350895416fc1affe}} 
+\index{redis-\/benchmark.\+c@{redis-\/benchmark.\+c}!R\+A\+N\+D\+P\+T\+R\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE@{R\+A\+N\+D\+P\+T\+R\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE}}
+\index{R\+A\+N\+D\+P\+T\+R\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE@{R\+A\+N\+D\+P\+T\+R\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE}!redis-\/benchmark.\+c@{redis-\/benchmark.\+c}}
+\subsubsection{\texorpdfstring{R\+A\+N\+D\+P\+T\+R\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE}{RANDPTR\_INITIAL\_SIZE}}
+{\footnotesize\ttfamily \#define R\+A\+N\+D\+P\+T\+R\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE~8}
+
+
+
+Definition at line 50 of file redis-\/benchmark.\+c.
+
+\mbox{\Hypertarget{redis-benchmark_8c_ae7c9dc8f13568a9c856573751f1ee1ec}\label{redis-benchmark_8c_ae7c9dc8f13568a9c856573751f1ee1ec}} 
+\index{redis-\/benchmark.\+c@{redis-\/benchmark.\+c}!U\+N\+U\+S\+ED@{U\+N\+U\+S\+ED}}
+\index{U\+N\+U\+S\+ED@{U\+N\+U\+S\+ED}!redis-\/benchmark.\+c@{redis-\/benchmark.\+c}}
+\subsubsection{\texorpdfstring{U\+N\+U\+S\+ED}{UNUSED}}
+{\footnotesize\ttfamily \#define U\+N\+U\+S\+ED(\begin{DoxyParamCaption}\item[{}]{V }\end{DoxyParamCaption})~((void) V)}
+
+
+
+Definition at line 49 of file redis-\/benchmark.\+c.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{redis-benchmark_8c_a6bf8c3f34a9af09c5f641d813a37d0a7}\label{redis-benchmark_8c_a6bf8c3f34a9af09c5f641d813a37d0a7}} 
+\index{redis-\/benchmark.\+c@{redis-\/benchmark.\+c}!client@{client}}
+\index{client@{client}!redis-\/benchmark.\+c@{redis-\/benchmark.\+c}}
+\subsubsection{\texorpdfstring{client}{client}}
+{\footnotesize\ttfamily typedef struct \hyperlink{struct__client}{\+\_\+client} $\ast$ \hyperlink{structclient}{client}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{redis-benchmark_8c_a217dbf8b442f20279ea00b898af96f52}\label{redis-benchmark_8c_a217dbf8b442f20279ea00b898af96f52}} 
+\index{redis-\/benchmark.\+c@{redis-\/benchmark.\+c}!main@{main}}
+\index{main@{main}!redis-\/benchmark.\+c@{redis-\/benchmark.\+c}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{const char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Definition at line 648 of file redis-\/benchmark.\+c.
+
+\mbox{\Hypertarget{redis-benchmark_8c_a74bf03459da77735410345bcfa169d30}\label{redis-benchmark_8c_a74bf03459da77735410345bcfa169d30}} 
+\index{redis-\/benchmark.\+c@{redis-\/benchmark.\+c}!parse\+Options@{parse\+Options}}
+\index{parse\+Options@{parse\+Options}!redis-\/benchmark.\+c@{redis-\/benchmark.\+c}}
+\subsubsection{\texorpdfstring{parse\+Options()}{parseOptions()}}
+{\footnotesize\ttfamily int parse\+Options (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{const char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Definition at line 480 of file redis-\/benchmark.\+c.
+
+\mbox{\Hypertarget{redis-benchmark_8c_a79aaf5a27a13ca82710e13cd81a97362}\label{redis-benchmark_8c_a79aaf5a27a13ca82710e13cd81a97362}} 
+\index{redis-\/benchmark.\+c@{redis-\/benchmark.\+c}!show\+Throughput@{show\+Throughput}}
+\index{show\+Throughput@{show\+Throughput}!redis-\/benchmark.\+c@{redis-\/benchmark.\+c}}
+\subsubsection{\texorpdfstring{show\+Throughput()}{showThroughput()}}
+{\footnotesize\ttfamily int show\+Throughput (\begin{DoxyParamCaption}\item[{struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop,  }\item[{long long}]{id,  }\item[{void $\ast$}]{client\+Data }\end{DoxyParamCaption})}
+
+
+
+Definition at line 612 of file redis-\/benchmark.\+c.
+
+\mbox{\Hypertarget{redis-benchmark_8c_a9e8afa52639855135cffe1d230c80a84}\label{redis-benchmark_8c_a9e8afa52639855135cffe1d230c80a84}} 
+\index{redis-\/benchmark.\+c@{redis-\/benchmark.\+c}!test\+\_\+is\+\_\+selected@{test\+\_\+is\+\_\+selected}}
+\index{test\+\_\+is\+\_\+selected@{test\+\_\+is\+\_\+selected}!redis-\/benchmark.\+c@{redis-\/benchmark.\+c}}
+\subsubsection{\texorpdfstring{test\+\_\+is\+\_\+selected()}{test\_is\_selected()}}
+{\footnotesize\ttfamily int test\+\_\+is\+\_\+selected (\begin{DoxyParamCaption}\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+Definition at line 636 of file redis-\/benchmark.\+c.
+

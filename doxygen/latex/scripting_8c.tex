@@ -1,0 +1,1074 @@
+\hypertarget{scripting_8c}{}\section{src/scripting.c File Reference}
+\label{scripting_8c}\index{src/scripting.\+c@{src/scripting.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}sha1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rand.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}cluster.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$lua.\+h$>$}\newline
+{\ttfamily \#include $<$lauxlib.\+h$>$}\newline
+{\ttfamily \#include $<$lualib.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for scripting.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{scripting_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structldb_state}{ldb\+State}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{scripting_8c_a4f3000cf3b5955f8134bfcd2fa340db3}{L\+D\+B\+\_\+\+B\+R\+E\+A\+K\+P\+O\+I\+N\+T\+S\+\_\+\+M\+AX}~64  /$\ast$ Max number of breakpoints. $\ast$/
+\item 
+\#define \hyperlink{scripting_8c_a07ee5952305c31c72b45bebe4e78c05c}{L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+L\+E\+N\+\_\+\+D\+E\+F\+A\+U\+LT}~256 /$\ast$ Default len limit for replies / var dumps. $\ast$/
+\item 
+\#define \hyperlink{scripting_8c_a850a6381c0da4c20a2a6bfdd1cd179b4}{L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE}~32
+\item 
+\#define \hyperlink{scripting_8c_ab2fd5c42d2e8edae6134b3d56184affc}{L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+M\+A\+X\+\_\+\+L\+EN}~64
+\item 
+\#define \hyperlink{scripting_8c_ae050ccd6d490ee95078eda5733c07a58}{L\+U\+A\+\_\+\+G\+C\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD}~50
+\item 
+\#define \hyperlink{scripting_8c_a710b4655ec5cbdef50fc86e83d6891ef}{L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+U\+E\+S\+\_\+\+D\+E\+P\+TH}~(L\+U\+A\+\_\+\+M\+I\+N\+S\+T\+A\+CK/2)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{scripting_8c_a160de90cdc61ad78b12e9d7689dd459c}{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Int} (lua\+\_\+\+State $\ast$lua, char $\ast$reply)
+\item 
+char $\ast$ \hyperlink{scripting_8c_a67237924326e4ae4c6eea696acca9eea}{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Bulk} (lua\+\_\+\+State $\ast$lua, char $\ast$reply)
+\item 
+char $\ast$ \hyperlink{scripting_8c_a1e90f0a43b7405951a5f3483fa6cc1af}{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Status} (lua\+\_\+\+State $\ast$lua, char $\ast$reply)
+\item 
+char $\ast$ \hyperlink{scripting_8c_a7af038d14fd32dd8b154392c76691535}{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Error} (lua\+\_\+\+State $\ast$lua, char $\ast$reply)
+\item 
+char $\ast$ \hyperlink{scripting_8c_a492b2ec816a3ed40bdcd1985901869f2}{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Multi\+Bulk} (lua\+\_\+\+State $\ast$lua, char $\ast$reply)
+\item 
+int \hyperlink{scripting_8c_a523760a8a416cf33369054f910edae80}{redis\+\_\+math\+\_\+random} (lua\+\_\+\+State $\ast$L)
+\item 
+int \hyperlink{scripting_8c_a95b8bdef15f00a89590788520af76795}{redis\+\_\+math\+\_\+randomseed} (lua\+\_\+\+State $\ast$L)
+\item 
+void \hyperlink{scripting_8c_acf888404219631ecf213f835e07413be}{ldb\+Init} (void)
+\item 
+void \hyperlink{scripting_8c_aeac3d2195160c485dd502f6e3f59e6ff}{ldb\+Disable} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{scripting_8c_a1dceaeb4f6053b14152f8dd70b3df8b2}{ldb\+Enable} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{scripting_8c_ab7bb406c62c224b876580f357aa4c6cb}{eval\+Generic\+Command\+With\+Debugging} (\hyperlink{structclient}{client} $\ast$c, int evalsha)
+\item 
+void \hyperlink{scripting_8c_a8faeb982cb60401e05e88aa934446aff}{lua\+Ldb\+Line\+Hook} (lua\+\_\+\+State $\ast$lua, lua\+\_\+\+Debug $\ast$ar)
+\item 
+void \hyperlink{scripting_8c_ab41454300f50f0bbc08be15e427441f8}{ldb\+Log} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} entry)
+\item 
+void \hyperlink{scripting_8c_a6f48275dc2e025e4196746ed33c092a5}{ldb\+Log\+Redis\+Reply} (char $\ast$reply)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{scripting_8c_af2cc9bc8bc9883eec6f2e36c3aa852ff}{ldb\+Cat\+Stack\+Value} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, lua\+\_\+\+State $\ast$lua, int idx)
+\item 
+void \hyperlink{scripting_8c_a7f97ed47751e5601d3fc89b1e7d3e38f}{sha1hex} (char $\ast$digest, char $\ast$script, size\+\_\+t len)
+\item 
+char $\ast$ \hyperlink{scripting_8c_ab74ef4d1e8bb9732b11d58d0e4bef205}{redis\+Protocol\+To\+Lua\+Type} (lua\+\_\+\+State $\ast$lua, char $\ast$reply)
+\item 
+void \hyperlink{scripting_8c_a32a824941b97c4f4465da6da23669967}{lua\+Push\+Error} (lua\+\_\+\+State $\ast$lua, char $\ast$\hyperlink{redis-check-rdb_8c_a998302b0b110ee83418a3f0e3ef808d9}{error})
+\item 
+int \hyperlink{scripting_8c_aa44c057d5b11616e8de3aec66d5353dd}{lua\+Raise\+Error} (lua\+\_\+\+State $\ast$lua)
+\item 
+void \hyperlink{scripting_8c_a0dc2403ea5cf86439f31c26e1e2567bc}{lua\+Sort\+Array} (lua\+\_\+\+State $\ast$lua)
+\item 
+void \hyperlink{scripting_8c_ab5c2f4ae80127cdd014ece68b0390714}{lua\+Reply\+To\+Redis\+Reply} (\hyperlink{structclient}{client} $\ast$c, lua\+\_\+\+State $\ast$lua)
+\item 
+int \hyperlink{scripting_8c_a1d2b15ce10629173b5c40064f13292a9}{lua\+Redis\+Generic\+Command} (lua\+\_\+\+State $\ast$lua, int raise\+\_\+error)
+\item 
+int \hyperlink{scripting_8c_adc7a6f9a3a5a8b87a8658a4773ae66ec}{lua\+Redis\+Call\+Command} (lua\+\_\+\+State $\ast$lua)
+\item 
+int \hyperlink{scripting_8c_ab6da6bd740ab74539f0df2e8aefeb240}{lua\+Redis\+P\+Call\+Command} (lua\+\_\+\+State $\ast$lua)
+\item 
+int \hyperlink{scripting_8c_ae0e7ba7212e9d4ff860498647876d17a}{lua\+Redis\+Sha1hex\+Command} (lua\+\_\+\+State $\ast$lua)
+\item 
+int \hyperlink{scripting_8c_abfd186bb29da965ad8b3c10c90686a57}{lua\+Redis\+Return\+Single\+Field\+Table} (lua\+\_\+\+State $\ast$lua, char $\ast$field)
+\item 
+int \hyperlink{scripting_8c_ae59217c7eda41ca15b6101756cdd02b1}{lua\+Redis\+Error\+Reply\+Command} (lua\+\_\+\+State $\ast$lua)
+\item 
+int \hyperlink{scripting_8c_a2b2cb83f54de3136819188c5e90fe58f}{lua\+Redis\+Status\+Reply\+Command} (lua\+\_\+\+State $\ast$lua)
+\item 
+int \hyperlink{scripting_8c_a04aa227ab4fa21246e2890e469a466f6}{lua\+Redis\+Replicate\+Commands\+Command} (lua\+\_\+\+State $\ast$lua)
+\item 
+int \hyperlink{scripting_8c_add487afe47a95470746e3582de7520bd}{lua\+Redis\+Breakpoint\+Command} (lua\+\_\+\+State $\ast$lua)
+\item 
+int \hyperlink{scripting_8c_a59ccf4c99c14f54f4f3b196b3531c90c}{lua\+Redis\+Debug\+Command} (lua\+\_\+\+State $\ast$lua)
+\item 
+int \hyperlink{scripting_8c_a55a395a2cf7d079727a0d7b346f23e29}{lua\+Redis\+Set\+Repl\+Command} (lua\+\_\+\+State $\ast$lua)
+\item 
+int \hyperlink{scripting_8c_a78a817be5183a6551c98046e8d2cf959}{lua\+Log\+Command} (lua\+\_\+\+State $\ast$lua)
+\item 
+void \hyperlink{scripting_8c_acfc06356fac15e48965b2640c41ddd59}{lua\+Load\+Lib} (lua\+\_\+\+State $\ast$lua, const char $\ast$libname, lua\+\_\+\+C\+Function luafunc)
+\item 
+L\+U\+A\+L\+I\+B\+\_\+\+A\+PI int() \hyperlink{scripting_8c_a99bd7fcf5f8f4a4e362a12eb153c9cc0}{luaopen\+\_\+cjson} (lua\+\_\+\+State $\ast$L)
+\item 
+L\+U\+A\+L\+I\+B\+\_\+\+A\+PI int() \hyperlink{scripting_8c_ae3aefa4f0b38211c475e258397623bd2}{luaopen\+\_\+struct} (lua\+\_\+\+State $\ast$L)
+\item 
+L\+U\+A\+L\+I\+B\+\_\+\+A\+PI int() \hyperlink{scripting_8c_a4a622cef84c6bcb2efad1ee6a5774051}{luaopen\+\_\+cmsgpack} (lua\+\_\+\+State $\ast$L)
+\item 
+L\+U\+A\+L\+I\+B\+\_\+\+A\+PI int() \hyperlink{scripting_8c_a356962457eb6f563ff01935ae7dff90b}{luaopen\+\_\+bit} (lua\+\_\+\+State $\ast$L)
+\item 
+void \hyperlink{scripting_8c_ae3b9f529b66151566a9431bef93473a4}{lua\+Load\+Libraries} (lua\+\_\+\+State $\ast$lua)
+\item 
+void \hyperlink{scripting_8c_a5960e42d370f180f09fa806a1f66b286}{lua\+Remove\+Unsupported\+Functions} (lua\+\_\+\+State $\ast$lua)
+\item 
+void \hyperlink{scripting_8c_a26f48ffd8f0d658ec8be83bf46ed1b2a}{scripting\+Enable\+Globals\+Protection} (lua\+\_\+\+State $\ast$lua)
+\item 
+void \hyperlink{scripting_8c_a0afc20a5e4e51989e17b34c3bc4602d9}{scripting\+Init} (int setup)
+\item 
+void \hyperlink{scripting_8c_a434efe8131d21f36976675aa68957384}{scripting\+Release} (void)
+\item 
+void \hyperlink{scripting_8c_af2f9c51acf573c7a588234dc94ea56f8}{scripting\+Reset} (void)
+\item 
+void \hyperlink{scripting_8c_a86b85bf9bab2c73406f8587bb56cd6e8}{lua\+Set\+Global\+Array} (lua\+\_\+\+State $\ast$lua, char $\ast$var, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$elev, int elec)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{scripting_8c_a94497c329de73bec09253985c4997f0a}{lua\+Create\+Function} (\hyperlink{structclient}{client} $\ast$c, lua\+\_\+\+State $\ast$lua, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$body)
+\item 
+void \hyperlink{scripting_8c_a1c7b547b3a82efd8c6fe54493ebe8735}{lua\+Mask\+Count\+Hook} (lua\+\_\+\+State $\ast$lua, lua\+\_\+\+Debug $\ast$ar)
+\item 
+void \hyperlink{scripting_8c_a6ab45f78d503aa3cc19cb2012e62db2c}{eval\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int evalsha)
+\item 
+void \hyperlink{scripting_8c_a2cdaa68c50caa976607eca0c95a038a8}{eval\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{scripting_8c_ad44734ccd422e1268dd69670cde0d1bc}{eval\+Sha\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{scripting_8c_a9e2aac4d91cc39a7634cc42a8acea80b}{script\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{scripting_8c_a549e62bbbcd570e207cc5b7e125949cf}{ldb\+Flush\+Log} (\hyperlink{structlist}{list} $\ast$log)
+\item 
+void \hyperlink{scripting_8c_a2422f98b398cac4a9f093308dcad61e2}{ldb\+Log\+With\+Max\+Len} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} entry)
+\item 
+void \hyperlink{scripting_8c_aca34815684d5194526496f5d3f98af32}{ldb\+Send\+Logs} (void)
+\item 
+int \hyperlink{scripting_8c_a0b937e233d7105240f2f531800820525}{ldb\+Start\+Session} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{scripting_8c_a1645deb885eed80ba7e331b54cd9f22b}{ldb\+End\+Session} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{scripting_8c_ab85a8e6842f1e1c17c6954ffb09eddad}{ldb\+Remove\+Child} (pid\+\_\+t pid)
+\item 
+int \hyperlink{scripting_8c_aeb3cfb52752189eb4d68ed4cafb9ebbf}{ldb\+Pending\+Children} (void)
+\item 
+void \hyperlink{scripting_8c_a9dc47cd5c53302d2fe6132c86241c4ee}{ldb\+Kill\+Forked\+Sessions} (void)
+\item 
+char $\ast$ \hyperlink{scripting_8c_a9794cf10b8a4560f798603dc5e2306c8}{ldb\+Get\+Source\+Line} (int line)
+\item 
+int \hyperlink{scripting_8c_a899de76f1c4c742f5cfae9bbad4f8d2e}{ldb\+Is\+Breakpoint} (int line)
+\item 
+int \hyperlink{scripting_8c_ac1a2249dfa05fc21710d7c0e12079a86}{ldb\+Add\+Breakpoint} (int line)
+\item 
+int \hyperlink{scripting_8c_a77470934627494e92d95f033848f7b34}{ldb\+Del\+Breakpoint} (int line)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$ \hyperlink{scripting_8c_a96a8ee506e0f1f360c2ed182c3f0e2a6}{ldb\+Repl\+Parse\+Command} (int $\ast$argcp)
+\item 
+void \hyperlink{scripting_8c_a15404436b2d069262f3cb3357e1eb090}{ldb\+Log\+Source\+Line} (int lnum)
+\item 
+void \hyperlink{scripting_8c_a1758a3bf64936e1039bf2ded82bf0c9c}{ldb\+List} (int around, int context)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{scripting_8c_a07614e7ace9944f1f9c18304eb4a248e}{ldb\+Cat\+Stack\+Value\+Rec} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, lua\+\_\+\+State $\ast$lua, int idx, int level)
+\item 
+void \hyperlink{scripting_8c_a803b0dc3ec55523b5218d0946a94c687}{ldb\+Log\+Stack\+Value} (lua\+\_\+\+State $\ast$lua, char $\ast$prefix)
+\item 
+char $\ast$ \hyperlink{scripting_8c_a779937e144b43ec2160f0dc28863f41a}{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Int} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$o, char $\ast$reply)
+\item 
+char $\ast$ \hyperlink{scripting_8c_a5000099d23d160256e97d1310b5f20d5}{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Bulk} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$o, char $\ast$reply)
+\item 
+char $\ast$ \hyperlink{scripting_8c_a6fa775246f4703fae14cd45d15f58357}{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Status} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$o, char $\ast$reply)
+\item 
+char $\ast$ \hyperlink{scripting_8c_ae9da16147d950a9d71bec9de84a9a350}{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Multi\+Bulk} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$o, char $\ast$reply)
+\item 
+char $\ast$ \hyperlink{scripting_8c_aca84ddfd18aa95bebaf024878c662593}{ldb\+Redis\+Protocol\+To\+Human} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$o, char $\ast$reply)
+\item 
+void \hyperlink{scripting_8c_abdadfba42c3162a0e35ac5a5bd0d2a6f}{ldb\+Print} (lua\+\_\+\+State $\ast$lua, char $\ast$varname)
+\item 
+void \hyperlink{scripting_8c_ab2d61b4402e58f884416f764514965f1}{ldb\+Print\+All} (lua\+\_\+\+State $\ast$lua)
+\item 
+void \hyperlink{scripting_8c_a1d27246cac49b0612e60a64d485025b9}{ldb\+Break} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$argv, int argc)
+\item 
+void \hyperlink{scripting_8c_ae07540ad235061ffa8b9bdafffc0c13a}{ldb\+Eval} (lua\+\_\+\+State $\ast$lua, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$argv, int argc)
+\item 
+void \hyperlink{scripting_8c_a6375bebd081b3ea62d7d37aa65d71884}{ldb\+Redis} (lua\+\_\+\+State $\ast$lua, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$argv, int argc)
+\item 
+void \hyperlink{scripting_8c_a5082afccd703a160228a8c1960ce48ac}{ldb\+Trace} (lua\+\_\+\+State $\ast$lua)
+\item 
+void \hyperlink{scripting_8c_a07971264faf0534ee6dcd21160e16f54}{ldb\+Maxlen} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$argv, int argc)
+\item 
+int \hyperlink{scripting_8c_a1c839c1567977bf6f6fab96f716b38cd}{ldb\+Repl} (lua\+\_\+\+State $\ast$lua)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structldb_state}{ldb\+State} \hyperlink{scripting_8c_a93f6f965f14083541cc43ea4e89f2610}{ldb}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{scripting_8c_a4f3000cf3b5955f8134bfcd2fa340db3}\label{scripting_8c_a4f3000cf3b5955f8134bfcd2fa340db3}} 
+\index{scripting.\+c@{scripting.\+c}!L\+D\+B\+\_\+\+B\+R\+E\+A\+K\+P\+O\+I\+N\+T\+S\+\_\+\+M\+AX@{L\+D\+B\+\_\+\+B\+R\+E\+A\+K\+P\+O\+I\+N\+T\+S\+\_\+\+M\+AX}}
+\index{L\+D\+B\+\_\+\+B\+R\+E\+A\+K\+P\+O\+I\+N\+T\+S\+\_\+\+M\+AX@{L\+D\+B\+\_\+\+B\+R\+E\+A\+K\+P\+O\+I\+N\+T\+S\+\_\+\+M\+AX}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{L\+D\+B\+\_\+\+B\+R\+E\+A\+K\+P\+O\+I\+N\+T\+S\+\_\+\+M\+AX}{LDB\_BREAKPOINTS\_MAX}}
+{\footnotesize\ttfamily \#define L\+D\+B\+\_\+\+B\+R\+E\+A\+K\+P\+O\+I\+N\+T\+S\+\_\+\+M\+AX~64  /$\ast$ Max number of breakpoints. $\ast$/}
+
+
+
+Definition at line 58 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a07ee5952305c31c72b45bebe4e78c05c}\label{scripting_8c_a07ee5952305c31c72b45bebe4e78c05c}} 
+\index{scripting.\+c@{scripting.\+c}!L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+L\+E\+N\+\_\+\+D\+E\+F\+A\+U\+LT@{L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+L\+E\+N\+\_\+\+D\+E\+F\+A\+U\+LT}}
+\index{L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+L\+E\+N\+\_\+\+D\+E\+F\+A\+U\+LT@{L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+L\+E\+N\+\_\+\+D\+E\+F\+A\+U\+LT}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+L\+E\+N\+\_\+\+D\+E\+F\+A\+U\+LT}{LDB\_MAX\_LEN\_DEFAULT}}
+{\footnotesize\ttfamily \#define L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+L\+E\+N\+\_\+\+D\+E\+F\+A\+U\+LT~256 /$\ast$ Default len limit for replies / var dumps. $\ast$/}
+
+
+
+Definition at line 59 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a710b4655ec5cbdef50fc86e83d6891ef}\label{scripting_8c_a710b4655ec5cbdef50fc86e83d6891ef}} 
+\index{scripting.\+c@{scripting.\+c}!L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+U\+E\+S\+\_\+\+D\+E\+P\+TH@{L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+U\+E\+S\+\_\+\+D\+E\+P\+TH}}
+\index{L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+U\+E\+S\+\_\+\+D\+E\+P\+TH@{L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+U\+E\+S\+\_\+\+D\+E\+P\+TH}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+U\+E\+S\+\_\+\+D\+E\+P\+TH}{LDB\_MAX\_VALUES\_DEPTH}}
+{\footnotesize\ttfamily \#define L\+D\+B\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+U\+E\+S\+\_\+\+D\+E\+P\+TH~(L\+U\+A\+\_\+\+M\+I\+N\+S\+T\+A\+CK/2)}
+
+
+
+Definition at line 1914 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ab2fd5c42d2e8edae6134b3d56184affc}\label{scripting_8c_ab2fd5c42d2e8edae6134b3d56184affc}} 
+\index{scripting.\+c@{scripting.\+c}!L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+M\+A\+X\+\_\+\+L\+EN@{L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+M\+A\+X\+\_\+\+L\+EN}}
+\index{L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+M\+A\+X\+\_\+\+L\+EN@{L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+M\+A\+X\+\_\+\+L\+EN}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+M\+A\+X\+\_\+\+L\+EN}{LUA\_CMD\_OBJCACHE\_MAX\_LEN}}
+{\footnotesize\ttfamily \#define L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+M\+A\+X\+\_\+\+L\+EN~64}
+
+
+
+Definition at line 347 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a850a6381c0da4c20a2a6bfdd1cd179b4}\label{scripting_8c_a850a6381c0da4c20a2a6bfdd1cd179b4}} 
+\index{scripting.\+c@{scripting.\+c}!L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE@{L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE}}
+\index{L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE@{L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE}{LUA\_CMD\_OBJCACHE\_SIZE}}
+{\footnotesize\ttfamily \#define L\+U\+A\+\_\+\+C\+M\+D\+\_\+\+O\+B\+J\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE~32}
+
+
+
+Definition at line 346 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ae050ccd6d490ee95078eda5733c07a58}\label{scripting_8c_ae050ccd6d490ee95078eda5733c07a58}} 
+\index{scripting.\+c@{scripting.\+c}!L\+U\+A\+\_\+\+G\+C\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD@{L\+U\+A\+\_\+\+G\+C\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD}}
+\index{L\+U\+A\+\_\+\+G\+C\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD@{L\+U\+A\+\_\+\+G\+C\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{L\+U\+A\+\_\+\+G\+C\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD}{LUA\_GC\_CYCLE\_PERIOD}}
+{\footnotesize\ttfamily \#define L\+U\+A\+\_\+\+G\+C\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD~50}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{scripting_8c_a2cdaa68c50caa976607eca0c95a038a8}\label{scripting_8c_a2cdaa68c50caa976607eca0c95a038a8}} 
+\index{scripting.\+c@{scripting.\+c}!eval\+Command@{eval\+Command}}
+\index{eval\+Command@{eval\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{eval\+Command()}{evalCommand()}}
+{\footnotesize\ttfamily void eval\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1461 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a6ab45f78d503aa3cc19cb2012e62db2c}\label{scripting_8c_a6ab45f78d503aa3cc19cb2012e62db2c}} 
+\index{scripting.\+c@{scripting.\+c}!eval\+Generic\+Command@{eval\+Generic\+Command}}
+\index{eval\+Generic\+Command@{eval\+Generic\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{eval\+Generic\+Command()}{evalGenericCommand()}}
+{\footnotesize\ttfamily void eval\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{evalsha }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1255 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ab7bb406c62c224b876580f357aa4c6cb}\label{scripting_8c_ab7bb406c62c224b876580f357aa4c6cb}} 
+\index{scripting.\+c@{scripting.\+c}!eval\+Generic\+Command\+With\+Debugging@{eval\+Generic\+Command\+With\+Debugging}}
+\index{eval\+Generic\+Command\+With\+Debugging@{eval\+Generic\+Command\+With\+Debugging}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{eval\+Generic\+Command\+With\+Debugging()}{evalGenericCommandWithDebugging()}}
+{\footnotesize\ttfamily void eval\+Generic\+Command\+With\+Debugging (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{evalsha }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1772 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ad44734ccd422e1268dd69670cde0d1bc}\label{scripting_8c_ad44734ccd422e1268dd69670cde0d1bc}} 
+\index{scripting.\+c@{scripting.\+c}!eval\+Sha\+Command@{eval\+Sha\+Command}}
+\index{eval\+Sha\+Command@{eval\+Sha\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{eval\+Sha\+Command()}{evalShaCommand()}}
+{\footnotesize\ttfamily void eval\+Sha\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1468 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ac1a2249dfa05fc21710d7c0e12079a86}\label{scripting_8c_ac1a2249dfa05fc21710d7c0e12079a86}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Add\+Breakpoint@{ldb\+Add\+Breakpoint}}
+\index{ldb\+Add\+Breakpoint@{ldb\+Add\+Breakpoint}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Add\+Breakpoint()}{ldbAddBreakpoint()}}
+{\footnotesize\ttfamily int ldb\+Add\+Breakpoint (\begin{DoxyParamCaption}\item[{int}]{line }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1801 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a1d27246cac49b0612e60a64d485025b9}\label{scripting_8c_a1d27246cac49b0612e60a64d485025b9}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Break@{ldb\+Break}}
+\index{ldb\+Break@{ldb\+Break}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Break()}{ldbBreak()}}
+{\footnotesize\ttfamily void ldb\+Break (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{argv,  }\item[{int}]{argc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2154 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_af2cc9bc8bc9883eec6f2e36c3aa852ff}\label{scripting_8c_af2cc9bc8bc9883eec6f2e36c3aa852ff}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Cat\+Stack\+Value@{ldb\+Cat\+Stack\+Value}}
+\index{ldb\+Cat\+Stack\+Value@{ldb\+Cat\+Stack\+Value}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Cat\+Stack\+Value()}{ldbCatStackValue()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ldb\+Cat\+Stack\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{int}]{idx }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2000 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a07614e7ace9944f1f9c18304eb4a248e}\label{scripting_8c_a07614e7ace9944f1f9c18304eb4a248e}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Cat\+Stack\+Value\+Rec@{ldb\+Cat\+Stack\+Value\+Rec}}
+\index{ldb\+Cat\+Stack\+Value\+Rec@{ldb\+Cat\+Stack\+Value\+Rec}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Cat\+Stack\+Value\+Rec()}{ldbCatStackValueRec()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ldb\+Cat\+Stack\+Value\+Rec (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{int}]{idx,  }\item[{int}]{level }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1915 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a77470934627494e92d95f033848f7b34}\label{scripting_8c_a77470934627494e92d95f033848f7b34}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Del\+Breakpoint@{ldb\+Del\+Breakpoint}}
+\index{ldb\+Del\+Breakpoint@{ldb\+Del\+Breakpoint}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Del\+Breakpoint()}{ldbDelBreakpoint()}}
+{\footnotesize\ttfamily int ldb\+Del\+Breakpoint (\begin{DoxyParamCaption}\item[{int}]{line }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1812 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_aeac3d2195160c485dd502f6e3f59e6ff}\label{scripting_8c_aeac3d2195160c485dd502f6e3f59e6ff}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Disable@{ldb\+Disable}}
+\index{ldb\+Disable@{ldb\+Disable}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Disable()}{ldbDisable()}}
+{\footnotesize\ttfamily void ldb\+Disable (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1592 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a1dceaeb4f6053b14152f8dd70b3df8b2}\label{scripting_8c_a1dceaeb4f6053b14152f8dd70b3df8b2}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Enable@{ldb\+Enable}}
+\index{ldb\+Enable@{ldb\+Enable}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Enable()}{ldbEnable()}}
+{\footnotesize\ttfamily void ldb\+Enable (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1576 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a1645deb885eed80ba7e331b54cd9f22b}\label{scripting_8c_a1645deb885eed80ba7e331b54cd9f22b}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+End\+Session@{ldb\+End\+Session}}
+\index{ldb\+End\+Session@{ldb\+End\+Session}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+End\+Session()}{ldbEndSession()}}
+{\footnotesize\ttfamily void ldb\+End\+Session (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1708 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ae07540ad235061ffa8b9bdafffc0c13a}\label{scripting_8c_ae07540ad235061ffa8b9bdafffc0c13a}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Eval@{ldb\+Eval}}
+\index{ldb\+Eval@{ldb\+Eval}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Eval()}{ldbEval()}}
+{\footnotesize\ttfamily void ldb\+Eval (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{argv,  }\item[{int}]{argc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2198 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a549e62bbbcd570e207cc5b7e125949cf}\label{scripting_8c_a549e62bbbcd570e207cc5b7e125949cf}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Flush\+Log@{ldb\+Flush\+Log}}
+\index{ldb\+Flush\+Log@{ldb\+Flush\+Log}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Flush\+Log()}{ldbFlushLog()}}
+{\footnotesize\ttfamily void ldb\+Flush\+Log (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{log }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1568 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a9794cf10b8a4560f798603dc5e2306c8}\label{scripting_8c_a9794cf10b8a4560f798603dc5e2306c8}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Get\+Source\+Line@{ldb\+Get\+Source\+Line}}
+\index{ldb\+Get\+Source\+Line@{ldb\+Get\+Source\+Line}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Get\+Source\+Line()}{ldbGetSourceLine()}}
+{\footnotesize\ttfamily char$\ast$ ldb\+Get\+Source\+Line (\begin{DoxyParamCaption}\item[{int}]{line }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1783 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_acf888404219631ecf213f835e07413be}\label{scripting_8c_acf888404219631ecf213f835e07413be}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Init@{ldb\+Init}}
+\index{ldb\+Init@{ldb\+Init}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Init()}{ldbInit()}}
+{\footnotesize\ttfamily void ldb\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1556 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a899de76f1c4c742f5cfae9bbad4f8d2e}\label{scripting_8c_a899de76f1c4c742f5cfae9bbad4f8d2e}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Is\+Breakpoint@{ldb\+Is\+Breakpoint}}
+\index{ldb\+Is\+Breakpoint@{ldb\+Is\+Breakpoint}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Is\+Breakpoint()}{ldbIsBreakpoint()}}
+{\footnotesize\ttfamily int ldb\+Is\+Breakpoint (\begin{DoxyParamCaption}\item[{int}]{line }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1790 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a9dc47cd5c53302d2fe6132c86241c4ee}\label{scripting_8c_a9dc47cd5c53302d2fe6132c86241c4ee}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Kill\+Forked\+Sessions@{ldb\+Kill\+Forked\+Sessions}}
+\index{ldb\+Kill\+Forked\+Sessions@{ldb\+Kill\+Forked\+Sessions}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Kill\+Forked\+Sessions()}{ldbKillForkedSessions()}}
+{\footnotesize\ttfamily void ldb\+Kill\+Forked\+Sessions (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1756 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a1758a3bf64936e1039bf2ded82bf0c9c}\label{scripting_8c_a1758a3bf64936e1039bf2ded82bf0c9c}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+List@{ldb\+List}}
+\index{ldb\+List@{ldb\+List}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+List()}{ldbList()}}
+{\footnotesize\ttfamily void ldb\+List (\begin{DoxyParamCaption}\item[{int}]{around,  }\item[{int}]{context }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1898 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ab41454300f50f0bbc08be15e427441f8}\label{scripting_8c_ab41454300f50f0bbc08be15e427441f8}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Log@{ldb\+Log}}
+\index{ldb\+Log@{ldb\+Log}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Log()}{ldbLog()}}
+{\footnotesize\ttfamily void ldb\+Log (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{entry }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1597 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a6f48275dc2e025e4196746ed33c092a5}\label{scripting_8c_a6f48275dc2e025e4196746ed33c092a5}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Log\+Redis\+Reply@{ldb\+Log\+Redis\+Reply}}
+\index{ldb\+Log\+Redis\+Reply@{ldb\+Log\+Redis\+Reply}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Log\+Redis\+Reply()}{ldbLogRedisReply()}}
+{\footnotesize\ttfamily void ldb\+Log\+Redis\+Reply (\begin{DoxyParamCaption}\item[{char $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2088 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a15404436b2d069262f3cb3357e1eb090}\label{scripting_8c_a15404436b2d069262f3cb3357e1eb090}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Log\+Source\+Line@{ldb\+Log\+Source\+Line}}
+\index{ldb\+Log\+Source\+Line@{ldb\+Log\+Source\+Line}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Log\+Source\+Line()}{ldbLogSourceLine()}}
+{\footnotesize\ttfamily void ldb\+Log\+Source\+Line (\begin{DoxyParamCaption}\item[{int}]{lnum }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1875 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a803b0dc3ec55523b5218d0946a94c687}\label{scripting_8c_a803b0dc3ec55523b5218d0946a94c687}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Log\+Stack\+Value@{ldb\+Log\+Stack\+Value}}
+\index{ldb\+Log\+Stack\+Value@{ldb\+Log\+Stack\+Value}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Log\+Stack\+Value()}{ldbLogStackValue()}}
+{\footnotesize\ttfamily void ldb\+Log\+Stack\+Value (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{char $\ast$}]{prefix }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2007 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a2422f98b398cac4a9f093308dcad61e2}\label{scripting_8c_a2422f98b398cac4a9f093308dcad61e2}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Log\+With\+Max\+Len@{ldb\+Log\+With\+Max\+Len}}
+\index{ldb\+Log\+With\+Max\+Len@{ldb\+Log\+With\+Max\+Len}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Log\+With\+Max\+Len()}{ldbLogWithMaxLen()}}
+{\footnotesize\ttfamily void ldb\+Log\+With\+Max\+Len (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{entry }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1605 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a07971264faf0534ee6dcd21160e16f54}\label{scripting_8c_a07971264faf0534ee6dcd21160e16f54}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Maxlen@{ldb\+Maxlen}}
+\index{ldb\+Maxlen@{ldb\+Maxlen}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Maxlen()}{ldbMaxlen()}}
+{\footnotesize\ttfamily void ldb\+Maxlen (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{argv,  }\item[{int}]{argc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2270 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_aeb3cfb52752189eb4d68ed4cafb9ebbf}\label{scripting_8c_aeb3cfb52752189eb4d68ed4cafb9ebbf}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Pending\+Children@{ldb\+Pending\+Children}}
+\index{ldb\+Pending\+Children@{ldb\+Pending\+Children}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Pending\+Children()}{ldbPendingChildren()}}
+{\footnotesize\ttfamily int ldb\+Pending\+Children (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1751 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_abdadfba42c3162a0e35ac5a5bd0d2a6f}\label{scripting_8c_abdadfba42c3162a0e35ac5a5bd0d2a6f}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Print@{ldb\+Print}}
+\index{ldb\+Print@{ldb\+Print}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Print()}{ldbPrint()}}
+{\footnotesize\ttfamily void ldb\+Print (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{char $\ast$}]{varname }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2097 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ab2d61b4402e58f884416f764514965f1}\label{scripting_8c_ab2d61b4402e58f884416f764514965f1}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Print\+All@{ldb\+Print\+All}}
+\index{ldb\+Print\+All@{ldb\+Print\+All}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Print\+All()}{ldbPrintAll()}}
+{\footnotesize\ttfamily void ldb\+Print\+All (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2129 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a6375bebd081b3ea62d7d37aa65d71884}\label{scripting_8c_a6375bebd081b3ea62d7d37aa65d71884}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Redis@{ldb\+Redis}}
+\index{ldb\+Redis@{ldb\+Redis}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Redis()}{ldbRedis()}}
+{\footnotesize\ttfamily void ldb\+Redis (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{argv,  }\item[{int}]{argc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2231 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_aca84ddfd18aa95bebaf024878c662593}\label{scripting_8c_aca84ddfd18aa95bebaf024878c662593}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Redis\+Protocol\+To\+Human@{ldb\+Redis\+Protocol\+To\+Human}}
+\index{ldb\+Redis\+Protocol\+To\+Human@{ldb\+Redis\+Protocol\+To\+Human}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Redis\+Protocol\+To\+Human()}{ldbRedisProtocolToHuman()}}
+{\footnotesize\ttfamily char$\ast$ ldb\+Redis\+Protocol\+To\+Human (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{o,  }\item[{char $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2023 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a5000099d23d160256e97d1310b5f20d5}\label{scripting_8c_a5000099d23d160256e97d1310b5f20d5}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Bulk@{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Bulk}}
+\index{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Bulk@{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Bulk}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Bulk()}{ldbRedisProtocolToHuman\_Bulk()}}
+{\footnotesize\ttfamily char $\ast$ ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Bulk (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{o,  }\item[{char $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2044 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a779937e144b43ec2160f0dc28863f41a}\label{scripting_8c_a779937e144b43ec2160f0dc28863f41a}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Int@{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Int}}
+\index{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Int@{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Int}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Int()}{ldbRedisProtocolToHuman\_Int()}}
+{\footnotesize\ttfamily char $\ast$ ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Int (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{o,  }\item[{char $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2038 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ae9da16147d950a9d71bec9de84a9a350}\label{scripting_8c_ae9da16147d950a9d71bec9de84a9a350}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Multi\+Bulk@{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Multi\+Bulk}}
+\index{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Multi\+Bulk@{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Multi\+Bulk}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Multi\+Bulk()}{ldbRedisProtocolToHuman\_MultiBulk()}}
+{\footnotesize\ttfamily char $\ast$ ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Multi\+Bulk (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{o,  }\item[{char $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2065 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a6fa775246f4703fae14cd45d15f58357}\label{scripting_8c_a6fa775246f4703fae14cd45d15f58357}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Status@{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Status}}
+\index{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Status@{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Status}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Status()}{ldbRedisProtocolToHuman\_Status()}}
+{\footnotesize\ttfamily char $\ast$ ldb\+Redis\+Protocol\+To\+Human\+\_\+\+Status (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{o,  }\item[{char $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2058 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ab85a8e6842f1e1c17c6954ffb09eddad}\label{scripting_8c_ab85a8e6842f1e1c17c6954ffb09eddad}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Remove\+Child@{ldb\+Remove\+Child}}
+\index{ldb\+Remove\+Child@{ldb\+Remove\+Child}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Remove\+Child()}{ldbRemoveChild()}}
+{\footnotesize\ttfamily int ldb\+Remove\+Child (\begin{DoxyParamCaption}\item[{pid\+\_\+t}]{pid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1740 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a1c839c1567977bf6f6fab96f716b38cd}\label{scripting_8c_a1c839c1567977bf6f6fab96f716b38cd}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Repl@{ldb\+Repl}}
+\index{ldb\+Repl@{ldb\+Repl}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Repl()}{ldbRepl()}}
+{\footnotesize\ttfamily int ldb\+Repl (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2287 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a96a8ee506e0f1f360c2ed182c3f0e2a6}\label{scripting_8c_a96a8ee506e0f1f360c2ed182c3f0e2a6}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Repl\+Parse\+Command@{ldb\+Repl\+Parse\+Command}}
+\index{ldb\+Repl\+Parse\+Command@{ldb\+Repl\+Parse\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Repl\+Parse\+Command()}{ldbReplParseCommand()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}$\ast$ ldb\+Repl\+Parse\+Command (\begin{DoxyParamCaption}\item[{int $\ast$}]{argcp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1828 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_aca34815684d5194526496f5d3f98af32}\label{scripting_8c_aca34815684d5194526496f5d3f98af32}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Send\+Logs@{ldb\+Send\+Logs}}
+\index{ldb\+Send\+Logs@{ldb\+Send\+Logs}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Send\+Logs()}{ldbSendLogs()}}
+{\footnotesize\ttfamily void ldb\+Send\+Logs (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1623 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a0b937e233d7105240f2f531800820525}\label{scripting_8c_a0b937e233d7105240f2f531800820525}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Start\+Session@{ldb\+Start\+Session}}
+\index{ldb\+Start\+Session@{ldb\+Start\+Session}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Start\+Session()}{ldbStartSession()}}
+{\footnotesize\ttfamily int ldb\+Start\+Session (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1654 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a5082afccd703a160228a8c1960ce48ac}\label{scripting_8c_a5082afccd703a160228a8c1960ce48ac}} 
+\index{scripting.\+c@{scripting.\+c}!ldb\+Trace@{ldb\+Trace}}
+\index{ldb\+Trace@{ldb\+Trace}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb\+Trace()}{ldbTrace()}}
+{\footnotesize\ttfamily void ldb\+Trace (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2249 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a94497c329de73bec09253985c4997f0a}\label{scripting_8c_a94497c329de73bec09253985c4997f0a}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Create\+Function@{lua\+Create\+Function}}
+\index{lua\+Create\+Function@{lua\+Create\+Function}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Create\+Function()}{luaCreateFunction()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} lua\+Create\+Function (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{body }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1175 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a8faeb982cb60401e05e88aa934446aff}\label{scripting_8c_a8faeb982cb60401e05e88aa934446aff}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Ldb\+Line\+Hook@{lua\+Ldb\+Line\+Hook}}
+\index{lua\+Ldb\+Line\+Hook@{lua\+Ldb\+Line\+Hook}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Ldb\+Line\+Hook()}{luaLdbLineHook()}}
+{\footnotesize\ttfamily void lua\+Ldb\+Line\+Hook (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{lua\+\_\+\+Debug $\ast$}]{ar }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2404 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_acfc06356fac15e48965b2640c41ddd59}\label{scripting_8c_acfc06356fac15e48965b2640c41ddd59}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Load\+Lib@{lua\+Load\+Lib}}
+\index{lua\+Load\+Lib@{lua\+Load\+Lib}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Load\+Lib()}{luaLoadLib()}}
+{\footnotesize\ttfamily void lua\+Load\+Lib (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{const char $\ast$}]{libname,  }\item[{lua\+\_\+\+C\+Function}]{luafunc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 827 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ae3b9f529b66151566a9431bef93473a4}\label{scripting_8c_ae3b9f529b66151566a9431bef93473a4}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Load\+Libraries@{lua\+Load\+Libraries}}
+\index{lua\+Load\+Libraries@{lua\+Load\+Libraries}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Load\+Libraries()}{luaLoadLibraries()}}
+{\footnotesize\ttfamily void lua\+Load\+Libraries (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 838 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a78a817be5183a6551c98046e8d2cf959}\label{scripting_8c_a78a817be5183a6551c98046e8d2cf959}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Log\+Command@{lua\+Log\+Command}}
+\index{lua\+Log\+Command@{lua\+Log\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Log\+Command()}{luaLogCommand()}}
+{\footnotesize\ttfamily int lua\+Log\+Command (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 788 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a1c7b547b3a82efd8c6fe54493ebe8735}\label{scripting_8c_a1c7b547b3a82efd8c6fe54493ebe8735}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Mask\+Count\+Hook@{lua\+Mask\+Count\+Hook}}
+\index{lua\+Mask\+Count\+Hook@{lua\+Mask\+Count\+Hook}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Mask\+Count\+Hook()}{luaMaskCountHook()}}
+{\footnotesize\ttfamily void lua\+Mask\+Count\+Hook (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{lua\+\_\+\+Debug $\ast$}]{ar }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1230 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a356962457eb6f563ff01935ae7dff90b}\label{scripting_8c_a356962457eb6f563ff01935ae7dff90b}} 
+\index{scripting.\+c@{scripting.\+c}!luaopen\+\_\+bit@{luaopen\+\_\+bit}}
+\index{luaopen\+\_\+bit@{luaopen\+\_\+bit}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{luaopen\+\_\+bit()}{luaopen\_bit()}}
+{\footnotesize\ttfamily L\+U\+A\+L\+I\+B\+\_\+\+A\+PI int() luaopen\+\_\+bit (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{L }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{scripting_8c_a99bd7fcf5f8f4a4e362a12eb153c9cc0}\label{scripting_8c_a99bd7fcf5f8f4a4e362a12eb153c9cc0}} 
+\index{scripting.\+c@{scripting.\+c}!luaopen\+\_\+cjson@{luaopen\+\_\+cjson}}
+\index{luaopen\+\_\+cjson@{luaopen\+\_\+cjson}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{luaopen\+\_\+cjson()}{luaopen\_cjson()}}
+{\footnotesize\ttfamily L\+U\+A\+L\+I\+B\+\_\+\+A\+PI int() luaopen\+\_\+cjson (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{L }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{scripting_8c_a4a622cef84c6bcb2efad1ee6a5774051}\label{scripting_8c_a4a622cef84c6bcb2efad1ee6a5774051}} 
+\index{scripting.\+c@{scripting.\+c}!luaopen\+\_\+cmsgpack@{luaopen\+\_\+cmsgpack}}
+\index{luaopen\+\_\+cmsgpack@{luaopen\+\_\+cmsgpack}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{luaopen\+\_\+cmsgpack()}{luaopen\_cmsgpack()}}
+{\footnotesize\ttfamily L\+U\+A\+L\+I\+B\+\_\+\+A\+PI int() luaopen\+\_\+cmsgpack (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{L }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{scripting_8c_ae3aefa4f0b38211c475e258397623bd2}\label{scripting_8c_ae3aefa4f0b38211c475e258397623bd2}} 
+\index{scripting.\+c@{scripting.\+c}!luaopen\+\_\+struct@{luaopen\+\_\+struct}}
+\index{luaopen\+\_\+struct@{luaopen\+\_\+struct}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{luaopen\+\_\+struct()}{luaopen\_struct()}}
+{\footnotesize\ttfamily L\+U\+A\+L\+I\+B\+\_\+\+A\+PI int() luaopen\+\_\+struct (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{L }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{scripting_8c_a32a824941b97c4f4465da6da23669967}\label{scripting_8c_a32a824941b97c4f4465da6da23669967}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Push\+Error@{lua\+Push\+Error}}
+\index{lua\+Push\+Error@{lua\+Push\+Error}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Push\+Error()}{luaPushError()}}
+{\footnotesize\ttfamily void lua\+Push\+Error (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{char $\ast$}]{error }\end{DoxyParamCaption})}
+
+
+
+Definition at line 208 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_aa44c057d5b11616e8de3aec66d5353dd}\label{scripting_8c_aa44c057d5b11616e8de3aec66d5353dd}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Raise\+Error@{lua\+Raise\+Error}}
+\index{lua\+Raise\+Error@{lua\+Raise\+Error}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Raise\+Error()}{luaRaiseError()}}
+{\footnotesize\ttfamily int lua\+Raise\+Error (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 236 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_add487afe47a95470746e3582de7520bd}\label{scripting_8c_add487afe47a95470746e3582de7520bd}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Redis\+Breakpoint\+Command@{lua\+Redis\+Breakpoint\+Command}}
+\index{lua\+Redis\+Breakpoint\+Command@{lua\+Redis\+Breakpoint\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Redis\+Breakpoint\+Command()}{luaRedisBreakpointCommand()}}
+{\footnotesize\ttfamily int lua\+Redis\+Breakpoint\+Command (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 735 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_adc7a6f9a3a5a8b87a8658a4773ae66ec}\label{scripting_8c_adc7a6f9a3a5a8b87a8658a4773ae66ec}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Redis\+Call\+Command@{lua\+Redis\+Call\+Command}}
+\index{lua\+Redis\+Call\+Command@{lua\+Redis\+Call\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Redis\+Call\+Command()}{luaRedisCallCommand()}}
+{\footnotesize\ttfamily int lua\+Redis\+Call\+Command (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 652 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a59ccf4c99c14f54f4f3b196b3531c90c}\label{scripting_8c_a59ccf4c99c14f54f4f3b196b3531c90c}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Redis\+Debug\+Command@{lua\+Redis\+Debug\+Command}}
+\index{lua\+Redis\+Debug\+Command@{lua\+Redis\+Debug\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Redis\+Debug\+Command()}{luaRedisDebugCommand()}}
+{\footnotesize\ttfamily int lua\+Redis\+Debug\+Command (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 750 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ae59217c7eda41ca15b6101756cdd02b1}\label{scripting_8c_ae59217c7eda41ca15b6101756cdd02b1}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Redis\+Error\+Reply\+Command@{lua\+Redis\+Error\+Reply\+Command}}
+\index{lua\+Redis\+Error\+Reply\+Command@{lua\+Redis\+Error\+Reply\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Redis\+Error\+Reply\+Command()}{luaRedisErrorReplyCommand()}}
+{\footnotesize\ttfamily int lua\+Redis\+Error\+Reply\+Command (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 701 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a1d2b15ce10629173b5c40064f13292a9}\label{scripting_8c_a1d2b15ce10629173b5c40064f13292a9}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Redis\+Generic\+Command@{lua\+Redis\+Generic\+Command}}
+\index{lua\+Redis\+Generic\+Command@{lua\+Redis\+Generic\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Redis\+Generic\+Command()}{luaRedisGenericCommand()}}
+{\footnotesize\ttfamily int lua\+Redis\+Generic\+Command (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{int}]{raise\+\_\+error }\end{DoxyParamCaption})}
+
+
+
+Definition at line 348 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ab6da6bd740ab74539f0df2e8aefeb240}\label{scripting_8c_ab6da6bd740ab74539f0df2e8aefeb240}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Redis\+P\+Call\+Command@{lua\+Redis\+P\+Call\+Command}}
+\index{lua\+Redis\+P\+Call\+Command@{lua\+Redis\+P\+Call\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Redis\+P\+Call\+Command()}{luaRedisPCallCommand()}}
+{\footnotesize\ttfamily int lua\+Redis\+P\+Call\+Command (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 657 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a04aa227ab4fa21246e2890e469a466f6}\label{scripting_8c_a04aa227ab4fa21246e2890e469a466f6}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Redis\+Replicate\+Commands\+Command@{lua\+Redis\+Replicate\+Commands\+Command}}
+\index{lua\+Redis\+Replicate\+Commands\+Command@{lua\+Redis\+Replicate\+Commands\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Redis\+Replicate\+Commands\+Command()}{luaRedisReplicateCommandsCommand()}}
+{\footnotesize\ttfamily int lua\+Redis\+Replicate\+Commands\+Command (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 716 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_abfd186bb29da965ad8b3c10c90686a57}\label{scripting_8c_abfd186bb29da965ad8b3c10c90686a57}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Redis\+Return\+Single\+Field\+Table@{lua\+Redis\+Return\+Single\+Field\+Table}}
+\index{lua\+Redis\+Return\+Single\+Field\+Table@{lua\+Redis\+Return\+Single\+Field\+Table}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Redis\+Return\+Single\+Field\+Table()}{luaRedisReturnSingleFieldTable()}}
+{\footnotesize\ttfamily int lua\+Redis\+Return\+Single\+Field\+Table (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{char $\ast$}]{field }\end{DoxyParamCaption})}
+
+
+
+Definition at line 687 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a55a395a2cf7d079727a0d7b346f23e29}\label{scripting_8c_a55a395a2cf7d079727a0d7b346f23e29}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Redis\+Set\+Repl\+Command@{lua\+Redis\+Set\+Repl\+Command}}
+\index{lua\+Redis\+Set\+Repl\+Command@{lua\+Redis\+Set\+Repl\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Redis\+Set\+Repl\+Command()}{luaRedisSetReplCommand()}}
+{\footnotesize\ttfamily int lua\+Redis\+Set\+Repl\+Command (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 766 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ae0e7ba7212e9d4ff860498647876d17a}\label{scripting_8c_ae0e7ba7212e9d4ff860498647876d17a}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Redis\+Sha1hex\+Command@{lua\+Redis\+Sha1hex\+Command}}
+\index{lua\+Redis\+Sha1hex\+Command@{lua\+Redis\+Sha1hex\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Redis\+Sha1hex\+Command()}{luaRedisSha1hexCommand()}}
+{\footnotesize\ttfamily int lua\+Redis\+Sha1hex\+Command (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 663 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a2b2cb83f54de3136819188c5e90fe58f}\label{scripting_8c_a2b2cb83f54de3136819188c5e90fe58f}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Redis\+Status\+Reply\+Command@{lua\+Redis\+Status\+Reply\+Command}}
+\index{lua\+Redis\+Status\+Reply\+Command@{lua\+Redis\+Status\+Reply\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Redis\+Status\+Reply\+Command()}{luaRedisStatusReplyCommand()}}
+{\footnotesize\ttfamily int lua\+Redis\+Status\+Reply\+Command (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 706 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a5960e42d370f180f09fa806a1f66b286}\label{scripting_8c_a5960e42d370f180f09fa806a1f66b286}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Remove\+Unsupported\+Functions@{lua\+Remove\+Unsupported\+Functions}}
+\index{lua\+Remove\+Unsupported\+Functions@{lua\+Remove\+Unsupported\+Functions}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Remove\+Unsupported\+Functions()}{luaRemoveUnsupportedFunctions()}}
+{\footnotesize\ttfamily void lua\+Remove\+Unsupported\+Functions (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 857 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ab5c2f4ae80127cdd014ece68b0390714}\label{scripting_8c_ab5c2f4ae80127cdd014ece68b0390714}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Reply\+To\+Redis\+Reply@{lua\+Reply\+To\+Redis\+Reply}}
+\index{lua\+Reply\+To\+Redis\+Reply@{lua\+Reply\+To\+Redis\+Reply}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Reply\+To\+Redis\+Reply()}{luaReplyToRedisReply()}}
+{\footnotesize\ttfamily void lua\+Reply\+To\+Redis\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 277 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a86b85bf9bab2c73406f8587bb56cd6e8}\label{scripting_8c_a86b85bf9bab2c73406f8587bb56cd6e8}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Set\+Global\+Array@{lua\+Set\+Global\+Array}}
+\index{lua\+Set\+Global\+Array@{lua\+Set\+Global\+Array}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Set\+Global\+Array()}{luaSetGlobalArray()}}
+{\footnotesize\ttfamily void lua\+Set\+Global\+Array (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{char $\ast$}]{var,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{elev,  }\item[{int}]{elec }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1100 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a0dc2403ea5cf86439f31c26e1e2567bc}\label{scripting_8c_a0dc2403ea5cf86439f31c26e1e2567bc}} 
+\index{scripting.\+c@{scripting.\+c}!lua\+Sort\+Array@{lua\+Sort\+Array}}
+\index{lua\+Sort\+Array@{lua\+Sort\+Array}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{lua\+Sort\+Array()}{luaSortArray()}}
+{\footnotesize\ttfamily void lua\+Sort\+Array (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 248 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a523760a8a416cf33369054f910edae80}\label{scripting_8c_a523760a8a416cf33369054f910edae80}} 
+\index{scripting.\+c@{scripting.\+c}!redis\+\_\+math\+\_\+random@{redis\+\_\+math\+\_\+random}}
+\index{redis\+\_\+math\+\_\+random@{redis\+\_\+math\+\_\+random}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{redis\+\_\+math\+\_\+random()}{redis\_math\_random()}}
+{\footnotesize\ttfamily int redis\+\_\+math\+\_\+random (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{L }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1121 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a95b8bdef15f00a89590788520af76795}\label{scripting_8c_a95b8bdef15f00a89590788520af76795}} 
+\index{scripting.\+c@{scripting.\+c}!redis\+\_\+math\+\_\+randomseed@{redis\+\_\+math\+\_\+randomseed}}
+\index{redis\+\_\+math\+\_\+randomseed@{redis\+\_\+math\+\_\+randomseed}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{redis\+\_\+math\+\_\+randomseed()}{redis\_math\_randomseed()}}
+{\footnotesize\ttfamily int redis\+\_\+math\+\_\+randomseed (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{L }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1149 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_ab74ef4d1e8bb9732b11d58d0e4bef205}\label{scripting_8c_ab74ef4d1e8bb9732b11d58d0e4bef205}} 
+\index{scripting.\+c@{scripting.\+c}!redis\+Protocol\+To\+Lua\+Type@{redis\+Protocol\+To\+Lua\+Type}}
+\index{redis\+Protocol\+To\+Lua\+Type@{redis\+Protocol\+To\+Lua\+Type}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{redis\+Protocol\+To\+Lua\+Type()}{redisProtocolToLuaType()}}
+{\footnotesize\ttfamily char$\ast$ redis\+Protocol\+To\+Lua\+Type (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{char $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 127 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a67237924326e4ae4c6eea696acca9eea}\label{scripting_8c_a67237924326e4ae4c6eea696acca9eea}} 
+\index{scripting.\+c@{scripting.\+c}!redis\+Protocol\+To\+Lua\+Type\+\_\+\+Bulk@{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Bulk}}
+\index{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Bulk@{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Bulk}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Bulk()}{redisProtocolToLuaType\_Bulk()}}
+{\footnotesize\ttfamily char $\ast$ redis\+Protocol\+To\+Lua\+Type\+\_\+\+Bulk (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{char $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 149 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a7af038d14fd32dd8b154392c76691535}\label{scripting_8c_a7af038d14fd32dd8b154392c76691535}} 
+\index{scripting.\+c@{scripting.\+c}!redis\+Protocol\+To\+Lua\+Type\+\_\+\+Error@{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Error}}
+\index{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Error@{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Error}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Error()}{redisProtocolToLuaType\_Error()}}
+{\footnotesize\ttfamily char $\ast$ redis\+Protocol\+To\+Lua\+Type\+\_\+\+Error (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{char $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 173 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a160de90cdc61ad78b12e9d7689dd459c}\label{scripting_8c_a160de90cdc61ad78b12e9d7689dd459c}} 
+\index{scripting.\+c@{scripting.\+c}!redis\+Protocol\+To\+Lua\+Type\+\_\+\+Int@{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Int}}
+\index{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Int@{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Int}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Int()}{redisProtocolToLuaType\_Int()}}
+{\footnotesize\ttfamily char $\ast$ redis\+Protocol\+To\+Lua\+Type\+\_\+\+Int (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{char $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 140 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a492b2ec816a3ed40bdcd1985901869f2}\label{scripting_8c_a492b2ec816a3ed40bdcd1985901869f2}} 
+\index{scripting.\+c@{scripting.\+c}!redis\+Protocol\+To\+Lua\+Type\+\_\+\+Multi\+Bulk@{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Multi\+Bulk}}
+\index{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Multi\+Bulk@{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Multi\+Bulk}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Multi\+Bulk()}{redisProtocolToLuaType\_MultiBulk()}}
+{\footnotesize\ttfamily char $\ast$ redis\+Protocol\+To\+Lua\+Type\+\_\+\+Multi\+Bulk (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{char $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 183 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a1e90f0a43b7405951a5f3483fa6cc1af}\label{scripting_8c_a1e90f0a43b7405951a5f3483fa6cc1af}} 
+\index{scripting.\+c@{scripting.\+c}!redis\+Protocol\+To\+Lua\+Type\+\_\+\+Status@{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Status}}
+\index{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Status@{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Status}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{redis\+Protocol\+To\+Lua\+Type\+\_\+\+Status()}{redisProtocolToLuaType\_Status()}}
+{\footnotesize\ttfamily char $\ast$ redis\+Protocol\+To\+Lua\+Type\+\_\+\+Status (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua,  }\item[{char $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 163 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a9e2aac4d91cc39a7634cc42a8acea80b}\label{scripting_8c_a9e2aac4d91cc39a7634cc42a8acea80b}} 
+\index{scripting.\+c@{scripting.\+c}!script\+Command@{script\+Command}}
+\index{script\+Command@{script\+Command}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{script\+Command()}{scriptCommand()}}
+{\footnotesize\ttfamily void script\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1485 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a26f48ffd8f0d658ec8be83bf46ed1b2a}\label{scripting_8c_a26f48ffd8f0d658ec8be83bf46ed1b2a}} 
+\index{scripting.\+c@{scripting.\+c}!scripting\+Enable\+Globals\+Protection@{scripting\+Enable\+Globals\+Protection}}
+\index{scripting\+Enable\+Globals\+Protection@{scripting\+Enable\+Globals\+Protection}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{scripting\+Enable\+Globals\+Protection()}{scriptingEnableGlobalsProtection()}}
+{\footnotesize\ttfamily void scripting\+Enable\+Globals\+Protection (\begin{DoxyParamCaption}\item[{lua\+\_\+\+State $\ast$}]{lua }\end{DoxyParamCaption})}
+
+
+
+Definition at line 869 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a0afc20a5e4e51989e17b34c3bc4602d9}\label{scripting_8c_a0afc20a5e4e51989e17b34c3bc4602d9}} 
+\index{scripting.\+c@{scripting.\+c}!scripting\+Init@{scripting\+Init}}
+\index{scripting\+Init@{scripting\+Init}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{scripting\+Init()}{scriptingInit()}}
+{\footnotesize\ttfamily void scripting\+Init (\begin{DoxyParamCaption}\item[{int}]{setup }\end{DoxyParamCaption})}
+
+
+
+Definition at line 913 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a434efe8131d21f36976675aa68957384}\label{scripting_8c_a434efe8131d21f36976675aa68957384}} 
+\index{scripting.\+c@{scripting.\+c}!scripting\+Release@{scripting\+Release}}
+\index{scripting\+Release@{scripting\+Release}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{scripting\+Release()}{scriptingRelease()}}
+{\footnotesize\ttfamily void scripting\+Release (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1087 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_af2f9c51acf573c7a588234dc94ea56f8}\label{scripting_8c_af2f9c51acf573c7a588234dc94ea56f8}} 
+\index{scripting.\+c@{scripting.\+c}!scripting\+Reset@{scripting\+Reset}}
+\index{scripting\+Reset@{scripting\+Reset}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{scripting\+Reset()}{scriptingReset()}}
+{\footnotesize\ttfamily void scripting\+Reset (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1093 of file scripting.\+c.
+
+\mbox{\Hypertarget{scripting_8c_a7f97ed47751e5601d3fc89b1e7d3e38f}\label{scripting_8c_a7f97ed47751e5601d3fc89b1e7d3e38f}} 
+\index{scripting.\+c@{scripting.\+c}!sha1hex@{sha1hex}}
+\index{sha1hex@{sha1hex}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{sha1hex()}{sha1hex()}}
+{\footnotesize\ttfamily void sha1hex (\begin{DoxyParamCaption}\item[{char $\ast$}]{digest,  }\item[{char $\ast$}]{script,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 89 of file scripting.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{scripting_8c_a93f6f965f14083541cc43ea4e89f2610}\label{scripting_8c_a93f6f965f14083541cc43ea4e89f2610}} 
+\index{scripting.\+c@{scripting.\+c}!ldb@{ldb}}
+\index{ldb@{ldb}!scripting.\+c@{scripting.\+c}}
+\subsubsection{\texorpdfstring{ldb}{ldb}}
+{\footnotesize\ttfamily struct \hyperlink{structldb_state}{ldb\+State}  ldb}
+

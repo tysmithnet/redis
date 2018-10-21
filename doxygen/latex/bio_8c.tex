@@ -1,0 +1,145 @@
+\hypertarget{bio_8c}{}\section{src/bio.c File Reference}
+\label{bio_8c}\index{src/bio.\+c@{src/bio.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}bio.\+h\char`\"{}}\newline
+Include dependency graph for bio.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bio_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structbio__job}{bio\+\_\+job}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{bio_8c_ac3dda970d0fb733f6938ca417e59556c}{R\+E\+D\+I\+S\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}~(1024$\ast$1024$\ast$4)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{bio_8c_a14a8b04435219744dd5bd95826aabaa2}{bio\+Process\+Background\+Jobs} (void $\ast$arg)
+\item 
+void \hyperlink{bio_8c_a5789164f25a7c015db0a87f03eb38b0b}{lazyfree\+Free\+Object\+From\+Bio\+Thread} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{bio_8c_af602e9bb7f9d2842f42a1d063abb5371}{lazyfree\+Free\+Database\+From\+Bio\+Thread} (\hyperlink{structdict}{dict} $\ast$ht1, \hyperlink{structdict}{dict} $\ast$ht2)
+\item 
+void \hyperlink{bio_8c_a7a981ec86d426c651fb250ba4fd5d079}{lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread} (\hyperlink{structzskiplist}{zskiplist} $\ast$sl)
+\item 
+void \hyperlink{bio_8c_a3e0959494cbc322c6f3ed132cd89dfb3}{bio\+Init} (void)
+\item 
+void \hyperlink{bio_8c_afa18e3b32629794afa3875dc9c06293c}{bio\+Create\+Background\+Job} (int type, void $\ast$arg1, void $\ast$arg2, void $\ast$arg3)
+\item 
+unsigned long long \hyperlink{bio_8c_aaa7c819608423673bf1da5f9b2c39eda}{bio\+Pending\+Jobs\+Of\+Type} (int type)
+\item 
+unsigned long long \hyperlink{bio_8c_ac8d3d46098f179d01c3cc766800d2a1a}{bio\+Wait\+Step\+Of\+Type} (int type)
+\item 
+void \hyperlink{bio_8c_a65b09a960dcb33222ceba0205e24f8cc}{bio\+Kill\+Threads} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{bio_8c_ac3dda970d0fb733f6938ca417e59556c}\label{bio_8c_ac3dda970d0fb733f6938ca417e59556c}} 
+\index{bio.\+c@{bio.\+c}!R\+E\+D\+I\+S\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE@{R\+E\+D\+I\+S\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}}
+\index{R\+E\+D\+I\+S\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE@{R\+E\+D\+I\+S\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}!bio.\+c@{bio.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}{REDIS\_THREAD\_STACK\_SIZE}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+T\+H\+R\+E\+A\+D\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE~(1024$\ast$1024$\ast$4)}
+
+
+
+Definition at line 93 of file bio.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bio_8c_afa18e3b32629794afa3875dc9c06293c}\label{bio_8c_afa18e3b32629794afa3875dc9c06293c}} 
+\index{bio.\+c@{bio.\+c}!bio\+Create\+Background\+Job@{bio\+Create\+Background\+Job}}
+\index{bio\+Create\+Background\+Job@{bio\+Create\+Background\+Job}!bio.\+c@{bio.\+c}}
+\subsubsection{\texorpdfstring{bio\+Create\+Background\+Job()}{bioCreateBackgroundJob()}}
+{\footnotesize\ttfamily void bio\+Create\+Background\+Job (\begin{DoxyParamCaption}\item[{int}]{type,  }\item[{void $\ast$}]{arg1,  }\item[{void $\ast$}]{arg2,  }\item[{void $\ast$}]{arg3 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 131 of file bio.\+c.
+
+\mbox{\Hypertarget{bio_8c_a3e0959494cbc322c6f3ed132cd89dfb3}\label{bio_8c_a3e0959494cbc322c6f3ed132cd89dfb3}} 
+\index{bio.\+c@{bio.\+c}!bio\+Init@{bio\+Init}}
+\index{bio\+Init@{bio\+Init}!bio.\+c@{bio.\+c}}
+\subsubsection{\texorpdfstring{bio\+Init()}{bioInit()}}
+{\footnotesize\ttfamily void bio\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 96 of file bio.\+c.
+
+\mbox{\Hypertarget{bio_8c_a65b09a960dcb33222ceba0205e24f8cc}\label{bio_8c_a65b09a960dcb33222ceba0205e24f8cc}} 
+\index{bio.\+c@{bio.\+c}!bio\+Kill\+Threads@{bio\+Kill\+Threads}}
+\index{bio\+Kill\+Threads@{bio\+Kill\+Threads}!bio.\+c@{bio.\+c}}
+\subsubsection{\texorpdfstring{bio\+Kill\+Threads()}{bioKillThreads()}}
+{\footnotesize\ttfamily void bio\+Kill\+Threads (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 253 of file bio.\+c.
+
+\mbox{\Hypertarget{bio_8c_aaa7c819608423673bf1da5f9b2c39eda}\label{bio_8c_aaa7c819608423673bf1da5f9b2c39eda}} 
+\index{bio.\+c@{bio.\+c}!bio\+Pending\+Jobs\+Of\+Type@{bio\+Pending\+Jobs\+Of\+Type}}
+\index{bio\+Pending\+Jobs\+Of\+Type@{bio\+Pending\+Jobs\+Of\+Type}!bio.\+c@{bio.\+c}}
+\subsubsection{\texorpdfstring{bio\+Pending\+Jobs\+Of\+Type()}{bioPendingJobsOfType()}}
+{\footnotesize\ttfamily unsigned long long bio\+Pending\+Jobs\+Of\+Type (\begin{DoxyParamCaption}\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 219 of file bio.\+c.
+
+\mbox{\Hypertarget{bio_8c_a14a8b04435219744dd5bd95826aabaa2}\label{bio_8c_a14a8b04435219744dd5bd95826aabaa2}} 
+\index{bio.\+c@{bio.\+c}!bio\+Process\+Background\+Jobs@{bio\+Process\+Background\+Jobs}}
+\index{bio\+Process\+Background\+Jobs@{bio\+Process\+Background\+Jobs}!bio.\+c@{bio.\+c}}
+\subsubsection{\texorpdfstring{bio\+Process\+Background\+Jobs()}{bioProcessBackgroundJobs()}}
+{\footnotesize\ttfamily void $\ast$ bio\+Process\+Background\+Jobs (\begin{DoxyParamCaption}\item[{void $\ast$}]{arg }\end{DoxyParamCaption})}
+
+
+
+Definition at line 145 of file bio.\+c.
+
+\mbox{\Hypertarget{bio_8c_ac8d3d46098f179d01c3cc766800d2a1a}\label{bio_8c_ac8d3d46098f179d01c3cc766800d2a1a}} 
+\index{bio.\+c@{bio.\+c}!bio\+Wait\+Step\+Of\+Type@{bio\+Wait\+Step\+Of\+Type}}
+\index{bio\+Wait\+Step\+Of\+Type@{bio\+Wait\+Step\+Of\+Type}!bio.\+c@{bio.\+c}}
+\subsubsection{\texorpdfstring{bio\+Wait\+Step\+Of\+Type()}{bioWaitStepOfType()}}
+{\footnotesize\ttfamily unsigned long long bio\+Wait\+Step\+Of\+Type (\begin{DoxyParamCaption}\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 237 of file bio.\+c.
+
+\mbox{\Hypertarget{bio_8c_af602e9bb7f9d2842f42a1d063abb5371}\label{bio_8c_af602e9bb7f9d2842f42a1d063abb5371}} 
+\index{bio.\+c@{bio.\+c}!lazyfree\+Free\+Database\+From\+Bio\+Thread@{lazyfree\+Free\+Database\+From\+Bio\+Thread}}
+\index{lazyfree\+Free\+Database\+From\+Bio\+Thread@{lazyfree\+Free\+Database\+From\+Bio\+Thread}!bio.\+c@{bio.\+c}}
+\subsubsection{\texorpdfstring{lazyfree\+Free\+Database\+From\+Bio\+Thread()}{lazyfreeFreeDatabaseFromBioThread()}}
+{\footnotesize\ttfamily void lazyfree\+Free\+Database\+From\+Bio\+Thread (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{ht1,  }\item[{\hyperlink{structdict}{dict} $\ast$}]{ht2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 139 of file lazyfree.\+c.
+
+\mbox{\Hypertarget{bio_8c_a5789164f25a7c015db0a87f03eb38b0b}\label{bio_8c_a5789164f25a7c015db0a87f03eb38b0b}} 
+\index{bio.\+c@{bio.\+c}!lazyfree\+Free\+Object\+From\+Bio\+Thread@{lazyfree\+Free\+Object\+From\+Bio\+Thread}}
+\index{lazyfree\+Free\+Object\+From\+Bio\+Thread@{lazyfree\+Free\+Object\+From\+Bio\+Thread}!bio.\+c@{bio.\+c}}
+\subsubsection{\texorpdfstring{lazyfree\+Free\+Object\+From\+Bio\+Thread()}{lazyfreeFreeObjectFromBioThread()}}
+{\footnotesize\ttfamily void lazyfree\+Free\+Object\+From\+Bio\+Thread (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 129 of file lazyfree.\+c.
+
+\mbox{\Hypertarget{bio_8c_a7a981ec86d426c651fb250ba4fd5d079}\label{bio_8c_a7a981ec86d426c651fb250ba4fd5d079}} 
+\index{bio.\+c@{bio.\+c}!lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread@{lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread}}
+\index{lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread@{lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread}!bio.\+c@{bio.\+c}}
+\subsubsection{\texorpdfstring{lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread()}{lazyfreeFreeSlotsMapFromBioThread()}}
+{\footnotesize\ttfamily void lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{sl }\end{DoxyParamCaption})}
+

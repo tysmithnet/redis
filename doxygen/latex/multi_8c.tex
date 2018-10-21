@@ -1,0 +1,216 @@
+\hypertarget{multi_8c}{}\section{src/multi.c File Reference}
+\label{multi_8c}\index{src/multi.\+c@{src/multi.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+Include dependency graph for multi.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{multi_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structwatched_key}{watched\+Key}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structwatched_key}{watched\+Key} \hyperlink{multi_8c_a567284cf95b8eaad7f82b2eb43b6ed00}{watched\+Key}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{multi_8c_af998113f7ded356acccc2d27f4bebd1b}{init\+Client\+Multi\+State} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{multi_8c_a70ae1586f0ec7071a7118a1887afbd16}{free\+Client\+Multi\+State} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{multi_8c_aff077de006c62e609c789acee26a830c}{queue\+Multi\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{multi_8c_a915c7468a9f49fcbbaf3a54e65c12e56}{discard\+Transaction} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{multi_8c_ab05ace69b1f1564a8fa6fe826793806d}{flag\+Transaction} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{multi_8c_a31af7ae891c458efa31333f98aa0129a}{multi\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{multi_8c_a754eaefc6b7bfb8177b8a239a8d4168f}{discard\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{multi_8c_a1ed8f63ccb5b9ab48d0b482a66d60e47}{exec\+Command\+Propagate\+Multi} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{multi_8c_a05013696b351c46c4af8bc3bb3af2a82}{exec\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{multi_8c_a56c1a3b7062c4c3d8f74339e3b84138b}{watch\+For\+Key} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+void \hyperlink{multi_8c_aec3f5ad41d052a07d0126359ef7aa806}{unwatch\+All\+Keys} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{multi_8c_a15aa1452405b80330bf92b1a8b5528f4}{touch\+Watched\+Key} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+void \hyperlink{multi_8c_afe739ff5dc1bbed6305cb939003fee01}{touch\+Watched\+Keys\+On\+Flush} (int dbid)
+\item 
+void \hyperlink{multi_8c_a48749bd23a226514aaae95894ba8d51e}{watch\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{multi_8c_a39752e6b7b70b3e8df42d46168a40543}{unwatch\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{multi_8c_a567284cf95b8eaad7f82b2eb43b6ed00}\label{multi_8c_a567284cf95b8eaad7f82b2eb43b6ed00}} 
+\index{multi.\+c@{multi.\+c}!watched\+Key@{watched\+Key}}
+\index{watched\+Key@{watched\+Key}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{watched\+Key}{watchedKey}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structwatched_key}{watched\+Key}  \hyperlink{structwatched_key}{watched\+Key}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{multi_8c_a754eaefc6b7bfb8177b8a239a8d4168f}\label{multi_8c_a754eaefc6b7bfb8177b8a239a8d4168f}} 
+\index{multi.\+c@{multi.\+c}!discard\+Command@{discard\+Command}}
+\index{discard\+Command@{discard\+Command}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{discard\+Command()}{discardCommand()}}
+{\footnotesize\ttfamily void discard\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 95 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_a915c7468a9f49fcbbaf3a54e65c12e56}\label{multi_8c_a915c7468a9f49fcbbaf3a54e65c12e56}} 
+\index{multi.\+c@{multi.\+c}!discard\+Transaction@{discard\+Transaction}}
+\index{discard\+Transaction@{discard\+Transaction}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{discard\+Transaction()}{discardTransaction()}}
+{\footnotesize\ttfamily void discard\+Transaction (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 72 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_a05013696b351c46c4af8bc3bb3af2a82}\label{multi_8c_a05013696b351c46c4af8bc3bb3af2a82}} 
+\index{multi.\+c@{multi.\+c}!exec\+Command@{exec\+Command}}
+\index{exec\+Command@{exec\+Command}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{exec\+Command()}{execCommand()}}
+{\footnotesize\ttfamily void exec\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 114 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_a1ed8f63ccb5b9ab48d0b482a66d60e47}\label{multi_8c_a1ed8f63ccb5b9ab48d0b482a66d60e47}} 
+\index{multi.\+c@{multi.\+c}!exec\+Command\+Propagate\+Multi@{exec\+Command\+Propagate\+Multi}}
+\index{exec\+Command\+Propagate\+Multi@{exec\+Command\+Propagate\+Multi}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{exec\+Command\+Propagate\+Multi()}{execCommandPropagateMulti()}}
+{\footnotesize\ttfamily void exec\+Command\+Propagate\+Multi (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 106 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_ab05ace69b1f1564a8fa6fe826793806d}\label{multi_8c_ab05ace69b1f1564a8fa6fe826793806d}} 
+\index{multi.\+c@{multi.\+c}!flag\+Transaction@{flag\+Transaction}}
+\index{flag\+Transaction@{flag\+Transaction}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{flag\+Transaction()}{flagTransaction()}}
+{\footnotesize\ttfamily void flag\+Transaction (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 81 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_a70ae1586f0ec7071a7118a1887afbd16}\label{multi_8c_a70ae1586f0ec7071a7118a1887afbd16}} 
+\index{multi.\+c@{multi.\+c}!free\+Client\+Multi\+State@{free\+Client\+Multi\+State}}
+\index{free\+Client\+Multi\+State@{free\+Client\+Multi\+State}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{free\+Client\+Multi\+State()}{freeClientMultiState()}}
+{\footnotesize\ttfamily void free\+Client\+Multi\+State (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 41 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_af998113f7ded356acccc2d27f4bebd1b}\label{multi_8c_af998113f7ded356acccc2d27f4bebd1b}} 
+\index{multi.\+c@{multi.\+c}!init\+Client\+Multi\+State@{init\+Client\+Multi\+State}}
+\index{init\+Client\+Multi\+State@{init\+Client\+Multi\+State}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{init\+Client\+Multi\+State()}{initClientMultiState()}}
+{\footnotesize\ttfamily void init\+Client\+Multi\+State (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 35 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_a31af7ae891c458efa31333f98aa0129a}\label{multi_8c_a31af7ae891c458efa31333f98aa0129a}} 
+\index{multi.\+c@{multi.\+c}!multi\+Command@{multi\+Command}}
+\index{multi\+Command@{multi\+Command}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{multi\+Command()}{multiCommand()}}
+{\footnotesize\ttfamily void multi\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 86 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_aff077de006c62e609c789acee26a830c}\label{multi_8c_aff077de006c62e609c789acee26a830c}} 
+\index{multi.\+c@{multi.\+c}!queue\+Multi\+Command@{queue\+Multi\+Command}}
+\index{queue\+Multi\+Command@{queue\+Multi\+Command}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{queue\+Multi\+Command()}{queueMultiCommand()}}
+{\footnotesize\ttfamily void queue\+Multi\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 56 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_a15aa1452405b80330bf92b1a8b5528f4}\label{multi_8c_a15aa1452405b80330bf92b1a8b5528f4}} 
+\index{multi.\+c@{multi.\+c}!touch\+Watched\+Key@{touch\+Watched\+Key}}
+\index{touch\+Watched\+Key@{touch\+Watched\+Key}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{touch\+Watched\+Key()}{touchWatchedKey()}}
+{\footnotesize\ttfamily void touch\+Watched\+Key (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 276 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_afe739ff5dc1bbed6305cb939003fee01}\label{multi_8c_afe739ff5dc1bbed6305cb939003fee01}} 
+\index{multi.\+c@{multi.\+c}!touch\+Watched\+Keys\+On\+Flush@{touch\+Watched\+Keys\+On\+Flush}}
+\index{touch\+Watched\+Keys\+On\+Flush@{touch\+Watched\+Keys\+On\+Flush}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{touch\+Watched\+Keys\+On\+Flush()}{touchWatchedKeysOnFlush()}}
+{\footnotesize\ttfamily void touch\+Watched\+Keys\+On\+Flush (\begin{DoxyParamCaption}\item[{int}]{dbid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 299 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_aec3f5ad41d052a07d0126359ef7aa806}\label{multi_8c_aec3f5ad41d052a07d0126359ef7aa806}} 
+\index{multi.\+c@{multi.\+c}!unwatch\+All\+Keys@{unwatch\+All\+Keys}}
+\index{unwatch\+All\+Keys@{unwatch\+All\+Keys}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{unwatch\+All\+Keys()}{unwatchAllKeys()}}
+{\footnotesize\ttfamily void unwatch\+All\+Keys (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 248 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_a39752e6b7b70b3e8df42d46168a40543}\label{multi_8c_a39752e6b7b70b3e8df42d46168a40543}} 
+\index{multi.\+c@{multi.\+c}!unwatch\+Command@{unwatch\+Command}}
+\index{unwatch\+Command@{unwatch\+Command}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{unwatch\+Command()}{unwatchCommand()}}
+{\footnotesize\ttfamily void unwatch\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 334 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_a48749bd23a226514aaae95894ba8d51e}\label{multi_8c_a48749bd23a226514aaae95894ba8d51e}} 
+\index{multi.\+c@{multi.\+c}!watch\+Command@{watch\+Command}}
+\index{watch\+Command@{watch\+Command}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{watch\+Command()}{watchCommand()}}
+{\footnotesize\ttfamily void watch\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 322 of file multi.\+c.
+
+\mbox{\Hypertarget{multi_8c_a56c1a3b7062c4c3d8f74339e3b84138b}\label{multi_8c_a56c1a3b7062c4c3d8f74339e3b84138b}} 
+\index{multi.\+c@{multi.\+c}!watch\+For\+Key@{watch\+For\+Key}}
+\index{watch\+For\+Key@{watch\+For\+Key}!multi.\+c@{multi.\+c}}
+\subsubsection{\texorpdfstring{watch\+For\+Key()}{watchForKey()}}
+{\footnotesize\ttfamily void watch\+For\+Key (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 217 of file multi.\+c.
+

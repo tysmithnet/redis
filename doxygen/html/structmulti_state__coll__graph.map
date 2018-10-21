@@ -1,0 +1,5 @@
+<map id="multiState" name="multiState">
+<area shape="rect" id="node2" href="$structmulti_cmd.html" title="multiCmd" alt="" coords="71,95,150,121"/>
+<area shape="rect" id="node3" href="$structredis_object.html" title="redisObject" alt="" coords="5,5,93,32"/>
+<area shape="rect" id="node4" href="$structredis_command.html" title="redisCommand" alt="" coords="118,5,229,32"/>
+</map>

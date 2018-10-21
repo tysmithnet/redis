@@ -1,0 +1,78 @@
+\hypertarget{sparkline_8c}{}\section{src/sparkline.c File Reference}
+\label{sparkline_8c}\index{src/sparkline.\+c@{src/sparkline.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for sparkline.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sparkline_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsequence}{sequence} $\ast$ \hyperlink{sparkline_8c_a7653d2a49f0810e40f8e32dd50554316}{create\+Sparkline\+Sequence} (void)
+\item 
+void \hyperlink{sparkline_8c_a9a0217ff91495b58076d52226bacbf06}{sparkline\+Sequence\+Add\+Sample} (struct \hyperlink{structsequence}{sequence} $\ast$seq, double value, char $\ast$label)
+\item 
+void \hyperlink{sparkline_8c_a739407133ccbf172afda954ee6a7d8bc}{free\+Sparkline\+Sequence} (struct \hyperlink{structsequence}{sequence} $\ast$seq)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sparkline_8c_a33ef56504c6c825e4e00117c5f21f049}{sparkline\+Render\+Range} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} output, struct \hyperlink{structsequence}{sequence} $\ast$seq, int rows, int offset, int len, int flags)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sparkline_8c_a4bf30024f3bf7c30185bbf83826af6da}{sparkline\+Render} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} output, struct \hyperlink{structsequence}{sequence} $\ast$seq, int columns, int rows, int flags)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{sparkline_8c_a7653d2a49f0810e40f8e32dd50554316}\label{sparkline_8c_a7653d2a49f0810e40f8e32dd50554316}} 
+\index{sparkline.\+c@{sparkline.\+c}!create\+Sparkline\+Sequence@{create\+Sparkline\+Sequence}}
+\index{create\+Sparkline\+Sequence@{create\+Sparkline\+Sequence}!sparkline.\+c@{sparkline.\+c}}
+\subsubsection{\texorpdfstring{create\+Sparkline\+Sequence()}{createSparklineSequence()}}
+{\footnotesize\ttfamily struct \hyperlink{structsequence}{sequence}$\ast$ create\+Sparkline\+Sequence (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 57 of file sparkline.\+c.
+
+\mbox{\Hypertarget{sparkline_8c_a739407133ccbf172afda954ee6a7d8bc}\label{sparkline_8c_a739407133ccbf172afda954ee6a7d8bc}} 
+\index{sparkline.\+c@{sparkline.\+c}!free\+Sparkline\+Sequence@{free\+Sparkline\+Sequence}}
+\index{free\+Sparkline\+Sequence@{free\+Sparkline\+Sequence}!sparkline.\+c@{sparkline.\+c}}
+\subsubsection{\texorpdfstring{free\+Sparkline\+Sequence()}{freeSparklineSequence()}}
+{\footnotesize\ttfamily void free\+Sparkline\+Sequence (\begin{DoxyParamCaption}\item[{struct \hyperlink{structsequence}{sequence} $\ast$}]{seq }\end{DoxyParamCaption})}
+
+
+
+Definition at line 81 of file sparkline.\+c.
+
+\mbox{\Hypertarget{sparkline_8c_a4bf30024f3bf7c30185bbf83826af6da}\label{sparkline_8c_a4bf30024f3bf7c30185bbf83826af6da}} 
+\index{sparkline.\+c@{sparkline.\+c}!sparkline\+Render@{sparkline\+Render}}
+\index{sparkline\+Render@{sparkline\+Render}!sparkline.\+c@{sparkline.\+c}}
+\subsubsection{\texorpdfstring{sparkline\+Render()}{sparklineRender()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sparkline\+Render (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{output,  }\item[{struct \hyperlink{structsequence}{sequence} $\ast$}]{seq,  }\item[{int}]{columns,  }\item[{int}]{rows,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 165 of file sparkline.\+c.
+
+\mbox{\Hypertarget{sparkline_8c_a33ef56504c6c825e4e00117c5f21f049}\label{sparkline_8c_a33ef56504c6c825e4e00117c5f21f049}} 
+\index{sparkline.\+c@{sparkline.\+c}!sparkline\+Render\+Range@{sparkline\+Render\+Range}}
+\index{sparkline\+Render\+Range@{sparkline\+Render\+Range}!sparkline.\+c@{sparkline.\+c}}
+\subsubsection{\texorpdfstring{sparkline\+Render\+Range()}{sparklineRenderRange()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sparkline\+Render\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{output,  }\item[{struct \hyperlink{structsequence}{sequence} $\ast$}]{seq,  }\item[{int}]{rows,  }\item[{int}]{offset,  }\item[{int}]{len,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 97 of file sparkline.\+c.
+
+\mbox{\Hypertarget{sparkline_8c_a9a0217ff91495b58076d52226bacbf06}\label{sparkline_8c_a9a0217ff91495b58076d52226bacbf06}} 
+\index{sparkline.\+c@{sparkline.\+c}!sparkline\+Sequence\+Add\+Sample@{sparkline\+Sequence\+Add\+Sample}}
+\index{sparkline\+Sequence\+Add\+Sample@{sparkline\+Sequence\+Add\+Sample}!sparkline.\+c@{sparkline.\+c}}
+\subsubsection{\texorpdfstring{sparkline\+Sequence\+Add\+Sample()}{sparklineSequenceAddSample()}}
+{\footnotesize\ttfamily void sparkline\+Sequence\+Add\+Sample (\begin{DoxyParamCaption}\item[{struct \hyperlink{structsequence}{sequence} $\ast$}]{seq,  }\item[{double}]{value,  }\item[{char $\ast$}]{label }\end{DoxyParamCaption})}
+
+
+
+Definition at line 65 of file sparkline.\+c.
+

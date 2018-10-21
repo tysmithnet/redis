@@ -1,0 +1,415 @@
+\hypertarget{anet_8h}{}\section{src/anet.h File Reference}
+\label{anet_8h}\index{src/anet.\+h@{src/anet.\+h}}
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+Include dependency graph for anet.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{anet_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{anet_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{anet_8h_a25fb91ccc6457153f6d2e21380d4c6cf}{A\+N\+E\+T\+\_\+\+OK}~0
+\item 
+\#define \hyperlink{anet_8h_a0697b7774a7e0f4ef141839fe93536fe}{A\+N\+E\+T\+\_\+\+E\+RR}~-\/1
+\item 
+\#define \hyperlink{anet_8h_a92d565f421c133e9fac9dbbe8c88922b}{A\+N\+E\+T\+\_\+\+E\+R\+R\+\_\+\+L\+EN}~256
+\item 
+\#define \hyperlink{anet_8h_aea959562fbeec73b16b1cc037e700c02}{A\+N\+E\+T\+\_\+\+N\+O\+NE}~0
+\item 
+\#define \hyperlink{anet_8h_a705c91a7b61459ba004364262845c5f4}{A\+N\+E\+T\+\_\+\+I\+P\+\_\+\+O\+N\+LY}~(1$<$$<$0)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{anet_8h_a8719f8e7e5136f6ef437d69de90c52ca}{anet\+Tcp\+Connect} (char $\ast$err, char $\ast$addr, int port)
+\item 
+int \hyperlink{anet_8h_a9cf65ae8f6f74643fb1953a4a1e06466}{anet\+Tcp\+Non\+Block\+Connect} (char $\ast$err, char $\ast$addr, int port)
+\item 
+int \hyperlink{anet_8h_a628a746c24c198736d05865b96650db1}{anet\+Tcp\+Non\+Block\+Bind\+Connect} (char $\ast$err, char $\ast$addr, int port, char $\ast$source\+\_\+addr)
+\item 
+int \hyperlink{anet_8h_a4387006b26bc65c505085c4d7c52297b}{anet\+Tcp\+Non\+Block\+Best\+Effort\+Bind\+Connect} (char $\ast$err, char $\ast$addr, int port, char $\ast$source\+\_\+addr)
+\item 
+int \hyperlink{anet_8h_aa441546162a748c50f5e4d2337295e00}{anet\+Unix\+Connect} (char $\ast$err, char $\ast$path)
+\item 
+int \hyperlink{anet_8h_a4fc253fe18cf813865687efd95f568fd}{anet\+Unix\+Non\+Block\+Connect} (char $\ast$err, char $\ast$path)
+\item 
+int \hyperlink{anet_8h_a75f1c3fd69cfb185f0aef345cd7cf674}{anet\+Read} (int fd, char $\ast$buf, int count)
+\item 
+int \hyperlink{anet_8h_a6d7b6b5e056e287862c5f2d95c70ff53}{anet\+Resolve} (char $\ast$err, char $\ast$host, char $\ast$ipbuf, size\+\_\+t ipbuf\+\_\+len)
+\item 
+int \hyperlink{anet_8h_a3d9f78c8519aea40e7dc023cdf85c005}{anet\+Resolve\+IP} (char $\ast$err, char $\ast$host, char $\ast$ipbuf, size\+\_\+t ipbuf\+\_\+len)
+\item 
+int \hyperlink{anet_8h_a2637a681b73d89c8b6a7b0ca95afd07c}{anet\+Tcp\+Server} (char $\ast$err, int port, char $\ast$bindaddr, int backlog)
+\item 
+int \hyperlink{anet_8h_ac2a48196c12df4f013a2ef973c0aef7f}{anet\+Tcp6\+Server} (char $\ast$err, int port, char $\ast$bindaddr, int backlog)
+\item 
+int \hyperlink{anet_8h_ad7d02bffdb97772cda66cc6abe791a76}{anet\+Unix\+Server} (char $\ast$err, char $\ast$path, mode\+\_\+t perm, int backlog)
+\item 
+int \hyperlink{anet_8h_ac2c0fbfe23ed47bd0976cd87659a5b5c}{anet\+Tcp\+Accept} (char $\ast$err, int serversock, char $\ast$ip, size\+\_\+t ip\+\_\+len, int $\ast$port)
+\item 
+int \hyperlink{anet_8h_a7f9c829ab2db9e374885b0d9c25442dd}{anet\+Unix\+Accept} (char $\ast$err, int serversock)
+\item 
+int \hyperlink{anet_8h_a541e0cb6120af114ac74d65cae3738a5}{anet\+Write} (int fd, char $\ast$buf, int count)
+\item 
+int \hyperlink{anet_8h_a0ffab7741e0d2152c02a6af6f3048cae}{anet\+Non\+Block} (char $\ast$err, int fd)
+\item 
+int \hyperlink{anet_8h_a223190a499aa09f9c1a1420d5676650f}{anet\+Block} (char $\ast$err, int fd)
+\item 
+int \hyperlink{anet_8h_a61e54b44fb43184ab3ae5ac58ba7f5d1}{anet\+Enable\+Tcp\+No\+Delay} (char $\ast$err, int fd)
+\item 
+int \hyperlink{anet_8h_ab64eaebeae95ce4043808349f4a14e6e}{anet\+Disable\+Tcp\+No\+Delay} (char $\ast$err, int fd)
+\item 
+int \hyperlink{anet_8h_a3298480aecde2ec94dfca9db55cc0c8b}{anet\+Tcp\+Keep\+Alive} (char $\ast$err, int fd)
+\item 
+int \hyperlink{anet_8h_a4bc2b111c80aa918f27ebbc3a359a3b0}{anet\+Send\+Timeout} (char $\ast$err, int fd, long long ms)
+\item 
+int \hyperlink{anet_8h_aa92006f87d38700c23c7f0b7b43ad521}{anet\+Peer\+To\+String} (int fd, char $\ast$ip, size\+\_\+t ip\+\_\+len, int $\ast$port)
+\item 
+int \hyperlink{anet_8h_a4595984ff27c62c664b7b0dd801628e1}{anet\+Keep\+Alive} (char $\ast$err, int fd, int interval)
+\item 
+int \hyperlink{anet_8h_a737c2323201c3a0141e0f3f5ccf07f86}{anet\+Sock\+Name} (int fd, char $\ast$ip, size\+\_\+t ip\+\_\+len, int $\ast$port)
+\item 
+int \hyperlink{anet_8h_a4c17864cf0952e5d9cafe30c04f3791a}{anet\+Format\+Addr} (char $\ast$fmt, size\+\_\+t fmt\+\_\+len, char $\ast$ip, int port)
+\item 
+int \hyperlink{anet_8h_ab47a9d086ae178ce4907726ebe359422}{anet\+Format\+Peer} (int fd, char $\ast$fmt, size\+\_\+t fmt\+\_\+len)
+\item 
+int \hyperlink{anet_8h_a273ae7877ec9966de6d4aed6c0d0572a}{anet\+Format\+Sock} (int fd, char $\ast$fmt, size\+\_\+t fmt\+\_\+len)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{anet_8h_a0697b7774a7e0f4ef141839fe93536fe}\label{anet_8h_a0697b7774a7e0f4ef141839fe93536fe}} 
+\index{anet.\+h@{anet.\+h}!A\+N\+E\+T\+\_\+\+E\+RR@{A\+N\+E\+T\+\_\+\+E\+RR}}
+\index{A\+N\+E\+T\+\_\+\+E\+RR@{A\+N\+E\+T\+\_\+\+E\+RR}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{A\+N\+E\+T\+\_\+\+E\+RR}{ANET\_ERR}}
+{\footnotesize\ttfamily \#define A\+N\+E\+T\+\_\+\+E\+RR~-\/1}
+
+
+
+Definition at line 37 of file anet.\+h.
+
+\mbox{\Hypertarget{anet_8h_a92d565f421c133e9fac9dbbe8c88922b}\label{anet_8h_a92d565f421c133e9fac9dbbe8c88922b}} 
+\index{anet.\+h@{anet.\+h}!A\+N\+E\+T\+\_\+\+E\+R\+R\+\_\+\+L\+EN@{A\+N\+E\+T\+\_\+\+E\+R\+R\+\_\+\+L\+EN}}
+\index{A\+N\+E\+T\+\_\+\+E\+R\+R\+\_\+\+L\+EN@{A\+N\+E\+T\+\_\+\+E\+R\+R\+\_\+\+L\+EN}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{A\+N\+E\+T\+\_\+\+E\+R\+R\+\_\+\+L\+EN}{ANET\_ERR\_LEN}}
+{\footnotesize\ttfamily \#define A\+N\+E\+T\+\_\+\+E\+R\+R\+\_\+\+L\+EN~256}
+
+
+
+Definition at line 38 of file anet.\+h.
+
+\mbox{\Hypertarget{anet_8h_a705c91a7b61459ba004364262845c5f4}\label{anet_8h_a705c91a7b61459ba004364262845c5f4}} 
+\index{anet.\+h@{anet.\+h}!A\+N\+E\+T\+\_\+\+I\+P\+\_\+\+O\+N\+LY@{A\+N\+E\+T\+\_\+\+I\+P\+\_\+\+O\+N\+LY}}
+\index{A\+N\+E\+T\+\_\+\+I\+P\+\_\+\+O\+N\+LY@{A\+N\+E\+T\+\_\+\+I\+P\+\_\+\+O\+N\+LY}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{A\+N\+E\+T\+\_\+\+I\+P\+\_\+\+O\+N\+LY}{ANET\_IP\_ONLY}}
+{\footnotesize\ttfamily \#define A\+N\+E\+T\+\_\+\+I\+P\+\_\+\+O\+N\+LY~(1$<$$<$0)}
+
+
+
+Definition at line 42 of file anet.\+h.
+
+\mbox{\Hypertarget{anet_8h_aea959562fbeec73b16b1cc037e700c02}\label{anet_8h_aea959562fbeec73b16b1cc037e700c02}} 
+\index{anet.\+h@{anet.\+h}!A\+N\+E\+T\+\_\+\+N\+O\+NE@{A\+N\+E\+T\+\_\+\+N\+O\+NE}}
+\index{A\+N\+E\+T\+\_\+\+N\+O\+NE@{A\+N\+E\+T\+\_\+\+N\+O\+NE}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{A\+N\+E\+T\+\_\+\+N\+O\+NE}{ANET\_NONE}}
+{\footnotesize\ttfamily \#define A\+N\+E\+T\+\_\+\+N\+O\+NE~0}
+
+
+
+Definition at line 41 of file anet.\+h.
+
+\mbox{\Hypertarget{anet_8h_a25fb91ccc6457153f6d2e21380d4c6cf}\label{anet_8h_a25fb91ccc6457153f6d2e21380d4c6cf}} 
+\index{anet.\+h@{anet.\+h}!A\+N\+E\+T\+\_\+\+OK@{A\+N\+E\+T\+\_\+\+OK}}
+\index{A\+N\+E\+T\+\_\+\+OK@{A\+N\+E\+T\+\_\+\+OK}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{A\+N\+E\+T\+\_\+\+OK}{ANET\_OK}}
+{\footnotesize\ttfamily \#define A\+N\+E\+T\+\_\+\+OK~0}
+
+
+
+Definition at line 36 of file anet.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{anet_8h_a223190a499aa09f9c1a1420d5676650f}\label{anet_8h_a223190a499aa09f9c1a1420d5676650f}} 
+\index{anet.\+h@{anet.\+h}!anet\+Block@{anet\+Block}}
+\index{anet\+Block@{anet\+Block}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Block()}{anetBlock()}}
+{\footnotesize\ttfamily int anet\+Block (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 88 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_ab64eaebeae95ce4043808349f4a14e6e}\label{anet_8h_ab64eaebeae95ce4043808349f4a14e6e}} 
+\index{anet.\+h@{anet.\+h}!anet\+Disable\+Tcp\+No\+Delay@{anet\+Disable\+Tcp\+No\+Delay}}
+\index{anet\+Disable\+Tcp\+No\+Delay@{anet\+Disable\+Tcp\+No\+Delay}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Disable\+Tcp\+No\+Delay()}{anetDisableTcpNoDelay()}}
+{\footnotesize\ttfamily int anet\+Disable\+Tcp\+No\+Delay (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 156 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a61e54b44fb43184ab3ae5ac58ba7f5d1}\label{anet_8h_a61e54b44fb43184ab3ae5ac58ba7f5d1}} 
+\index{anet.\+h@{anet.\+h}!anet\+Enable\+Tcp\+No\+Delay@{anet\+Enable\+Tcp\+No\+Delay}}
+\index{anet\+Enable\+Tcp\+No\+Delay@{anet\+Enable\+Tcp\+No\+Delay}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Enable\+Tcp\+No\+Delay()}{anetEnableTcpNoDelay()}}
+{\footnotesize\ttfamily int anet\+Enable\+Tcp\+No\+Delay (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 151 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a4c17864cf0952e5d9cafe30c04f3791a}\label{anet_8h_a4c17864cf0952e5d9cafe30c04f3791a}} 
+\index{anet.\+h@{anet.\+h}!anet\+Format\+Addr@{anet\+Format\+Addr}}
+\index{anet\+Format\+Addr@{anet\+Format\+Addr}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Format\+Addr()}{anetFormatAddr()}}
+{\footnotesize\ttfamily int anet\+Format\+Addr (\begin{DoxyParamCaption}\item[{char $\ast$}]{fmt,  }\item[{size\+\_\+t}]{fmt\+\_\+len,  }\item[{char $\ast$}]{ip,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line 616 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_ab47a9d086ae178ce4907726ebe359422}\label{anet_8h_ab47a9d086ae178ce4907726ebe359422}} 
+\index{anet.\+h@{anet.\+h}!anet\+Format\+Peer@{anet\+Format\+Peer}}
+\index{anet\+Format\+Peer@{anet\+Format\+Peer}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Format\+Peer()}{anetFormatPeer()}}
+{\footnotesize\ttfamily int anet\+Format\+Peer (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{fmt,  }\item[{size\+\_\+t}]{fmt\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 622 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a273ae7877ec9966de6d4aed6c0d0572a}\label{anet_8h_a273ae7877ec9966de6d4aed6c0d0572a}} 
+\index{anet.\+h@{anet.\+h}!anet\+Format\+Sock@{anet\+Format\+Sock}}
+\index{anet\+Format\+Sock@{anet\+Format\+Sock}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Format\+Sock()}{anetFormatSock()}}
+{\footnotesize\ttfamily int anet\+Format\+Sock (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{fmt,  }\item[{size\+\_\+t}]{fmt\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 652 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a4595984ff27c62c664b7b0dd801628e1}\label{anet_8h_a4595984ff27c62c664b7b0dd801628e1}} 
+\index{anet.\+h@{anet.\+h}!anet\+Keep\+Alive@{anet\+Keep\+Alive}}
+\index{anet\+Keep\+Alive@{anet\+Keep\+Alive}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Keep\+Alive()}{anetKeepAlive()}}
+{\footnotesize\ttfamily int anet\+Keep\+Alive (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{int}]{fd,  }\item[{int}]{interval }\end{DoxyParamCaption})}
+
+
+
+Definition at line 95 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a0ffab7741e0d2152c02a6af6f3048cae}\label{anet_8h_a0ffab7741e0d2152c02a6af6f3048cae}} 
+\index{anet.\+h@{anet.\+h}!anet\+Non\+Block@{anet\+Non\+Block}}
+\index{anet\+Non\+Block@{anet\+Non\+Block}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Non\+Block()}{anetNonBlock()}}
+{\footnotesize\ttfamily int anet\+Non\+Block (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 84 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_aa92006f87d38700c23c7f0b7b43ad521}\label{anet_8h_aa92006f87d38700c23c7f0b7b43ad521}} 
+\index{anet.\+h@{anet.\+h}!anet\+Peer\+To\+String@{anet\+Peer\+To\+String}}
+\index{anet\+Peer\+To\+String@{anet\+Peer\+To\+String}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Peer\+To\+String()}{anetPeerToString()}}
+{\footnotesize\ttfamily int anet\+Peer\+To\+String (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{ip,  }\item[{size\+\_\+t}]{ip\+\_\+len,  }\item[{int $\ast$}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line 577 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a75f1c3fd69cfb185f0aef345cd7cf674}\label{anet_8h_a75f1c3fd69cfb185f0aef345cd7cf674}} 
+\index{anet.\+h@{anet.\+h}!anet\+Read@{anet\+Read}}
+\index{anet\+Read@{anet\+Read}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Read()}{anetRead()}}
+{\footnotesize\ttfamily int anet\+Read (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{buf,  }\item[{int}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 412 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a6d7b6b5e056e287862c5f2d95c70ff53}\label{anet_8h_a6d7b6b5e056e287862c5f2d95c70ff53}} 
+\index{anet.\+h@{anet.\+h}!anet\+Resolve@{anet\+Resolve}}
+\index{anet\+Resolve@{anet\+Resolve}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Resolve()}{anetResolve()}}
+{\footnotesize\ttfamily int anet\+Resolve (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{char $\ast$}]{host,  }\item[{char $\ast$}]{ipbuf,  }\item[{size\+\_\+t}]{ipbuf\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 230 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a3d9f78c8519aea40e7dc023cdf85c005}\label{anet_8h_a3d9f78c8519aea40e7dc023cdf85c005}} 
+\index{anet.\+h@{anet.\+h}!anet\+Resolve\+IP@{anet\+Resolve\+IP}}
+\index{anet\+Resolve\+IP@{anet\+Resolve\+IP}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Resolve\+I\+P()}{anetResolveIP()}}
+{\footnotesize\ttfamily int anet\+Resolve\+IP (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{char $\ast$}]{host,  }\item[{char $\ast$}]{ipbuf,  }\item[{size\+\_\+t}]{ipbuf\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 234 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a4bc2b111c80aa918f27ebbc3a359a3b0}\label{anet_8h_a4bc2b111c80aa918f27ebbc3a359a3b0}} 
+\index{anet.\+h@{anet.\+h}!anet\+Send\+Timeout@{anet\+Send\+Timeout}}
+\index{anet\+Send\+Timeout@{anet\+Send\+Timeout}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Send\+Timeout()}{anetSendTimeout()}}
+{\footnotesize\ttfamily int anet\+Send\+Timeout (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{int}]{fd,  }\item[{long long}]{ms }\end{DoxyParamCaption})}
+
+
+
+Definition at line 184 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a737c2323201c3a0141e0f3f5ccf07f86}\label{anet_8h_a737c2323201c3a0141e0f3f5ccf07f86}} 
+\index{anet.\+h@{anet.\+h}!anet\+Sock\+Name@{anet\+Sock\+Name}}
+\index{anet\+Sock\+Name@{anet\+Sock\+Name}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Sock\+Name()}{anetSockName()}}
+{\footnotesize\ttfamily int anet\+Sock\+Name (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{ip,  }\item[{size\+\_\+t}]{ip\+\_\+len,  }\item[{int $\ast$}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line 630 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_ac2a48196c12df4f013a2ef973c0aef7f}\label{anet_8h_ac2a48196c12df4f013a2ef973c0aef7f}} 
+\index{anet.\+h@{anet.\+h}!anet\+Tcp6\+Server@{anet\+Tcp6\+Server}}
+\index{anet\+Tcp6\+Server@{anet\+Tcp6\+Server}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Tcp6\+Server()}{anetTcp6Server()}}
+{\footnotesize\ttfamily int anet\+Tcp6\+Server (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{int}]{port,  }\item[{char $\ast$}]{bindaddr,  }\item[{int}]{backlog }\end{DoxyParamCaption})}
+
+
+
+Definition at line 508 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_ac2c0fbfe23ed47bd0976cd87659a5b5c}\label{anet_8h_ac2c0fbfe23ed47bd0976cd87659a5b5c}} 
+\index{anet.\+h@{anet.\+h}!anet\+Tcp\+Accept@{anet\+Tcp\+Accept}}
+\index{anet\+Tcp\+Accept@{anet\+Tcp\+Accept}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Tcp\+Accept()}{anetTcpAccept()}}
+{\footnotesize\ttfamily int anet\+Tcp\+Accept (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{int}]{serversock,  }\item[{char $\ast$}]{ip,  }\item[{size\+\_\+t}]{ip\+\_\+len,  }\item[{int $\ast$}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line 548 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a8719f8e7e5136f6ef437d69de90c52ca}\label{anet_8h_a8719f8e7e5136f6ef437d69de90c52ca}} 
+\index{anet.\+h@{anet.\+h}!anet\+Tcp\+Connect@{anet\+Tcp\+Connect}}
+\index{anet\+Tcp\+Connect@{anet\+Tcp\+Connect}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Tcp\+Connect()}{anetTcpConnect()}}
+{\footnotesize\ttfamily int anet\+Tcp\+Connect (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{char $\ast$}]{addr,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line 348 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a3298480aecde2ec94dfca9db55cc0c8b}\label{anet_8h_a3298480aecde2ec94dfca9db55cc0c8b}} 
+\index{anet.\+h@{anet.\+h}!anet\+Tcp\+Keep\+Alive@{anet\+Tcp\+Keep\+Alive}}
+\index{anet\+Tcp\+Keep\+Alive@{anet\+Tcp\+Keep\+Alive}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Tcp\+Keep\+Alive()}{anetTcpKeepAlive()}}
+{\footnotesize\ttfamily int anet\+Tcp\+Keep\+Alive (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 172 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a4387006b26bc65c505085c4d7c52297b}\label{anet_8h_a4387006b26bc65c505085c4d7c52297b}} 
+\index{anet.\+h@{anet.\+h}!anet\+Tcp\+Non\+Block\+Best\+Effort\+Bind\+Connect@{anet\+Tcp\+Non\+Block\+Best\+Effort\+Bind\+Connect}}
+\index{anet\+Tcp\+Non\+Block\+Best\+Effort\+Bind\+Connect@{anet\+Tcp\+Non\+Block\+Best\+Effort\+Bind\+Connect}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Tcp\+Non\+Block\+Best\+Effort\+Bind\+Connect()}{anetTcpNonBlockBestEffortBindConnect()}}
+{\footnotesize\ttfamily int anet\+Tcp\+Non\+Block\+Best\+Effort\+Bind\+Connect (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{char $\ast$}]{addr,  }\item[{int}]{port,  }\item[{char $\ast$}]{source\+\_\+addr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 365 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a628a746c24c198736d05865b96650db1}\label{anet_8h_a628a746c24c198736d05865b96650db1}} 
+\index{anet.\+h@{anet.\+h}!anet\+Tcp\+Non\+Block\+Bind\+Connect@{anet\+Tcp\+Non\+Block\+Bind\+Connect}}
+\index{anet\+Tcp\+Non\+Block\+Bind\+Connect@{anet\+Tcp\+Non\+Block\+Bind\+Connect}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Tcp\+Non\+Block\+Bind\+Connect()}{anetTcpNonBlockBindConnect()}}
+{\footnotesize\ttfamily int anet\+Tcp\+Non\+Block\+Bind\+Connect (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{char $\ast$}]{addr,  }\item[{int}]{port,  }\item[{char $\ast$}]{source\+\_\+addr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 358 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a9cf65ae8f6f74643fb1953a4a1e06466}\label{anet_8h_a9cf65ae8f6f74643fb1953a4a1e06466}} 
+\index{anet.\+h@{anet.\+h}!anet\+Tcp\+Non\+Block\+Connect@{anet\+Tcp\+Non\+Block\+Connect}}
+\index{anet\+Tcp\+Non\+Block\+Connect@{anet\+Tcp\+Non\+Block\+Connect}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Tcp\+Non\+Block\+Connect()}{anetTcpNonBlockConnect()}}
+{\footnotesize\ttfamily int anet\+Tcp\+Non\+Block\+Connect (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{char $\ast$}]{addr,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line 353 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a2637a681b73d89c8b6a7b0ca95afd07c}\label{anet_8h_a2637a681b73d89c8b6a7b0ca95afd07c}} 
+\index{anet.\+h@{anet.\+h}!anet\+Tcp\+Server@{anet\+Tcp\+Server}}
+\index{anet\+Tcp\+Server@{anet\+Tcp\+Server}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Tcp\+Server()}{anetTcpServer()}}
+{\footnotesize\ttfamily int anet\+Tcp\+Server (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{int}]{port,  }\item[{char $\ast$}]{bindaddr,  }\item[{int}]{backlog }\end{DoxyParamCaption})}
+
+
+
+Definition at line 503 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a7f9c829ab2db9e374885b0d9c25442dd}\label{anet_8h_a7f9c829ab2db9e374885b0d9c25442dd}} 
+\index{anet.\+h@{anet.\+h}!anet\+Unix\+Accept@{anet\+Unix\+Accept}}
+\index{anet\+Unix\+Accept@{anet\+Unix\+Accept}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Unix\+Accept()}{anetUnixAccept()}}
+{\footnotesize\ttfamily int anet\+Unix\+Accept (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{int}]{serversock }\end{DoxyParamCaption})}
+
+
+
+Definition at line 567 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_aa441546162a748c50f5e4d2337295e00}\label{anet_8h_aa441546162a748c50f5e4d2337295e00}} 
+\index{anet.\+h@{anet.\+h}!anet\+Unix\+Connect@{anet\+Unix\+Connect}}
+\index{anet\+Unix\+Connect@{anet\+Unix\+Connect}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Unix\+Connect()}{anetUnixConnect()}}
+{\footnotesize\ttfamily int anet\+Unix\+Connect (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{char $\ast$}]{path }\end{DoxyParamCaption})}
+
+
+
+Definition at line 400 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a4fc253fe18cf813865687efd95f568fd}\label{anet_8h_a4fc253fe18cf813865687efd95f568fd}} 
+\index{anet.\+h@{anet.\+h}!anet\+Unix\+Non\+Block\+Connect@{anet\+Unix\+Non\+Block\+Connect}}
+\index{anet\+Unix\+Non\+Block\+Connect@{anet\+Unix\+Non\+Block\+Connect}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Unix\+Non\+Block\+Connect()}{anetUnixNonBlockConnect()}}
+{\footnotesize\ttfamily int anet\+Unix\+Non\+Block\+Connect (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{char $\ast$}]{path }\end{DoxyParamCaption})}
+
+
+
+Definition at line 405 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_ad7d02bffdb97772cda66cc6abe791a76}\label{anet_8h_ad7d02bffdb97772cda66cc6abe791a76}} 
+\index{anet.\+h@{anet.\+h}!anet\+Unix\+Server@{anet\+Unix\+Server}}
+\index{anet\+Unix\+Server@{anet\+Unix\+Server}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Unix\+Server()}{anetUnixServer()}}
+{\footnotesize\ttfamily int anet\+Unix\+Server (\begin{DoxyParamCaption}\item[{char $\ast$}]{err,  }\item[{char $\ast$}]{path,  }\item[{mode\+\_\+t}]{perm,  }\item[{int}]{backlog }\end{DoxyParamCaption})}
+
+
+
+Definition at line 513 of file anet.\+c.
+
+\mbox{\Hypertarget{anet_8h_a541e0cb6120af114ac74d65cae3738a5}\label{anet_8h_a541e0cb6120af114ac74d65cae3738a5}} 
+\index{anet.\+h@{anet.\+h}!anet\+Write@{anet\+Write}}
+\index{anet\+Write@{anet\+Write}!anet.\+h@{anet.\+h}}
+\subsubsection{\texorpdfstring{anet\+Write()}{anetWrite()}}
+{\footnotesize\ttfamily int anet\+Write (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{buf,  }\item[{int}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 427 of file anet.\+c.
+

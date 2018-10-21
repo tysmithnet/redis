@@ -1,0 +1,227 @@
+\hypertarget{expire_8c}{}\section{src/expire.c File Reference}
+\label{expire_8c}\index{src/expire.\+c@{src/expire.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+Include dependency graph for expire.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{expire_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{expire_8c_a5efc758c36d7bd4494c35f61cd6651c6}{active\+Expire\+Cycle\+Try\+Expire} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{structdict_entry}{dict\+Entry} $\ast$de, long long now)
+\item 
+void \hyperlink{expire_8c_a9ac447b86b9a05e76145b634348fda4a}{active\+Expire\+Cycle} (int type)
+\item 
+void \hyperlink{expire_8c_a698b2c7b12d4733babe53417ff0503c4}{expire\+Slave\+Keys} (void)
+\item 
+void \hyperlink{expire_8c_aaeea597d1f347eb6f865550052c80ce6}{remember\+Slave\+Key\+With\+Expire} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+size\+\_\+t \hyperlink{expire_8c_a2718ceb87eb05fc1e03382c5444cf4da}{get\+Slave\+Key\+With\+Expire\+Count} (void)
+\item 
+void \hyperlink{expire_8c_a3feb607d4b2ee27949def2bb7fb3dc2d}{flush\+Slave\+Keys\+With\+Expire\+List} (void)
+\item 
+void \hyperlink{expire_8c_a288e9dd081c6f05d280a50376beef464}{expire\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, long long basetime, int unit)
+\item 
+void \hyperlink{expire_8c_a394a24f28982a4d71d587bd93e714839}{expire\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{expire_8c_aaa6d4f828c5e0a2eb4313561fd09a8d0}{expireat\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{expire_8c_a007647f9fe6b994df961341a7d8690aa}{pexpire\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{expire_8c_a2311f10fbab3b7e873055e784ae61bd8}{pexpireat\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{expire_8c_a2173609cbaf201271c5300c53e37abd7}{ttl\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int output\+\_\+ms)
+\item 
+void \hyperlink{expire_8c_aeba7167525fc8ded96efbc118ce9d333}{ttl\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{expire_8c_a5a5a788edf07140d6e41103a31476fdd}{pttl\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{expire_8c_afd7e1cc73d466ea95d10f0bccb297194}{persist\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{expire_8c_af5c458e6e7b368aae1a32b34e357fae2}{touch\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{expire_8c_a16012faa40a04519162e2c76fb2b550c}{slave\+Keys\+With\+Expire} = N\+U\+LL
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{expire_8c_a9ac447b86b9a05e76145b634348fda4a}\label{expire_8c_a9ac447b86b9a05e76145b634348fda4a}} 
+\index{expire.\+c@{expire.\+c}!active\+Expire\+Cycle@{active\+Expire\+Cycle}}
+\index{active\+Expire\+Cycle@{active\+Expire\+Cycle}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{active\+Expire\+Cycle()}{activeExpireCycle()}}
+{\footnotesize\ttfamily void active\+Expire\+Cycle (\begin{DoxyParamCaption}\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 97 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_a5efc758c36d7bd4494c35f61cd6651c6}\label{expire_8c_a5efc758c36d7bd4494c35f61cd6651c6}} 
+\index{expire.\+c@{expire.\+c}!active\+Expire\+Cycle\+Try\+Expire@{active\+Expire\+Cycle\+Try\+Expire}}
+\index{active\+Expire\+Cycle\+Try\+Expire@{active\+Expire\+Cycle\+Try\+Expire}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{active\+Expire\+Cycle\+Try\+Expire()}{activeExpireCycleTryExpire()}}
+{\footnotesize\ttfamily int active\+Expire\+Cycle\+Try\+Expire (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{structdict_entry}{dict\+Entry} $\ast$}]{de,  }\item[{long long}]{now }\end{DoxyParamCaption})}
+
+
+
+Definition at line 54 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_aaa6d4f828c5e0a2eb4313561fd09a8d0}\label{expire_8c_aaa6d4f828c5e0a2eb4313561fd09a8d0}} 
+\index{expire.\+c@{expire.\+c}!expireat\+Command@{expireat\+Command}}
+\index{expireat\+Command@{expireat\+Command}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{expireat\+Command()}{expireatCommand()}}
+{\footnotesize\ttfamily void expireat\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 458 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_a394a24f28982a4d71d587bd93e714839}\label{expire_8c_a394a24f28982a4d71d587bd93e714839}} 
+\index{expire.\+c@{expire.\+c}!expire\+Command@{expire\+Command}}
+\index{expire\+Command@{expire\+Command}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{expire\+Command()}{expireCommand()}}
+{\footnotesize\ttfamily void expire\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 453 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_a288e9dd081c6f05d280a50376beef464}\label{expire_8c_a288e9dd081c6f05d280a50376beef464}} 
+\index{expire.\+c@{expire.\+c}!expire\+Generic\+Command@{expire\+Generic\+Command}}
+\index{expire\+Generic\+Command@{expire\+Generic\+Command}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{expire\+Generic\+Command()}{expireGenericCommand()}}
+{\footnotesize\ttfamily void expire\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{long long}]{basetime,  }\item[{int}]{unit }\end{DoxyParamCaption})}
+
+
+
+Definition at line 405 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_a698b2c7b12d4733babe53417ff0503c4}\label{expire_8c_a698b2c7b12d4733babe53417ff0503c4}} 
+\index{expire.\+c@{expire.\+c}!expire\+Slave\+Keys@{expire\+Slave\+Keys}}
+\index{expire\+Slave\+Keys@{expire\+Slave\+Keys}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{expire\+Slave\+Keys()}{expireSlaveKeys()}}
+{\footnotesize\ttfamily void expire\+Slave\+Keys (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 285 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_a3feb607d4b2ee27949def2bb7fb3dc2d}\label{expire_8c_a3feb607d4b2ee27949def2bb7fb3dc2d}} 
+\index{expire.\+c@{expire.\+c}!flush\+Slave\+Keys\+With\+Expire\+List@{flush\+Slave\+Keys\+With\+Expire\+List}}
+\index{flush\+Slave\+Keys\+With\+Expire\+List@{flush\+Slave\+Keys\+With\+Expire\+List}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{flush\+Slave\+Keys\+With\+Expire\+List()}{flushSlaveKeysWithExpireList()}}
+{\footnotesize\ttfamily void flush\+Slave\+Keys\+With\+Expire\+List (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 387 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_a2718ceb87eb05fc1e03382c5444cf4da}\label{expire_8c_a2718ceb87eb05fc1e03382c5444cf4da}} 
+\index{expire.\+c@{expire.\+c}!get\+Slave\+Key\+With\+Expire\+Count@{get\+Slave\+Key\+With\+Expire\+Count}}
+\index{get\+Slave\+Key\+With\+Expire\+Count@{get\+Slave\+Key\+With\+Expire\+Count}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{get\+Slave\+Key\+With\+Expire\+Count()}{getSlaveKeyWithExpireCount()}}
+{\footnotesize\ttfamily size\+\_\+t get\+Slave\+Key\+With\+Expire\+Count (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 374 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_afd7e1cc73d466ea95d10f0bccb297194}\label{expire_8c_afd7e1cc73d466ea95d10f0bccb297194}} 
+\index{expire.\+c@{expire.\+c}!persist\+Command@{persist\+Command}}
+\index{persist\+Command@{persist\+Command}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{persist\+Command()}{persistCommand()}}
+{\footnotesize\ttfamily void persist\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 506 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_a2311f10fbab3b7e873055e784ae61bd8}\label{expire_8c_a2311f10fbab3b7e873055e784ae61bd8}} 
+\index{expire.\+c@{expire.\+c}!pexpireat\+Command@{pexpireat\+Command}}
+\index{pexpireat\+Command@{pexpireat\+Command}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{pexpireat\+Command()}{pexpireatCommand()}}
+{\footnotesize\ttfamily void pexpireat\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 468 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_a007647f9fe6b994df961341a7d8690aa}\label{expire_8c_a007647f9fe6b994df961341a7d8690aa}} 
+\index{expire.\+c@{expire.\+c}!pexpire\+Command@{pexpire\+Command}}
+\index{pexpire\+Command@{pexpire\+Command}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{pexpire\+Command()}{pexpireCommand()}}
+{\footnotesize\ttfamily void pexpire\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 463 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_a5a5a788edf07140d6e41103a31476fdd}\label{expire_8c_a5a5a788edf07140d6e41103a31476fdd}} 
+\index{expire.\+c@{expire.\+c}!pttl\+Command@{pttl\+Command}}
+\index{pttl\+Command@{pttl\+Command}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{pttl\+Command()}{pttlCommand()}}
+{\footnotesize\ttfamily void pttl\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 501 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_aaeea597d1f347eb6f865550052c80ce6}\label{expire_8c_aaeea597d1f347eb6f865550052c80ce6}} 
+\index{expire.\+c@{expire.\+c}!remember\+Slave\+Key\+With\+Expire@{remember\+Slave\+Key\+With\+Expire}}
+\index{remember\+Slave\+Key\+With\+Expire@{remember\+Slave\+Key\+With\+Expire}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{remember\+Slave\+Key\+With\+Expire()}{rememberSlaveKeyWithExpire()}}
+{\footnotesize\ttfamily void remember\+Slave\+Key\+With\+Expire (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 344 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_af5c458e6e7b368aae1a32b34e357fae2}\label{expire_8c_af5c458e6e7b368aae1a32b34e357fae2}} 
+\index{expire.\+c@{expire.\+c}!touch\+Command@{touch\+Command}}
+\index{touch\+Command@{touch\+Command}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{touch\+Command()}{touchCommand()}}
+{\footnotesize\ttfamily void touch\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 520 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_aeba7167525fc8ded96efbc118ce9d333}\label{expire_8c_aeba7167525fc8ded96efbc118ce9d333}} 
+\index{expire.\+c@{expire.\+c}!ttl\+Command@{ttl\+Command}}
+\index{ttl\+Command@{ttl\+Command}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{ttl\+Command()}{ttlCommand()}}
+{\footnotesize\ttfamily void ttl\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 496 of file expire.\+c.
+
+\mbox{\Hypertarget{expire_8c_a2173609cbaf201271c5300c53e37abd7}\label{expire_8c_a2173609cbaf201271c5300c53e37abd7}} 
+\index{expire.\+c@{expire.\+c}!ttl\+Generic\+Command@{ttl\+Generic\+Command}}
+\index{ttl\+Generic\+Command@{ttl\+Generic\+Command}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{ttl\+Generic\+Command()}{ttlGenericCommand()}}
+{\footnotesize\ttfamily void ttl\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{output\+\_\+ms }\end{DoxyParamCaption})}
+
+
+
+Definition at line 473 of file expire.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{expire_8c_a16012faa40a04519162e2c76fb2b550c}\label{expire_8c_a16012faa40a04519162e2c76fb2b550c}} 
+\index{expire.\+c@{expire.\+c}!slave\+Keys\+With\+Expire@{slave\+Keys\+With\+Expire}}
+\index{slave\+Keys\+With\+Expire@{slave\+Keys\+With\+Expire}!expire.\+c@{expire.\+c}}
+\subsubsection{\texorpdfstring{slave\+Keys\+With\+Expire}{slaveKeysWithExpire}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ slave\+Keys\+With\+Expire = N\+U\+LL}
+
+
+
+Definition at line 281 of file expire.\+c.
+

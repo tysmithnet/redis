@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['sample',['sample',['../structsample.html',1,'']]],
+  ['saveparam',['saveparam',['../structsaveparam.html',1,'']]],
+  ['sentineladdr',['sentinelAddr',['../structsentinel_addr.html',1,'']]],
+  ['sentinelleader',['sentinelLeader',['../structsentinel_leader.html',1,'']]],
+  ['sentinelredisinstance',['sentinelRedisInstance',['../structsentinel_redis_instance.html',1,'']]],
+  ['sentinelscriptjob',['sentinelScriptJob',['../structsentinel_script_job.html',1,'']]],
+  ['sentinelstate',['sentinelState',['../structsentinel_state.html',1,'']]],
+  ['sequence',['sequence',['../structsequence.html',1,'']]],
+  ['settypeiterator',['setTypeIterator',['../structset_type_iterator.html',1,'']]],
+  ['sha1_5fctx',['SHA1_CTX',['../struct_s_h_a1___c_t_x.html',1,'']]],
+  ['sharedobjectsstruct',['sharedObjectsStruct',['../structshared_objects_struct.html',1,'']]],
+  ['slowlogentry',['slowlogEntry',['../structslowlog_entry.html',1,'']]],
+  ['sreampropinfo',['sreamPropInfo',['../structsream_prop_info.html',1,'']]],
+  ['stream',['stream',['../structstream.html',1,'']]],
+  ['streamcg',['streamCG',['../structstream_c_g.html',1,'']]],
+  ['streamconsumer',['streamConsumer',['../structstream_consumer.html',1,'']]],
+  ['streamid',['streamID',['../structstream_i_d.html',1,'']]],
+  ['streamiterator',['streamIterator',['../structstream_iterator.html',1,'']]],
+  ['streamnack',['streamNACK',['../structstream_n_a_c_k.html',1,'']]]
+];

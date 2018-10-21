@@ -1,0 +1,345 @@
+\hypertarget{structredis_mem_overhead}{}\section{redis\+Mem\+Overhead Struct Reference}
+\label{structredis_mem_overhead}\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+
+
+{\ttfamily \#include $<$server.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_a52004d56324eaeaabb6686b05052ca55}{peak\+\_\+allocated}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_a3bb14855f7c280e92d0c01bbbc9b4c3c}{total\+\_\+allocated}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_a0e982a0e14543ef6e17073a6d4afe191}{startup\+\_\+allocated}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_a4377a6a963ee32e22c7c7f14180a4a31}{repl\+\_\+backlog}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_ace2b062189925c36433d3a8e68062d6e}{clients\+\_\+slaves}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_af21382aaf8f931d992586bbfe5f8aca2}{clients\+\_\+normal}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_ad441a7ae10a5fee32c6d0b0dbfc92791}{aof\+\_\+buffer}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_aede1fc4f53c4e19111df241fe70fb77c}{lua\+\_\+caches}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_a2a959b51b26f4ced3ab179af23f19fba}{overhead\+\_\+total}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_a8747868103d88dad18f00837aaeca24a}{dataset}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_ab0dd532666871698a3e8dc420ec74b28}{total\+\_\+keys}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_aa8888087ab630e5da0b3a0e179298d86}{bytes\+\_\+per\+\_\+key}
+\item 
+float \hyperlink{structredis_mem_overhead_ad413cc014759c00757b5fda0d4c94c2e}{dataset\+\_\+perc}
+\item 
+float \hyperlink{structredis_mem_overhead_ab748e7839b4db27ca41f802fb4deb3e1}{peak\+\_\+perc}
+\item 
+float \hyperlink{structredis_mem_overhead_ac8bdd246c25c91aa5ae7af8362ff9188}{total\+\_\+frag}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_a5e5705378e7ceb2bcfa33b637a7a6fd2}{total\+\_\+frag\+\_\+bytes}
+\item 
+float \hyperlink{structredis_mem_overhead_a6191ede96ce40757b7eb73d4bcc597f0}{allocator\+\_\+frag}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_a7dcfd2bdf329730a992f30f52b145dbb}{allocator\+\_\+frag\+\_\+bytes}
+\item 
+float \hyperlink{structredis_mem_overhead_a213b026c5bb4a2421289b34e620eb4ef}{allocator\+\_\+rss}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_a988880d896f03571a137a828ef96531a}{allocator\+\_\+rss\+\_\+bytes}
+\item 
+float \hyperlink{structredis_mem_overhead_ae1d7b7b42904d9ebb1698ab3ac79a2e9}{rss\+\_\+extra}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_a9cafe99c292b52f795f9ceef838f4249}{rss\+\_\+extra\+\_\+bytes}
+\item 
+size\+\_\+t \hyperlink{structredis_mem_overhead_a5fff22cf574851b502f713e7db2980fe}{num\+\_\+dbs}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>size\_t \hyperlink{structredis_mem_overhead_a8379ee7de31460d30fac72e27c81fd7a}{dbid}\\
+\>size\_t \hyperlink{structredis_mem_overhead_a1a15c326f9a9953cd14a0ba78aaea439}{overhead\_ht\_main}\\
+\>size\_t \hyperlink{structredis_mem_overhead_a26a9170a61aa6eb593f9e57a2396a706}{overhead\_ht\_expires}\\
+\} $\ast$ \hyperlink{structredis_mem_overhead_a92e2261ab8290fdc2955b81e5901203d}{db}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 851 of file server.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structredis_mem_overhead_a6191ede96ce40757b7eb73d4bcc597f0}\label{structredis_mem_overhead_a6191ede96ce40757b7eb73d4bcc597f0}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!allocator\+\_\+frag@{allocator\+\_\+frag}}
+\index{allocator\+\_\+frag@{allocator\+\_\+frag}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{allocator\+\_\+frag}{allocator\_frag}}
+{\footnotesize\ttfamily float allocator\+\_\+frag}
+
+
+
+Definition at line 868 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a7dcfd2bdf329730a992f30f52b145dbb}\label{structredis_mem_overhead_a7dcfd2bdf329730a992f30f52b145dbb}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!allocator\+\_\+frag\+\_\+bytes@{allocator\+\_\+frag\+\_\+bytes}}
+\index{allocator\+\_\+frag\+\_\+bytes@{allocator\+\_\+frag\+\_\+bytes}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{allocator\+\_\+frag\+\_\+bytes}{allocator\_frag\_bytes}}
+{\footnotesize\ttfamily size\+\_\+t allocator\+\_\+frag\+\_\+bytes}
+
+
+
+Definition at line 869 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a213b026c5bb4a2421289b34e620eb4ef}\label{structredis_mem_overhead_a213b026c5bb4a2421289b34e620eb4ef}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!allocator\+\_\+rss@{allocator\+\_\+rss}}
+\index{allocator\+\_\+rss@{allocator\+\_\+rss}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{allocator\+\_\+rss}{allocator\_rss}}
+{\footnotesize\ttfamily float allocator\+\_\+rss}
+
+
+
+Definition at line 870 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a988880d896f03571a137a828ef96531a}\label{structredis_mem_overhead_a988880d896f03571a137a828ef96531a}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!allocator\+\_\+rss\+\_\+bytes@{allocator\+\_\+rss\+\_\+bytes}}
+\index{allocator\+\_\+rss\+\_\+bytes@{allocator\+\_\+rss\+\_\+bytes}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{allocator\+\_\+rss\+\_\+bytes}{allocator\_rss\_bytes}}
+{\footnotesize\ttfamily size\+\_\+t allocator\+\_\+rss\+\_\+bytes}
+
+
+
+Definition at line 871 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_ad441a7ae10a5fee32c6d0b0dbfc92791}\label{structredis_mem_overhead_ad441a7ae10a5fee32c6d0b0dbfc92791}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!aof\+\_\+buffer@{aof\+\_\+buffer}}
+\index{aof\+\_\+buffer@{aof\+\_\+buffer}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{aof\+\_\+buffer}{aof\_buffer}}
+{\footnotesize\ttfamily size\+\_\+t aof\+\_\+buffer}
+
+
+
+Definition at line 858 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_aa8888087ab630e5da0b3a0e179298d86}\label{structredis_mem_overhead_aa8888087ab630e5da0b3a0e179298d86}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!bytes\+\_\+per\+\_\+key@{bytes\+\_\+per\+\_\+key}}
+\index{bytes\+\_\+per\+\_\+key@{bytes\+\_\+per\+\_\+key}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{bytes\+\_\+per\+\_\+key}{bytes\_per\_key}}
+{\footnotesize\ttfamily size\+\_\+t bytes\+\_\+per\+\_\+key}
+
+
+
+Definition at line 863 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_af21382aaf8f931d992586bbfe5f8aca2}\label{structredis_mem_overhead_af21382aaf8f931d992586bbfe5f8aca2}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!clients\+\_\+normal@{clients\+\_\+normal}}
+\index{clients\+\_\+normal@{clients\+\_\+normal}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{clients\+\_\+normal}{clients\_normal}}
+{\footnotesize\ttfamily size\+\_\+t clients\+\_\+normal}
+
+
+
+Definition at line 857 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_ace2b062189925c36433d3a8e68062d6e}\label{structredis_mem_overhead_ace2b062189925c36433d3a8e68062d6e}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!clients\+\_\+slaves@{clients\+\_\+slaves}}
+\index{clients\+\_\+slaves@{clients\+\_\+slaves}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{clients\+\_\+slaves}{clients\_slaves}}
+{\footnotesize\ttfamily size\+\_\+t clients\+\_\+slaves}
+
+
+
+Definition at line 856 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a8747868103d88dad18f00837aaeca24a}\label{structredis_mem_overhead_a8747868103d88dad18f00837aaeca24a}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!dataset@{dataset}}
+\index{dataset@{dataset}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{dataset}{dataset}}
+{\footnotesize\ttfamily size\+\_\+t dataset}
+
+
+
+Definition at line 861 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_ad413cc014759c00757b5fda0d4c94c2e}\label{structredis_mem_overhead_ad413cc014759c00757b5fda0d4c94c2e}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!dataset\+\_\+perc@{dataset\+\_\+perc}}
+\index{dataset\+\_\+perc@{dataset\+\_\+perc}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{dataset\+\_\+perc}{dataset\_perc}}
+{\footnotesize\ttfamily float dataset\+\_\+perc}
+
+
+
+Definition at line 864 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a92e2261ab8290fdc2955b81e5901203d}\label{structredis_mem_overhead_a92e2261ab8290fdc2955b81e5901203d}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!db@{db}}
+\index{db@{db}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{db}{db}}
+{\footnotesize\ttfamily struct \{ ... \}  $\ast$ db}
+
+\mbox{\Hypertarget{structredis_mem_overhead_a8379ee7de31460d30fac72e27c81fd7a}\label{structredis_mem_overhead_a8379ee7de31460d30fac72e27c81fd7a}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!dbid@{dbid}}
+\index{dbid@{dbid}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{dbid}{dbid}}
+{\footnotesize\ttfamily size\+\_\+t dbid}
+
+
+
+Definition at line 876 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_aede1fc4f53c4e19111df241fe70fb77c}\label{structredis_mem_overhead_aede1fc4f53c4e19111df241fe70fb77c}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!lua\+\_\+caches@{lua\+\_\+caches}}
+\index{lua\+\_\+caches@{lua\+\_\+caches}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{lua\+\_\+caches}{lua\_caches}}
+{\footnotesize\ttfamily size\+\_\+t lua\+\_\+caches}
+
+
+
+Definition at line 859 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a5fff22cf574851b502f713e7db2980fe}\label{structredis_mem_overhead_a5fff22cf574851b502f713e7db2980fe}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!num\+\_\+dbs@{num\+\_\+dbs}}
+\index{num\+\_\+dbs@{num\+\_\+dbs}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{num\+\_\+dbs}{num\_dbs}}
+{\footnotesize\ttfamily size\+\_\+t num\+\_\+dbs}
+
+
+
+Definition at line 874 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a26a9170a61aa6eb593f9e57a2396a706}\label{structredis_mem_overhead_a26a9170a61aa6eb593f9e57a2396a706}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!overhead\+\_\+ht\+\_\+expires@{overhead\+\_\+ht\+\_\+expires}}
+\index{overhead\+\_\+ht\+\_\+expires@{overhead\+\_\+ht\+\_\+expires}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{overhead\+\_\+ht\+\_\+expires}{overhead\_ht\_expires}}
+{\footnotesize\ttfamily size\+\_\+t overhead\+\_\+ht\+\_\+expires}
+
+
+
+Definition at line 878 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a1a15c326f9a9953cd14a0ba78aaea439}\label{structredis_mem_overhead_a1a15c326f9a9953cd14a0ba78aaea439}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!overhead\+\_\+ht\+\_\+main@{overhead\+\_\+ht\+\_\+main}}
+\index{overhead\+\_\+ht\+\_\+main@{overhead\+\_\+ht\+\_\+main}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{overhead\+\_\+ht\+\_\+main}{overhead\_ht\_main}}
+{\footnotesize\ttfamily size\+\_\+t overhead\+\_\+ht\+\_\+main}
+
+
+
+Definition at line 877 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a2a959b51b26f4ced3ab179af23f19fba}\label{structredis_mem_overhead_a2a959b51b26f4ced3ab179af23f19fba}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!overhead\+\_\+total@{overhead\+\_\+total}}
+\index{overhead\+\_\+total@{overhead\+\_\+total}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{overhead\+\_\+total}{overhead\_total}}
+{\footnotesize\ttfamily size\+\_\+t overhead\+\_\+total}
+
+
+
+Definition at line 860 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a52004d56324eaeaabb6686b05052ca55}\label{structredis_mem_overhead_a52004d56324eaeaabb6686b05052ca55}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!peak\+\_\+allocated@{peak\+\_\+allocated}}
+\index{peak\+\_\+allocated@{peak\+\_\+allocated}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{peak\+\_\+allocated}{peak\_allocated}}
+{\footnotesize\ttfamily size\+\_\+t peak\+\_\+allocated}
+
+
+
+Definition at line 852 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_ab748e7839b4db27ca41f802fb4deb3e1}\label{structredis_mem_overhead_ab748e7839b4db27ca41f802fb4deb3e1}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!peak\+\_\+perc@{peak\+\_\+perc}}
+\index{peak\+\_\+perc@{peak\+\_\+perc}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{peak\+\_\+perc}{peak\_perc}}
+{\footnotesize\ttfamily float peak\+\_\+perc}
+
+
+
+Definition at line 865 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a4377a6a963ee32e22c7c7f14180a4a31}\label{structredis_mem_overhead_a4377a6a963ee32e22c7c7f14180a4a31}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!repl\+\_\+backlog@{repl\+\_\+backlog}}
+\index{repl\+\_\+backlog@{repl\+\_\+backlog}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{repl\+\_\+backlog}{repl\_backlog}}
+{\footnotesize\ttfamily size\+\_\+t repl\+\_\+backlog}
+
+
+
+Definition at line 855 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_ae1d7b7b42904d9ebb1698ab3ac79a2e9}\label{structredis_mem_overhead_ae1d7b7b42904d9ebb1698ab3ac79a2e9}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!rss\+\_\+extra@{rss\+\_\+extra}}
+\index{rss\+\_\+extra@{rss\+\_\+extra}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{rss\+\_\+extra}{rss\_extra}}
+{\footnotesize\ttfamily float rss\+\_\+extra}
+
+
+
+Definition at line 872 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a9cafe99c292b52f795f9ceef838f4249}\label{structredis_mem_overhead_a9cafe99c292b52f795f9ceef838f4249}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!rss\+\_\+extra\+\_\+bytes@{rss\+\_\+extra\+\_\+bytes}}
+\index{rss\+\_\+extra\+\_\+bytes@{rss\+\_\+extra\+\_\+bytes}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{rss\+\_\+extra\+\_\+bytes}{rss\_extra\_bytes}}
+{\footnotesize\ttfamily size\+\_\+t rss\+\_\+extra\+\_\+bytes}
+
+
+
+Definition at line 873 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a0e982a0e14543ef6e17073a6d4afe191}\label{structredis_mem_overhead_a0e982a0e14543ef6e17073a6d4afe191}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!startup\+\_\+allocated@{startup\+\_\+allocated}}
+\index{startup\+\_\+allocated@{startup\+\_\+allocated}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{startup\+\_\+allocated}{startup\_allocated}}
+{\footnotesize\ttfamily size\+\_\+t startup\+\_\+allocated}
+
+
+
+Definition at line 854 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a3bb14855f7c280e92d0c01bbbc9b4c3c}\label{structredis_mem_overhead_a3bb14855f7c280e92d0c01bbbc9b4c3c}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!total\+\_\+allocated@{total\+\_\+allocated}}
+\index{total\+\_\+allocated@{total\+\_\+allocated}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{total\+\_\+allocated}{total\_allocated}}
+{\footnotesize\ttfamily size\+\_\+t total\+\_\+allocated}
+
+
+
+Definition at line 853 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_ac8bdd246c25c91aa5ae7af8362ff9188}\label{structredis_mem_overhead_ac8bdd246c25c91aa5ae7af8362ff9188}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!total\+\_\+frag@{total\+\_\+frag}}
+\index{total\+\_\+frag@{total\+\_\+frag}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{total\+\_\+frag}{total\_frag}}
+{\footnotesize\ttfamily float total\+\_\+frag}
+
+
+
+Definition at line 866 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_a5e5705378e7ceb2bcfa33b637a7a6fd2}\label{structredis_mem_overhead_a5e5705378e7ceb2bcfa33b637a7a6fd2}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!total\+\_\+frag\+\_\+bytes@{total\+\_\+frag\+\_\+bytes}}
+\index{total\+\_\+frag\+\_\+bytes@{total\+\_\+frag\+\_\+bytes}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{total\+\_\+frag\+\_\+bytes}{total\_frag\_bytes}}
+{\footnotesize\ttfamily size\+\_\+t total\+\_\+frag\+\_\+bytes}
+
+
+
+Definition at line 867 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_mem_overhead_ab0dd532666871698a3e8dc420ec74b28}\label{structredis_mem_overhead_ab0dd532666871698a3e8dc420ec74b28}} 
+\index{redis\+Mem\+Overhead@{redis\+Mem\+Overhead}!total\+\_\+keys@{total\+\_\+keys}}
+\index{total\+\_\+keys@{total\+\_\+keys}!redis\+Mem\+Overhead@{redis\+Mem\+Overhead}}
+\subsubsection{\texorpdfstring{total\+\_\+keys}{total\_keys}}
+{\footnotesize\ttfamily size\+\_\+t total\+\_\+keys}
+
+
+
+Definition at line 862 of file server.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{server_8h}{server.\+h}\end{DoxyCompactItemize}

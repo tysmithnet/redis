@@ -1,0 +1,71 @@
+\hypertarget{syncio_8c}{}\section{src/syncio.c File Reference}
+\label{syncio_8c}\index{src/syncio.\+c@{src/syncio.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+Include dependency graph for syncio.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{syncio_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{syncio_8c_abba2f131af11e3cf265355831c9bcbb2}{S\+Y\+N\+C\+I\+O\+\_\+\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}~10 /$\ast$ Resolution in milliseconds $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+ssize\+\_\+t \hyperlink{syncio_8c_a4ed3f50b18642273c171f1947c852733}{sync\+Write} (int fd, char $\ast$ptr, ssize\+\_\+t size, long long timeout)
+\item 
+ssize\+\_\+t \hyperlink{syncio_8c_a91e1d8a1b84a1d1e5c3a3c7f8896051b}{sync\+Read} (int fd, char $\ast$ptr, ssize\+\_\+t size, long long timeout)
+\item 
+ssize\+\_\+t \hyperlink{syncio_8c_a741922affc3a139fba5c1b12b472e72c}{sync\+Read\+Line} (int fd, char $\ast$ptr, ssize\+\_\+t size, long long timeout)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{syncio_8c_abba2f131af11e3cf265355831c9bcbb2}\label{syncio_8c_abba2f131af11e3cf265355831c9bcbb2}} 
+\index{syncio.\+c@{syncio.\+c}!S\+Y\+N\+C\+I\+O\+\_\+\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON@{S\+Y\+N\+C\+I\+O\+\_\+\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}}
+\index{S\+Y\+N\+C\+I\+O\+\_\+\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON@{S\+Y\+N\+C\+I\+O\+\_\+\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}!syncio.\+c@{syncio.\+c}}
+\subsubsection{\texorpdfstring{S\+Y\+N\+C\+I\+O\+\_\+\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}{SYNCIO\_\_RESOLUTION}}
+{\footnotesize\ttfamily \#define S\+Y\+N\+C\+I\+O\+\_\+\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON~10 /$\ast$ Resolution in milliseconds $\ast$/}
+
+
+
+Definition at line 43 of file syncio.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{syncio_8c_a91e1d8a1b84a1d1e5c3a3c7f8896051b}\label{syncio_8c_a91e1d8a1b84a1d1e5c3a3c7f8896051b}} 
+\index{syncio.\+c@{syncio.\+c}!sync\+Read@{sync\+Read}}
+\index{sync\+Read@{sync\+Read}!syncio.\+c@{syncio.\+c}}
+\subsubsection{\texorpdfstring{sync\+Read()}{syncRead()}}
+{\footnotesize\ttfamily ssize\+\_\+t sync\+Read (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{ptr,  }\item[{ssize\+\_\+t}]{size,  }\item[{long long}]{timeout }\end{DoxyParamCaption})}
+
+
+
+Definition at line 85 of file syncio.\+c.
+
+\mbox{\Hypertarget{syncio_8c_a741922affc3a139fba5c1b12b472e72c}\label{syncio_8c_a741922affc3a139fba5c1b12b472e72c}} 
+\index{syncio.\+c@{syncio.\+c}!sync\+Read\+Line@{sync\+Read\+Line}}
+\index{sync\+Read\+Line@{sync\+Read\+Line}!syncio.\+c@{syncio.\+c}}
+\subsubsection{\texorpdfstring{sync\+Read\+Line()}{syncReadLine()}}
+{\footnotesize\ttfamily ssize\+\_\+t sync\+Read\+Line (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{ptr,  }\item[{ssize\+\_\+t}]{size,  }\item[{long long}]{timeout }\end{DoxyParamCaption})}
+
+
+
+Definition at line 125 of file syncio.\+c.
+
+\mbox{\Hypertarget{syncio_8c_a4ed3f50b18642273c171f1947c852733}\label{syncio_8c_a4ed3f50b18642273c171f1947c852733}} 
+\index{syncio.\+c@{syncio.\+c}!sync\+Write@{sync\+Write}}
+\index{sync\+Write@{sync\+Write}!syncio.\+c@{syncio.\+c}}
+\subsubsection{\texorpdfstring{sync\+Write()}{syncWrite()}}
+{\footnotesize\ttfamily ssize\+\_\+t sync\+Write (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{char $\ast$}]{ptr,  }\item[{ssize\+\_\+t}]{size,  }\item[{long long}]{timeout }\end{DoxyParamCaption})}
+
+
+
+Definition at line 49 of file syncio.\+c.
+

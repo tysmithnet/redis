@@ -1,0 +1,239 @@
+\hypertarget{debug_8c}{}\section{src/debug.c File Reference}
+\label{debug_8c}\index{src/debug.\+c@{src/debug.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}sha1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}crc64.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$dlfcn.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+Include dependency graph for debug.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{debug_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{debug_8c_a8d266c220464cbcec2c53f7fefda61dc}{xor\+Digest} (unsigned char $\ast$digest, void $\ast$ptr, size\+\_\+t len)
+\item 
+void \hyperlink{debug_8c_a810daa9398f10541da3e74dc18bfe644}{xor\+Object\+Digest} (unsigned char $\ast$digest, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{debug_8c_a6799e02322ae9af88f3c643614907429}{mix\+Digest} (unsigned char $\ast$digest, void $\ast$ptr, size\+\_\+t len)
+\item 
+void \hyperlink{debug_8c_a2447e7f61b15f7cbc6fbb68cd73a18e3}{mix\+Object\+Digest} (unsigned char $\ast$digest, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{debug_8c_ad0a18991f5b8c0907162064b8a64616b}{compute\+Dataset\+Digest} (unsigned char $\ast$final)
+\item 
+void \hyperlink{debug_8c_ac04bd45c841516e4eed2861b7be626ab}{debug\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{debug_8c_ace38bb59b1a740e3b0db1cf149956c67}{\+\_\+server\+Assert} (const char $\ast$estr, const char $\ast$file, int line)
+\item 
+void \hyperlink{debug_8c_a1a8365776e28ebaf47bb3d8e473573d3}{\+\_\+server\+Assert\+Print\+Client\+Info} (const \hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{debug_8c_a0d21d734da20ec66d8ce174e013307c8}{server\+Log\+Object\+Debug\+Info} (const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{debug_8c_a764caa4fcf0293e3b7d8b31d604ca197}{\+\_\+server\+Assert\+Print\+Object} (const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{debug_8c_a18c2f6309449274173ac6655f47620fd}{\+\_\+server\+Assert\+With\+Info} (const \hyperlink{structclient}{client} $\ast$c, const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, const char $\ast$estr, const char $\ast$file, int line)
+\item 
+void \hyperlink{debug_8c_adcb0288f10e48c6583a3eae341a3f268}{\+\_\+server\+Panic} (const char $\ast$file, int line, const char $\ast$msg,...)
+\item 
+void \hyperlink{debug_8c_a61796ba0fcaec7c74e19d2763d732684}{bug\+Report\+Start} (void)
+\item 
+void \hyperlink{debug_8c_a55d4dcdd2147683c6b2fd3e95f1b87bf}{server\+Log\+Hex\+Dump} (int level, char $\ast$descr, void $\ast$value, size\+\_\+t len)
+\item 
+void \hyperlink{debug_8c_a20ee5df2764c0bbd1097d6893f5920e9}{watchdog\+Signal\+Handler} (int sig, siginfo\+\_\+t $\ast$info, void $\ast$secret)
+\item 
+void \hyperlink{debug_8c_a52331223339742c28ebd3383a0758853}{watchdog\+Schedule\+Signal} (int period)
+\item 
+void \hyperlink{debug_8c_aa79fc34f32182183505af973d07aff72}{enable\+Watchdog} (int period)
+\item 
+void \hyperlink{debug_8c_a10a8ea117c043b1a15b0d7feb12b1539}{disable\+Watchdog} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{debug_8c_ace38bb59b1a740e3b0db1cf149956c67}\label{debug_8c_ace38bb59b1a740e3b0db1cf149956c67}} 
+\index{debug.\+c@{debug.\+c}!\+\_\+server\+Assert@{\+\_\+server\+Assert}}
+\index{\+\_\+server\+Assert@{\+\_\+server\+Assert}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+server\+Assert()}{\_serverAssert()}}
+{\footnotesize\ttfamily void \+\_\+server\+Assert (\begin{DoxyParamCaption}\item[{const char $\ast$}]{estr,  }\item[{const char $\ast$}]{file,  }\item[{int}]{line }\end{DoxyParamCaption})}
+
+
+
+Definition at line 602 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_a1a8365776e28ebaf47bb3d8e473573d3}\label{debug_8c_a1a8365776e28ebaf47bb3d8e473573d3}} 
+\index{debug.\+c@{debug.\+c}!\+\_\+server\+Assert\+Print\+Client\+Info@{\+\_\+server\+Assert\+Print\+Client\+Info}}
+\index{\+\_\+server\+Assert\+Print\+Client\+Info@{\+\_\+server\+Assert\+Print\+Client\+Info}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+server\+Assert\+Print\+Client\+Info()}{\_serverAssertPrintClientInfo()}}
+{\footnotesize\ttfamily void \+\_\+server\+Assert\+Print\+Client\+Info (\begin{DoxyParamCaption}\item[{const \hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 615 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_a764caa4fcf0293e3b7d8b31d604ca197}\label{debug_8c_a764caa4fcf0293e3b7d8b31d604ca197}} 
+\index{debug.\+c@{debug.\+c}!\+\_\+server\+Assert\+Print\+Object@{\+\_\+server\+Assert\+Print\+Object}}
+\index{\+\_\+server\+Assert\+Print\+Object@{\+\_\+server\+Assert\+Print\+Object}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+server\+Assert\+Print\+Object()}{\_serverAssertPrintObject()}}
+{\footnotesize\ttfamily void \+\_\+server\+Assert\+Print\+Object (\begin{DoxyParamCaption}\item[{const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 663 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_a18c2f6309449274173ac6655f47620fd}\label{debug_8c_a18c2f6309449274173ac6655f47620fd}} 
+\index{debug.\+c@{debug.\+c}!\+\_\+server\+Assert\+With\+Info@{\+\_\+server\+Assert\+With\+Info}}
+\index{\+\_\+server\+Assert\+With\+Info@{\+\_\+server\+Assert\+With\+Info}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+server\+Assert\+With\+Info()}{\_serverAssertWithInfo()}}
+{\footnotesize\ttfamily void \+\_\+server\+Assert\+With\+Info (\begin{DoxyParamCaption}\item[{const \hyperlink{structclient}{client} $\ast$}]{c,  }\item[{const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{const char $\ast$}]{estr,  }\item[{const char $\ast$}]{file,  }\item[{int}]{line }\end{DoxyParamCaption})}
+
+
+
+Definition at line 669 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_adcb0288f10e48c6583a3eae341a3f268}\label{debug_8c_adcb0288f10e48c6583a3eae341a3f268}} 
+\index{debug.\+c@{debug.\+c}!\+\_\+server\+Panic@{\+\_\+server\+Panic}}
+\index{\+\_\+server\+Panic@{\+\_\+server\+Panic}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+server\+Panic()}{\_serverPanic()}}
+{\footnotesize\ttfamily void \+\_\+server\+Panic (\begin{DoxyParamCaption}\item[{const char $\ast$}]{file,  }\item[{int}]{line,  }\item[{const char $\ast$}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 675 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_a61796ba0fcaec7c74e19d2763d732684}\label{debug_8c_a61796ba0fcaec7c74e19d2763d732684}} 
+\index{debug.\+c@{debug.\+c}!bug\+Report\+Start@{bug\+Report\+Start}}
+\index{bug\+Report\+Start@{bug\+Report\+Start}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{bug\+Report\+Start()}{bugReportStart()}}
+{\footnotesize\ttfamily void bug\+Report\+Start (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 693 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_ad0a18991f5b8c0907162064b8a64616b}\label{debug_8c_ad0a18991f5b8c0907162064b8a64616b}} 
+\index{debug.\+c@{debug.\+c}!compute\+Dataset\+Digest@{compute\+Dataset\+Digest}}
+\index{compute\+Dataset\+Digest@{compute\+Dataset\+Digest}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{compute\+Dataset\+Digest()}{computeDatasetDigest()}}
+{\footnotesize\ttfamily void compute\+Dataset\+Digest (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{final }\end{DoxyParamCaption})}
+
+
+
+Definition at line 115 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_ac04bd45c841516e4eed2861b7be626ab}\label{debug_8c_ac04bd45c841516e4eed2861b7be626ab}} 
+\index{debug.\+c@{debug.\+c}!debug\+Command@{debug\+Command}}
+\index{debug\+Command@{debug\+Command}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{debug\+Command()}{debugCommand()}}
+{\footnotesize\ttfamily void debug\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 285 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_a10a8ea117c043b1a15b0d7feb12b1539}\label{debug_8c_a10a8ea117c043b1a15b0d7feb12b1539}} 
+\index{debug.\+c@{debug.\+c}!disable\+Watchdog@{disable\+Watchdog}}
+\index{disable\+Watchdog@{disable\+Watchdog}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{disable\+Watchdog()}{disableWatchdog()}}
+{\footnotesize\ttfamily void disable\+Watchdog (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1244 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_aa79fc34f32182183505af973d07aff72}\label{debug_8c_aa79fc34f32182183505af973d07aff72}} 
+\index{debug.\+c@{debug.\+c}!enable\+Watchdog@{enable\+Watchdog}}
+\index{enable\+Watchdog@{enable\+Watchdog}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{enable\+Watchdog()}{enableWatchdog()}}
+{\footnotesize\ttfamily void enable\+Watchdog (\begin{DoxyParamCaption}\item[{int}]{period }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1221 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_a6799e02322ae9af88f3c643614907429}\label{debug_8c_a6799e02322ae9af88f3c643614907429}} 
+\index{debug.\+c@{debug.\+c}!mix\+Digest@{mix\+Digest}}
+\index{mix\+Digest@{mix\+Digest}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{mix\+Digest()}{mixDigest()}}
+{\footnotesize\ttfamily void mix\+Digest (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{digest,  }\item[{void $\ast$}]{ptr,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 93 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_a2447e7f61b15f7cbc6fbb68cd73a18e3}\label{debug_8c_a2447e7f61b15f7cbc6fbb68cd73a18e3}} 
+\index{debug.\+c@{debug.\+c}!mix\+Object\+Digest@{mix\+Object\+Digest}}
+\index{mix\+Object\+Digest@{mix\+Object\+Digest}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{mix\+Object\+Digest()}{mixObjectDigest()}}
+{\footnotesize\ttfamily void mix\+Object\+Digest (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{digest,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 103 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_a55d4dcdd2147683c6b2fd3e95f1b87bf}\label{debug_8c_a55d4dcdd2147683c6b2fd3e95f1b87bf}} 
+\index{debug.\+c@{debug.\+c}!server\+Log\+Hex\+Dump@{server\+Log\+Hex\+Dump}}
+\index{server\+Log\+Hex\+Dump@{server\+Log\+Hex\+Dump}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{server\+Log\+Hex\+Dump()}{serverLogHexDump()}}
+{\footnotesize\ttfamily void server\+Log\+Hex\+Dump (\begin{DoxyParamCaption}\item[{int}]{level,  }\item[{char $\ast$}]{descr,  }\item[{void $\ast$}]{value,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1164 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_a0d21d734da20ec66d8ce174e013307c8}\label{debug_8c_a0d21d734da20ec66d8ce174e013307c8}} 
+\index{debug.\+c@{debug.\+c}!server\+Log\+Object\+Debug\+Info@{server\+Log\+Object\+Debug\+Info}}
+\index{server\+Log\+Object\+Debug\+Info@{server\+Log\+Object\+Debug\+Info}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{server\+Log\+Object\+Debug\+Info()}{serverLogObjectDebugInfo()}}
+{\footnotesize\ttfamily void server\+Log\+Object\+Debug\+Info (\begin{DoxyParamCaption}\item[{const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 639 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_a52331223339742c28ebd3383a0758853}\label{debug_8c_a52331223339742c28ebd3383a0758853}} 
+\index{debug.\+c@{debug.\+c}!watchdog\+Schedule\+Signal@{watchdog\+Schedule\+Signal}}
+\index{watchdog\+Schedule\+Signal@{watchdog\+Schedule\+Signal}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{watchdog\+Schedule\+Signal()}{watchdogScheduleSignal()}}
+{\footnotesize\ttfamily void watchdog\+Schedule\+Signal (\begin{DoxyParamCaption}\item[{int}]{period }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1208 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_a20ee5df2764c0bbd1097d6893f5920e9}\label{debug_8c_a20ee5df2764c0bbd1097d6893f5920e9}} 
+\index{debug.\+c@{debug.\+c}!watchdog\+Signal\+Handler@{watchdog\+Signal\+Handler}}
+\index{watchdog\+Signal\+Handler@{watchdog\+Signal\+Handler}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{watchdog\+Signal\+Handler()}{watchdogSignalHandler()}}
+{\footnotesize\ttfamily void watchdog\+Signal\+Handler (\begin{DoxyParamCaption}\item[{int}]{sig,  }\item[{siginfo\+\_\+t $\ast$}]{info,  }\item[{void $\ast$}]{secret }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1189 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_a8d266c220464cbcec2c53f7fefda61dc}\label{debug_8c_a8d266c220464cbcec2c53f7fefda61dc}} 
+\index{debug.\+c@{debug.\+c}!xor\+Digest@{xor\+Digest}}
+\index{xor\+Digest@{xor\+Digest}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{xor\+Digest()}{xorDigest()}}
+{\footnotesize\ttfamily void xor\+Digest (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{digest,  }\item[{void $\ast$}]{ptr,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 60 of file debug.\+c.
+
+\mbox{\Hypertarget{debug_8c_a810daa9398f10541da3e74dc18bfe644}\label{debug_8c_a810daa9398f10541da3e74dc18bfe644}} 
+\index{debug.\+c@{debug.\+c}!xor\+Object\+Digest@{xor\+Object\+Digest}}
+\index{xor\+Object\+Digest@{xor\+Object\+Digest}!debug.\+c@{debug.\+c}}
+\subsubsection{\texorpdfstring{xor\+Object\+Digest()}{xorObjectDigest()}}
+{\footnotesize\ttfamily void xor\+Object\+Digest (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{digest,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 73 of file debug.\+c.
+

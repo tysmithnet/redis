@@ -1,0 +1,427 @@
+\hypertarget{redis-check-rdb_8c}{}\section{src/redis-\/check-\/rdb.c File Reference}
+\label{redis-check-rdb_8c}\index{src/redis-\/check-\/rdb.\+c@{src/redis-\/check-\/rdb.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rdb.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+Include dependency graph for redis-\/check-\/rdb.c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{redis-check-rdb_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{redis-check-rdb_8c_ac2019807002ea1b82f0ef5a81d3b6f2a}{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+S\+T\+A\+RT}~0
+\item 
+\#define \hyperlink{redis-check-rdb_8c_aa0a7dfd3a3e0ac75d688d559a3704bc4}{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}~1
+\item 
+\#define \hyperlink{redis-check-rdb_8c_a1ea6b327825b203156f25d5690203cc9}{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+E\+X\+P\+I\+RE}~2
+\item 
+\#define \hyperlink{redis-check-rdb_8c_a502536e7d64001543187d790a8dc48af}{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+K\+EY}~3
+\item 
+\#define \hyperlink{redis-check-rdb_8c_ac6a3f6afcf1b09f47ba08a73ae925fc8}{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+V\+A\+L\+UE}~4
+\item 
+\#define \hyperlink{redis-check-rdb_8c_aa43bb9440ce7c820f089f811cb19a790}{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+UM}~5
+\item 
+\#define \hyperlink{redis-check-rdb_8c_ad444ed91923ac86310ebd17eb5525cae}{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+L\+EN}~6
+\item 
+\#define \hyperlink{redis-check-rdb_8c_a14dfe6627d1d6293301b16939723a12e}{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+A\+UX}~7
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{redis-check-rdb_8c_aacccd08c1c30ec2982422f0f349f96b3}{create\+Shared\+Objects} (void)
+\item 
+void \hyperlink{redis-check-rdb_8c_af6d87bf48e4005cb9147af693efba210}{rdb\+Load\+Progress\+Callback} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, const void $\ast$buf, size\+\_\+t len)
+\item 
+void \hyperlink{redis-check-rdb_8c_a1f17cdac73dfda51e18f8722525e71ad}{rdb\+Show\+Generic\+Info} (void)
+\item 
+void \hyperlink{redis-check-rdb_8c_a5adb373ff5ec584f810c24e038ceed60}{rdb\+Check\+Error} (const char $\ast$fmt,...)
+\item 
+void \hyperlink{redis-check-rdb_8c_a6c0801e244c03a2379800bbd061e7287}{rdb\+Check\+Info} (const char $\ast$fmt,...)
+\item 
+void \hyperlink{redis-check-rdb_8c_aeaa1610f1c3775f7496cea0bad6161bc}{rdb\+Check\+Set\+Error} (const char $\ast$fmt,...)
+\item 
+void \hyperlink{redis-check-rdb_8c_a15854bd2367ac23a6497673292a2b8b5}{rdb\+Check\+Handle\+Crash} (int sig, siginfo\+\_\+t $\ast$info, void $\ast$secret)
+\item 
+void \hyperlink{redis-check-rdb_8c_abd77efc43c322dfa0c4963ca4b731828}{rdb\+Check\+Setup\+Signals} (void)
+\item 
+int \hyperlink{redis-check-rdb_8c_a155ad3442a606e949db548e697727447}{redis\+\_\+check\+\_\+rdb} (char $\ast$rdbfilename, F\+I\+LE $\ast$fp)
+\item 
+int \hyperlink{redis-check-rdb_8c_ac45f6a1c394687c26b8f0261661006e3}{redis\+\_\+check\+\_\+rdb\+\_\+main} (int argc, char $\ast$$\ast$argv, F\+I\+LE $\ast$fp)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{redis-check-rdb_8c_aefef68276e4a8d9a17eb4850e4e8dc21}{rdb\+Check\+Mode} = 0
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$ \hyperlink{redis-check-rdb_8c_a9f62ec81cd12b2b2e4faebe457b15440}{rio}\\
+\>\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}\\
+\>int \hyperlink{redis-check-rdb_8c_a2c30e8f426f810c3f53dc75a91e8fc64}{key\_type}\\
+\>unsigned long \hyperlink{redis-check-rdb_8c_a1f3b6698ca8496c05e0c9c0d56cb36ac}{keys}\\
+\>unsigned long \hyperlink{redis-check-rdb_8c_a014a27f21b0b683e326c20bed7b17e30}{expires}\\
+\>unsigned long \hyperlink{redis-check-rdb_8c_a0926b2a2708018af7859da63618edc46}{already\_expired}\\
+\>int \hyperlink{redis-check-rdb_8c_a9ecc98b372ff1b8e9eff9f34202f6440}{doing}\\
+\>int \hyperlink{redis-check-rdb_8c_afb1bef847cb09dc7930d63514e177c24}{error\_set}\\
+\>char \hyperlink{redis-check-rdb_8c_a998302b0b110ee83418a3f0e3ef808d9}{error} \mbox{[}1024\mbox{]}\\
+\} \hyperlink{redis-check-rdb_8c_a87cbfd83b26a69e12e621ca97b2155f8}{rdbstate}\\
+
+\end{tabbing}\item 
+char $\ast$ \hyperlink{redis-check-rdb_8c_a390c5cddbb415181b1c83215104ec76a}{rdb\+\_\+check\+\_\+doing\+\_\+string} \mbox{[}$\,$\mbox{]}
+\item 
+char $\ast$ \hyperlink{redis-check-rdb_8c_a000e9bf752f761afff27c2de885a868e}{rdb\+\_\+type\+\_\+string} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{redis-check-rdb_8c_aa43bb9440ce7c820f089f811cb19a790}\label{redis-check-rdb_8c_aa43bb9440ce7c820f089f811cb19a790}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+UM@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+UM}}
+\index{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+UM@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+UM}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+UM}{RDB\_CHECK\_DOING\_CHECK\_SUM}}
+{\footnotesize\ttfamily \#define R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+C\+H\+E\+C\+K\+\_\+\+S\+UM~5}
+
+
+
+Definition at line 58 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a14dfe6627d1d6293301b16939723a12e}\label{redis-check-rdb_8c_a14dfe6627d1d6293301b16939723a12e}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+A\+UX@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+A\+UX}}
+\index{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+A\+UX@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+A\+UX}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+A\+UX}{RDB\_CHECK\_DOING\_READ\_AUX}}
+{\footnotesize\ttfamily \#define R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+A\+UX~7}
+
+
+
+Definition at line 60 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a1ea6b327825b203156f25d5690203cc9}\label{redis-check-rdb_8c_a1ea6b327825b203156f25d5690203cc9}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+E\+X\+P\+I\+RE@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+E\+X\+P\+I\+RE}}
+\index{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+E\+X\+P\+I\+RE@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+E\+X\+P\+I\+RE}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+E\+X\+P\+I\+RE}{RDB\_CHECK\_DOING\_READ\_EXPIRE}}
+{\footnotesize\ttfamily \#define R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+E\+X\+P\+I\+RE~2}
+
+
+
+Definition at line 55 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a502536e7d64001543187d790a8dc48af}\label{redis-check-rdb_8c_a502536e7d64001543187d790a8dc48af}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+K\+EY@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+K\+EY}}
+\index{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+K\+EY@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+K\+EY}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+K\+EY}{RDB\_CHECK\_DOING\_READ\_KEY}}
+{\footnotesize\ttfamily \#define R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+K\+EY~3}
+
+
+
+Definition at line 56 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_ad444ed91923ac86310ebd17eb5525cae}\label{redis-check-rdb_8c_ad444ed91923ac86310ebd17eb5525cae}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+L\+EN@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+L\+EN}}
+\index{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+L\+EN@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+L\+EN}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+L\+EN}{RDB\_CHECK\_DOING\_READ\_LEN}}
+{\footnotesize\ttfamily \#define R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+L\+EN~6}
+
+
+
+Definition at line 59 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_ac6a3f6afcf1b09f47ba08a73ae925fc8}\label{redis-check-rdb_8c_ac6a3f6afcf1b09f47ba08a73ae925fc8}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+V\+A\+L\+UE@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+V\+A\+L\+UE}}
+\index{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+V\+A\+L\+UE@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+V\+A\+L\+UE}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+V\+A\+L\+UE}{RDB\_CHECK\_DOING\_READ\_OBJECT\_VALUE}}
+{\footnotesize\ttfamily \#define R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+V\+A\+L\+UE~4}
+
+
+
+Definition at line 57 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_aa0a7dfd3a3e0ac75d688d559a3704bc4}\label{redis-check-rdb_8c_aa0a7dfd3a3e0ac75d688d559a3704bc4}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}}
+\index{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+T\+Y\+PE@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+T\+Y\+PE}{RDB\_CHECK\_DOING\_READ\_TYPE}}
+{\footnotesize\ttfamily \#define R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+R\+E\+A\+D\+\_\+\+T\+Y\+PE~1}
+
+
+
+Definition at line 54 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_ac2019807002ea1b82f0ef5a81d3b6f2a}\label{redis-check-rdb_8c_ac2019807002ea1b82f0ef5a81d3b6f2a}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+S\+T\+A\+RT@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+S\+T\+A\+RT}}
+\index{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+S\+T\+A\+RT@{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+S\+T\+A\+RT}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+S\+T\+A\+RT}{RDB\_CHECK\_DOING\_START}}
+{\footnotesize\ttfamily \#define R\+D\+B\+\_\+\+C\+H\+E\+C\+K\+\_\+\+D\+O\+I\+N\+G\+\_\+\+S\+T\+A\+RT~0}
+
+
+
+Definition at line 53 of file redis-\/check-\/rdb.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{redis-check-rdb_8c_aacccd08c1c30ec2982422f0f349f96b3}\label{redis-check-rdb_8c_aacccd08c1c30ec2982422f0f349f96b3}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!create\+Shared\+Objects@{create\+Shared\+Objects}}
+\index{create\+Shared\+Objects@{create\+Shared\+Objects}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{create\+Shared\+Objects()}{createSharedObjects()}}
+{\footnotesize\ttfamily void create\+Shared\+Objects (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1422 of file server.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a5adb373ff5ec584f810c24e038ceed60}\label{redis-check-rdb_8c_a5adb373ff5ec584f810c24e038ceed60}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!rdb\+Check\+Error@{rdb\+Check\+Error}}
+\index{rdb\+Check\+Error@{rdb\+Check\+Error}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Check\+Error()}{rdbCheckError()}}
+{\footnotesize\ttfamily void rdb\+Check\+Error (\begin{DoxyParamCaption}\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 100 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a15854bd2367ac23a6497673292a2b8b5}\label{redis-check-rdb_8c_a15854bd2367ac23a6497673292a2b8b5}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!rdb\+Check\+Handle\+Crash@{rdb\+Check\+Handle\+Crash}}
+\index{rdb\+Check\+Handle\+Crash@{rdb\+Check\+Handle\+Crash}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Check\+Handle\+Crash()}{rdbCheckHandleCrash()}}
+{\footnotesize\ttfamily void rdb\+Check\+Handle\+Crash (\begin{DoxyParamCaption}\item[{int}]{sig,  }\item[{siginfo\+\_\+t $\ast$}]{info,  }\item[{void $\ast$}]{secret }\end{DoxyParamCaption})}
+
+
+
+Definition at line 154 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a6c0801e244c03a2379800bbd061e7287}\label{redis-check-rdb_8c_a6c0801e244c03a2379800bbd061e7287}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!rdb\+Check\+Info@{rdb\+Check\+Info}}
+\index{rdb\+Check\+Info@{rdb\+Check\+Info}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Check\+Info()}{rdbCheckInfo()}}
+{\footnotesize\ttfamily void rdb\+Check\+Info (\begin{DoxyParamCaption}\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 127 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_aeaa1610f1c3775f7496cea0bad6161bc}\label{redis-check-rdb_8c_aeaa1610f1c3775f7496cea0bad6161bc}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!rdb\+Check\+Set\+Error@{rdb\+Check\+Set\+Error}}
+\index{rdb\+Check\+Set\+Error@{rdb\+Check\+Set\+Error}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Check\+Set\+Error()}{rdbCheckSetError()}}
+{\footnotesize\ttfamily void rdb\+Check\+Set\+Error (\begin{DoxyParamCaption}\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 142 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_abd77efc43c322dfa0c4963ca4b731828}\label{redis-check-rdb_8c_abd77efc43c322dfa0c4963ca4b731828}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!rdb\+Check\+Setup\+Signals@{rdb\+Check\+Setup\+Signals}}
+\index{rdb\+Check\+Setup\+Signals@{rdb\+Check\+Setup\+Signals}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Check\+Setup\+Signals()}{rdbCheckSetupSignals()}}
+{\footnotesize\ttfamily void rdb\+Check\+Setup\+Signals (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 163 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_af6d87bf48e4005cb9147af693efba210}\label{redis-check-rdb_8c_af6d87bf48e4005cb9147af693efba210}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!rdb\+Load\+Progress\+Callback@{rdb\+Load\+Progress\+Callback}}
+\index{rdb\+Load\+Progress\+Callback@{rdb\+Load\+Progress\+Callback}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Progress\+Callback()}{rdbLoadProgressCallback()}}
+{\footnotesize\ttfamily void rdb\+Load\+Progress\+Callback (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{const void $\ast$}]{buf,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1828 of file rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a1f17cdac73dfda51e18f8722525e71ad}\label{redis-check-rdb_8c_a1f17cdac73dfda51e18f8722525e71ad}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!rdb\+Show\+Generic\+Info@{rdb\+Show\+Generic\+Info}}
+\index{rdb\+Show\+Generic\+Info@{rdb\+Show\+Generic\+Info}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Show\+Generic\+Info()}{rdbShowGenericInfo()}}
+{\footnotesize\ttfamily void rdb\+Show\+Generic\+Info (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 92 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a155ad3442a606e949db548e697727447}\label{redis-check-rdb_8c_a155ad3442a606e949db548e697727447}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!redis\+\_\+check\+\_\+rdb@{redis\+\_\+check\+\_\+rdb}}
+\index{redis\+\_\+check\+\_\+rdb@{redis\+\_\+check\+\_\+rdb}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{redis\+\_\+check\+\_\+rdb()}{redis\_check\_rdb()}}
+{\footnotesize\ttfamily int redis\+\_\+check\+\_\+rdb (\begin{DoxyParamCaption}\item[{char $\ast$}]{rdbfilename,  }\item[{F\+I\+LE $\ast$}]{fp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 179 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_ac45f6a1c394687c26b8f0261661006e3}\label{redis-check-rdb_8c_ac45f6a1c394687c26b8f0261661006e3}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!redis\+\_\+check\+\_\+rdb\+\_\+main@{redis\+\_\+check\+\_\+rdb\+\_\+main}}
+\index{redis\+\_\+check\+\_\+rdb\+\_\+main@{redis\+\_\+check\+\_\+rdb\+\_\+main}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{redis\+\_\+check\+\_\+rdb\+\_\+main()}{redis\_check\_rdb\_main()}}
+{\footnotesize\ttfamily int redis\+\_\+check\+\_\+rdb\+\_\+main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv,  }\item[{F\+I\+LE $\ast$}]{fp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 342 of file redis-\/check-\/rdb.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{redis-check-rdb_8c_a0926b2a2708018af7859da63618edc46}\label{redis-check-rdb_8c_a0926b2a2708018af7859da63618edc46}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!already\+\_\+expired@{already\+\_\+expired}}
+\index{already\+\_\+expired@{already\+\_\+expired}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{already\+\_\+expired}{already\_expired}}
+{\footnotesize\ttfamily unsigned long already\+\_\+expired}
+
+
+
+Definition at line 45 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a9ecc98b372ff1b8e9eff9f34202f6440}\label{redis-check-rdb_8c_a9ecc98b372ff1b8e9eff9f34202f6440}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!doing@{doing}}
+\index{doing@{doing}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{doing}{doing}}
+{\footnotesize\ttfamily int doing}
+
+
+
+Definition at line 46 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a998302b0b110ee83418a3f0e3ef808d9}\label{redis-check-rdb_8c_a998302b0b110ee83418a3f0e3ef808d9}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!error@{error}}
+\index{error@{error}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{error}{error}}
+{\footnotesize\ttfamily char error\mbox{[}1024\mbox{]}}
+
+
+
+Definition at line 48 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_afb1bef847cb09dc7930d63514e177c24}\label{redis-check-rdb_8c_afb1bef847cb09dc7930d63514e177c24}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!error\+\_\+set@{error\+\_\+set}}
+\index{error\+\_\+set@{error\+\_\+set}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{error\+\_\+set}{error\_set}}
+{\footnotesize\ttfamily int error\+\_\+set}
+
+
+
+Definition at line 47 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a014a27f21b0b683e326c20bed7b17e30}\label{redis-check-rdb_8c_a014a27f21b0b683e326c20bed7b17e30}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!expires@{expires}}
+\index{expires@{expires}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{expires}{expires}}
+{\footnotesize\ttfamily unsigned long expires}
+
+
+
+Definition at line 44 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}\label{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!key@{key}}
+\index{key@{key}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ key}
+
+
+
+Definition at line 41 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a2c30e8f426f810c3f53dc75a91e8fc64}\label{redis-check-rdb_8c_a2c30e8f426f810c3f53dc75a91e8fc64}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!key\+\_\+type@{key\+\_\+type}}
+\index{key\+\_\+type@{key\+\_\+type}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{key\+\_\+type}{key\_type}}
+{\footnotesize\ttfamily int key\+\_\+type}
+
+
+
+Definition at line 42 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a1f3b6698ca8496c05e0c9c0d56cb36ac}\label{redis-check-rdb_8c_a1f3b6698ca8496c05e0c9c0d56cb36ac}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!keys@{keys}}
+\index{keys@{keys}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{keys}{keys}}
+{\footnotesize\ttfamily unsigned long keys}
+
+
+
+Definition at line 43 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a390c5cddbb415181b1c83215104ec76a}\label{redis-check-rdb_8c_a390c5cddbb415181b1c83215104ec76a}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!rdb\+\_\+check\+\_\+doing\+\_\+string@{rdb\+\_\+check\+\_\+doing\+\_\+string}}
+\index{rdb\+\_\+check\+\_\+doing\+\_\+string@{rdb\+\_\+check\+\_\+doing\+\_\+string}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+\_\+check\+\_\+doing\+\_\+string}{rdb\_check\_doing\_string}}
+{\footnotesize\ttfamily char$\ast$ rdb\+\_\+check\+\_\+doing\+\_\+string\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"start"},
+    \textcolor{stringliteral}{"read-type"},
+    \textcolor{stringliteral}{"read-expire"},
+    \textcolor{stringliteral}{"read-key"},
+    \textcolor{stringliteral}{"read-object-value"},
+    \textcolor{stringliteral}{"check-sum"},
+    \textcolor{stringliteral}{"read-len"},
+    \textcolor{stringliteral}{"read-aux"}
+\}
+\end{DoxyCode}
+
+
+Definition at line 62 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a000e9bf752f761afff27c2de885a868e}\label{redis-check-rdb_8c_a000e9bf752f761afff27c2de885a868e}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!rdb\+\_\+type\+\_\+string@{rdb\+\_\+type\+\_\+string}}
+\index{rdb\+\_\+type\+\_\+string@{rdb\+\_\+type\+\_\+string}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+\_\+type\+\_\+string}{rdb\_type\_string}}
+{\footnotesize\ttfamily char$\ast$ rdb\+\_\+type\+\_\+string\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"string"},
+    \textcolor{stringliteral}{"list-linked"},
+    \textcolor{stringliteral}{"set-hashtable"},
+    \textcolor{stringliteral}{"zset-v1"},
+    \textcolor{stringliteral}{"hash-hashtable"},
+    \textcolor{stringliteral}{"zset-v2"},
+    \textcolor{stringliteral}{"module-value"},
+    \textcolor{stringliteral}{""},\textcolor{stringliteral}{""},
+    \textcolor{stringliteral}{"hash-zipmap"},
+    \textcolor{stringliteral}{"list-ziplist"},
+    \textcolor{stringliteral}{"set-intset"},
+    \textcolor{stringliteral}{"zset-ziplist"},
+    \textcolor{stringliteral}{"hash-ziplist"},
+    \textcolor{stringliteral}{"quicklist"},
+    \textcolor{stringliteral}{"stream"}
+\}
+\end{DoxyCode}
+
+
+Definition at line 73 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_aefef68276e4a8d9a17eb4850e4e8dc21}\label{redis-check-rdb_8c_aefef68276e4a8d9a17eb4850e4e8dc21}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!rdb\+Check\+Mode@{rdb\+Check\+Mode}}
+\index{rdb\+Check\+Mode@{rdb\+Check\+Mode}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Check\+Mode}{rdbCheckMode}}
+{\footnotesize\ttfamily int rdb\+Check\+Mode = 0}
+
+
+
+Definition at line 37 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a87cbfd83b26a69e12e621ca97b2155f8}\label{redis-check-rdb_8c_a87cbfd83b26a69e12e621ca97b2155f8}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!rdbstate@{rdbstate}}
+\index{rdbstate@{rdbstate}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{rdbstate}{rdbstate}}
+{\footnotesize\ttfamily struct \{ ... \}   rdbstate}
+
+\mbox{\Hypertarget{redis-check-rdb_8c_a9f62ec81cd12b2b2e4faebe457b15440}\label{redis-check-rdb_8c_a9f62ec81cd12b2b2e4faebe457b15440}} 
+\index{redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}!rio@{rio}}
+\index{rio@{rio}!redis-\/check-\/rdb.\+c@{redis-\/check-\/rdb.\+c}}
+\subsubsection{\texorpdfstring{rio}{rio}}
+{\footnotesize\ttfamily \hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio}$\ast$ \hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio}}
+
+
+
+Definition at line 40 of file redis-\/check-\/rdb.\+c.
+

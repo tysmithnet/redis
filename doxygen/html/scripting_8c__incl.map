@@ -1,0 +1,30 @@
+<map id="src/scripting.c" name="src/scripting.c">
+<area shape="rect" id="node2" href="$server_8h.html" title="server.h" alt="" coords="1314,80,1383,107"/>
+<area shape="rect" id="node38" href="$sha1_8h.html" title="sha1.h" alt="" coords="3017,155,3078,181"/>
+<area shape="rect" id="node44" href="$rand_8h.html" title="rand.h" alt="" coords="3055,80,3114,107"/>
+<area shape="rect" id="node45" href="$cluster_8h.html" title="cluster.h" alt="" coords="3138,80,3210,107"/>
+<area shape="rect" id="node3" href="$fmacros_8h.html" title="fmacros.h" alt="" coords="2787,155,2867,181"/>
+<area shape="rect" id="node4" href="$config_8h.html" title="config.h" alt="" coords="804,229,872,256"/>
+<area shape="rect" id="node6" href="$solarisfixes_8h.html" title="solarisfixes.h" alt="" coords="803,155,902,181"/>
+<area shape="rect" id="node7" href="$rio_8h.html" title="rio.h" alt="" coords="393,229,440,256"/>
+<area shape="rect" id="node10" href="$sds_8h.html" title="sds.h" alt="" coords="567,304,621,331"/>
+<area shape="rect" id="node24" href="$ae_8h.html" title="ae.h" alt="" coords="1104,155,1151,181"/>
+<area shape="rect" id="node25" href="$dict_8h.html" title="dict.h" alt="" coords="5,304,60,331"/>
+<area shape="rect" id="node26" href="$adlist_8h.html" title="adlist.h" alt="" coords="1993,155,2057,181"/>
+<area shape="rect" id="node27" href="$zmalloc_8h.html" title="zmalloc.h" alt="" coords="2081,155,2160,181"/>
+<area shape="rect" id="node28" href="$anet_8h.html" title="anet.h" alt="" coords="737,304,795,331"/>
+<area shape="rect" id="node29" href="$ziplist_8h.html" title="ziplist.h" alt="" coords="2185,155,2251,181"/>
+<area shape="rect" id="node30" href="$intset_8h.html" title="intset.h" alt="" coords="84,304,149,331"/>
+<area shape="rect" id="node31" href="$version_8h.html" title="version.h" alt="" coords="2275,155,2350,181"/>
+<area shape="rect" id="node32" href="$util_8h.html" title="util.h" alt="" coords="465,229,515,256"/>
+<area shape="rect" id="node33" href="$latency_8h.html" title="latency.h" alt="" coords="2374,155,2449,181"/>
+<area shape="rect" id="node34" href="$sparkline_8h.html" title="sparkline.h" alt="" coords="2473,155,2558,181"/>
+<area shape="rect" id="node35" href="$quicklist_8h.html" title="quicklist.h" alt="" coords="2583,155,2664,181"/>
+<area shape="rect" id="node36" href="$rax_8h.html" title="rax.h" alt="" coords="162,229,213,256"/>
+<area shape="rect" id="node37" href="$zipmap_8h.html" title="zipmap.h" alt="" coords="2689,155,2763,181"/>
+<area shape="rect" id="node39" href="$endianconv_8h.html" title="endianconv.h" alt="" coords="630,155,729,181"/>
+<area shape="rect" id="node40" href="$crc64_8h.html" title="crc64.h" alt="" coords="540,229,605,256"/>
+<area shape="rect" id="node41" href="$stream_8h.html" title="stream.h" alt="" coords="204,155,277,181"/>
+<area shape="rect" id="node43" href="$rdb_8h.html" title="rdb.h" alt="" coords="353,155,403,181"/>
+<area shape="rect" id="node42" href="$listpack_8h.html" title="listpack.h" alt="" coords="225,304,304,331"/>
+</map>

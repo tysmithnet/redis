@@ -1,0 +1,222 @@
+\hypertarget{structldb_state}{}\section{ldb\+State Struct Reference}
+\label{structldb_state}\index{ldb\+State@{ldb\+State}}
+
+
+Collaboration diagram for ldb\+State\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=173pt]{structldb_state__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{structldb_state_a6f8059414f0228f0256115e024eeed4b}{fd}
+\item 
+int \hyperlink{structldb_state_aa5805c5e936174e5092bf7a5b78e7e64}{active}
+\item 
+int \hyperlink{structldb_state_a561d6ae2df1882124024d1ad25c05ca0}{forked}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structldb_state_ad79d8838634104cbd0a2cc989b41017c}{logs}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structldb_state_a306571a8cb6864a49170a1d0ef814347}{traces}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structldb_state_a6bc412879e51bdab8e86acf420095ef9}{children}
+\item 
+int \hyperlink{structldb_state_ac9df7cc923c5d2a35bfc27dd8530b9af}{bp} \mbox{[}\hyperlink{scripting_8c_a4f3000cf3b5955f8134bfcd2fa340db3}{L\+D\+B\+\_\+\+B\+R\+E\+A\+K\+P\+O\+I\+N\+T\+S\+\_\+\+M\+AX}\mbox{]}
+\item 
+int \hyperlink{structldb_state_a472140f37a2e6de6a1a4cd2fce742d78}{bpcount}
+\item 
+int \hyperlink{structldb_state_abc16e65f240ed0c8f3e876e8732c0a33}{step}
+\item 
+int \hyperlink{structldb_state_a74c70212af9085c6d321fa9ac33ae44c}{luabp}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$ \hyperlink{structldb_state_ae6aed5a52abc1fc9c7945db6ce185a7d}{src}
+\item 
+int \hyperlink{structldb_state_a9921ae02cadccc99dd6c3a9b68be050a}{lines}
+\item 
+int \hyperlink{structldb_state_a1be7dfac6c204d2592700475b5d73fd2}{currentline}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{structldb_state_a3d56df85c9742c537178642bc4ee7355}{cbuf}
+\item 
+size\+\_\+t \hyperlink{structldb_state_a7eb7af5917b25bcb6565ab20f7a12d22}{maxlen}
+\item 
+int \hyperlink{structldb_state_a30be56c3b354bdb2e4d39a105be4e1bd}{maxlen\+\_\+hint\+\_\+sent}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 60 of file scripting.\+c.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structldb_state_aa5805c5e936174e5092bf7a5b78e7e64}\label{structldb_state_aa5805c5e936174e5092bf7a5b78e7e64}} 
+\index{ldb\+State@{ldb\+State}!active@{active}}
+\index{active@{active}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{active}{active}}
+{\footnotesize\ttfamily int active}
+
+
+
+Definition at line 62 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_ac9df7cc923c5d2a35bfc27dd8530b9af}\label{structldb_state_ac9df7cc923c5d2a35bfc27dd8530b9af}} 
+\index{ldb\+State@{ldb\+State}!bp@{bp}}
+\index{bp@{bp}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{bp}{bp}}
+{\footnotesize\ttfamily int bp\mbox{[}\hyperlink{scripting_8c_a4f3000cf3b5955f8134bfcd2fa340db3}{L\+D\+B\+\_\+\+B\+R\+E\+A\+K\+P\+O\+I\+N\+T\+S\+\_\+\+M\+AX}\mbox{]}}
+
+
+
+Definition at line 67 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_a472140f37a2e6de6a1a4cd2fce742d78}\label{structldb_state_a472140f37a2e6de6a1a4cd2fce742d78}} 
+\index{ldb\+State@{ldb\+State}!bpcount@{bpcount}}
+\index{bpcount@{bpcount}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{bpcount}{bpcount}}
+{\footnotesize\ttfamily int bpcount}
+
+
+
+Definition at line 68 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_a3d56df85c9742c537178642bc4ee7355}\label{structldb_state_a3d56df85c9742c537178642bc4ee7355}} 
+\index{ldb\+State@{ldb\+State}!cbuf@{cbuf}}
+\index{cbuf@{cbuf}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{cbuf}{cbuf}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} cbuf}
+
+
+
+Definition at line 74 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_a6bc412879e51bdab8e86acf420095ef9}\label{structldb_state_a6bc412879e51bdab8e86acf420095ef9}} 
+\index{ldb\+State@{ldb\+State}!children@{children}}
+\index{children@{children}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{children}{children}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ children}
+
+
+
+Definition at line 66 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_a1be7dfac6c204d2592700475b5d73fd2}\label{structldb_state_a1be7dfac6c204d2592700475b5d73fd2}} 
+\index{ldb\+State@{ldb\+State}!currentline@{currentline}}
+\index{currentline@{currentline}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{currentline}{currentline}}
+{\footnotesize\ttfamily int currentline}
+
+
+
+Definition at line 73 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_a6f8059414f0228f0256115e024eeed4b}\label{structldb_state_a6f8059414f0228f0256115e024eeed4b}} 
+\index{ldb\+State@{ldb\+State}!fd@{fd}}
+\index{fd@{fd}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{fd}{fd}}
+{\footnotesize\ttfamily int fd}
+
+
+
+Definition at line 61 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_a561d6ae2df1882124024d1ad25c05ca0}\label{structldb_state_a561d6ae2df1882124024d1ad25c05ca0}} 
+\index{ldb\+State@{ldb\+State}!forked@{forked}}
+\index{forked@{forked}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{forked}{forked}}
+{\footnotesize\ttfamily int forked}
+
+
+
+Definition at line 63 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_a9921ae02cadccc99dd6c3a9b68be050a}\label{structldb_state_a9921ae02cadccc99dd6c3a9b68be050a}} 
+\index{ldb\+State@{ldb\+State}!lines@{lines}}
+\index{lines@{lines}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{lines}{lines}}
+{\footnotesize\ttfamily int lines}
+
+
+
+Definition at line 72 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_ad79d8838634104cbd0a2cc989b41017c}\label{structldb_state_ad79d8838634104cbd0a2cc989b41017c}} 
+\index{ldb\+State@{ldb\+State}!logs@{logs}}
+\index{logs@{logs}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{logs}{logs}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ logs}
+
+
+
+Definition at line 64 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_a74c70212af9085c6d321fa9ac33ae44c}\label{structldb_state_a74c70212af9085c6d321fa9ac33ae44c}} 
+\index{ldb\+State@{ldb\+State}!luabp@{luabp}}
+\index{luabp@{luabp}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{luabp}{luabp}}
+{\footnotesize\ttfamily int luabp}
+
+
+
+Definition at line 70 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_a7eb7af5917b25bcb6565ab20f7a12d22}\label{structldb_state_a7eb7af5917b25bcb6565ab20f7a12d22}} 
+\index{ldb\+State@{ldb\+State}!maxlen@{maxlen}}
+\index{maxlen@{maxlen}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{maxlen}{maxlen}}
+{\footnotesize\ttfamily size\+\_\+t maxlen}
+
+
+
+Definition at line 75 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_a30be56c3b354bdb2e4d39a105be4e1bd}\label{structldb_state_a30be56c3b354bdb2e4d39a105be4e1bd}} 
+\index{ldb\+State@{ldb\+State}!maxlen\+\_\+hint\+\_\+sent@{maxlen\+\_\+hint\+\_\+sent}}
+\index{maxlen\+\_\+hint\+\_\+sent@{maxlen\+\_\+hint\+\_\+sent}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{maxlen\+\_\+hint\+\_\+sent}{maxlen\_hint\_sent}}
+{\footnotesize\ttfamily int maxlen\+\_\+hint\+\_\+sent}
+
+
+
+Definition at line 76 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_ae6aed5a52abc1fc9c7945db6ce185a7d}\label{structldb_state_ae6aed5a52abc1fc9c7945db6ce185a7d}} 
+\index{ldb\+State@{ldb\+State}!src@{src}}
+\index{src@{src}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{src}{src}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}$\ast$ src}
+
+
+
+Definition at line 71 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_abc16e65f240ed0c8f3e876e8732c0a33}\label{structldb_state_abc16e65f240ed0c8f3e876e8732c0a33}} 
+\index{ldb\+State@{ldb\+State}!step@{step}}
+\index{step@{step}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{step}{step}}
+{\footnotesize\ttfamily int step}
+
+
+
+Definition at line 69 of file scripting.\+c.
+
+\mbox{\Hypertarget{structldb_state_a306571a8cb6864a49170a1d0ef814347}\label{structldb_state_a306571a8cb6864a49170a1d0ef814347}} 
+\index{ldb\+State@{ldb\+State}!traces@{traces}}
+\index{traces@{traces}!ldb\+State@{ldb\+State}}
+\subsubsection{\texorpdfstring{traces}{traces}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ traces}
+
+
+
+Definition at line 65 of file scripting.\+c.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{scripting_8c}{scripting.\+c}\end{DoxyCompactItemize}

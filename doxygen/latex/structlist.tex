@@ -1,0 +1,106 @@
+\hypertarget{structlist}{}\section{list Struct Reference}
+\label{structlist}\index{list@{list}}
+
+
+{\ttfamily \#include $<$adlist.\+h$>$}
+
+
+
+Collaboration diagram for list\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=173pt]{structlist__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structlist_node}{list\+Node} $\ast$ \hyperlink{structlist_aeafa6e94f6b451fac36e305798d4d656}{head}
+\item 
+\hyperlink{structlist_node}{list\+Node} $\ast$ \hyperlink{structlist_a769990d42e7c5a221c6a517bef9c19c0}{tail}
+\item 
+void $\ast$($\ast$ \hyperlink{structlist_acb324bb20395015fe8cb806e767ef7ad}{dup} )(void $\ast$ptr)
+\item 
+void($\ast$ \hyperlink{structlist_a7ffa51abb1dd8bc3fe4627cb1d2405c5}{free} )(void $\ast$ptr)
+\item 
+int($\ast$ \hyperlink{structlist_aff6f26982c3b0583ccfd1ca09f8e624e}{match} )(void $\ast$ptr, void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+unsigned long \hyperlink{structlist_af2e72f8a5bf4bcdb77566c2936d5f13d}{len}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 47 of file adlist.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structlist_acb324bb20395015fe8cb806e767ef7ad}\label{structlist_acb324bb20395015fe8cb806e767ef7ad}} 
+\index{list@{list}!dup@{dup}}
+\index{dup@{dup}!list@{list}}
+\subsubsection{\texorpdfstring{dup}{dup}}
+{\footnotesize\ttfamily void$\ast$($\ast$ dup) (void $\ast$ptr)}
+
+
+
+Definition at line 50 of file adlist.\+h.
+
+\mbox{\Hypertarget{structlist_a7ffa51abb1dd8bc3fe4627cb1d2405c5}\label{structlist_a7ffa51abb1dd8bc3fe4627cb1d2405c5}} 
+\index{list@{list}!free@{free}}
+\index{free@{free}!list@{list}}
+\subsubsection{\texorpdfstring{free}{free}}
+{\footnotesize\ttfamily void($\ast$ free) (void $\ast$ptr)}
+
+
+
+Definition at line 51 of file adlist.\+h.
+
+\mbox{\Hypertarget{structlist_aeafa6e94f6b451fac36e305798d4d656}\label{structlist_aeafa6e94f6b451fac36e305798d4d656}} 
+\index{list@{list}!head@{head}}
+\index{head@{head}!list@{list}}
+\subsubsection{\texorpdfstring{head}{head}}
+{\footnotesize\ttfamily \hyperlink{structlist_node}{list\+Node}$\ast$ head}
+
+
+
+Definition at line 48 of file adlist.\+h.
+
+\mbox{\Hypertarget{structlist_af2e72f8a5bf4bcdb77566c2936d5f13d}\label{structlist_af2e72f8a5bf4bcdb77566c2936d5f13d}} 
+\index{list@{list}!len@{len}}
+\index{len@{len}!list@{list}}
+\subsubsection{\texorpdfstring{len}{len}}
+{\footnotesize\ttfamily unsigned long len}
+
+
+
+Definition at line 53 of file adlist.\+h.
+
+\mbox{\Hypertarget{structlist_aff6f26982c3b0583ccfd1ca09f8e624e}\label{structlist_aff6f26982c3b0583ccfd1ca09f8e624e}} 
+\index{list@{list}!match@{match}}
+\index{match@{match}!list@{list}}
+\subsubsection{\texorpdfstring{match}{match}}
+{\footnotesize\ttfamily int($\ast$ match) (void $\ast$ptr, void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})}
+
+
+
+Definition at line 52 of file adlist.\+h.
+
+\mbox{\Hypertarget{structlist_a769990d42e7c5a221c6a517bef9c19c0}\label{structlist_a769990d42e7c5a221c6a517bef9c19c0}} 
+\index{list@{list}!tail@{tail}}
+\index{tail@{tail}!list@{list}}
+\subsubsection{\texorpdfstring{tail}{tail}}
+{\footnotesize\ttfamily \hyperlink{structlist_node}{list\+Node}$\ast$ tail}
+
+
+
+Definition at line 49 of file adlist.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{adlist_8h}{adlist.\+h}\end{DoxyCompactItemize}

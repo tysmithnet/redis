@@ -1,0 +1,138 @@
+\hypertarget{atomicvar_8h}{}\section{src/atomicvar.h File Reference}
+\label{atomicvar_8h}\index{src/atomicvar.\+h@{src/atomicvar.\+h}}
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+Include dependency graph for atomicvar.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=164pt]{atomicvar_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{atomicvar_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{atomicvar_8h_acb57163a8c3d3c29f38ad239ef0a9c2d}{atomic\+Incr}(var,  count)
+\item 
+\#define \hyperlink{atomicvar_8h_a4cc5946482e11623904ce637b9b7d7fc}{atomic\+Get\+Incr}(var,  oldvalue\+\_\+var,  count)
+\item 
+\#define \hyperlink{atomicvar_8h_ab416a5857f1cf1a6dee0310c39ea2036}{atomic\+Decr}(var,  count)
+\item 
+\#define \hyperlink{atomicvar_8h_a57b17e058ecff6871debb3d1d4f3031a}{atomic\+Get}(var,  dstvar)
+\item 
+\#define \hyperlink{atomicvar_8h_a0f02b5846dcf4ed3669ecf771c512d12}{atomic\+Set}(var,  value)
+\item 
+\#define \hyperlink{atomicvar_8h_ae3aa976bb329a4a554a853c5770c3e3d}{R\+E\+D\+I\+S\+\_\+\+A\+T\+O\+M\+I\+C\+\_\+\+A\+PI}~\char`\"{}pthread-\/mutex\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{atomicvar_8h_ab416a5857f1cf1a6dee0310c39ea2036}\label{atomicvar_8h_ab416a5857f1cf1a6dee0310c39ea2036}} 
+\index{atomicvar.\+h@{atomicvar.\+h}!atomic\+Decr@{atomic\+Decr}}
+\index{atomic\+Decr@{atomic\+Decr}!atomicvar.\+h@{atomicvar.\+h}}
+\subsubsection{\texorpdfstring{atomic\+Decr}{atomicDecr}}
+{\footnotesize\ttfamily \#define atomic\+Decr(\begin{DoxyParamCaption}\item[{}]{var,  }\item[{}]{count }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    pthread\_mutex\_lock(&var ## \_mutex); \(\backslash\)
+    var -= (count); \(\backslash\)
+    pthread\_mutex\_unlock(&var ## \_mutex); \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 115 of file atomicvar.\+h.
+
+\mbox{\Hypertarget{atomicvar_8h_a57b17e058ecff6871debb3d1d4f3031a}\label{atomicvar_8h_a57b17e058ecff6871debb3d1d4f3031a}} 
+\index{atomicvar.\+h@{atomicvar.\+h}!atomic\+Get@{atomic\+Get}}
+\index{atomic\+Get@{atomic\+Get}!atomicvar.\+h@{atomicvar.\+h}}
+\subsubsection{\texorpdfstring{atomic\+Get}{atomicGet}}
+{\footnotesize\ttfamily \#define atomic\+Get(\begin{DoxyParamCaption}\item[{}]{var,  }\item[{}]{dstvar }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    pthread\_mutex\_lock(&var ## \_mutex); \(\backslash\)
+    dstvar = var; \(\backslash\)
+    pthread\_mutex\_unlock(&var ## \_mutex); \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 120 of file atomicvar.\+h.
+
+\mbox{\Hypertarget{atomicvar_8h_a4cc5946482e11623904ce637b9b7d7fc}\label{atomicvar_8h_a4cc5946482e11623904ce637b9b7d7fc}} 
+\index{atomicvar.\+h@{atomicvar.\+h}!atomic\+Get\+Incr@{atomic\+Get\+Incr}}
+\index{atomic\+Get\+Incr@{atomic\+Get\+Incr}!atomicvar.\+h@{atomicvar.\+h}}
+\subsubsection{\texorpdfstring{atomic\+Get\+Incr}{atomicGetIncr}}
+{\footnotesize\ttfamily \#define atomic\+Get\+Incr(\begin{DoxyParamCaption}\item[{}]{var,  }\item[{}]{oldvalue\+\_\+var,  }\item[{}]{count }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    pthread\_mutex\_lock(&var ## \_mutex); \(\backslash\)
+    oldvalue\_var = var; \(\backslash\)
+    var += (count); \(\backslash\)
+    pthread\_mutex\_unlock(&var ## \_mutex); \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 109 of file atomicvar.\+h.
+
+\mbox{\Hypertarget{atomicvar_8h_acb57163a8c3d3c29f38ad239ef0a9c2d}\label{atomicvar_8h_acb57163a8c3d3c29f38ad239ef0a9c2d}} 
+\index{atomicvar.\+h@{atomicvar.\+h}!atomic\+Incr@{atomic\+Incr}}
+\index{atomic\+Incr@{atomic\+Incr}!atomicvar.\+h@{atomicvar.\+h}}
+\subsubsection{\texorpdfstring{atomic\+Incr}{atomicIncr}}
+{\footnotesize\ttfamily \#define atomic\+Incr(\begin{DoxyParamCaption}\item[{}]{var,  }\item[{}]{count }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    pthread\_mutex\_lock(&var ## \_mutex); \(\backslash\)
+    var += (count); \(\backslash\)
+    pthread\_mutex\_unlock(&var ## \_mutex); \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 104 of file atomicvar.\+h.
+
+\mbox{\Hypertarget{atomicvar_8h_a0f02b5846dcf4ed3669ecf771c512d12}\label{atomicvar_8h_a0f02b5846dcf4ed3669ecf771c512d12}} 
+\index{atomicvar.\+h@{atomicvar.\+h}!atomic\+Set@{atomic\+Set}}
+\index{atomic\+Set@{atomic\+Set}!atomicvar.\+h@{atomicvar.\+h}}
+\subsubsection{\texorpdfstring{atomic\+Set}{atomicSet}}
+{\footnotesize\ttfamily \#define atomic\+Set(\begin{DoxyParamCaption}\item[{}]{var,  }\item[{}]{value }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    pthread\_mutex\_lock(&var ## \_mutex); \(\backslash\)
+    var = value; \(\backslash\)
+    pthread\_mutex\_unlock(&var ## \_mutex); \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 125 of file atomicvar.\+h.
+
+\mbox{\Hypertarget{atomicvar_8h_ae3aa976bb329a4a554a853c5770c3e3d}\label{atomicvar_8h_ae3aa976bb329a4a554a853c5770c3e3d}} 
+\index{atomicvar.\+h@{atomicvar.\+h}!R\+E\+D\+I\+S\+\_\+\+A\+T\+O\+M\+I\+C\+\_\+\+A\+PI@{R\+E\+D\+I\+S\+\_\+\+A\+T\+O\+M\+I\+C\+\_\+\+A\+PI}}
+\index{R\+E\+D\+I\+S\+\_\+\+A\+T\+O\+M\+I\+C\+\_\+\+A\+PI@{R\+E\+D\+I\+S\+\_\+\+A\+T\+O\+M\+I\+C\+\_\+\+A\+PI}!atomicvar.\+h@{atomicvar.\+h}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+A\+T\+O\+M\+I\+C\+\_\+\+A\+PI}{REDIS\_ATOMIC\_API}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+A\+T\+O\+M\+I\+C\+\_\+\+A\+PI~\char`\"{}pthread-\/mutex\char`\"{}}
+
+
+
+Definition at line 130 of file atomicvar.\+h.
+

@@ -1,0 +1,2230 @@
+\hypertarget{sentinel_8c}{}\section{src/sentinel.c File Reference}
+\label{sentinel_8c}\index{src/sentinel.\+c@{src/sentinel.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}hiredis.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}async.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$sys/wait.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+Include dependency graph for sentinel.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sentinel_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsentinel_addr}{sentinel\+Addr}
+\item 
+struct \hyperlink{structinstance_link}{instance\+Link}
+\item 
+struct \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance}
+\item 
+struct \hyperlink{structsentinel_state}{sentinel\+State}
+\item 
+struct \hyperlink{structsentinel_script_job}{sentinel\+Script\+Job}
+\item 
+struct \hyperlink{structredis_ae_events}{redis\+Ae\+Events}
+\item 
+struct \hyperlink{structsentinel_leader}{sentinel\+Leader}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{sentinel_8c_a4c51b961e51b0dd04260eb860e641b2f}{R\+E\+D\+I\+S\+\_\+\+S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+O\+RT}~26379
+\item 
+\#define \hyperlink{sentinel_8c_a2ee83e5ff67b45746cd6a310f15334b2}{S\+R\+I\+\_\+\+M\+A\+S\+T\+ER}~(1$<$$<$0)
+\item 
+\#define \hyperlink{sentinel_8c_a4b9db21eda79d49bd9fdf2cf7b3178e8}{S\+R\+I\+\_\+\+S\+L\+A\+VE}~(1$<$$<$1)
+\item 
+\#define \hyperlink{sentinel_8c_a8ed55207b2af5d2dd314c951ef253f64}{S\+R\+I\+\_\+\+S\+E\+N\+T\+I\+N\+EL}~(1$<$$<$2)
+\item 
+\#define \hyperlink{sentinel_8c_a8e26596c8bde451c2dd9cecb2c3046d4}{S\+R\+I\+\_\+\+S\+\_\+\+D\+O\+WN}~(1$<$$<$3)   /$\ast$ Subjectively down (no quorum). $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_a3bbbca05543cd9d9f86d276e2c7c719c}{S\+R\+I\+\_\+\+O\+\_\+\+D\+O\+WN}~(1$<$$<$4)   /$\ast$ Objectively down (confirmed by others). $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_a80003592a6337bdc484182ff1d33e41c}{S\+R\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+D\+O\+WN}
+\item 
+\#define \hyperlink{sentinel_8c_a0546b63633196f09fcd90957243b0798}{S\+R\+I\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+I\+N\+\_\+\+P\+R\+O\+G\+R\+E\+SS}
+\item 
+\#define \hyperlink{sentinel_8c_a6c6c019b1af48a9c0e9507422051c684}{S\+R\+I\+\_\+\+P\+R\+O\+M\+O\+T\+ED}~(1$<$$<$7)            /$\ast$ Slave selected for promotion. $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_a9b307b68cb1615ead6aacb0de34910e6}{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+E\+NT}~(1$<$$<$8)     /$\ast$ S\+L\+A\+V\+E\+OF $<$newmaster$>$ sent. $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_a58c89f4aaa1bdfde4c25e3bb476c35aa}{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+I\+N\+P\+R\+OG}~(1$<$$<$9)   /$\ast$ Slave synchronization in progress. $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_adb468d0a8c96c954b6af26aa670d7a11}{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+D\+O\+NE}~(1$<$$<$10)     /$\ast$ Slave synchronized with new master. $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_a9b13a255852e8097e4730cb495cdfd94}{S\+R\+I\+\_\+\+F\+O\+R\+C\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER}~(1$<$$<$11)  /$\ast$ Force failover with master up. $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_a8deaaf376eb76dcf5ab4ca652df3a52b}{S\+R\+I\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+K\+I\+L\+L\+\_\+\+S\+E\+NT}~(1$<$$<$12) /$\ast$ S\+C\+R\+I\+PT K\+I\+LL already sent on -\/B\+U\+SY $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_ac6a2144aa06344ed8547176a4e3cfaa5}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+N\+F\+O\+\_\+\+P\+E\+R\+I\+OD}~10000
+\item 
+\#define \hyperlink{sentinel_8c_a9e22409355fa7a4db7f3a43fbe2d9101}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+I\+N\+G\+\_\+\+P\+E\+R\+I\+OD}~1000
+\item 
+\#define \hyperlink{sentinel_8c_a37ec7767004d923e7163195f50373d80}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+P\+E\+R\+I\+OD}~1000
+\item 
+\#define \hyperlink{sentinel_8c_a062c8bab2521f90dac2df11cf77c3bf0}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+U\+B\+L\+I\+S\+H\+\_\+\+P\+E\+R\+I\+OD}~2000
+\item 
+\#define \hyperlink{sentinel_8c_a8d75144bfd53c71ce519a97de5016857}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+O\+W\+N\+\_\+\+A\+F\+T\+ER}~30000
+\item 
+\#define \hyperlink{sentinel_8c_aa57e3638aae4eec03d29f247b1611569}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+H\+E\+L\+L\+O\+\_\+\+C\+H\+A\+N\+N\+EL}~\char`\"{}\+\_\+\+\_\+sentinel\+\_\+\+\_\+\+:hello\char`\"{}
+\item 
+\#define \hyperlink{sentinel_8c_a717cd21c21357abdd371151e3d18c98a}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+T\+R\+I\+G\+G\+ER}~2000
+\item 
+\#define \hyperlink{sentinel_8c_af2d8538f1bdf8d6e616675b143d54685}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+P\+E\+R\+I\+OD}~(\hyperlink{sentinel_8c_a9e22409355fa7a4db7f3a43fbe2d9101}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+I\+N\+G\+\_\+\+P\+E\+R\+I\+OD}$\ast$30)
+\item 
+\#define \hyperlink{sentinel_8c_ac0c5ae92e4f8b5f76ff6c31ed7ffe254}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY}~100
+\item 
+\#define \hyperlink{sentinel_8c_a12c554c086559e7435c3d0ea9718aa39}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+L\+A\+V\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+T\+I\+M\+E\+O\+UT}~10000
+\item 
+\#define \hyperlink{sentinel_8c_a7cfe6cf48e367486681eb21e53c65dc9}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+R\+A\+L\+L\+E\+L\+\_\+\+S\+Y\+N\+CS}~1
+\item 
+\#define \hyperlink{sentinel_8c_a55d7c0bf374af4867e1baaf1fc0860c3}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+I\+N\+\_\+\+L\+I\+N\+K\+\_\+\+R\+E\+C\+O\+N\+N\+E\+C\+T\+\_\+\+P\+E\+R\+I\+OD}~15000
+\item 
+\#define \hyperlink{sentinel_8c_a562b5124572b4d837a34b98c41ef391d}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+T\+I\+M\+E\+O\+UT}~(60$\ast$3$\ast$1000)
+\item 
+\#define \hyperlink{sentinel_8c_a5555400e8b8c3a25d6a2ccc6db1cd411}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+P\+E\+N\+D\+I\+N\+G\+\_\+\+C\+O\+M\+M\+A\+N\+DS}~100
+\item 
+\#define \hyperlink{sentinel_8c_ac6683124f6ae873093919c7eb840ec94}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+I\+M\+E\+O\+UT}~10000
+\item 
+\#define \hyperlink{sentinel_8c_aab501d7852d456a92670860045725d5b}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+D\+E\+S\+Y\+NC}~1000
+\item 
+\#define \hyperlink{sentinel_8c_af59265733a3fa9366c39b4fce1ea06f3}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+E\+N\+Y\+\_\+\+S\+C\+R\+I\+P\+T\+S\+\_\+\+R\+E\+C\+O\+N\+F\+IG}~1
+\item 
+\#define \hyperlink{sentinel_8c_a23bad5aa23e7b1a930ad4aa535938efb}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+NE}~0  /$\ast$ No failover in progress. $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_a83bf9fce7cbb7bf1b0723ced2d434366}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+RT}~1  /$\ast$ Wait for failover\+\_\+start\+\_\+time$\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_ab69af026a9f736ca81bfffd4eeada38f}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+S\+L\+A\+VE}~2 /$\ast$ Select slave to promote $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_ac89d5b0fc38860b277528c7d3a854580}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+N\+D\+\_\+\+S\+L\+A\+V\+E\+O\+F\+\_\+\+N\+O\+O\+NE}~3 /$\ast$ Slave -\/$>$ Master $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_a49d9c64c03e76dcbf7728ad64dd99330}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON}~4 /$\ast$ Wait slave to change role $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_a05b020edfa71eb4d24288e79637b57f5}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+L\+A\+V\+ES}~5 /$\ast$ S\+L\+A\+V\+E\+OF newmaster $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_a2b6f5592dea88534b287c71e46181ed3}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+C\+O\+N\+F\+IG}~6 /$\ast$ Monitor promoted slave. $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_a8dc7f6cce8e6299e2422b8c65ca16418}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+UP}~0
+\item 
+\#define \hyperlink{sentinel_8c_af4e90431bc568a5b3be300ecebc064d6}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+D\+O\+WN}~1
+\item 
+\#define \hyperlink{sentinel_8c_a4d5f3da6bf36b5daaa353968a5e133a3}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS}~0
+\item 
+\#define \hyperlink{sentinel_8c_a824209bfd4f15f07b6555fb19d8ba328}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+E\+V\+E\+NT}~(1$<$$<$16)
+\item 
+\#define \hyperlink{sentinel_8c_a896cefcd7c6cbd3467b2387ec944fffd}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+L\+E\+A\+D\+ER}~(1$<$$<$17)
+\item 
+\#define \hyperlink{sentinel_8c_a762f7fd932aed99946bfca7456027296}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+O\+B\+S\+E\+R\+V\+ER}~(1$<$$<$18)
+\item 
+\#define \hyperlink{sentinel_8c_a31022e5665e3f4a0a99254e5660e155a}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+N\+O\+NE}~0
+\item 
+\#define \hyperlink{sentinel_8c_a0211d42099c07769ec06cc0010f9b58e}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+U\+N\+N\+I\+NG}~1
+\item 
+\#define \hyperlink{sentinel_8c_a43203051dc0534d7c1a69ea7a4848333}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+Q\+U\+E\+UE}~256
+\item 
+\#define \hyperlink{sentinel_8c_ad05484edee559e8cb5e1ac3d72375f20}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+N\+I\+NG}~16
+\item 
+\#define \hyperlink{sentinel_8c_ae8eb69271e56d5d14527c64cdeeaf678}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+T\+I\+ME}~60000 /$\ast$ 60 seconds max exec time. $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_a38f813a1d1e8f88b2ca76c064c61b6aa}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+E\+T\+RY}~10
+\item 
+\#define \hyperlink{sentinel_8c_a53c8edb17f50d35b3844cf0f0f61b71b}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+E\+T\+R\+Y\+\_\+\+D\+E\+L\+AY}~30000 /$\ast$ 30 seconds between retries. $\ast$/
+\item 
+\#define \hyperlink{sentinel_8c_a045e4b70a9044e6e62c9cf6aafff8d3f}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+N\+O\+NE}~0
+\item 
+\#define \hyperlink{sentinel_8c_a8549938b8489bb23679cf13b8d99997c}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+E\+L\+E\+C\+T\+I\+ON}~(1$<$$<$0)
+\item 
+\#define \hyperlink{sentinel_8c_a87a09f4dcf854cc0b26dc8dc328ab7c3}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON}~(1$<$$<$1)
+\item 
+\#define \hyperlink{sentinel_8c_a9587f7bc164287b356887d67849bf658}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GS}~16
+\item 
+\#define \hyperlink{sentinel_8c_a7cb0584b0d2fb56e4bca40b6776ae9d6}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+O\+\_\+\+S\+E\+N\+T\+I\+N\+E\+LS}~(1$<$$<$0)
+\item 
+\#define \hyperlink{sentinel_8c_a8d62015016e2a7110d1e75fcd4681e6a}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+OK}~0
+\item 
+\#define \hyperlink{sentinel_8c_a671f4068236e7849f994bb2b67c6ea73}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+Q\+U\+O\+R\+UM}~(1$<$$<$0)
+\item 
+\#define \hyperlink{sentinel_8c_aa0ea85d4d4408c055dbc1e46cea1827a}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+A\+U\+TH}~(1$<$$<$1)
+\item 
+\#define \hyperlink{sentinel_8c_a85a6933ebbf5e518c3767fcf950429b9}{info\+\_\+section\+\_\+from\+\_\+redis}(section\+\_\+name)
+\item 
+\#define \hyperlink{sentinel_8c_a166080e23b7691124260c5ea1b053380}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+F\+O\+R\+C\+ED}~(1$<$$<$0)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structsentinel_addr}{sentinel\+Addr} \hyperlink{sentinel_8c_a997ac87de4c363ff406452eff1a4a080}{sentinel\+Addr}
+\item 
+typedef struct \hyperlink{structinstance_link}{instance\+Link} \hyperlink{sentinel_8c_a9530ad5ef5fc9e8f2252ec25cdf9134a}{instance\+Link}
+\item 
+typedef struct \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} \hyperlink{sentinel_8c_ade51ada1afa841e1081efaed18403ee4}{sentinel\+Redis\+Instance}
+\item 
+typedef struct \hyperlink{structsentinel_script_job}{sentinel\+Script\+Job} \hyperlink{sentinel_8c_ad076ca0ce91568bb0a37b28e78559653}{sentinel\+Script\+Job}
+\item 
+typedef struct \hyperlink{structredis_ae_events}{redis\+Ae\+Events} \hyperlink{sentinel_8c_adf71e3072015f40e10ad82a74ab7046e}{redis\+Ae\+Events}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{sentinel_8c_adac4dd323ad88c6fe5b30be8244960fa}{sentinel\+Link\+Established\+Callback} (const redis\+Async\+Context $\ast$c, int status)
+\item 
+void \hyperlink{sentinel_8c_abec680d54c7f892564adc97b1ca3aad2}{sentinel\+Disconnect\+Callback} (const redis\+Async\+Context $\ast$c, int status)
+\item 
+void \hyperlink{sentinel_8c_a9b805c11b8b9e6d586ed63693cc8f40c}{sentinel\+Receive\+Hello\+Messages} (redis\+Async\+Context $\ast$c, void $\ast$reply, void $\ast$privdata)
+\item 
+\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ \hyperlink{sentinel_8c_adbf1ffbc2547e4cfd1679b490bcfffa2}{sentinel\+Get\+Master\+By\+Name} (char $\ast$name)
+\item 
+char $\ast$ \hyperlink{sentinel_8c_ab88117788350b0f06c2ff14c385e9bff}{sentinel\+Get\+Subjective\+Leader} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+char $\ast$ \hyperlink{sentinel_8c_af82483d44f45583166a3d0f308248c5b}{sentinel\+Get\+Objective\+Leader} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+int \hyperlink{sentinel_8c_aaa2c7d12117054b26bac4cae03667665}{yesnotoi} (char $\ast$s)
+\item 
+void \hyperlink{sentinel_8c_a614a1730a78acf4c9b26b637b7a73e7e}{instance\+Link\+Connection\+Error} (const redis\+Async\+Context $\ast$c)
+\item 
+const char $\ast$ \hyperlink{sentinel_8c_a7a647fc8c0b27b2679d6c4ff4b2cb579}{sentinel\+Redis\+Instance\+Type\+Str} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+void \hyperlink{sentinel_8c_a8c9bce60c57bdb3b6e7db2c86ef90c49}{sentinel\+Abort\+Failover} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+void \hyperlink{sentinel_8c_a0a6baeff5c0dcb6068d8c72d5fa72a57}{sentinel\+Event} (int level, char $\ast$type, \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri, const char $\ast$fmt,...)
+\item 
+\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ \hyperlink{sentinel_8c_ac991fd1ee540b6e12a4bee46f75c5569}{sentinel\+Select\+Slave} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+void \hyperlink{sentinel_8c_a2a8be0bcc4299b7a212a74b985c6bb79}{sentinel\+Schedule\+Script\+Execution} (char $\ast$path,...)
+\item 
+void \hyperlink{sentinel_8c_accafbb4b892963481e478c14cc9b3685}{sentinel\+Start\+Failover} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+void \hyperlink{sentinel_8c_ae833256a831eeb9ad96f5973448259ac}{sentinel\+Discard\+Reply\+Callback} (redis\+Async\+Context $\ast$c, void $\ast$reply, void $\ast$privdata)
+\item 
+int \hyperlink{sentinel_8c_a3e9acfff728ff300fb9f74bee99359e4}{sentinel\+Send\+Slave\+Of} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri, char $\ast$host, int port)
+\item 
+char $\ast$ \hyperlink{sentinel_8c_ab610cc2f9a43e60765e600c85e8dfd94}{sentinel\+Vote\+Leader} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master, uint64\+\_\+t req\+\_\+epoch, char $\ast$req\+\_\+runid, uint64\+\_\+t $\ast$leader\+\_\+epoch)
+\item 
+void \hyperlink{sentinel_8c_a98af068acb19b92b43532e2d9234a706}{sentinel\+Flush\+Config} (void)
+\item 
+void \hyperlink{sentinel_8c_aed084220f7818418d86fb8591cd96f45}{sentinel\+Generate\+Initial\+Monitor\+Events} (void)
+\item 
+int \hyperlink{sentinel_8c_abf28f2afd4b8a0a32688789975508b4d}{sentinel\+Send\+Ping} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+int \hyperlink{sentinel_8c_a1fcb2809c11fbdb0b64547b0350cda69}{sentinel\+Force\+Hello\+Update\+For\+Master} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ \hyperlink{sentinel_8c_a72fd32bdc1ddaefb362f981ae6705ef4}{get\+Sentinel\+Redis\+Instance\+By\+Addr\+And\+Run\+ID} (\hyperlink{structdict}{dict} $\ast$instances, char $\ast$ip, int port, char $\ast$runid)
+\item 
+void \hyperlink{sentinel_8c_a934e79c41e463b9184f3499ec6da6e4e}{sentinel\+Sim\+Failure\+Crash} (void)
+\item 
+uint64\+\_\+t \hyperlink{sentinel_8c_abf11672cc702adce676d41c162b20345}{dict\+Sds\+Hash} (const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+uint64\+\_\+t \hyperlink{sentinel_8c_ada0bb13a034f3ab2ac57be6e27f1bf7e}{dict\+Sds\+Case\+Hash} (const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+int \hyperlink{sentinel_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}{dict\+Sds\+Key\+Compare} (void $\ast$privdata, const void $\ast$key1, const void $\ast$key2)
+\item 
+int \hyperlink{sentinel_8c_ac350c29f63271e4d5766b02997733738}{dict\+Sds\+Key\+Case\+Compare} (void $\ast$privdata, const void $\ast$key1, const void $\ast$key2)
+\item 
+void \hyperlink{sentinel_8c_a19a1ccd6ba3a2b6ecadb9694256d975b}{release\+Sentinel\+Redis\+Instance} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+void \hyperlink{sentinel_8c_ac3c25d1241e06caba5e765f19ee42c82}{dict\+Instances\+Val\+Destructor} (void $\ast$privdata, void $\ast$obj)
+\item 
+void \hyperlink{sentinel_8c_a4ff4c9a93d6934bed1801d402f2e51d9}{sentinel\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{sentinel_8c_ab91b2582ec72f96dcde55bcafd51121c}{sentinel\+Info\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{sentinel_8c_a8c56373a243fbc3780964a569b2c4e47}{sentinel\+Set\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{sentinel_8c_a5b03d3ee829a0da169061f76138dd4f1}{sentinel\+Publish\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{sentinel_8c_a8b0aa00bca92c33699fcab15c46770f3}{sentinel\+Role\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{sentinel_8c_ad230f7009b18d03daae7ba2daec27222}{init\+Sentinel\+Config} (void)
+\item 
+void \hyperlink{sentinel_8c_a8737702d09faad605816655d77a11920}{init\+Sentinel} (void)
+\item 
+void \hyperlink{sentinel_8c_add06eed88f7d0694a1fa9eac5f349d45}{sentinel\+Is\+Running} (void)
+\item 
+\hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$ \hyperlink{sentinel_8c_a7a68573e2c951051dd6807dacb682138}{create\+Sentinel\+Addr} (char $\ast$hostname, int port)
+\item 
+\hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$ \hyperlink{sentinel_8c_aa2c3059864859606e0a4c6099e119477}{dup\+Sentinel\+Addr} (\hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$src)
+\item 
+void \hyperlink{sentinel_8c_a433297ad8933b2787ba8633863f5aa05}{release\+Sentinel\+Addr} (\hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$sa)
+\item 
+int \hyperlink{sentinel_8c_ad2a70ef63731a22e17aafd7caff40294}{sentinel\+Addr\+Is\+Equal} (\hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$a, \hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$b)
+\item 
+void \hyperlink{sentinel_8c_a3ff721b6d9be92f027967cc799fcb5c3}{sentinel\+Release\+Script\+Job} (\hyperlink{structsentinel_script_job}{sentinel\+Script\+Job} $\ast$sj)
+\item 
+\hyperlink{structlist_node}{list\+Node} $\ast$ \hyperlink{sentinel_8c_ae5700609dae49ecdf3fb14db8c504a56}{sentinel\+Get\+Script\+List\+Node\+By\+Pid} (pid\+\_\+t pid)
+\item 
+void \hyperlink{sentinel_8c_a5b2c9250a2c66883ef0c934e172ae85c}{sentinel\+Run\+Pending\+Scripts} (void)
+\item 
+\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} \hyperlink{sentinel_8c_aaaf88e31eeee53df2fb2c37a5ca83f8f}{sentinel\+Script\+Retry\+Delay} (int retry\+\_\+num)
+\item 
+void \hyperlink{sentinel_8c_abcc48064dd3585ec35a9269d95b837ab}{sentinel\+Collect\+Terminated\+Scripts} (void)
+\item 
+void \hyperlink{sentinel_8c_ab5888b2da6230afe747b6412472fd183}{sentinel\+Kill\+Timedout\+Scripts} (void)
+\item 
+void \hyperlink{sentinel_8c_adf031c67661c943bab038f1b2cd3a95d}{sentinel\+Pending\+Scripts\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{sentinel_8c_ac797bd447dba797329d6e792ade0519f}{sentinel\+Call\+Client\+Reconf\+Script} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master, int role, char $\ast$state, \hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$from, \hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$to)
+\item 
+\hyperlink{structinstance_link}{instance\+Link} $\ast$ \hyperlink{sentinel_8c_a7d55b64d6c4442062721fa458c25d766}{create\+Instance\+Link} (void)
+\item 
+void \hyperlink{sentinel_8c_a018d5b0aa6f8dab978923ceb38c5d82e}{instance\+Link\+Close\+Connection} (\hyperlink{structinstance_link}{instance\+Link} $\ast$link, redis\+Async\+Context $\ast$c)
+\item 
+\hyperlink{structinstance_link}{instance\+Link} $\ast$ \hyperlink{sentinel_8c_a4d91888a1b640bd2806e0772cb2e09a3}{release\+Instance\+Link} (\hyperlink{structinstance_link}{instance\+Link} $\ast$link, \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+int \hyperlink{sentinel_8c_a63982563f892ba07df7451724ca2fd45}{sentinel\+Try\+Connection\+Sharing} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+int \hyperlink{sentinel_8c_aaeea8768b998f701739745fabd68f5a8}{sentinel\+Update\+Sentinel\+Address\+In\+All\+Masters} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ \hyperlink{sentinel_8c_add83562082fe6fa033d1c8328535905c}{create\+Sentinel\+Redis\+Instance} (char $\ast$name, int flags, char $\ast$hostname, int port, int quorum, \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ \hyperlink{sentinel_8c_ab3a8fbe0db80d0258735f39922475cef}{sentinel\+Redis\+Instance\+Lookup\+Slave} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri, char $\ast$ip, int port)
+\item 
+int \hyperlink{sentinel_8c_afb7ec7b8a9a7b518ead293182d5a6666}{remove\+Matching\+Sentinel\+From\+Master} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master, char $\ast$runid)
+\item 
+void \hyperlink{sentinel_8c_a053c4a2a05cec21399e70ec00a4d963f}{sentinel\+Add\+Flags\+To\+Dict\+Of\+Redis\+Instances} (\hyperlink{structdict}{dict} $\ast$instances, int flags)
+\item 
+void \hyperlink{sentinel_8c_abbb79ff8c550f88788e1f9d1482c10a1}{sentinel\+Del\+Flags\+To\+Dict\+Of\+Redis\+Instances} (\hyperlink{structdict}{dict} $\ast$instances, int flags)
+\item 
+void \hyperlink{sentinel_8c_a79d55635b61168928f1e5c8ad485a574}{sentinel\+Reset\+Master} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri, int flags)
+\item 
+int \hyperlink{sentinel_8c_a9cbad6d1fabac0f2f338ff28ce163f58}{sentinel\+Reset\+Masters\+By\+Pattern} (char $\ast$pattern, int flags)
+\item 
+int \hyperlink{sentinel_8c_a46504f10ecb6c69bcb842ce798e17fb1}{sentinel\+Reset\+Master\+And\+Change\+Address} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master, char $\ast$ip, int port)
+\item 
+int \hyperlink{sentinel_8c_a4fdeed2104f857ecd6ca309ffc5d9d36}{sentinel\+Redis\+Instance\+No\+Down\+For} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri, \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} ms)
+\item 
+\hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$ \hyperlink{sentinel_8c_a333db33f5b88d495ed7e033477c7db98}{sentinel\+Get\+Current\+Master\+Address} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+void \hyperlink{sentinel_8c_aa1bb3b2994a1a762d91d6aee332033de}{sentinel\+Propagate\+Down\+After\+Period} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+char $\ast$ \hyperlink{sentinel_8c_a92ce7125765c0181e67ee348abb8e2c4}{sentinel\+Get\+Instance\+Type\+String} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+char $\ast$ \hyperlink{sentinel_8c_aa9aa9efd3bd4f84c24542fd43ea574d0}{sentinel\+Instance\+Map\+Command} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri, char $\ast$command)
+\item 
+char $\ast$ \hyperlink{sentinel_8c_aad3f73f18c225cde763b433b529c2610}{sentinel\+Handle\+Configuration} (char $\ast$$\ast$argv, int argc)
+\item 
+void \hyperlink{sentinel_8c_a26974438d61910d512e0a5675ef10fef}{rewrite\+Config\+Sentinel\+Option} (struct rewrite\+Config\+State $\ast$state)
+\item 
+void \hyperlink{sentinel_8c_a95439681a0f31c0523fa172619e19147}{sentinel\+Send\+Auth\+If\+Needed} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri, redis\+Async\+Context $\ast$c)
+\item 
+void \hyperlink{sentinel_8c_ace3b8fe46a1c529b56ead5cd67dc9e27}{sentinel\+Set\+Client\+Name} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri, redis\+Async\+Context $\ast$c, char $\ast$type)
+\item 
+void \hyperlink{sentinel_8c_a4581feaa7484a8e37f94a13b43b4d46d}{sentinel\+Reconnect\+Instance} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+int \hyperlink{sentinel_8c_aaa929795b3adc888d1b144a63c1f8fea}{sentinel\+Master\+Looks\+Sane} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+void \hyperlink{sentinel_8c_a2b0480f979eefb5d83a081fc041c7829}{sentinel\+Refresh\+Instance\+Info} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri, const char $\ast$info)
+\item 
+void \hyperlink{sentinel_8c_a95466b23ee94949bb918446cbfe9072c}{sentinel\+Info\+Reply\+Callback} (redis\+Async\+Context $\ast$c, void $\ast$reply, void $\ast$privdata)
+\item 
+void \hyperlink{sentinel_8c_aa76cafdf341322551dde09db6fb02034}{sentinel\+Ping\+Reply\+Callback} (redis\+Async\+Context $\ast$c, void $\ast$reply, void $\ast$privdata)
+\item 
+void \hyperlink{sentinel_8c_afdee16647beca10d8b1fdea07691e1b7}{sentinel\+Publish\+Reply\+Callback} (redis\+Async\+Context $\ast$c, void $\ast$reply, void $\ast$privdata)
+\item 
+void \hyperlink{sentinel_8c_a81bc1c1b92479f877fa9888424a17ae2}{sentinel\+Process\+Hello\+Message} (char $\ast$hello, int hello\+\_\+len)
+\item 
+int \hyperlink{sentinel_8c_a7c64f9d8c6957e404e6da3076f191a47}{sentinel\+Send\+Hello} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+void \hyperlink{sentinel_8c_a0e8285bb30383dc8c7cdc207ab8ab816}{sentinel\+Force\+Hello\+Update\+Dict\+Of\+Redis\+Instances} (\hyperlink{structdict}{dict} $\ast$instances)
+\item 
+void \hyperlink{sentinel_8c_add46707129cf81a6b6417fb62ae4cf70}{sentinel\+Send\+Periodic\+Commands} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+const char $\ast$ \hyperlink{sentinel_8c_a9a6830306367109b686ab1e13b9aea02}{sentinel\+Failover\+State\+Str} (int state)
+\item 
+void \hyperlink{sentinel_8c_a2f820d8aeac64a064e0f7645254545f3}{add\+Reply\+Sentinel\+Redis\+Instance} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+void \hyperlink{sentinel_8c_a087b2b772d602158c14ea42414791706}{add\+Reply\+Dict\+Of\+Redis\+Instances} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{structdict}{dict} $\ast$instances)
+\item 
+\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ \hyperlink{sentinel_8c_ad20dbb4188033b67bfa5fce285f772c2}{sentinel\+Get\+Master\+By\+Name\+Or\+Reply\+Error} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$name)
+\item 
+int \hyperlink{sentinel_8c_adcdde252a3f07f75bedb711184800d52}{sentinel\+Is\+Quorum\+Reachable} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master, int $\ast$usableptr)
+\item 
+void \hyperlink{sentinel_8c_a53b67893bc0ecac832e11ff3dcea1b8e}{sentinel\+Check\+Subjectively\+Down} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+void \hyperlink{sentinel_8c_a1ec4ed2a9ee398c976188689a9d09797}{sentinel\+Check\+Objectively\+Down} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+void \hyperlink{sentinel_8c_acd2aecfbac11e9cbc2c2b431d7eb4564}{sentinel\+Receive\+Is\+Master\+Down\+Reply} (redis\+Async\+Context $\ast$c, void $\ast$reply, void $\ast$privdata)
+\item 
+void \hyperlink{sentinel_8c_a3ab7c7e659d88e591fc46ca2245748a0}{sentinel\+Ask\+Master\+State\+To\+Other\+Sentinels} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master, int flags)
+\item 
+int \hyperlink{sentinel_8c_a34b5cdd0dbb94d20985b65c906172125}{sentinel\+Leader\+Incr} (\hyperlink{structdict}{dict} $\ast$counters, char $\ast$runid)
+\item 
+char $\ast$ \hyperlink{sentinel_8c_acb426e71543c5f8f0b334e68fe818871}{sentinel\+Get\+Leader} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master, uint64\+\_\+t epoch)
+\item 
+int \hyperlink{sentinel_8c_aeda951fd2435a69d70a3aacced214f94}{sentinel\+Start\+Failover\+If\+Needed} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+int \hyperlink{sentinel_8c_a033d7e50b3676877ae180b03fd7a1b46}{compare\+Slaves\+For\+Promotion} (const void $\ast$a, const void $\ast$b)
+\item 
+void \hyperlink{sentinel_8c_a87d8a2a7fe6c8f5b3c3a0516f90b634e}{sentinel\+Failover\+Wait\+Start} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+void \hyperlink{sentinel_8c_ace02d153033f2e17ed05d92c14a9ffa2}{sentinel\+Failover\+Select\+Slave} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+void \hyperlink{sentinel_8c_a08306eba82da4786d636eee3617cf5fb}{sentinel\+Failover\+Send\+Slave\+Of\+No\+One} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+void \hyperlink{sentinel_8c_a1f3b8ceb95713ed93f4d6a1db4b74207}{sentinel\+Failover\+Wait\+Promotion} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+void \hyperlink{sentinel_8c_a6e05fc1bde9a523bce8416a42245c66c}{sentinel\+Failover\+Detect\+End} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+void \hyperlink{sentinel_8c_a37595900d0ce5865c9a1346924406a00}{sentinel\+Failover\+Reconf\+Next\+Slave} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+void \hyperlink{sentinel_8c_aad1d8e81f8f8c6cb3a1b903a8a52de01}{sentinel\+Failover\+Switch\+To\+Promoted\+Slave} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$master)
+\item 
+void \hyperlink{sentinel_8c_aff7e7ff96ac4d439724419890f40452e}{sentinel\+Failover\+State\+Machine} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+void \hyperlink{sentinel_8c_a9bcf5e1923b87db21acf8bd6e6a38a4b}{sentinel\+Handle\+Redis\+Instance} (\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ri)
+\item 
+void \hyperlink{sentinel_8c_ac7f117239188901161cc9b9fb62b328e}{sentinel\+Handle\+Dict\+Of\+Redis\+Instances} (\hyperlink{structdict}{dict} $\ast$instances)
+\item 
+void \hyperlink{sentinel_8c_a6d72770d74a3a4407e23ae28412f3084}{sentinel\+Check\+Tilt\+Condition} (void)
+\item 
+void \hyperlink{sentinel_8c_a3cb995563d699c28a1f74dea410f131b}{sentinel\+Timer} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$$\ast$ \hyperlink{sentinel_8c_aa006daaf11f1e2e45a6ababaf463212b}{environ}
+\item 
+struct \hyperlink{structsentinel_state}{sentinel\+State} \hyperlink{sentinel_8c_a98db63c1945fee11d49c5253cf401363}{sentinel}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{sentinel_8c_abeb3b4ecaae0b9a90f27c8e5f6687822}{instances\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{sentinel_8c_adf322735335405b1482071209e7cd5fa}{leader\+Votes\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{sentinel_8c_af0b041bac7dd2a1cdba0b5e938bdfa91}{renamed\+Commands\+Dict\+Type}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} \hyperlink{sentinel_8c_a131ca08b9816f17681b22a7ae122998a}{sentinelcmds} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{sentinel_8c_a85a6933ebbf5e518c3767fcf950429b9}\label{sentinel_8c_a85a6933ebbf5e518c3767fcf950429b9}} 
+\index{sentinel.\+c@{sentinel.\+c}!info\+\_\+section\+\_\+from\+\_\+redis@{info\+\_\+section\+\_\+from\+\_\+redis}}
+\index{info\+\_\+section\+\_\+from\+\_\+redis@{info\+\_\+section\+\_\+from\+\_\+redis}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{info\+\_\+section\+\_\+from\+\_\+redis}{info\_section\_from\_redis}}
+{\footnotesize\ttfamily \#define info\+\_\+section\+\_\+from\+\_\+redis(\begin{DoxyParamCaption}\item[{}]{section\+\_\+name }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    if (defsections || allsections || !strcasecmp(section,section\_name)) \{ \(\backslash\)
+        sds redissection; \(\backslash\)
+        if (sections++) info = \hyperlink{sds_8c_a9153a5245ad08630651c7f4f212b5c6f}{sdscat}(info,"\(\backslash\)r\(\backslash\)n"); \(\backslash\)
+        redissection = \hyperlink{server_8c_a956bcbb62ab56e4fe9d63c0a38b6cb76}{genRedisInfoString}(section\_name); \(\backslash\)
+        info = \hyperlink{sds_8c_a62bbce6b08cb419dbe8dcd64b3bc0d84}{sdscatlen}(info,redissection,sdslen(redissection)); \(\backslash\)
+        \hyperlink{sds_8c_a4d9266a6b2d5a98f0df0ac62f51324fd}{sdsfree}(redissection); \(\backslash\)
+    \} \(\backslash\)
+\} while(0)
+\end{DoxyCode}
+
+
+Definition at line 3290 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a4c51b961e51b0dd04260eb860e641b2f}\label{sentinel_8c_a4c51b961e51b0dd04260eb860e641b2f}} 
+\index{sentinel.\+c@{sentinel.\+c}!R\+E\+D\+I\+S\+\_\+\+S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+O\+RT@{R\+E\+D\+I\+S\+\_\+\+S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+O\+RT}}
+\index{R\+E\+D\+I\+S\+\_\+\+S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+O\+RT@{R\+E\+D\+I\+S\+\_\+\+S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+O\+RT}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+O\+RT}{REDIS\_SENTINEL\_PORT}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+O\+RT~26379}
+
+
+
+Definition at line 43 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a166080e23b7691124260c5ea1b053380}\label{sentinel_8c_a166080e23b7691124260c5ea1b053380}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+F\+O\+R\+C\+ED@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+F\+O\+R\+C\+ED}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+F\+O\+R\+C\+ED@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+F\+O\+R\+C\+ED}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+F\+O\+R\+C\+ED}{SENTINEL\_ASK\_FORCED}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+F\+O\+R\+C\+ED~(1$<$$<$0)}
+
+
+
+Definition at line 3709 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a37ec7767004d923e7163195f50373d80}\label{sentinel_8c_a37ec7767004d923e7163195f50373d80}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+P\+E\+R\+I\+OD@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+P\+E\+R\+I\+OD}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+P\+E\+R\+I\+OD@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+P\+E\+R\+I\+OD}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+P\+E\+R\+I\+OD}{SENTINEL\_ASK\_PERIOD}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+A\+S\+K\+\_\+\+P\+E\+R\+I\+OD~1000}
+
+
+
+Definition at line 73 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_af59265733a3fa9366c39b4fce1ea06f3}\label{sentinel_8c_af59265733a3fa9366c39b4fce1ea06f3}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+E\+N\+Y\+\_\+\+S\+C\+R\+I\+P\+T\+S\+\_\+\+R\+E\+C\+O\+N\+F\+IG@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+E\+N\+Y\+\_\+\+S\+C\+R\+I\+P\+T\+S\+\_\+\+R\+E\+C\+O\+N\+F\+IG}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+E\+N\+Y\+\_\+\+S\+C\+R\+I\+P\+T\+S\+\_\+\+R\+E\+C\+O\+N\+F\+IG@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+E\+N\+Y\+\_\+\+S\+C\+R\+I\+P\+T\+S\+\_\+\+R\+E\+C\+O\+N\+F\+IG}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+E\+N\+Y\+\_\+\+S\+C\+R\+I\+P\+T\+S\+\_\+\+R\+E\+C\+O\+N\+F\+IG}{SENTINEL\_DEFAULT\_DENY\_SCRIPTS\_RECONFIG}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+E\+N\+Y\+\_\+\+S\+C\+R\+I\+P\+T\+S\+\_\+\+R\+E\+C\+O\+N\+F\+IG~1}
+
+
+
+Definition at line 87 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a8d75144bfd53c71ce519a97de5016857}\label{sentinel_8c_a8d75144bfd53c71ce519a97de5016857}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+O\+W\+N\+\_\+\+A\+F\+T\+ER@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+O\+W\+N\+\_\+\+A\+F\+T\+ER}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+O\+W\+N\+\_\+\+A\+F\+T\+ER@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+O\+W\+N\+\_\+\+A\+F\+T\+ER}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+O\+W\+N\+\_\+\+A\+F\+T\+ER}{SENTINEL\_DEFAULT\_DOWN\_AFTER}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+D\+O\+W\+N\+\_\+\+A\+F\+T\+ER~30000}
+
+
+
+Definition at line 75 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a562b5124572b4d837a34b98c41ef391d}\label{sentinel_8c_a562b5124572b4d837a34b98c41ef391d}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+T\+I\+M\+E\+O\+UT@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+T\+I\+M\+E\+O\+UT}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+T\+I\+M\+E\+O\+UT@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+T\+I\+M\+E\+O\+UT}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+T\+I\+M\+E\+O\+UT}{SENTINEL\_DEFAULT\_FAILOVER\_TIMEOUT}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+T\+I\+M\+E\+O\+UT~(60$\ast$3$\ast$1000)}
+
+
+
+Definition at line 83 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a7cfe6cf48e367486681eb21e53c65dc9}\label{sentinel_8c_a7cfe6cf48e367486681eb21e53c65dc9}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+R\+A\+L\+L\+E\+L\+\_\+\+S\+Y\+N\+CS@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+R\+A\+L\+L\+E\+L\+\_\+\+S\+Y\+N\+CS}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+R\+A\+L\+L\+E\+L\+\_\+\+S\+Y\+N\+CS@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+R\+A\+L\+L\+E\+L\+\_\+\+S\+Y\+N\+CS}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+R\+A\+L\+L\+E\+L\+\_\+\+S\+Y\+N\+CS}{SENTINEL\_DEFAULT\_PARALLEL\_SYNCS}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+A\+R\+A\+L\+L\+E\+L\+\_\+\+S\+Y\+N\+CS~1}
+
+
+
+Definition at line 81 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ac0c5ae92e4f8b5f76ff6c31ed7ffe254}\label{sentinel_8c_ac0c5ae92e4f8b5f76ff6c31ed7ffe254}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY}{SENTINEL\_DEFAULT\_SLAVE\_PRIORITY}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY~100}
+
+
+
+Definition at line 79 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ac6683124f6ae873093919c7eb840ec94}\label{sentinel_8c_ac6683124f6ae873093919c7eb840ec94}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+I\+M\+E\+O\+UT@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+I\+M\+E\+O\+UT}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+I\+M\+E\+O\+UT@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+I\+M\+E\+O\+UT}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+I\+M\+E\+O\+UT}{SENTINEL\_ELECTION\_TIMEOUT}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+E\+L\+E\+C\+T\+I\+O\+N\+\_\+\+T\+I\+M\+E\+O\+UT~10000}
+
+
+
+Definition at line 85 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a23bad5aa23e7b1a930ad4aa535938efb}\label{sentinel_8c_a23bad5aa23e7b1a930ad4aa535938efb}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+NE@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+NE}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+NE@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+NE}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+NE}{SENTINEL\_FAILOVER\_STATE\_NONE}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+NE~0  /$\ast$ No failover in progress. $\ast$/}
+
+
+
+Definition at line 90 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a05b020edfa71eb4d24288e79637b57f5}\label{sentinel_8c_a05b020edfa71eb4d24288e79637b57f5}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+L\+A\+V\+ES@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+L\+A\+V\+ES}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+L\+A\+V\+ES@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+L\+A\+V\+ES}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+L\+A\+V\+ES}{SENTINEL\_FAILOVER\_STATE\_RECONF\_SLAVES}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+L\+A\+V\+ES~5 /$\ast$ S\+L\+A\+V\+E\+OF newmaster $\ast$/}
+
+
+
+Definition at line 95 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ab69af026a9f736ca81bfffd4eeada38f}\label{sentinel_8c_ab69af026a9f736ca81bfffd4eeada38f}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+S\+L\+A\+VE@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+S\+L\+A\+VE}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+S\+L\+A\+VE@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+S\+L\+A\+VE}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+S\+L\+A\+VE}{SENTINEL\_FAILOVER\_STATE\_SELECT\_SLAVE}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+S\+L\+A\+VE~2 /$\ast$ Select slave to promote $\ast$/}
+
+
+
+Definition at line 92 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ac89d5b0fc38860b277528c7d3a854580}\label{sentinel_8c_ac89d5b0fc38860b277528c7d3a854580}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+N\+D\+\_\+\+S\+L\+A\+V\+E\+O\+F\+\_\+\+N\+O\+O\+NE@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+N\+D\+\_\+\+S\+L\+A\+V\+E\+O\+F\+\_\+\+N\+O\+O\+NE}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+N\+D\+\_\+\+S\+L\+A\+V\+E\+O\+F\+\_\+\+N\+O\+O\+NE@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+N\+D\+\_\+\+S\+L\+A\+V\+E\+O\+F\+\_\+\+N\+O\+O\+NE}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+N\+D\+\_\+\+S\+L\+A\+V\+E\+O\+F\+\_\+\+N\+O\+O\+NE}{SENTINEL\_FAILOVER\_STATE\_SEND\_SLAVEOF\_NOONE}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+S\+E\+N\+D\+\_\+\+S\+L\+A\+V\+E\+O\+F\+\_\+\+N\+O\+O\+NE~3 /$\ast$ Slave -\/$>$ Master $\ast$/}
+
+
+
+Definition at line 93 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a2b6f5592dea88534b287c71e46181ed3}\label{sentinel_8c_a2b6f5592dea88534b287c71e46181ed3}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+C\+O\+N\+F\+IG@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+C\+O\+N\+F\+IG}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+C\+O\+N\+F\+IG@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+C\+O\+N\+F\+IG}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+C\+O\+N\+F\+IG}{SENTINEL\_FAILOVER\_STATE\_UPDATE\_CONFIG}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+C\+O\+N\+F\+IG~6 /$\ast$ Monitor promoted slave. $\ast$/}
+
+
+
+Definition at line 96 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a49d9c64c03e76dcbf7728ad64dd99330}\label{sentinel_8c_a49d9c64c03e76dcbf7728ad64dd99330}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON}{SENTINEL\_FAILOVER\_STATE\_WAIT\_PROMOTION}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON~4 /$\ast$ Wait slave to change role $\ast$/}
+
+
+
+Definition at line 94 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a83bf9fce7cbb7bf1b0723ced2d434366}\label{sentinel_8c_a83bf9fce7cbb7bf1b0723ced2d434366}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+RT@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+RT}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+RT@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+RT}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+RT}{SENTINEL\_FAILOVER\_STATE\_WAIT\_START}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+W\+A\+I\+T\+\_\+\+S\+T\+A\+RT~1  /$\ast$ Wait for failover\+\_\+start\+\_\+time$\ast$/}
+
+
+
+Definition at line 91 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a824209bfd4f15f07b6555fb19d8ba328}\label{sentinel_8c_a824209bfd4f15f07b6555fb19d8ba328}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+E\+V\+E\+NT@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+E\+V\+E\+NT}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+E\+V\+E\+NT@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+E\+V\+E\+NT}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+E\+V\+E\+NT}{SENTINEL\_GENERATE\_EVENT}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+G\+E\+N\+E\+R\+A\+T\+E\+\_\+\+E\+V\+E\+NT~(1$<$$<$16)}
+
+
+
+Definition at line 105 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aa57e3638aae4eec03d29f247b1611569}\label{sentinel_8c_aa57e3638aae4eec03d29f247b1611569}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+H\+E\+L\+L\+O\+\_\+\+C\+H\+A\+N\+N\+EL@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+H\+E\+L\+L\+O\+\_\+\+C\+H\+A\+N\+N\+EL}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+H\+E\+L\+L\+O\+\_\+\+C\+H\+A\+N\+N\+EL@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+H\+E\+L\+L\+O\+\_\+\+C\+H\+A\+N\+N\+EL}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+H\+E\+L\+L\+O\+\_\+\+C\+H\+A\+N\+N\+EL}{SENTINEL\_HELLO\_CHANNEL}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+H\+E\+L\+L\+O\+\_\+\+C\+H\+A\+N\+N\+EL~\char`\"{}\+\_\+\+\_\+sentinel\+\_\+\+\_\+\+:hello\char`\"{}}
+
+
+
+Definition at line 76 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ac6a2144aa06344ed8547176a4e3cfaa5}\label{sentinel_8c_ac6a2144aa06344ed8547176a4e3cfaa5}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+N\+F\+O\+\_\+\+P\+E\+R\+I\+OD@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+N\+F\+O\+\_\+\+P\+E\+R\+I\+OD}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+N\+F\+O\+\_\+\+P\+E\+R\+I\+OD@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+N\+F\+O\+\_\+\+P\+E\+R\+I\+OD}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+N\+F\+O\+\_\+\+P\+E\+R\+I\+OD}{SENTINEL\_INFO\_PERIOD}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+N\+F\+O\+\_\+\+P\+E\+R\+I\+OD~10000}
+
+
+
+Definition at line 71 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aa0ea85d4d4408c055dbc1e46cea1827a}\label{sentinel_8c_aa0ea85d4d4408c055dbc1e46cea1827a}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+A\+U\+TH@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+A\+U\+TH}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+A\+U\+TH@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+A\+U\+TH}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+A\+U\+TH}{SENTINEL\_ISQR\_NOAUTH}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+A\+U\+TH~(1$<$$<$1)}
+
+
+
+Definition at line 2947 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a671f4068236e7849f994bb2b67c6ea73}\label{sentinel_8c_a671f4068236e7849f994bb2b67c6ea73}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+Q\+U\+O\+R\+UM@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+Q\+U\+O\+R\+UM}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+Q\+U\+O\+R\+UM@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+Q\+U\+O\+R\+UM}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+Q\+U\+O\+R\+UM}{SENTINEL\_ISQR\_NOQUORUM}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+N\+O\+Q\+U\+O\+R\+UM~(1$<$$<$0)}
+
+
+
+Definition at line 2946 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a8d62015016e2a7110d1e75fcd4681e6a}\label{sentinel_8c_a8d62015016e2a7110d1e75fcd4681e6a}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+OK@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+OK}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+OK@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+OK}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+OK}{SENTINEL\_ISQR\_OK}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+I\+S\+Q\+R\+\_\+\+OK~0}
+
+
+
+Definition at line 2945 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a896cefcd7c6cbd3467b2387ec944fffd}\label{sentinel_8c_a896cefcd7c6cbd3467b2387ec944fffd}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+L\+E\+A\+D\+ER@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+L\+E\+A\+D\+ER}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+L\+E\+A\+D\+ER@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+L\+E\+A\+D\+ER}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+L\+E\+A\+D\+ER}{SENTINEL\_LEADER}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+L\+E\+A\+D\+ER~(1$<$$<$17)}
+
+
+
+Definition at line 106 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_af4e90431bc568a5b3be300ecebc064d6}\label{sentinel_8c_af4e90431bc568a5b3be300ecebc064d6}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+D\+O\+WN@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+D\+O\+WN}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+D\+O\+WN@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+D\+O\+WN}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+D\+O\+WN}{SENTINEL\_MASTER\_LINK\_STATUS\_DOWN}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+D\+O\+WN~1}
+
+
+
+Definition at line 99 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a8dc7f6cce8e6299e2422b8c65ca16418}\label{sentinel_8c_a8dc7f6cce8e6299e2422b8c65ca16418}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+UP@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+UP}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+UP@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+UP}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+UP}{SENTINEL\_MASTER\_LINK\_STATUS\_UP}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+L\+I\+N\+K\+\_\+\+S\+T\+A\+T\+U\+S\+\_\+\+UP~0}
+
+
+
+Definition at line 98 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aab501d7852d456a92670860045725d5b}\label{sentinel_8c_aab501d7852d456a92670860045725d5b}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+D\+E\+S\+Y\+NC@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+D\+E\+S\+Y\+NC}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+D\+E\+S\+Y\+NC@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+D\+E\+S\+Y\+NC}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+D\+E\+S\+Y\+NC}{SENTINEL\_MAX\_DESYNC}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+D\+E\+S\+Y\+NC~1000}
+
+
+
+Definition at line 86 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a5555400e8b8c3a25d6a2ccc6db1cd411}\label{sentinel_8c_a5555400e8b8c3a25d6a2ccc6db1cd411}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+P\+E\+N\+D\+I\+N\+G\+\_\+\+C\+O\+M\+M\+A\+N\+DS@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+P\+E\+N\+D\+I\+N\+G\+\_\+\+C\+O\+M\+M\+A\+N\+DS}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+P\+E\+N\+D\+I\+N\+G\+\_\+\+C\+O\+M\+M\+A\+N\+DS@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+P\+E\+N\+D\+I\+N\+G\+\_\+\+C\+O\+M\+M\+A\+N\+DS}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+P\+E\+N\+D\+I\+N\+G\+\_\+\+C\+O\+M\+M\+A\+N\+DS}{SENTINEL\_MAX\_PENDING\_COMMANDS}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+A\+X\+\_\+\+P\+E\+N\+D\+I\+N\+G\+\_\+\+C\+O\+M\+M\+A\+N\+DS~100}
+
+
+
+Definition at line 84 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a55d7c0bf374af4867e1baaf1fc0860c3}\label{sentinel_8c_a55d7c0bf374af4867e1baaf1fc0860c3}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+I\+N\+\_\+\+L\+I\+N\+K\+\_\+\+R\+E\+C\+O\+N\+N\+E\+C\+T\+\_\+\+P\+E\+R\+I\+OD@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+I\+N\+\_\+\+L\+I\+N\+K\+\_\+\+R\+E\+C\+O\+N\+N\+E\+C\+T\+\_\+\+P\+E\+R\+I\+OD}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+I\+N\+\_\+\+L\+I\+N\+K\+\_\+\+R\+E\+C\+O\+N\+N\+E\+C\+T\+\_\+\+P\+E\+R\+I\+OD@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+I\+N\+\_\+\+L\+I\+N\+K\+\_\+\+R\+E\+C\+O\+N\+N\+E\+C\+T\+\_\+\+P\+E\+R\+I\+OD}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+I\+N\+\_\+\+L\+I\+N\+K\+\_\+\+R\+E\+C\+O\+N\+N\+E\+C\+T\+\_\+\+P\+E\+R\+I\+OD}{SENTINEL\_MIN\_LINK\_RECONNECT\_PERIOD}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+M\+I\+N\+\_\+\+L\+I\+N\+K\+\_\+\+R\+E\+C\+O\+N\+N\+E\+C\+T\+\_\+\+P\+E\+R\+I\+OD~15000}
+
+
+
+Definition at line 82 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a4d5f3da6bf36b5daaa353968a5e133a3}\label{sentinel_8c_a4d5f3da6bf36b5daaa353968a5e133a3}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS}{SENTINEL\_NO\_FLAGS}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS~0}
+
+
+
+Definition at line 104 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a762f7fd932aed99946bfca7456027296}\label{sentinel_8c_a762f7fd932aed99946bfca7456027296}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+O\+B\+S\+E\+R\+V\+ER@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+O\+B\+S\+E\+R\+V\+ER}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+O\+B\+S\+E\+R\+V\+ER@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+O\+B\+S\+E\+R\+V\+ER}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+O\+B\+S\+E\+R\+V\+ER}{SENTINEL\_OBSERVER}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+O\+B\+S\+E\+R\+V\+ER~(1$<$$<$18)}
+
+
+
+Definition at line 107 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a9e22409355fa7a4db7f3a43fbe2d9101}\label{sentinel_8c_a9e22409355fa7a4db7f3a43fbe2d9101}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+I\+N\+G\+\_\+\+P\+E\+R\+I\+OD@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+I\+N\+G\+\_\+\+P\+E\+R\+I\+OD}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+I\+N\+G\+\_\+\+P\+E\+R\+I\+OD@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+I\+N\+G\+\_\+\+P\+E\+R\+I\+OD}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+I\+N\+G\+\_\+\+P\+E\+R\+I\+OD}{SENTINEL\_PING\_PERIOD}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+I\+N\+G\+\_\+\+P\+E\+R\+I\+OD~1000}
+
+
+
+Definition at line 72 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a062c8bab2521f90dac2df11cf77c3bf0}\label{sentinel_8c_a062c8bab2521f90dac2df11cf77c3bf0}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+U\+B\+L\+I\+S\+H\+\_\+\+P\+E\+R\+I\+OD@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+U\+B\+L\+I\+S\+H\+\_\+\+P\+E\+R\+I\+OD}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+U\+B\+L\+I\+S\+H\+\_\+\+P\+E\+R\+I\+OD@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+U\+B\+L\+I\+S\+H\+\_\+\+P\+E\+R\+I\+OD}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+U\+B\+L\+I\+S\+H\+\_\+\+P\+E\+R\+I\+OD}{SENTINEL\_PUBLISH\_PERIOD}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+U\+B\+L\+I\+S\+H\+\_\+\+P\+E\+R\+I\+OD~2000}
+
+
+
+Definition at line 74 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a7cb0584b0d2fb56e4bca40b6776ae9d6}\label{sentinel_8c_a7cb0584b0d2fb56e4bca40b6776ae9d6}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+O\+\_\+\+S\+E\+N\+T\+I\+N\+E\+LS@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+O\+\_\+\+S\+E\+N\+T\+I\+N\+E\+LS}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+O\+\_\+\+S\+E\+N\+T\+I\+N\+E\+LS@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+O\+\_\+\+S\+E\+N\+T\+I\+N\+E\+LS}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+O\+\_\+\+S\+E\+N\+T\+I\+N\+E\+LS}{SENTINEL\_RESET\_NO\_SENTINELS}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+R\+E\+S\+E\+T\+\_\+\+N\+O\+\_\+\+S\+E\+N\+T\+I\+N\+E\+LS~(1$<$$<$0)}
+
+
+
+Definition at line 1419 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a9587f7bc164287b356887d67849bf658}\label{sentinel_8c_a9587f7bc164287b356887d67849bf658}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GS@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GS}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GS@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GS}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GS}{SENTINEL\_SCRIPT\_MAX\_ARGS}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GS~16}
+
+
+
+Definition at line 686 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a43203051dc0534d7c1a69ea7a4848333}\label{sentinel_8c_a43203051dc0534d7c1a69ea7a4848333}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+Q\+U\+E\+UE@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+Q\+U\+E\+UE}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+Q\+U\+E\+UE@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+Q\+U\+E\+UE}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+Q\+U\+E\+UE}{SENTINEL\_SCRIPT\_MAX\_QUEUE}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+Q\+U\+E\+UE~256}
+
+
+
+Definition at line 112 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a38f813a1d1e8f88b2ca76c064c61b6aa}\label{sentinel_8c_a38f813a1d1e8f88b2ca76c064c61b6aa}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+E\+T\+RY@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+E\+T\+RY}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+E\+T\+RY@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+E\+T\+RY}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+E\+T\+RY}{SENTINEL\_SCRIPT\_MAX\_RETRY}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+E\+T\+RY~10}
+
+
+
+Definition at line 115 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ad05484edee559e8cb5e1ac3d72375f20}\label{sentinel_8c_ad05484edee559e8cb5e1ac3d72375f20}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+N\+I\+NG@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+N\+I\+NG}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+N\+I\+NG@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+N\+I\+NG}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+N\+I\+NG}{SENTINEL\_SCRIPT\_MAX\_RUNNING}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+N\+I\+NG~16}
+
+
+
+Definition at line 113 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ae8eb69271e56d5d14527c64cdeeaf678}\label{sentinel_8c_ae8eb69271e56d5d14527c64cdeeaf678}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+T\+I\+ME@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+T\+I\+ME}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+T\+I\+ME@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+T\+I\+ME}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+T\+I\+ME}{SENTINEL\_SCRIPT\_MAX\_RUNTIME}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+M\+A\+X\+\_\+\+R\+U\+N\+T\+I\+ME~60000 /$\ast$ 60 seconds max exec time. $\ast$/}
+
+
+
+Definition at line 114 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a31022e5665e3f4a0a99254e5660e155a}\label{sentinel_8c_a31022e5665e3f4a0a99254e5660e155a}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+N\+O\+NE@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+N\+O\+NE}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+N\+O\+NE@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+N\+O\+NE}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+N\+O\+NE}{SENTINEL\_SCRIPT\_NONE}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+N\+O\+NE~0}
+
+
+
+Definition at line 110 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a53c8edb17f50d35b3844cf0f0f61b71b}\label{sentinel_8c_a53c8edb17f50d35b3844cf0f0f61b71b}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+E\+T\+R\+Y\+\_\+\+D\+E\+L\+AY@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+E\+T\+R\+Y\+\_\+\+D\+E\+L\+AY}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+E\+T\+R\+Y\+\_\+\+D\+E\+L\+AY@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+E\+T\+R\+Y\+\_\+\+D\+E\+L\+AY}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+E\+T\+R\+Y\+\_\+\+D\+E\+L\+AY}{SENTINEL\_SCRIPT\_RETRY\_DELAY}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+E\+T\+R\+Y\+\_\+\+D\+E\+L\+AY~30000 /$\ast$ 30 seconds between retries. $\ast$/}
+
+
+
+Definition at line 116 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a0211d42099c07769ec06cc0010f9b58e}\label{sentinel_8c_a0211d42099c07769ec06cc0010f9b58e}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+U\+N\+N\+I\+NG@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+U\+N\+N\+I\+NG}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+U\+N\+N\+I\+NG@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+U\+N\+N\+I\+NG}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+U\+N\+N\+I\+NG}{SENTINEL\_SCRIPT\_RUNNING}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+R\+U\+N\+N\+I\+NG~1}
+
+
+
+Definition at line 111 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a8549938b8489bb23679cf13b8d99997c}\label{sentinel_8c_a8549938b8489bb23679cf13b8d99997c}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+E\+L\+E\+C\+T\+I\+ON@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+E\+L\+E\+C\+T\+I\+ON}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+E\+L\+E\+C\+T\+I\+ON@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+E\+L\+E\+C\+T\+I\+ON}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+E\+L\+E\+C\+T\+I\+ON}{SENTINEL\_SIMFAILURE\_CRASH\_AFTER\_ELECTION}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+E\+L\+E\+C\+T\+I\+ON~(1$<$$<$0)}
+
+
+
+Definition at line 120 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a87a09f4dcf854cc0b26dc8dc328ab7c3}\label{sentinel_8c_a87a09f4dcf854cc0b26dc8dc328ab7c3}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON}{SENTINEL\_SIMFAILURE\_CRASH\_AFTER\_PROMOTION}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+C\+R\+A\+S\+H\+\_\+\+A\+F\+T\+E\+R\+\_\+\+P\+R\+O\+M\+O\+T\+I\+ON~(1$<$$<$1)}
+
+
+
+Definition at line 121 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a045e4b70a9044e6e62c9cf6aafff8d3f}\label{sentinel_8c_a045e4b70a9044e6e62c9cf6aafff8d3f}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+N\+O\+NE@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+N\+O\+NE}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+N\+O\+NE@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+N\+O\+NE}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+N\+O\+NE}{SENTINEL\_SIMFAILURE\_NONE}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+I\+M\+F\+A\+I\+L\+U\+R\+E\+\_\+\+N\+O\+NE~0}
+
+
+
+Definition at line 119 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a12c554c086559e7435c3d0ea9718aa39}\label{sentinel_8c_a12c554c086559e7435c3d0ea9718aa39}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+L\+A\+V\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+T\+I\+M\+E\+O\+UT@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+L\+A\+V\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+T\+I\+M\+E\+O\+UT}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+L\+A\+V\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+T\+I\+M\+E\+O\+UT@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+L\+A\+V\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+T\+I\+M\+E\+O\+UT}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+L\+A\+V\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+T\+I\+M\+E\+O\+UT}{SENTINEL\_SLAVE\_RECONF\_TIMEOUT}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+S\+L\+A\+V\+E\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+T\+I\+M\+E\+O\+UT~10000}
+
+
+
+Definition at line 80 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_af2d8538f1bdf8d6e616675b143d54685}\label{sentinel_8c_af2d8538f1bdf8d6e616675b143d54685}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+P\+E\+R\+I\+OD@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+P\+E\+R\+I\+OD}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+P\+E\+R\+I\+OD@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+P\+E\+R\+I\+OD}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+P\+E\+R\+I\+OD}{SENTINEL\_TILT\_PERIOD}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+P\+E\+R\+I\+OD~(\hyperlink{sentinel_8c_a9e22409355fa7a4db7f3a43fbe2d9101}{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+P\+I\+N\+G\+\_\+\+P\+E\+R\+I\+OD}$\ast$30)}
+
+
+
+Definition at line 78 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a717cd21c21357abdd371151e3d18c98a}\label{sentinel_8c_a717cd21c21357abdd371151e3d18c98a}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+T\+R\+I\+G\+G\+ER@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+T\+R\+I\+G\+G\+ER}}
+\index{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+T\+R\+I\+G\+G\+ER@{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+T\+R\+I\+G\+G\+ER}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+T\+R\+I\+G\+G\+ER}{SENTINEL\_TILT\_TRIGGER}}
+{\footnotesize\ttfamily \#define S\+E\+N\+T\+I\+N\+E\+L\+\_\+\+T\+I\+L\+T\+\_\+\+T\+R\+I\+G\+G\+ER~2000}
+
+
+
+Definition at line 77 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a0546b63633196f09fcd90957243b0798}\label{sentinel_8c_a0546b63633196f09fcd90957243b0798}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+R\+I\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+I\+N\+\_\+\+P\+R\+O\+G\+R\+E\+SS@{S\+R\+I\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+I\+N\+\_\+\+P\+R\+O\+G\+R\+E\+SS}}
+\index{S\+R\+I\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+I\+N\+\_\+\+P\+R\+O\+G\+R\+E\+SS@{S\+R\+I\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+I\+N\+\_\+\+P\+R\+O\+G\+R\+E\+SS}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+I\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+I\+N\+\_\+\+P\+R\+O\+G\+R\+E\+SS}{SRI\_FAILOVER\_IN\_PROGRESS}}
+{\footnotesize\ttfamily \#define S\+R\+I\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+I\+N\+\_\+\+P\+R\+O\+G\+R\+E\+SS}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(1<<6) \textcolor{comment}{/* Failover is in progress for}
+\textcolor{comment}{                                           this master. */}
+\end{DoxyCode}
+
+
+Definition at line 61 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a9b13a255852e8097e4730cb495cdfd94}\label{sentinel_8c_a9b13a255852e8097e4730cb495cdfd94}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+R\+I\+\_\+\+F\+O\+R\+C\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER@{S\+R\+I\+\_\+\+F\+O\+R\+C\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER}}
+\index{S\+R\+I\+\_\+\+F\+O\+R\+C\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER@{S\+R\+I\+\_\+\+F\+O\+R\+C\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+I\+\_\+\+F\+O\+R\+C\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER}{SRI\_FORCE\_FAILOVER}}
+{\footnotesize\ttfamily \#define S\+R\+I\+\_\+\+F\+O\+R\+C\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER~(1$<$$<$11)  /$\ast$ Force failover with master up. $\ast$/}
+
+
+
+Definition at line 67 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a2ee83e5ff67b45746cd6a310f15334b2}\label{sentinel_8c_a2ee83e5ff67b45746cd6a310f15334b2}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+R\+I\+\_\+\+M\+A\+S\+T\+ER@{S\+R\+I\+\_\+\+M\+A\+S\+T\+ER}}
+\index{S\+R\+I\+\_\+\+M\+A\+S\+T\+ER@{S\+R\+I\+\_\+\+M\+A\+S\+T\+ER}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+I\+\_\+\+M\+A\+S\+T\+ER}{SRI\_MASTER}}
+{\footnotesize\ttfamily \#define S\+R\+I\+\_\+\+M\+A\+S\+T\+ER~(1$<$$<$0)}
+
+
+
+Definition at line 54 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a80003592a6337bdc484182ff1d33e41c}\label{sentinel_8c_a80003592a6337bdc484182ff1d33e41c}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+R\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+D\+O\+WN@{S\+R\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+D\+O\+WN}}
+\index{S\+R\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+D\+O\+WN@{S\+R\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+D\+O\+WN}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+D\+O\+WN}{SRI\_MASTER\_DOWN}}
+{\footnotesize\ttfamily \#define S\+R\+I\+\_\+\+M\+A\+S\+T\+E\+R\+\_\+\+D\+O\+WN}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(1<<5) \textcolor{comment}{/* A Sentinel with this flag set thinks that}
+\textcolor{comment}{                                   its master is down. */}
+\end{DoxyCode}
+
+
+Definition at line 59 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a3bbbca05543cd9d9f86d276e2c7c719c}\label{sentinel_8c_a3bbbca05543cd9d9f86d276e2c7c719c}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+R\+I\+\_\+\+O\+\_\+\+D\+O\+WN@{S\+R\+I\+\_\+\+O\+\_\+\+D\+O\+WN}}
+\index{S\+R\+I\+\_\+\+O\+\_\+\+D\+O\+WN@{S\+R\+I\+\_\+\+O\+\_\+\+D\+O\+WN}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+I\+\_\+\+O\+\_\+\+D\+O\+WN}{SRI\_O\_DOWN}}
+{\footnotesize\ttfamily \#define S\+R\+I\+\_\+\+O\+\_\+\+D\+O\+WN~(1$<$$<$4)   /$\ast$ Objectively down (confirmed by others). $\ast$/}
+
+
+
+Definition at line 58 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a6c6c019b1af48a9c0e9507422051c684}\label{sentinel_8c_a6c6c019b1af48a9c0e9507422051c684}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+R\+I\+\_\+\+P\+R\+O\+M\+O\+T\+ED@{S\+R\+I\+\_\+\+P\+R\+O\+M\+O\+T\+ED}}
+\index{S\+R\+I\+\_\+\+P\+R\+O\+M\+O\+T\+ED@{S\+R\+I\+\_\+\+P\+R\+O\+M\+O\+T\+ED}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+I\+\_\+\+P\+R\+O\+M\+O\+T\+ED}{SRI\_PROMOTED}}
+{\footnotesize\ttfamily \#define S\+R\+I\+\_\+\+P\+R\+O\+M\+O\+T\+ED~(1$<$$<$7)            /$\ast$ Slave selected for promotion. $\ast$/}
+
+
+
+Definition at line 63 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_adb468d0a8c96c954b6af26aa670d7a11}\label{sentinel_8c_adb468d0a8c96c954b6af26aa670d7a11}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+D\+O\+NE@{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+D\+O\+NE}}
+\index{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+D\+O\+NE@{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+D\+O\+NE}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+D\+O\+NE}{SRI\_RECONF\_DONE}}
+{\footnotesize\ttfamily \#define S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+D\+O\+NE~(1$<$$<$10)     /$\ast$ Slave synchronized with new master. $\ast$/}
+
+
+
+Definition at line 66 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a58c89f4aaa1bdfde4c25e3bb476c35aa}\label{sentinel_8c_a58c89f4aaa1bdfde4c25e3bb476c35aa}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+I\+N\+P\+R\+OG@{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+I\+N\+P\+R\+OG}}
+\index{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+I\+N\+P\+R\+OG@{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+I\+N\+P\+R\+OG}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+I\+N\+P\+R\+OG}{SRI\_RECONF\_INPROG}}
+{\footnotesize\ttfamily \#define S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+I\+N\+P\+R\+OG~(1$<$$<$9)   /$\ast$ Slave synchronization in progress. $\ast$/}
+
+
+
+Definition at line 65 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a9b307b68cb1615ead6aacb0de34910e6}\label{sentinel_8c_a9b307b68cb1615ead6aacb0de34910e6}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+E\+NT@{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+E\+NT}}
+\index{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+E\+NT@{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+E\+NT}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+E\+NT}{SRI\_RECONF\_SENT}}
+{\footnotesize\ttfamily \#define S\+R\+I\+\_\+\+R\+E\+C\+O\+N\+F\+\_\+\+S\+E\+NT~(1$<$$<$8)     /$\ast$ S\+L\+A\+V\+E\+OF $<$newmaster$>$ sent. $\ast$/}
+
+
+
+Definition at line 64 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a8e26596c8bde451c2dd9cecb2c3046d4}\label{sentinel_8c_a8e26596c8bde451c2dd9cecb2c3046d4}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+R\+I\+\_\+\+S\+\_\+\+D\+O\+WN@{S\+R\+I\+\_\+\+S\+\_\+\+D\+O\+WN}}
+\index{S\+R\+I\+\_\+\+S\+\_\+\+D\+O\+WN@{S\+R\+I\+\_\+\+S\+\_\+\+D\+O\+WN}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+I\+\_\+\+S\+\_\+\+D\+O\+WN}{SRI\_S\_DOWN}}
+{\footnotesize\ttfamily \#define S\+R\+I\+\_\+\+S\+\_\+\+D\+O\+WN~(1$<$$<$3)   /$\ast$ Subjectively down (no quorum). $\ast$/}
+
+
+
+Definition at line 57 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a8deaaf376eb76dcf5ab4ca652df3a52b}\label{sentinel_8c_a8deaaf376eb76dcf5ab4ca652df3a52b}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+R\+I\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+K\+I\+L\+L\+\_\+\+S\+E\+NT@{S\+R\+I\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+K\+I\+L\+L\+\_\+\+S\+E\+NT}}
+\index{S\+R\+I\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+K\+I\+L\+L\+\_\+\+S\+E\+NT@{S\+R\+I\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+K\+I\+L\+L\+\_\+\+S\+E\+NT}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+I\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+K\+I\+L\+L\+\_\+\+S\+E\+NT}{SRI\_SCRIPT\_KILL\_SENT}}
+{\footnotesize\ttfamily \#define S\+R\+I\+\_\+\+S\+C\+R\+I\+P\+T\+\_\+\+K\+I\+L\+L\+\_\+\+S\+E\+NT~(1$<$$<$12) /$\ast$ S\+C\+R\+I\+PT K\+I\+LL already sent on -\/B\+U\+SY $\ast$/}
+
+
+
+Definition at line 68 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a8ed55207b2af5d2dd314c951ef253f64}\label{sentinel_8c_a8ed55207b2af5d2dd314c951ef253f64}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+R\+I\+\_\+\+S\+E\+N\+T\+I\+N\+EL@{S\+R\+I\+\_\+\+S\+E\+N\+T\+I\+N\+EL}}
+\index{S\+R\+I\+\_\+\+S\+E\+N\+T\+I\+N\+EL@{S\+R\+I\+\_\+\+S\+E\+N\+T\+I\+N\+EL}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+I\+\_\+\+S\+E\+N\+T\+I\+N\+EL}{SRI\_SENTINEL}}
+{\footnotesize\ttfamily \#define S\+R\+I\+\_\+\+S\+E\+N\+T\+I\+N\+EL~(1$<$$<$2)}
+
+
+
+Definition at line 56 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a4b9db21eda79d49bd9fdf2cf7b3178e8}\label{sentinel_8c_a4b9db21eda79d49bd9fdf2cf7b3178e8}} 
+\index{sentinel.\+c@{sentinel.\+c}!S\+R\+I\+\_\+\+S\+L\+A\+VE@{S\+R\+I\+\_\+\+S\+L\+A\+VE}}
+\index{S\+R\+I\+\_\+\+S\+L\+A\+VE@{S\+R\+I\+\_\+\+S\+L\+A\+VE}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+I\+\_\+\+S\+L\+A\+VE}{SRI\_SLAVE}}
+{\footnotesize\ttfamily \#define S\+R\+I\+\_\+\+S\+L\+A\+VE~(1$<$$<$1)}
+
+
+
+Definition at line 55 of file sentinel.\+c.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{sentinel_8c_a9530ad5ef5fc9e8f2252ec25cdf9134a}\label{sentinel_8c_a9530ad5ef5fc9e8f2252ec25cdf9134a}} 
+\index{sentinel.\+c@{sentinel.\+c}!instance\+Link@{instance\+Link}}
+\index{instance\+Link@{instance\+Link}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{instance\+Link}{instanceLink}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structinstance_link}{instance\+Link}  \hyperlink{structinstance_link}{instance\+Link}}
+
+\mbox{\Hypertarget{sentinel_8c_adf71e3072015f40e10ad82a74ab7046e}\label{sentinel_8c_adf71e3072015f40e10ad82a74ab7046e}} 
+\index{sentinel.\+c@{sentinel.\+c}!redis\+Ae\+Events@{redis\+Ae\+Events}}
+\index{redis\+Ae\+Events@{redis\+Ae\+Events}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{redis\+Ae\+Events}{redisAeEvents}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structredis_ae_events}{redis\+Ae\+Events}  \hyperlink{structredis_ae_events}{redis\+Ae\+Events}}
+
+\mbox{\Hypertarget{sentinel_8c_a997ac87de4c363ff406452eff1a4a080}\label{sentinel_8c_a997ac87de4c363ff406452eff1a4a080}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Addr@{sentinel\+Addr}}
+\index{sentinel\+Addr@{sentinel\+Addr}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Addr}{sentinelAddr}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structsentinel_addr}{sentinel\+Addr}  \hyperlink{structsentinel_addr}{sentinel\+Addr}}
+
+\mbox{\Hypertarget{sentinel_8c_ade51ada1afa841e1081efaed18403ee4}\label{sentinel_8c_ade51ada1afa841e1081efaed18403ee4}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Redis\+Instance@{sentinel\+Redis\+Instance}}
+\index{sentinel\+Redis\+Instance@{sentinel\+Redis\+Instance}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Redis\+Instance}{sentinelRedisInstance}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance}  \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance}}
+
+\mbox{\Hypertarget{sentinel_8c_ad076ca0ce91568bb0a37b28e78559653}\label{sentinel_8c_ad076ca0ce91568bb0a37b28e78559653}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Script\+Job@{sentinel\+Script\+Job}}
+\index{sentinel\+Script\+Job@{sentinel\+Script\+Job}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Script\+Job}{sentinelScriptJob}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structsentinel_script_job}{sentinel\+Script\+Job}  \hyperlink{structsentinel_script_job}{sentinel\+Script\+Job}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{sentinel_8c_a087b2b772d602158c14ea42414791706}\label{sentinel_8c_a087b2b772d602158c14ea42414791706}} 
+\index{sentinel.\+c@{sentinel.\+c}!add\+Reply\+Dict\+Of\+Redis\+Instances@{add\+Reply\+Dict\+Of\+Redis\+Instances}}
+\index{add\+Reply\+Dict\+Of\+Redis\+Instances@{add\+Reply\+Dict\+Of\+Redis\+Instances}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Dict\+Of\+Redis\+Instances()}{addReplyDictOfRedisInstances()}}
+{\footnotesize\ttfamily void add\+Reply\+Dict\+Of\+Redis\+Instances (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{structdict}{dict} $\ast$}]{instances }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2915 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a2f820d8aeac64a064e0f7645254545f3}\label{sentinel_8c_a2f820d8aeac64a064e0f7645254545f3}} 
+\index{sentinel.\+c@{sentinel.\+c}!add\+Reply\+Sentinel\+Redis\+Instance@{add\+Reply\+Sentinel\+Redis\+Instance}}
+\index{add\+Reply\+Sentinel\+Redis\+Instance@{add\+Reply\+Sentinel\+Redis\+Instance}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Sentinel\+Redis\+Instance()}{addReplySentinelRedisInstance()}}
+{\footnotesize\ttfamily void add\+Reply\+Sentinel\+Redis\+Instance (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2724 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a033d7e50b3676877ae180b03fd7a1b46}\label{sentinel_8c_a033d7e50b3676877ae180b03fd7a1b46}} 
+\index{sentinel.\+c@{sentinel.\+c}!compare\+Slaves\+For\+Promotion@{compare\+Slaves\+For\+Promotion}}
+\index{compare\+Slaves\+For\+Promotion@{compare\+Slaves\+For\+Promotion}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{compare\+Slaves\+For\+Promotion()}{compareSlavesForPromotion()}}
+{\footnotesize\ttfamily int compare\+Slaves\+For\+Promotion (\begin{DoxyParamCaption}\item[{const void $\ast$}]{a,  }\item[{const void $\ast$}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4048 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a7d55b64d6c4442062721fa458c25d766}\label{sentinel_8c_a7d55b64d6c4442062721fa458c25d766}} 
+\index{sentinel.\+c@{sentinel.\+c}!create\+Instance\+Link@{create\+Instance\+Link}}
+\index{create\+Instance\+Link@{create\+Instance\+Link}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{create\+Instance\+Link()}{createInstanceLink()}}
+{\footnotesize\ttfamily \hyperlink{structinstance_link}{instance\+Link}$\ast$ create\+Instance\+Link (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 949 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a7a68573e2c951051dd6807dacb682138}\label{sentinel_8c_a7a68573e2c951051dd6807dacb682138}} 
+\index{sentinel.\+c@{sentinel.\+c}!create\+Sentinel\+Addr@{create\+Sentinel\+Addr}}
+\index{create\+Sentinel\+Addr@{create\+Sentinel\+Addr}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{create\+Sentinel\+Addr()}{createSentinelAddr()}}
+{\footnotesize\ttfamily \hyperlink{structsentinel_addr}{sentinel\+Addr}$\ast$ create\+Sentinel\+Addr (\begin{DoxyParamCaption}\item[{char $\ast$}]{hostname,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line 537 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_add83562082fe6fa033d1c8328535905c}\label{sentinel_8c_add83562082fe6fa033d1c8328535905c}} 
+\index{sentinel.\+c@{sentinel.\+c}!create\+Sentinel\+Redis\+Instance@{create\+Sentinel\+Redis\+Instance}}
+\index{create\+Sentinel\+Redis\+Instance@{create\+Sentinel\+Redis\+Instance}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{create\+Sentinel\+Redis\+Instance()}{createSentinelRedisInstance()}}
+{\footnotesize\ttfamily \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance}$\ast$ create\+Sentinel\+Redis\+Instance (\begin{DoxyParamCaption}\item[{char $\ast$}]{name,  }\item[{int}]{flags,  }\item[{char $\ast$}]{hostname,  }\item[{int}]{port,  }\item[{int}]{quorum,  }\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1165 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ac3c25d1241e06caba5e765f19ee42c82}\label{sentinel_8c_ac3c25d1241e06caba5e765f19ee42c82}} 
+\index{sentinel.\+c@{sentinel.\+c}!dict\+Instances\+Val\+Destructor@{dict\+Instances\+Val\+Destructor}}
+\index{dict\+Instances\+Val\+Destructor@{dict\+Instances\+Val\+Destructor}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{dict\+Instances\+Val\+Destructor()}{dictInstancesValDestructor()}}
+{\footnotesize\ttfamily void dict\+Instances\+Val\+Destructor (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{void $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 395 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ada0bb13a034f3ab2ac57be6e27f1bf7e}\label{sentinel_8c_ada0bb13a034f3ab2ac57be6e27f1bf7e}} 
+\index{sentinel.\+c@{sentinel.\+c}!dict\+Sds\+Case\+Hash@{dict\+Sds\+Case\+Hash}}
+\index{dict\+Sds\+Case\+Hash@{dict\+Sds\+Case\+Hash}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{dict\+Sds\+Case\+Hash()}{dictSdsCaseHash()}}
+{\footnotesize\ttfamily uint64\+\_\+t dict\+Sds\+Case\+Hash (\begin{DoxyParamCaption}\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 524 of file server.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_abf11672cc702adce676d41c162b20345}\label{sentinel_8c_abf11672cc702adce676d41c162b20345}} 
+\index{sentinel.\+c@{sentinel.\+c}!dict\+Sds\+Hash@{dict\+Sds\+Hash}}
+\index{dict\+Sds\+Hash@{dict\+Sds\+Hash}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{dict\+Sds\+Hash()}{dictSdsHash()}}
+{\footnotesize\ttfamily uint64\+\_\+t dict\+Sds\+Hash (\begin{DoxyParamCaption}\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 520 of file server.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ac350c29f63271e4d5766b02997733738}\label{sentinel_8c_ac350c29f63271e4d5766b02997733738}} 
+\index{sentinel.\+c@{sentinel.\+c}!dict\+Sds\+Key\+Case\+Compare@{dict\+Sds\+Key\+Case\+Compare}}
+\index{dict\+Sds\+Key\+Case\+Compare@{dict\+Sds\+Key\+Case\+Compare}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{dict\+Sds\+Key\+Case\+Compare()}{dictSdsKeyCaseCompare()}}
+{\footnotesize\ttfamily int dict\+Sds\+Key\+Case\+Compare (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{const void $\ast$}]{key1,  }\item[{const void $\ast$}]{key2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 485 of file server.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}\label{sentinel_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}} 
+\index{sentinel.\+c@{sentinel.\+c}!dict\+Sds\+Key\+Compare@{dict\+Sds\+Key\+Compare}}
+\index{dict\+Sds\+Key\+Compare@{dict\+Sds\+Key\+Compare}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{dict\+Sds\+Key\+Compare()}{dictSdsKeyCompare()}}
+{\footnotesize\ttfamily int dict\+Sds\+Key\+Compare (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{const void $\ast$}]{key1,  }\item[{const void $\ast$}]{key2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 471 of file server.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aa2c3059864859606e0a4c6099e119477}\label{sentinel_8c_aa2c3059864859606e0a4c6099e119477}} 
+\index{sentinel.\+c@{sentinel.\+c}!dup\+Sentinel\+Addr@{dup\+Sentinel\+Addr}}
+\index{dup\+Sentinel\+Addr@{dup\+Sentinel\+Addr}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{dup\+Sentinel\+Addr()}{dupSentinelAddr()}}
+{\footnotesize\ttfamily \hyperlink{structsentinel_addr}{sentinel\+Addr}$\ast$ dup\+Sentinel\+Addr (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$}]{src }\end{DoxyParamCaption})}
+
+
+
+Definition at line 556 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a72fd32bdc1ddaefb362f981ae6705ef4}\label{sentinel_8c_a72fd32bdc1ddaefb362f981ae6705ef4}} 
+\index{sentinel.\+c@{sentinel.\+c}!get\+Sentinel\+Redis\+Instance\+By\+Addr\+And\+Run\+ID@{get\+Sentinel\+Redis\+Instance\+By\+Addr\+And\+Run\+ID}}
+\index{get\+Sentinel\+Redis\+Instance\+By\+Addr\+And\+Run\+ID@{get\+Sentinel\+Redis\+Instance\+By\+Addr\+And\+Run\+ID}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{get\+Sentinel\+Redis\+Instance\+By\+Addr\+And\+Run\+I\+D()}{getSentinelRedisInstanceByAddrAndRunID()}}
+{\footnotesize\ttfamily \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ get\+Sentinel\+Redis\+Instance\+By\+Addr\+And\+Run\+ID (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{instances,  }\item[{char $\ast$}]{ip,  }\item[{int}]{port,  }\item[{char $\ast$}]{runid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1348 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a8737702d09faad605816655d77a11920}\label{sentinel_8c_a8737702d09faad605816655d77a11920}} 
+\index{sentinel.\+c@{sentinel.\+c}!init\+Sentinel@{init\+Sentinel}}
+\index{init\+Sentinel@{init\+Sentinel}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{init\+Sentinel()}{initSentinel()}}
+{\footnotesize\ttfamily void init\+Sentinel (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 465 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ad230f7009b18d03daae7ba2daec27222}\label{sentinel_8c_ad230f7009b18d03daae7ba2daec27222}} 
+\index{sentinel.\+c@{sentinel.\+c}!init\+Sentinel\+Config@{init\+Sentinel\+Config}}
+\index{init\+Sentinel\+Config@{init\+Sentinel\+Config}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{init\+Sentinel\+Config()}{initSentinelConfig()}}
+{\footnotesize\ttfamily void init\+Sentinel\+Config (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 460 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a018d5b0aa6f8dab978923ceb38c5d82e}\label{sentinel_8c_a018d5b0aa6f8dab978923ceb38c5d82e}} 
+\index{sentinel.\+c@{sentinel.\+c}!instance\+Link\+Close\+Connection@{instance\+Link\+Close\+Connection}}
+\index{instance\+Link\+Close\+Connection@{instance\+Link\+Close\+Connection}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{instance\+Link\+Close\+Connection()}{instanceLinkCloseConnection()}}
+{\footnotesize\ttfamily void instance\+Link\+Close\+Connection (\begin{DoxyParamCaption}\item[{\hyperlink{structinstance_link}{instance\+Link} $\ast$}]{link,  }\item[{redis\+Async\+Context $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 973 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a614a1730a78acf4c9b26b637b7a73e7e}\label{sentinel_8c_a614a1730a78acf4c9b26b637b7a73e7e}} 
+\index{sentinel.\+c@{sentinel.\+c}!instance\+Link\+Connection\+Error@{instance\+Link\+Connection\+Error}}
+\index{instance\+Link\+Connection\+Error@{instance\+Link\+Connection\+Error}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{instance\+Link\+Connection\+Error()}{instanceLinkConnectionError()}}
+{\footnotesize\ttfamily void instance\+Link\+Connection\+Error (\begin{DoxyParamCaption}\item[{const redis\+Async\+Context $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1116 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a4d91888a1b640bd2806e0772cb2e09a3}\label{sentinel_8c_a4d91888a1b640bd2806e0772cb2e09a3}} 
+\index{sentinel.\+c@{sentinel.\+c}!release\+Instance\+Link@{release\+Instance\+Link}}
+\index{release\+Instance\+Link@{release\+Instance\+Link}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{release\+Instance\+Link()}{releaseInstanceLink()}}
+{\footnotesize\ttfamily \hyperlink{structinstance_link}{instance\+Link}$\ast$ release\+Instance\+Link (\begin{DoxyParamCaption}\item[{\hyperlink{structinstance_link}{instance\+Link} $\ast$}]{link,  }\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 994 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a433297ad8933b2787ba8633863f5aa05}\label{sentinel_8c_a433297ad8933b2787ba8633863f5aa05}} 
+\index{sentinel.\+c@{sentinel.\+c}!release\+Sentinel\+Addr@{release\+Sentinel\+Addr}}
+\index{release\+Sentinel\+Addr@{release\+Sentinel\+Addr}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{release\+Sentinel\+Addr()}{releaseSentinelAddr()}}
+{\footnotesize\ttfamily void release\+Sentinel\+Addr (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$}]{sa }\end{DoxyParamCaption})}
+
+
+
+Definition at line 566 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a19a1ccd6ba3a2b6ecadb9694256d975b}\label{sentinel_8c_a19a1ccd6ba3a2b6ecadb9694256d975b}} 
+\index{sentinel.\+c@{sentinel.\+c}!release\+Sentinel\+Redis\+Instance@{release\+Sentinel\+Redis\+Instance}}
+\index{release\+Sentinel\+Redis\+Instance@{release\+Sentinel\+Redis\+Instance}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{release\+Sentinel\+Redis\+Instance()}{releaseSentinelRedisInstance()}}
+{\footnotesize\ttfamily void release\+Sentinel\+Redis\+Instance (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1260 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_afb7ec7b8a9a7b518ead293182d5a6666}\label{sentinel_8c_afb7ec7b8a9a7b518ead293182d5a6666}} 
+\index{sentinel.\+c@{sentinel.\+c}!remove\+Matching\+Sentinel\+From\+Master@{remove\+Matching\+Sentinel\+From\+Master}}
+\index{remove\+Matching\+Sentinel\+From\+Master@{remove\+Matching\+Sentinel\+From\+Master}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{remove\+Matching\+Sentinel\+From\+Master()}{removeMatchingSentinelFromMaster()}}
+{\footnotesize\ttfamily int remove\+Matching\+Sentinel\+From\+Master (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master,  }\item[{char $\ast$}]{runid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1322 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a26974438d61910d512e0a5675ef10fef}\label{sentinel_8c_a26974438d61910d512e0a5675ef10fef}} 
+\index{sentinel.\+c@{sentinel.\+c}!rewrite\+Config\+Sentinel\+Option@{rewrite\+Config\+Sentinel\+Option}}
+\index{rewrite\+Config\+Sentinel\+Option@{rewrite\+Config\+Sentinel\+Option}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{rewrite\+Config\+Sentinel\+Option()}{rewriteConfigSentinelOption()}}
+{\footnotesize\ttfamily void rewrite\+Config\+Sentinel\+Option (\begin{DoxyParamCaption}\item[{struct rewrite\+Config\+State $\ast$}]{state }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1754 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a8c9bce60c57bdb3b6e7db2c86ef90c49}\label{sentinel_8c_a8c9bce60c57bdb3b6e7db2c86ef90c49}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Abort\+Failover@{sentinel\+Abort\+Failover}}
+\index{sentinel\+Abort\+Failover@{sentinel\+Abort\+Failover}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Abort\+Failover()}{sentinelAbortFailover()}}
+{\footnotesize\ttfamily void sentinel\+Abort\+Failover (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4377 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a053c4a2a05cec21399e70ec00a4d963f}\label{sentinel_8c_a053c4a2a05cec21399e70ec00a4d963f}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Add\+Flags\+To\+Dict\+Of\+Redis\+Instances@{sentinel\+Add\+Flags\+To\+Dict\+Of\+Redis\+Instances}}
+\index{sentinel\+Add\+Flags\+To\+Dict\+Of\+Redis\+Instances@{sentinel\+Add\+Flags\+To\+Dict\+Of\+Redis\+Instances}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Add\+Flags\+To\+Dict\+Of\+Redis\+Instances()}{sentinelAddFlagsToDictOfRedisInstances()}}
+{\footnotesize\ttfamily void sentinel\+Add\+Flags\+To\+Dict\+Of\+Redis\+Instances (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{instances,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1382 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ad2a70ef63731a22e17aafd7caff40294}\label{sentinel_8c_ad2a70ef63731a22e17aafd7caff40294}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Addr\+Is\+Equal@{sentinel\+Addr\+Is\+Equal}}
+\index{sentinel\+Addr\+Is\+Equal@{sentinel\+Addr\+Is\+Equal}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Addr\+Is\+Equal()}{sentinelAddrIsEqual()}}
+{\footnotesize\ttfamily int sentinel\+Addr\+Is\+Equal (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$}]{a,  }\item[{\hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 572 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a3ab7c7e659d88e591fc46ca2245748a0}\label{sentinel_8c_a3ab7c7e659d88e591fc46ca2245748a0}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Ask\+Master\+State\+To\+Other\+Sentinels@{sentinel\+Ask\+Master\+State\+To\+Other\+Sentinels}}
+\index{sentinel\+Ask\+Master\+State\+To\+Other\+Sentinels@{sentinel\+Ask\+Master\+State\+To\+Other\+Sentinels}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Ask\+Master\+State\+To\+Other\+Sentinels()}{sentinelAskMasterStateToOtherSentinels()}}
+{\footnotesize\ttfamily void sentinel\+Ask\+Master\+State\+To\+Other\+Sentinels (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3710 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ac797bd447dba797329d6e792ade0519f}\label{sentinel_8c_ac797bd447dba797329d6e792ade0519f}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Call\+Client\+Reconf\+Script@{sentinel\+Call\+Client\+Reconf\+Script}}
+\index{sentinel\+Call\+Client\+Reconf\+Script@{sentinel\+Call\+Client\+Reconf\+Script}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Call\+Client\+Reconf\+Script()}{sentinelCallClientReconfScript()}}
+{\footnotesize\ttfamily void sentinel\+Call\+Client\+Reconf\+Script (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master,  }\item[{int}]{role,  }\item[{char $\ast$}]{state,  }\item[{\hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$}]{from,  }\item[{\hyperlink{structsentinel_addr}{sentinel\+Addr} $\ast$}]{to }\end{DoxyParamCaption})}
+
+
+
+Definition at line 934 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a1ec4ed2a9ee398c976188689a9d09797}\label{sentinel_8c_a1ec4ed2a9ee398c976188689a9d09797}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Check\+Objectively\+Down@{sentinel\+Check\+Objectively\+Down}}
+\index{sentinel\+Check\+Objectively\+Down@{sentinel\+Check\+Objectively\+Down}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Check\+Objectively\+Down()}{sentinelCheckObjectivelyDown()}}
+{\footnotesize\ttfamily void sentinel\+Check\+Objectively\+Down (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3630 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a53b67893bc0ecac832e11ff3dcea1b8e}\label{sentinel_8c_a53b67893bc0ecac832e11ff3dcea1b8e}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Check\+Subjectively\+Down@{sentinel\+Check\+Subjectively\+Down}}
+\index{sentinel\+Check\+Subjectively\+Down@{sentinel\+Check\+Subjectively\+Down}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Check\+Subjectively\+Down()}{sentinelCheckSubjectivelyDown()}}
+{\footnotesize\ttfamily void sentinel\+Check\+Subjectively\+Down (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3558 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a6d72770d74a3a4407e23ae28412f3084}\label{sentinel_8c_a6d72770d74a3a4407e23ae28412f3084}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Check\+Tilt\+Condition@{sentinel\+Check\+Tilt\+Condition}}
+\index{sentinel\+Check\+Tilt\+Condition@{sentinel\+Check\+Tilt\+Condition}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Check\+Tilt\+Condition()}{sentinelCheckTiltCondition()}}
+{\footnotesize\ttfamily void sentinel\+Check\+Tilt\+Condition (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4475 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_abcc48064dd3585ec35a9269d95b837ab}\label{sentinel_8c_abcc48064dd3585ec35a9269d95b837ab}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Collect\+Terminated\+Scripts@{sentinel\+Collect\+Terminated\+Scripts}}
+\index{sentinel\+Collect\+Terminated\+Scripts@{sentinel\+Collect\+Terminated\+Scripts}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Collect\+Terminated\+Scripts()}{sentinelCollectTerminatedScripts()}}
+{\footnotesize\ttfamily void sentinel\+Collect\+Terminated\+Scripts (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 815 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a4ff4c9a93d6934bed1801d402f2e51d9}\label{sentinel_8c_a4ff4c9a93d6934bed1801d402f2e51d9}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Command@{sentinel\+Command}}
+\index{sentinel\+Command@{sentinel\+Command}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Command()}{sentinelCommand()}}
+{\footnotesize\ttfamily void sentinel\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2970 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_abbb79ff8c550f88788e1f9d1482c10a1}\label{sentinel_8c_abbb79ff8c550f88788e1f9d1482c10a1}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Del\+Flags\+To\+Dict\+Of\+Redis\+Instances@{sentinel\+Del\+Flags\+To\+Dict\+Of\+Redis\+Instances}}
+\index{sentinel\+Del\+Flags\+To\+Dict\+Of\+Redis\+Instances@{sentinel\+Del\+Flags\+To\+Dict\+Of\+Redis\+Instances}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Del\+Flags\+To\+Dict\+Of\+Redis\+Instances()}{sentinelDelFlagsToDictOfRedisInstances()}}
+{\footnotesize\ttfamily void sentinel\+Del\+Flags\+To\+Dict\+Of\+Redis\+Instances (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{instances,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1396 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ae833256a831eeb9ad96f5973448259ac}\label{sentinel_8c_ae833256a831eeb9ad96f5973448259ac}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Discard\+Reply\+Callback@{sentinel\+Discard\+Reply\+Callback}}
+\index{sentinel\+Discard\+Reply\+Callback@{sentinel\+Discard\+Reply\+Callback}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Discard\+Reply\+Callback()}{sentinelDiscardReplyCallback()}}
+{\footnotesize\ttfamily void sentinel\+Discard\+Reply\+Callback (\begin{DoxyParamCaption}\item[{redis\+Async\+Context $\ast$}]{c,  }\item[{void $\ast$}]{reply,  }\item[{void $\ast$}]{privdata }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2333 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_abec680d54c7f892564adc97b1ca3aad2}\label{sentinel_8c_abec680d54c7f892564adc97b1ca3aad2}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Disconnect\+Callback@{sentinel\+Disconnect\+Callback}}
+\index{sentinel\+Disconnect\+Callback@{sentinel\+Disconnect\+Callback}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Disconnect\+Callback()}{sentinelDisconnectCallback()}}
+{\footnotesize\ttfamily void sentinel\+Disconnect\+Callback (\begin{DoxyParamCaption}\item[{const redis\+Async\+Context $\ast$}]{c,  }\item[{int}]{status }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1136 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a0a6baeff5c0dcb6068d8c72d5fa72a57}\label{sentinel_8c_a0a6baeff5c0dcb6068d8c72d5fa72a57}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Event@{sentinel\+Event}}
+\index{sentinel\+Event@{sentinel\+Event}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Event()}{sentinelEvent()}}
+{\footnotesize\ttfamily void sentinel\+Event (\begin{DoxyParamCaption}\item[{int}]{level,  }\item[{char $\ast$}]{type,  }\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 602 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a6e05fc1bde9a523bce8416a42245c66c}\label{sentinel_8c_a6e05fc1bde9a523bce8416a42245c66c}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Failover\+Detect\+End@{sentinel\+Failover\+Detect\+End}}
+\index{sentinel\+Failover\+Detect\+End@{sentinel\+Failover\+Detect\+End}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Failover\+Detect\+End()}{sentinelFailoverDetectEnd()}}
+{\footnotesize\ttfamily void sentinel\+Failover\+Detect\+End (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4210 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a37595900d0ce5865c9a1346924406a00}\label{sentinel_8c_a37595900d0ce5865c9a1346924406a00}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Failover\+Reconf\+Next\+Slave@{sentinel\+Failover\+Reconf\+Next\+Slave}}
+\index{sentinel\+Failover\+Reconf\+Next\+Slave@{sentinel\+Failover\+Reconf\+Next\+Slave}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Failover\+Reconf\+Next\+Slave()}{sentinelFailoverReconfNextSlave()}}
+{\footnotesize\ttfamily void sentinel\+Failover\+Reconf\+Next\+Slave (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4275 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ace02d153033f2e17ed05d92c14a9ffa2}\label{sentinel_8c_ace02d153033f2e17ed05d92c14a9ffa2}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Failover\+Select\+Slave@{sentinel\+Failover\+Select\+Slave}}
+\index{sentinel\+Failover\+Select\+Slave@{sentinel\+Failover\+Select\+Slave}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Failover\+Select\+Slave()}{sentinelFailoverSelectSlave()}}
+{\footnotesize\ttfamily void sentinel\+Failover\+Select\+Slave (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4154 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a08306eba82da4786d636eee3617cf5fb}\label{sentinel_8c_a08306eba82da4786d636eee3617cf5fb}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Failover\+Send\+Slave\+Of\+No\+One@{sentinel\+Failover\+Send\+Slave\+Of\+No\+One}}
+\index{sentinel\+Failover\+Send\+Slave\+Of\+No\+One@{sentinel\+Failover\+Send\+Slave\+Of\+No\+One}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Failover\+Send\+Slave\+Of\+No\+One()}{sentinelFailoverSendSlaveOfNoOne()}}
+{\footnotesize\ttfamily void sentinel\+Failover\+Send\+Slave\+Of\+No\+One (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4173 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aff7e7ff96ac4d439724419890f40452e}\label{sentinel_8c_aff7e7ff96ac4d439724419890f40452e}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Failover\+State\+Machine@{sentinel\+Failover\+State\+Machine}}
+\index{sentinel\+Failover\+State\+Machine@{sentinel\+Failover\+State\+Machine}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Failover\+State\+Machine()}{sentinelFailoverStateMachine()}}
+{\footnotesize\ttfamily void sentinel\+Failover\+State\+Machine (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4348 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a9a6830306367109b686ab1e13b9aea02}\label{sentinel_8c_a9a6830306367109b686ab1e13b9aea02}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Failover\+State\+Str@{sentinel\+Failover\+State\+Str}}
+\index{sentinel\+Failover\+State\+Str@{sentinel\+Failover\+State\+Str}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Failover\+State\+Str()}{sentinelFailoverStateStr()}}
+{\footnotesize\ttfamily const char$\ast$ sentinel\+Failover\+State\+Str (\begin{DoxyParamCaption}\item[{int}]{state }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2710 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aad1d8e81f8f8c6cb3a1b903a8a52de01}\label{sentinel_8c_aad1d8e81f8f8c6cb3a1b903a8a52de01}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Failover\+Switch\+To\+Promoted\+Slave@{sentinel\+Failover\+Switch\+To\+Promoted\+Slave}}
+\index{sentinel\+Failover\+Switch\+To\+Promoted\+Slave@{sentinel\+Failover\+Switch\+To\+Promoted\+Slave}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Failover\+Switch\+To\+Promoted\+Slave()}{sentinelFailoverSwitchToPromotedSlave()}}
+{\footnotesize\ttfamily void sentinel\+Failover\+Switch\+To\+Promoted\+Slave (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4337 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a1f3b8ceb95713ed93f4d6a1db4b74207}\label{sentinel_8c_a1f3b8ceb95713ed93f4d6a1db4b74207}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Failover\+Wait\+Promotion@{sentinel\+Failover\+Wait\+Promotion}}
+\index{sentinel\+Failover\+Wait\+Promotion@{sentinel\+Failover\+Wait\+Promotion}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Failover\+Wait\+Promotion()}{sentinelFailoverWaitPromotion()}}
+{\footnotesize\ttfamily void sentinel\+Failover\+Wait\+Promotion (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4201 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a87d8a2a7fe6c8f5b3c3a0516f90b634e}\label{sentinel_8c_a87d8a2a7fe6c8f5b3c3a0516f90b634e}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Failover\+Wait\+Start@{sentinel\+Failover\+Wait\+Start}}
+\index{sentinel\+Failover\+Wait\+Start@{sentinel\+Failover\+Wait\+Start}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Failover\+Wait\+Start()}{sentinelFailoverWaitStart()}}
+{\footnotesize\ttfamily void sentinel\+Failover\+Wait\+Start (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4121 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a98af068acb19b92b43532e2d9234a706}\label{sentinel_8c_a98af068acb19b92b43532e2d9234a706}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Flush\+Config@{sentinel\+Flush\+Config}}
+\index{sentinel\+Flush\+Config@{sentinel\+Flush\+Config}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Flush\+Config()}{sentinelFlushConfig()}}
+{\footnotesize\ttfamily void sentinel\+Flush\+Config (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1919 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a0e8285bb30383dc8c7cdc207ab8ab816}\label{sentinel_8c_a0e8285bb30383dc8c7cdc207ab8ab816}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Force\+Hello\+Update\+Dict\+Of\+Redis\+Instances@{sentinel\+Force\+Hello\+Update\+Dict\+Of\+Redis\+Instances}}
+\index{sentinel\+Force\+Hello\+Update\+Dict\+Of\+Redis\+Instances@{sentinel\+Force\+Hello\+Update\+Dict\+Of\+Redis\+Instances}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Force\+Hello\+Update\+Dict\+Of\+Redis\+Instances()}{sentinelForceHelloUpdateDictOfRedisInstances()}}
+{\footnotesize\ttfamily void sentinel\+Force\+Hello\+Update\+Dict\+Of\+Redis\+Instances (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{instances }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2589 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a1fcb2809c11fbdb0b64547b0350cda69}\label{sentinel_8c_a1fcb2809c11fbdb0b64547b0350cda69}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Force\+Hello\+Update\+For\+Master@{sentinel\+Force\+Hello\+Update\+For\+Master}}
+\index{sentinel\+Force\+Hello\+Update\+For\+Master@{sentinel\+Force\+Hello\+Update\+For\+Master}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Force\+Hello\+Update\+For\+Master()}{sentinelForceHelloUpdateForMaster()}}
+{\footnotesize\ttfamily int sentinel\+Force\+Hello\+Update\+For\+Master (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2610 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aed084220f7818418d86fb8591cd96f45}\label{sentinel_8c_aed084220f7818418d86fb8591cd96f45}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Generate\+Initial\+Monitor\+Events@{sentinel\+Generate\+Initial\+Monitor\+Events}}
+\index{sentinel\+Generate\+Initial\+Monitor\+Events@{sentinel\+Generate\+Initial\+Monitor\+Events}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Generate\+Initial\+Monitor\+Events()}{sentinelGenerateInitialMonitorEvents()}}
+{\footnotesize\ttfamily void sentinel\+Generate\+Initial\+Monitor\+Events (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 663 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a333db33f5b88d495ed7e033477c7db98}\label{sentinel_8c_a333db33f5b88d495ed7e033477c7db98}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Get\+Current\+Master\+Address@{sentinel\+Get\+Current\+Master\+Address}}
+\index{sentinel\+Get\+Current\+Master\+Address@{sentinel\+Get\+Current\+Master\+Address}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Get\+Current\+Master\+Address()}{sentinelGetCurrentMasterAddress()}}
+{\footnotesize\ttfamily \hyperlink{structsentinel_addr}{sentinel\+Addr}$\ast$ sentinel\+Get\+Current\+Master\+Address (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1552 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a92ce7125765c0181e67ee348abb8e2c4}\label{sentinel_8c_a92ce7125765c0181e67ee348abb8e2c4}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Get\+Instance\+Type\+String@{sentinel\+Get\+Instance\+Type\+String}}
+\index{sentinel\+Get\+Instance\+Type\+String@{sentinel\+Get\+Instance\+Type\+String}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Get\+Instance\+Type\+String()}{sentinelGetInstanceTypeString()}}
+{\footnotesize\ttfamily char$\ast$ sentinel\+Get\+Instance\+Type\+String (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1586 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_acb426e71543c5f8f0b334e68fe818871}\label{sentinel_8c_acb426e71543c5f8f0b334e68fe818871}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Get\+Leader@{sentinel\+Get\+Leader}}
+\index{sentinel\+Get\+Leader@{sentinel\+Get\+Leader}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Get\+Leader()}{sentinelGetLeader()}}
+{\footnotesize\ttfamily char$\ast$ sentinel\+Get\+Leader (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master,  }\item[{uint64\+\_\+t}]{epoch }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3824 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_adbf1ffbc2547e4cfd1679b490bcfffa2}\label{sentinel_8c_adbf1ffbc2547e4cfd1679b490bcfffa2}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Get\+Master\+By\+Name@{sentinel\+Get\+Master\+By\+Name}}
+\index{sentinel\+Get\+Master\+By\+Name@{sentinel\+Get\+Master\+By\+Name}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Get\+Master\+By\+Name()}{sentinelGetMasterByName()}}
+{\footnotesize\ttfamily \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ sentinel\+Get\+Master\+By\+Name (\begin{DoxyParamCaption}\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1372 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ad20dbb4188033b67bfa5fce285f772c2}\label{sentinel_8c_ad20dbb4188033b67bfa5fce285f772c2}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Get\+Master\+By\+Name\+Or\+Reply\+Error@{sentinel\+Get\+Master\+By\+Name\+Or\+Reply\+Error}}
+\index{sentinel\+Get\+Master\+By\+Name\+Or\+Reply\+Error@{sentinel\+Get\+Master\+By\+Name\+Or\+Reply\+Error}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Get\+Master\+By\+Name\+Or\+Reply\+Error()}{sentinelGetMasterByNameOrReplyError()}}
+{\footnotesize\ttfamily \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance}$\ast$ sentinel\+Get\+Master\+By\+Name\+Or\+Reply\+Error (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2932 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_af82483d44f45583166a3d0f308248c5b}\label{sentinel_8c_af82483d44f45583166a3d0f308248c5b}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Get\+Objective\+Leader@{sentinel\+Get\+Objective\+Leader}}
+\index{sentinel\+Get\+Objective\+Leader@{sentinel\+Get\+Objective\+Leader}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Get\+Objective\+Leader()}{sentinelGetObjectiveLeader()}}
+{\footnotesize\ttfamily char$\ast$ sentinel\+Get\+Objective\+Leader (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{sentinel_8c_ae5700609dae49ecdf3fb14db8c504a56}\label{sentinel_8c_ae5700609dae49ecdf3fb14db8c504a56}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Get\+Script\+List\+Node\+By\+Pid@{sentinel\+Get\+Script\+List\+Node\+By\+Pid}}
+\index{sentinel\+Get\+Script\+List\+Node\+By\+Pid@{sentinel\+Get\+Script\+List\+Node\+By\+Pid}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Get\+Script\+List\+Node\+By\+Pid()}{sentinelGetScriptListNodeByPid()}}
+{\footnotesize\ttfamily \hyperlink{structlist_node}{list\+Node}$\ast$ sentinel\+Get\+Script\+List\+Node\+By\+Pid (\begin{DoxyParamCaption}\item[{pid\+\_\+t}]{pid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 735 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ab88117788350b0f06c2ff14c385e9bff}\label{sentinel_8c_ab88117788350b0f06c2ff14c385e9bff}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Get\+Subjective\+Leader@{sentinel\+Get\+Subjective\+Leader}}
+\index{sentinel\+Get\+Subjective\+Leader@{sentinel\+Get\+Subjective\+Leader}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Get\+Subjective\+Leader()}{sentinelGetSubjectiveLeader()}}
+{\footnotesize\ttfamily char$\ast$ sentinel\+Get\+Subjective\+Leader (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{sentinel_8c_aad3f73f18c225cde763b433b529c2610}\label{sentinel_8c_aad3f73f18c225cde763b433b529c2610}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Handle\+Configuration@{sentinel\+Handle\+Configuration}}
+\index{sentinel\+Handle\+Configuration@{sentinel\+Handle\+Configuration}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Handle\+Configuration()}{sentinelHandleConfiguration()}}
+{\footnotesize\ttfamily char$\ast$ sentinel\+Handle\+Configuration (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{argv,  }\item[{int}]{argc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1609 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ac7f117239188901161cc9b9fb62b328e}\label{sentinel_8c_ac7f117239188901161cc9b9fb62b328e}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Handle\+Dict\+Of\+Redis\+Instances@{sentinel\+Handle\+Dict\+Of\+Redis\+Instances}}
+\index{sentinel\+Handle\+Dict\+Of\+Redis\+Instances@{sentinel\+Handle\+Dict\+Of\+Redis\+Instances}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Handle\+Dict\+Of\+Redis\+Instances()}{sentinelHandleDictOfRedisInstances()}}
+{\footnotesize\ttfamily void sentinel\+Handle\+Dict\+Of\+Redis\+Instances (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{instances }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4432 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a9bcf5e1923b87db21acf8bd6e6a38a4b}\label{sentinel_8c_a9bcf5e1923b87db21acf8bd6e6a38a4b}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Handle\+Redis\+Instance@{sentinel\+Handle\+Redis\+Instance}}
+\index{sentinel\+Handle\+Redis\+Instance@{sentinel\+Handle\+Redis\+Instance}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Handle\+Redis\+Instance()}{sentinelHandleRedisInstance()}}
+{\footnotesize\ttfamily void sentinel\+Handle\+Redis\+Instance (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4396 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ab91b2582ec72f96dcde55bcafd51121c}\label{sentinel_8c_ab91b2582ec72f96dcde55bcafd51121c}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Info\+Command@{sentinel\+Info\+Command}}
+\index{sentinel\+Info\+Command@{sentinel\+Info\+Command}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Info\+Command()}{sentinelInfoCommand()}}
+{\footnotesize\ttfamily void sentinel\+Info\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3301 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a95466b23ee94949bb918446cbfe9072c}\label{sentinel_8c_a95466b23ee94949bb918446cbfe9072c}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Info\+Reply\+Callback@{sentinel\+Info\+Reply\+Callback}}
+\index{sentinel\+Info\+Reply\+Callback@{sentinel\+Info\+Reply\+Callback}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Info\+Reply\+Callback()}{sentinelInfoReplyCallback()}}
+{\footnotesize\ttfamily void sentinel\+Info\+Reply\+Callback (\begin{DoxyParamCaption}\item[{redis\+Async\+Context $\ast$}]{c,  }\item[{void $\ast$}]{reply,  }\item[{void $\ast$}]{privdata }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2318 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aa9aa9efd3bd4f84c24542fd43ea574d0}\label{sentinel_8c_aa9aa9efd3bd4f84c24542fd43ea574d0}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Instance\+Map\+Command@{sentinel\+Instance\+Map\+Command}}
+\index{sentinel\+Instance\+Map\+Command@{sentinel\+Instance\+Map\+Command}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Instance\+Map\+Command()}{sentinelInstanceMapCommand()}}
+{\footnotesize\ttfamily char$\ast$ sentinel\+Instance\+Map\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri,  }\item[{char $\ast$}]{command }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1600 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_adcdde252a3f07f75bedb711184800d52}\label{sentinel_8c_adcdde252a3f07f75bedb711184800d52}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Is\+Quorum\+Reachable@{sentinel\+Is\+Quorum\+Reachable}}
+\index{sentinel\+Is\+Quorum\+Reachable@{sentinel\+Is\+Quorum\+Reachable}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Is\+Quorum\+Reachable()}{sentinelIsQuorumReachable()}}
+{\footnotesize\ttfamily int sentinel\+Is\+Quorum\+Reachable (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master,  }\item[{int $\ast$}]{usableptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2948 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_add06eed88f7d0694a1fa9eac5f349d45}\label{sentinel_8c_add06eed88f7d0694a1fa9eac5f349d45}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Is\+Running@{sentinel\+Is\+Running}}
+\index{sentinel\+Is\+Running@{sentinel\+Is\+Running}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Is\+Running()}{sentinelIsRunning()}}
+{\footnotesize\ttfamily void sentinel\+Is\+Running (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 496 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ab5888b2da6230afe747b6412472fd183}\label{sentinel_8c_ab5888b2da6230afe747b6412472fd183}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Kill\+Timedout\+Scripts@{sentinel\+Kill\+Timedout\+Scripts}}
+\index{sentinel\+Kill\+Timedout\+Scripts@{sentinel\+Kill\+Timedout\+Scripts}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Kill\+Timedout\+Scripts()}{sentinelKillTimedoutScripts()}}
+{\footnotesize\ttfamily void sentinel\+Kill\+Timedout\+Scripts (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 862 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a34b5cdd0dbb94d20985b65c906172125}\label{sentinel_8c_a34b5cdd0dbb94d20985b65c906172125}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Leader\+Incr@{sentinel\+Leader\+Incr}}
+\index{sentinel\+Leader\+Incr@{sentinel\+Leader\+Incr}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Leader\+Incr()}{sentinelLeaderIncr()}}
+{\footnotesize\ttfamily int sentinel\+Leader\+Incr (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{counters,  }\item[{char $\ast$}]{runid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3802 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_adac4dd323ad88c6fe5b30be8244960fa}\label{sentinel_8c_adac4dd323ad88c6fe5b30be8244960fa}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Link\+Established\+Callback@{sentinel\+Link\+Established\+Callback}}
+\index{sentinel\+Link\+Established\+Callback@{sentinel\+Link\+Established\+Callback}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Link\+Established\+Callback()}{sentinelLinkEstablishedCallback()}}
+{\footnotesize\ttfamily void sentinel\+Link\+Established\+Callback (\begin{DoxyParamCaption}\item[{const redis\+Async\+Context $\ast$}]{c,  }\item[{int}]{status }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1132 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aaa929795b3adc888d1b144a63c1f8fea}\label{sentinel_8c_aaa929795b3adc888d1b144a63c1f8fea}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Master\+Looks\+Sane@{sentinel\+Master\+Looks\+Sane}}
+\index{sentinel\+Master\+Looks\+Sane@{sentinel\+Master\+Looks\+Sane}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Master\+Looks\+Sane()}{sentinelMasterLooksSane()}}
+{\footnotesize\ttfamily int sentinel\+Master\+Looks\+Sane (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2057 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_adf031c67661c943bab038f1b2cd3a95d}\label{sentinel_8c_adf031c67661c943bab038f1b2cd3a95d}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Pending\+Scripts\+Command@{sentinel\+Pending\+Scripts\+Command}}
+\index{sentinel\+Pending\+Scripts\+Command@{sentinel\+Pending\+Scripts\+Command}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Pending\+Scripts\+Command()}{sentinelPendingScriptsCommand()}}
+{\footnotesize\ttfamily void sentinel\+Pending\+Scripts\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 882 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aa76cafdf341322551dde09db6fb02034}\label{sentinel_8c_aa76cafdf341322551dde09db6fb02034}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Ping\+Reply\+Callback@{sentinel\+Ping\+Reply\+Callback}}
+\index{sentinel\+Ping\+Reply\+Callback@{sentinel\+Ping\+Reply\+Callback}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Ping\+Reply\+Callback()}{sentinelPingReplyCallback()}}
+{\footnotesize\ttfamily void sentinel\+Ping\+Reply\+Callback (\begin{DoxyParamCaption}\item[{redis\+Async\+Context $\ast$}]{c,  }\item[{void $\ast$}]{reply,  }\item[{void $\ast$}]{privdata }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2341 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a81bc1c1b92479f877fa9888424a17ae2}\label{sentinel_8c_a81bc1c1b92479f877fa9888424a17ae2}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Process\+Hello\+Message@{sentinel\+Process\+Hello\+Message}}
+\index{sentinel\+Process\+Hello\+Message@{sentinel\+Process\+Hello\+Message}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Process\+Hello\+Message()}{sentinelProcessHelloMessage()}}
+{\footnotesize\ttfamily void sentinel\+Process\+Hello\+Message (\begin{DoxyParamCaption}\item[{char $\ast$}]{hello,  }\item[{int}]{hello\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2403 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aa1bb3b2994a1a762d91d6aee332033de}\label{sentinel_8c_aa1bb3b2994a1a762d91d6aee332033de}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Propagate\+Down\+After\+Period@{sentinel\+Propagate\+Down\+After\+Period}}
+\index{sentinel\+Propagate\+Down\+After\+Period@{sentinel\+Propagate\+Down\+After\+Period}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Propagate\+Down\+After\+Period()}{sentinelPropagateDownAfterPeriod()}}
+{\footnotesize\ttfamily void sentinel\+Propagate\+Down\+After\+Period (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1570 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a5b03d3ee829a0da169061f76138dd4f1}\label{sentinel_8c_a5b03d3ee829a0da169061f76138dd4f1}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Publish\+Command@{sentinel\+Publish\+Command}}
+\index{sentinel\+Publish\+Command@{sentinel\+Publish\+Command}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Publish\+Command()}{sentinelPublishCommand()}}
+{\footnotesize\ttfamily void sentinel\+Publish\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3546 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_afdee16647beca10d8b1fdea07691e1b7}\label{sentinel_8c_afdee16647beca10d8b1fdea07691e1b7}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Publish\+Reply\+Callback@{sentinel\+Publish\+Reply\+Callback}}
+\index{sentinel\+Publish\+Reply\+Callback@{sentinel\+Publish\+Reply\+Callback}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Publish\+Reply\+Callback()}{sentinelPublishReplyCallback()}}
+{\footnotesize\ttfamily void sentinel\+Publish\+Reply\+Callback (\begin{DoxyParamCaption}\item[{redis\+Async\+Context $\ast$}]{c,  }\item[{void $\ast$}]{reply,  }\item[{void $\ast$}]{privdata }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2383 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a9b805c11b8b9e6d586ed63693cc8f40c}\label{sentinel_8c_a9b805c11b8b9e6d586ed63693cc8f40c}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Receive\+Hello\+Messages@{sentinel\+Receive\+Hello\+Messages}}
+\index{sentinel\+Receive\+Hello\+Messages@{sentinel\+Receive\+Hello\+Messages}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Receive\+Hello\+Messages()}{sentinelReceiveHelloMessages()}}
+{\footnotesize\ttfamily void sentinel\+Receive\+Hello\+Messages (\begin{DoxyParamCaption}\item[{redis\+Async\+Context $\ast$}]{c,  }\item[{void $\ast$}]{reply,  }\item[{void $\ast$}]{privdata }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2507 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_acd2aecfbac11e9cbc2c2b431d7eb4564}\label{sentinel_8c_acd2aecfbac11e9cbc2c2b431d7eb4564}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Receive\+Is\+Master\+Down\+Reply@{sentinel\+Receive\+Is\+Master\+Down\+Reply}}
+\index{sentinel\+Receive\+Is\+Master\+Down\+Reply@{sentinel\+Receive\+Is\+Master\+Down\+Reply}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Receive\+Is\+Master\+Down\+Reply()}{sentinelReceiveIsMasterDownReply()}}
+{\footnotesize\ttfamily void sentinel\+Receive\+Is\+Master\+Down\+Reply (\begin{DoxyParamCaption}\item[{redis\+Async\+Context $\ast$}]{c,  }\item[{void $\ast$}]{reply,  }\item[{void $\ast$}]{privdata }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3667 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a4581feaa7484a8e37f94a13b43b4d46d}\label{sentinel_8c_a4581feaa7484a8e37f94a13b43b4d46d}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Reconnect\+Instance@{sentinel\+Reconnect\+Instance}}
+\index{sentinel\+Reconnect\+Instance@{sentinel\+Reconnect\+Instance}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Reconnect\+Instance()}{sentinelReconnectInstance()}}
+{\footnotesize\ttfamily void sentinel\+Reconnect\+Instance (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1980 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ab3a8fbe0db80d0258735f39922475cef}\label{sentinel_8c_ab3a8fbe0db80d0258735f39922475cef}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Redis\+Instance\+Lookup\+Slave@{sentinel\+Redis\+Instance\+Lookup\+Slave}}
+\index{sentinel\+Redis\+Instance\+Lookup\+Slave@{sentinel\+Redis\+Instance\+Lookup\+Slave}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Redis\+Instance\+Lookup\+Slave()}{sentinelRedisInstanceLookupSlave()}}
+{\footnotesize\ttfamily \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance}$\ast$ sentinel\+Redis\+Instance\+Lookup\+Slave (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri,  }\item[{char $\ast$}]{ip,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1288 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a4fdeed2104f857ecd6ca309ffc5d9d36}\label{sentinel_8c_a4fdeed2104f857ecd6ca309ffc5d9d36}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Redis\+Instance\+No\+Down\+For@{sentinel\+Redis\+Instance\+No\+Down\+For}}
+\index{sentinel\+Redis\+Instance\+No\+Down\+For@{sentinel\+Redis\+Instance\+No\+Down\+For}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Redis\+Instance\+No\+Down\+For()}{sentinelRedisInstanceNoDownFor()}}
+{\footnotesize\ttfamily int sentinel\+Redis\+Instance\+No\+Down\+For (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri,  }\item[{\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t}}]{ms }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1541 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a7a647fc8c0b27b2679d6c4ff4b2cb579}\label{sentinel_8c_a7a647fc8c0b27b2679d6c4ff4b2cb579}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Redis\+Instance\+Type\+Str@{sentinel\+Redis\+Instance\+Type\+Str}}
+\index{sentinel\+Redis\+Instance\+Type\+Str@{sentinel\+Redis\+Instance\+Type\+Str}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Redis\+Instance\+Type\+Str()}{sentinelRedisInstanceTypeStr()}}
+{\footnotesize\ttfamily const char $\ast$ sentinel\+Redis\+Instance\+Type\+Str (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1304 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a2b0480f979eefb5d83a081fc041c7829}\label{sentinel_8c_a2b0480f979eefb5d83a081fc041c7829}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Refresh\+Instance\+Info@{sentinel\+Refresh\+Instance\+Info}}
+\index{sentinel\+Refresh\+Instance\+Info@{sentinel\+Refresh\+Instance\+Info}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Refresh\+Instance\+Info()}{sentinelRefreshInstanceInfo()}}
+{\footnotesize\ttfamily void sentinel\+Refresh\+Instance\+Info (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri,  }\item[{const char $\ast$}]{info }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2066 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a3ff721b6d9be92f027967cc799fcb5c3}\label{sentinel_8c_a3ff721b6d9be92f027967cc799fcb5c3}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Release\+Script\+Job@{sentinel\+Release\+Script\+Job}}
+\index{sentinel\+Release\+Script\+Job@{sentinel\+Release\+Script\+Job}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Release\+Script\+Job()}{sentinelReleaseScriptJob()}}
+{\footnotesize\ttfamily void sentinel\+Release\+Script\+Job (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_script_job}{sentinel\+Script\+Job} $\ast$}]{sj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 678 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a79d55635b61168928f1e5c8ad485a574}\label{sentinel_8c_a79d55635b61168928f1e5c8ad485a574}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Reset\+Master@{sentinel\+Reset\+Master}}
+\index{sentinel\+Reset\+Master@{sentinel\+Reset\+Master}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Reset\+Master()}{sentinelResetMaster()}}
+{\footnotesize\ttfamily void sentinel\+Reset\+Master (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1420 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a46504f10ecb6c69bcb842ce798e17fb1}\label{sentinel_8c_a46504f10ecb6c69bcb842ce798e17fb1}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Reset\+Master\+And\+Change\+Address@{sentinel\+Reset\+Master\+And\+Change\+Address}}
+\index{sentinel\+Reset\+Master\+And\+Change\+Address@{sentinel\+Reset\+Master\+And\+Change\+Address}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Reset\+Master\+And\+Change\+Address()}{sentinelResetMasterAndChangeAddress()}}
+{\footnotesize\ttfamily int sentinel\+Reset\+Master\+And\+Change\+Address (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master,  }\item[{char $\ast$}]{ip,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1482 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a9cbad6d1fabac0f2f338ff28ce163f58}\label{sentinel_8c_a9cbad6d1fabac0f2f338ff28ce163f58}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Reset\+Masters\+By\+Pattern@{sentinel\+Reset\+Masters\+By\+Pattern}}
+\index{sentinel\+Reset\+Masters\+By\+Pattern@{sentinel\+Reset\+Masters\+By\+Pattern}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Reset\+Masters\+By\+Pattern()}{sentinelResetMastersByPattern()}}
+{\footnotesize\ttfamily int sentinel\+Reset\+Masters\+By\+Pattern (\begin{DoxyParamCaption}\item[{char $\ast$}]{pattern,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1455 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a8b0aa00bca92c33699fcab15c46770f3}\label{sentinel_8c_a8b0aa00bca92c33699fcab15c46770f3}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Role\+Command@{sentinel\+Role\+Command}}
+\index{sentinel\+Role\+Command@{sentinel\+Role\+Command}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Role\+Command()}{sentinelRoleCommand()}}
+{\footnotesize\ttfamily void sentinel\+Role\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3366 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a5b2c9250a2c66883ef0c934e172ae85c}\label{sentinel_8c_a5b2c9250a2c66883ef0c934e172ae85c}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Run\+Pending\+Scripts@{sentinel\+Run\+Pending\+Scripts}}
+\index{sentinel\+Run\+Pending\+Scripts@{sentinel\+Run\+Pending\+Scripts}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Run\+Pending\+Scripts()}{sentinelRunPendingScripts()}}
+{\footnotesize\ttfamily void sentinel\+Run\+Pending\+Scripts (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 751 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a2a8be0bcc4299b7a212a74b985c6bb79}\label{sentinel_8c_a2a8be0bcc4299b7a212a74b985c6bb79}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Schedule\+Script\+Execution@{sentinel\+Schedule\+Script\+Execution}}
+\index{sentinel\+Schedule\+Script\+Execution@{sentinel\+Schedule\+Script\+Execution}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Schedule\+Script\+Execution()}{sentinelScheduleScriptExecution()}}
+{\footnotesize\ttfamily void sentinel\+Schedule\+Script\+Execution (\begin{DoxyParamCaption}\item[{char $\ast$}]{path,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 687 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aaaf88e31eeee53df2fb2c37a5ca83f8f}\label{sentinel_8c_aaaf88e31eeee53df2fb2c37a5ca83f8f}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Script\+Retry\+Delay@{sentinel\+Script\+Retry\+Delay}}
+\index{sentinel\+Script\+Retry\+Delay@{sentinel\+Script\+Retry\+Delay}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Script\+Retry\+Delay()}{sentinelScriptRetryDelay()}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} sentinel\+Script\+Retry\+Delay (\begin{DoxyParamCaption}\item[{int}]{retry\+\_\+num }\end{DoxyParamCaption})}
+
+
+
+Definition at line 804 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ac991fd1ee540b6e12a4bee46f75c5569}\label{sentinel_8c_ac991fd1ee540b6e12a4bee46f75c5569}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Select\+Slave@{sentinel\+Select\+Slave}}
+\index{sentinel\+Select\+Slave@{sentinel\+Select\+Slave}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Select\+Slave()}{sentinelSelectSlave()}}
+{\footnotesize\ttfamily \hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$ sentinel\+Select\+Slave (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4076 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a95439681a0f31c0523fa172619e19147}\label{sentinel_8c_a95439681a0f31c0523fa172619e19147}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Send\+Auth\+If\+Needed@{sentinel\+Send\+Auth\+If\+Needed}}
+\index{sentinel\+Send\+Auth\+If\+Needed@{sentinel\+Send\+Auth\+If\+Needed}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Send\+Auth\+If\+Needed()}{sentinelSendAuthIfNeeded()}}
+{\footnotesize\ttfamily void sentinel\+Send\+Auth\+If\+Needed (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri,  }\item[{redis\+Async\+Context $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1947 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a7c64f9d8c6957e404e6da3076f191a47}\label{sentinel_8c_a7c64f9d8c6957e404e6da3076f191a47}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Send\+Hello@{sentinel\+Send\+Hello}}
+\index{sentinel\+Send\+Hello@{sentinel\+Send\+Hello}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Send\+Hello()}{sentinelSendHello()}}
+{\footnotesize\ttfamily int sentinel\+Send\+Hello (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2546 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_add46707129cf81a6b6417fb62ae4cf70}\label{sentinel_8c_add46707129cf81a6b6417fb62ae4cf70}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Send\+Periodic\+Commands@{sentinel\+Send\+Periodic\+Commands}}
+\index{sentinel\+Send\+Periodic\+Commands@{sentinel\+Send\+Periodic\+Commands}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Send\+Periodic\+Commands()}{sentinelSendPeriodicCommands()}}
+{\footnotesize\ttfamily void sentinel\+Send\+Periodic\+Commands (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2644 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_abf28f2afd4b8a0a32688789975508b4d}\label{sentinel_8c_abf28f2afd4b8a0a32688789975508b4d}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Send\+Ping@{sentinel\+Send\+Ping}}
+\index{sentinel\+Send\+Ping@{sentinel\+Send\+Ping}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Send\+Ping()}{sentinelSendPing()}}
+{\footnotesize\ttfamily int sentinel\+Send\+Ping (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2624 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a3e9acfff728ff300fb9f74bee99359e4}\label{sentinel_8c_a3e9acfff728ff300fb9f74bee99359e4}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Send\+Slave\+Of@{sentinel\+Send\+Slave\+Of}}
+\index{sentinel\+Send\+Slave\+Of@{sentinel\+Send\+Slave\+Of}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Send\+Slave\+Of()}{sentinelSendSlaveOf()}}
+{\footnotesize\ttfamily int sentinel\+Send\+Slave\+Of (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri,  }\item[{char $\ast$}]{host,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3899 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ace3b8fe46a1c529b56ead5cd67dc9e27}\label{sentinel_8c_ace3b8fe46a1c529b56ead5cd67dc9e27}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Set\+Client\+Name@{sentinel\+Set\+Client\+Name}}
+\index{sentinel\+Set\+Client\+Name@{sentinel\+Set\+Client\+Name}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Set\+Client\+Name()}{sentinelSetClientName()}}
+{\footnotesize\ttfamily void sentinel\+Set\+Client\+Name (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri,  }\item[{redis\+Async\+Context $\ast$}]{c,  }\item[{char $\ast$}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1964 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a8c56373a243fbc3780964a569b2c4e47}\label{sentinel_8c_a8c56373a243fbc3780964a569b2c4e47}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Set\+Command@{sentinel\+Set\+Command}}
+\index{sentinel\+Set\+Command@{sentinel\+Set\+Command}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Set\+Command()}{sentinelSetCommand()}}
+{\footnotesize\ttfamily void sentinel\+Set\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3384 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a934e79c41e463b9184f3499ec6da6e4e}\label{sentinel_8c_a934e79c41e463b9184f3499ec6da6e4e}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Sim\+Failure\+Crash@{sentinel\+Sim\+Failure\+Crash}}
+\index{sentinel\+Sim\+Failure\+Crash@{sentinel\+Sim\+Failure\+Crash}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Sim\+Failure\+Crash()}{sentinelSimFailureCrash()}}
+{\footnotesize\ttfamily void sentinel\+Sim\+Failure\+Crash (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3757 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_accafbb4b892963481e478c14cc9b3685}\label{sentinel_8c_accafbb4b892963481e478c14cc9b3685}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Start\+Failover@{sentinel\+Start\+Failover}}
+\index{sentinel\+Start\+Failover@{sentinel\+Start\+Failover}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Start\+Failover()}{sentinelStartFailover()}}
+{\footnotesize\ttfamily void sentinel\+Start\+Failover (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3962 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aeda951fd2435a69d70a3aacced214f94}\label{sentinel_8c_aeda951fd2435a69d70a3aacced214f94}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Start\+Failover\+If\+Needed@{sentinel\+Start\+Failover\+If\+Needed}}
+\index{sentinel\+Start\+Failover\+If\+Needed@{sentinel\+Start\+Failover\+If\+Needed}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Start\+Failover\+If\+Needed()}{sentinelStartFailoverIfNeeded()}}
+{\footnotesize\ttfamily int sentinel\+Start\+Failover\+If\+Needed (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3986 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a3cb995563d699c28a1f74dea410f131b}\label{sentinel_8c_a3cb995563d699c28a1f74dea410f131b}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Timer@{sentinel\+Timer}}
+\index{sentinel\+Timer@{sentinel\+Timer}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Timer()}{sentinelTimer()}}
+{\footnotesize\ttfamily void sentinel\+Timer (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4487 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a63982563f892ba07df7451724ca2fd45}\label{sentinel_8c_a63982563f892ba07df7451724ca2fd45}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Try\+Connection\+Sharing@{sentinel\+Try\+Connection\+Sharing}}
+\index{sentinel\+Try\+Connection\+Sharing@{sentinel\+Try\+Connection\+Sharing}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Try\+Connection\+Sharing()}{sentinelTryConnectionSharing()}}
+{\footnotesize\ttfamily int sentinel\+Try\+Connection\+Sharing (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1038 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aaeea8768b998f701739745fabd68f5a8}\label{sentinel_8c_aaeea8768b998f701739745fabd68f5a8}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Update\+Sentinel\+Address\+In\+All\+Masters@{sentinel\+Update\+Sentinel\+Address\+In\+All\+Masters}}
+\index{sentinel\+Update\+Sentinel\+Address\+In\+All\+Masters@{sentinel\+Update\+Sentinel\+Address\+In\+All\+Masters}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Update\+Sentinel\+Address\+In\+All\+Masters()}{sentinelUpdateSentinelAddressInAllMasters()}}
+{\footnotesize\ttfamily int sentinel\+Update\+Sentinel\+Address\+In\+All\+Masters (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{ri }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1074 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_ab610cc2f9a43e60765e600c85e8dfd94}\label{sentinel_8c_ab610cc2f9a43e60765e600c85e8dfd94}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel\+Vote\+Leader@{sentinel\+Vote\+Leader}}
+\index{sentinel\+Vote\+Leader@{sentinel\+Vote\+Leader}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel\+Vote\+Leader()}{sentinelVoteLeader()}}
+{\footnotesize\ttfamily char $\ast$ sentinel\+Vote\+Leader (\begin{DoxyParamCaption}\item[{\hyperlink{structsentinel_redis_instance}{sentinel\+Redis\+Instance} $\ast$}]{master,  }\item[{uint64\+\_\+t}]{req\+\_\+epoch,  }\item[{char $\ast$}]{req\+\_\+runid,  }\item[{uint64\+\_\+t $\ast$}]{leader\+\_\+epoch }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3768 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_aaa2c7d12117054b26bac4cae03667665}\label{sentinel_8c_aaa2c7d12117054b26bac4cae03667665}} 
+\index{sentinel.\+c@{sentinel.\+c}!yesnotoi@{yesnotoi}}
+\index{yesnotoi@{yesnotoi}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{yesnotoi()}{yesnotoi()}}
+{\footnotesize\ttfamily int yesnotoi (\begin{DoxyParamCaption}\item[{char $\ast$}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 139 of file config.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{sentinel_8c_aa006daaf11f1e2e45a6ababaf463212b}\label{sentinel_8c_aa006daaf11f1e2e45a6ababaf463212b}} 
+\index{sentinel.\+c@{sentinel.\+c}!environ@{environ}}
+\index{environ@{environ}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{environ}{environ}}
+{\footnotesize\ttfamily char$\ast$$\ast$ environ}
+
+\mbox{\Hypertarget{sentinel_8c_abeb3b4ecaae0b9a90f27c8e5f6687822}\label{sentinel_8c_abeb3b4ecaae0b9a90f27c8e5f6687822}} 
+\index{sentinel.\+c@{sentinel.\+c}!instances\+Dict\+Type@{instances\+Dict\+Type}}
+\index{instances\+Dict\+Type@{instances\+Dict\+Type}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{instances\+Dict\+Type}{instancesDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} instances\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{sentinel_8c_abf11672cc702adce676d41c162b20345}{dictSdsHash},               
+    NULL,                      
+    NULL,                      
+    \hyperlink{sentinel_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}{dictSdsKeyCompare},         
+    NULL,                      
+    \hyperlink{sentinel_8c_ac3c25d1241e06caba5e765f19ee42c82}{dictInstancesValDestructor} 
+\}
+\end{DoxyCode}
+
+
+Definition at line 404 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_adf322735335405b1482071209e7cd5fa}\label{sentinel_8c_adf322735335405b1482071209e7cd5fa}} 
+\index{sentinel.\+c@{sentinel.\+c}!leader\+Votes\+Dict\+Type@{leader\+Votes\+Dict\+Type}}
+\index{leader\+Votes\+Dict\+Type@{leader\+Votes\+Dict\+Type}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{leader\+Votes\+Dict\+Type}{leaderVotesDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} leader\+Votes\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{sentinel_8c_abf11672cc702adce676d41c162b20345}{dictSdsHash},               
+    NULL,                      
+    NULL,                      
+    \hyperlink{sentinel_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}{dictSdsKeyCompare},         
+    NULL,                      
+    NULL                       
+\}
+\end{DoxyCode}
+
+
+Definition at line 417 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_af0b041bac7dd2a1cdba0b5e938bdfa91}\label{sentinel_8c_af0b041bac7dd2a1cdba0b5e938bdfa91}} 
+\index{sentinel.\+c@{sentinel.\+c}!renamed\+Commands\+Dict\+Type@{renamed\+Commands\+Dict\+Type}}
+\index{renamed\+Commands\+Dict\+Type@{renamed\+Commands\+Dict\+Type}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{renamed\+Commands\+Dict\+Type}{renamedCommandsDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} renamed\+Commands\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{sentinel_8c_ada0bb13a034f3ab2ac57be6e27f1bf7e}{dictSdsCaseHash},           
+    NULL,                      
+    NULL,                      
+    \hyperlink{sentinel_8c_ac350c29f63271e4d5766b02997733738}{dictSdsKeyCaseCompare},     
+    \hyperlink{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}{dictSdsDestructor},         
+    dictSdsDestructor          
+\}
+\end{DoxyCode}
+
+
+Definition at line 427 of file sentinel.\+c.
+
+\mbox{\Hypertarget{sentinel_8c_a98db63c1945fee11d49c5253cf401363}\label{sentinel_8c_a98db63c1945fee11d49c5253cf401363}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinel@{sentinel}}
+\index{sentinel@{sentinel}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinel}{sentinel}}
+{\footnotesize\ttfamily struct \hyperlink{structsentinel_state}{sentinel\+State}  sentinel}
+
+\mbox{\Hypertarget{sentinel_8c_a131ca08b9816f17681b22a7ae122998a}\label{sentinel_8c_a131ca08b9816f17681b22a7ae122998a}} 
+\index{sentinel.\+c@{sentinel.\+c}!sentinelcmds@{sentinelcmds}}
+\index{sentinelcmds@{sentinelcmds}!sentinel.\+c@{sentinel.\+c}}
+\subsubsection{\texorpdfstring{sentinelcmds}{sentinelcmds}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} sentinelcmds\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \{\textcolor{stringliteral}{"ping"},\hyperlink{server_8c_ae1066bde6904041087bdf3efa2bde1e7}{pingCommand},1,\textcolor{stringliteral}{""},0,NULL,0,0,0,0,0\},
+    \{\textcolor{stringliteral}{"sentinel"},\hyperlink{sentinel_8c_a4ff4c9a93d6934bed1801d402f2e51d9}{sentinelCommand},-2,\textcolor{stringliteral}{""},0,NULL,0,0,0,0,0\},
+    \{\textcolor{stringliteral}{"subscribe"},\hyperlink{pubsub_8c_a7322700796b561a34a18723b5d1b754a}{subscribeCommand},-2,\textcolor{stringliteral}{""},0,NULL,0,0,0,0,0\},
+    \{\textcolor{stringliteral}{"unsubscribe"},\hyperlink{pubsub_8c_a472428e32d6dddf29790796d3388e135}{unsubscribeCommand},-1,\textcolor{stringliteral}{""},0,NULL,0,0,0,0,0\},
+    \{\textcolor{stringliteral}{"psubscribe"},\hyperlink{pubsub_8c_adc25a077e0766a1a45816ff2c280a247}{psubscribeCommand},-2,\textcolor{stringliteral}{""},0,NULL,0,0,0,0,0\},
+    \{\textcolor{stringliteral}{"punsubscribe"},\hyperlink{pubsub_8c_acb5aa2733bb6ecb41cf96fa248454697}{punsubscribeCommand},-1,\textcolor{stringliteral}{""},0,NULL,0,0,0,0,0\},
+    \{\textcolor{stringliteral}{"publish"},\hyperlink{sentinel_8c_a5b03d3ee829a0da169061f76138dd4f1}{sentinelPublishCommand},3,\textcolor{stringliteral}{""},0,NULL,0,0,0,0,0\},
+    \{\textcolor{stringliteral}{"info"},\hyperlink{sentinel_8c_ab91b2582ec72f96dcde55bcafd51121c}{sentinelInfoCommand},-1,\textcolor{stringliteral}{""},0,NULL,0,0,0,0,0\},
+    \{\textcolor{stringliteral}{"role"},\hyperlink{sentinel_8c_a8b0aa00bca92c33699fcab15c46770f3}{sentinelRoleCommand},1,\textcolor{stringliteral}{"l"},0,NULL,0,0,0,0,0\},
+    \{\textcolor{stringliteral}{"client"},\hyperlink{networking_8c_ad3c3c6d763b64355f5098a511d7b7ae4}{clientCommand},-2,\textcolor{stringliteral}{"rs"},0,NULL,0,0,0,0,0\},
+    \{\textcolor{stringliteral}{"shutdown"},\hyperlink{db_8c_a30e4f224a138ea036bb4ecc024796be0}{shutdownCommand},-1,\textcolor{stringliteral}{""},0,NULL,0,0,0,0,0\}
+\}
+\end{DoxyCode}
+
+
+Definition at line 444 of file sentinel.\+c.
+

@@ -1,0 +1,186 @@
+\hypertarget{struct_redis_module_key}{}\section{Redis\+Module\+Key Struct Reference}
+\label{struct_redis_module_key}\index{Redis\+Module\+Key@{Redis\+Module\+Key}}
+
+
+Collaboration diagram for Redis\+Module\+Key\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_redis_module_key__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_redis_module_ctx}{Redis\+Module\+Ctx} $\ast$ \hyperlink{struct_redis_module_key_a221ba73ece36a4c95c593459c3fc1d8d}{ctx}
+\item 
+\hyperlink{structredis_db}{redis\+Db} $\ast$ \hyperlink{struct_redis_module_key_a9bee04e09635a42fef289e42a89f5502}{db}
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{struct_redis_module_key_adc0ee0ed345db513fb6fac27511be4f1}{key}
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{struct_redis_module_key_ae0737a2b5e82b2dfbea9c054a8d08e48}{value}
+\item 
+void $\ast$ \hyperlink{struct_redis_module_key_a90bd46e0b31168ef41c9aa5051a7b4ce}{iter}
+\item 
+int \hyperlink{struct_redis_module_key_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode}
+\item 
+uint32\+\_\+t \hyperlink{struct_redis_module_key_a7f0f33d3cd7a75ecb32808d59da191a5}{ztype}
+\item 
+\hyperlink{structzrangespec}{zrangespec} \hyperlink{struct_redis_module_key_ab6cf05a3adfdba8d0b5af2db3f72def3}{zrs}
+\item 
+\hyperlink{structzlexrangespec}{zlexrangespec} \hyperlink{struct_redis_module_key_a3f633fdec59a955cfba03ea0bbc2c2e1}{zlrs}
+\item 
+uint32\+\_\+t \hyperlink{struct_redis_module_key_a10dca55c0cc253103a7af4717727f384}{zstart}
+\item 
+uint32\+\_\+t \hyperlink{struct_redis_module_key_a467df6d3265de354629e17fa23d60aec}{zend}
+\item 
+void $\ast$ \hyperlink{struct_redis_module_key_aa3fb69c6152d197b29c253136e6b989f}{zcurrent}
+\item 
+int \hyperlink{struct_redis_module_key_a3f8ab02b0506741f78a775123c517a1b}{zer}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 134 of file module.\+c.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{struct_redis_module_key_a221ba73ece36a4c95c593459c3fc1d8d}\label{struct_redis_module_key_a221ba73ece36a4c95c593459c3fc1d8d}} 
+\index{Redis\+Module\+Key@{Redis\+Module\+Key}!ctx@{ctx}}
+\index{ctx@{ctx}!Redis\+Module\+Key@{Redis\+Module\+Key}}
+\subsubsection{\texorpdfstring{ctx}{ctx}}
+{\footnotesize\ttfamily \hyperlink{struct_redis_module_ctx}{Redis\+Module\+Ctx}$\ast$ ctx}
+
+
+
+Definition at line 135 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_key_a9bee04e09635a42fef289e42a89f5502}\label{struct_redis_module_key_a9bee04e09635a42fef289e42a89f5502}} 
+\index{Redis\+Module\+Key@{Redis\+Module\+Key}!db@{db}}
+\index{db@{db}!Redis\+Module\+Key@{Redis\+Module\+Key}}
+\subsubsection{\texorpdfstring{db}{db}}
+{\footnotesize\ttfamily \hyperlink{structredis_db}{redis\+Db}$\ast$ db}
+
+
+
+Definition at line 136 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_key_a90bd46e0b31168ef41c9aa5051a7b4ce}\label{struct_redis_module_key_a90bd46e0b31168ef41c9aa5051a7b4ce}} 
+\index{Redis\+Module\+Key@{Redis\+Module\+Key}!iter@{iter}}
+\index{iter@{iter}!Redis\+Module\+Key@{Redis\+Module\+Key}}
+\subsubsection{\texorpdfstring{iter}{iter}}
+{\footnotesize\ttfamily void$\ast$ iter}
+
+
+
+Definition at line 139 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_key_adc0ee0ed345db513fb6fac27511be4f1}\label{struct_redis_module_key_adc0ee0ed345db513fb6fac27511be4f1}} 
+\index{Redis\+Module\+Key@{Redis\+Module\+Key}!key@{key}}
+\index{key@{key}!Redis\+Module\+Key@{Redis\+Module\+Key}}
+\subsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ key}
+
+
+
+Definition at line 137 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_key_a1ea5d0cb93f22f7d0fdf804bd68c3326}\label{struct_redis_module_key_a1ea5d0cb93f22f7d0fdf804bd68c3326}} 
+\index{Redis\+Module\+Key@{Redis\+Module\+Key}!mode@{mode}}
+\index{mode@{mode}!Redis\+Module\+Key@{Redis\+Module\+Key}}
+\subsubsection{\texorpdfstring{mode}{mode}}
+{\footnotesize\ttfamily int mode}
+
+
+
+Definition at line 140 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_key_ae0737a2b5e82b2dfbea9c054a8d08e48}\label{struct_redis_module_key_ae0737a2b5e82b2dfbea9c054a8d08e48}} 
+\index{Redis\+Module\+Key@{Redis\+Module\+Key}!value@{value}}
+\index{value@{value}!Redis\+Module\+Key@{Redis\+Module\+Key}}
+\subsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ value}
+
+
+
+Definition at line 138 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_key_aa3fb69c6152d197b29c253136e6b989f}\label{struct_redis_module_key_aa3fb69c6152d197b29c253136e6b989f}} 
+\index{Redis\+Module\+Key@{Redis\+Module\+Key}!zcurrent@{zcurrent}}
+\index{zcurrent@{zcurrent}!Redis\+Module\+Key@{Redis\+Module\+Key}}
+\subsubsection{\texorpdfstring{zcurrent}{zcurrent}}
+{\footnotesize\ttfamily void$\ast$ zcurrent}
+
+
+
+Definition at line 148 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_key_a467df6d3265de354629e17fa23d60aec}\label{struct_redis_module_key_a467df6d3265de354629e17fa23d60aec}} 
+\index{Redis\+Module\+Key@{Redis\+Module\+Key}!zend@{zend}}
+\index{zend@{zend}!Redis\+Module\+Key@{Redis\+Module\+Key}}
+\subsubsection{\texorpdfstring{zend}{zend}}
+{\footnotesize\ttfamily uint32\+\_\+t zend}
+
+
+
+Definition at line 147 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_key_a3f8ab02b0506741f78a775123c517a1b}\label{struct_redis_module_key_a3f8ab02b0506741f78a775123c517a1b}} 
+\index{Redis\+Module\+Key@{Redis\+Module\+Key}!zer@{zer}}
+\index{zer@{zer}!Redis\+Module\+Key@{Redis\+Module\+Key}}
+\subsubsection{\texorpdfstring{zer}{zer}}
+{\footnotesize\ttfamily int zer}
+
+
+
+Definition at line 149 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_key_a3f633fdec59a955cfba03ea0bbc2c2e1}\label{struct_redis_module_key_a3f633fdec59a955cfba03ea0bbc2c2e1}} 
+\index{Redis\+Module\+Key@{Redis\+Module\+Key}!zlrs@{zlrs}}
+\index{zlrs@{zlrs}!Redis\+Module\+Key@{Redis\+Module\+Key}}
+\subsubsection{\texorpdfstring{zlrs}{zlrs}}
+{\footnotesize\ttfamily \hyperlink{structzlexrangespec}{zlexrangespec} zlrs}
+
+
+
+Definition at line 145 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_key_ab6cf05a3adfdba8d0b5af2db3f72def3}\label{struct_redis_module_key_ab6cf05a3adfdba8d0b5af2db3f72def3}} 
+\index{Redis\+Module\+Key@{Redis\+Module\+Key}!zrs@{zrs}}
+\index{zrs@{zrs}!Redis\+Module\+Key@{Redis\+Module\+Key}}
+\subsubsection{\texorpdfstring{zrs}{zrs}}
+{\footnotesize\ttfamily \hyperlink{structzrangespec}{zrangespec} zrs}
+
+
+
+Definition at line 144 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_key_a10dca55c0cc253103a7af4717727f384}\label{struct_redis_module_key_a10dca55c0cc253103a7af4717727f384}} 
+\index{Redis\+Module\+Key@{Redis\+Module\+Key}!zstart@{zstart}}
+\index{zstart@{zstart}!Redis\+Module\+Key@{Redis\+Module\+Key}}
+\subsubsection{\texorpdfstring{zstart}{zstart}}
+{\footnotesize\ttfamily uint32\+\_\+t zstart}
+
+
+
+Definition at line 146 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_key_a7f0f33d3cd7a75ecb32808d59da191a5}\label{struct_redis_module_key_a7f0f33d3cd7a75ecb32808d59da191a5}} 
+\index{Redis\+Module\+Key@{Redis\+Module\+Key}!ztype@{ztype}}
+\index{ztype@{ztype}!Redis\+Module\+Key@{Redis\+Module\+Key}}
+\subsubsection{\texorpdfstring{ztype}{ztype}}
+{\footnotesize\ttfamily uint32\+\_\+t ztype}
+
+
+
+Definition at line 143 of file module.\+c.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{module_8c}{module.\+c}\end{DoxyCompactItemize}

@@ -1,0 +1,177 @@
+\hypertarget{sha1_8c}{}\section{src/sha1.c File Reference}
+\label{sha1_8c}\index{src/sha1.\+c@{src/sha1.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}solarisfixes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}sha1.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\newline
+Include dependency graph for sha1.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sha1_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{sha1_8c_a9e2c8862606a4549edef298248089783}{S\+H\+A1\+H\+A\+N\+D\+S\+O\+FF}
+\item 
+\#define \hyperlink{sha1_8c_af1373930110e4f86cb1f4bc6d44a66ee}{rol}(value,  bits)~(((value) $<$$<$ (bits)) $\vert$ ((value) $>$$>$ (32 -\/ (bits))))
+\item 
+\#define \hyperlink{sha1_8c_abd06ff24e9f6f5f0a9c32a1cba4b0f9c}{blk}(i)
+\item 
+\#define \hyperlink{sha1_8c_a8ac24a09e1273548828d3cc9436f9bc7}{R0}(v,  w,  x,  y,  z,  i)~z+=((w\&(x$^\wedge$y))$^\wedge$y)+blk0(i)+0x5\+A827999+rol(v,5);w=rol(w,30);
+\item 
+\#define \hyperlink{sha1_8c_a2628f8af7bf67ca052200537279f855a}{R1}(v,  w,  x,  y,  z,  i)~z+=((w\&(x$^\wedge$y))$^\wedge$y)+\hyperlink{sha1_8c_abd06ff24e9f6f5f0a9c32a1cba4b0f9c}{blk}(i)+0x5\+A827999+rol(v,5);w=rol(w,30);
+\item 
+\#define \hyperlink{sha1_8c_a774229b80509be0e9e0a1d9819580224}{R2}(v,  w,  x,  y,  z,  i)~z+=(w$^\wedge$x$^\wedge$y)+\hyperlink{sha1_8c_abd06ff24e9f6f5f0a9c32a1cba4b0f9c}{blk}(i)+0x6\+E\+D9\+E\+B\+A1+rol(v,5);w=rol(w,30);
+\item 
+\#define \hyperlink{sha1_8c_ac0b8b342432d17717ff1020d10cf0eea}{R3}(v,  w,  x,  y,  z,  i)~z+=(((w$\vert$x)\&y)$\vert$(w\&x))+\hyperlink{sha1_8c_abd06ff24e9f6f5f0a9c32a1cba4b0f9c}{blk}(i)+0x8\+F1\+B\+B\+C\+D\+C+rol(v,5);w=rol(w,30);
+\item 
+\#define \hyperlink{sha1_8c_af77ddc8894422d2af2adbd4e71e55d1f}{R4}(v,  w,  x,  y,  z,  i)~z+=(w$^\wedge$x$^\wedge$y)+\hyperlink{sha1_8c_abd06ff24e9f6f5f0a9c32a1cba4b0f9c}{blk}(i)+0x\+C\+A62\+C1\+D6+rol(v,5);w=rol(w,30);
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{sha1_8c_aa09d568f94ab4d7a492ee499cfacb191}{S\+H\+A1\+Transform} (uint32\+\_\+t state\mbox{[}5\mbox{]}, const unsigned char buffer\mbox{[}64\mbox{]})
+\item 
+void \hyperlink{sha1_8c_a159a97b3039391403b8d9b0d240a9640}{S\+H\+A1\+Init} (\hyperlink{struct_s_h_a1___c_t_x}{S\+H\+A1\+\_\+\+C\+TX} $\ast$context)
+\item 
+void \hyperlink{sha1_8c_add61f2c5aa96a35761eae3fb77717bc5}{S\+H\+A1\+Update} (\hyperlink{struct_s_h_a1___c_t_x}{S\+H\+A1\+\_\+\+C\+TX} $\ast$context, const unsigned char $\ast$data, uint32\+\_\+t len)
+\item 
+void \hyperlink{sha1_8c_aa58f279c51d82e868c9b0f7b1b7d08f4}{S\+H\+A1\+Final} (unsigned char digest\mbox{[}20\mbox{]}, \hyperlink{struct_s_h_a1___c_t_x}{S\+H\+A1\+\_\+\+C\+TX} $\ast$context)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{sha1_8c_abd06ff24e9f6f5f0a9c32a1cba4b0f9c}\label{sha1_8c_abd06ff24e9f6f5f0a9c32a1cba4b0f9c}} 
+\index{sha1.\+c@{sha1.\+c}!blk@{blk}}
+\index{blk@{blk}!sha1.\+c@{sha1.\+c}}
+\subsubsection{\texorpdfstring{blk}{blk}}
+{\footnotesize\ttfamily \#define blk(\begin{DoxyParamCaption}\item[{}]{i }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(block->l[i&15] = \hyperlink{sha1_8c_af1373930110e4f86cb1f4bc6d44a66ee}{rol}(block->l[(i+13)&15]^block->l[(i+8)&15] \(\backslash\)
+    ^block->l[(i+2)&15]^block->l[i&15],1))
+\end{DoxyCode}
+
+
+Definition at line 43 of file sha1.\+c.
+
+\mbox{\Hypertarget{sha1_8c_a8ac24a09e1273548828d3cc9436f9bc7}\label{sha1_8c_a8ac24a09e1273548828d3cc9436f9bc7}} 
+\index{sha1.\+c@{sha1.\+c}!R0@{R0}}
+\index{R0@{R0}!sha1.\+c@{sha1.\+c}}
+\subsubsection{\texorpdfstring{R0}{R0}}
+{\footnotesize\ttfamily \#define R0(\begin{DoxyParamCaption}\item[{}]{v,  }\item[{}]{w,  }\item[{}]{x,  }\item[{}]{y,  }\item[{}]{z,  }\item[{}]{i }\end{DoxyParamCaption})~z+=((w\&(x$^\wedge$y))$^\wedge$y)+blk0(i)+0x5\+A827999+rol(v,5);w=rol(w,30);}
+
+
+
+Definition at line 47 of file sha1.\+c.
+
+\mbox{\Hypertarget{sha1_8c_a2628f8af7bf67ca052200537279f855a}\label{sha1_8c_a2628f8af7bf67ca052200537279f855a}} 
+\index{sha1.\+c@{sha1.\+c}!R1@{R1}}
+\index{R1@{R1}!sha1.\+c@{sha1.\+c}}
+\subsubsection{\texorpdfstring{R1}{R1}}
+{\footnotesize\ttfamily \#define R1(\begin{DoxyParamCaption}\item[{}]{v,  }\item[{}]{w,  }\item[{}]{x,  }\item[{}]{y,  }\item[{}]{z,  }\item[{}]{i }\end{DoxyParamCaption})~z+=((w\&(x$^\wedge$y))$^\wedge$y)+\hyperlink{sha1_8c_abd06ff24e9f6f5f0a9c32a1cba4b0f9c}{blk}(i)+0x5\+A827999+rol(v,5);w=rol(w,30);}
+
+
+
+Definition at line 48 of file sha1.\+c.
+
+\mbox{\Hypertarget{sha1_8c_a774229b80509be0e9e0a1d9819580224}\label{sha1_8c_a774229b80509be0e9e0a1d9819580224}} 
+\index{sha1.\+c@{sha1.\+c}!R2@{R2}}
+\index{R2@{R2}!sha1.\+c@{sha1.\+c}}
+\subsubsection{\texorpdfstring{R2}{R2}}
+{\footnotesize\ttfamily \#define R2(\begin{DoxyParamCaption}\item[{}]{v,  }\item[{}]{w,  }\item[{}]{x,  }\item[{}]{y,  }\item[{}]{z,  }\item[{}]{i }\end{DoxyParamCaption})~z+=(w$^\wedge$x$^\wedge$y)+\hyperlink{sha1_8c_abd06ff24e9f6f5f0a9c32a1cba4b0f9c}{blk}(i)+0x6\+E\+D9\+E\+B\+A1+rol(v,5);w=rol(w,30);}
+
+
+
+Definition at line 49 of file sha1.\+c.
+
+\mbox{\Hypertarget{sha1_8c_ac0b8b342432d17717ff1020d10cf0eea}\label{sha1_8c_ac0b8b342432d17717ff1020d10cf0eea}} 
+\index{sha1.\+c@{sha1.\+c}!R3@{R3}}
+\index{R3@{R3}!sha1.\+c@{sha1.\+c}}
+\subsubsection{\texorpdfstring{R3}{R3}}
+{\footnotesize\ttfamily \#define R3(\begin{DoxyParamCaption}\item[{}]{v,  }\item[{}]{w,  }\item[{}]{x,  }\item[{}]{y,  }\item[{}]{z,  }\item[{}]{i }\end{DoxyParamCaption})~z+=(((w$\vert$x)\&y)$\vert$(w\&x))+\hyperlink{sha1_8c_abd06ff24e9f6f5f0a9c32a1cba4b0f9c}{blk}(i)+0x8\+F1\+B\+B\+C\+D\+C+rol(v,5);w=rol(w,30);}
+
+
+
+Definition at line 50 of file sha1.\+c.
+
+\mbox{\Hypertarget{sha1_8c_af77ddc8894422d2af2adbd4e71e55d1f}\label{sha1_8c_af77ddc8894422d2af2adbd4e71e55d1f}} 
+\index{sha1.\+c@{sha1.\+c}!R4@{R4}}
+\index{R4@{R4}!sha1.\+c@{sha1.\+c}}
+\subsubsection{\texorpdfstring{R4}{R4}}
+{\footnotesize\ttfamily \#define R4(\begin{DoxyParamCaption}\item[{}]{v,  }\item[{}]{w,  }\item[{}]{x,  }\item[{}]{y,  }\item[{}]{z,  }\item[{}]{i }\end{DoxyParamCaption})~z+=(w$^\wedge$x$^\wedge$y)+\hyperlink{sha1_8c_abd06ff24e9f6f5f0a9c32a1cba4b0f9c}{blk}(i)+0x\+C\+A62\+C1\+D6+rol(v,5);w=rol(w,30);}
+
+
+
+Definition at line 51 of file sha1.\+c.
+
+\mbox{\Hypertarget{sha1_8c_af1373930110e4f86cb1f4bc6d44a66ee}\label{sha1_8c_af1373930110e4f86cb1f4bc6d44a66ee}} 
+\index{sha1.\+c@{sha1.\+c}!rol@{rol}}
+\index{rol@{rol}!sha1.\+c@{sha1.\+c}}
+\subsubsection{\texorpdfstring{rol}{rol}}
+{\footnotesize\ttfamily \#define rol(\begin{DoxyParamCaption}\item[{}]{value,  }\item[{}]{bits }\end{DoxyParamCaption})~(((value) $<$$<$ (bits)) $\vert$ ((value) $>$$>$ (32 -\/ (bits))))}
+
+
+
+Definition at line 31 of file sha1.\+c.
+
+\mbox{\Hypertarget{sha1_8c_a9e2c8862606a4549edef298248089783}\label{sha1_8c_a9e2c8862606a4549edef298248089783}} 
+\index{sha1.\+c@{sha1.\+c}!S\+H\+A1\+H\+A\+N\+D\+S\+O\+FF@{S\+H\+A1\+H\+A\+N\+D\+S\+O\+FF}}
+\index{S\+H\+A1\+H\+A\+N\+D\+S\+O\+FF@{S\+H\+A1\+H\+A\+N\+D\+S\+O\+FF}!sha1.\+c@{sha1.\+c}}
+\subsubsection{\texorpdfstring{S\+H\+A1\+H\+A\+N\+D\+S\+O\+FF}{SHA1HANDSOFF}}
+{\footnotesize\ttfamily \#define S\+H\+A1\+H\+A\+N\+D\+S\+O\+FF}
+
+
+
+Definition at line 22 of file sha1.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{sha1_8c_aa58f279c51d82e868c9b0f7b1b7d08f4}\label{sha1_8c_aa58f279c51d82e868c9b0f7b1b7d08f4}} 
+\index{sha1.\+c@{sha1.\+c}!S\+H\+A1\+Final@{S\+H\+A1\+Final}}
+\index{S\+H\+A1\+Final@{S\+H\+A1\+Final}!sha1.\+c@{sha1.\+c}}
+\subsubsection{\texorpdfstring{S\+H\+A1\+Final()}{SHA1Final()}}
+{\footnotesize\ttfamily void S\+H\+A1\+Final (\begin{DoxyParamCaption}\item[{unsigned char}]{digest\mbox{[}20\mbox{]},  }\item[{\hyperlink{struct_s_h_a1___c_t_x}{S\+H\+A1\+\_\+\+C\+TX} $\ast$}]{context }\end{DoxyParamCaption})}
+
+
+
+Definition at line 155 of file sha1.\+c.
+
+\mbox{\Hypertarget{sha1_8c_a159a97b3039391403b8d9b0d240a9640}\label{sha1_8c_a159a97b3039391403b8d9b0d240a9640}} 
+\index{sha1.\+c@{sha1.\+c}!S\+H\+A1\+Init@{S\+H\+A1\+Init}}
+\index{S\+H\+A1\+Init@{S\+H\+A1\+Init}!sha1.\+c@{sha1.\+c}}
+\subsubsection{\texorpdfstring{S\+H\+A1\+Init()}{SHA1Init()}}
+{\footnotesize\ttfamily void S\+H\+A1\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{struct_s_h_a1___c_t_x}{S\+H\+A1\+\_\+\+C\+TX} $\ast$}]{context }\end{DoxyParamCaption})}
+
+
+
+Definition at line 117 of file sha1.\+c.
+
+\mbox{\Hypertarget{sha1_8c_aa09d568f94ab4d7a492ee499cfacb191}\label{sha1_8c_aa09d568f94ab4d7a492ee499cfacb191}} 
+\index{sha1.\+c@{sha1.\+c}!S\+H\+A1\+Transform@{S\+H\+A1\+Transform}}
+\index{S\+H\+A1\+Transform@{S\+H\+A1\+Transform}!sha1.\+c@{sha1.\+c}}
+\subsubsection{\texorpdfstring{S\+H\+A1\+Transform()}{SHA1Transform()}}
+{\footnotesize\ttfamily void S\+H\+A1\+Transform (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{state\mbox{[}5\mbox{]},  }\item[{const unsigned char}]{buffer\mbox{[}64\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 56 of file sha1.\+c.
+
+\mbox{\Hypertarget{sha1_8c_add61f2c5aa96a35761eae3fb77717bc5}\label{sha1_8c_add61f2c5aa96a35761eae3fb77717bc5}} 
+\index{sha1.\+c@{sha1.\+c}!S\+H\+A1\+Update@{S\+H\+A1\+Update}}
+\index{S\+H\+A1\+Update@{S\+H\+A1\+Update}!sha1.\+c@{sha1.\+c}}
+\subsubsection{\texorpdfstring{S\+H\+A1\+Update()}{SHA1Update()}}
+{\footnotesize\ttfamily void S\+H\+A1\+Update (\begin{DoxyParamCaption}\item[{\hyperlink{struct_s_h_a1___c_t_x}{S\+H\+A1\+\_\+\+C\+TX} $\ast$}]{context,  }\item[{const unsigned char $\ast$}]{data,  }\item[{uint32\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 131 of file sha1.\+c.
+

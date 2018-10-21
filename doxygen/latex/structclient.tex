@@ -1,0 +1,622 @@
+\hypertarget{structclient}{}\section{client Struct Reference}
+\label{structclient}\index{client@{client}}
+
+
+{\ttfamily \#include $<$server.\+h$>$}
+
+
+
+Collaboration diagram for client\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structclient__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint64\+\_\+t \hyperlink{structclient_a7e290573ef1be67b92a2c745e3b00d1d}{id}
+\item 
+int \hyperlink{structclient_a6f8059414f0228f0256115e024eeed4b}{fd}
+\item 
+\hyperlink{structredis_db}{redis\+Db} $\ast$ \hyperlink{structclient_a9bee04e09635a42fef289e42a89f5502}{db}
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{structclient_a363eae5cb1f099d7803cca951bef7ac2}{name}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{structclient_accf8e4a2bc6b80403d3f0f024eaa8a1b}{querybuf}
+\item 
+size\+\_\+t \hyperlink{structclient_a2de8996d6723315d26c64886145d5e51}{qb\+\_\+pos}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{structclient_ae41c09e14760e794d4378519d312ba9a}{pending\+\_\+querybuf}
+\item 
+size\+\_\+t \hyperlink{structclient_a09bca2273efb7490d637016ba048ae6e}{querybuf\+\_\+peak}
+\item 
+int \hyperlink{structclient_ad1447518f4372828b8435ae82e48499e}{argc}
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$ \hyperlink{structclient_a5c75dd3cb8eb8a3f5be7d4fdf48a9ef9}{argv}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structclient_a8ed6c4d0c6382ad1787b32d10db25c5e}{cmd}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structclient_a81d89da91093b6bd8a49acf4a58d47b4}{lastcmd}
+\item 
+int \hyperlink{structclient_a7c68e9e1d202efcb938b7527f7495de9}{reqtype}
+\item 
+int \hyperlink{structclient_a0fb4b72a537074c92ed763feb2d46d91}{multibulklen}
+\item 
+long \hyperlink{structclient_afdb54e1a6b1343bfb0535e4b0ceaa8a9}{bulklen}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structclient_a3c5720baa890941d827d99224a615377}{reply}
+\item 
+unsigned long long \hyperlink{structclient_a89eaaab407b2e2659686c94683168b48}{reply\+\_\+bytes}
+\item 
+size\+\_\+t \hyperlink{structclient_a6a5253178e8e0d41fc9901e6b0626cae}{sentlen}
+\item 
+time\+\_\+t \hyperlink{structclient_a2b105009c2d9020cbaf51d4457c20e3d}{ctime}
+\item 
+time\+\_\+t \hyperlink{structclient_a08c13433165f221a86bc5c3160f17c82}{lastinteraction}
+\item 
+time\+\_\+t \hyperlink{structclient_a5b716e337597169d53bb91dc9a68adc6}{obuf\+\_\+soft\+\_\+limit\+\_\+reached\+\_\+time}
+\item 
+int \hyperlink{structclient_ac8bf36fe0577cba66bccda3a6f7e80a4}{flags}
+\item 
+int \hyperlink{structclient_a29e86d0f6d62ef1edac10a46e4c92095}{authenticated}
+\item 
+int \hyperlink{structclient_abccae535b39fffe81ee57f696b14a218}{replstate}
+\item 
+int \hyperlink{structclient_afd45af71524188caa056f7687537166d}{repl\+\_\+put\+\_\+online\+\_\+on\+\_\+ack}
+\item 
+int \hyperlink{structclient_a55864c39dcd617fed6398837225a3854}{repldbfd}
+\item 
+off\+\_\+t \hyperlink{structclient_a23136112d3075494024d1db57a9e0011}{repldboff}
+\item 
+off\+\_\+t \hyperlink{structclient_aede725c26d864c47f7448b890931a68f}{repldbsize}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{structclient_afa5d87f20b8df88d56361da7092fb775}{replpreamble}
+\item 
+long long \hyperlink{structclient_ae0b58b6e73111b0ae1970a6e7eaed987}{read\+\_\+reploff}
+\item 
+long long \hyperlink{structclient_a3ceb1598320b93accc65299b5ccf10d7}{reploff}
+\item 
+long long \hyperlink{structclient_a4df1332c1e98088733ea290c8b617de5}{repl\+\_\+ack\+\_\+off}
+\item 
+long long \hyperlink{structclient_aca5279911d8623c8a01999fda40f1e4c}{repl\+\_\+ack\+\_\+time}
+\item 
+long long \hyperlink{structclient_a52806966ab7367bd568472363fe749d3}{psync\+\_\+initial\+\_\+offset}
+\item 
+char \hyperlink{structclient_a467ab80673fbca31b4729a65effc8362}{replid} \mbox{[}\hyperlink{server_8h_aba6794fa3ee28f85165eaed93190f1df}{C\+O\+N\+F\+I\+G\+\_\+\+R\+U\+N\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}+1\mbox{]}
+\item 
+int \hyperlink{structclient_a287c6c69470388ee449924e3a8f7933b}{slave\+\_\+listening\+\_\+port}
+\item 
+char \hyperlink{structclient_a73588a64f8187aee0fd21f4c4d228052}{slave\+\_\+ip} \mbox{[}\hyperlink{server_8h_ad97c5405ed22a94e9fcc10fba577d6c0}{N\+E\+T\+\_\+\+I\+P\+\_\+\+S\+T\+R\+\_\+\+L\+EN}\mbox{]}
+\item 
+int \hyperlink{structclient_a2f7a224ad788b75b96a48a81524a8a54}{slave\+\_\+capa}
+\item 
+\hyperlink{structmulti_state}{multi\+State} \hyperlink{structclient_a41bf43ebb391b4e37deb2cb287a8bd1c}{mstate}
+\item 
+int \hyperlink{structclient_a2dfb71dc958547622b0169422cbd12c3}{btype}
+\item 
+\hyperlink{structblocking_state}{blocking\+State} \hyperlink{structclient_ade2d291613f86ad81abd9b32a331c97d}{bpop}
+\item 
+long long \hyperlink{structclient_af59577028441c0e9c8361e112706e6c5}{woff}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structclient_af3ca58c76fd6357c844b8a3e1122b32f}{watched\+\_\+keys}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structclient_ac6c18a3bf3ec4d85777ca2db7d4a9b47}{pubsub\+\_\+channels}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structclient_aced844471ea20e757a4bc7bdee34d930}{pubsub\+\_\+patterns}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{structclient_a1c0771287014c17317f1d2536fea4427}{peerid}
+\item 
+\hyperlink{structlist_node}{list\+Node} $\ast$ \hyperlink{structclient_ad8a3896d9632f4ec77839688f457611b}{client\+\_\+list\+\_\+node}
+\item 
+int \hyperlink{structclient_a9ae77be080d462d041a52c377da64482}{bufpos}
+\item 
+char \hyperlink{structclient_aeaa96b202e891f899150ef91c52f77cd}{buf} \mbox{[}\hyperlink{server_8h_ab467e0a40be9097e85445616d9bb32e3}{P\+R\+O\+T\+O\+\_\+\+R\+E\+P\+L\+Y\+\_\+\+C\+H\+U\+N\+K\+\_\+\+B\+Y\+T\+ES}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 709 of file server.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structclient_ad1447518f4372828b8435ae82e48499e}\label{structclient_ad1447518f4372828b8435ae82e48499e}} 
+\index{client@{client}!argc@{argc}}
+\index{argc@{argc}!client@{client}}
+\subsubsection{\texorpdfstring{argc}{argc}}
+{\footnotesize\ttfamily int argc}
+
+
+
+Definition at line 721 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a5c75dd3cb8eb8a3f5be7d4fdf48a9ef9}\label{structclient_a5c75dd3cb8eb8a3f5be7d4fdf48a9ef9}} 
+\index{client@{client}!argv@{argv}}
+\index{argv@{argv}!client@{client}}
+\subsubsection{\texorpdfstring{argv}{argv}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$$\ast$ argv}
+
+
+
+Definition at line 722 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a29e86d0f6d62ef1edac10a46e4c92095}\label{structclient_a29e86d0f6d62ef1edac10a46e4c92095}} 
+\index{client@{client}!authenticated@{authenticated}}
+\index{authenticated@{authenticated}!client@{client}}
+\subsubsection{\texorpdfstring{authenticated}{authenticated}}
+{\footnotesize\ttfamily int authenticated}
+
+
+
+Definition at line 735 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_ade2d291613f86ad81abd9b32a331c97d}\label{structclient_ade2d291613f86ad81abd9b32a331c97d}} 
+\index{client@{client}!bpop@{bpop}}
+\index{bpop@{bpop}!client@{client}}
+\subsubsection{\texorpdfstring{bpop}{bpop}}
+{\footnotesize\ttfamily \hyperlink{structblocking_state}{blocking\+State} bpop}
+
+
+
+Definition at line 755 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a2dfb71dc958547622b0169422cbd12c3}\label{structclient_a2dfb71dc958547622b0169422cbd12c3}} 
+\index{client@{client}!btype@{btype}}
+\index{btype@{btype}!client@{client}}
+\subsubsection{\texorpdfstring{btype}{btype}}
+{\footnotesize\ttfamily int btype}
+
+
+
+Definition at line 754 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_aeaa96b202e891f899150ef91c52f77cd}\label{structclient_aeaa96b202e891f899150ef91c52f77cd}} 
+\index{client@{client}!buf@{buf}}
+\index{buf@{buf}!client@{client}}
+\subsubsection{\texorpdfstring{buf}{buf}}
+{\footnotesize\ttfamily char buf\mbox{[}\hyperlink{server_8h_ab467e0a40be9097e85445616d9bb32e3}{P\+R\+O\+T\+O\+\_\+\+R\+E\+P\+L\+Y\+\_\+\+C\+H\+U\+N\+K\+\_\+\+B\+Y\+T\+ES}\mbox{]}}
+
+
+
+Definition at line 765 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a9ae77be080d462d041a52c377da64482}\label{structclient_a9ae77be080d462d041a52c377da64482}} 
+\index{client@{client}!bufpos@{bufpos}}
+\index{bufpos@{bufpos}!client@{client}}
+\subsubsection{\texorpdfstring{bufpos}{bufpos}}
+{\footnotesize\ttfamily int bufpos}
+
+
+
+Definition at line 764 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_afdb54e1a6b1343bfb0535e4b0ceaa8a9}\label{structclient_afdb54e1a6b1343bfb0535e4b0ceaa8a9}} 
+\index{client@{client}!bulklen@{bulklen}}
+\index{bulklen@{bulklen}!client@{client}}
+\subsubsection{\texorpdfstring{bulklen}{bulklen}}
+{\footnotesize\ttfamily long bulklen}
+
+
+
+Definition at line 726 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_ad8a3896d9632f4ec77839688f457611b}\label{structclient_ad8a3896d9632f4ec77839688f457611b}} 
+\index{client@{client}!client\+\_\+list\+\_\+node@{client\+\_\+list\+\_\+node}}
+\index{client\+\_\+list\+\_\+node@{client\+\_\+list\+\_\+node}!client@{client}}
+\subsubsection{\texorpdfstring{client\+\_\+list\+\_\+node}{client\_list\_node}}
+{\footnotesize\ttfamily \hyperlink{structlist_node}{list\+Node}$\ast$ client\+\_\+list\+\_\+node}
+
+
+
+Definition at line 761 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a8ed6c4d0c6382ad1787b32d10db25c5e}\label{structclient_a8ed6c4d0c6382ad1787b32d10db25c5e}} 
+\index{client@{client}!cmd@{cmd}}
+\index{cmd@{cmd}!client@{client}}
+\subsubsection{\texorpdfstring{cmd}{cmd}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command}$\ast$ cmd}
+
+
+
+Definition at line 723 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a2b105009c2d9020cbaf51d4457c20e3d}\label{structclient_a2b105009c2d9020cbaf51d4457c20e3d}} 
+\index{client@{client}!ctime@{ctime}}
+\index{ctime@{ctime}!client@{client}}
+\subsubsection{\texorpdfstring{ctime}{ctime}}
+{\footnotesize\ttfamily time\+\_\+t ctime}
+
+
+
+Definition at line 731 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a9bee04e09635a42fef289e42a89f5502}\label{structclient_a9bee04e09635a42fef289e42a89f5502}} 
+\index{client@{client}!db@{db}}
+\index{db@{db}!client@{client}}
+\subsubsection{\texorpdfstring{db}{db}}
+{\footnotesize\ttfamily \hyperlink{structredis_db}{redis\+Db}$\ast$ db}
+
+
+
+Definition at line 712 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a6f8059414f0228f0256115e024eeed4b}\label{structclient_a6f8059414f0228f0256115e024eeed4b}} 
+\index{client@{client}!fd@{fd}}
+\index{fd@{fd}!client@{client}}
+\subsubsection{\texorpdfstring{fd}{fd}}
+{\footnotesize\ttfamily int fd}
+
+
+
+Definition at line 711 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_ac8bf36fe0577cba66bccda3a6f7e80a4}\label{structclient_ac8bf36fe0577cba66bccda3a6f7e80a4}} 
+\index{client@{client}!flags@{flags}}
+\index{flags@{flags}!client@{client}}
+\subsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily int flags}
+
+
+
+Definition at line 734 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a7e290573ef1be67b92a2c745e3b00d1d}\label{structclient_a7e290573ef1be67b92a2c745e3b00d1d}} 
+\index{client@{client}!id@{id}}
+\index{id@{id}!client@{client}}
+\subsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily uint64\+\_\+t id}
+
+
+
+Definition at line 710 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a81d89da91093b6bd8a49acf4a58d47b4}\label{structclient_a81d89da91093b6bd8a49acf4a58d47b4}} 
+\index{client@{client}!lastcmd@{lastcmd}}
+\index{lastcmd@{lastcmd}!client@{client}}
+\subsubsection{\texorpdfstring{lastcmd}{lastcmd}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} $\ast$ lastcmd}
+
+
+
+Definition at line 723 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a08c13433165f221a86bc5c3160f17c82}\label{structclient_a08c13433165f221a86bc5c3160f17c82}} 
+\index{client@{client}!lastinteraction@{lastinteraction}}
+\index{lastinteraction@{lastinteraction}!client@{client}}
+\subsubsection{\texorpdfstring{lastinteraction}{lastinteraction}}
+{\footnotesize\ttfamily time\+\_\+t lastinteraction}
+
+
+
+Definition at line 732 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a41bf43ebb391b4e37deb2cb287a8bd1c}\label{structclient_a41bf43ebb391b4e37deb2cb287a8bd1c}} 
+\index{client@{client}!mstate@{mstate}}
+\index{mstate@{mstate}!client@{client}}
+\subsubsection{\texorpdfstring{mstate}{mstate}}
+{\footnotesize\ttfamily \hyperlink{structmulti_state}{multi\+State} mstate}
+
+
+
+Definition at line 753 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a0fb4b72a537074c92ed763feb2d46d91}\label{structclient_a0fb4b72a537074c92ed763feb2d46d91}} 
+\index{client@{client}!multibulklen@{multibulklen}}
+\index{multibulklen@{multibulklen}!client@{client}}
+\subsubsection{\texorpdfstring{multibulklen}{multibulklen}}
+{\footnotesize\ttfamily int multibulklen}
+
+
+
+Definition at line 725 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a363eae5cb1f099d7803cca951bef7ac2}\label{structclient_a363eae5cb1f099d7803cca951bef7ac2}} 
+\index{client@{client}!name@{name}}
+\index{name@{name}!client@{client}}
+\subsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ name}
+
+
+
+Definition at line 713 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a5b716e337597169d53bb91dc9a68adc6}\label{structclient_a5b716e337597169d53bb91dc9a68adc6}} 
+\index{client@{client}!obuf\+\_\+soft\+\_\+limit\+\_\+reached\+\_\+time@{obuf\+\_\+soft\+\_\+limit\+\_\+reached\+\_\+time}}
+\index{obuf\+\_\+soft\+\_\+limit\+\_\+reached\+\_\+time@{obuf\+\_\+soft\+\_\+limit\+\_\+reached\+\_\+time}!client@{client}}
+\subsubsection{\texorpdfstring{obuf\+\_\+soft\+\_\+limit\+\_\+reached\+\_\+time}{obuf\_soft\_limit\_reached\_time}}
+{\footnotesize\ttfamily time\+\_\+t obuf\+\_\+soft\+\_\+limit\+\_\+reached\+\_\+time}
+
+
+
+Definition at line 733 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a1c0771287014c17317f1d2536fea4427}\label{structclient_a1c0771287014c17317f1d2536fea4427}} 
+\index{client@{client}!peerid@{peerid}}
+\index{peerid@{peerid}!client@{client}}
+\subsubsection{\texorpdfstring{peerid}{peerid}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} peerid}
+
+
+
+Definition at line 760 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_ae41c09e14760e794d4378519d312ba9a}\label{structclient_ae41c09e14760e794d4378519d312ba9a}} 
+\index{client@{client}!pending\+\_\+querybuf@{pending\+\_\+querybuf}}
+\index{pending\+\_\+querybuf@{pending\+\_\+querybuf}!client@{client}}
+\subsubsection{\texorpdfstring{pending\+\_\+querybuf}{pending\_querybuf}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} pending\+\_\+querybuf}
+
+
+
+Definition at line 716 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a52806966ab7367bd568472363fe749d3}\label{structclient_a52806966ab7367bd568472363fe749d3}} 
+\index{client@{client}!psync\+\_\+initial\+\_\+offset@{psync\+\_\+initial\+\_\+offset}}
+\index{psync\+\_\+initial\+\_\+offset@{psync\+\_\+initial\+\_\+offset}!client@{client}}
+\subsubsection{\texorpdfstring{psync\+\_\+initial\+\_\+offset}{psync\_initial\_offset}}
+{\footnotesize\ttfamily long long psync\+\_\+initial\+\_\+offset}
+
+
+
+Definition at line 746 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_ac6c18a3bf3ec4d85777ca2db7d4a9b47}\label{structclient_ac6c18a3bf3ec4d85777ca2db7d4a9b47}} 
+\index{client@{client}!pubsub\+\_\+channels@{pubsub\+\_\+channels}}
+\index{pubsub\+\_\+channels@{pubsub\+\_\+channels}!client@{client}}
+\subsubsection{\texorpdfstring{pubsub\+\_\+channels}{pubsub\_channels}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ pubsub\+\_\+channels}
+
+
+
+Definition at line 758 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_aced844471ea20e757a4bc7bdee34d930}\label{structclient_aced844471ea20e757a4bc7bdee34d930}} 
+\index{client@{client}!pubsub\+\_\+patterns@{pubsub\+\_\+patterns}}
+\index{pubsub\+\_\+patterns@{pubsub\+\_\+patterns}!client@{client}}
+\subsubsection{\texorpdfstring{pubsub\+\_\+patterns}{pubsub\_patterns}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ pubsub\+\_\+patterns}
+
+
+
+Definition at line 759 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a2de8996d6723315d26c64886145d5e51}\label{structclient_a2de8996d6723315d26c64886145d5e51}} 
+\index{client@{client}!qb\+\_\+pos@{qb\+\_\+pos}}
+\index{qb\+\_\+pos@{qb\+\_\+pos}!client@{client}}
+\subsubsection{\texorpdfstring{qb\+\_\+pos}{qb\_pos}}
+{\footnotesize\ttfamily size\+\_\+t qb\+\_\+pos}
+
+
+
+Definition at line 715 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_accf8e4a2bc6b80403d3f0f024eaa8a1b}\label{structclient_accf8e4a2bc6b80403d3f0f024eaa8a1b}} 
+\index{client@{client}!querybuf@{querybuf}}
+\index{querybuf@{querybuf}!client@{client}}
+\subsubsection{\texorpdfstring{querybuf}{querybuf}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} querybuf}
+
+
+
+Definition at line 714 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a09bca2273efb7490d637016ba048ae6e}\label{structclient_a09bca2273efb7490d637016ba048ae6e}} 
+\index{client@{client}!querybuf\+\_\+peak@{querybuf\+\_\+peak}}
+\index{querybuf\+\_\+peak@{querybuf\+\_\+peak}!client@{client}}
+\subsubsection{\texorpdfstring{querybuf\+\_\+peak}{querybuf\_peak}}
+{\footnotesize\ttfamily size\+\_\+t querybuf\+\_\+peak}
+
+
+
+Definition at line 720 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_ae0b58b6e73111b0ae1970a6e7eaed987}\label{structclient_ae0b58b6e73111b0ae1970a6e7eaed987}} 
+\index{client@{client}!read\+\_\+reploff@{read\+\_\+reploff}}
+\index{read\+\_\+reploff@{read\+\_\+reploff}!client@{client}}
+\subsubsection{\texorpdfstring{read\+\_\+reploff}{read\_reploff}}
+{\footnotesize\ttfamily long long read\+\_\+reploff}
+
+
+
+Definition at line 742 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a4df1332c1e98088733ea290c8b617de5}\label{structclient_a4df1332c1e98088733ea290c8b617de5}} 
+\index{client@{client}!repl\+\_\+ack\+\_\+off@{repl\+\_\+ack\+\_\+off}}
+\index{repl\+\_\+ack\+\_\+off@{repl\+\_\+ack\+\_\+off}!client@{client}}
+\subsubsection{\texorpdfstring{repl\+\_\+ack\+\_\+off}{repl\_ack\_off}}
+{\footnotesize\ttfamily long long repl\+\_\+ack\+\_\+off}
+
+
+
+Definition at line 744 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_aca5279911d8623c8a01999fda40f1e4c}\label{structclient_aca5279911d8623c8a01999fda40f1e4c}} 
+\index{client@{client}!repl\+\_\+ack\+\_\+time@{repl\+\_\+ack\+\_\+time}}
+\index{repl\+\_\+ack\+\_\+time@{repl\+\_\+ack\+\_\+time}!client@{client}}
+\subsubsection{\texorpdfstring{repl\+\_\+ack\+\_\+time}{repl\_ack\_time}}
+{\footnotesize\ttfamily long long repl\+\_\+ack\+\_\+time}
+
+
+
+Definition at line 745 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_afd45af71524188caa056f7687537166d}\label{structclient_afd45af71524188caa056f7687537166d}} 
+\index{client@{client}!repl\+\_\+put\+\_\+online\+\_\+on\+\_\+ack@{repl\+\_\+put\+\_\+online\+\_\+on\+\_\+ack}}
+\index{repl\+\_\+put\+\_\+online\+\_\+on\+\_\+ack@{repl\+\_\+put\+\_\+online\+\_\+on\+\_\+ack}!client@{client}}
+\subsubsection{\texorpdfstring{repl\+\_\+put\+\_\+online\+\_\+on\+\_\+ack}{repl\_put\_online\_on\_ack}}
+{\footnotesize\ttfamily int repl\+\_\+put\+\_\+online\+\_\+on\+\_\+ack}
+
+
+
+Definition at line 737 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a55864c39dcd617fed6398837225a3854}\label{structclient_a55864c39dcd617fed6398837225a3854}} 
+\index{client@{client}!repldbfd@{repldbfd}}
+\index{repldbfd@{repldbfd}!client@{client}}
+\subsubsection{\texorpdfstring{repldbfd}{repldbfd}}
+{\footnotesize\ttfamily int repldbfd}
+
+
+
+Definition at line 738 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a23136112d3075494024d1db57a9e0011}\label{structclient_a23136112d3075494024d1db57a9e0011}} 
+\index{client@{client}!repldboff@{repldboff}}
+\index{repldboff@{repldboff}!client@{client}}
+\subsubsection{\texorpdfstring{repldboff}{repldboff}}
+{\footnotesize\ttfamily off\+\_\+t repldboff}
+
+
+
+Definition at line 739 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_aede725c26d864c47f7448b890931a68f}\label{structclient_aede725c26d864c47f7448b890931a68f}} 
+\index{client@{client}!repldbsize@{repldbsize}}
+\index{repldbsize@{repldbsize}!client@{client}}
+\subsubsection{\texorpdfstring{repldbsize}{repldbsize}}
+{\footnotesize\ttfamily off\+\_\+t repldbsize}
+
+
+
+Definition at line 740 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a467ab80673fbca31b4729a65effc8362}\label{structclient_a467ab80673fbca31b4729a65effc8362}} 
+\index{client@{client}!replid@{replid}}
+\index{replid@{replid}!client@{client}}
+\subsubsection{\texorpdfstring{replid}{replid}}
+{\footnotesize\ttfamily char replid\mbox{[}\hyperlink{server_8h_aba6794fa3ee28f85165eaed93190f1df}{C\+O\+N\+F\+I\+G\+\_\+\+R\+U\+N\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}+1\mbox{]}}
+
+
+
+Definition at line 749 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a3ceb1598320b93accc65299b5ccf10d7}\label{structclient_a3ceb1598320b93accc65299b5ccf10d7}} 
+\index{client@{client}!reploff@{reploff}}
+\index{reploff@{reploff}!client@{client}}
+\subsubsection{\texorpdfstring{reploff}{reploff}}
+{\footnotesize\ttfamily long long reploff}
+
+
+
+Definition at line 743 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_afa5d87f20b8df88d56361da7092fb775}\label{structclient_afa5d87f20b8df88d56361da7092fb775}} 
+\index{client@{client}!replpreamble@{replpreamble}}
+\index{replpreamble@{replpreamble}!client@{client}}
+\subsubsection{\texorpdfstring{replpreamble}{replpreamble}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} replpreamble}
+
+
+
+Definition at line 741 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_abccae535b39fffe81ee57f696b14a218}\label{structclient_abccae535b39fffe81ee57f696b14a218}} 
+\index{client@{client}!replstate@{replstate}}
+\index{replstate@{replstate}!client@{client}}
+\subsubsection{\texorpdfstring{replstate}{replstate}}
+{\footnotesize\ttfamily int replstate}
+
+
+
+Definition at line 736 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a3c5720baa890941d827d99224a615377}\label{structclient_a3c5720baa890941d827d99224a615377}} 
+\index{client@{client}!reply@{reply}}
+\index{reply@{reply}!client@{client}}
+\subsubsection{\texorpdfstring{reply}{reply}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ reply}
+
+
+
+Definition at line 727 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a89eaaab407b2e2659686c94683168b48}\label{structclient_a89eaaab407b2e2659686c94683168b48}} 
+\index{client@{client}!reply\+\_\+bytes@{reply\+\_\+bytes}}
+\index{reply\+\_\+bytes@{reply\+\_\+bytes}!client@{client}}
+\subsubsection{\texorpdfstring{reply\+\_\+bytes}{reply\_bytes}}
+{\footnotesize\ttfamily unsigned long long reply\+\_\+bytes}
+
+
+
+Definition at line 728 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a7c68e9e1d202efcb938b7527f7495de9}\label{structclient_a7c68e9e1d202efcb938b7527f7495de9}} 
+\index{client@{client}!reqtype@{reqtype}}
+\index{reqtype@{reqtype}!client@{client}}
+\subsubsection{\texorpdfstring{reqtype}{reqtype}}
+{\footnotesize\ttfamily int reqtype}
+
+
+
+Definition at line 724 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a6a5253178e8e0d41fc9901e6b0626cae}\label{structclient_a6a5253178e8e0d41fc9901e6b0626cae}} 
+\index{client@{client}!sentlen@{sentlen}}
+\index{sentlen@{sentlen}!client@{client}}
+\subsubsection{\texorpdfstring{sentlen}{sentlen}}
+{\footnotesize\ttfamily size\+\_\+t sentlen}
+
+
+
+Definition at line 729 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a2f7a224ad788b75b96a48a81524a8a54}\label{structclient_a2f7a224ad788b75b96a48a81524a8a54}} 
+\index{client@{client}!slave\+\_\+capa@{slave\+\_\+capa}}
+\index{slave\+\_\+capa@{slave\+\_\+capa}!client@{client}}
+\subsubsection{\texorpdfstring{slave\+\_\+capa}{slave\_capa}}
+{\footnotesize\ttfamily int slave\+\_\+capa}
+
+
+
+Definition at line 752 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a73588a64f8187aee0fd21f4c4d228052}\label{structclient_a73588a64f8187aee0fd21f4c4d228052}} 
+\index{client@{client}!slave\+\_\+ip@{slave\+\_\+ip}}
+\index{slave\+\_\+ip@{slave\+\_\+ip}!client@{client}}
+\subsubsection{\texorpdfstring{slave\+\_\+ip}{slave\_ip}}
+{\footnotesize\ttfamily char slave\+\_\+ip\mbox{[}\hyperlink{server_8h_ad97c5405ed22a94e9fcc10fba577d6c0}{N\+E\+T\+\_\+\+I\+P\+\_\+\+S\+T\+R\+\_\+\+L\+EN}\mbox{]}}
+
+
+
+Definition at line 751 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_a287c6c69470388ee449924e3a8f7933b}\label{structclient_a287c6c69470388ee449924e3a8f7933b}} 
+\index{client@{client}!slave\+\_\+listening\+\_\+port@{slave\+\_\+listening\+\_\+port}}
+\index{slave\+\_\+listening\+\_\+port@{slave\+\_\+listening\+\_\+port}!client@{client}}
+\subsubsection{\texorpdfstring{slave\+\_\+listening\+\_\+port}{slave\_listening\_port}}
+{\footnotesize\ttfamily int slave\+\_\+listening\+\_\+port}
+
+
+
+Definition at line 750 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_af3ca58c76fd6357c844b8a3e1122b32f}\label{structclient_af3ca58c76fd6357c844b8a3e1122b32f}} 
+\index{client@{client}!watched\+\_\+keys@{watched\+\_\+keys}}
+\index{watched\+\_\+keys@{watched\+\_\+keys}!client@{client}}
+\subsubsection{\texorpdfstring{watched\+\_\+keys}{watched\_keys}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ watched\+\_\+keys}
+
+
+
+Definition at line 757 of file server.\+h.
+
+\mbox{\Hypertarget{structclient_af59577028441c0e9c8361e112706e6c5}\label{structclient_af59577028441c0e9c8361e112706e6c5}} 
+\index{client@{client}!woff@{woff}}
+\index{woff@{woff}!client@{client}}
+\subsubsection{\texorpdfstring{woff}{woff}}
+{\footnotesize\ttfamily long long woff}
+
+
+
+Definition at line 756 of file server.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{server_8h}{server.\+h}\end{DoxyCompactItemize}

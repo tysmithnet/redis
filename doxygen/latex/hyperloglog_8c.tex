@@ -1,0 +1,753 @@
+\hypertarget{hyperloglog_8c}{}\section{src/hyperloglog.c File Reference}
+\label{hyperloglog_8c}\index{src/hyperloglog.\+c@{src/hyperloglog.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for hyperloglog.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hyperloglog_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structhllhdr}{hllhdr}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{hyperloglog_8c_aba6246a823dc41dc866a6af8828ae375}{H\+L\+L\+\_\+\+I\+N\+V\+A\+L\+I\+D\+A\+T\+E\+\_\+\+C\+A\+C\+HE}(hdr)~(hdr)-\/$>$card\mbox{[}7\mbox{]} $\vert$= (1$<$$<$7)
+\item 
+\#define \hyperlink{hyperloglog_8c_af43935d3efe680c096b65a63aa8eeb0c}{H\+L\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+C\+A\+C\+HE}(hdr)~(((hdr)-\/$>$card\mbox{[}7\mbox{]} \& (1$<$$<$7)) == 0)
+\item 
+\#define \hyperlink{hyperloglog_8c_a42896b243b4ffcf09e4457b6f174db9c}{H\+L\+L\+\_\+P}~14 /$\ast$ The greater is P, the smaller the error. $\ast$/
+\item 
+\#define \hyperlink{hyperloglog_8c_affd90eec44dc3587c324957ba99d5907}{H\+L\+L\+\_\+Q}
+\item 
+\#define \hyperlink{hyperloglog_8c_aa053beb90136828dcb46545c7445fc36}{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+RS}~(1$<$$<$\hyperlink{hyperloglog_8c_a42896b243b4ffcf09e4457b6f174db9c}{H\+L\+L\+\_\+P}) /$\ast$ With P=14, 16384 registers. $\ast$/
+\item 
+\#define \hyperlink{hyperloglog_8c_a044fc7c4835cb04bc9e115baa49805f7}{H\+L\+L\+\_\+\+P\+\_\+\+M\+A\+SK}~(\hyperlink{hyperloglog_8c_aa053beb90136828dcb46545c7445fc36}{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+RS}-\/1) /$\ast$ Mask to index register. $\ast$/
+\item 
+\#define \hyperlink{hyperloglog_8c_a9023d37e2b4b782b2b922d9599894d14}{H\+L\+L\+\_\+\+B\+I\+TS}~6 /$\ast$ Enough to count up to 63 leading zeroes. $\ast$/
+\item 
+\#define \hyperlink{hyperloglog_8c_af33bbd0f0613975a8821000c92febd31}{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+M\+AX}~((1$<$$<$\hyperlink{hyperloglog_8c_a9023d37e2b4b782b2b922d9599894d14}{H\+L\+L\+\_\+\+B\+I\+TS})-\/1)
+\item 
+\#define \hyperlink{hyperloglog_8c_af04dc163054c4c79b0e6c93057b4032f}{H\+L\+L\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE}~sizeof(struct \hyperlink{structhllhdr}{hllhdr})
+\item 
+\#define \hyperlink{hyperloglog_8c_ad677821a745c7306ef02ccca0ff6f92f}{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+I\+ZE}~(\hyperlink{hyperloglog_8c_af04dc163054c4c79b0e6c93057b4032f}{H\+L\+L\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE}+((\hyperlink{hyperloglog_8c_aa053beb90136828dcb46545c7445fc36}{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+RS}$\ast$\hyperlink{hyperloglog_8c_a9023d37e2b4b782b2b922d9599894d14}{H\+L\+L\+\_\+\+B\+I\+TS}+7)/8))
+\item 
+\#define \hyperlink{hyperloglog_8c_a5f2ead2492fc9cc4ff39f8c1752875a1}{H\+L\+L\+\_\+\+D\+E\+N\+SE}~0 /$\ast$ Dense encoding. $\ast$/
+\item 
+\#define \hyperlink{hyperloglog_8c_afe326d57dd3d7c27c8fe52dc2c19cecd}{H\+L\+L\+\_\+\+S\+P\+A\+R\+SE}~1 /$\ast$ Sparse encoding. $\ast$/
+\item 
+\#define \hyperlink{hyperloglog_8c_aafa7fcced873855fe756c6e29831114a}{H\+L\+L\+\_\+\+R\+AW}~255 /$\ast$ Only used internally, never exposed. $\ast$/
+\item 
+\#define \hyperlink{hyperloglog_8c_ae5c2b03f2019eb1c3fb9497ca8f3e8f3}{H\+L\+L\+\_\+\+M\+A\+X\+\_\+\+E\+N\+C\+O\+D\+I\+NG}~1
+\item 
+\#define \hyperlink{hyperloglog_8c_abace3387aeb1543c9bcbd0d9a62c7ebc}{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+G\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER}(target,  p,  regnum)
+\item 
+\#define \hyperlink{hyperloglog_8c_a57f99ca1675593d83a5b1fc014b3945a}{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER}(p,  regnum,  val)
+\item 
+\#define \hyperlink{hyperloglog_8c_a7dd7864cc78ee794a3bca920e8860d2a}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+B\+IT}~0x40 /$\ast$ 01xxxxxx $\ast$/
+\item 
+\#define \hyperlink{hyperloglog_8c_a7256ab56392f80b9d89451fdd4ff5657}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+B\+IT}~0x80 /$\ast$ 1vvvvvxx $\ast$/
+\item 
+\#define \hyperlink{hyperloglog_8c_a0b65ae2290df116ae4ed18188dffb5ad}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+Z\+E\+RO}(p)~((($\ast$(p)) \& 0xc0) == 0) /$\ast$ 00xxxxxx $\ast$/
+\item 
+\#define \hyperlink{hyperloglog_8c_ac672e0af491e4cbfe7a5859ae4dc74f9}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+X\+Z\+E\+RO}(p)~((($\ast$(p)) \& 0xc0) == H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+B\+I\+T)
+\item 
+\#define \hyperlink{hyperloglog_8c_a14fe08c54ac70efe9d8db79b1b582890}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+V\+AL}(p)~(($\ast$(p)) \& \hyperlink{hyperloglog_8c_a7256ab56392f80b9d89451fdd4ff5657}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+B\+IT})
+\item 
+\#define \hyperlink{hyperloglog_8c_a0ed89a76f49a89991af87cce34c3260b}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+L\+EN}(p)~((($\ast$(p)) \& 0x3f)+1)
+\item 
+\#define \hyperlink{hyperloglog_8c_a95fbeb27967ea46816fd354ddb59564e}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+L\+EN}(p)~((((($\ast$(p)) \& 0x3f) $<$$<$ 8) $\vert$ ($\ast$((p)+1)))+1)
+\item 
+\#define \hyperlink{hyperloglog_8c_ad36de263468a9ce3b1409743b8da64d7}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+V\+A\+L\+UE}(p)~(((($\ast$(p)) $>$$>$ 2) \& 0x1f)+1)
+\item 
+\#define \hyperlink{hyperloglog_8c_a5c74b3b50c822c01c1976a72b84db12f}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+L\+EN}(p)~((($\ast$(p)) \& 0x3)+1)
+\item 
+\#define \hyperlink{hyperloglog_8c_a5076b83f0a16a0645d7e488b21b05248}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+UE}~32
+\item 
+\#define \hyperlink{hyperloglog_8c_ac4d915198fed97094a5ad89223a06429}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+L\+EN}~4
+\item 
+\#define \hyperlink{hyperloglog_8c_ada0fd7046dacafc7e150cf8743b34c62}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN}~64
+\item 
+\#define \hyperlink{hyperloglog_8c_a63a340a0d93270bd5ac0c1c7343408e6}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN}~16384
+\item 
+\#define \hyperlink{hyperloglog_8c_a27a040f2d48978974a593fdc306241f9}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+S\+ET}(p,  val,  len)
+\item 
+\#define \hyperlink{hyperloglog_8c_a587a8a0c93dc2d75f019b49a3f08c14f}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+S\+ET}(p,  len)
+\item 
+\#define \hyperlink{hyperloglog_8c_a1e40105f1b438075006c8b38b07f7198}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+S\+ET}(p,  len)
+\item 
+\#define \hyperlink{hyperloglog_8c_a951d6167b3291f4b689f8316f0215149}{H\+L\+L\+\_\+\+A\+L\+P\+H\+A\+\_\+\+I\+NF}~0.\+721347520444481703680 /$\ast$ constant for 0.\+5/ln(2) $\ast$/
+\item 
+\#define \hyperlink{hyperloglog_8c_a5739eae82e6d3a654a6af38974511bd2}{H\+L\+L\+\_\+\+T\+E\+S\+T\+\_\+\+C\+Y\+C\+L\+ES}~1000
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint64\+\_\+t \hyperlink{hyperloglog_8c_aae386d55c476e0f2637b6443a7205f78}{Murmur\+Hash64A} (const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, int len, unsigned int seed)
+\item 
+int \hyperlink{hyperloglog_8c_a76f5216e9f83744c83b5dceb7d910e28}{hll\+Pat\+Len} (unsigned char $\ast$ele, size\+\_\+t elesize, long $\ast$regp)
+\item 
+int \hyperlink{hyperloglog_8c_ae53f012136c1ad3c15c1387b2fd6ff21}{hll\+Dense\+Set} (uint8\+\_\+t $\ast$registers, long index, uint8\+\_\+t count)
+\item 
+int \hyperlink{hyperloglog_8c_a1070df3dbede43acbe391eb077ad9dd5}{hll\+Dense\+Add} (uint8\+\_\+t $\ast$registers, unsigned char $\ast$ele, size\+\_\+t elesize)
+\item 
+void \hyperlink{hyperloglog_8c_a2ab78c9d69081af29f45367be575eee4}{hll\+Dense\+Reg\+Histo} (uint8\+\_\+t $\ast$registers, int $\ast$reghisto)
+\item 
+int \hyperlink{hyperloglog_8c_a1ee27779ffd640b593eaa246a190dc32}{hll\+Sparse\+To\+Dense} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+int \hyperlink{hyperloglog_8c_a9d5e562236aba49a14963114e054d97d}{hll\+Sparse\+Set} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, long index, uint8\+\_\+t count)
+\item 
+int \hyperlink{hyperloglog_8c_ac3f693985462ce751fbf58d5d4543e98}{hll\+Sparse\+Add} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, unsigned char $\ast$ele, size\+\_\+t elesize)
+\item 
+void \hyperlink{hyperloglog_8c_ae7832af94ed3063104916b8bdfb34f22}{hll\+Sparse\+Reg\+Histo} (uint8\+\_\+t $\ast$sparse, int sparselen, int $\ast$invalid, int $\ast$reghisto)
+\item 
+void \hyperlink{hyperloglog_8c_ae793993c10ba225cf87a15cbdd234e8c}{hll\+Raw\+Reg\+Histo} (uint8\+\_\+t $\ast$registers, int $\ast$reghisto)
+\item 
+double \hyperlink{hyperloglog_8c_ade0d0c64d2255dfdeb2da1fd3318f8c2}{hll\+Sigma} (double x)
+\item 
+double \hyperlink{hyperloglog_8c_a9d5552e74e6e30b3fea3761f828433a0}{hll\+Tau} (double x)
+\item 
+uint64\+\_\+t \hyperlink{hyperloglog_8c_a911cacaccf8974d4ebc659c3462935cb}{hll\+Count} (struct \hyperlink{structhllhdr}{hllhdr} $\ast$hdr, int $\ast$invalid)
+\item 
+int \hyperlink{hyperloglog_8c_ae044abb3a8b13b362734198abaebf264}{hll\+Add} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, unsigned char $\ast$ele, size\+\_\+t elesize)
+\item 
+int \hyperlink{hyperloglog_8c_a87b9f5bde80614c0d9acb467eb543c78}{hll\+Merge} (uint8\+\_\+t $\ast$max, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$hll)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{hyperloglog_8c_ab5ff0ddd82fa839448dd5388e248b737}{create\+H\+L\+L\+Object} (void)
+\item 
+int \hyperlink{hyperloglog_8c_a7f0f1044101527d154672d09e99e555a}{is\+H\+L\+L\+Object\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{hyperloglog_8c_a258d945b9cd883a1f5190730571819fe}{pfadd\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{hyperloglog_8c_a6fb9b8776b74679f421d3fc3ade798b8}{pfcount\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{hyperloglog_8c_a3cc766564e1420433a9c1e4b59e2ba51}{pfmerge\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{hyperloglog_8c_acebc0877c8aca6beb919b963b784356d}{pfselftest\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{hyperloglog_8c_adc6a2e5cb61800b6dc6dad89a53b2b88}{pfdebug\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{hyperloglog_8c_a951d6167b3291f4b689f8316f0215149}\label{hyperloglog_8c_a951d6167b3291f4b689f8316f0215149}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+A\+L\+P\+H\+A\+\_\+\+I\+NF@{H\+L\+L\+\_\+\+A\+L\+P\+H\+A\+\_\+\+I\+NF}}
+\index{H\+L\+L\+\_\+\+A\+L\+P\+H\+A\+\_\+\+I\+NF@{H\+L\+L\+\_\+\+A\+L\+P\+H\+A\+\_\+\+I\+NF}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+A\+L\+P\+H\+A\+\_\+\+I\+NF}{HLL\_ALPHA\_INF}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+A\+L\+P\+H\+A\+\_\+\+I\+NF~0.\+721347520444481703680 /$\ast$ constant for 0.\+5/ln(2) $\ast$/}
+
+
+
+Definition at line 389 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a9023d37e2b4b782b2b922d9599894d14}\label{hyperloglog_8c_a9023d37e2b4b782b2b922d9599894d14}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+B\+I\+TS@{H\+L\+L\+\_\+\+B\+I\+TS}}
+\index{H\+L\+L\+\_\+\+B\+I\+TS@{H\+L\+L\+\_\+\+B\+I\+TS}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+B\+I\+TS}{HLL\_BITS}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+B\+I\+TS~6 /$\ast$ Enough to count up to 63 leading zeroes. $\ast$/}
+
+
+
+Definition at line 199 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a5f2ead2492fc9cc4ff39f8c1752875a1}\label{hyperloglog_8c_a5f2ead2492fc9cc4ff39f8c1752875a1}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+D\+E\+N\+SE@{H\+L\+L\+\_\+\+D\+E\+N\+SE}}
+\index{H\+L\+L\+\_\+\+D\+E\+N\+SE@{H\+L\+L\+\_\+\+D\+E\+N\+SE}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+D\+E\+N\+SE}{HLL\_DENSE}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+D\+E\+N\+SE~0 /$\ast$ Dense encoding. $\ast$/}
+
+
+
+Definition at line 203 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_abace3387aeb1543c9bcbd0d9a62c7ebc}\label{hyperloglog_8c_abace3387aeb1543c9bcbd0d9a62c7ebc}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+G\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER@{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+G\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER}}
+\index{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+G\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER@{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+G\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+G\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER}{HLL\_DENSE\_GET\_REGISTER}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+G\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER(\begin{DoxyParamCaption}\item[{}]{target,  }\item[{}]{p,  }\item[{}]{regnum }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    uint8\_t *\_p = (uint8\_t*) p; \(\backslash\)
+    unsigned \textcolor{keywordtype}{long} \_byte = regnum*\hyperlink{hyperloglog_8c_a9023d37e2b4b782b2b922d9599894d14}{HLL\_BITS}/8; \(\backslash\)
+    unsigned \textcolor{keywordtype}{long} \_fb = regnum*\hyperlink{hyperloglog_8c_a9023d37e2b4b782b2b922d9599894d14}{HLL\_BITS}&7; \(\backslash\)
+    unsigned \textcolor{keywordtype}{long} \_fb8 = 8 - \_fb; \(\backslash\)
+    unsigned \textcolor{keywordtype}{long} b0 = \_p[\_byte]; \(\backslash\)
+    unsigned \textcolor{keywordtype}{long} b1 = \_p[\_byte+1]; \(\backslash\)
+    target = ((b0 >> \_fb) | (b1 << \_fb8)) & \hyperlink{hyperloglog_8c_af33bbd0f0613975a8821000c92febd31}{HLL\_REGISTER\_MAX}; \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 339 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a57f99ca1675593d83a5b1fc014b3945a}\label{hyperloglog_8c_a57f99ca1675593d83a5b1fc014b3945a}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER@{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER}}
+\index{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER@{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER}{HLL\_DENSE\_SET\_REGISTER}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+E\+T\+\_\+\+R\+E\+G\+I\+S\+T\+ER(\begin{DoxyParamCaption}\item[{}]{p,  }\item[{}]{regnum,  }\item[{}]{val }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    uint8\_t *\_p = (uint8\_t*) p; \(\backslash\)
+    unsigned \textcolor{keywordtype}{long} \_byte = regnum*\hyperlink{hyperloglog_8c_a9023d37e2b4b782b2b922d9599894d14}{HLL\_BITS}/8; \(\backslash\)
+    unsigned \textcolor{keywordtype}{long} \_fb = regnum*\hyperlink{hyperloglog_8c_a9023d37e2b4b782b2b922d9599894d14}{HLL\_BITS}&7; \(\backslash\)
+    unsigned \textcolor{keywordtype}{long} \_fb8 = 8 - \_fb; \(\backslash\)
+    unsigned \textcolor{keywordtype}{long} \_v = val; \(\backslash\)
+    \_p[\_byte] &= ~(\hyperlink{hyperloglog_8c_af33bbd0f0613975a8821000c92febd31}{HLL\_REGISTER\_MAX} << \_fb); \(\backslash\)
+    \_p[\_byte] |= \_v << \_fb; \(\backslash\)
+    \_p[\_byte+1] &= ~(\hyperlink{hyperloglog_8c_af33bbd0f0613975a8821000c92febd31}{HLL\_REGISTER\_MAX} >> \_fb8); \(\backslash\)
+    \_p[\_byte+1] |= \_v >> \_fb8; \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 351 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_ad677821a745c7306ef02ccca0ff6f92f}\label{hyperloglog_8c_ad677821a745c7306ef02ccca0ff6f92f}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+I\+ZE@{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+I\+ZE}}
+\index{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+I\+ZE@{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+I\+ZE}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+I\+ZE}{HLL\_DENSE\_SIZE}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+D\+E\+N\+S\+E\+\_\+\+S\+I\+ZE~(\hyperlink{hyperloglog_8c_af04dc163054c4c79b0e6c93057b4032f}{H\+L\+L\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE}+((\hyperlink{hyperloglog_8c_aa053beb90136828dcb46545c7445fc36}{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+RS}$\ast$\hyperlink{hyperloglog_8c_a9023d37e2b4b782b2b922d9599894d14}{H\+L\+L\+\_\+\+B\+I\+TS}+7)/8))}
+
+
+
+Definition at line 202 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_af04dc163054c4c79b0e6c93057b4032f}\label{hyperloglog_8c_af04dc163054c4c79b0e6c93057b4032f}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE@{H\+L\+L\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE}}
+\index{H\+L\+L\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE@{H\+L\+L\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE}{HLL\_HDR\_SIZE}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE~sizeof(struct \hyperlink{structhllhdr}{hllhdr})}
+
+
+
+Definition at line 201 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_aba6246a823dc41dc866a6af8828ae375}\label{hyperloglog_8c_aba6246a823dc41dc866a6af8828ae375}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+I\+N\+V\+A\+L\+I\+D\+A\+T\+E\+\_\+\+C\+A\+C\+HE@{H\+L\+L\+\_\+\+I\+N\+V\+A\+L\+I\+D\+A\+T\+E\+\_\+\+C\+A\+C\+HE}}
+\index{H\+L\+L\+\_\+\+I\+N\+V\+A\+L\+I\+D\+A\+T\+E\+\_\+\+C\+A\+C\+HE@{H\+L\+L\+\_\+\+I\+N\+V\+A\+L\+I\+D\+A\+T\+E\+\_\+\+C\+A\+C\+HE}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+I\+N\+V\+A\+L\+I\+D\+A\+T\+E\+\_\+\+C\+A\+C\+HE}{HLL\_INVALIDATE\_CACHE}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+I\+N\+V\+A\+L\+I\+D\+A\+T\+E\+\_\+\+C\+A\+C\+HE(\begin{DoxyParamCaption}\item[{}]{hdr }\end{DoxyParamCaption})~(hdr)-\/$>$card\mbox{[}7\mbox{]} $\vert$= (1$<$$<$7)}
+
+
+
+Definition at line 191 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_ae5c2b03f2019eb1c3fb9497ca8f3e8f3}\label{hyperloglog_8c_ae5c2b03f2019eb1c3fb9497ca8f3e8f3}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+M\+A\+X\+\_\+\+E\+N\+C\+O\+D\+I\+NG@{H\+L\+L\+\_\+\+M\+A\+X\+\_\+\+E\+N\+C\+O\+D\+I\+NG}}
+\index{H\+L\+L\+\_\+\+M\+A\+X\+\_\+\+E\+N\+C\+O\+D\+I\+NG@{H\+L\+L\+\_\+\+M\+A\+X\+\_\+\+E\+N\+C\+O\+D\+I\+NG}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+M\+A\+X\+\_\+\+E\+N\+C\+O\+D\+I\+NG}{HLL\_MAX\_ENCODING}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+M\+A\+X\+\_\+\+E\+N\+C\+O\+D\+I\+NG~1}
+
+
+
+Definition at line 206 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a42896b243b4ffcf09e4457b6f174db9c}\label{hyperloglog_8c_a42896b243b4ffcf09e4457b6f174db9c}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+P@{H\+L\+L\+\_\+P}}
+\index{H\+L\+L\+\_\+P@{H\+L\+L\+\_\+P}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+P}{HLL\_P}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+P~14 /$\ast$ The greater is P, the smaller the error. $\ast$/}
+
+
+
+Definition at line 194 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a044fc7c4835cb04bc9e115baa49805f7}\label{hyperloglog_8c_a044fc7c4835cb04bc9e115baa49805f7}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+P\+\_\+\+M\+A\+SK@{H\+L\+L\+\_\+\+P\+\_\+\+M\+A\+SK}}
+\index{H\+L\+L\+\_\+\+P\+\_\+\+M\+A\+SK@{H\+L\+L\+\_\+\+P\+\_\+\+M\+A\+SK}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+P\+\_\+\+M\+A\+SK}{HLL\_P\_MASK}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+P\+\_\+\+M\+A\+SK~(\hyperlink{hyperloglog_8c_aa053beb90136828dcb46545c7445fc36}{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+RS}-\/1) /$\ast$ Mask to index register. $\ast$/}
+
+
+
+Definition at line 198 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_affd90eec44dc3587c324957ba99d5907}\label{hyperloglog_8c_affd90eec44dc3587c324957ba99d5907}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+Q@{H\+L\+L\+\_\+Q}}
+\index{H\+L\+L\+\_\+Q@{H\+L\+L\+\_\+Q}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+Q}{HLL\_Q}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+Q}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(64-\hyperlink{hyperloglog_8c_a42896b243b4ffcf09e4457b6f174db9c}{HLL\_P}) \textcolor{comment}{/* The number of bits of the hash value used for}
+\textcolor{comment}{                            determining the number of leading zeros. */}
+\end{DoxyCode}
+
+
+Definition at line 195 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_aafa7fcced873855fe756c6e29831114a}\label{hyperloglog_8c_aafa7fcced873855fe756c6e29831114a}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+R\+AW@{H\+L\+L\+\_\+\+R\+AW}}
+\index{H\+L\+L\+\_\+\+R\+AW@{H\+L\+L\+\_\+\+R\+AW}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+R\+AW}{HLL\_RAW}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+R\+AW~255 /$\ast$ Only used internally, never exposed. $\ast$/}
+
+
+
+Definition at line 205 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_af33bbd0f0613975a8821000c92febd31}\label{hyperloglog_8c_af33bbd0f0613975a8821000c92febd31}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+M\+AX@{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+M\+AX}}
+\index{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+M\+AX@{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+M\+AX}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+M\+AX}{HLL\_REGISTER\_MAX}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+M\+AX~((1$<$$<$\hyperlink{hyperloglog_8c_a9023d37e2b4b782b2b922d9599894d14}{H\+L\+L\+\_\+\+B\+I\+TS})-\/1)}
+
+
+
+Definition at line 200 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_aa053beb90136828dcb46545c7445fc36}\label{hyperloglog_8c_aa053beb90136828dcb46545c7445fc36}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+RS@{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+RS}}
+\index{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+RS@{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+RS}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+RS}{HLL\_REGISTERS}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+R\+E\+G\+I\+S\+T\+E\+RS~(1$<$$<$\hyperlink{hyperloglog_8c_a42896b243b4ffcf09e4457b6f174db9c}{H\+L\+L\+\_\+P}) /$\ast$ With P=14, 16384 registers. $\ast$/}
+
+
+
+Definition at line 197 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_afe326d57dd3d7c27c8fe52dc2c19cecd}\label{hyperloglog_8c_afe326d57dd3d7c27c8fe52dc2c19cecd}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+SE@{H\+L\+L\+\_\+\+S\+P\+A\+R\+SE}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+SE@{H\+L\+L\+\_\+\+S\+P\+A\+R\+SE}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+SE}{HLL\_SPARSE}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+SE~1 /$\ast$ Sparse encoding. $\ast$/}
+
+
+
+Definition at line 204 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a14fe08c54ac70efe9d8db79b1b582890}\label{hyperloglog_8c_a14fe08c54ac70efe9d8db79b1b582890}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+V\+AL@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+V\+AL}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+V\+AL@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+V\+AL}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+V\+AL}{HLL\_SPARSE\_IS\_VAL}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+V\+AL(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~(($\ast$(p)) \& \hyperlink{hyperloglog_8c_a7256ab56392f80b9d89451fdd4ff5657}{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+B\+IT})}
+
+
+
+Definition at line 369 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_ac672e0af491e4cbfe7a5859ae4dc74f9}\label{hyperloglog_8c_ac672e0af491e4cbfe7a5859ae4dc74f9}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+X\+Z\+E\+RO@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+X\+Z\+E\+RO}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+X\+Z\+E\+RO@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+X\+Z\+E\+RO}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+X\+Z\+E\+RO}{HLL\_SPARSE\_IS\_XZERO}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+X\+Z\+E\+RO(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~((($\ast$(p)) \& 0xc0) == H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+B\+I\+T)}
+
+
+
+Definition at line 368 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a0b65ae2290df116ae4ed18188dffb5ad}\label{hyperloglog_8c_a0b65ae2290df116ae4ed18188dffb5ad}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+Z\+E\+RO@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+Z\+E\+RO}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+Z\+E\+RO@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+Z\+E\+RO}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+Z\+E\+RO}{HLL\_SPARSE\_IS\_ZERO}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+I\+S\+\_\+\+Z\+E\+RO(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~((($\ast$(p)) \& 0xc0) == 0) /$\ast$ 00xxxxxx $\ast$/}
+
+
+
+Definition at line 367 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a7256ab56392f80b9d89451fdd4ff5657}\label{hyperloglog_8c_a7256ab56392f80b9d89451fdd4ff5657}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+B\+IT@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+B\+IT}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+B\+IT@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+B\+IT}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+B\+IT}{HLL\_SPARSE\_VAL\_BIT}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+B\+IT~0x80 /$\ast$ 1vvvvvxx $\ast$/}
+
+
+
+Definition at line 366 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a5c74b3b50c822c01c1976a72b84db12f}\label{hyperloglog_8c_a5c74b3b50c822c01c1976a72b84db12f}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+L\+EN@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+L\+EN}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+L\+EN@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+L\+EN}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+L\+EN}{HLL\_SPARSE\_VAL\_LEN}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+L\+EN(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~((($\ast$(p)) \& 0x3)+1)}
+
+
+
+Definition at line 373 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_ac4d915198fed97094a5ad89223a06429}\label{hyperloglog_8c_ac4d915198fed97094a5ad89223a06429}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+L\+EN@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+L\+EN}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+L\+EN@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+L\+EN}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+L\+EN}{HLL\_SPARSE\_VAL\_MAX\_LEN}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+L\+EN~4}
+
+
+
+Definition at line 375 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a5076b83f0a16a0645d7e488b21b05248}\label{hyperloglog_8c_a5076b83f0a16a0645d7e488b21b05248}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+UE@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+UE}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+UE@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+UE}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+UE}{HLL\_SPARSE\_VAL\_MAX\_VALUE}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+M\+A\+X\+\_\+\+V\+A\+L\+UE~32}
+
+
+
+Definition at line 374 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a27a040f2d48978974a593fdc306241f9}\label{hyperloglog_8c_a27a040f2d48978974a593fdc306241f9}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+S\+ET@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+S\+ET}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+S\+ET@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+S\+ET}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+S\+ET}{HLL\_SPARSE\_VAL\_SET}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+S\+ET(\begin{DoxyParamCaption}\item[{}]{p,  }\item[{}]{val,  }\item[{}]{len }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    *(p) = (((val)-1)<<2|((len)-1))|\hyperlink{hyperloglog_8c_a7256ab56392f80b9d89451fdd4ff5657}{HLL\_SPARSE\_VAL\_BIT}; \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 378 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_ad36de263468a9ce3b1409743b8da64d7}\label{hyperloglog_8c_ad36de263468a9ce3b1409743b8da64d7}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+V\+A\+L\+UE@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+V\+A\+L\+UE}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+V\+A\+L\+UE@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+V\+A\+L\+UE}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+V\+A\+L\+UE}{HLL\_SPARSE\_VAL\_VALUE}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+V\+A\+L\+\_\+\+V\+A\+L\+UE(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~(((($\ast$(p)) $>$$>$ 2) \& 0x1f)+1)}
+
+
+
+Definition at line 372 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a7dd7864cc78ee794a3bca920e8860d2a}\label{hyperloglog_8c_a7dd7864cc78ee794a3bca920e8860d2a}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+B\+IT@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+B\+IT}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+B\+IT@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+B\+IT}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+B\+IT}{HLL\_SPARSE\_XZERO\_BIT}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+B\+IT~0x40 /$\ast$ 01xxxxxx $\ast$/}
+
+
+
+Definition at line 365 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a95fbeb27967ea46816fd354ddb59564e}\label{hyperloglog_8c_a95fbeb27967ea46816fd354ddb59564e}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+L\+EN@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+L\+EN}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+L\+EN@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+L\+EN}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+L\+EN}{HLL\_SPARSE\_XZERO\_LEN}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+L\+EN(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~((((($\ast$(p)) \& 0x3f) $<$$<$ 8) $\vert$ ($\ast$((p)+1)))+1)}
+
+
+
+Definition at line 371 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a63a340a0d93270bd5ac0c1c7343408e6}\label{hyperloglog_8c_a63a340a0d93270bd5ac0c1c7343408e6}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN}{HLL\_SPARSE\_XZERO\_MAX\_LEN}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN~16384}
+
+
+
+Definition at line 377 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a1e40105f1b438075006c8b38b07f7198}\label{hyperloglog_8c_a1e40105f1b438075006c8b38b07f7198}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+S\+ET@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+S\+ET}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+S\+ET@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+S\+ET}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+S\+ET}{HLL\_SPARSE\_XZERO\_SET}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+X\+Z\+E\+R\+O\+\_\+\+S\+ET(\begin{DoxyParamCaption}\item[{}]{p,  }\item[{}]{len }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    int \_l = (len)-1; \(\backslash\)
+    *(p) = (\_l>>8) | \hyperlink{hyperloglog_8c_a7dd7864cc78ee794a3bca920e8860d2a}{HLL\_SPARSE\_XZERO\_BIT}; \(\backslash\)
+    *((p)+1) = (\_l&0xff); \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 384 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a0ed89a76f49a89991af87cce34c3260b}\label{hyperloglog_8c_a0ed89a76f49a89991af87cce34c3260b}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+L\+EN@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+L\+EN}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+L\+EN@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+L\+EN}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+L\+EN}{HLL\_SPARSE\_ZERO\_LEN}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+L\+EN(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~((($\ast$(p)) \& 0x3f)+1)}
+
+
+
+Definition at line 370 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_ada0fd7046dacafc7e150cf8743b34c62}\label{hyperloglog_8c_ada0fd7046dacafc7e150cf8743b34c62}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN}{HLL\_SPARSE\_ZERO\_MAX\_LEN}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+M\+A\+X\+\_\+\+L\+EN~64}
+
+
+
+Definition at line 376 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a587a8a0c93dc2d75f019b49a3f08c14f}\label{hyperloglog_8c_a587a8a0c93dc2d75f019b49a3f08c14f}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+S\+ET@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+S\+ET}}
+\index{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+S\+ET@{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+S\+ET}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+S\+ET}{HLL\_SPARSE\_ZERO\_SET}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+S\+P\+A\+R\+S\+E\+\_\+\+Z\+E\+R\+O\+\_\+\+S\+ET(\begin{DoxyParamCaption}\item[{}]{p,  }\item[{}]{len }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    *(p) = (len)-1; \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 381 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a5739eae82e6d3a654a6af38974511bd2}\label{hyperloglog_8c_a5739eae82e6d3a654a6af38974511bd2}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+T\+E\+S\+T\+\_\+\+C\+Y\+C\+L\+ES@{H\+L\+L\+\_\+\+T\+E\+S\+T\+\_\+\+C\+Y\+C\+L\+ES}}
+\index{H\+L\+L\+\_\+\+T\+E\+S\+T\+\_\+\+C\+Y\+C\+L\+ES@{H\+L\+L\+\_\+\+T\+E\+S\+T\+\_\+\+C\+Y\+C\+L\+ES}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+T\+E\+S\+T\+\_\+\+C\+Y\+C\+L\+ES}{HLL\_TEST\_CYCLES}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+T\+E\+S\+T\+\_\+\+C\+Y\+C\+L\+ES~1000}
+
+
+
+Definition at line 1382 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_af43935d3efe680c096b65a63aa8eeb0c}\label{hyperloglog_8c_af43935d3efe680c096b65a63aa8eeb0c}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!H\+L\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+C\+A\+C\+HE@{H\+L\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+C\+A\+C\+HE}}
+\index{H\+L\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+C\+A\+C\+HE@{H\+L\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+C\+A\+C\+HE}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{H\+L\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+C\+A\+C\+HE}{HLL\_VALID\_CACHE}}
+{\footnotesize\ttfamily \#define H\+L\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+C\+A\+C\+HE(\begin{DoxyParamCaption}\item[{}]{hdr }\end{DoxyParamCaption})~(((hdr)-\/$>$card\mbox{[}7\mbox{]} \& (1$<$$<$7)) == 0)}
+
+
+
+Definition at line 192 of file hyperloglog.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{hyperloglog_8c_ab5ff0ddd82fa839448dd5388e248b737}\label{hyperloglog_8c_ab5ff0ddd82fa839448dd5388e248b737}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!create\+H\+L\+L\+Object@{create\+H\+L\+L\+Object}}
+\index{create\+H\+L\+L\+Object@{create\+H\+L\+L\+Object}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{create\+H\+L\+L\+Object()}{createHLLObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+H\+L\+L\+Object (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1107 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_ae044abb3a8b13b362734198abaebf264}\label{hyperloglog_8c_ae044abb3a8b13b362734198abaebf264}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Add@{hll\+Add}}
+\index{hll\+Add@{hll\+Add}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Add()}{hllAdd()}}
+{\footnotesize\ttfamily int hll\+Add (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{unsigned char $\ast$}]{ele,  }\item[{size\+\_\+t}]{elesize }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1045 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a911cacaccf8974d4ebc659c3462935cb}\label{hyperloglog_8c_a911cacaccf8974d4ebc659c3462935cb}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Count@{hll\+Count}}
+\index{hll\+Count@{hll\+Count}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Count()}{hllCount()}}
+{\footnotesize\ttfamily uint64\+\_\+t hll\+Count (\begin{DoxyParamCaption}\item[{struct \hyperlink{structhllhdr}{hllhdr} $\ast$}]{hdr,  }\item[{int $\ast$}]{invalid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1012 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a1070df3dbede43acbe391eb077ad9dd5}\label{hyperloglog_8c_a1070df3dbede43acbe391eb077ad9dd5}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Dense\+Add@{hll\+Dense\+Add}}
+\index{hll\+Dense\+Add@{hll\+Dense\+Add}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Dense\+Add()}{hllDenseAdd()}}
+{\footnotesize\ttfamily int hll\+Dense\+Add (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{registers,  }\item[{unsigned char $\ast$}]{ele,  }\item[{size\+\_\+t}]{elesize }\end{DoxyParamCaption})}
+
+
+
+Definition at line 511 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a2ab78c9d69081af29f45367be575eee4}\label{hyperloglog_8c_a2ab78c9d69081af29f45367be575eee4}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Dense\+Reg\+Histo@{hll\+Dense\+Reg\+Histo}}
+\index{hll\+Dense\+Reg\+Histo@{hll\+Dense\+Reg\+Histo}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Dense\+Reg\+Histo()}{hllDenseRegHisto()}}
+{\footnotesize\ttfamily void hll\+Dense\+Reg\+Histo (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{registers,  }\item[{int $\ast$}]{reghisto }\end{DoxyParamCaption})}
+
+
+
+Definition at line 519 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_ae53f012136c1ad3c15c1387b2fd6ff21}\label{hyperloglog_8c_ae53f012136c1ad3c15c1387b2fd6ff21}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Dense\+Set@{hll\+Dense\+Set}}
+\index{hll\+Dense\+Set@{hll\+Dense\+Set}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Dense\+Set()}{hllDenseSet()}}
+{\footnotesize\ttfamily int hll\+Dense\+Set (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{registers,  }\item[{long}]{index,  }\item[{uint8\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 493 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a87b9f5bde80614c0d9acb467eb543c78}\label{hyperloglog_8c_a87b9f5bde80614c0d9acb467eb543c78}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Merge@{hll\+Merge}}
+\index{hll\+Merge@{hll\+Merge}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Merge()}{hllMerge()}}
+{\footnotesize\ttfamily int hll\+Merge (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{max,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{hll }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1062 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a76f5216e9f83744c83b5dceb7d910e28}\label{hyperloglog_8c_a76f5216e9f83744c83b5dceb7d910e28}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Pat\+Len@{hll\+Pat\+Len}}
+\index{hll\+Pat\+Len@{hll\+Pat\+Len}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Pat\+Len()}{hllPatLen()}}
+{\footnotesize\ttfamily int hll\+Pat\+Len (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{ele,  }\item[{size\+\_\+t}]{elesize,  }\item[{long $\ast$}]{regp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 451 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_ae793993c10ba225cf87a15cbdd234e8c}\label{hyperloglog_8c_ae793993c10ba225cf87a15cbdd234e8c}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Raw\+Reg\+Histo@{hll\+Raw\+Reg\+Histo}}
+\index{hll\+Raw\+Reg\+Histo@{hll\+Raw\+Reg\+Histo}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Raw\+Reg\+Histo()}{hllRawRegHisto()}}
+{\footnotesize\ttfamily void hll\+Raw\+Reg\+Histo (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{registers,  }\item[{int $\ast$}]{reghisto }\end{DoxyParamCaption})}
+
+
+
+Definition at line 944 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_ade0d0c64d2255dfdeb2da1fd3318f8c2}\label{hyperloglog_8c_ade0d0c64d2255dfdeb2da1fd3318f8c2}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Sigma@{hll\+Sigma}}
+\index{hll\+Sigma@{hll\+Sigma}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Sigma()}{hllSigma()}}
+{\footnotesize\ttfamily double hll\+Sigma (\begin{DoxyParamCaption}\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line 970 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_ac3f693985462ce751fbf58d5d4543e98}\label{hyperloglog_8c_ac3f693985462ce751fbf58d5d4543e98}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Sparse\+Add@{hll\+Sparse\+Add}}
+\index{hll\+Sparse\+Add@{hll\+Sparse\+Add}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Sparse\+Add()}{hllSparseAdd()}}
+{\footnotesize\ttfamily int hll\+Sparse\+Add (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{unsigned char $\ast$}]{ele,  }\item[{size\+\_\+t}]{elesize }\end{DoxyParamCaption})}
+
+
+
+Definition at line 902 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_ae7832af94ed3063104916b8bdfb34f22}\label{hyperloglog_8c_ae7832af94ed3063104916b8bdfb34f22}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Sparse\+Reg\+Histo@{hll\+Sparse\+Reg\+Histo}}
+\index{hll\+Sparse\+Reg\+Histo@{hll\+Sparse\+Reg\+Histo}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Sparse\+Reg\+Histo()}{hllSparseRegHisto()}}
+{\footnotesize\ttfamily void hll\+Sparse\+Reg\+Histo (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{sparse,  }\item[{int}]{sparselen,  }\item[{int $\ast$}]{invalid,  }\item[{int $\ast$}]{reghisto }\end{DoxyParamCaption})}
+
+
+
+Definition at line 910 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a9d5e562236aba49a14963114e054d97d}\label{hyperloglog_8c_a9d5e562236aba49a14963114e054d97d}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Sparse\+Set@{hll\+Sparse\+Set}}
+\index{hll\+Sparse\+Set@{hll\+Sparse\+Set}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Sparse\+Set()}{hllSparseSet()}}
+{\footnotesize\ttfamily int hll\+Sparse\+Set (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{long}]{index,  }\item[{uint8\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 653 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a1ee27779ffd640b593eaa246a190dc32}\label{hyperloglog_8c_a1ee27779ffd640b593eaa246a190dc32}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Sparse\+To\+Dense@{hll\+Sparse\+To\+Dense}}
+\index{hll\+Sparse\+To\+Dense@{hll\+Sparse\+To\+Dense}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Sparse\+To\+Dense()}{hllSparseToDense()}}
+{\footnotesize\ttfamily int hll\+Sparse\+To\+Dense (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 584 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a9d5552e74e6e30b3fea3761f828433a0}\label{hyperloglog_8c_a9d5552e74e6e30b3fea3761f828433a0}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!hll\+Tau@{hll\+Tau}}
+\index{hll\+Tau@{hll\+Tau}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{hll\+Tau()}{hllTau()}}
+{\footnotesize\ttfamily double hll\+Tau (\begin{DoxyParamCaption}\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+Definition at line 987 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a7f0f1044101527d154672d09e99e555a}\label{hyperloglog_8c_a7f0f1044101527d154672d09e99e555a}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!is\+H\+L\+L\+Object\+Or\+Reply@{is\+H\+L\+L\+Object\+Or\+Reply}}
+\index{is\+H\+L\+L\+Object\+Or\+Reply@{is\+H\+L\+L\+Object\+Or\+Reply}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{is\+H\+L\+L\+Object\+Or\+Reply()}{isHLLObjectOrReply()}}
+{\footnotesize\ttfamily int is\+H\+L\+L\+Object\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1142 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_aae386d55c476e0f2637b6443a7205f78}\label{hyperloglog_8c_aae386d55c476e0f2637b6443a7205f78}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!Murmur\+Hash64A@{Murmur\+Hash64A}}
+\index{Murmur\+Hash64A@{Murmur\+Hash64A}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{Murmur\+Hash64\+A()}{MurmurHash64A()}}
+{\footnotesize\ttfamily uint64\+\_\+t Murmur\+Hash64A (\begin{DoxyParamCaption}\item[{const void $\ast$}]{key,  }\item[{int}]{len,  }\item[{unsigned int}]{seed }\end{DoxyParamCaption})}
+
+
+
+Definition at line 396 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a258d945b9cd883a1f5190730571819fe}\label{hyperloglog_8c_a258d945b9cd883a1f5190730571819fe}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!pfadd\+Command@{pfadd\+Command}}
+\index{pfadd\+Command@{pfadd\+Command}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{pfadd\+Command()}{pfaddCommand()}}
+{\footnotesize\ttfamily void pfadd\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1174 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a6fb9b8776b74679f421d3fc3ade798b8}\label{hyperloglog_8c_a6fb9b8776b74679f421d3fc3ade798b8}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!pfcount\+Command@{pfcount\+Command}}
+\index{pfcount\+Command@{pfcount\+Command}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{pfcount\+Command()}{pfcountCommand()}}
+{\footnotesize\ttfamily void pfcount\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1214 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_adc6a2e5cb61800b6dc6dad89a53b2b88}\label{hyperloglog_8c_adc6a2e5cb61800b6dc6dad89a53b2b88}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!pfdebug\+Command@{pfdebug\+Command}}
+\index{pfdebug\+Command@{pfdebug\+Command}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{pfdebug\+Command()}{pfdebugCommand()}}
+{\footnotesize\ttfamily void pfdebug\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1487 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_a3cc766564e1420433a9c1e4b59e2ba51}\label{hyperloglog_8c_a3cc766564e1420433a9c1e4b59e2ba51}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!pfmerge\+Command@{pfmerge\+Command}}
+\index{pfmerge\+Command@{pfmerge\+Command}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{pfmerge\+Command()}{pfmergeCommand()}}
+{\footnotesize\ttfamily void pfmerge\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1304 of file hyperloglog.\+c.
+
+\mbox{\Hypertarget{hyperloglog_8c_acebc0877c8aca6beb919b963b784356d}\label{hyperloglog_8c_acebc0877c8aca6beb919b963b784356d}} 
+\index{hyperloglog.\+c@{hyperloglog.\+c}!pfselftest\+Command@{pfselftest\+Command}}
+\index{pfselftest\+Command@{pfselftest\+Command}!hyperloglog.\+c@{hyperloglog.\+c}}
+\subsubsection{\texorpdfstring{pfselftest\+Command()}{pfselftestCommand()}}
+{\footnotesize\ttfamily void pfselftest\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1383 of file hyperloglog.\+c.
+

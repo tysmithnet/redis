@@ -1,0 +1,496 @@
+\hypertarget{ae_8h}{}\section{src/ae.h File Reference}
+\label{ae_8h}\index{src/ae.\+h@{src/ae.\+h}}
+{\ttfamily \#include $<$time.\+h$>$}\newline
+Include dependency graph for ae.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=132pt]{ae_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ae_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structae_file_event}{ae\+File\+Event}
+\item 
+struct \hyperlink{structae_time_event}{ae\+Time\+Event}
+\item 
+struct \hyperlink{structae_fired_event}{ae\+Fired\+Event}
+\item 
+struct \hyperlink{structae_event_loop}{ae\+Event\+Loop}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ae_8h_afaac43d9573452f9fc6c718f90c4c645}{A\+E\+\_\+\+OK}~0
+\item 
+\#define \hyperlink{ae_8h_aa16dcf7effdf8f8df97f51b1cb51a9df}{A\+E\+\_\+\+E\+RR}~-\/1
+\item 
+\#define \hyperlink{ae_8h_aea2e33b645e48a3fbb26261005f6df41}{A\+E\+\_\+\+N\+O\+NE}~0       /$\ast$ No events registered. $\ast$/
+\item 
+\#define \hyperlink{ae_8h_a7a9a2162d007d09739955b4e55c65bf3}{A\+E\+\_\+\+R\+E\+A\+D\+A\+B\+LE}~1   /$\ast$ Fire when descriptor is readable. $\ast$/
+\item 
+\#define \hyperlink{ae_8h_ab6bfb0366ccb6277112d132c2a2bf500}{A\+E\+\_\+\+W\+R\+I\+T\+A\+B\+LE}~2   /$\ast$ Fire when descriptor is writable. $\ast$/
+\item 
+\#define \hyperlink{ae_8h_af53cfa4801e11351966cee41308c3881}{A\+E\+\_\+\+B\+A\+R\+R\+I\+ER}
+\item 
+\#define \hyperlink{ae_8h_ac3fe42c648aaa679f6bffaeb1f8f9ea8}{A\+E\+\_\+\+F\+I\+L\+E\+\_\+\+E\+V\+E\+N\+TS}~1
+\item 
+\#define \hyperlink{ae_8h_acdc6c5c42302bc81959ed645b22800aa}{A\+E\+\_\+\+T\+I\+M\+E\+\_\+\+E\+V\+E\+N\+TS}~2
+\item 
+\#define \hyperlink{ae_8h_a680280f52124f876adfeb7e81cb20264}{A\+E\+\_\+\+A\+L\+L\+\_\+\+E\+V\+E\+N\+TS}~(\hyperlink{ae_8h_ac3fe42c648aaa679f6bffaeb1f8f9ea8}{A\+E\+\_\+\+F\+I\+L\+E\+\_\+\+E\+V\+E\+N\+TS}$\vert$\hyperlink{ae_8h_acdc6c5c42302bc81959ed645b22800aa}{A\+E\+\_\+\+T\+I\+M\+E\+\_\+\+E\+V\+E\+N\+TS})
+\item 
+\#define \hyperlink{ae_8h_a95ce6d5997d5b55cef5e1977dc80af28}{A\+E\+\_\+\+D\+O\+N\+T\+\_\+\+W\+A\+IT}~4
+\item 
+\#define \hyperlink{ae_8h_a7fc929b2d363fc270b311f09d5048cca}{A\+E\+\_\+\+C\+A\+L\+L\+\_\+\+A\+F\+T\+E\+R\+\_\+\+S\+L\+E\+EP}~8
+\item 
+\#define \hyperlink{ae_8h_a51464410d1f951b043b6d881574e4a4a}{A\+E\+\_\+\+N\+O\+M\+O\+RE}~-\/1
+\item 
+\#define \hyperlink{ae_8h_aee0b2fc7b62d8e06517136a91d7f635d}{A\+E\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+E\+V\+E\+N\+T\+\_\+\+ID}~-\/1
+\item 
+\#define \hyperlink{ae_8h_a3dfdfff5a4a26215a283541deb085ede}{A\+E\+\_\+\+N\+O\+T\+U\+S\+ED}(V)~((void) V)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void \hyperlink{ae_8h_a26d6e9533f135cb463f29239607ba50c}{ae\+File\+Proc}(struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, int fd, void $\ast$client\+Data, int mask)
+\item 
+typedef int \hyperlink{ae_8h_a09cb08f0aea5e5c1460a8b8599d789c8}{ae\+Time\+Proc}(struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, long long id, void $\ast$client\+Data)
+\item 
+typedef void \hyperlink{ae_8h_a82c64cc6b7c71e2b7bae4e6b18f42c54}{ae\+Event\+Finalizer\+Proc}(struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, void $\ast$client\+Data)
+\item 
+typedef void \hyperlink{ae_8h_a9b418f26d4997ba2d303dd247ae45718}{ae\+Before\+Sleep\+Proc}(struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop)
+\item 
+typedef struct \hyperlink{structae_file_event}{ae\+File\+Event} \hyperlink{ae_8h_ae1d73d5e3cbb82a133cf5629b608c5bb}{ae\+File\+Event}
+\item 
+typedef struct \hyperlink{structae_time_event}{ae\+Time\+Event} \hyperlink{ae_8h_adeac0544da6b3c99dd7028d69b396963}{ae\+Time\+Event}
+\item 
+typedef struct \hyperlink{structae_fired_event}{ae\+Fired\+Event} \hyperlink{ae_8h_ac6193f3519f0be890344ca852e1af80a}{ae\+Fired\+Event}
+\item 
+typedef struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} \hyperlink{ae_8h_a9150f41071c74603a2b8a137a35afe03}{ae\+Event\+Loop}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$ \hyperlink{ae_8h_a06456e32738f0ccb40a4bb7f7f6c6f75}{ae\+Create\+Event\+Loop} (int setsize)
+\item 
+void \hyperlink{ae_8h_a13cfb20cd4911e655db460fedb5daf1d}{ae\+Delete\+Event\+Loop} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop)
+\item 
+void \hyperlink{ae_8h_aaa89f81231ebc43f571280f098dff102}{ae\+Stop} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop)
+\item 
+int \hyperlink{ae_8h_ad1918e57c96446a7e5a5067922c1a3a5}{ae\+Create\+File\+Event} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, int fd, int mask, \hyperlink{ae_8h_a26d6e9533f135cb463f29239607ba50c}{ae\+File\+Proc} $\ast$proc, void $\ast$client\+Data)
+\item 
+void \hyperlink{ae_8h_a15b5d80986ac4e83ae29b4817c62a3a6}{ae\+Delete\+File\+Event} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, int fd, int mask)
+\item 
+int \hyperlink{ae_8h_aaf85e917d2b21998507fac8634b4ecae}{ae\+Get\+File\+Events} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, int fd)
+\item 
+long long \hyperlink{ae_8h_ae2b6461448420e59fdb578cb8809d036}{ae\+Create\+Time\+Event} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, long long milliseconds, \hyperlink{ae_8h_a09cb08f0aea5e5c1460a8b8599d789c8}{ae\+Time\+Proc} $\ast$proc, void $\ast$client\+Data, \hyperlink{ae_8h_a82c64cc6b7c71e2b7bae4e6b18f42c54}{ae\+Event\+Finalizer\+Proc} $\ast$finalizer\+Proc)
+\item 
+int \hyperlink{ae_8h_a4357399e2e584ca619a8408d6f0dbc4e}{ae\+Delete\+Time\+Event} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, long long id)
+\item 
+int \hyperlink{ae_8h_a5dcce61d1407ffbebc362c918f4a33a6}{ae\+Process\+Events} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, int flags)
+\item 
+int \hyperlink{ae_8h_a7508cb8a7db92faa21c574809b677626}{ae\+Wait} (int fd, int mask, long long milliseconds)
+\item 
+void \hyperlink{ae_8h_a2909fa15dc2d667ec824904fef9df3d8}{ae\+Main} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop)
+\item 
+char $\ast$ \hyperlink{ae_8h_a0203d90fa536ccaf3287c2b72bda1c8b}{ae\+Get\+Api\+Name} (void)
+\item 
+void \hyperlink{ae_8h_ab2fbbafc0540b40bcc9a13477c512e4d}{ae\+Set\+Before\+Sleep\+Proc} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, \hyperlink{ae_8h_a9b418f26d4997ba2d303dd247ae45718}{ae\+Before\+Sleep\+Proc} $\ast$beforesleep)
+\item 
+void \hyperlink{ae_8h_a531efa3444e61c200b8b7a64d0e3789c}{ae\+Set\+After\+Sleep\+Proc} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, \hyperlink{ae_8h_a9b418f26d4997ba2d303dd247ae45718}{ae\+Before\+Sleep\+Proc} $\ast$aftersleep)
+\item 
+int \hyperlink{ae_8h_afa530b9fddc550260cf14d0a4423cb1e}{ae\+Get\+Set\+Size} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop)
+\item 
+int \hyperlink{ae_8h_ae85e3a2bde2b9a7f8fc5075c09355d63}{ae\+Resize\+Set\+Size} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, int setsize)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{ae_8h_a680280f52124f876adfeb7e81cb20264}\label{ae_8h_a680280f52124f876adfeb7e81cb20264}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+A\+L\+L\+\_\+\+E\+V\+E\+N\+TS@{A\+E\+\_\+\+A\+L\+L\+\_\+\+E\+V\+E\+N\+TS}}
+\index{A\+E\+\_\+\+A\+L\+L\+\_\+\+E\+V\+E\+N\+TS@{A\+E\+\_\+\+A\+L\+L\+\_\+\+E\+V\+E\+N\+TS}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+A\+L\+L\+\_\+\+E\+V\+E\+N\+TS}{AE\_ALL\_EVENTS}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+A\+L\+L\+\_\+\+E\+V\+E\+N\+TS~(\hyperlink{ae_8h_ac3fe42c648aaa679f6bffaeb1f8f9ea8}{A\+E\+\_\+\+F\+I\+L\+E\+\_\+\+E\+V\+E\+N\+TS}$\vert$\hyperlink{ae_8h_acdc6c5c42302bc81959ed645b22800aa}{A\+E\+\_\+\+T\+I\+M\+E\+\_\+\+E\+V\+E\+N\+TS})}
+
+
+
+Definition at line 52 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_af53cfa4801e11351966cee41308c3881}\label{ae_8h_af53cfa4801e11351966cee41308c3881}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+B\+A\+R\+R\+I\+ER@{A\+E\+\_\+\+B\+A\+R\+R\+I\+ER}}
+\index{A\+E\+\_\+\+B\+A\+R\+R\+I\+ER@{A\+E\+\_\+\+B\+A\+R\+R\+I\+ER}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+B\+A\+R\+R\+I\+ER}{AE\_BARRIER}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+B\+A\+R\+R\+I\+ER}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+4    \textcolor{comment}{/* With WRITABLE, never fire the event if the}
+\textcolor{comment}{                           READABLE event already fired in the same event}
+\textcolor{comment}{                           loop iteration. Useful when you want to persist}
+\textcolor{comment}{                           things to disk before sending replies, and want}
+\textcolor{comment}{                           to do that in a group fashion. */}
+\end{DoxyCode}
+
+
+Definition at line 44 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_a7fc929b2d363fc270b311f09d5048cca}\label{ae_8h_a7fc929b2d363fc270b311f09d5048cca}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+C\+A\+L\+L\+\_\+\+A\+F\+T\+E\+R\+\_\+\+S\+L\+E\+EP@{A\+E\+\_\+\+C\+A\+L\+L\+\_\+\+A\+F\+T\+E\+R\+\_\+\+S\+L\+E\+EP}}
+\index{A\+E\+\_\+\+C\+A\+L\+L\+\_\+\+A\+F\+T\+E\+R\+\_\+\+S\+L\+E\+EP@{A\+E\+\_\+\+C\+A\+L\+L\+\_\+\+A\+F\+T\+E\+R\+\_\+\+S\+L\+E\+EP}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+C\+A\+L\+L\+\_\+\+A\+F\+T\+E\+R\+\_\+\+S\+L\+E\+EP}{AE\_CALL\_AFTER\_SLEEP}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+C\+A\+L\+L\+\_\+\+A\+F\+T\+E\+R\+\_\+\+S\+L\+E\+EP~8}
+
+
+
+Definition at line 54 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_aee0b2fc7b62d8e06517136a91d7f635d}\label{ae_8h_aee0b2fc7b62d8e06517136a91d7f635d}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+E\+V\+E\+N\+T\+\_\+\+ID@{A\+E\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+E\+V\+E\+N\+T\+\_\+\+ID}}
+\index{A\+E\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+E\+V\+E\+N\+T\+\_\+\+ID@{A\+E\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+E\+V\+E\+N\+T\+\_\+\+ID}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+E\+V\+E\+N\+T\+\_\+\+ID}{AE\_DELETED\_EVENT\_ID}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+D\+E\+L\+E\+T\+E\+D\+\_\+\+E\+V\+E\+N\+T\+\_\+\+ID~-\/1}
+
+
+
+Definition at line 57 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_a95ce6d5997d5b55cef5e1977dc80af28}\label{ae_8h_a95ce6d5997d5b55cef5e1977dc80af28}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+D\+O\+N\+T\+\_\+\+W\+A\+IT@{A\+E\+\_\+\+D\+O\+N\+T\+\_\+\+W\+A\+IT}}
+\index{A\+E\+\_\+\+D\+O\+N\+T\+\_\+\+W\+A\+IT@{A\+E\+\_\+\+D\+O\+N\+T\+\_\+\+W\+A\+IT}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+D\+O\+N\+T\+\_\+\+W\+A\+IT}{AE\_DONT\_WAIT}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+D\+O\+N\+T\+\_\+\+W\+A\+IT~4}
+
+
+
+Definition at line 53 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_aa16dcf7effdf8f8df97f51b1cb51a9df}\label{ae_8h_aa16dcf7effdf8f8df97f51b1cb51a9df}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+E\+RR@{A\+E\+\_\+\+E\+RR}}
+\index{A\+E\+\_\+\+E\+RR@{A\+E\+\_\+\+E\+RR}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+E\+RR}{AE\_ERR}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+E\+RR~-\/1}
+
+
+
+Definition at line 39 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_ac3fe42c648aaa679f6bffaeb1f8f9ea8}\label{ae_8h_ac3fe42c648aaa679f6bffaeb1f8f9ea8}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+F\+I\+L\+E\+\_\+\+E\+V\+E\+N\+TS@{A\+E\+\_\+\+F\+I\+L\+E\+\_\+\+E\+V\+E\+N\+TS}}
+\index{A\+E\+\_\+\+F\+I\+L\+E\+\_\+\+E\+V\+E\+N\+TS@{A\+E\+\_\+\+F\+I\+L\+E\+\_\+\+E\+V\+E\+N\+TS}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+F\+I\+L\+E\+\_\+\+E\+V\+E\+N\+TS}{AE\_FILE\_EVENTS}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+F\+I\+L\+E\+\_\+\+E\+V\+E\+N\+TS~1}
+
+
+
+Definition at line 50 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_a51464410d1f951b043b6d881574e4a4a}\label{ae_8h_a51464410d1f951b043b6d881574e4a4a}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+N\+O\+M\+O\+RE@{A\+E\+\_\+\+N\+O\+M\+O\+RE}}
+\index{A\+E\+\_\+\+N\+O\+M\+O\+RE@{A\+E\+\_\+\+N\+O\+M\+O\+RE}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+N\+O\+M\+O\+RE}{AE\_NOMORE}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+N\+O\+M\+O\+RE~-\/1}
+
+
+
+Definition at line 56 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_aea2e33b645e48a3fbb26261005f6df41}\label{ae_8h_aea2e33b645e48a3fbb26261005f6df41}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+N\+O\+NE@{A\+E\+\_\+\+N\+O\+NE}}
+\index{A\+E\+\_\+\+N\+O\+NE@{A\+E\+\_\+\+N\+O\+NE}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+N\+O\+NE}{AE\_NONE}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+N\+O\+NE~0       /$\ast$ No events registered. $\ast$/}
+
+
+
+Definition at line 41 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_a3dfdfff5a4a26215a283541deb085ede}\label{ae_8h_a3dfdfff5a4a26215a283541deb085ede}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+N\+O\+T\+U\+S\+ED@{A\+E\+\_\+\+N\+O\+T\+U\+S\+ED}}
+\index{A\+E\+\_\+\+N\+O\+T\+U\+S\+ED@{A\+E\+\_\+\+N\+O\+T\+U\+S\+ED}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+N\+O\+T\+U\+S\+ED}{AE\_NOTUSED}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+N\+O\+T\+U\+S\+ED(\begin{DoxyParamCaption}\item[{}]{V }\end{DoxyParamCaption})~((void) V)}
+
+
+
+Definition at line 60 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_afaac43d9573452f9fc6c718f90c4c645}\label{ae_8h_afaac43d9573452f9fc6c718f90c4c645}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+OK@{A\+E\+\_\+\+OK}}
+\index{A\+E\+\_\+\+OK@{A\+E\+\_\+\+OK}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+OK}{AE\_OK}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+OK~0}
+
+
+
+Definition at line 38 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_a7a9a2162d007d09739955b4e55c65bf3}\label{ae_8h_a7a9a2162d007d09739955b4e55c65bf3}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+R\+E\+A\+D\+A\+B\+LE@{A\+E\+\_\+\+R\+E\+A\+D\+A\+B\+LE}}
+\index{A\+E\+\_\+\+R\+E\+A\+D\+A\+B\+LE@{A\+E\+\_\+\+R\+E\+A\+D\+A\+B\+LE}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+R\+E\+A\+D\+A\+B\+LE}{AE\_READABLE}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+R\+E\+A\+D\+A\+B\+LE~1   /$\ast$ Fire when descriptor is readable. $\ast$/}
+
+
+
+Definition at line 42 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_acdc6c5c42302bc81959ed645b22800aa}\label{ae_8h_acdc6c5c42302bc81959ed645b22800aa}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+T\+I\+M\+E\+\_\+\+E\+V\+E\+N\+TS@{A\+E\+\_\+\+T\+I\+M\+E\+\_\+\+E\+V\+E\+N\+TS}}
+\index{A\+E\+\_\+\+T\+I\+M\+E\+\_\+\+E\+V\+E\+N\+TS@{A\+E\+\_\+\+T\+I\+M\+E\+\_\+\+E\+V\+E\+N\+TS}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+T\+I\+M\+E\+\_\+\+E\+V\+E\+N\+TS}{AE\_TIME\_EVENTS}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+T\+I\+M\+E\+\_\+\+E\+V\+E\+N\+TS~2}
+
+
+
+Definition at line 51 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_ab6bfb0366ccb6277112d132c2a2bf500}\label{ae_8h_ab6bfb0366ccb6277112d132c2a2bf500}} 
+\index{ae.\+h@{ae.\+h}!A\+E\+\_\+\+W\+R\+I\+T\+A\+B\+LE@{A\+E\+\_\+\+W\+R\+I\+T\+A\+B\+LE}}
+\index{A\+E\+\_\+\+W\+R\+I\+T\+A\+B\+LE@{A\+E\+\_\+\+W\+R\+I\+T\+A\+B\+LE}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{A\+E\+\_\+\+W\+R\+I\+T\+A\+B\+LE}{AE\_WRITABLE}}
+{\footnotesize\ttfamily \#define A\+E\+\_\+\+W\+R\+I\+T\+A\+B\+LE~2   /$\ast$ Fire when descriptor is writable. $\ast$/}
+
+
+
+Definition at line 43 of file ae.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{ae_8h_a9b418f26d4997ba2d303dd247ae45718}\label{ae_8h_a9b418f26d4997ba2d303dd247ae45718}} 
+\index{ae.\+h@{ae.\+h}!ae\+Before\+Sleep\+Proc@{ae\+Before\+Sleep\+Proc}}
+\index{ae\+Before\+Sleep\+Proc@{ae\+Before\+Sleep\+Proc}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Before\+Sleep\+Proc}{aeBeforeSleepProc}}
+{\footnotesize\ttfamily typedef void ae\+Before\+Sleep\+Proc(struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop)}
+
+
+
+Definition at line 68 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_a82c64cc6b7c71e2b7bae4e6b18f42c54}\label{ae_8h_a82c64cc6b7c71e2b7bae4e6b18f42c54}} 
+\index{ae.\+h@{ae.\+h}!ae\+Event\+Finalizer\+Proc@{ae\+Event\+Finalizer\+Proc}}
+\index{ae\+Event\+Finalizer\+Proc@{ae\+Event\+Finalizer\+Proc}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Event\+Finalizer\+Proc}{aeEventFinalizerProc}}
+{\footnotesize\ttfamily typedef void ae\+Event\+Finalizer\+Proc(struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, void $\ast$client\+Data)}
+
+
+
+Definition at line 67 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_a9150f41071c74603a2b8a137a35afe03}\label{ae_8h_a9150f41071c74603a2b8a137a35afe03}} 
+\index{ae.\+h@{ae.\+h}!ae\+Event\+Loop@{ae\+Event\+Loop}}
+\index{ae\+Event\+Loop@{ae\+Event\+Loop}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Event\+Loop}{aeEventLoop}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structae_event_loop}{ae\+Event\+Loop}  \hyperlink{structae_event_loop}{ae\+Event\+Loop}}
+
+\mbox{\Hypertarget{ae_8h_ae1d73d5e3cbb82a133cf5629b608c5bb}\label{ae_8h_ae1d73d5e3cbb82a133cf5629b608c5bb}} 
+\index{ae.\+h@{ae.\+h}!ae\+File\+Event@{ae\+File\+Event}}
+\index{ae\+File\+Event@{ae\+File\+Event}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+File\+Event}{aeFileEvent}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structae_file_event}{ae\+File\+Event}  \hyperlink{structae_file_event}{ae\+File\+Event}}
+
+\mbox{\Hypertarget{ae_8h_a26d6e9533f135cb463f29239607ba50c}\label{ae_8h_a26d6e9533f135cb463f29239607ba50c}} 
+\index{ae.\+h@{ae.\+h}!ae\+File\+Proc@{ae\+File\+Proc}}
+\index{ae\+File\+Proc@{ae\+File\+Proc}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+File\+Proc}{aeFileProc}}
+{\footnotesize\ttfamily typedef void ae\+File\+Proc(struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, int fd, void $\ast$client\+Data, int mask)}
+
+
+
+Definition at line 65 of file ae.\+h.
+
+\mbox{\Hypertarget{ae_8h_ac6193f3519f0be890344ca852e1af80a}\label{ae_8h_ac6193f3519f0be890344ca852e1af80a}} 
+\index{ae.\+h@{ae.\+h}!ae\+Fired\+Event@{ae\+Fired\+Event}}
+\index{ae\+Fired\+Event@{ae\+Fired\+Event}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Fired\+Event}{aeFiredEvent}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structae_fired_event}{ae\+Fired\+Event}  \hyperlink{structae_fired_event}{ae\+Fired\+Event}}
+
+\mbox{\Hypertarget{ae_8h_adeac0544da6b3c99dd7028d69b396963}\label{ae_8h_adeac0544da6b3c99dd7028d69b396963}} 
+\index{ae.\+h@{ae.\+h}!ae\+Time\+Event@{ae\+Time\+Event}}
+\index{ae\+Time\+Event@{ae\+Time\+Event}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Time\+Event}{aeTimeEvent}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structae_time_event}{ae\+Time\+Event}  \hyperlink{structae_time_event}{ae\+Time\+Event}}
+
+\mbox{\Hypertarget{ae_8h_a09cb08f0aea5e5c1460a8b8599d789c8}\label{ae_8h_a09cb08f0aea5e5c1460a8b8599d789c8}} 
+\index{ae.\+h@{ae.\+h}!ae\+Time\+Proc@{ae\+Time\+Proc}}
+\index{ae\+Time\+Proc@{ae\+Time\+Proc}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Time\+Proc}{aeTimeProc}}
+{\footnotesize\ttfamily typedef int ae\+Time\+Proc(struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, long long id, void $\ast$client\+Data)}
+
+
+
+Definition at line 66 of file ae.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{ae_8h_a06456e32738f0ccb40a4bb7f7f6c6f75}\label{ae_8h_a06456e32738f0ccb40a4bb7f7f6c6f75}} 
+\index{ae.\+h@{ae.\+h}!ae\+Create\+Event\+Loop@{ae\+Create\+Event\+Loop}}
+\index{ae\+Create\+Event\+Loop@{ae\+Create\+Event\+Loop}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Create\+Event\+Loop()}{aeCreateEventLoop()}}
+{\footnotesize\ttfamily \hyperlink{structae_event_loop}{ae\+Event\+Loop}$\ast$ ae\+Create\+Event\+Loop (\begin{DoxyParamCaption}\item[{int}]{setsize }\end{DoxyParamCaption})}
+
+
+
+Definition at line 63 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_ad1918e57c96446a7e5a5067922c1a3a5}\label{ae_8h_ad1918e57c96446a7e5a5067922c1a3a5}} 
+\index{ae.\+h@{ae.\+h}!ae\+Create\+File\+Event@{ae\+Create\+File\+Event}}
+\index{ae\+Create\+File\+Event@{ae\+Create\+File\+Event}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Create\+File\+Event()}{aeCreateFileEvent()}}
+{\footnotesize\ttfamily int ae\+Create\+File\+Event (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop,  }\item[{int}]{fd,  }\item[{int}]{mask,  }\item[{\hyperlink{ae_8h_a26d6e9533f135cb463f29239607ba50c}{ae\+File\+Proc} $\ast$}]{proc,  }\item[{void $\ast$}]{client\+Data }\end{DoxyParamCaption})}
+
+
+
+Definition at line 136 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_ae2b6461448420e59fdb578cb8809d036}\label{ae_8h_ae2b6461448420e59fdb578cb8809d036}} 
+\index{ae.\+h@{ae.\+h}!ae\+Create\+Time\+Event@{ae\+Create\+Time\+Event}}
+\index{ae\+Create\+Time\+Event@{ae\+Create\+Time\+Event}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Create\+Time\+Event()}{aeCreateTimeEvent()}}
+{\footnotesize\ttfamily long long ae\+Create\+Time\+Event (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop,  }\item[{long long}]{milliseconds,  }\item[{\hyperlink{ae_8h_a09cb08f0aea5e5c1460a8b8599d789c8}{ae\+Time\+Proc} $\ast$}]{proc,  }\item[{void $\ast$}]{client\+Data,  }\item[{\hyperlink{ae_8h_a82c64cc6b7c71e2b7bae4e6b18f42c54}{ae\+Event\+Finalizer\+Proc} $\ast$}]{finalizer\+Proc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 208 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_a13cfb20cd4911e655db460fedb5daf1d}\label{ae_8h_a13cfb20cd4911e655db460fedb5daf1d}} 
+\index{ae.\+h@{ae.\+h}!ae\+Delete\+Event\+Loop@{ae\+Delete\+Event\+Loop}}
+\index{ae\+Delete\+Event\+Loop@{ae\+Delete\+Event\+Loop}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Delete\+Event\+Loop()}{aeDeleteEventLoop()}}
+{\footnotesize\ttfamily void ae\+Delete\+Event\+Loop (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop }\end{DoxyParamCaption})}
+
+
+
+Definition at line 125 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_a15b5d80986ac4e83ae29b4817c62a3a6}\label{ae_8h_a15b5d80986ac4e83ae29b4817c62a3a6}} 
+\index{ae.\+h@{ae.\+h}!ae\+Delete\+File\+Event@{ae\+Delete\+File\+Event}}
+\index{ae\+Delete\+File\+Event@{ae\+Delete\+File\+Event}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Delete\+File\+Event()}{aeDeleteFileEvent()}}
+{\footnotesize\ttfamily void ae\+Delete\+File\+Event (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop,  }\item[{int}]{fd,  }\item[{int}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 156 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_a4357399e2e584ca619a8408d6f0dbc4e}\label{ae_8h_a4357399e2e584ca619a8408d6f0dbc4e}} 
+\index{ae.\+h@{ae.\+h}!ae\+Delete\+Time\+Event@{ae\+Delete\+Time\+Event}}
+\index{ae\+Delete\+Time\+Event@{ae\+Delete\+Time\+Event}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Delete\+Time\+Event()}{aeDeleteTimeEvent()}}
+{\footnotesize\ttfamily int ae\+Delete\+Time\+Event (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop,  }\item[{long long}]{id }\end{DoxyParamCaption})}
+
+
+
+Definition at line 230 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_a0203d90fa536ccaf3287c2b72bda1c8b}\label{ae_8h_a0203d90fa536ccaf3287c2b72bda1c8b}} 
+\index{ae.\+h@{ae.\+h}!ae\+Get\+Api\+Name@{ae\+Get\+Api\+Name}}
+\index{ae\+Get\+Api\+Name@{ae\+Get\+Api\+Name}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Get\+Api\+Name()}{aeGetApiName()}}
+{\footnotesize\ttfamily char$\ast$ ae\+Get\+Api\+Name (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 505 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_aaf85e917d2b21998507fac8634b4ecae}\label{ae_8h_aaf85e917d2b21998507fac8634b4ecae}} 
+\index{ae.\+h@{ae.\+h}!ae\+Get\+File\+Events@{ae\+Get\+File\+Events}}
+\index{ae\+Get\+File\+Events@{ae\+Get\+File\+Events}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Get\+File\+Events()}{aeGetFileEvents()}}
+{\footnotesize\ttfamily int ae\+Get\+File\+Events (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop,  }\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 178 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_afa530b9fddc550260cf14d0a4423cb1e}\label{ae_8h_afa530b9fddc550260cf14d0a4423cb1e}} 
+\index{ae.\+h@{ae.\+h}!ae\+Get\+Set\+Size@{ae\+Get\+Set\+Size}}
+\index{ae\+Get\+Set\+Size@{ae\+Get\+Set\+Size}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Get\+Set\+Size()}{aeGetSetSize()}}
+{\footnotesize\ttfamily int ae\+Get\+Set\+Size (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop }\end{DoxyParamCaption})}
+
+
+
+Definition at line 96 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_a2909fa15dc2d667ec824904fef9df3d8}\label{ae_8h_a2909fa15dc2d667ec824904fef9df3d8}} 
+\index{ae.\+h@{ae.\+h}!ae\+Main@{ae\+Main}}
+\index{ae\+Main@{ae\+Main}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Main()}{aeMain()}}
+{\footnotesize\ttfamily void ae\+Main (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop }\end{DoxyParamCaption})}
+
+
+
+Definition at line 496 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_a5dcce61d1407ffbebc362c918f4a33a6}\label{ae_8h_a5dcce61d1407ffbebc362c918f4a33a6}} 
+\index{ae.\+h@{ae.\+h}!ae\+Process\+Events@{ae\+Process\+Events}}
+\index{ae\+Process\+Events@{ae\+Process\+Events}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Process\+Events()}{aeProcessEvents()}}
+{\footnotesize\ttfamily int ae\+Process\+Events (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 358 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_ae85e3a2bde2b9a7f8fc5075c09355d63}\label{ae_8h_ae85e3a2bde2b9a7f8fc5075c09355d63}} 
+\index{ae.\+h@{ae.\+h}!ae\+Resize\+Set\+Size@{ae\+Resize\+Set\+Size}}
+\index{ae\+Resize\+Set\+Size@{ae\+Resize\+Set\+Size}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Resize\+Set\+Size()}{aeResizeSetSize()}}
+{\footnotesize\ttfamily int ae\+Resize\+Set\+Size (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop,  }\item[{int}]{setsize }\end{DoxyParamCaption})}
+
+
+
+Definition at line 107 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_a531efa3444e61c200b8b7a64d0e3789c}\label{ae_8h_a531efa3444e61c200b8b7a64d0e3789c}} 
+\index{ae.\+h@{ae.\+h}!ae\+Set\+After\+Sleep\+Proc@{ae\+Set\+After\+Sleep\+Proc}}
+\index{ae\+Set\+After\+Sleep\+Proc@{ae\+Set\+After\+Sleep\+Proc}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Set\+After\+Sleep\+Proc()}{aeSetAfterSleepProc()}}
+{\footnotesize\ttfamily void ae\+Set\+After\+Sleep\+Proc (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop,  }\item[{\hyperlink{ae_8h_a9b418f26d4997ba2d303dd247ae45718}{ae\+Before\+Sleep\+Proc} $\ast$}]{aftersleep }\end{DoxyParamCaption})}
+
+
+
+Definition at line 513 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_ab2fbbafc0540b40bcc9a13477c512e4d}\label{ae_8h_ab2fbbafc0540b40bcc9a13477c512e4d}} 
+\index{ae.\+h@{ae.\+h}!ae\+Set\+Before\+Sleep\+Proc@{ae\+Set\+Before\+Sleep\+Proc}}
+\index{ae\+Set\+Before\+Sleep\+Proc@{ae\+Set\+Before\+Sleep\+Proc}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Set\+Before\+Sleep\+Proc()}{aeSetBeforeSleepProc()}}
+{\footnotesize\ttfamily void ae\+Set\+Before\+Sleep\+Proc (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop,  }\item[{\hyperlink{ae_8h_a9b418f26d4997ba2d303dd247ae45718}{ae\+Before\+Sleep\+Proc} $\ast$}]{beforesleep }\end{DoxyParamCaption})}
+
+
+
+Definition at line 509 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_aaa89f81231ebc43f571280f098dff102}\label{ae_8h_aaa89f81231ebc43f571280f098dff102}} 
+\index{ae.\+h@{ae.\+h}!ae\+Stop@{ae\+Stop}}
+\index{ae\+Stop@{ae\+Stop}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Stop()}{aeStop()}}
+{\footnotesize\ttfamily void ae\+Stop (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop }\end{DoxyParamCaption})}
+
+
+
+Definition at line 132 of file ae.\+c.
+
+\mbox{\Hypertarget{ae_8h_a7508cb8a7db92faa21c574809b677626}\label{ae_8h_a7508cb8a7db92faa21c574809b677626}} 
+\index{ae.\+h@{ae.\+h}!ae\+Wait@{ae\+Wait}}
+\index{ae\+Wait@{ae\+Wait}!ae.\+h@{ae.\+h}}
+\subsubsection{\texorpdfstring{ae\+Wait()}{aeWait()}}
+{\footnotesize\ttfamily int ae\+Wait (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{int}]{mask,  }\item[{long long}]{milliseconds }\end{DoxyParamCaption})}
+
+
+
+Definition at line 476 of file ae.\+c.
+

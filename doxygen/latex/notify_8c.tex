@@ -1,0 +1,53 @@
+\hypertarget{notify_8c}{}\section{src/notify.c File Reference}
+\label{notify_8c}\index{src/notify.\+c@{src/notify.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+Include dependency graph for notify.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{notify_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{notify_8c_aa9735bc5b3a3484608ec6f810319e237}{keyspace\+Events\+String\+To\+Flags} (char $\ast$classes)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{notify_8c_aed53c17ab0bfccbb9a4adc0781a1aaa3}{keyspace\+Events\+Flags\+To\+String} (int flags)
+\item 
+void \hyperlink{notify_8c_aeeb274955465fd6e0f12c65356855d7d}{notify\+Keyspace\+Event} (int type, char $\ast$event, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, int dbid)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{notify_8c_aed53c17ab0bfccbb9a4adc0781a1aaa3}\label{notify_8c_aed53c17ab0bfccbb9a4adc0781a1aaa3}} 
+\index{notify.\+c@{notify.\+c}!keyspace\+Events\+Flags\+To\+String@{keyspace\+Events\+Flags\+To\+String}}
+\index{keyspace\+Events\+Flags\+To\+String@{keyspace\+Events\+Flags\+To\+String}!notify.\+c@{notify.\+c}}
+\subsubsection{\texorpdfstring{keyspace\+Events\+Flags\+To\+String()}{keyspaceEventsFlagsToString()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} keyspace\+Events\+Flags\+To\+String (\begin{DoxyParamCaption}\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 68 of file notify.\+c.
+
+\mbox{\Hypertarget{notify_8c_aa9735bc5b3a3484608ec6f810319e237}\label{notify_8c_aa9735bc5b3a3484608ec6f810319e237}} 
+\index{notify.\+c@{notify.\+c}!keyspace\+Events\+String\+To\+Flags@{keyspace\+Events\+String\+To\+Flags}}
+\index{keyspace\+Events\+String\+To\+Flags@{keyspace\+Events\+String\+To\+Flags}!notify.\+c@{notify.\+c}}
+\subsubsection{\texorpdfstring{keyspace\+Events\+String\+To\+Flags()}{keyspaceEventsStringToFlags()}}
+{\footnotesize\ttfamily int keyspace\+Events\+String\+To\+Flags (\begin{DoxyParamCaption}\item[{char $\ast$}]{classes }\end{DoxyParamCaption})}
+
+
+
+Definition at line 40 of file notify.\+c.
+
+\mbox{\Hypertarget{notify_8c_aeeb274955465fd6e0f12c65356855d7d}\label{notify_8c_aeeb274955465fd6e0f12c65356855d7d}} 
+\index{notify.\+c@{notify.\+c}!notify\+Keyspace\+Event@{notify\+Keyspace\+Event}}
+\index{notify\+Keyspace\+Event@{notify\+Keyspace\+Event}!notify.\+c@{notify.\+c}}
+\subsubsection{\texorpdfstring{notify\+Keyspace\+Event()}{notifyKeyspaceEvent()}}
+{\footnotesize\ttfamily void notify\+Keyspace\+Event (\begin{DoxyParamCaption}\item[{int}]{type,  }\item[{char $\ast$}]{event,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{int}]{dbid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 97 of file notify.\+c.
+

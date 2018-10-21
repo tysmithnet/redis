@@ -1,0 +1,4 @@
+<map id="GeoHashArea" name="GeoHashArea">
+<area shape="rect" id="node2" href="$struct_geo_hash_range.html" title="GeoHashRange" alt="" coords="5,5,120,32"/>
+<area shape="rect" id="node3" href="$struct_geo_hash_bits.html" title="GeoHashBits" alt="" coords="145,5,245,32"/>
+</map>

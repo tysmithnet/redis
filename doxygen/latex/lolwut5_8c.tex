@@ -1,0 +1,158 @@
+\hypertarget{lolwut5_8c}{}\section{src/lolwut5.c File Reference}
+\label{lolwut5_8c}\index{src/lolwut5.\+c@{src/lolwut5.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for lolwut5.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{lolwut5_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structlw_canvas}{lw\+Canvas}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structlw_canvas}{lw\+Canvas} \hyperlink{lolwut5_8c_a9740daabc6954980b8312513c7289c26}{lw\+Canvas}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{lolwut5_8c_ae24054729dc5668d6b2dd1c1de379901}{lw\+Translate\+Pixels\+Group} (int byte, char $\ast$output)
+\item 
+\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$ \hyperlink{lolwut5_8c_a580d1286627f3f9ffe90a4a48158fb40}{lw\+Create\+Canvas} (int width, int height)
+\item 
+void \hyperlink{lolwut5_8c_ac0c0147754a2e2fd88bf4a2ab5e1677b}{lw\+Free\+Canvas} (\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$canvas)
+\item 
+void \hyperlink{lolwut5_8c_a3e6e222b56c8d955144e2e3c8e933d4a}{lw\+Draw\+Pixel} (\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$canvas, int x, int y, int color)
+\item 
+int \hyperlink{lolwut5_8c_a83c8a8060b6456839da59c8eab477844}{lw\+Get\+Pixel} (\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$canvas, int x, int y)
+\item 
+void \hyperlink{lolwut5_8c_a1678ef0ab57ab41e13a58bf6ebd91db9}{lw\+Draw\+Line} (\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$canvas, int x1, int y1, int x2, int y2, int color)
+\item 
+void \hyperlink{lolwut5_8c_a66f34c2c44972ead64ccc2ce410abd56}{lw\+Draw\+Square} (\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$canvas, int x, int y, float size, float angle)
+\item 
+\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$ \hyperlink{lolwut5_8c_a117c7cf3214ca0e2ceb7cfe3e90c4266}{lw\+Draw\+Schotter} (int console\+\_\+cols, int squares\+\_\+per\+\_\+row, int squares\+\_\+per\+\_\+col)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{lolwut5_8c_ac7749dd1818dc583f92b6815db06ba67}{lw\+Render\+Canvas} (\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$canvas)
+\item 
+void \hyperlink{lolwut5_8c_a13c27971ef6287ea9e1ed73a1666c0c2}{lolwut5\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{lolwut5_8c_a9740daabc6954980b8312513c7289c26}\label{lolwut5_8c_a9740daabc6954980b8312513c7289c26}} 
+\index{lolwut5.\+c@{lolwut5.\+c}!lw\+Canvas@{lw\+Canvas}}
+\index{lw\+Canvas@{lw\+Canvas}!lolwut5.\+c@{lolwut5.\+c}}
+\subsubsection{\texorpdfstring{lw\+Canvas}{lwCanvas}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structlw_canvas}{lw\+Canvas}  \hyperlink{structlw_canvas}{lw\+Canvas}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{lolwut5_8c_a13c27971ef6287ea9e1ed73a1666c0c2}\label{lolwut5_8c_a13c27971ef6287ea9e1ed73a1666c0c2}} 
+\index{lolwut5.\+c@{lolwut5.\+c}!lolwut5\+Command@{lolwut5\+Command}}
+\index{lolwut5\+Command@{lolwut5\+Command}!lolwut5.\+c@{lolwut5.\+c}}
+\subsubsection{\texorpdfstring{lolwut5\+Command()}{lolwut5Command()}}
+{\footnotesize\ttfamily void lolwut5\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 246 of file lolwut5.\+c.
+
+\mbox{\Hypertarget{lolwut5_8c_a580d1286627f3f9ffe90a4a48158fb40}\label{lolwut5_8c_a580d1286627f3f9ffe90a4a48158fb40}} 
+\index{lolwut5.\+c@{lolwut5.\+c}!lw\+Create\+Canvas@{lw\+Create\+Canvas}}
+\index{lw\+Create\+Canvas@{lw\+Create\+Canvas}!lolwut5.\+c@{lolwut5.\+c}}
+\subsubsection{\texorpdfstring{lw\+Create\+Canvas()}{lwCreateCanvas()}}
+{\footnotesize\ttfamily \hyperlink{structlw_canvas}{lw\+Canvas}$\ast$ lw\+Create\+Canvas (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+
+
+Definition at line 73 of file lolwut5.\+c.
+
+\mbox{\Hypertarget{lolwut5_8c_a1678ef0ab57ab41e13a58bf6ebd91db9}\label{lolwut5_8c_a1678ef0ab57ab41e13a58bf6ebd91db9}} 
+\index{lolwut5.\+c@{lolwut5.\+c}!lw\+Draw\+Line@{lw\+Draw\+Line}}
+\index{lw\+Draw\+Line@{lw\+Draw\+Line}!lolwut5.\+c@{lolwut5.\+c}}
+\subsubsection{\texorpdfstring{lw\+Draw\+Line()}{lwDrawLine()}}
+{\footnotesize\ttfamily void lw\+Draw\+Line (\begin{DoxyParamCaption}\item[{\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$}]{canvas,  }\item[{int}]{x1,  }\item[{int}]{y1,  }\item[{int}]{x2,  }\item[{int}]{y2,  }\item[{int}]{color }\end{DoxyParamCaption})}
+
+
+
+Definition at line 106 of file lolwut5.\+c.
+
+\mbox{\Hypertarget{lolwut5_8c_a3e6e222b56c8d955144e2e3c8e933d4a}\label{lolwut5_8c_a3e6e222b56c8d955144e2e3c8e933d4a}} 
+\index{lolwut5.\+c@{lolwut5.\+c}!lw\+Draw\+Pixel@{lw\+Draw\+Pixel}}
+\index{lw\+Draw\+Pixel@{lw\+Draw\+Pixel}!lolwut5.\+c@{lolwut5.\+c}}
+\subsubsection{\texorpdfstring{lw\+Draw\+Pixel()}{lwDrawPixel()}}
+{\footnotesize\ttfamily void lw\+Draw\+Pixel (\begin{DoxyParamCaption}\item[{\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$}]{canvas,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{color }\end{DoxyParamCaption})}
+
+
+
+Definition at line 92 of file lolwut5.\+c.
+
+\mbox{\Hypertarget{lolwut5_8c_a117c7cf3214ca0e2ceb7cfe3e90c4266}\label{lolwut5_8c_a117c7cf3214ca0e2ceb7cfe3e90c4266}} 
+\index{lolwut5.\+c@{lolwut5.\+c}!lw\+Draw\+Schotter@{lw\+Draw\+Schotter}}
+\index{lw\+Draw\+Schotter@{lw\+Draw\+Schotter}!lolwut5.\+c@{lolwut5.\+c}}
+\subsubsection{\texorpdfstring{lw\+Draw\+Schotter()}{lwDrawSchotter()}}
+{\footnotesize\ttfamily \hyperlink{structlw_canvas}{lw\+Canvas}$\ast$ lw\+Draw\+Schotter (\begin{DoxyParamCaption}\item[{int}]{console\+\_\+cols,  }\item[{int}]{squares\+\_\+per\+\_\+row,  }\item[{int}]{squares\+\_\+per\+\_\+col }\end{DoxyParamCaption})}
+
+
+
+Definition at line 177 of file lolwut5.\+c.
+
+\mbox{\Hypertarget{lolwut5_8c_a66f34c2c44972ead64ccc2ce410abd56}\label{lolwut5_8c_a66f34c2c44972ead64ccc2ce410abd56}} 
+\index{lolwut5.\+c@{lolwut5.\+c}!lw\+Draw\+Square@{lw\+Draw\+Square}}
+\index{lw\+Draw\+Square@{lw\+Draw\+Square}!lolwut5.\+c@{lolwut5.\+c}}
+\subsubsection{\texorpdfstring{lw\+Draw\+Square()}{lwDrawSquare()}}
+{\footnotesize\ttfamily void lw\+Draw\+Square (\begin{DoxyParamCaption}\item[{\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$}]{canvas,  }\item[{int}]{x,  }\item[{int}]{y,  }\item[{float}]{size,  }\item[{float}]{angle }\end{DoxyParamCaption})}
+
+
+
+Definition at line 147 of file lolwut5.\+c.
+
+\mbox{\Hypertarget{lolwut5_8c_ac0c0147754a2e2fd88bf4a2ab5e1677b}\label{lolwut5_8c_ac0c0147754a2e2fd88bf4a2ab5e1677b}} 
+\index{lolwut5.\+c@{lolwut5.\+c}!lw\+Free\+Canvas@{lw\+Free\+Canvas}}
+\index{lw\+Free\+Canvas@{lw\+Free\+Canvas}!lolwut5.\+c@{lolwut5.\+c}}
+\subsubsection{\texorpdfstring{lw\+Free\+Canvas()}{lwFreeCanvas()}}
+{\footnotesize\ttfamily void lw\+Free\+Canvas (\begin{DoxyParamCaption}\item[{\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$}]{canvas }\end{DoxyParamCaption})}
+
+
+
+Definition at line 83 of file lolwut5.\+c.
+
+\mbox{\Hypertarget{lolwut5_8c_a83c8a8060b6456839da59c8eab477844}\label{lolwut5_8c_a83c8a8060b6456839da59c8eab477844}} 
+\index{lolwut5.\+c@{lolwut5.\+c}!lw\+Get\+Pixel@{lw\+Get\+Pixel}}
+\index{lw\+Get\+Pixel@{lw\+Get\+Pixel}!lolwut5.\+c@{lolwut5.\+c}}
+\subsubsection{\texorpdfstring{lw\+Get\+Pixel()}{lwGetPixel()}}
+{\footnotesize\ttfamily int lw\+Get\+Pixel (\begin{DoxyParamCaption}\item[{\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$}]{canvas,  }\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Definition at line 99 of file lolwut5.\+c.
+
+\mbox{\Hypertarget{lolwut5_8c_ac7749dd1818dc583f92b6815db06ba67}\label{lolwut5_8c_ac7749dd1818dc583f92b6815db06ba67}} 
+\index{lolwut5.\+c@{lolwut5.\+c}!lw\+Render\+Canvas@{lw\+Render\+Canvas}}
+\index{lw\+Render\+Canvas@{lw\+Render\+Canvas}!lolwut5.\+c@{lolwut5.\+c}}
+\subsubsection{\texorpdfstring{lw\+Render\+Canvas()}{lwRenderCanvas()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} lw\+Render\+Canvas (\begin{DoxyParamCaption}\item[{\hyperlink{structlw_canvas}{lw\+Canvas} $\ast$}]{canvas }\end{DoxyParamCaption})}
+
+
+
+Definition at line 215 of file lolwut5.\+c.
+
+\mbox{\Hypertarget{lolwut5_8c_ae24054729dc5668d6b2dd1c1de379901}\label{lolwut5_8c_ae24054729dc5668d6b2dd1c1de379901}} 
+\index{lolwut5.\+c@{lolwut5.\+c}!lw\+Translate\+Pixels\+Group@{lw\+Translate\+Pixels\+Group}}
+\index{lw\+Translate\+Pixels\+Group@{lw\+Translate\+Pixels\+Group}!lolwut5.\+c@{lolwut5.\+c}}
+\subsubsection{\texorpdfstring{lw\+Translate\+Pixels\+Group()}{lwTranslatePixelsGroup()}}
+{\footnotesize\ttfamily void lw\+Translate\+Pixels\+Group (\begin{DoxyParamCaption}\item[{int}]{byte,  }\item[{char $\ast$}]{output }\end{DoxyParamCaption})}
+
+
+
+Definition at line 62 of file lolwut5.\+c.
+

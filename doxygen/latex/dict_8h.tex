@@ -1,0 +1,814 @@
+\hypertarget{dict_8h}{}\section{src/dict.h File Reference}
+\label{dict_8h}\index{src/dict.\+h@{src/dict.\+h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for dict.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=137pt]{dict_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dict_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structdict_entry}{dict\+Entry}
+\item 
+struct \hyperlink{structdict_type}{dict\+Type}
+\item 
+struct \hyperlink{structdictht}{dictht}
+\item 
+struct \hyperlink{structdict}{dict}
+\item 
+struct \hyperlink{structdict_iterator}{dict\+Iterator}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{dict_8h_a2afecbeab8f7efbc183048f52f6d17e5}{D\+I\+C\+T\+\_\+\+OK}~0
+\item 
+\#define \hyperlink{dict_8h_a6ce31f31f044b1570d335e8fa0c388c6}{D\+I\+C\+T\+\_\+\+E\+RR}~1
+\item 
+\#define \hyperlink{dict_8h_aa077e877a37a7dc65056290a2c9760da}{D\+I\+C\+T\+\_\+\+N\+O\+T\+U\+S\+ED}(V)~((void) V)
+\item 
+\#define \hyperlink{dict_8h_aff97c19d1616cf2c697573ee3f515692}{D\+I\+C\+T\+\_\+\+H\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE}~4
+\item 
+\#define \hyperlink{dict_8h_a4a90ee4c2d8391f2d6f9c65ccf4ba037}{dict\+Free\+Val}(d,  entry)
+\item 
+\#define \hyperlink{dict_8h_a95cae6581aca3a7a4c5e226e565294c9}{dict\+Set\+Val}(d,  entry,  \+\_\+val\+\_\+)
+\item 
+\#define \hyperlink{dict_8h_a712bcfafed90e7d5ffeba5f6bf027a2c}{dict\+Set\+Signed\+Integer\+Val}(entry,  \+\_\+val\+\_\+)~do \{ (entry)-\/$>$v.\+s64 = \+\_\+val\+\_\+; \} while(0)
+\item 
+\#define \hyperlink{dict_8h_aa846a3c28ad69004259435fd44246e10}{dict\+Set\+Unsigned\+Integer\+Val}(entry,  \+\_\+val\+\_\+)~do \{ (entry)-\/$>$v.\+u64 = \+\_\+val\+\_\+; \} while(0)
+\item 
+\#define \hyperlink{dict_8h_aa0f8d86bdc0085ffb0d6345d9b92159d}{dict\+Set\+Double\+Val}(entry,  \+\_\+val\+\_\+)~do \{ (entry)-\/$>$v.\+d = \+\_\+val\+\_\+; \} while(0)
+\item 
+\#define \hyperlink{dict_8h_a29fe9bb2bf0eac2c86a613536afe73ca}{dict\+Free\+Key}(d,  entry)
+\item 
+\#define \hyperlink{dict_8h_a827e5dcfd37bba408fa8bdb111b0594e}{dict\+Set\+Key}(d,  entry,  \+\_\+key\+\_\+)
+\item 
+\#define \hyperlink{dict_8h_ab373389c580b8441ab28082cb7643762}{dict\+Compare\+Keys}(d,  key1,  key2)
+\item 
+\#define \hyperlink{dict_8h_a15a270e95a4eea30557df137e9747a95}{dict\+Hash\+Key}(d,  \hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})~(d)-\/$>$type-\/$>$hash\+Function(\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+\#define \hyperlink{dict_8h_a3271c334309904a3086deca94f96e46e}{dict\+Get\+Key}(he)~((he)-\/$>$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+\#define \hyperlink{dict_8h_ae8d2cc391873b2bea2b87c4f80f43120}{dict\+Get\+Val}(he)~((he)-\/$>$v.\+val)
+\item 
+\#define \hyperlink{dict_8h_a31f34bf34a743e3ebf122fa231b28d57}{dict\+Get\+Signed\+Integer\+Val}(he)~((he)-\/$>$v.\+s64)
+\item 
+\#define \hyperlink{dict_8h_ad65abe818fa141e537800699668a7f09}{dict\+Get\+Unsigned\+Integer\+Val}(he)~((he)-\/$>$v.\+u64)
+\item 
+\#define \hyperlink{dict_8h_a4e673a942df4ba0fc35665c26c9d226c}{dict\+Get\+Double\+Val}(he)~((he)-\/$>$v.\+d)
+\item 
+\#define \hyperlink{dict_8h_aca9596be4bcc2caa07c17dd8cebcceec}{dict\+Slots}(d)~((d)-\/$>$ht\mbox{[}0\mbox{]}.size+(d)-\/$>$ht\mbox{[}1\mbox{]}.size)
+\item 
+\#define \hyperlink{dict_8h_af193430dd3d5579a52b194512f72c1f0}{dict\+Size}(d)~((d)-\/$>$ht\mbox{[}0\mbox{]}.used+(d)-\/$>$ht\mbox{[}1\mbox{]}.used)
+\item 
+\#define \hyperlink{dict_8h_aa6e4917a6a32fdf47180e03ed8969e02}{dict\+Is\+Rehashing}(d)~((d)-\/$>$rehashidx != -\/1)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structdict_entry}{dict\+Entry} \hyperlink{dict_8h_a950194070759a1e4bbdf8e107bec7df1}{dict\+Entry}
+\item 
+typedef struct \hyperlink{structdict_type}{dict\+Type} \hyperlink{dict_8h_a06d37941e224b4e72599745203a886be}{dict\+Type}
+\item 
+typedef struct \hyperlink{structdictht}{dictht} \hyperlink{dict_8h_ae2f8e3eeef44650a03a32f319b931847}{dictht}
+\item 
+typedef struct \hyperlink{structdict}{dict} \hyperlink{dict_8h_a5fcb59103f176d193e100c23c998bae5}{dict}
+\item 
+typedef struct \hyperlink{structdict_iterator}{dict\+Iterator} \hyperlink{dict_8h_a29a9ee674e08ce8468b548d962168053}{dict\+Iterator}
+\item 
+typedef void() \hyperlink{dict_8h_a2ac2ab3370a0dae35834c6a400062915}{dict\+Scan\+Function}(void $\ast$privdata, const \hyperlink{structdict_entry}{dict\+Entry} $\ast$de)
+\item 
+typedef void() \hyperlink{dict_8h_afbb249b3fae7ec2ddb2cab3cfde263c4}{dict\+Scan\+Bucket\+Function}(void $\ast$privdata, \hyperlink{structdict_entry}{dict\+Entry} $\ast$$\ast$bucketref)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{dict_8h_a2e3683dd52e527ad0df8d203d8943fb6}{dict\+Create} (\hyperlink{structdict_type}{dict\+Type} $\ast$type, void $\ast$priv\+Data\+Ptr)
+\item 
+int \hyperlink{dict_8h_a020b083d516b85328b1d071441012f6f}{dict\+Expand} (\hyperlink{structdict}{dict} $\ast$d, unsigned long size)
+\item 
+int \hyperlink{dict_8h_a99b61ef54f38b47e4b726b77a8ded387}{dict\+Add} (\hyperlink{structdict}{dict} $\ast$d, void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, void $\ast$val)
+\item 
+\hyperlink{structdict_entry}{dict\+Entry} $\ast$ \hyperlink{dict_8h_aa6aaaa588c7c8c9c4c4c384d17c6b99e}{dict\+Add\+Raw} (\hyperlink{structdict}{dict} $\ast$d, void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{structdict_entry}{dict\+Entry} $\ast$$\ast$existing)
+\item 
+\hyperlink{structdict_entry}{dict\+Entry} $\ast$ \hyperlink{dict_8h_a792126f7900b564c5aa15523b72cb8c7}{dict\+Add\+Or\+Find} (\hyperlink{structdict}{dict} $\ast$d, void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+int \hyperlink{dict_8h_afa72b80683c10c59a0d5a0a6eb040274}{dict\+Replace} (\hyperlink{structdict}{dict} $\ast$d, void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, void $\ast$val)
+\item 
+int \hyperlink{dict_8h_a174a251cf26259073570a77350398c55}{dict\+Delete} (\hyperlink{structdict}{dict} $\ast$d, const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+\hyperlink{structdict_entry}{dict\+Entry} $\ast$ \hyperlink{dict_8h_a2e5cb964f67fb7c3951cb59f7c8d19da}{dict\+Unlink} (\hyperlink{structdict}{dict} $\ast$ht, const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+void \hyperlink{dict_8h_ab6ed047c8294737d16eff998229ca613}{dict\+Free\+Unlinked\+Entry} (\hyperlink{structdict}{dict} $\ast$d, \hyperlink{structdict_entry}{dict\+Entry} $\ast$he)
+\item 
+void \hyperlink{dict_8h_ad6a0d56f36a07445b16ffedcf5aec005}{dict\+Release} (\hyperlink{structdict}{dict} $\ast$d)
+\item 
+\hyperlink{structdict_entry}{dict\+Entry} $\ast$ \hyperlink{dict_8h_a4d5d9616ce7b918632afcc9bd03f6a90}{dict\+Find} (\hyperlink{structdict}{dict} $\ast$d, const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+void $\ast$ \hyperlink{dict_8h_a02c5657a37ae1d02bacad82c3454c0d1}{dict\+Fetch\+Value} (\hyperlink{structdict}{dict} $\ast$d, const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+int \hyperlink{dict_8h_a9207bfc4adb969486d70c098a1a5892e}{dict\+Resize} (\hyperlink{structdict}{dict} $\ast$d)
+\item 
+\hyperlink{structdict_iterator}{dict\+Iterator} $\ast$ \hyperlink{dict_8h_a63b2ad9054199271795e33d67fb6d6da}{dict\+Get\+Iterator} (\hyperlink{structdict}{dict} $\ast$d)
+\item 
+\hyperlink{structdict_iterator}{dict\+Iterator} $\ast$ \hyperlink{dict_8h_aad268687a4d34aab2c051233348a04c7}{dict\+Get\+Safe\+Iterator} (\hyperlink{structdict}{dict} $\ast$d)
+\item 
+\hyperlink{structdict_entry}{dict\+Entry} $\ast$ \hyperlink{dict_8h_ab51f7613d1fe7b63edecd24efbcc7d2b}{dict\+Next} (\hyperlink{structdict_iterator}{dict\+Iterator} $\ast$iter)
+\item 
+void \hyperlink{dict_8h_a8bfc6c2908c66772c09a1315c078bf06}{dict\+Release\+Iterator} (\hyperlink{structdict_iterator}{dict\+Iterator} $\ast$iter)
+\item 
+\hyperlink{structdict_entry}{dict\+Entry} $\ast$ \hyperlink{dict_8h_aba43373cd6cc1e491c5979c233707276}{dict\+Get\+Random\+Key} (\hyperlink{structdict}{dict} $\ast$d)
+\item 
+unsigned int \hyperlink{dict_8h_ab59f0496f85cc283e078e1daafcdd4cf}{dict\+Get\+Some\+Keys} (\hyperlink{structdict}{dict} $\ast$d, \hyperlink{structdict_entry}{dict\+Entry} $\ast$$\ast$des, unsigned int count)
+\item 
+void \hyperlink{dict_8h_aecc08690b6d64e3ec2dfd7011b1b38de}{dict\+Get\+Stats} (char $\ast$buf, size\+\_\+t bufsize, \hyperlink{structdict}{dict} $\ast$d)
+\item 
+uint64\+\_\+t \hyperlink{dict_8h_a062edc8197cee93623adcd5e9832f3fa}{dict\+Gen\+Hash\+Function} (const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, int len)
+\item 
+uint64\+\_\+t \hyperlink{dict_8h_a9e6309bcf1537c2ea46b8205dbf5c79c}{dict\+Gen\+Case\+Hash\+Function} (const unsigned char $\ast$buf, int len)
+\item 
+void \hyperlink{dict_8h_aee22fa18c2501a7d4057fe9dfd6fee32}{dict\+Empty} (\hyperlink{structdict}{dict} $\ast$d, void(callback)(void $\ast$))
+\item 
+void \hyperlink{dict_8h_ab8ad4f6b3eb651aa1de68061c7ed4ca6}{dict\+Enable\+Resize} (void)
+\item 
+void \hyperlink{dict_8h_afc2f80f578929fbcfb7ff7a2e847cf90}{dict\+Disable\+Resize} (void)
+\item 
+int \hyperlink{dict_8h_a813741869123b53bbff240423ef3a60a}{dict\+Rehash} (\hyperlink{structdict}{dict} $\ast$d, int n)
+\item 
+int \hyperlink{dict_8h_aa912fa4994a15258d2ba9fd8879e41a9}{dict\+Rehash\+Milliseconds} (\hyperlink{structdict}{dict} $\ast$d, int ms)
+\item 
+void \hyperlink{dict_8h_a26682701255962f65ed1699803025e1b}{dict\+Set\+Hash\+Function\+Seed} (uint8\+\_\+t $\ast$seed)
+\item 
+uint8\+\_\+t $\ast$ \hyperlink{dict_8h_a66be8701e9aa665bcd4ffc24740c089e}{dict\+Get\+Hash\+Function\+Seed} (void)
+\item 
+unsigned long \hyperlink{dict_8h_a226f02f4ca7e3a850d75b664807ea604}{dict\+Scan} (\hyperlink{structdict}{dict} $\ast$d, unsigned long v, \hyperlink{dict_8h_a2ac2ab3370a0dae35834c6a400062915}{dict\+Scan\+Function} $\ast$fn, \hyperlink{dict_8h_afbb249b3fae7ec2ddb2cab3cfde263c4}{dict\+Scan\+Bucket\+Function} $\ast$bucketfn, void $\ast$privdata)
+\item 
+uint64\+\_\+t \hyperlink{dict_8h_aff5a2a453e5b8c6aa5254ad9c7a12fe3}{dict\+Get\+Hash} (\hyperlink{structdict}{dict} $\ast$d, const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+\hyperlink{structdict_entry}{dict\+Entry} $\ast$$\ast$ \hyperlink{dict_8h_af5b678e76b4abaaf1729f50d09c3764d}{dict\+Find\+Entry\+Ref\+By\+Ptr\+And\+Hash} (\hyperlink{structdict}{dict} $\ast$d, const void $\ast$oldptr, uint64\+\_\+t hash)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{dict_8h_a0432b630a23da7397c2d5a281e2696d8}{dict\+Type\+Heap\+String\+Copy\+Key}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{dict_8h_ad6de61d0a16e4a2805ff6c34b130ab7e}{dict\+Type\+Heap\+Strings}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{dict_8h_a125db63a59c3d600f24331fd696b07bd}{dict\+Type\+Heap\+String\+Copy\+Key\+Value}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{dict_8h_a6ce31f31f044b1570d335e8fa0c388c6}\label{dict_8h_a6ce31f31f044b1570d335e8fa0c388c6}} 
+\index{dict.\+h@{dict.\+h}!D\+I\+C\+T\+\_\+\+E\+RR@{D\+I\+C\+T\+\_\+\+E\+RR}}
+\index{D\+I\+C\+T\+\_\+\+E\+RR@{D\+I\+C\+T\+\_\+\+E\+RR}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{D\+I\+C\+T\+\_\+\+E\+RR}{DICT\_ERR}}
+{\footnotesize\ttfamily \#define D\+I\+C\+T\+\_\+\+E\+RR~1}
+
+
+
+Definition at line 42 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_aff97c19d1616cf2c697573ee3f515692}\label{dict_8h_aff97c19d1616cf2c697573ee3f515692}} 
+\index{dict.\+h@{dict.\+h}!D\+I\+C\+T\+\_\+\+H\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE@{D\+I\+C\+T\+\_\+\+H\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE}}
+\index{D\+I\+C\+T\+\_\+\+H\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE@{D\+I\+C\+T\+\_\+\+H\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{D\+I\+C\+T\+\_\+\+H\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE}{DICT\_HT\_INITIAL\_SIZE}}
+{\footnotesize\ttfamily \#define D\+I\+C\+T\+\_\+\+H\+T\+\_\+\+I\+N\+I\+T\+I\+A\+L\+\_\+\+S\+I\+ZE~4}
+
+
+
+Definition at line 101 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_aa077e877a37a7dc65056290a2c9760da}\label{dict_8h_aa077e877a37a7dc65056290a2c9760da}} 
+\index{dict.\+h@{dict.\+h}!D\+I\+C\+T\+\_\+\+N\+O\+T\+U\+S\+ED@{D\+I\+C\+T\+\_\+\+N\+O\+T\+U\+S\+ED}}
+\index{D\+I\+C\+T\+\_\+\+N\+O\+T\+U\+S\+ED@{D\+I\+C\+T\+\_\+\+N\+O\+T\+U\+S\+ED}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{D\+I\+C\+T\+\_\+\+N\+O\+T\+U\+S\+ED}{DICT\_NOTUSED}}
+{\footnotesize\ttfamily \#define D\+I\+C\+T\+\_\+\+N\+O\+T\+U\+S\+ED(\begin{DoxyParamCaption}\item[{}]{V }\end{DoxyParamCaption})~((void) V)}
+
+
+
+Definition at line 45 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_a2afecbeab8f7efbc183048f52f6d17e5}\label{dict_8h_a2afecbeab8f7efbc183048f52f6d17e5}} 
+\index{dict.\+h@{dict.\+h}!D\+I\+C\+T\+\_\+\+OK@{D\+I\+C\+T\+\_\+\+OK}}
+\index{D\+I\+C\+T\+\_\+\+OK@{D\+I\+C\+T\+\_\+\+OK}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{D\+I\+C\+T\+\_\+\+OK}{DICT\_OK}}
+{\footnotesize\ttfamily \#define D\+I\+C\+T\+\_\+\+OK~0}
+
+
+
+Definition at line 41 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_ab373389c580b8441ab28082cb7643762}\label{dict_8h_ab373389c580b8441ab28082cb7643762}} 
+\index{dict.\+h@{dict.\+h}!dict\+Compare\+Keys@{dict\+Compare\+Keys}}
+\index{dict\+Compare\+Keys@{dict\+Compare\+Keys}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Compare\+Keys}{dictCompareKeys}}
+{\footnotesize\ttfamily \#define dict\+Compare\+Keys(\begin{DoxyParamCaption}\item[{}]{d,  }\item[{}]{key1,  }\item[{}]{key2 }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(((d)->type->keyCompare) ? \(\backslash\)
+        (d)->type->keyCompare((d)->privdata, key1, key2) : \(\backslash\)
+        (key1) == (key2))
+\end{DoxyCode}
+
+
+Definition at line 135 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_a29fe9bb2bf0eac2c86a613536afe73ca}\label{dict_8h_a29fe9bb2bf0eac2c86a613536afe73ca}} 
+\index{dict.\+h@{dict.\+h}!dict\+Free\+Key@{dict\+Free\+Key}}
+\index{dict\+Free\+Key@{dict\+Free\+Key}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Free\+Key}{dictFreeKey}}
+{\footnotesize\ttfamily \#define dict\+Free\+Key(\begin{DoxyParamCaption}\item[{}]{d,  }\item[{}]{entry }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{if} ((d)->type->keyDestructor) \(\backslash\)
+        (d)->type->keyDestructor((d)->privdata, (entry)->key)
+\end{DoxyCode}
+
+
+Definition at line 124 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_a4a90ee4c2d8391f2d6f9c65ccf4ba037}\label{dict_8h_a4a90ee4c2d8391f2d6f9c65ccf4ba037}} 
+\index{dict.\+h@{dict.\+h}!dict\+Free\+Val@{dict\+Free\+Val}}
+\index{dict\+Free\+Val@{dict\+Free\+Val}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Free\+Val}{dictFreeVal}}
+{\footnotesize\ttfamily \#define dict\+Free\+Val(\begin{DoxyParamCaption}\item[{}]{d,  }\item[{}]{entry }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{if} ((d)->type->valDestructor) \(\backslash\)
+        (d)->type->valDestructor((d)->privdata, (entry)->v.val)
+\end{DoxyCode}
+
+
+Definition at line 104 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_a4e673a942df4ba0fc35665c26c9d226c}\label{dict_8h_a4e673a942df4ba0fc35665c26c9d226c}} 
+\index{dict.\+h@{dict.\+h}!dict\+Get\+Double\+Val@{dict\+Get\+Double\+Val}}
+\index{dict\+Get\+Double\+Val@{dict\+Get\+Double\+Val}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Get\+Double\+Val}{dictGetDoubleVal}}
+{\footnotesize\ttfamily \#define dict\+Get\+Double\+Val(\begin{DoxyParamCaption}\item[{}]{he }\end{DoxyParamCaption})~((he)-\/$>$v.\+d)}
+
+
+
+Definition at line 145 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_a3271c334309904a3086deca94f96e46e}\label{dict_8h_a3271c334309904a3086deca94f96e46e}} 
+\index{dict.\+h@{dict.\+h}!dict\+Get\+Key@{dict\+Get\+Key}}
+\index{dict\+Get\+Key@{dict\+Get\+Key}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Get\+Key}{dictGetKey}}
+{\footnotesize\ttfamily \#define dict\+Get\+Key(\begin{DoxyParamCaption}\item[{}]{he }\end{DoxyParamCaption})~((he)-\/$>$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})}
+
+
+
+Definition at line 141 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_a31f34bf34a743e3ebf122fa231b28d57}\label{dict_8h_a31f34bf34a743e3ebf122fa231b28d57}} 
+\index{dict.\+h@{dict.\+h}!dict\+Get\+Signed\+Integer\+Val@{dict\+Get\+Signed\+Integer\+Val}}
+\index{dict\+Get\+Signed\+Integer\+Val@{dict\+Get\+Signed\+Integer\+Val}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Get\+Signed\+Integer\+Val}{dictGetSignedIntegerVal}}
+{\footnotesize\ttfamily \#define dict\+Get\+Signed\+Integer\+Val(\begin{DoxyParamCaption}\item[{}]{he }\end{DoxyParamCaption})~((he)-\/$>$v.\+s64)}
+
+
+
+Definition at line 143 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_ad65abe818fa141e537800699668a7f09}\label{dict_8h_ad65abe818fa141e537800699668a7f09}} 
+\index{dict.\+h@{dict.\+h}!dict\+Get\+Unsigned\+Integer\+Val@{dict\+Get\+Unsigned\+Integer\+Val}}
+\index{dict\+Get\+Unsigned\+Integer\+Val@{dict\+Get\+Unsigned\+Integer\+Val}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Get\+Unsigned\+Integer\+Val}{dictGetUnsignedIntegerVal}}
+{\footnotesize\ttfamily \#define dict\+Get\+Unsigned\+Integer\+Val(\begin{DoxyParamCaption}\item[{}]{he }\end{DoxyParamCaption})~((he)-\/$>$v.\+u64)}
+
+
+
+Definition at line 144 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_ae8d2cc391873b2bea2b87c4f80f43120}\label{dict_8h_ae8d2cc391873b2bea2b87c4f80f43120}} 
+\index{dict.\+h@{dict.\+h}!dict\+Get\+Val@{dict\+Get\+Val}}
+\index{dict\+Get\+Val@{dict\+Get\+Val}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Get\+Val}{dictGetVal}}
+{\footnotesize\ttfamily \#define dict\+Get\+Val(\begin{DoxyParamCaption}\item[{}]{he }\end{DoxyParamCaption})~((he)-\/$>$v.\+val)}
+
+
+
+Definition at line 142 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_a15a270e95a4eea30557df137e9747a95}\label{dict_8h_a15a270e95a4eea30557df137e9747a95}} 
+\index{dict.\+h@{dict.\+h}!dict\+Hash\+Key@{dict\+Hash\+Key}}
+\index{dict\+Hash\+Key@{dict\+Hash\+Key}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Hash\+Key}{dictHashKey}}
+{\footnotesize\ttfamily \#define dict\+Hash\+Key(\begin{DoxyParamCaption}\item[{}]{d,  }\item[{}]{\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key} }\end{DoxyParamCaption})~(d)-\/$>$type-\/$>$hash\+Function(\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})}
+
+
+
+Definition at line 140 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_aa6e4917a6a32fdf47180e03ed8969e02}\label{dict_8h_aa6e4917a6a32fdf47180e03ed8969e02}} 
+\index{dict.\+h@{dict.\+h}!dict\+Is\+Rehashing@{dict\+Is\+Rehashing}}
+\index{dict\+Is\+Rehashing@{dict\+Is\+Rehashing}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Is\+Rehashing}{dictIsRehashing}}
+{\footnotesize\ttfamily \#define dict\+Is\+Rehashing(\begin{DoxyParamCaption}\item[{}]{d }\end{DoxyParamCaption})~((d)-\/$>$rehashidx != -\/1)}
+
+
+
+Definition at line 148 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_aa0f8d86bdc0085ffb0d6345d9b92159d}\label{dict_8h_aa0f8d86bdc0085ffb0d6345d9b92159d}} 
+\index{dict.\+h@{dict.\+h}!dict\+Set\+Double\+Val@{dict\+Set\+Double\+Val}}
+\index{dict\+Set\+Double\+Val@{dict\+Set\+Double\+Val}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Set\+Double\+Val}{dictSetDoubleVal}}
+{\footnotesize\ttfamily \#define dict\+Set\+Double\+Val(\begin{DoxyParamCaption}\item[{}]{entry,  }\item[{}]{\+\_\+val\+\_\+ }\end{DoxyParamCaption})~do \{ (entry)-\/$>$v.\+d = \+\_\+val\+\_\+; \} while(0)}
+
+
+
+Definition at line 121 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_a827e5dcfd37bba408fa8bdb111b0594e}\label{dict_8h_a827e5dcfd37bba408fa8bdb111b0594e}} 
+\index{dict.\+h@{dict.\+h}!dict\+Set\+Key@{dict\+Set\+Key}}
+\index{dict\+Set\+Key@{dict\+Set\+Key}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Set\+Key}{dictSetKey}}
+{\footnotesize\ttfamily \#define dict\+Set\+Key(\begin{DoxyParamCaption}\item[{}]{d,  }\item[{}]{entry,  }\item[{}]{\+\_\+key\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    if ((d)->type->keyDup) \(\backslash\)
+        (entry)->\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key} = (d)->\hyperlink{structredis_object_afa65f328561a1fb0d243d9be5d7f37dd}{type}->keyDup((d)->privdata, \_key\_); \(\backslash\)
+    else \(\backslash\)
+        (entry)->\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key} = (\_key\_); \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 128 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_a712bcfafed90e7d5ffeba5f6bf027a2c}\label{dict_8h_a712bcfafed90e7d5ffeba5f6bf027a2c}} 
+\index{dict.\+h@{dict.\+h}!dict\+Set\+Signed\+Integer\+Val@{dict\+Set\+Signed\+Integer\+Val}}
+\index{dict\+Set\+Signed\+Integer\+Val@{dict\+Set\+Signed\+Integer\+Val}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Set\+Signed\+Integer\+Val}{dictSetSignedIntegerVal}}
+{\footnotesize\ttfamily \#define dict\+Set\+Signed\+Integer\+Val(\begin{DoxyParamCaption}\item[{}]{entry,  }\item[{}]{\+\_\+val\+\_\+ }\end{DoxyParamCaption})~do \{ (entry)-\/$>$v.\+s64 = \+\_\+val\+\_\+; \} while(0)}
+
+
+
+Definition at line 115 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_aa846a3c28ad69004259435fd44246e10}\label{dict_8h_aa846a3c28ad69004259435fd44246e10}} 
+\index{dict.\+h@{dict.\+h}!dict\+Set\+Unsigned\+Integer\+Val@{dict\+Set\+Unsigned\+Integer\+Val}}
+\index{dict\+Set\+Unsigned\+Integer\+Val@{dict\+Set\+Unsigned\+Integer\+Val}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Set\+Unsigned\+Integer\+Val}{dictSetUnsignedIntegerVal}}
+{\footnotesize\ttfamily \#define dict\+Set\+Unsigned\+Integer\+Val(\begin{DoxyParamCaption}\item[{}]{entry,  }\item[{}]{\+\_\+val\+\_\+ }\end{DoxyParamCaption})~do \{ (entry)-\/$>$v.\+u64 = \+\_\+val\+\_\+; \} while(0)}
+
+
+
+Definition at line 118 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_a95cae6581aca3a7a4c5e226e565294c9}\label{dict_8h_a95cae6581aca3a7a4c5e226e565294c9}} 
+\index{dict.\+h@{dict.\+h}!dict\+Set\+Val@{dict\+Set\+Val}}
+\index{dict\+Set\+Val@{dict\+Set\+Val}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Set\+Val}{dictSetVal}}
+{\footnotesize\ttfamily \#define dict\+Set\+Val(\begin{DoxyParamCaption}\item[{}]{d,  }\item[{}]{entry,  }\item[{}]{\+\_\+val\+\_\+ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    if ((d)->type->valDup) \(\backslash\)
+        (entry)->v.val = (d)->type->valDup((d)->privdata, \_val\_); \(\backslash\)
+    else \(\backslash\)
+        (entry)->v.val = (\_val\_); \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 108 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_af193430dd3d5579a52b194512f72c1f0}\label{dict_8h_af193430dd3d5579a52b194512f72c1f0}} 
+\index{dict.\+h@{dict.\+h}!dict\+Size@{dict\+Size}}
+\index{dict\+Size@{dict\+Size}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Size}{dictSize}}
+{\footnotesize\ttfamily \#define dict\+Size(\begin{DoxyParamCaption}\item[{}]{d }\end{DoxyParamCaption})~((d)-\/$>$ht\mbox{[}0\mbox{]}.used+(d)-\/$>$ht\mbox{[}1\mbox{]}.used)}
+
+
+
+Definition at line 147 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_aca9596be4bcc2caa07c17dd8cebcceec}\label{dict_8h_aca9596be4bcc2caa07c17dd8cebcceec}} 
+\index{dict.\+h@{dict.\+h}!dict\+Slots@{dict\+Slots}}
+\index{dict\+Slots@{dict\+Slots}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Slots}{dictSlots}}
+{\footnotesize\ttfamily \#define dict\+Slots(\begin{DoxyParamCaption}\item[{}]{d }\end{DoxyParamCaption})~((d)-\/$>$ht\mbox{[}0\mbox{]}.size+(d)-\/$>$ht\mbox{[}1\mbox{]}.size)}
+
+
+
+Definition at line 146 of file dict.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{dict_8h_a5fcb59103f176d193e100c23c998bae5}\label{dict_8h_a5fcb59103f176d193e100c23c998bae5}} 
+\index{dict.\+h@{dict.\+h}!dict@{dict}}
+\index{dict@{dict}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict}{dict}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structdict}{dict}  \hyperlink{structdict}{dict}}
+
+\mbox{\Hypertarget{dict_8h_a950194070759a1e4bbdf8e107bec7df1}\label{dict_8h_a950194070759a1e4bbdf8e107bec7df1}} 
+\index{dict.\+h@{dict.\+h}!dict\+Entry@{dict\+Entry}}
+\index{dict\+Entry@{dict\+Entry}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Entry}{dictEntry}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structdict_entry}{dict\+Entry}  \hyperlink{structdict_entry}{dict\+Entry}}
+
+\mbox{\Hypertarget{dict_8h_ae2f8e3eeef44650a03a32f319b931847}\label{dict_8h_ae2f8e3eeef44650a03a32f319b931847}} 
+\index{dict.\+h@{dict.\+h}!dictht@{dictht}}
+\index{dictht@{dictht}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dictht}{dictht}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structdictht}{dictht}  \hyperlink{structdictht}{dictht}}
+
+\mbox{\Hypertarget{dict_8h_a29a9ee674e08ce8468b548d962168053}\label{dict_8h_a29a9ee674e08ce8468b548d962168053}} 
+\index{dict.\+h@{dict.\+h}!dict\+Iterator@{dict\+Iterator}}
+\index{dict\+Iterator@{dict\+Iterator}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Iterator}{dictIterator}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structdict_iterator}{dict\+Iterator}  \hyperlink{structdict_iterator}{dict\+Iterator}}
+
+\mbox{\Hypertarget{dict_8h_afbb249b3fae7ec2ddb2cab3cfde263c4}\label{dict_8h_afbb249b3fae7ec2ddb2cab3cfde263c4}} 
+\index{dict.\+h@{dict.\+h}!dict\+Scan\+Bucket\+Function@{dict\+Scan\+Bucket\+Function}}
+\index{dict\+Scan\+Bucket\+Function@{dict\+Scan\+Bucket\+Function}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Scan\+Bucket\+Function}{dictScanBucketFunction}}
+{\footnotesize\ttfamily typedef void() dict\+Scan\+Bucket\+Function(void $\ast$privdata, \hyperlink{structdict_entry}{dict\+Entry} $\ast$$\ast$bucketref)}
+
+
+
+Definition at line 98 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_a2ac2ab3370a0dae35834c6a400062915}\label{dict_8h_a2ac2ab3370a0dae35834c6a400062915}} 
+\index{dict.\+h@{dict.\+h}!dict\+Scan\+Function@{dict\+Scan\+Function}}
+\index{dict\+Scan\+Function@{dict\+Scan\+Function}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Scan\+Function}{dictScanFunction}}
+{\footnotesize\ttfamily typedef void() dict\+Scan\+Function(void $\ast$privdata, const \hyperlink{structdict_entry}{dict\+Entry} $\ast$de)}
+
+
+
+Definition at line 97 of file dict.\+h.
+
+\mbox{\Hypertarget{dict_8h_a06d37941e224b4e72599745203a886be}\label{dict_8h_a06d37941e224b4e72599745203a886be}} 
+\index{dict.\+h@{dict.\+h}!dict\+Type@{dict\+Type}}
+\index{dict\+Type@{dict\+Type}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Type}{dictType}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structdict_type}{dict\+Type}  \hyperlink{structdict_type}{dict\+Type}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{dict_8h_a99b61ef54f38b47e4b726b77a8ded387}\label{dict_8h_a99b61ef54f38b47e4b726b77a8ded387}} 
+\index{dict.\+h@{dict.\+h}!dict\+Add@{dict\+Add}}
+\index{dict\+Add@{dict\+Add}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Add()}{dictAdd()}}
+{\footnotesize\ttfamily int dict\+Add (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{void $\ast$}]{key,  }\item[{void $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 265 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a792126f7900b564c5aa15523b72cb8c7}\label{dict_8h_a792126f7900b564c5aa15523b72cb8c7}} 
+\index{dict.\+h@{dict.\+h}!dict\+Add\+Or\+Find@{dict\+Add\+Or\+Find}}
+\index{dict\+Add\+Or\+Find@{dict\+Add\+Or\+Find}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Add\+Or\+Find()}{dictAddOrFind()}}
+{\footnotesize\ttfamily \hyperlink{structdict_entry}{dict\+Entry}$\ast$ dict\+Add\+Or\+Find (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 355 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_aa6aaaa588c7c8c9c4c4c384d17c6b99e}\label{dict_8h_aa6aaaa588c7c8c9c4c4c384d17c6b99e}} 
+\index{dict.\+h@{dict.\+h}!dict\+Add\+Raw@{dict\+Add\+Raw}}
+\index{dict\+Add\+Raw@{dict\+Add\+Raw}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Add\+Raw()}{dictAddRaw()}}
+{\footnotesize\ttfamily \hyperlink{structdict_entry}{dict\+Entry}$\ast$ dict\+Add\+Raw (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{void $\ast$}]{key,  }\item[{\hyperlink{structdict_entry}{dict\+Entry} $\ast$$\ast$}]{existing }\end{DoxyParamCaption})}
+
+
+
+Definition at line 292 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a2e3683dd52e527ad0df8d203d8943fb6}\label{dict_8h_a2e3683dd52e527ad0df8d203d8943fb6}} 
+\index{dict.\+h@{dict.\+h}!dict\+Create@{dict\+Create}}
+\index{dict\+Create@{dict\+Create}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Create()}{dictCreate()}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ dict\+Create (\begin{DoxyParamCaption}\item[{\hyperlink{structdict_type}{dict\+Type} $\ast$}]{type,  }\item[{void $\ast$}]{priv\+Data\+Ptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 111 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a174a251cf26259073570a77350398c55}\label{dict_8h_a174a251cf26259073570a77350398c55}} 
+\index{dict.\+h@{dict.\+h}!dict\+Delete@{dict\+Delete}}
+\index{dict\+Delete@{dict\+Delete}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Delete()}{dictDelete()}}
+{\footnotesize\ttfamily int dict\+Delete (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 403 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_afc2f80f578929fbcfb7ff7a2e847cf90}\label{dict_8h_afc2f80f578929fbcfb7ff7a2e847cf90}} 
+\index{dict.\+h@{dict.\+h}!dict\+Disable\+Resize@{dict\+Disable\+Resize}}
+\index{dict\+Disable\+Resize@{dict\+Disable\+Resize}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Disable\+Resize()}{dictDisableResize()}}
+{\footnotesize\ttfamily void dict\+Disable\+Resize (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 999 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_aee22fa18c2501a7d4057fe9dfd6fee32}\label{dict_8h_aee22fa18c2501a7d4057fe9dfd6fee32}} 
+\index{dict.\+h@{dict.\+h}!dict\+Empty@{dict\+Empty}}
+\index{dict\+Empty@{dict\+Empty}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Empty()}{dictEmpty()}}
+{\footnotesize\ttfamily void dict\+Empty (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{void(callback)(void $\ast$)}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 988 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_ab8ad4f6b3eb651aa1de68061c7ed4ca6}\label{dict_8h_ab8ad4f6b3eb651aa1de68061c7ed4ca6}} 
+\index{dict.\+h@{dict.\+h}!dict\+Enable\+Resize@{dict\+Enable\+Resize}}
+\index{dict\+Enable\+Resize@{dict\+Enable\+Resize}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Enable\+Resize()}{dictEnableResize()}}
+{\footnotesize\ttfamily void dict\+Enable\+Resize (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 995 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a020b083d516b85328b1d071441012f6f}\label{dict_8h_a020b083d516b85328b1d071441012f6f}} 
+\index{dict.\+h@{dict.\+h}!dict\+Expand@{dict\+Expand}}
+\index{dict\+Expand@{dict\+Expand}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Expand()}{dictExpand()}}
+{\footnotesize\ttfamily int dict\+Expand (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{unsigned long}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 147 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a02c5657a37ae1d02bacad82c3454c0d1}\label{dict_8h_a02c5657a37ae1d02bacad82c3454c0d1}} 
+\index{dict.\+h@{dict.\+h}!dict\+Fetch\+Value@{dict\+Fetch\+Value}}
+\index{dict\+Fetch\+Value@{dict\+Fetch\+Value}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Fetch\+Value()}{dictFetchValue()}}
+{\footnotesize\ttfamily void$\ast$ dict\+Fetch\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 497 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a4d5d9616ce7b918632afcc9bd03f6a90}\label{dict_8h_a4d5d9616ce7b918632afcc9bd03f6a90}} 
+\index{dict.\+h@{dict.\+h}!dict\+Find@{dict\+Find}}
+\index{dict\+Find@{dict\+Find}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Find()}{dictFind()}}
+{\footnotesize\ttfamily \hyperlink{structdict_entry}{dict\+Entry}$\ast$ dict\+Find (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 476 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_af5b678e76b4abaaf1729f50d09c3764d}\label{dict_8h_af5b678e76b4abaaf1729f50d09c3764d}} 
+\index{dict.\+h@{dict.\+h}!dict\+Find\+Entry\+Ref\+By\+Ptr\+And\+Hash@{dict\+Find\+Entry\+Ref\+By\+Ptr\+And\+Hash}}
+\index{dict\+Find\+Entry\+Ref\+By\+Ptr\+And\+Hash@{dict\+Find\+Entry\+Ref\+By\+Ptr\+And\+Hash}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Find\+Entry\+Ref\+By\+Ptr\+And\+Hash()}{dictFindEntryRefByPtrAndHash()}}
+{\footnotesize\ttfamily \hyperlink{structdict_entry}{dict\+Entry}$\ast$$\ast$ dict\+Find\+Entry\+Ref\+By\+Ptr\+And\+Hash (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{const void $\ast$}]{oldptr,  }\item[{uint64\+\_\+t}]{hash }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1012 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_ab6ed047c8294737d16eff998229ca613}\label{dict_8h_ab6ed047c8294737d16eff998229ca613}} 
+\index{dict.\+h@{dict.\+h}!dict\+Free\+Unlinked\+Entry@{dict\+Free\+Unlinked\+Entry}}
+\index{dict\+Free\+Unlinked\+Entry@{dict\+Free\+Unlinked\+Entry}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Free\+Unlinked\+Entry()}{dictFreeUnlinkedEntry()}}
+{\footnotesize\ttfamily void dict\+Free\+Unlinked\+Entry (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{\hyperlink{structdict_entry}{dict\+Entry} $\ast$}]{he }\end{DoxyParamCaption})}
+
+
+
+Definition at line 434 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a9e6309bcf1537c2ea46b8205dbf5c79c}\label{dict_8h_a9e6309bcf1537c2ea46b8205dbf5c79c}} 
+\index{dict.\+h@{dict.\+h}!dict\+Gen\+Case\+Hash\+Function@{dict\+Gen\+Case\+Hash\+Function}}
+\index{dict\+Gen\+Case\+Hash\+Function@{dict\+Gen\+Case\+Hash\+Function}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Gen\+Case\+Hash\+Function()}{dictGenCaseHashFunction()}}
+{\footnotesize\ttfamily uint64\+\_\+t dict\+Gen\+Case\+Hash\+Function (\begin{DoxyParamCaption}\item[{const unsigned char $\ast$}]{buf,  }\item[{int}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 94 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a062edc8197cee93623adcd5e9832f3fa}\label{dict_8h_a062edc8197cee93623adcd5e9832f3fa}} 
+\index{dict.\+h@{dict.\+h}!dict\+Gen\+Hash\+Function@{dict\+Gen\+Hash\+Function}}
+\index{dict\+Gen\+Hash\+Function@{dict\+Gen\+Hash\+Function}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Gen\+Hash\+Function()}{dictGenHashFunction()}}
+{\footnotesize\ttfamily uint64\+\_\+t dict\+Gen\+Hash\+Function (\begin{DoxyParamCaption}\item[{const void $\ast$}]{key,  }\item[{int}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 90 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_aff5a2a453e5b8c6aa5254ad9c7a12fe3}\label{dict_8h_aff5a2a453e5b8c6aa5254ad9c7a12fe3}} 
+\index{dict.\+h@{dict.\+h}!dict\+Get\+Hash@{dict\+Get\+Hash}}
+\index{dict\+Get\+Hash@{dict\+Get\+Hash}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Get\+Hash()}{dictGetHash()}}
+{\footnotesize\ttfamily uint64\+\_\+t dict\+Get\+Hash (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1003 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a66be8701e9aa665bcd4ffc24740c089e}\label{dict_8h_a66be8701e9aa665bcd4ffc24740c089e}} 
+\index{dict.\+h@{dict.\+h}!dict\+Get\+Hash\+Function\+Seed@{dict\+Get\+Hash\+Function\+Seed}}
+\index{dict\+Get\+Hash\+Function\+Seed@{dict\+Get\+Hash\+Function\+Seed}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Get\+Hash\+Function\+Seed()}{dictGetHashFunctionSeed()}}
+{\footnotesize\ttfamily uint8\+\_\+t$\ast$ dict\+Get\+Hash\+Function\+Seed (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 80 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a63b2ad9054199271795e33d67fb6d6da}\label{dict_8h_a63b2ad9054199271795e33d67fb6d6da}} 
+\index{dict.\+h@{dict.\+h}!dict\+Get\+Iterator@{dict\+Get\+Iterator}}
+\index{dict\+Get\+Iterator@{dict\+Get\+Iterator}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Get\+Iterator()}{dictGetIterator()}}
+{\footnotesize\ttfamily \hyperlink{structdict_iterator}{dict\+Iterator}$\ast$ dict\+Get\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d }\end{DoxyParamCaption})}
+
+
+
+Definition at line 542 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_aba43373cd6cc1e491c5979c233707276}\label{dict_8h_aba43373cd6cc1e491c5979c233707276}} 
+\index{dict.\+h@{dict.\+h}!dict\+Get\+Random\+Key@{dict\+Get\+Random\+Key}}
+\index{dict\+Get\+Random\+Key@{dict\+Get\+Random\+Key}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Get\+Random\+Key()}{dictGetRandomKey()}}
+{\footnotesize\ttfamily \hyperlink{structdict_entry}{dict\+Entry}$\ast$ dict\+Get\+Random\+Key (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d }\end{DoxyParamCaption})}
+
+
+
+Definition at line 610 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_aad268687a4d34aab2c051233348a04c7}\label{dict_8h_aad268687a4d34aab2c051233348a04c7}} 
+\index{dict.\+h@{dict.\+h}!dict\+Get\+Safe\+Iterator@{dict\+Get\+Safe\+Iterator}}
+\index{dict\+Get\+Safe\+Iterator@{dict\+Get\+Safe\+Iterator}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Get\+Safe\+Iterator()}{dictGetSafeIterator()}}
+{\footnotesize\ttfamily \hyperlink{structdict_iterator}{dict\+Iterator}$\ast$ dict\+Get\+Safe\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d }\end{DoxyParamCaption})}
+
+
+
+Definition at line 555 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_ab59f0496f85cc283e078e1daafcdd4cf}\label{dict_8h_ab59f0496f85cc283e078e1daafcdd4cf}} 
+\index{dict.\+h@{dict.\+h}!dict\+Get\+Some\+Keys@{dict\+Get\+Some\+Keys}}
+\index{dict\+Get\+Some\+Keys@{dict\+Get\+Some\+Keys}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Get\+Some\+Keys()}{dictGetSomeKeys()}}
+{\footnotesize\ttfamily unsigned int dict\+Get\+Some\+Keys (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{\hyperlink{structdict_entry}{dict\+Entry} $\ast$$\ast$}]{des,  }\item[{unsigned int}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 673 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_aecc08690b6d64e3ec2dfd7011b1b38de}\label{dict_8h_aecc08690b6d64e3ec2dfd7011b1b38de}} 
+\index{dict.\+h@{dict.\+h}!dict\+Get\+Stats@{dict\+Get\+Stats}}
+\index{dict\+Get\+Stats@{dict\+Get\+Stats}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Get\+Stats()}{dictGetStats()}}
+{\footnotesize\ttfamily void dict\+Get\+Stats (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf,  }\item[{size\+\_\+t}]{bufsize,  }\item[{\hyperlink{structdict}{dict} $\ast$}]{d }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1096 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_ab51f7613d1fe7b63edecd24efbcc7d2b}\label{dict_8h_ab51f7613d1fe7b63edecd24efbcc7d2b}} 
+\index{dict.\+h@{dict.\+h}!dict\+Next@{dict\+Next}}
+\index{dict\+Next@{dict\+Next}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Next()}{dictNext()}}
+{\footnotesize\ttfamily \hyperlink{structdict_entry}{dict\+Entry}$\ast$ dict\+Next (\begin{DoxyParamCaption}\item[{\hyperlink{structdict_iterator}{dict\+Iterator} $\ast$}]{iter }\end{DoxyParamCaption})}
+
+
+
+Definition at line 562 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a813741869123b53bbff240423ef3a60a}\label{dict_8h_a813741869123b53bbff240423ef3a60a}} 
+\index{dict.\+h@{dict.\+h}!dict\+Rehash@{dict\+Rehash}}
+\index{dict\+Rehash@{dict\+Rehash}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Rehash()}{dictRehash()}}
+{\footnotesize\ttfamily int dict\+Rehash (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{int}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 188 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_aa912fa4994a15258d2ba9fd8879e41a9}\label{dict_8h_aa912fa4994a15258d2ba9fd8879e41a9}} 
+\index{dict.\+h@{dict.\+h}!dict\+Rehash\+Milliseconds@{dict\+Rehash\+Milliseconds}}
+\index{dict\+Rehash\+Milliseconds@{dict\+Rehash\+Milliseconds}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Rehash\+Milliseconds()}{dictRehashMilliseconds()}}
+{\footnotesize\ttfamily int dict\+Rehash\+Milliseconds (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{int}]{ms }\end{DoxyParamCaption})}
+
+
+
+Definition at line 241 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_ad6a0d56f36a07445b16ffedcf5aec005}\label{dict_8h_ad6a0d56f36a07445b16ffedcf5aec005}} 
+\index{dict.\+h@{dict.\+h}!dict\+Release@{dict\+Release}}
+\index{dict\+Release@{dict\+Release}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Release()}{dictRelease()}}
+{\footnotesize\ttfamily void dict\+Release (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d }\end{DoxyParamCaption})}
+
+
+
+Definition at line 469 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a8bfc6c2908c66772c09a1315c078bf06}\label{dict_8h_a8bfc6c2908c66772c09a1315c078bf06}} 
+\index{dict.\+h@{dict.\+h}!dict\+Release\+Iterator@{dict\+Release\+Iterator}}
+\index{dict\+Release\+Iterator@{dict\+Release\+Iterator}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Release\+Iterator()}{dictReleaseIterator()}}
+{\footnotesize\ttfamily void dict\+Release\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{structdict_iterator}{dict\+Iterator} $\ast$}]{iter }\end{DoxyParamCaption})}
+
+
+
+Definition at line 597 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_afa72b80683c10c59a0d5a0a6eb040274}\label{dict_8h_afa72b80683c10c59a0d5a0a6eb040274}} 
+\index{dict.\+h@{dict.\+h}!dict\+Replace@{dict\+Replace}}
+\index{dict\+Replace@{dict\+Replace}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Replace()}{dictReplace()}}
+{\footnotesize\ttfamily int dict\+Replace (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{void $\ast$}]{key,  }\item[{void $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 325 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a9207bfc4adb969486d70c098a1a5892e}\label{dict_8h_a9207bfc4adb969486d70c098a1a5892e}} 
+\index{dict.\+h@{dict.\+h}!dict\+Resize@{dict\+Resize}}
+\index{dict\+Resize@{dict\+Resize}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Resize()}{dictResize()}}
+{\footnotesize\ttfamily int dict\+Resize (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d }\end{DoxyParamCaption})}
+
+
+
+Definition at line 135 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a226f02f4ca7e3a850d75b664807ea604}\label{dict_8h_a226f02f4ca7e3a850d75b664807ea604}} 
+\index{dict.\+h@{dict.\+h}!dict\+Scan@{dict\+Scan}}
+\index{dict\+Scan@{dict\+Scan}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Scan()}{dictScan()}}
+{\footnotesize\ttfamily unsigned long dict\+Scan (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{d,  }\item[{unsigned long}]{v,  }\item[{\hyperlink{dict_8h_a2ac2ab3370a0dae35834c6a400062915}{dict\+Scan\+Function} $\ast$}]{fn,  }\item[{\hyperlink{dict_8h_afbb249b3fae7ec2ddb2cab3cfde263c4}{dict\+Scan\+Bucket\+Function} $\ast$}]{bucketfn,  }\item[{void $\ast$}]{privdata }\end{DoxyParamCaption})}
+
+
+
+Definition at line 838 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a26682701255962f65ed1699803025e1b}\label{dict_8h_a26682701255962f65ed1699803025e1b}} 
+\index{dict.\+h@{dict.\+h}!dict\+Set\+Hash\+Function\+Seed@{dict\+Set\+Hash\+Function\+Seed}}
+\index{dict\+Set\+Hash\+Function\+Seed@{dict\+Set\+Hash\+Function\+Seed}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Set\+Hash\+Function\+Seed()}{dictSetHashFunctionSeed()}}
+{\footnotesize\ttfamily void dict\+Set\+Hash\+Function\+Seed (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{seed }\end{DoxyParamCaption})}
+
+
+
+Definition at line 76 of file dict.\+c.
+
+\mbox{\Hypertarget{dict_8h_a2e5cb964f67fb7c3951cb59f7c8d19da}\label{dict_8h_a2e5cb964f67fb7c3951cb59f7c8d19da}} 
+\index{dict.\+h@{dict.\+h}!dict\+Unlink@{dict\+Unlink}}
+\index{dict\+Unlink@{dict\+Unlink}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Unlink()}{dictUnlink()}}
+{\footnotesize\ttfamily \hyperlink{structdict_entry}{dict\+Entry}$\ast$ dict\+Unlink (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{ht,  }\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 428 of file dict.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{dict_8h_a0432b630a23da7397c2d5a281e2696d8}\label{dict_8h_a0432b630a23da7397c2d5a281e2696d8}} 
+\index{dict.\+h@{dict.\+h}!dict\+Type\+Heap\+String\+Copy\+Key@{dict\+Type\+Heap\+String\+Copy\+Key}}
+\index{dict\+Type\+Heap\+String\+Copy\+Key@{dict\+Type\+Heap\+String\+Copy\+Key}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Type\+Heap\+String\+Copy\+Key}{dictTypeHeapStringCopyKey}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} dict\+Type\+Heap\+String\+Copy\+Key}
+
+\mbox{\Hypertarget{dict_8h_a125db63a59c3d600f24331fd696b07bd}\label{dict_8h_a125db63a59c3d600f24331fd696b07bd}} 
+\index{dict.\+h@{dict.\+h}!dict\+Type\+Heap\+String\+Copy\+Key\+Value@{dict\+Type\+Heap\+String\+Copy\+Key\+Value}}
+\index{dict\+Type\+Heap\+String\+Copy\+Key\+Value@{dict\+Type\+Heap\+String\+Copy\+Key\+Value}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Type\+Heap\+String\+Copy\+Key\+Value}{dictTypeHeapStringCopyKeyValue}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} dict\+Type\+Heap\+String\+Copy\+Key\+Value}
+
+\mbox{\Hypertarget{dict_8h_ad6de61d0a16e4a2805ff6c34b130ab7e}\label{dict_8h_ad6de61d0a16e4a2805ff6c34b130ab7e}} 
+\index{dict.\+h@{dict.\+h}!dict\+Type\+Heap\+Strings@{dict\+Type\+Heap\+Strings}}
+\index{dict\+Type\+Heap\+Strings@{dict\+Type\+Heap\+Strings}!dict.\+h@{dict.\+h}}
+\subsubsection{\texorpdfstring{dict\+Type\+Heap\+Strings}{dictTypeHeapStrings}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} dict\+Type\+Heap\+Strings}
+

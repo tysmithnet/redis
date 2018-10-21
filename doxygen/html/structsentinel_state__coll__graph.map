@@ -1,0 +1,8 @@
+<map id="sentinelState" name="sentinelState">
+<area shape="rect" id="node2" href="$structdict.html" title="dict" alt="" coords="109,201,152,228"/>
+<area shape="rect" id="node3" href="$structdictht.html" title="dictht" alt="" coords="15,96,70,123"/>
+<area shape="rect" id="node4" href="$structdict_entry.html" title="dictEntry" alt="" coords="5,5,80,32"/>
+<area shape="rect" id="node5" href="$structdict_type.html" title="dictType" alt="" coords="95,96,167,123"/>
+<area shape="rect" id="node6" href="$structlist.html" title="list" alt="" coords="203,201,242,228"/>
+<area shape="rect" id="node7" href="$structlist_node.html" title="listNode" alt="" coords="191,96,262,123"/>
+</map>

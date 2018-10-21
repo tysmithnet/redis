@@ -1,0 +1,238 @@
+\hypertarget{zmalloc_8h}{}\section{src/zmalloc.h File Reference}
+\label{zmalloc_8h}\index{src/zmalloc.\+h@{src/zmalloc.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{zmalloc_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{zmalloc_8h_acf49e7c252413d422d218508735e99b7}{\+\_\+\+\_\+xstr}(s)~\hyperlink{zmalloc_8h_a7587d2de00556018e66da47766f21608}{\+\_\+\+\_\+str}(s)
+\item 
+\#define \hyperlink{zmalloc_8h_a7587d2de00556018e66da47766f21608}{\+\_\+\+\_\+str}(s)~\#s
+\item 
+\#define \hyperlink{zmalloc_8h_a374c6d7cf6c9817e1243093e03df7319}{Z\+M\+A\+L\+L\+O\+C\+\_\+\+L\+IB}~\char`\"{}libc\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{zmalloc_8h_a879ee0956348fd24dc2ac69c2d4f220b}{zmalloc} (size\+\_\+t size)
+\item 
+void $\ast$ \hyperlink{zmalloc_8h_a027ae46ed3662b0911304294f218d0b9}{zcalloc} (size\+\_\+t size)
+\item 
+void $\ast$ \hyperlink{zmalloc_8h_ac24423a93cab2fbf18e28cc2f42f7f97}{zrealloc} (void $\ast$ptr, size\+\_\+t size)
+\item 
+void \hyperlink{zmalloc_8h_ae6638523882220721b9e7cdc7b2cd58d}{zfree} (void $\ast$ptr)
+\item 
+char $\ast$ \hyperlink{zmalloc_8h_aaaf399486273cd011db2b875759e01a5}{zstrdup} (const char $\ast$s)
+\item 
+size\+\_\+t \hyperlink{zmalloc_8h_a16542aef4062c19198acc9231406bd0f}{zmalloc\+\_\+used\+\_\+memory} (void)
+\item 
+void \hyperlink{zmalloc_8h_a5e22556717107aec50cc1d5659777cf2}{zmalloc\+\_\+set\+\_\+oom\+\_\+handler} (void($\ast$oom\+\_\+handler)(size\+\_\+t))
+\item 
+size\+\_\+t \hyperlink{zmalloc_8h_ac9df23b6d142ed3a10bfea258759a3ff}{zmalloc\+\_\+get\+\_\+rss} (void)
+\item 
+int \hyperlink{zmalloc_8h_ad4842ce8d33e9f71028dc61b6955ecd1}{zmalloc\+\_\+get\+\_\+allocator\+\_\+info} (size\+\_\+t $\ast$allocated, size\+\_\+t $\ast$active, size\+\_\+t $\ast$resident)
+\item 
+size\+\_\+t \hyperlink{zmalloc_8h_a586a94d03138a5c1e8057c1da0c1918d}{zmalloc\+\_\+get\+\_\+private\+\_\+dirty} (long pid)
+\item 
+size\+\_\+t \hyperlink{zmalloc_8h_ab5d9aabc75851086ea52734a826e82c7}{zmalloc\+\_\+get\+\_\+smap\+\_\+bytes\+\_\+by\+\_\+field} (char $\ast$field, long pid)
+\item 
+size\+\_\+t \hyperlink{zmalloc_8h_a841fad39a05a81f1e8cf94138e9dae6f}{zmalloc\+\_\+get\+\_\+memory\+\_\+size} (void)
+\item 
+void \hyperlink{zmalloc_8h_a11ec0e6170119a8ea6f120fc785127a3}{zlibc\+\_\+free} (void $\ast$ptr)
+\item 
+size\+\_\+t \hyperlink{zmalloc_8h_aa841265e1d698c82d390308cb5dd0051}{zmalloc\+\_\+size} (void $\ast$ptr)
+\item 
+size\+\_\+t \hyperlink{zmalloc_8h_abf213125fb3f3d9a99cccff80db7d812}{zmalloc\+\_\+usable} (void $\ast$ptr)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{zmalloc_8h_a7587d2de00556018e66da47766f21608}\label{zmalloc_8h_a7587d2de00556018e66da47766f21608}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!\+\_\+\+\_\+str@{\+\_\+\+\_\+str}}
+\index{\+\_\+\+\_\+str@{\+\_\+\+\_\+str}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+str}{\_\_str}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+str(\begin{DoxyParamCaption}\item[{}]{s }\end{DoxyParamCaption})~\#s}
+
+
+
+Definition at line 36 of file zmalloc.\+h.
+
+\mbox{\Hypertarget{zmalloc_8h_acf49e7c252413d422d218508735e99b7}\label{zmalloc_8h_acf49e7c252413d422d218508735e99b7}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!\+\_\+\+\_\+xstr@{\+\_\+\+\_\+xstr}}
+\index{\+\_\+\+\_\+xstr@{\+\_\+\+\_\+xstr}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+xstr}{\_\_xstr}}
+{\footnotesize\ttfamily \#define \+\_\+\+\_\+xstr(\begin{DoxyParamCaption}\item[{}]{s }\end{DoxyParamCaption})~\hyperlink{zmalloc_8h_a7587d2de00556018e66da47766f21608}{\+\_\+\+\_\+str}(s)}
+
+
+
+Definition at line 35 of file zmalloc.\+h.
+
+\mbox{\Hypertarget{zmalloc_8h_a374c6d7cf6c9817e1243093e03df7319}\label{zmalloc_8h_a374c6d7cf6c9817e1243093e03df7319}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!Z\+M\+A\+L\+L\+O\+C\+\_\+\+L\+IB@{Z\+M\+A\+L\+L\+O\+C\+\_\+\+L\+IB}}
+\index{Z\+M\+A\+L\+L\+O\+C\+\_\+\+L\+IB@{Z\+M\+A\+L\+L\+O\+C\+\_\+\+L\+IB}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{Z\+M\+A\+L\+L\+O\+C\+\_\+\+L\+IB}{ZMALLOC\_LIB}}
+{\footnotesize\ttfamily \#define Z\+M\+A\+L\+L\+O\+C\+\_\+\+L\+IB~\char`\"{}libc\char`\"{}}
+
+
+
+Definition at line 65 of file zmalloc.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{zmalloc_8h_a027ae46ed3662b0911304294f218d0b9}\label{zmalloc_8h_a027ae46ed3662b0911304294f218d0b9}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zcalloc@{zcalloc}}
+\index{zcalloc@{zcalloc}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zcalloc()}{zcalloc()}}
+{\footnotesize\ttfamily void$\ast$ zcalloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 130 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_ae6638523882220721b9e7cdc7b2cd58d}\label{zmalloc_8h_ae6638523882220721b9e7cdc7b2cd58d}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zfree@{zfree}}
+\index{zfree@{zfree}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zfree()}{zfree()}}
+{\footnotesize\ttfamily void zfree (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 190 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_a11ec0e6170119a8ea6f120fc785127a3}\label{zmalloc_8h_a11ec0e6170119a8ea6f120fc785127a3}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zlibc\+\_\+free@{zlibc\+\_\+free}}
+\index{zlibc\+\_\+free@{zlibc\+\_\+free}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zlibc\+\_\+free()}{zlibc\_free()}}
+{\footnotesize\ttfamily void zlibc\+\_\+free (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 39 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_a879ee0956348fd24dc2ac69c2d4f220b}\label{zmalloc_8h_a879ee0956348fd24dc2ac69c2d4f220b}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zmalloc@{zmalloc}}
+\index{zmalloc@{zmalloc}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zmalloc()}{zmalloc()}}
+{\footnotesize\ttfamily void$\ast$ zmalloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 98 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_ad4842ce8d33e9f71028dc61b6955ecd1}\label{zmalloc_8h_ad4842ce8d33e9f71028dc61b6955ecd1}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zmalloc\+\_\+get\+\_\+allocator\+\_\+info@{zmalloc\+\_\+get\+\_\+allocator\+\_\+info}}
+\index{zmalloc\+\_\+get\+\_\+allocator\+\_\+info@{zmalloc\+\_\+get\+\_\+allocator\+\_\+info}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zmalloc\+\_\+get\+\_\+allocator\+\_\+info()}{zmalloc\_get\_allocator\_info()}}
+{\footnotesize\ttfamily int zmalloc\+\_\+get\+\_\+allocator\+\_\+info (\begin{DoxyParamCaption}\item[{size\+\_\+t $\ast$}]{allocated,  }\item[{size\+\_\+t $\ast$}]{active,  }\item[{size\+\_\+t $\ast$}]{resident }\end{DoxyParamCaption})}
+
+
+
+Definition at line 327 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_a841fad39a05a81f1e8cf94138e9dae6f}\label{zmalloc_8h_a841fad39a05a81f1e8cf94138e9dae6f}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zmalloc\+\_\+get\+\_\+memory\+\_\+size@{zmalloc\+\_\+get\+\_\+memory\+\_\+size}}
+\index{zmalloc\+\_\+get\+\_\+memory\+\_\+size@{zmalloc\+\_\+get\+\_\+memory\+\_\+size}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zmalloc\+\_\+get\+\_\+memory\+\_\+size()}{zmalloc\_get\_memory\_size()}}
+{\footnotesize\ttfamily size\+\_\+t zmalloc\+\_\+get\+\_\+memory\+\_\+size (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 398 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_a586a94d03138a5c1e8057c1da0c1918d}\label{zmalloc_8h_a586a94d03138a5c1e8057c1da0c1918d}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zmalloc\+\_\+get\+\_\+private\+\_\+dirty@{zmalloc\+\_\+get\+\_\+private\+\_\+dirty}}
+\index{zmalloc\+\_\+get\+\_\+private\+\_\+dirty@{zmalloc\+\_\+get\+\_\+private\+\_\+dirty}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zmalloc\+\_\+get\+\_\+private\+\_\+dirty()}{zmalloc\_get\_private\_dirty()}}
+{\footnotesize\ttfamily size\+\_\+t zmalloc\+\_\+get\+\_\+private\+\_\+dirty (\begin{DoxyParamCaption}\item[{long}]{pid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 381 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_ac9df23b6d142ed3a10bfea258759a3ff}\label{zmalloc_8h_ac9df23b6d142ed3a10bfea258759a3ff}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zmalloc\+\_\+get\+\_\+rss@{zmalloc\+\_\+get\+\_\+rss}}
+\index{zmalloc\+\_\+get\+\_\+rss@{zmalloc\+\_\+get\+\_\+rss}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zmalloc\+\_\+get\+\_\+rss()}{zmalloc\_get\_rss()}}
+{\footnotesize\ttfamily size\+\_\+t zmalloc\+\_\+get\+\_\+rss (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 294 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_ab5d9aabc75851086ea52734a826e82c7}\label{zmalloc_8h_ab5d9aabc75851086ea52734a826e82c7}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zmalloc\+\_\+get\+\_\+smap\+\_\+bytes\+\_\+by\+\_\+field@{zmalloc\+\_\+get\+\_\+smap\+\_\+bytes\+\_\+by\+\_\+field}}
+\index{zmalloc\+\_\+get\+\_\+smap\+\_\+bytes\+\_\+by\+\_\+field@{zmalloc\+\_\+get\+\_\+smap\+\_\+bytes\+\_\+by\+\_\+field}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zmalloc\+\_\+get\+\_\+smap\+\_\+bytes\+\_\+by\+\_\+field()}{zmalloc\_get\_smap\_bytes\_by\_field()}}
+{\footnotesize\ttfamily size\+\_\+t zmalloc\+\_\+get\+\_\+smap\+\_\+bytes\+\_\+by\+\_\+field (\begin{DoxyParamCaption}\item[{char $\ast$}]{field,  }\item[{long}]{pid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 374 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_a5e22556717107aec50cc1d5659777cf2}\label{zmalloc_8h_a5e22556717107aec50cc1d5659777cf2}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zmalloc\+\_\+set\+\_\+oom\+\_\+handler@{zmalloc\+\_\+set\+\_\+oom\+\_\+handler}}
+\index{zmalloc\+\_\+set\+\_\+oom\+\_\+handler@{zmalloc\+\_\+set\+\_\+oom\+\_\+handler}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zmalloc\+\_\+set\+\_\+oom\+\_\+handler()}{zmalloc\_set\_oom\_handler()}}
+{\footnotesize\ttfamily void zmalloc\+\_\+set\+\_\+oom\+\_\+handler (\begin{DoxyParamCaption}\item[{void($\ast$)(size\+\_\+t)}]{oom\+\_\+handler }\end{DoxyParamCaption})}
+
+
+
+Definition at line 222 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_aa841265e1d698c82d390308cb5dd0051}\label{zmalloc_8h_aa841265e1d698c82d390308cb5dd0051}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zmalloc\+\_\+size@{zmalloc\+\_\+size}}
+\index{zmalloc\+\_\+size@{zmalloc\+\_\+size}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zmalloc\+\_\+size()}{zmalloc\_size()}}
+{\footnotesize\ttfamily size\+\_\+t zmalloc\+\_\+size (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 177 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_abf213125fb3f3d9a99cccff80db7d812}\label{zmalloc_8h_abf213125fb3f3d9a99cccff80db7d812}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zmalloc\+\_\+usable@{zmalloc\+\_\+usable}}
+\index{zmalloc\+\_\+usable@{zmalloc\+\_\+usable}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zmalloc\+\_\+usable()}{zmalloc\_usable()}}
+{\footnotesize\ttfamily size\+\_\+t zmalloc\+\_\+usable (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 185 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_a16542aef4062c19198acc9231406bd0f}\label{zmalloc_8h_a16542aef4062c19198acc9231406bd0f}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zmalloc\+\_\+used\+\_\+memory@{zmalloc\+\_\+used\+\_\+memory}}
+\index{zmalloc\+\_\+used\+\_\+memory@{zmalloc\+\_\+used\+\_\+memory}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zmalloc\+\_\+used\+\_\+memory()}{zmalloc\_used\_memory()}}
+{\footnotesize\ttfamily size\+\_\+t zmalloc\+\_\+used\+\_\+memory (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 216 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_ac24423a93cab2fbf18e28cc2f42f7f97}\label{zmalloc_8h_ac24423a93cab2fbf18e28cc2f42f7f97}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zrealloc@{zrealloc}}
+\index{zrealloc@{zrealloc}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zrealloc()}{zrealloc()}}
+{\footnotesize\ttfamily void$\ast$ zrealloc (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 144 of file zmalloc.\+c.
+
+\mbox{\Hypertarget{zmalloc_8h_aaaf399486273cd011db2b875759e01a5}\label{zmalloc_8h_aaaf399486273cd011db2b875759e01a5}} 
+\index{zmalloc.\+h@{zmalloc.\+h}!zstrdup@{zstrdup}}
+\index{zstrdup@{zstrdup}!zmalloc.\+h@{zmalloc.\+h}}
+\subsubsection{\texorpdfstring{zstrdup()}{zstrdup()}}
+{\footnotesize\ttfamily char$\ast$ zstrdup (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 208 of file zmalloc.\+c.
+

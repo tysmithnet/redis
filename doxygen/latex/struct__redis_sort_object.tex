@@ -1,0 +1,80 @@
+\hypertarget{struct__redis_sort_object}{}\section{\+\_\+redis\+Sort\+Object Struct Reference}
+\label{struct__redis_sort_object}\index{\+\_\+redis\+Sort\+Object@{\+\_\+redis\+Sort\+Object}}
+
+
+{\ttfamily \#include $<$server.\+h$>$}
+
+
+
+Collaboration diagram for \+\_\+redis\+Sort\+Object\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=169pt]{struct__redis_sort_object__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{struct__redis_sort_object_ab823bb3761b604174d6c31727a47bebc}{obj}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>double \hyperlink{struct__redis_sort_object_a40a24ec85daa9ac70aa74e4ca744f838}{score}\\
+\>\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{struct__redis_sort_object_a5a84c8f22865dd4299870240e1db9f58}{cmpobj}\\
+\} \hyperlink{struct__redis_sort_object_a27255f4355dc7226770c0682f29744b0}{u}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 1311 of file server.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{struct__redis_sort_object_a5a84c8f22865dd4299870240e1db9f58}\label{struct__redis_sort_object_a5a84c8f22865dd4299870240e1db9f58}} 
+\index{\+\_\+redis\+Sort\+Object@{\+\_\+redis\+Sort\+Object}!cmpobj@{cmpobj}}
+\index{cmpobj@{cmpobj}!\+\_\+redis\+Sort\+Object@{\+\_\+redis\+Sort\+Object}}
+\subsubsection{\texorpdfstring{cmpobj}{cmpobj}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ cmpobj}
+
+
+
+Definition at line 1315 of file server.\+h.
+
+\mbox{\Hypertarget{struct__redis_sort_object_ab823bb3761b604174d6c31727a47bebc}\label{struct__redis_sort_object_ab823bb3761b604174d6c31727a47bebc}} 
+\index{\+\_\+redis\+Sort\+Object@{\+\_\+redis\+Sort\+Object}!obj@{obj}}
+\index{obj@{obj}!\+\_\+redis\+Sort\+Object@{\+\_\+redis\+Sort\+Object}}
+\subsubsection{\texorpdfstring{obj}{obj}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ obj}
+
+
+
+Definition at line 1312 of file server.\+h.
+
+\mbox{\Hypertarget{struct__redis_sort_object_a40a24ec85daa9ac70aa74e4ca744f838}\label{struct__redis_sort_object_a40a24ec85daa9ac70aa74e4ca744f838}} 
+\index{\+\_\+redis\+Sort\+Object@{\+\_\+redis\+Sort\+Object}!score@{score}}
+\index{score@{score}!\+\_\+redis\+Sort\+Object@{\+\_\+redis\+Sort\+Object}}
+\subsubsection{\texorpdfstring{score}{score}}
+{\footnotesize\ttfamily double score}
+
+
+
+Definition at line 1314 of file server.\+h.
+
+\mbox{\Hypertarget{struct__redis_sort_object_a27255f4355dc7226770c0682f29744b0}\label{struct__redis_sort_object_a27255f4355dc7226770c0682f29744b0}} 
+\index{\+\_\+redis\+Sort\+Object@{\+\_\+redis\+Sort\+Object}!u@{u}}
+\index{u@{u}!\+\_\+redis\+Sort\+Object@{\+\_\+redis\+Sort\+Object}}
+\subsubsection{\texorpdfstring{u}{u}}
+{\footnotesize\ttfamily union \{ ... \}   u}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{server_8h}{server.\+h}\end{DoxyCompactItemize}

@@ -1,0 +1,275 @@
+\hypertarget{memtest_8c}{}\section{src/memtest.c File Reference}
+\label{memtest_8c}\index{src/memtest.\+c@{src/memtest.\+c}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$termios.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\newline
+Include dependency graph for memtest.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{memtest_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{memtest_8c_a927b6adad012fd0e4e067a706d8df6e9}{U\+L\+O\+N\+G\+\_\+\+O\+N\+E\+Z\+E\+RO}~0xaaaaaaaaaaaaaaaa\+UL
+\item 
+\#define \hyperlink{memtest_8c_ae1766c92a4af73778f7c05a7bd9deaf1}{U\+L\+O\+N\+G\+\_\+\+Z\+E\+R\+O\+O\+NE}~0x5555555555555555\+UL
+\item 
+\#define \hyperlink{memtest_8c_adfc09349d0ddc534c3d1702997afbab8}{xorshift64star\+\_\+next}()
+\item 
+\#define \hyperlink{memtest_8c_a836fc304e6b2a982c5fc97ce9ca8598a}{M\+E\+M\+T\+E\+S\+T\+\_\+\+B\+A\+C\+K\+U\+P\+\_\+\+W\+O\+R\+DS}~(1024$\ast$(1024/sizeof(long)))
+\item 
+\#define \hyperlink{memtest_8c_af445933770893d6bc1b2a1cb3c99dfa5}{M\+E\+M\+T\+E\+S\+T\+\_\+\+D\+E\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE}~(1024$\ast$8)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{memtest_8c_afa4962f8ed7d9636f0dbbff54b614eb9}{memtest\+\_\+progress\+\_\+start} (char $\ast$title, int pass)
+\item 
+void \hyperlink{memtest_8c_aaf4847477d795611f3ed9c13a424ba41}{memtest\+\_\+progress\+\_\+end} (void)
+\item 
+void \hyperlink{memtest_8c_ac1f453fa01665f099ec295b5010c8da5}{memtest\+\_\+progress\+\_\+step} (size\+\_\+t curr, size\+\_\+t size, char c)
+\item 
+int \hyperlink{memtest_8c_a1bae406ca1d38e54b4c541fbec1daa67}{memtest\+\_\+addressing} (unsigned long $\ast$l, size\+\_\+t bytes, int interactive)
+\item 
+void \hyperlink{memtest_8c_a5e317403fb22ca8391b856c74f1ce44f}{memtest\+\_\+fill\+\_\+random} (unsigned long $\ast$l, size\+\_\+t bytes, int interactive)
+\item 
+void \hyperlink{memtest_8c_a6cdda0c966f25f7208093ea88230e53a}{memtest\+\_\+fill\+\_\+value} (unsigned long $\ast$l, size\+\_\+t bytes, unsigned long v1, unsigned long v2, char sym, int interactive)
+\item 
+int \hyperlink{memtest_8c_a3420a357136bab644135c6eaf86f5a8e}{memtest\+\_\+compare} (unsigned long $\ast$l, size\+\_\+t bytes, int interactive)
+\item 
+int \hyperlink{memtest_8c_ab0367875a4712c6fa592c7742ed99525}{memtest\+\_\+compare\+\_\+times} (unsigned long $\ast$m, size\+\_\+t bytes, int pass, int times, int interactive)
+\item 
+int \hyperlink{memtest_8c_aadd31a7a4d19ef07b6782adcccfc27fa}{memtest\+\_\+test} (unsigned long $\ast$m, size\+\_\+t bytes, int passes, int interactive)
+\item 
+int \hyperlink{memtest_8c_a141bc37b88d21421dc778d9d88ca0024}{memtest\+\_\+preserving\+\_\+test} (unsigned long $\ast$m, size\+\_\+t bytes, int passes)
+\item 
+void \hyperlink{memtest_8c_a4333c27a315ca447645cb65c0ac0b9e6}{memtest\+\_\+alloc\+\_\+and\+\_\+test} (size\+\_\+t megabytes, int passes)
+\item 
+void \hyperlink{memtest_8c_a83ed68d11467f1c48f83b2d5033f16f7}{memtest} (size\+\_\+t megabytes, int passes)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \hyperlink{memtest_8c_a651affc8e026846de5fe50222d7da883}{progress\+\_\+printed}
+\item 
+size\+\_\+t \hyperlink{memtest_8c_a7520330b330635dcd820071b37a852ac}{progress\+\_\+full}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{memtest_8c_a836fc304e6b2a982c5fc97ce9ca8598a}\label{memtest_8c_a836fc304e6b2a982c5fc97ce9ca8598a}} 
+\index{memtest.\+c@{memtest.\+c}!M\+E\+M\+T\+E\+S\+T\+\_\+\+B\+A\+C\+K\+U\+P\+\_\+\+W\+O\+R\+DS@{M\+E\+M\+T\+E\+S\+T\+\_\+\+B\+A\+C\+K\+U\+P\+\_\+\+W\+O\+R\+DS}}
+\index{M\+E\+M\+T\+E\+S\+T\+\_\+\+B\+A\+C\+K\+U\+P\+\_\+\+W\+O\+R\+DS@{M\+E\+M\+T\+E\+S\+T\+\_\+\+B\+A\+C\+K\+U\+P\+\_\+\+W\+O\+R\+DS}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{M\+E\+M\+T\+E\+S\+T\+\_\+\+B\+A\+C\+K\+U\+P\+\_\+\+W\+O\+R\+DS}{MEMTEST\_BACKUP\_WORDS}}
+{\footnotesize\ttfamily \#define M\+E\+M\+T\+E\+S\+T\+\_\+\+B\+A\+C\+K\+U\+P\+\_\+\+W\+O\+R\+DS~(1024$\ast$(1024/sizeof(long)))}
+
+
+
+Definition at line 275 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_af445933770893d6bc1b2a1cb3c99dfa5}\label{memtest_8c_af445933770893d6bc1b2a1cb3c99dfa5}} 
+\index{memtest.\+c@{memtest.\+c}!M\+E\+M\+T\+E\+S\+T\+\_\+\+D\+E\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE@{M\+E\+M\+T\+E\+S\+T\+\_\+\+D\+E\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE}}
+\index{M\+E\+M\+T\+E\+S\+T\+\_\+\+D\+E\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE@{M\+E\+M\+T\+E\+S\+T\+\_\+\+D\+E\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{M\+E\+M\+T\+E\+S\+T\+\_\+\+D\+E\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE}{MEMTEST\_DECACHE\_SIZE}}
+{\footnotesize\ttfamily \#define M\+E\+M\+T\+E\+S\+T\+\_\+\+D\+E\+C\+A\+C\+H\+E\+\_\+\+S\+I\+ZE~(1024$\ast$8)}
+
+
+
+Definition at line 279 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_a927b6adad012fd0e4e067a706d8df6e9}\label{memtest_8c_a927b6adad012fd0e4e067a706d8df6e9}} 
+\index{memtest.\+c@{memtest.\+c}!U\+L\+O\+N\+G\+\_\+\+O\+N\+E\+Z\+E\+RO@{U\+L\+O\+N\+G\+\_\+\+O\+N\+E\+Z\+E\+RO}}
+\index{U\+L\+O\+N\+G\+\_\+\+O\+N\+E\+Z\+E\+RO@{U\+L\+O\+N\+G\+\_\+\+O\+N\+E\+Z\+E\+RO}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{U\+L\+O\+N\+G\+\_\+\+O\+N\+E\+Z\+E\+RO}{ULONG\_ONEZERO}}
+{\footnotesize\ttfamily \#define U\+L\+O\+N\+G\+\_\+\+O\+N\+E\+Z\+E\+RO~0xaaaaaaaaaaaaaaaa\+UL}
+
+
+
+Definition at line 55 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_ae1766c92a4af73778f7c05a7bd9deaf1}\label{memtest_8c_ae1766c92a4af73778f7c05a7bd9deaf1}} 
+\index{memtest.\+c@{memtest.\+c}!U\+L\+O\+N\+G\+\_\+\+Z\+E\+R\+O\+O\+NE@{U\+L\+O\+N\+G\+\_\+\+Z\+E\+R\+O\+O\+NE}}
+\index{U\+L\+O\+N\+G\+\_\+\+Z\+E\+R\+O\+O\+NE@{U\+L\+O\+N\+G\+\_\+\+Z\+E\+R\+O\+O\+NE}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{U\+L\+O\+N\+G\+\_\+\+Z\+E\+R\+O\+O\+NE}{ULONG\_ZEROONE}}
+{\footnotesize\ttfamily \#define U\+L\+O\+N\+G\+\_\+\+Z\+E\+R\+O\+O\+NE~0x5555555555555555\+UL}
+
+
+
+Definition at line 56 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_adfc09349d0ddc534c3d1702997afbab8}\label{memtest_8c_adfc09349d0ddc534c3d1702997afbab8}} 
+\index{memtest.\+c@{memtest.\+c}!xorshift64star\+\_\+next@{xorshift64star\+\_\+next}}
+\index{xorshift64star\+\_\+next@{xorshift64star\+\_\+next}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{xorshift64star\+\_\+next}{xorshift64star\_next}}
+{\footnotesize\ttfamily \#define xorshift64star\+\_\+next(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+        rseed ^= rseed >> 12; \(\backslash\)
+        rseed ^= rseed << 25; \(\backslash\)
+        rseed ^= rseed >> 27; \(\backslash\)
+        rout = rseed * UINT64\_C(2685821657736338717); \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 131 of file memtest.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{memtest_8c_a83ed68d11467f1c48f83b2d5033f16f7}\label{memtest_8c_a83ed68d11467f1c48f83b2d5033f16f7}} 
+\index{memtest.\+c@{memtest.\+c}!memtest@{memtest}}
+\index{memtest@{memtest}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{memtest()}{memtest()}}
+{\footnotesize\ttfamily void memtest (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{megabytes,  }\item[{int}]{passes }\end{DoxyParamCaption})}
+
+
+
+Definition at line 349 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_a1bae406ca1d38e54b4c541fbec1daa67}\label{memtest_8c_a1bae406ca1d38e54b4c541fbec1daa67}} 
+\index{memtest.\+c@{memtest.\+c}!memtest\+\_\+addressing@{memtest\+\_\+addressing}}
+\index{memtest\+\_\+addressing@{memtest\+\_\+addressing}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{memtest\+\_\+addressing()}{memtest\_addressing()}}
+{\footnotesize\ttfamily int memtest\+\_\+addressing (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{l,  }\item[{size\+\_\+t}]{bytes,  }\item[{int}]{interactive }\end{DoxyParamCaption})}
+
+
+
+Definition at line 93 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_a4333c27a315ca447645cb65c0ac0b9e6}\label{memtest_8c_a4333c27a315ca447645cb65c0ac0b9e6}} 
+\index{memtest.\+c@{memtest.\+c}!memtest\+\_\+alloc\+\_\+and\+\_\+test@{memtest\+\_\+alloc\+\_\+and\+\_\+test}}
+\index{memtest\+\_\+alloc\+\_\+and\+\_\+test@{memtest\+\_\+alloc\+\_\+and\+\_\+test}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{memtest\+\_\+alloc\+\_\+and\+\_\+test()}{memtest\_alloc\_and\_test()}}
+{\footnotesize\ttfamily void memtest\+\_\+alloc\+\_\+and\+\_\+test (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{megabytes,  }\item[{int}]{passes }\end{DoxyParamCaption})}
+
+
+
+Definition at line 336 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_a3420a357136bab644135c6eaf86f5a8e}\label{memtest_8c_a3420a357136bab644135c6eaf86f5a8e}} 
+\index{memtest.\+c@{memtest.\+c}!memtest\+\_\+compare@{memtest\+\_\+compare}}
+\index{memtest\+\_\+compare@{memtest\+\_\+compare}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{memtest\+\_\+compare()}{memtest\_compare()}}
+{\footnotesize\ttfamily int memtest\+\_\+compare (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{l,  }\item[{size\+\_\+t}]{bytes,  }\item[{int}]{interactive }\end{DoxyParamCaption})}
+
+
+
+Definition at line 194 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_ab0367875a4712c6fa592c7742ed99525}\label{memtest_8c_ab0367875a4712c6fa592c7742ed99525}} 
+\index{memtest.\+c@{memtest.\+c}!memtest\+\_\+compare\+\_\+times@{memtest\+\_\+compare\+\_\+times}}
+\index{memtest\+\_\+compare\+\_\+times@{memtest\+\_\+compare\+\_\+times}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{memtest\+\_\+compare\+\_\+times()}{memtest\_compare\_times()}}
+{\footnotesize\ttfamily int memtest\+\_\+compare\+\_\+times (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{m,  }\item[{size\+\_\+t}]{bytes,  }\item[{int}]{pass,  }\item[{int}]{times,  }\item[{int}]{interactive }\end{DoxyParamCaption})}
+
+
+
+Definition at line 218 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_a5e317403fb22ca8391b856c74f1ce44f}\label{memtest_8c_a5e317403fb22ca8391b856c74f1ce44f}} 
+\index{memtest.\+c@{memtest.\+c}!memtest\+\_\+fill\+\_\+random@{memtest\+\_\+fill\+\_\+random}}
+\index{memtest\+\_\+fill\+\_\+random@{memtest\+\_\+fill\+\_\+random}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{memtest\+\_\+fill\+\_\+random()}{memtest\_fill\_random()}}
+{\footnotesize\ttfamily void memtest\+\_\+fill\+\_\+random (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{l,  }\item[{size\+\_\+t}]{bytes,  }\item[{int}]{interactive }\end{DoxyParamCaption})}
+
+
+
+Definition at line 138 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_a6cdda0c966f25f7208093ea88230e53a}\label{memtest_8c_a6cdda0c966f25f7208093ea88230e53a}} 
+\index{memtest.\+c@{memtest.\+c}!memtest\+\_\+fill\+\_\+value@{memtest\+\_\+fill\+\_\+value}}
+\index{memtest\+\_\+fill\+\_\+value@{memtest\+\_\+fill\+\_\+value}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{memtest\+\_\+fill\+\_\+value()}{memtest\_fill\_value()}}
+{\footnotesize\ttfamily void memtest\+\_\+fill\+\_\+value (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{l,  }\item[{size\+\_\+t}]{bytes,  }\item[{unsigned long}]{v1,  }\item[{unsigned long}]{v2,  }\item[{char}]{sym,  }\item[{int}]{interactive }\end{DoxyParamCaption})}
+
+
+
+Definition at line 163 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_a141bc37b88d21421dc778d9d88ca0024}\label{memtest_8c_a141bc37b88d21421dc778d9d88ca0024}} 
+\index{memtest.\+c@{memtest.\+c}!memtest\+\_\+preserving\+\_\+test@{memtest\+\_\+preserving\+\_\+test}}
+\index{memtest\+\_\+preserving\+\_\+test@{memtest\+\_\+preserving\+\_\+test}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{memtest\+\_\+preserving\+\_\+test()}{memtest\_preserving\_test()}}
+{\footnotesize\ttfamily int memtest\+\_\+preserving\+\_\+test (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{m,  }\item[{size\+\_\+t}]{bytes,  }\item[{int}]{passes }\end{DoxyParamCaption})}
+
+
+
+Definition at line 280 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_aaf4847477d795611f3ed9c13a424ba41}\label{memtest_8c_aaf4847477d795611f3ed9c13a424ba41}} 
+\index{memtest.\+c@{memtest.\+c}!memtest\+\_\+progress\+\_\+end@{memtest\+\_\+progress\+\_\+end}}
+\index{memtest\+\_\+progress\+\_\+end@{memtest\+\_\+progress\+\_\+end}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{memtest\+\_\+progress\+\_\+end()}{memtest\_progress\_end()}}
+{\footnotesize\ttfamily void memtest\+\_\+progress\+\_\+end (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 78 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_afa4962f8ed7d9636f0dbbff54b614eb9}\label{memtest_8c_afa4962f8ed7d9636f0dbbff54b614eb9}} 
+\index{memtest.\+c@{memtest.\+c}!memtest\+\_\+progress\+\_\+start@{memtest\+\_\+progress\+\_\+start}}
+\index{memtest\+\_\+progress\+\_\+start@{memtest\+\_\+progress\+\_\+start}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{memtest\+\_\+progress\+\_\+start()}{memtest\_progress\_start()}}
+{\footnotesize\ttfamily void memtest\+\_\+progress\+\_\+start (\begin{DoxyParamCaption}\item[{char $\ast$}]{title,  }\item[{int}]{pass }\end{DoxyParamCaption})}
+
+
+
+Definition at line 63 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_ac1f453fa01665f099ec295b5010c8da5}\label{memtest_8c_ac1f453fa01665f099ec295b5010c8da5}} 
+\index{memtest.\+c@{memtest.\+c}!memtest\+\_\+progress\+\_\+step@{memtest\+\_\+progress\+\_\+step}}
+\index{memtest\+\_\+progress\+\_\+step@{memtest\+\_\+progress\+\_\+step}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{memtest\+\_\+progress\+\_\+step()}{memtest\_progress\_step()}}
+{\footnotesize\ttfamily void memtest\+\_\+progress\+\_\+step (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{curr,  }\item[{size\+\_\+t}]{size,  }\item[{char}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 82 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_aadd31a7a4d19ef07b6782adcccfc27fa}\label{memtest_8c_aadd31a7a4d19ef07b6782adcccfc27fa}} 
+\index{memtest.\+c@{memtest.\+c}!memtest\+\_\+test@{memtest\+\_\+test}}
+\index{memtest\+\_\+test@{memtest\+\_\+test}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{memtest\+\_\+test()}{memtest\_test()}}
+{\footnotesize\ttfamily int memtest\+\_\+test (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{m,  }\item[{size\+\_\+t}]{bytes,  }\item[{int}]{passes,  }\item[{int}]{interactive }\end{DoxyParamCaption})}
+
+
+
+Definition at line 237 of file memtest.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{memtest_8c_a7520330b330635dcd820071b37a852ac}\label{memtest_8c_a7520330b330635dcd820071b37a852ac}} 
+\index{memtest.\+c@{memtest.\+c}!progress\+\_\+full@{progress\+\_\+full}}
+\index{progress\+\_\+full@{progress\+\_\+full}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{progress\+\_\+full}{progress\_full}}
+{\footnotesize\ttfamily size\+\_\+t progress\+\_\+full}
+
+
+
+Definition at line 61 of file memtest.\+c.
+
+\mbox{\Hypertarget{memtest_8c_a651affc8e026846de5fe50222d7da883}\label{memtest_8c_a651affc8e026846de5fe50222d7da883}} 
+\index{memtest.\+c@{memtest.\+c}!progress\+\_\+printed@{progress\+\_\+printed}}
+\index{progress\+\_\+printed@{progress\+\_\+printed}!memtest.\+c@{memtest.\+c}}
+\subsubsection{\texorpdfstring{progress\+\_\+printed}{progress\_printed}}
+{\footnotesize\ttfamily size\+\_\+t progress\+\_\+printed}
+
+
+
+Definition at line 60 of file memtest.\+c.
+

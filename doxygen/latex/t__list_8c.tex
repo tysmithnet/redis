@@ -1,0 +1,437 @@
+\hypertarget{t__list_8c}{}\section{src/t\+\_\+list.c File Reference}
+\label{t__list_8c}\index{src/t\+\_\+list.\+c@{src/t\+\_\+list.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+Include dependency graph for t\+\_\+list.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{t__list_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{t__list_8c_a38cd912a67b25d70bcd80527e1a40d26}{list\+Type\+Push} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$subject, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$value, int where)
+\item 
+void $\ast$ \hyperlink{t__list_8c_ae48a42b87f7785e8bf047cf454debfc5}{list\+Pop\+Saver} (unsigned char $\ast$data, unsigned int sz)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{t__list_8c_a01d9d200a6479d61b8eda0427d879b19}{list\+Type\+Pop} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$subject, int where)
+\item 
+unsigned long \hyperlink{t__list_8c_a2ad6eb16d4bd29b22103baa479aaa732}{list\+Type\+Length} (const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$subject)
+\item 
+\hyperlink{structlist_type_iterator}{list\+Type\+Iterator} $\ast$ \hyperlink{t__list_8c_ae4389b1d6b79b22856e4ca6a678204eb}{list\+Type\+Init\+Iterator} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$subject, long index, unsigned char direction)
+\item 
+void \hyperlink{t__list_8c_aae224329e95d14d74e9856b124611d4e}{list\+Type\+Release\+Iterator} (\hyperlink{structlist_type_iterator}{list\+Type\+Iterator} $\ast$li)
+\item 
+int \hyperlink{t__list_8c_aced95e200022cb72c2e5c0a22ad635b8}{list\+Type\+Next} (\hyperlink{structlist_type_iterator}{list\+Type\+Iterator} $\ast$li, \hyperlink{structlist_type_entry}{list\+Type\+Entry} $\ast$entry)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{t__list_8c_a12b2987f6bca551b2e84fe97e21c93b1}{list\+Type\+Get} (\hyperlink{structlist_type_entry}{list\+Type\+Entry} $\ast$entry)
+\item 
+void \hyperlink{t__list_8c_aebd74b3c10c422412dcf8db34dd37d05}{list\+Type\+Insert} (\hyperlink{structlist_type_entry}{list\+Type\+Entry} $\ast$entry, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$value, int where)
+\item 
+int \hyperlink{t__list_8c_a318b6bae6f1a280c45bd9d9b7be89bde}{list\+Type\+Equal} (\hyperlink{structlist_type_entry}{list\+Type\+Entry} $\ast$entry, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{t__list_8c_afd2b05794efb04b5493ff8f89301ca84}{list\+Type\+Delete} (\hyperlink{structlist_type_iterator}{list\+Type\+Iterator} $\ast$iter, \hyperlink{structlist_type_entry}{list\+Type\+Entry} $\ast$entry)
+\item 
+void \hyperlink{t__list_8c_a2719aed3bdb8c9bdfbe6e2f9d04c2089}{list\+Type\+Convert} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$subject, int enc)
+\item 
+void \hyperlink{t__list_8c_addd10b9586a130c9be71842fc02faea8}{push\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int where)
+\item 
+void \hyperlink{t__list_8c_ad24e9bc40b2e7ebcb22efaca39b0f4ee}{lpush\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_aa0c827caa37aa713be68e285c0c14104}{rpush\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_ad347484394e711428db2c161e4e6dc28}{pushx\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int where)
+\item 
+void \hyperlink{t__list_8c_a16aed28fce864ad4403a609dc8456ea5}{lpushx\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_a7f53193adb63ba79f34d39439fcf9621}{rpushx\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_aab4fb79f7d4462edc3409f47b30a1e14}{linsert\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_aa3ba8e5baa37a74455b598dea729afa3}{llen\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_ae87bf05241efb6cf0ed6cc7bb7068a96}{lindex\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_a7a804fd4614bb512d4a04bf4c9ed0ce3}{lset\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_a2ad45fce04c23f39d6d69649f0c4ae8d}{pop\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int where)
+\item 
+void \hyperlink{t__list_8c_a7f01b7200b32817202b3fe357b74dbc5}{lpop\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_a2c47065029081b2deb64cf58fa07459f}{rpop\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_a163b0c739289c1a4fd117af7bd8e0ff1}{lrange\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_a50ebe1be63a259b7c9b0583a0790e15b}{ltrim\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_ad9887134ab0f5a756b866adf77ed93b3}{lrem\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_a50b3693d51ed6a4f10519115af904237}{rpoplpush\+Handle\+Push} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$dstkey, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$dstobj, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$value)
+\item 
+void \hyperlink{t__list_8c_a7fdc7df0e6f17449d8c5858ddda95f67}{rpoplpush\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{t__list_8c_acee54087c0a6ead910e3563d56662e51}{serve\+Client\+Blocked\+On\+List} (\hyperlink{structclient}{client} $\ast$receiver, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$dstkey, \hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$value, int where)
+\item 
+void \hyperlink{t__list_8c_ad57f6d87fb45f12159080bcce131a435}{blocking\+Pop\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int where)
+\item 
+void \hyperlink{t__list_8c_aac60533b8974a80cbba84fa83cefadba}{blpop\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_a4c87bb6cabee0992ae46e8ce3a4617f7}{brpop\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__list_8c_a746ad828ffb5e77f774223ae18849b09}{brpoplpush\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{t__list_8c_ad57f6d87fb45f12159080bcce131a435}\label{t__list_8c_ad57f6d87fb45f12159080bcce131a435}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!blocking\+Pop\+Generic\+Command@{blocking\+Pop\+Generic\+Command}}
+\index{blocking\+Pop\+Generic\+Command@{blocking\+Pop\+Generic\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{blocking\+Pop\+Generic\+Command()}{blockingPopGenericCommand()}}
+{\footnotesize\ttfamily void blocking\+Pop\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{where }\end{DoxyParamCaption})}
+
+
+
+Definition at line 686 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_aac60533b8974a80cbba84fa83cefadba}\label{t__list_8c_aac60533b8974a80cbba84fa83cefadba}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!blpop\+Command@{blpop\+Command}}
+\index{blpop\+Command@{blpop\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{blpop\+Command()}{blpopCommand()}}
+{\footnotesize\ttfamily void blpop\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 742 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a4c87bb6cabee0992ae46e8ce3a4617f7}\label{t__list_8c_a4c87bb6cabee0992ae46e8ce3a4617f7}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!brpop\+Command@{brpop\+Command}}
+\index{brpop\+Command@{brpop\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{brpop\+Command()}{brpopCommand()}}
+{\footnotesize\ttfamily void brpop\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 746 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a746ad828ffb5e77f774223ae18849b09}\label{t__list_8c_a746ad828ffb5e77f774223ae18849b09}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!brpoplpush\+Command@{brpoplpush\+Command}}
+\index{brpoplpush\+Command@{brpoplpush\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{brpoplpush\+Command()}{brpoplpushCommand()}}
+{\footnotesize\ttfamily void brpoplpush\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 750 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_ae87bf05241efb6cf0ed6cc7bb7068a96}\label{t__list_8c_ae87bf05241efb6cf0ed6cc7bb7068a96}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!lindex\+Command@{lindex\+Command}}
+\index{lindex\+Command@{lindex\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{lindex\+Command()}{lindexCommand()}}
+{\footnotesize\ttfamily void lindex\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 314 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_aab4fb79f7d4462edc3409f47b30a1e14}\label{t__list_8c_aab4fb79f7d4462edc3409f47b30a1e14}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!linsert\+Command@{linsert\+Command}}
+\index{linsert\+Command@{linsert\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{linsert\+Command()}{linsertCommand()}}
+{\footnotesize\ttfamily void linsert\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 264 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_ae48a42b87f7785e8bf047cf454debfc5}\label{t__list_8c_ae48a42b87f7785e8bf047cf454debfc5}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!list\+Pop\+Saver@{list\+Pop\+Saver}}
+\index{list\+Pop\+Saver@{list\+Pop\+Saver}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{list\+Pop\+Saver()}{listPopSaver()}}
+{\footnotesize\ttfamily void$\ast$ list\+Pop\+Saver (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{data,  }\item[{unsigned int}]{sz }\end{DoxyParamCaption})}
+
+
+
+Definition at line 53 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a2719aed3bdb8c9bdfbe6e2f9d04c2089}\label{t__list_8c_a2719aed3bdb8c9bdfbe6e2f9d04c2089}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!list\+Type\+Convert@{list\+Type\+Convert}}
+\index{list\+Type\+Convert@{list\+Type\+Convert}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{list\+Type\+Convert()}{listTypeConvert()}}
+{\footnotesize\ttfamily void list\+Type\+Convert (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{subject,  }\item[{int}]{enc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 179 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_afd2b05794efb04b5493ff8f89301ca84}\label{t__list_8c_afd2b05794efb04b5493ff8f89301ca84}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!list\+Type\+Delete@{list\+Type\+Delete}}
+\index{list\+Type\+Delete@{list\+Type\+Delete}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{list\+Type\+Delete()}{listTypeDelete()}}
+{\footnotesize\ttfamily void list\+Type\+Delete (\begin{DoxyParamCaption}\item[{\hyperlink{structlist_type_iterator}{list\+Type\+Iterator} $\ast$}]{iter,  }\item[{\hyperlink{structlist_type_entry}{list\+Type\+Entry} $\ast$}]{entry }\end{DoxyParamCaption})}
+
+
+
+Definition at line 170 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a318b6bae6f1a280c45bd9d9b7be89bde}\label{t__list_8c_a318b6bae6f1a280c45bd9d9b7be89bde}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!list\+Type\+Equal@{list\+Type\+Equal}}
+\index{list\+Type\+Equal@{list\+Type\+Equal}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{list\+Type\+Equal()}{listTypeEqual()}}
+{\footnotesize\ttfamily int list\+Type\+Equal (\begin{DoxyParamCaption}\item[{\hyperlink{structlist_type_entry}{list\+Type\+Entry} $\ast$}]{entry,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 160 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a12b2987f6bca551b2e84fe97e21c93b1}\label{t__list_8c_a12b2987f6bca551b2e84fe97e21c93b1}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!list\+Type\+Get@{list\+Type\+Get}}
+\index{list\+Type\+Get@{list\+Type\+Get}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{list\+Type\+Get()}{listTypeGet()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ list\+Type\+Get (\begin{DoxyParamCaption}\item[{\hyperlink{structlist_type_entry}{list\+Type\+Entry} $\ast$}]{entry }\end{DoxyParamCaption})}
+
+
+
+Definition at line 126 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_ae4389b1d6b79b22856e4ca6a678204eb}\label{t__list_8c_ae4389b1d6b79b22856e4ca6a678204eb}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!list\+Type\+Init\+Iterator@{list\+Type\+Init\+Iterator}}
+\index{list\+Type\+Init\+Iterator@{list\+Type\+Init\+Iterator}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{list\+Type\+Init\+Iterator()}{listTypeInitIterator()}}
+{\footnotesize\ttfamily \hyperlink{structlist_type_iterator}{list\+Type\+Iterator}$\ast$ list\+Type\+Init\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{subject,  }\item[{long}]{index,  }\item[{unsigned char}]{direction }\end{DoxyParamCaption})}
+
+
+
+Definition at line 83 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_aebd74b3c10c422412dcf8db34dd37d05}\label{t__list_8c_aebd74b3c10c422412dcf8db34dd37d05}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!list\+Type\+Insert@{list\+Type\+Insert}}
+\index{list\+Type\+Insert@{list\+Type\+Insert}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{list\+Type\+Insert()}{listTypeInsert()}}
+{\footnotesize\ttfamily void list\+Type\+Insert (\begin{DoxyParamCaption}\item[{\hyperlink{structlist_type_entry}{list\+Type\+Entry} $\ast$}]{entry,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{value,  }\item[{int}]{where }\end{DoxyParamCaption})}
+
+
+
+Definition at line 141 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a2ad6eb16d4bd29b22103baa479aaa732}\label{t__list_8c_a2ad6eb16d4bd29b22103baa479aaa732}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!list\+Type\+Length@{list\+Type\+Length}}
+\index{list\+Type\+Length@{list\+Type\+Length}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{list\+Type\+Length()}{listTypeLength()}}
+{\footnotesize\ttfamily unsigned long list\+Type\+Length (\begin{DoxyParamCaption}\item[{const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{subject }\end{DoxyParamCaption})}
+
+
+
+Definition at line 74 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_aced95e200022cb72c2e5c0a22ad635b8}\label{t__list_8c_aced95e200022cb72c2e5c0a22ad635b8}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!list\+Type\+Next@{list\+Type\+Next}}
+\index{list\+Type\+Next@{list\+Type\+Next}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{list\+Type\+Next()}{listTypeNext()}}
+{\footnotesize\ttfamily int list\+Type\+Next (\begin{DoxyParamCaption}\item[{\hyperlink{structlist_type_iterator}{list\+Type\+Iterator} $\ast$}]{li,  }\item[{\hyperlink{structlist_type_entry}{list\+Type\+Entry} $\ast$}]{entry }\end{DoxyParamCaption})}
+
+
+
+Definition at line 112 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a01d9d200a6479d61b8eda0427d879b19}\label{t__list_8c_a01d9d200a6479d61b8eda0427d879b19}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!list\+Type\+Pop@{list\+Type\+Pop}}
+\index{list\+Type\+Pop@{list\+Type\+Pop}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{list\+Type\+Pop()}{listTypePop()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ list\+Type\+Pop (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{subject,  }\item[{int}]{where }\end{DoxyParamCaption})}
+
+
+
+Definition at line 57 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a38cd912a67b25d70bcd80527e1a40d26}\label{t__list_8c_a38cd912a67b25d70bcd80527e1a40d26}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!list\+Type\+Push@{list\+Type\+Push}}
+\index{list\+Type\+Push@{list\+Type\+Push}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{list\+Type\+Push()}{listTypePush()}}
+{\footnotesize\ttfamily void list\+Type\+Push (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{subject,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{value,  }\item[{int}]{where }\end{DoxyParamCaption})}
+
+
+
+Definition at line 41 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_aae224329e95d14d74e9856b124611d4e}\label{t__list_8c_aae224329e95d14d74e9856b124611d4e}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!list\+Type\+Release\+Iterator@{list\+Type\+Release\+Iterator}}
+\index{list\+Type\+Release\+Iterator@{list\+Type\+Release\+Iterator}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{list\+Type\+Release\+Iterator()}{listTypeReleaseIterator()}}
+{\footnotesize\ttfamily void list\+Type\+Release\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{structlist_type_iterator}{list\+Type\+Iterator} $\ast$}]{li }\end{DoxyParamCaption})}
+
+
+
+Definition at line 104 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_aa3ba8e5baa37a74455b598dea729afa3}\label{t__list_8c_aa3ba8e5baa37a74455b598dea729afa3}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!llen\+Command@{llen\+Command}}
+\index{llen\+Command@{llen\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{llen\+Command()}{llenCommand()}}
+{\footnotesize\ttfamily void llen\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 308 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a7f01b7200b32817202b3fe357b74dbc5}\label{t__list_8c_a7f01b7200b32817202b3fe357b74dbc5}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!lpop\+Command@{lpop\+Command}}
+\index{lpop\+Command@{lpop\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{lpop\+Command()}{lpopCommand()}}
+{\footnotesize\ttfamily void lpop\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 390 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_ad24e9bc40b2e7ebcb22efaca39b0f4ee}\label{t__list_8c_ad24e9bc40b2e7ebcb22efaca39b0f4ee}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!lpush\+Command@{lpush\+Command}}
+\index{lpush\+Command@{lpush\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{lpush\+Command()}{lpushCommand()}}
+{\footnotesize\ttfamily void lpush\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 226 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a16aed28fce864ad4403a609dc8456ea5}\label{t__list_8c_a16aed28fce864ad4403a609dc8456ea5}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!lpushx\+Command@{lpushx\+Command}}
+\index{lpushx\+Command@{lpushx\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{lpushx\+Command()}{lpushxCommand()}}
+{\footnotesize\ttfamily void lpushx\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 256 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a163b0c739289c1a4fd117af7bd8e0ff1}\label{t__list_8c_a163b0c739289c1a4fd117af7bd8e0ff1}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!lrange\+Command@{lrange\+Command}}
+\index{lrange\+Command@{lrange\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{lrange\+Command()}{lrangeCommand()}}
+{\footnotesize\ttfamily void lrange\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 398 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_ad9887134ab0f5a756b866adf77ed93b3}\label{t__list_8c_ad9887134ab0f5a756b866adf77ed93b3}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!lrem\+Command@{lrem\+Command}}
+\index{lrem\+Command@{lrem\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{lrem\+Command()}{lremCommand()}}
+{\footnotesize\ttfamily void lrem\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 490 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a7a804fd4614bb512d4a04bf4c9ed0ce3}\label{t__list_8c_a7a804fd4614bb512d4a04bf4c9ed0ce3}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!lset\+Command@{lset\+Command}}
+\index{lset\+Command@{lset\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{lset\+Command()}{lsetCommand()}}
+{\footnotesize\ttfamily void lset\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 341 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a50ebe1be63a259b7c9b0583a0790e15b}\label{t__list_8c_a50ebe1be63a259b7c9b0583a0790e15b}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!ltrim\+Command@{ltrim\+Command}}
+\index{ltrim\+Command@{ltrim\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{ltrim\+Command()}{ltrimCommand()}}
+{\footnotesize\ttfamily void ltrim\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 444 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a2ad45fce04c23f39d6d69649f0c4ae8d}\label{t__list_8c_a2ad45fce04c23f39d6d69649f0c4ae8d}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!pop\+Generic\+Command@{pop\+Generic\+Command}}
+\index{pop\+Generic\+Command@{pop\+Generic\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{pop\+Generic\+Command()}{popGenericCommand()}}
+{\footnotesize\ttfamily void pop\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{where }\end{DoxyParamCaption})}
+
+
+
+Definition at line 367 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_addd10b9586a130c9be71842fc02faea8}\label{t__list_8c_addd10b9586a130c9be71842fc02faea8}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!push\+Generic\+Command@{push\+Generic\+Command}}
+\index{push\+Generic\+Command@{push\+Generic\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{push\+Generic\+Command()}{pushGenericCommand()}}
+{\footnotesize\ttfamily void push\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{where }\end{DoxyParamCaption})}
+
+
+
+Definition at line 197 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_ad347484394e711428db2c161e4e6dc28}\label{t__list_8c_ad347484394e711428db2c161e4e6dc28}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!pushx\+Generic\+Command@{pushx\+Generic\+Command}}
+\index{pushx\+Generic\+Command@{pushx\+Generic\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{pushx\+Generic\+Command()}{pushxGenericCommand()}}
+{\footnotesize\ttfamily void pushx\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{where }\end{DoxyParamCaption})}
+
+
+
+Definition at line 234 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a2c47065029081b2deb64cf58fa07459f}\label{t__list_8c_a2c47065029081b2deb64cf58fa07459f}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!rpop\+Command@{rpop\+Command}}
+\index{rpop\+Command@{rpop\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{rpop\+Command()}{rpopCommand()}}
+{\footnotesize\ttfamily void rpop\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 394 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a7fdc7df0e6f17449d8c5858ddda95f67}\label{t__list_8c_a7fdc7df0e6f17449d8c5858ddda95f67}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!rpoplpush\+Command@{rpoplpush\+Command}}
+\index{rpoplpush\+Command@{rpoplpush\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{rpoplpush\+Command()}{rpoplpushCommand()}}
+{\footnotesize\ttfamily void rpoplpush\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 565 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a50b3693d51ed6a4f10519115af904237}\label{t__list_8c_a50b3693d51ed6a4f10519115af904237}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!rpoplpush\+Handle\+Push@{rpoplpush\+Handle\+Push}}
+\index{rpoplpush\+Handle\+Push@{rpoplpush\+Handle\+Push}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{rpoplpush\+Handle\+Push()}{rpoplpushHandlePush()}}
+{\footnotesize\ttfamily void rpoplpush\+Handle\+Push (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{dstkey,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{dstobj,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 550 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_aa0c827caa37aa713be68e285c0c14104}\label{t__list_8c_aa0c827caa37aa713be68e285c0c14104}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!rpush\+Command@{rpush\+Command}}
+\index{rpush\+Command@{rpush\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{rpush\+Command()}{rpushCommand()}}
+{\footnotesize\ttfamily void rpush\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 230 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_a7f53193adb63ba79f34d39439fcf9621}\label{t__list_8c_a7f53193adb63ba79f34d39439fcf9621}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!rpushx\+Command@{rpushx\+Command}}
+\index{rpushx\+Command@{rpushx\+Command}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{rpushx\+Command()}{rpushxCommand()}}
+{\footnotesize\ttfamily void rpushx\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 260 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{t__list_8c_acee54087c0a6ead910e3563d56662e51}\label{t__list_8c_acee54087c0a6ead910e3563d56662e51}} 
+\index{t\+\_\+list.\+c@{t\+\_\+list.\+c}!serve\+Client\+Blocked\+On\+List@{serve\+Client\+Blocked\+On\+List}}
+\index{serve\+Client\+Blocked\+On\+List@{serve\+Client\+Blocked\+On\+List}!t\+\_\+list.\+c@{t\+\_\+list.\+c}}
+\subsubsection{\texorpdfstring{serve\+Client\+Blocked\+On\+List()}{serveClientBlockedOnList()}}
+{\footnotesize\ttfamily int serve\+Client\+Blocked\+On\+List (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{receiver,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{dstkey,  }\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{value,  }\item[{int}]{where }\end{DoxyParamCaption})}
+
+
+
+Definition at line 628 of file t\+\_\+list.\+c.
+

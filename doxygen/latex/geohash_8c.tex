@@ -1,0 +1,149 @@
+\hypertarget{geohash_8c}{}\section{src/geohash.c File Reference}
+\label{geohash_8c}\index{src/geohash.\+c@{src/geohash.\+c}}
+{\ttfamily \#include \char`\"{}geohash.\+h\char`\"{}}\newline
+Include dependency graph for geohash.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{geohash_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{geohash_8c_a9bf036d7070a97ccd845af7b2fe9209d}{geohash\+Get\+Coord\+Range} (\hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$long\+\_\+range, \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$lat\+\_\+range)
+\item 
+int \hyperlink{geohash_8c_ac2ea1a7c7690dda982ac2c078853ffec}{geohash\+Encode} (const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$long\+\_\+range, const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$lat\+\_\+range, double longitude, double latitude, uint8\+\_\+t step, \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$hash)
+\item 
+int \hyperlink{geohash_8c_a0ad2a287d742a780d3c21dd47d100eab}{geohash\+Encode\+Type} (double longitude, double latitude, uint8\+\_\+t step, \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$hash)
+\item 
+int \hyperlink{geohash_8c_a12dfaa93c6549b235593e25e9dd49229}{geohash\+Encode\+W\+G\+S84} (double longitude, double latitude, uint8\+\_\+t step, \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$hash)
+\item 
+int \hyperlink{geohash_8c_a9d0c66bc0446324364f9710b0792a332}{geohash\+Decode} (const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} long\+\_\+range, const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} lat\+\_\+range, const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash, \hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$area)
+\item 
+int \hyperlink{geohash_8c_a53580aec664d93f1bdbf95b406c05d2d}{geohash\+Decode\+Type} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash, \hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$area)
+\item 
+int \hyperlink{geohash_8c_a7da59855eb0522c9e5fba1e20d8bdf40}{geohash\+Decode\+W\+G\+S84} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash, \hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$area)
+\item 
+int \hyperlink{geohash_8c_a899189c910bf3bd8dbb4d5e286ac6d68}{geohash\+Decode\+Area\+To\+Long\+Lat} (const \hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$area, double $\ast$xy)
+\item 
+int \hyperlink{geohash_8c_a8ebdc161599f7724724ac75ee42d81f3}{geohash\+Decode\+To\+Long\+Lat\+Type} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash, double $\ast$xy)
+\item 
+int \hyperlink{geohash_8c_a5a00967d72b44e212021e16b6054cb95}{geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash, double $\ast$xy)
+\item 
+void \hyperlink{geohash_8c_a4fb9cba01031ddac9332d8f5ffd14a45}{geohash\+Neighbors} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$hash, \hyperlink{struct_geo_hash_neighbors}{Geo\+Hash\+Neighbors} $\ast$neighbors)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{geohash_8c_a9d0c66bc0446324364f9710b0792a332}\label{geohash_8c_a9d0c66bc0446324364f9710b0792a332}} 
+\index{geohash.\+c@{geohash.\+c}!geohash\+Decode@{geohash\+Decode}}
+\index{geohash\+Decode@{geohash\+Decode}!geohash.\+c@{geohash.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Decode()}{geohashDecode()}}
+{\footnotesize\ttfamily int geohash\+Decode (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range}}]{long\+\_\+range,  }\item[{const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range}}]{lat\+\_\+range,  }\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash,  }\item[{\hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$}]{area }\end{DoxyParamCaption})}
+
+
+
+Definition at line 164 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8c_a899189c910bf3bd8dbb4d5e286ac6d68}\label{geohash_8c_a899189c910bf3bd8dbb4d5e286ac6d68}} 
+\index{geohash.\+c@{geohash.\+c}!geohash\+Decode\+Area\+To\+Long\+Lat@{geohash\+Decode\+Area\+To\+Long\+Lat}}
+\index{geohash\+Decode\+Area\+To\+Long\+Lat@{geohash\+Decode\+Area\+To\+Long\+Lat}!geohash.\+c@{geohash.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Decode\+Area\+To\+Long\+Lat()}{geohashDecodeAreaToLongLat()}}
+{\footnotesize\ttfamily int geohash\+Decode\+Area\+To\+Long\+Lat (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$}]{area,  }\item[{double $\ast$}]{xy }\end{DoxyParamCaption})}
+
+
+
+Definition at line 206 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8c_a8ebdc161599f7724724ac75ee42d81f3}\label{geohash_8c_a8ebdc161599f7724724ac75ee42d81f3}} 
+\index{geohash.\+c@{geohash.\+c}!geohash\+Decode\+To\+Long\+Lat\+Type@{geohash\+Decode\+To\+Long\+Lat\+Type}}
+\index{geohash\+Decode\+To\+Long\+Lat\+Type@{geohash\+Decode\+To\+Long\+Lat\+Type}!geohash.\+c@{geohash.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Decode\+To\+Long\+Lat\+Type()}{geohashDecodeToLongLatType()}}
+{\footnotesize\ttfamily int geohash\+Decode\+To\+Long\+Lat\+Type (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash,  }\item[{double $\ast$}]{xy }\end{DoxyParamCaption})}
+
+
+
+Definition at line 213 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8c_a5a00967d72b44e212021e16b6054cb95}\label{geohash_8c_a5a00967d72b44e212021e16b6054cb95}} 
+\index{geohash.\+c@{geohash.\+c}!geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84@{geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84}}
+\index{geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84@{geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84}!geohash.\+c@{geohash.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84()}{geohashDecodeToLongLatWGS84()}}
+{\footnotesize\ttfamily int geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84 (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash,  }\item[{double $\ast$}]{xy }\end{DoxyParamCaption})}
+
+
+
+Definition at line 220 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8c_a53580aec664d93f1bdbf95b406c05d2d}\label{geohash_8c_a53580aec664d93f1bdbf95b406c05d2d}} 
+\index{geohash.\+c@{geohash.\+c}!geohash\+Decode\+Type@{geohash\+Decode\+Type}}
+\index{geohash\+Decode\+Type@{geohash\+Decode\+Type}!geohash.\+c@{geohash.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Decode\+Type()}{geohashDecodeType()}}
+{\footnotesize\ttfamily int geohash\+Decode\+Type (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash,  }\item[{\hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$}]{area }\end{DoxyParamCaption})}
+
+
+
+Definition at line 196 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8c_a7da59855eb0522c9e5fba1e20d8bdf40}\label{geohash_8c_a7da59855eb0522c9e5fba1e20d8bdf40}} 
+\index{geohash.\+c@{geohash.\+c}!geohash\+Decode\+W\+G\+S84@{geohash\+Decode\+W\+G\+S84}}
+\index{geohash\+Decode\+W\+G\+S84@{geohash\+Decode\+W\+G\+S84}!geohash.\+c@{geohash.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Decode\+W\+G\+S84()}{geohashDecodeWGS84()}}
+{\footnotesize\ttfamily int geohash\+Decode\+W\+G\+S84 (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash,  }\item[{\hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$}]{area }\end{DoxyParamCaption})}
+
+
+
+Definition at line 202 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8c_ac2ea1a7c7690dda982ac2c078853ffec}\label{geohash_8c_ac2ea1a7c7690dda982ac2c078853ffec}} 
+\index{geohash.\+c@{geohash.\+c}!geohash\+Encode@{geohash\+Encode}}
+\index{geohash\+Encode@{geohash\+Encode}!geohash.\+c@{geohash.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Encode()}{geohashEncode()}}
+{\footnotesize\ttfamily int geohash\+Encode (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$}]{long\+\_\+range,  }\item[{const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$}]{lat\+\_\+range,  }\item[{double}]{longitude,  }\item[{double}]{latitude,  }\item[{uint8\+\_\+t}]{step,  }\item[{\hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$}]{hash }\end{DoxyParamCaption})}
+
+
+
+Definition at line 121 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8c_a0ad2a287d742a780d3c21dd47d100eab}\label{geohash_8c_a0ad2a287d742a780d3c21dd47d100eab}} 
+\index{geohash.\+c@{geohash.\+c}!geohash\+Encode\+Type@{geohash\+Encode\+Type}}
+\index{geohash\+Encode\+Type@{geohash\+Encode\+Type}!geohash.\+c@{geohash.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Encode\+Type()}{geohashEncodeType()}}
+{\footnotesize\ttfamily int geohash\+Encode\+Type (\begin{DoxyParamCaption}\item[{double}]{longitude,  }\item[{double}]{latitude,  }\item[{uint8\+\_\+t}]{step,  }\item[{\hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$}]{hash }\end{DoxyParamCaption})}
+
+
+
+Definition at line 153 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8c_a12dfaa93c6549b235593e25e9dd49229}\label{geohash_8c_a12dfaa93c6549b235593e25e9dd49229}} 
+\index{geohash.\+c@{geohash.\+c}!geohash\+Encode\+W\+G\+S84@{geohash\+Encode\+W\+G\+S84}}
+\index{geohash\+Encode\+W\+G\+S84@{geohash\+Encode\+W\+G\+S84}!geohash.\+c@{geohash.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Encode\+W\+G\+S84()}{geohashEncodeWGS84()}}
+{\footnotesize\ttfamily int geohash\+Encode\+W\+G\+S84 (\begin{DoxyParamCaption}\item[{double}]{longitude,  }\item[{double}]{latitude,  }\item[{uint8\+\_\+t}]{step,  }\item[{\hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$}]{hash }\end{DoxyParamCaption})}
+
+
+
+Definition at line 159 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8c_a9bf036d7070a97ccd845af7b2fe9209d}\label{geohash_8c_a9bf036d7070a97ccd845af7b2fe9209d}} 
+\index{geohash.\+c@{geohash.\+c}!geohash\+Get\+Coord\+Range@{geohash\+Get\+Coord\+Range}}
+\index{geohash\+Get\+Coord\+Range@{geohash\+Get\+Coord\+Range}!geohash.\+c@{geohash.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Get\+Coord\+Range()}{geohashGetCoordRange()}}
+{\footnotesize\ttfamily void geohash\+Get\+Coord\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$}]{long\+\_\+range,  }\item[{\hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$}]{lat\+\_\+range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 112 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8c_a4fb9cba01031ddac9332d8f5ffd14a45}\label{geohash_8c_a4fb9cba01031ddac9332d8f5ffd14a45}} 
+\index{geohash.\+c@{geohash.\+c}!geohash\+Neighbors@{geohash\+Neighbors}}
+\index{geohash\+Neighbors@{geohash\+Neighbors}!geohash.\+c@{geohash.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Neighbors()}{geohashNeighbors()}}
+{\footnotesize\ttfamily void geohash\+Neighbors (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$}]{hash,  }\item[{\hyperlink{struct_geo_hash_neighbors}{Geo\+Hash\+Neighbors} $\ast$}]{neighbors }\end{DoxyParamCaption})}
+
+
+
+Definition at line 262 of file geohash.\+c.
+

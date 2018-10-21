@@ -1,0 +1,83 @@
+\hypertarget{structzskiplist_node}{}\section{zskiplist\+Node Struct Reference}
+\label{structzskiplist_node}\index{zskiplist\+Node@{zskiplist\+Node}}
+
+
+{\ttfamily \#include $<$server.\+h$>$}
+
+
+
+Collaboration diagram for zskiplist\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{structzskiplist_node__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structzskiplist_node_1_1zskiplist_level}{zskiplist\+Level}
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{structzskiplist_node_ac99cd495189c228ff8d538f04489805e}{ele}
+\item 
+double \hyperlink{structzskiplist_node_a40a24ec85daa9ac70aa74e4ca744f838}{score}
+\item 
+struct \hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$ \hyperlink{structzskiplist_node_a060155bb4ea50dabba713eac3451d80e}{backward}
+\item 
+struct \hyperlink{structzskiplist_node_1_1zskiplist_level}{zskiplist\+Node\+::zskiplist\+Level} \hyperlink{structzskiplist_node_ab6e002b167ff0de655b16debe293180c}{level} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 796 of file server.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structzskiplist_node_a060155bb4ea50dabba713eac3451d80e}\label{structzskiplist_node_a060155bb4ea50dabba713eac3451d80e}} 
+\index{zskiplist\+Node@{zskiplist\+Node}!backward@{backward}}
+\index{backward@{backward}!zskiplist\+Node@{zskiplist\+Node}}
+\subsubsection{\texorpdfstring{backward}{backward}}
+{\footnotesize\ttfamily struct \hyperlink{structzskiplist_node}{zskiplist\+Node}$\ast$ backward}
+
+
+
+Definition at line 799 of file server.\+h.
+
+\mbox{\Hypertarget{structzskiplist_node_ac99cd495189c228ff8d538f04489805e}\label{structzskiplist_node_ac99cd495189c228ff8d538f04489805e}} 
+\index{zskiplist\+Node@{zskiplist\+Node}!ele@{ele}}
+\index{ele@{ele}!zskiplist\+Node@{zskiplist\+Node}}
+\subsubsection{\texorpdfstring{ele}{ele}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ele}
+
+
+
+Definition at line 797 of file server.\+h.
+
+\mbox{\Hypertarget{structzskiplist_node_ab6e002b167ff0de655b16debe293180c}\label{structzskiplist_node_ab6e002b167ff0de655b16debe293180c}} 
+\index{zskiplist\+Node@{zskiplist\+Node}!level@{level}}
+\index{level@{level}!zskiplist\+Node@{zskiplist\+Node}}
+\subsubsection{\texorpdfstring{level}{level}}
+{\footnotesize\ttfamily struct \hyperlink{structzskiplist_node_1_1zskiplist_level}{zskiplist\+Node\+::zskiplist\+Level}  level\mbox{[}$\,$\mbox{]}}
+
+\mbox{\Hypertarget{structzskiplist_node_a40a24ec85daa9ac70aa74e4ca744f838}\label{structzskiplist_node_a40a24ec85daa9ac70aa74e4ca744f838}} 
+\index{zskiplist\+Node@{zskiplist\+Node}!score@{score}}
+\index{score@{score}!zskiplist\+Node@{zskiplist\+Node}}
+\subsubsection{\texorpdfstring{score}{score}}
+{\footnotesize\ttfamily double score}
+
+
+
+Definition at line 798 of file server.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{server_8h}{server.\+h}\end{DoxyCompactItemize}

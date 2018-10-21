@@ -1,0 +1,801 @@
+\hypertarget{db_8c}{}\section{src/db.c File Reference}
+\label{db_8c}\index{src/db.\+c@{src/db.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}cluster.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}atomicvar.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+Include dependency graph for db.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{db_8c_aa649586d63cf263591928da0583034a8}{update\+L\+FU} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$val)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{db_8c_ad7377c794817aa8caa65e0713f15ec9e}{lookup\+Key} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, int flags)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{db_8c_a4baf92c0efeb5aed145529bc56c38938}{lookup\+Key\+Read\+With\+Flags} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, int flags)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{db_8c_a827c3050b091b34bfe06d3a2371d2ec9}{lookup\+Key\+Read} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{db_8c_a801525df8865e0b1f061a60216e9aa5a}{lookup\+Key\+Write} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{db_8c_a94ce11e99057a8c9e2dc76827c48977e}{lookup\+Key\+Read\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$reply)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{db_8c_a3bcb5da777a8e153f90a68dee43b352f}{lookup\+Key\+Write\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$reply)
+\item 
+void \hyperlink{db_8c_acf627c788ed0bacbf3d74d1f98b9fb57}{db\+Add} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$val)
+\item 
+void \hyperlink{db_8c_aff7f7cac1e38ea11de66c916e07e583e}{db\+Overwrite} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$val)
+\item 
+void \hyperlink{db_8c_aa52d48b35c6a52527e02b8d1faedf55b}{set\+Key} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$val)
+\item 
+int \hyperlink{db_8c_aea88ff9c343203bab2b88152c7a3b83e}{db\+Exists} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{db_8c_a09c85999ea203bda2e835769cee4bcf1}{db\+Random\+Key} (\hyperlink{structredis_db}{redis\+Db} $\ast$db)
+\item 
+int \hyperlink{db_8c_a974c4c41a4ee3fec1f5f0ee76f51251d}{db\+Sync\+Delete} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+int \hyperlink{db_8c_adb2d8ff0679d0e8acf5b888597bae757}{db\+Delete} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{db_8c_a371fb9fa6b35ef6d3ebfe8e1025594b1}{db\+Unshare\+String\+Value} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+long long \hyperlink{db_8c_a054e42a4e1581eedff319238a9dbf8c6}{empty\+Db} (int dbnum, int flags, void(callback)(void $\ast$))
+\item 
+int \hyperlink{db_8c_ae0275c60dde397ac9fe73946abd6d972}{select\+Db} (\hyperlink{structclient}{client} $\ast$c, int id)
+\item 
+void \hyperlink{db_8c_a355ed4af527878e741e3956f37876aa4}{signal\+Modified\+Key} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+void \hyperlink{db_8c_a0bf073dd4b543bda061a19a2a77dfb00}{signal\+Flushed\+Db} (int dbid)
+\item 
+int \hyperlink{db_8c_ada04e8dacc2772af0cfbc76d813a49ab}{get\+Flush\+Command\+Flags} (\hyperlink{structclient}{client} $\ast$c, int $\ast$flags)
+\item 
+void \hyperlink{db_8c_a47000c62451a737c56a464e16b843ae4}{flushdb\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_a8fa1120506d50175d9faec8e9807bff3}{flushall\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_a5e7968603972a652d170b80a806f22a2}{del\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int lazy)
+\item 
+void \hyperlink{db_8c_a19e7751e41c41f29de69cf2cdedd3b2f}{del\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_af4810a412b1235c49c49e26124440d9d}{unlink\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_a0c7c021fa3d11ac6772baed2c41f96af}{exists\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_ae1c2d1b29aae61e4ee80b6e026239668}{select\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_a8f01d577acb7acd9df43669b691b83f6}{randomkey\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_a8bf3b20b3cdff120e5e34249d659b5fd}{keys\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_a0eba2943df2450c5cf1ae2013a918a4a}{scan\+Callback} (void $\ast$privdata, const \hyperlink{structdict_entry}{dict\+Entry} $\ast$de)
+\item 
+int \hyperlink{db_8c_a6ee341d4e95ce860bdff4fb2baddc303}{parse\+Scan\+Cursor\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, unsigned long $\ast$cursor)
+\item 
+void \hyperlink{db_8c_a3e54c1d8b33e7faa4e1c3808ebf62204}{scan\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, unsigned long cursor)
+\item 
+void \hyperlink{db_8c_ab7d62562d550246831d204c7be7df9e8}{scan\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_a3100815e1719696e90a6b249e100f536}{dbsize\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_a867edfec1a517aeb68c4977557ef263c}{lastsave\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_a74b968fe09cf52976e47f672988c3802}{type\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_a30e4f224a138ea036bb4ecc024796be0}{shutdown\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_a0f9f81c5aad0adf49f04f2ecf760373d}{rename\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int nx)
+\item 
+void \hyperlink{db_8c_a53c5f34956f6624513b7cdd46f2dedf1}{rename\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_ad9aef1be17e5b63294cf55a9ee22204c}{renamenx\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_a8f6e1f834a16c0f5489c82beb4385ac5}{move\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{db_8c_a755c7b5a1d6c30ef0dd920ea57adbea3}{scan\+Database\+For\+Ready\+Lists} (\hyperlink{structredis_db}{redis\+Db} $\ast$db)
+\item 
+int \hyperlink{db_8c_a357ea3bce9c48c89ba95c39fd09477af}{db\+Swap\+Databases} (int id1, int id2)
+\item 
+void \hyperlink{db_8c_a0cc0184a1a7d36addb4e145134f8a2a9}{swapdb\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{db_8c_a6734b4b628b12d92dabe5db0fa9f8c24}{remove\+Expire} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+void \hyperlink{db_8c_a1172d7b9de41b177b44d8ecbb210b8f8}{set\+Expire} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, long long when)
+\item 
+long long \hyperlink{db_8c_a952b9f82ee051f58b09fb5e734e05fc2}{get\+Expire} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+void \hyperlink{db_8c_aa43841dc559ef3ef0d192bdafc691dc9}{propagate\+Expire} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, int lazy)
+\item 
+int \hyperlink{db_8c_a35d6de9bfd3db58e651f91dd3880918a}{expire\+If\+Needed} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+int $\ast$ \hyperlink{db_8c_a74a7b1f3bf388a0dd6d472267dd2979c}{get\+Keys\+Using\+Command\+Table} (struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, int $\ast$numkeys)
+\item 
+int $\ast$ \hyperlink{db_8c_a4d8a653f39ee873ef606c418acb95821}{get\+Keys\+From\+Command} (struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, int $\ast$numkeys)
+\item 
+void \hyperlink{db_8c_ade65b95b0eb5517a9af03b8aecc3b64d}{get\+Keys\+Free\+Result} (int $\ast$result)
+\item 
+int $\ast$ \hyperlink{db_8c_a7887c9791609e331185f3113ce763c98}{zunion\+Inter\+Get\+Keys} (struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, int $\ast$numkeys)
+\item 
+int $\ast$ \hyperlink{db_8c_a47c215eb1db99539269323838e931217}{eval\+Get\+Keys} (struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, int $\ast$numkeys)
+\item 
+int $\ast$ \hyperlink{db_8c_abce45027353410ce6f2d533057606f03}{sort\+Get\+Keys} (struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, int $\ast$numkeys)
+\item 
+int $\ast$ \hyperlink{db_8c_a3b1be63f398af051a20563fbe81a2694}{migrate\+Get\+Keys} (struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, int $\ast$numkeys)
+\item 
+int $\ast$ \hyperlink{db_8c_a5e94ebbd0f9e5d4198ed832d321f6ff7}{georadius\+Get\+Keys} (struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, int $\ast$numkeys)
+\item 
+int $\ast$ \hyperlink{db_8c_acd71f8bb3ecce70aa5a950862eaefbfb}{xread\+Get\+Keys} (struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, int $\ast$numkeys)
+\item 
+void \hyperlink{db_8c_ac105613fbcd38021caf62a2fd260b069}{slot\+To\+Key\+Update\+Key} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, int add)
+\item 
+void \hyperlink{db_8c_a53699703c4bf338a18e4691907c6a613}{slot\+To\+Key\+Add} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+void \hyperlink{db_8c_a36b54212a062b38f0d80a9ddb214fb9e}{slot\+To\+Key\+Del} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+void \hyperlink{db_8c_a4385b9bb94d3c6df7131362dd9aa8a0b}{slot\+To\+Key\+Flush} (void)
+\item 
+unsigned int \hyperlink{db_8c_a28db6687ec5a647c39f9d9aa4d018378}{get\+Keys\+In\+Slot} (unsigned int hashslot, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$\hyperlink{redis-check-rdb_8c_a1f3b6698ca8496c05e0c9c0d56cb36ac}{keys}, unsigned int count)
+\item 
+unsigned int \hyperlink{db_8c_ab5fa58122e95f5d887733bf739bd9ea5}{del\+Keys\+In\+Slot} (unsigned int hashslot)
+\item 
+unsigned int \hyperlink{db_8c_a9ad86f15a210878bec0c12fb71b326da}{count\+Keys\+In\+Slot} (unsigned int hashslot)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{db_8c_a9ad86f15a210878bec0c12fb71b326da}\label{db_8c_a9ad86f15a210878bec0c12fb71b326da}} 
+\index{db.\+c@{db.\+c}!count\+Keys\+In\+Slot@{count\+Keys\+In\+Slot}}
+\index{count\+Keys\+In\+Slot@{count\+Keys\+In\+Slot}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{count\+Keys\+In\+Slot()}{countKeysInSlot()}}
+{\footnotesize\ttfamily unsigned int count\+Keys\+In\+Slot (\begin{DoxyParamCaption}\item[{unsigned int}]{hashslot }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1537 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_acf627c788ed0bacbf3d74d1f98b9fb57}\label{db_8c_acf627c788ed0bacbf3d74d1f98b9fb57}} 
+\index{db.\+c@{db.\+c}!db\+Add@{db\+Add}}
+\index{db\+Add@{db\+Add}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{db\+Add()}{dbAdd()}}
+{\footnotesize\ttfamily void db\+Add (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 167 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_adb2d8ff0679d0e8acf5b888597bae757}\label{db_8c_adb2d8ff0679d0e8acf5b888597bae757}} 
+\index{db.\+c@{db.\+c}!db\+Delete@{db\+Delete}}
+\index{db\+Delete@{db\+Delete}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{db\+Delete()}{dbDelete()}}
+{\footnotesize\ttfamily int db\+Delete (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 279 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_aea88ff9c343203bab2b88152c7a3b83e}\label{db_8c_aea88ff9c343203bab2b88152c7a3b83e}} 
+\index{db.\+c@{db.\+c}!db\+Exists@{db\+Exists}}
+\index{db\+Exists@{db\+Exists}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{db\+Exists()}{dbExists()}}
+{\footnotesize\ttfamily int db\+Exists (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 221 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_aff7f7cac1e38ea11de66c916e07e583e}\label{db_8c_aff7f7cac1e38ea11de66c916e07e583e}} 
+\index{db.\+c@{db.\+c}!db\+Overwrite@{db\+Overwrite}}
+\index{db\+Overwrite@{db\+Overwrite}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{db\+Overwrite()}{dbOverwrite()}}
+{\footnotesize\ttfamily void db\+Overwrite (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 183 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a09c85999ea203bda2e835769cee4bcf1}\label{db_8c_a09c85999ea203bda2e835769cee4bcf1}} 
+\index{db.\+c@{db.\+c}!db\+Random\+Key@{db\+Random\+Key}}
+\index{db\+Random\+Key@{db\+Random\+Key}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{db\+Random\+Key()}{dbRandomKey()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ db\+Random\+Key (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db }\end{DoxyParamCaption})}
+
+
+
+Definition at line 229 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a3100815e1719696e90a6b249e100f536}\label{db_8c_a3100815e1719696e90a6b249e100f536}} 
+\index{db.\+c@{db.\+c}!dbsize\+Command@{dbsize\+Command}}
+\index{dbsize\+Command@{dbsize\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{dbsize\+Command()}{dbsizeCommand()}}
+{\footnotesize\ttfamily void dbsize\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 802 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a357ea3bce9c48c89ba95c39fd09477af}\label{db_8c_a357ea3bce9c48c89ba95c39fd09477af}} 
+\index{db.\+c@{db.\+c}!db\+Swap\+Databases@{db\+Swap\+Databases}}
+\index{db\+Swap\+Databases@{db\+Swap\+Databases}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{db\+Swap\+Databases()}{dbSwapDatabases()}}
+{\footnotesize\ttfamily int db\+Swap\+Databases (\begin{DoxyParamCaption}\item[{int}]{id1,  }\item[{int}]{id2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 994 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a974c4c41a4ee3fec1f5f0ee76f51251d}\label{db_8c_a974c4c41a4ee3fec1f5f0ee76f51251d}} 
+\index{db.\+c@{db.\+c}!db\+Sync\+Delete@{db\+Sync\+Delete}}
+\index{db\+Sync\+Delete@{db\+Sync\+Delete}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{db\+Sync\+Delete()}{dbSyncDelete()}}
+{\footnotesize\ttfamily int db\+Sync\+Delete (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 265 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a371fb9fa6b35ef6d3ebfe8e1025594b1}\label{db_8c_a371fb9fa6b35ef6d3ebfe8e1025594b1}} 
+\index{db.\+c@{db.\+c}!db\+Unshare\+String\+Value@{db\+Unshare\+String\+Value}}
+\index{db\+Unshare\+String\+Value@{db\+Unshare\+String\+Value}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{db\+Unshare\+String\+Value()}{dbUnshareStringValue()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ db\+Unshare\+String\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 311 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a19e7751e41c41f29de69cf2cdedd3b2f}\label{db_8c_a19e7751e41c41f29de69cf2cdedd3b2f}} 
+\index{db.\+c@{db.\+c}!del\+Command@{del\+Command}}
+\index{del\+Command@{del\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{del\+Command()}{delCommand()}}
+{\footnotesize\ttfamily void del\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 480 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a5e7968603972a652d170b80a806f22a2}\label{db_8c_a5e7968603972a652d170b80a806f22a2}} 
+\index{db.\+c@{db.\+c}!del\+Generic\+Command@{del\+Generic\+Command}}
+\index{del\+Generic\+Command@{del\+Generic\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{del\+Generic\+Command()}{delGenericCommand()}}
+{\footnotesize\ttfamily void del\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{lazy }\end{DoxyParamCaption})}
+
+
+
+Definition at line 462 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_ab5fa58122e95f5d887733bf739bd9ea5}\label{db_8c_ab5fa58122e95f5d887733bf739bd9ea5}} 
+\index{db.\+c@{db.\+c}!del\+Keys\+In\+Slot@{del\+Keys\+In\+Slot}}
+\index{del\+Keys\+In\+Slot@{del\+Keys\+In\+Slot}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{del\+Keys\+In\+Slot()}{delKeysInSlot()}}
+{\footnotesize\ttfamily unsigned int del\+Keys\+In\+Slot (\begin{DoxyParamCaption}\item[{unsigned int}]{hashslot }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1516 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a054e42a4e1581eedff319238a9dbf8c6}\label{db_8c_a054e42a4e1581eedff319238a9dbf8c6}} 
+\index{db.\+c@{db.\+c}!empty\+Db@{empty\+Db}}
+\index{empty\+Db@{empty\+Db}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{empty\+Db()}{emptyDb()}}
+{\footnotesize\ttfamily long long empty\+Db (\begin{DoxyParamCaption}\item[{int}]{dbnum,  }\item[{int}]{flags,  }\item[{void(callback)(void $\ast$)}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 336 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a47c215eb1db99539269323838e931217}\label{db_8c_a47c215eb1db99539269323838e931217}} 
+\index{db.\+c@{db.\+c}!eval\+Get\+Keys@{eval\+Get\+Keys}}
+\index{eval\+Get\+Keys@{eval\+Get\+Keys}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{eval\+Get\+Keys()}{evalGetKeys()}}
+{\footnotesize\ttfamily int$\ast$ eval\+Get\+Keys (\begin{DoxyParamCaption}\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int $\ast$}]{numkeys }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1277 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a0c7c021fa3d11ac6772baed2c41f96af}\label{db_8c_a0c7c021fa3d11ac6772baed2c41f96af}} 
+\index{db.\+c@{db.\+c}!exists\+Command@{exists\+Command}}
+\index{exists\+Command@{exists\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{exists\+Command()}{existsCommand()}}
+{\footnotesize\ttfamily void exists\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 490 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a35d6de9bfd3db58e651f91dd3880918a}\label{db_8c_a35d6de9bfd3db58e651f91dd3880918a}} 
+\index{db.\+c@{db.\+c}!expire\+If\+Needed@{expire\+If\+Needed}}
+\index{expire\+If\+Needed@{expire\+If\+Needed}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{expire\+If\+Needed()}{expireIfNeeded()}}
+{\footnotesize\ttfamily int expire\+If\+Needed (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1142 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a8fa1120506d50175d9faec8e9807bff3}\label{db_8c_a8fa1120506d50175d9faec8e9807bff3}} 
+\index{db.\+c@{db.\+c}!flushall\+Command@{flushall\+Command}}
+\index{flushall\+Command@{flushall\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{flushall\+Command()}{flushallCommand()}}
+{\footnotesize\ttfamily void flushall\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 438 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a47000c62451a737c56a464e16b843ae4}\label{db_8c_a47000c62451a737c56a464e16b843ae4}} 
+\index{db.\+c@{db.\+c}!flushdb\+Command@{flushdb\+Command}}
+\index{flushdb\+Command@{flushdb\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{flushdb\+Command()}{flushdbCommand()}}
+{\footnotesize\ttfamily void flushdb\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 426 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a5e94ebbd0f9e5d4198ed832d321f6ff7}\label{db_8c_a5e94ebbd0f9e5d4198ed832d321f6ff7}} 
+\index{db.\+c@{db.\+c}!georadius\+Get\+Keys@{georadius\+Get\+Keys}}
+\index{georadius\+Get\+Keys@{georadius\+Get\+Keys}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{georadius\+Get\+Keys()}{georadiusGetKeys()}}
+{\footnotesize\ttfamily int$\ast$ georadius\+Get\+Keys (\begin{DoxyParamCaption}\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int $\ast$}]{numkeys }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1378 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a952b9f82ee051f58b09fb5e734e05fc2}\label{db_8c_a952b9f82ee051f58b09fb5e734e05fc2}} 
+\index{db.\+c@{db.\+c}!get\+Expire@{get\+Expire}}
+\index{get\+Expire@{get\+Expire}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{get\+Expire()}{getExpire()}}
+{\footnotesize\ttfamily long long get\+Expire (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1086 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_ada04e8dacc2772af0cfbc76d813a49ab}\label{db_8c_ada04e8dacc2772af0cfbc76d813a49ab}} 
+\index{db.\+c@{db.\+c}!get\+Flush\+Command\+Flags@{get\+Flush\+Command\+Flags}}
+\index{get\+Flush\+Command\+Flags@{get\+Flush\+Command\+Flags}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{get\+Flush\+Command\+Flags()}{getFlushCommandFlags()}}
+{\footnotesize\ttfamily int get\+Flush\+Command\+Flags (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int $\ast$}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 409 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_ade65b95b0eb5517a9af03b8aecc3b64d}\label{db_8c_ade65b95b0eb5517a9af03b8aecc3b64d}} 
+\index{db.\+c@{db.\+c}!get\+Keys\+Free\+Result@{get\+Keys\+Free\+Result}}
+\index{get\+Keys\+Free\+Result@{get\+Keys\+Free\+Result}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{get\+Keys\+Free\+Result()}{getKeysFreeResult()}}
+{\footnotesize\ttfamily void get\+Keys\+Free\+Result (\begin{DoxyParamCaption}\item[{int $\ast$}]{result }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1241 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a4d8a653f39ee873ef606c418acb95821}\label{db_8c_a4d8a653f39ee873ef606c418acb95821}} 
+\index{db.\+c@{db.\+c}!get\+Keys\+From\+Command@{get\+Keys\+From\+Command}}
+\index{get\+Keys\+From\+Command@{get\+Keys\+From\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{get\+Keys\+From\+Command()}{getKeysFromCommand()}}
+{\footnotesize\ttfamily int$\ast$ get\+Keys\+From\+Command (\begin{DoxyParamCaption}\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int $\ast$}]{numkeys }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1230 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a28db6687ec5a647c39f9d9aa4d018378}\label{db_8c_a28db6687ec5a647c39f9d9aa4d018378}} 
+\index{db.\+c@{db.\+c}!get\+Keys\+In\+Slot@{get\+Keys\+In\+Slot}}
+\index{get\+Keys\+In\+Slot@{get\+Keys\+In\+Slot}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{get\+Keys\+In\+Slot()}{getKeysInSlot()}}
+{\footnotesize\ttfamily unsigned int get\+Keys\+In\+Slot (\begin{DoxyParamCaption}\item[{unsigned int}]{hashslot,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{keys,  }\item[{unsigned int}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1497 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a74a7b1f3bf388a0dd6d472267dd2979c}\label{db_8c_a74a7b1f3bf388a0dd6d472267dd2979c}} 
+\index{db.\+c@{db.\+c}!get\+Keys\+Using\+Command\+Table@{get\+Keys\+Using\+Command\+Table}}
+\index{get\+Keys\+Using\+Command\+Table@{get\+Keys\+Using\+Command\+Table}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{get\+Keys\+Using\+Command\+Table()}{getKeysUsingCommandTable()}}
+{\footnotesize\ttfamily int$\ast$ get\+Keys\+Using\+Command\+Table (\begin{DoxyParamCaption}\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int $\ast$}]{numkeys }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1185 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a8bf3b20b3cdff120e5e34249d659b5fd}\label{db_8c_a8bf3b20b3cdff120e5e34249d659b5fd}} 
+\index{db.\+c@{db.\+c}!keys\+Command@{keys\+Command}}
+\index{keys\+Command@{keys\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{keys\+Command()}{keysCommand()}}
+{\footnotesize\ttfamily void keys\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 530 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a867edfec1a517aeb68c4977557ef263c}\label{db_8c_a867edfec1a517aeb68c4977557ef263c}} 
+\index{db.\+c@{db.\+c}!lastsave\+Command@{lastsave\+Command}}
+\index{lastsave\+Command@{lastsave\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{lastsave\+Command()}{lastsaveCommand()}}
+{\footnotesize\ttfamily void lastsave\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 806 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_ad7377c794817aa8caa65e0713f15ec9e}\label{db_8c_ad7377c794817aa8caa65e0713f15ec9e}} 
+\index{db.\+c@{db.\+c}!lookup\+Key@{lookup\+Key}}
+\index{lookup\+Key@{lookup\+Key}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{lookup\+Key()}{lookupKey()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ lookup\+Key (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 53 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a827c3050b091b34bfe06d3a2371d2ec9}\label{db_8c_a827c3050b091b34bfe06d3a2371d2ec9}} 
+\index{db.\+c@{db.\+c}!lookup\+Key\+Read@{lookup\+Key\+Read}}
+\index{lookup\+Key\+Read@{lookup\+Key\+Read}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{lookup\+Key\+Read()}{lookupKeyRead()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ lookup\+Key\+Read (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 137 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a94ce11e99057a8c9e2dc76827c48977e}\label{db_8c_a94ce11e99057a8c9e2dc76827c48977e}} 
+\index{db.\+c@{db.\+c}!lookup\+Key\+Read\+Or\+Reply@{lookup\+Key\+Read\+Or\+Reply}}
+\index{lookup\+Key\+Read\+Or\+Reply@{lookup\+Key\+Read\+Or\+Reply}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{lookup\+Key\+Read\+Or\+Reply()}{lookupKeyReadOrReply()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ lookup\+Key\+Read\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 151 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a4baf92c0efeb5aed145529bc56c38938}\label{db_8c_a4baf92c0efeb5aed145529bc56c38938}} 
+\index{db.\+c@{db.\+c}!lookup\+Key\+Read\+With\+Flags@{lookup\+Key\+Read\+With\+Flags}}
+\index{lookup\+Key\+Read\+With\+Flags@{lookup\+Key\+Read\+With\+Flags}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{lookup\+Key\+Read\+With\+Flags()}{lookupKeyReadWithFlags()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ lookup\+Key\+Read\+With\+Flags (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 98 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a801525df8865e0b1f061a60216e9aa5a}\label{db_8c_a801525df8865e0b1f061a60216e9aa5a}} 
+\index{db.\+c@{db.\+c}!lookup\+Key\+Write@{lookup\+Key\+Write}}
+\index{lookup\+Key\+Write@{lookup\+Key\+Write}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{lookup\+Key\+Write()}{lookupKeyWrite()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ lookup\+Key\+Write (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 146 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a3bcb5da777a8e153f90a68dee43b352f}\label{db_8c_a3bcb5da777a8e153f90a68dee43b352f}} 
+\index{db.\+c@{db.\+c}!lookup\+Key\+Write\+Or\+Reply@{lookup\+Key\+Write\+Or\+Reply}}
+\index{lookup\+Key\+Write\+Or\+Reply@{lookup\+Key\+Write\+Or\+Reply}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{lookup\+Key\+Write\+Or\+Reply()}{lookupKeyWriteOrReply()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ lookup\+Key\+Write\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 157 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a3b1be63f398af051a20563fbe81a2694}\label{db_8c_a3b1be63f398af051a20563fbe81a2694}} 
+\index{db.\+c@{db.\+c}!migrate\+Get\+Keys@{migrate\+Get\+Keys}}
+\index{migrate\+Get\+Keys@{migrate\+Get\+Keys}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{migrate\+Get\+Keys()}{migrateGetKeys()}}
+{\footnotesize\ttfamily int$\ast$ migrate\+Get\+Keys (\begin{DoxyParamCaption}\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int $\ast$}]{numkeys }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1347 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a8f6e1f834a16c0f5489c82beb4385ac5}\label{db_8c_a8f6e1f834a16c0f5489c82beb4385ac5}} 
+\index{db.\+c@{db.\+c}!move\+Command@{move\+Command}}
+\index{move\+Command@{move\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{move\+Command()}{moveCommand()}}
+{\footnotesize\ttfamily void move\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 913 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a6ee341d4e95ce860bdff4fb2baddc303}\label{db_8c_a6ee341d4e95ce860bdff4fb2baddc303}} 
+\index{db.\+c@{db.\+c}!parse\+Scan\+Cursor\+Or\+Reply@{parse\+Scan\+Cursor\+Or\+Reply}}
+\index{parse\+Scan\+Cursor\+Or\+Reply@{parse\+Scan\+Cursor\+Or\+Reply}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{parse\+Scan\+Cursor\+Or\+Reply()}{parseScanCursorOrReply()}}
+{\footnotesize\ttfamily int parse\+Scan\+Cursor\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{unsigned long $\ast$}]{cursor }\end{DoxyParamCaption})}
+
+
+
+Definition at line 592 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_aa43841dc559ef3ef0d192bdafc691dc9}\label{db_8c_aa43841dc559ef3ef0d192bdafc691dc9}} 
+\index{db.\+c@{db.\+c}!propagate\+Expire@{propagate\+Expire}}
+\index{propagate\+Expire@{propagate\+Expire}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{propagate\+Expire()}{propagateExpire()}}
+{\footnotesize\ttfamily void propagate\+Expire (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{int}]{lazy }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1107 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a8f01d577acb7acd9df43669b691b83f6}\label{db_8c_a8f01d577acb7acd9df43669b691b83f6}} 
+\index{db.\+c@{db.\+c}!randomkey\+Command@{randomkey\+Command}}
+\index{randomkey\+Command@{randomkey\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{randomkey\+Command()}{randomkeyCommand()}}
+{\footnotesize\ttfamily void randomkey\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 518 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a6734b4b628b12d92dabe5db0fa9f8c24}\label{db_8c_a6734b4b628b12d92dabe5db0fa9f8c24}} 
+\index{db.\+c@{db.\+c}!remove\+Expire@{remove\+Expire}}
+\index{remove\+Expire@{remove\+Expire}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{remove\+Expire()}{removeExpire()}}
+{\footnotesize\ttfamily int remove\+Expire (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1059 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a53c5f34956f6624513b7cdd46f2dedf1}\label{db_8c_a53c5f34956f6624513b7cdd46f2dedf1}} 
+\index{db.\+c@{db.\+c}!rename\+Command@{rename\+Command}}
+\index{rename\+Command@{rename\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{rename\+Command()}{renameCommand()}}
+{\footnotesize\ttfamily void rename\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 905 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a0f9f81c5aad0adf49f04f2ecf760373d}\label{db_8c_a0f9f81c5aad0adf49f04f2ecf760373d}} 
+\index{db.\+c@{db.\+c}!rename\+Generic\+Command@{rename\+Generic\+Command}}
+\index{rename\+Generic\+Command@{rename\+Generic\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{rename\+Generic\+Command()}{renameGenericCommand()}}
+{\footnotesize\ttfamily void rename\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{nx }\end{DoxyParamCaption})}
+
+
+
+Definition at line 863 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_ad9aef1be17e5b63294cf55a9ee22204c}\label{db_8c_ad9aef1be17e5b63294cf55a9ee22204c}} 
+\index{db.\+c@{db.\+c}!renamenx\+Command@{renamenx\+Command}}
+\index{renamenx\+Command@{renamenx\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{renamenx\+Command()}{renamenxCommand()}}
+{\footnotesize\ttfamily void renamenx\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 909 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a0eba2943df2450c5cf1ae2013a918a4a}\label{db_8c_a0eba2943df2450c5cf1ae2013a918a4a}} 
+\index{db.\+c@{db.\+c}!scan\+Callback@{scan\+Callback}}
+\index{scan\+Callback@{scan\+Callback}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{scan\+Callback()}{scanCallback()}}
+{\footnotesize\ttfamily void scan\+Callback (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{const \hyperlink{structdict_entry}{dict\+Entry} $\ast$}]{de }\end{DoxyParamCaption})}
+
+
+
+Definition at line 559 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_ab7d62562d550246831d204c7be7df9e8}\label{db_8c_ab7d62562d550246831d204c7be7df9e8}} 
+\index{db.\+c@{db.\+c}!scan\+Command@{scan\+Command}}
+\index{scan\+Command@{scan\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{scan\+Command()}{scanCommand()}}
+{\footnotesize\ttfamily void scan\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 796 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a755c7b5a1d6c30ef0dd920ea57adbea3}\label{db_8c_a755c7b5a1d6c30ef0dd920ea57adbea3}} 
+\index{db.\+c@{db.\+c}!scan\+Database\+For\+Ready\+Lists@{scan\+Database\+For\+Ready\+Lists}}
+\index{scan\+Database\+For\+Ready\+Lists@{scan\+Database\+For\+Ready\+Lists}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{scan\+Database\+For\+Ready\+Lists()}{scanDatabaseForReadyLists()}}
+{\footnotesize\ttfamily void scan\+Database\+For\+Ready\+Lists (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db }\end{DoxyParamCaption})}
+
+
+
+Definition at line 972 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a3e54c1d8b33e7faa4e1c3808ebf62204}\label{db_8c_a3e54c1d8b33e7faa4e1c3808ebf62204}} 
+\index{db.\+c@{db.\+c}!scan\+Generic\+Command@{scan\+Generic\+Command}}
+\index{scan\+Generic\+Command@{scan\+Generic\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{scan\+Generic\+Command()}{scanGenericCommand()}}
+{\footnotesize\ttfamily void scan\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{unsigned long}]{cursor }\end{DoxyParamCaption})}
+
+
+
+Definition at line 618 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_ae1c2d1b29aae61e4ee80b6e026239668}\label{db_8c_ae1c2d1b29aae61e4ee80b6e026239668}} 
+\index{db.\+c@{db.\+c}!select\+Command@{select\+Command}}
+\index{select\+Command@{select\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{select\+Command()}{selectCommand()}}
+{\footnotesize\ttfamily void select\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 500 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_ae0275c60dde397ac9fe73946abd6d972}\label{db_8c_ae0275c60dde397ac9fe73946abd6d972}} 
+\index{db.\+c@{db.\+c}!select\+Db@{select\+Db}}
+\index{select\+Db@{select\+Db}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{select\+Db()}{selectDb()}}
+{\footnotesize\ttfamily int select\+Db (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{id }\end{DoxyParamCaption})}
+
+
+
+Definition at line 373 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a1172d7b9de41b177b44d8ecbb210b8f8}\label{db_8c_a1172d7b9de41b177b44d8ecbb210b8f8}} 
+\index{db.\+c@{db.\+c}!set\+Expire@{set\+Expire}}
+\index{set\+Expire@{set\+Expire}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{set\+Expire()}{setExpire()}}
+{\footnotesize\ttfamily void set\+Expire (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{long long}]{when }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1070 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_aa52d48b35c6a52527e02b8d1faedf55b}\label{db_8c_aa52d48b35c6a52527e02b8d1faedf55b}} 
+\index{db.\+c@{db.\+c}!set\+Key@{set\+Key}}
+\index{set\+Key@{set\+Key}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{set\+Key()}{setKey()}}
+{\footnotesize\ttfamily void set\+Key (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 210 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a30e4f224a138ea036bb4ecc024796be0}\label{db_8c_a30e4f224a138ea036bb4ecc024796be0}} 
+\index{db.\+c@{db.\+c}!shutdown\+Command@{shutdown\+Command}}
+\index{shutdown\+Command@{shutdown\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{shutdown\+Command()}{shutdownCommand()}}
+{\footnotesize\ttfamily void shutdown\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 835 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a0bf073dd4b543bda061a19a2a77dfb00}\label{db_8c_a0bf073dd4b543bda061a19a2a77dfb00}} 
+\index{db.\+c@{db.\+c}!signal\+Flushed\+Db@{signal\+Flushed\+Db}}
+\index{signal\+Flushed\+Db@{signal\+Flushed\+Db}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{signal\+Flushed\+Db()}{signalFlushedDb()}}
+{\footnotesize\ttfamily void signal\+Flushed\+Db (\begin{DoxyParamCaption}\item[{int}]{dbid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 393 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a355ed4af527878e741e3956f37876aa4}\label{db_8c_a355ed4af527878e741e3956f37876aa4}} 
+\index{db.\+c@{db.\+c}!signal\+Modified\+Key@{signal\+Modified\+Key}}
+\index{signal\+Modified\+Key@{signal\+Modified\+Key}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{signal\+Modified\+Key()}{signalModifiedKey()}}
+{\footnotesize\ttfamily void signal\+Modified\+Key (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 389 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a53699703c4bf338a18e4691907c6a613}\label{db_8c_a53699703c4bf338a18e4691907c6a613}} 
+\index{db.\+c@{db.\+c}!slot\+To\+Key\+Add@{slot\+To\+Key\+Add}}
+\index{slot\+To\+Key\+Add@{slot\+To\+Key\+Add}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{slot\+To\+Key\+Add()}{slotToKeyAdd()}}
+{\footnotesize\ttfamily void slot\+To\+Key\+Add (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1479 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a36b54212a062b38f0d80a9ddb214fb9e}\label{db_8c_a36b54212a062b38f0d80a9ddb214fb9e}} 
+\index{db.\+c@{db.\+c}!slot\+To\+Key\+Del@{slot\+To\+Key\+Del}}
+\index{slot\+To\+Key\+Del@{slot\+To\+Key\+Del}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{slot\+To\+Key\+Del()}{slotToKeyDel()}}
+{\footnotesize\ttfamily void slot\+To\+Key\+Del (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1483 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a4385b9bb94d3c6df7131362dd9aa8a0b}\label{db_8c_a4385b9bb94d3c6df7131362dd9aa8a0b}} 
+\index{db.\+c@{db.\+c}!slot\+To\+Key\+Flush@{slot\+To\+Key\+Flush}}
+\index{slot\+To\+Key\+Flush@{slot\+To\+Key\+Flush}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{slot\+To\+Key\+Flush()}{slotToKeyFlush()}}
+{\footnotesize\ttfamily void slot\+To\+Key\+Flush (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1487 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_ac105613fbcd38021caf62a2fd260b069}\label{db_8c_ac105613fbcd38021caf62a2fd260b069}} 
+\index{db.\+c@{db.\+c}!slot\+To\+Key\+Update\+Key@{slot\+To\+Key\+Update\+Key}}
+\index{slot\+To\+Key\+Update\+Key@{slot\+To\+Key\+Update\+Key}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{slot\+To\+Key\+Update\+Key()}{slotToKeyUpdateKey()}}
+{\footnotesize\ttfamily void slot\+To\+Key\+Update\+Key (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{int}]{add }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1460 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_abce45027353410ce6f2d533057606f03}\label{db_8c_abce45027353410ce6f2d533057606f03}} 
+\index{db.\+c@{db.\+c}!sort\+Get\+Keys@{sort\+Get\+Keys}}
+\index{sort\+Get\+Keys@{sort\+Get\+Keys}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{sort\+Get\+Keys()}{sortGetKeys()}}
+{\footnotesize\ttfamily int$\ast$ sort\+Get\+Keys (\begin{DoxyParamCaption}\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int $\ast$}]{numkeys }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1305 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a0cc0184a1a7d36addb4e145134f8a2a9}\label{db_8c_a0cc0184a1a7d36addb4e145134f8a2a9}} 
+\index{db.\+c@{db.\+c}!swapdb\+Command@{swapdb\+Command}}
+\index{swapdb\+Command@{swapdb\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{swapdb\+Command()}{swapdbCommand()}}
+{\footnotesize\ttfamily void swapdb\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1027 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a74b968fe09cf52976e47f672988c3802}\label{db_8c_a74b968fe09cf52976e47f672988c3802}} 
+\index{db.\+c@{db.\+c}!type\+Command@{type\+Command}}
+\index{type\+Command@{type\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{type\+Command()}{typeCommand()}}
+{\footnotesize\ttfamily void type\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 810 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_af4810a412b1235c49c49e26124440d9d}\label{db_8c_af4810a412b1235c49c49e26124440d9d}} 
+\index{db.\+c@{db.\+c}!unlink\+Command@{unlink\+Command}}
+\index{unlink\+Command@{unlink\+Command}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{unlink\+Command()}{unlinkCommand()}}
+{\footnotesize\ttfamily void unlink\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 484 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_aa649586d63cf263591928da0583034a8}\label{db_8c_aa649586d63cf263591928da0583034a8}} 
+\index{db.\+c@{db.\+c}!update\+L\+FU@{update\+L\+FU}}
+\index{update\+L\+FU@{update\+L\+FU}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{update\+L\+F\+U()}{updateLFU()}}
+{\footnotesize\ttfamily void update\+L\+FU (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 44 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_acd71f8bb3ecce70aa5a950862eaefbfb}\label{db_8c_acd71f8bb3ecce70aa5a950862eaefbfb}} 
+\index{db.\+c@{db.\+c}!xread\+Get\+Keys@{xread\+Get\+Keys}}
+\index{xread\+Get\+Keys@{xread\+Get\+Keys}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{xread\+Get\+Keys()}{xreadGetKeys()}}
+{\footnotesize\ttfamily int$\ast$ xread\+Get\+Keys (\begin{DoxyParamCaption}\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int $\ast$}]{numkeys }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1414 of file db.\+c.
+
+\mbox{\Hypertarget{db_8c_a7887c9791609e331185f3113ce763c98}\label{db_8c_a7887c9791609e331185f3113ce763c98}} 
+\index{db.\+c@{db.\+c}!zunion\+Inter\+Get\+Keys@{zunion\+Inter\+Get\+Keys}}
+\index{zunion\+Inter\+Get\+Keys@{zunion\+Inter\+Get\+Keys}!db.\+c@{db.\+c}}
+\subsubsection{\texorpdfstring{zunion\+Inter\+Get\+Keys()}{zunionInterGetKeys()}}
+{\footnotesize\ttfamily int$\ast$ zunion\+Inter\+Get\+Keys (\begin{DoxyParamCaption}\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int $\ast$}]{numkeys }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1248 of file db.\+c.
+

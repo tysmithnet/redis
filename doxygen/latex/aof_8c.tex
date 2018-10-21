@@ -1,0 +1,520 @@
+\hypertarget{aof_8c}{}\section{src/aof.c File Reference}
+\label{aof_8c}\index{src/aof.\+c@{src/aof.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}bio.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}rio.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$sys/resource.\+h$>$}\newline
+{\ttfamily \#include $<$sys/wait.\+h$>$}\newline
+{\ttfamily \#include $<$sys/param.\+h$>$}\newline
+Include dependency graph for aof.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{aof_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structaofrwblock}{aofrwblock}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{aof_8c_a44139ff5d81f229e77d843b17ada505e}{A\+O\+F\+\_\+\+R\+W\+\_\+\+B\+U\+F\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+I\+ZE}~(1024$\ast$1024$\ast$10)    /$\ast$ 10 MB per block $\ast$/
+\item 
+\#define \hyperlink{aof_8c_acffdc721a3cb2f3d8d8817c3ab88c9b0}{A\+O\+F\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+A\+TE}~30 /$\ast$ Seconds between errors logging. $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structaofrwblock}{aofrwblock} \hyperlink{aof_8c_ac6b9d569fecb011fe934a4ed8e2379c6}{aofrwblock}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{aof_8c_acdbfb07f697cad574930a5396f47ca3d}{aof\+Update\+Current\+Size} (void)
+\item 
+void \hyperlink{aof_8c_a296ba93d4b362fc0a14408edf1a0446b}{aof\+Close\+Pipes} (void)
+\item 
+void \hyperlink{aof_8c_a55a176249cd6ec3d89f7115527622f36}{aof\+Rewrite\+Buffer\+Reset} (void)
+\item 
+unsigned long \hyperlink{aof_8c_ac13e9eab03e6ba37d7567e805b54e12f}{aof\+Rewrite\+Buffer\+Size} (void)
+\item 
+void \hyperlink{aof_8c_a079a93a950c81a2d9023d812fcceedf2}{aof\+Child\+Write\+Diff\+Data} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$el, int fd, void $\ast$privdata, int mask)
+\item 
+void \hyperlink{aof_8c_a100453453f615a53b1b3e814d0b8c138}{aof\+Rewrite\+Buffer\+Append} (unsigned char $\ast$s, unsigned long len)
+\item 
+ssize\+\_\+t \hyperlink{aof_8c_a13a125e5352050d0ad736190320eb160}{aof\+Rewrite\+Buffer\+Write} (int fd)
+\item 
+void \hyperlink{aof_8c_a5fa66a890bded4a48963d4ce51ebe639}{aof\+\_\+background\+\_\+fsync} (int fd)
+\item 
+void \hyperlink{aof_8c_ae252302d320877042b5cbde04bdf75b6}{stop\+Append\+Only} (void)
+\item 
+int \hyperlink{aof_8c_ac8ec248682bac05c86159f5b3d372368}{start\+Append\+Only} (void)
+\item 
+ssize\+\_\+t \hyperlink{aof_8c_ad2802369d6aaec1d581503a2f9a44a97}{aof\+Write} (int fd, const char $\ast$buf, size\+\_\+t len)
+\item 
+void \hyperlink{aof_8c_a85f34d09b65dafc802c9eb3c6a344d37}{flush\+Append\+Only\+File} (int force)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{aof_8c_a0f7fff3d9aae96b2df2ce65fb825c096}{cat\+Append\+Only\+Generic\+Command} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} dst, int argc, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{aof_8c_a60dd4157a64e0e96d3a27d9bb9ad5ab9}{cat\+Append\+Only\+Expire\+At\+Command} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} buf, struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$seconds)
+\item 
+void \hyperlink{aof_8c_aca13d71d381248c8a1ef6caeb82c9244}{feed\+Append\+Only\+File} (struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, int dictid, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc)
+\item 
+struct \hyperlink{structclient}{client} $\ast$ \hyperlink{aof_8c_ab1debf22eac05b0f1e6f24f990227442}{create\+Fake\+Client} (void)
+\item 
+void \hyperlink{aof_8c_a045a32406444c73e6223798ab57106a6}{free\+Fake\+Client\+Argv} (struct \hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{aof_8c_acd9f084689b0a3bbfe91a4d5fdc7cdb1}{free\+Fake\+Client} (struct \hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{aof_8c_a7c8ba26d0e1ea2c7c34d6b2bca2d4a53}{load\+Append\+Only\+File} (char $\ast$filename)
+\item 
+int \hyperlink{aof_8c_a96c80a681f96c467d745748f5d1ab608}{rio\+Write\+Bulk\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$obj)
+\item 
+int \hyperlink{aof_8c_a6da8eefb6fec91e33e50e6de21ab34e8}{rewrite\+List\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+int \hyperlink{aof_8c_a67082d0b56bc72fb2d7e2fc855cf40f4}{rewrite\+Set\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+int \hyperlink{aof_8c_affff633435179c60f540bcb2239f4248}{rewrite\+Sorted\+Set\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+int \hyperlink{aof_8c_a283168b6a039db8ca5e32e826c47974d}{rewrite\+Hash\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+int \hyperlink{aof_8c_a6985cdae3cf5722d5b3846710a8d165f}{rio\+Write\+Bulk\+Stream\+ID} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, \hyperlink{structstream_i_d}{stream\+ID} $\ast$id)
+\item 
+int \hyperlink{aof_8c_a26ebb82bb5c69ea92269f951fa76b80d}{rio\+Write\+Stream\+Pending\+Entry} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, const char $\ast$groupname, size\+\_\+t groupname\+\_\+len, \hyperlink{structstream_consumer}{stream\+Consumer} $\ast$consumer, unsigned char $\ast$rawid, \hyperlink{structstream_n_a_c_k}{stream\+N\+A\+CK} $\ast$nack)
+\item 
+int \hyperlink{aof_8c_ad5e37ad4769b87846871acb052115193}{rewrite\+Stream\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+int \hyperlink{aof_8c_ab6e037e110287d81a5bd70a4b2ddcf88}{rewrite\+Module\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+ssize\+\_\+t \hyperlink{aof_8c_a3cbb13a8a387de8eb98930824205293f}{aof\+Read\+Diff\+From\+Parent} (void)
+\item 
+int \hyperlink{aof_8c_aac3cc1f8fc4fe2846a077f7d5445e59f}{rewrite\+Append\+Only\+File\+Rio} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$aof)
+\item 
+int \hyperlink{aof_8c_a62aa3f2e3aa4039177045361119901d1}{rewrite\+Append\+Only\+File} (char $\ast$filename)
+\item 
+void \hyperlink{aof_8c_a9134a37e6f4757912b6ca13389cd1541}{aof\+Child\+Pipe\+Readable} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$el, int fd, void $\ast$privdata, int mask)
+\item 
+int \hyperlink{aof_8c_a3c8ff1f955741fe94beccb9834885fab}{aof\+Create\+Pipes} (void)
+\item 
+int \hyperlink{aof_8c_aa2e5539b40259eac08d1612822ebcf9c}{rewrite\+Append\+Only\+File\+Background} (void)
+\item 
+void \hyperlink{aof_8c_acd094b7bb70912d9fc503b07a190ee80}{bgrewriteaof\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{aof_8c_a75ea27ba4b875ecedc6c6e373a8a20f3}{aof\+Remove\+Temp\+File} (pid\+\_\+t childpid)
+\item 
+void \hyperlink{aof_8c_a1fed587e74f1e81c22594897f3d0ccf3}{background\+Rewrite\+Done\+Handler} (int exitcode, int bysignal)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{aof_8c_a44139ff5d81f229e77d843b17ada505e}\label{aof_8c_a44139ff5d81f229e77d843b17ada505e}} 
+\index{aof.\+c@{aof.\+c}!A\+O\+F\+\_\+\+R\+W\+\_\+\+B\+U\+F\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+I\+ZE@{A\+O\+F\+\_\+\+R\+W\+\_\+\+B\+U\+F\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+I\+ZE}}
+\index{A\+O\+F\+\_\+\+R\+W\+\_\+\+B\+U\+F\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+I\+ZE@{A\+O\+F\+\_\+\+R\+W\+\_\+\+B\+U\+F\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+I\+ZE}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{A\+O\+F\+\_\+\+R\+W\+\_\+\+B\+U\+F\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+I\+ZE}{AOF\_RW\_BUF\_BLOCK\_SIZE}}
+{\footnotesize\ttfamily \#define A\+O\+F\+\_\+\+R\+W\+\_\+\+B\+U\+F\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+I\+ZE~(1024$\ast$1024$\ast$10)    /$\ast$ 10 MB per block $\ast$/}
+
+
+
+Definition at line 60 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_acffdc721a3cb2f3d8d8817c3ab88c9b0}\label{aof_8c_acffdc721a3cb2f3d8d8817c3ab88c9b0}} 
+\index{aof.\+c@{aof.\+c}!A\+O\+F\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+A\+TE@{A\+O\+F\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+A\+TE}}
+\index{A\+O\+F\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+A\+TE@{A\+O\+F\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+A\+TE}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{A\+O\+F\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+A\+TE}{AOF\_WRITE\_LOG\_ERROR\_RATE}}
+{\footnotesize\ttfamily \#define A\+O\+F\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+G\+\_\+\+E\+R\+R\+O\+R\+\_\+\+R\+A\+TE~30 /$\ast$ Seconds between errors logging. $\ast$/}
+
+
+
+Definition at line 330 of file aof.\+c.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{aof_8c_ac6b9d569fecb011fe934a4ed8e2379c6}\label{aof_8c_ac6b9d569fecb011fe934a4ed8e2379c6}} 
+\index{aof.\+c@{aof.\+c}!aofrwblock@{aofrwblock}}
+\index{aofrwblock@{aofrwblock}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aofrwblock}{aofrwblock}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structaofrwblock}{aofrwblock}  \hyperlink{structaofrwblock}{aofrwblock}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{aof_8c_a5fa66a890bded4a48963d4ce51ebe639}\label{aof_8c_a5fa66a890bded4a48963d4ce51ebe639}} 
+\index{aof.\+c@{aof.\+c}!aof\+\_\+background\+\_\+fsync@{aof\+\_\+background\+\_\+fsync}}
+\index{aof\+\_\+background\+\_\+fsync@{aof\+\_\+background\+\_\+fsync}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aof\+\_\+background\+\_\+fsync()}{aof\_background\_fsync()}}
+{\footnotesize\ttfamily void aof\+\_\+background\+\_\+fsync (\begin{DoxyParamCaption}\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 202 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a9134a37e6f4757912b6ca13389cd1541}\label{aof_8c_a9134a37e6f4757912b6ca13389cd1541}} 
+\index{aof.\+c@{aof.\+c}!aof\+Child\+Pipe\+Readable@{aof\+Child\+Pipe\+Readable}}
+\index{aof\+Child\+Pipe\+Readable@{aof\+Child\+Pipe\+Readable}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aof\+Child\+Pipe\+Readable()}{aofChildPipeReadable()}}
+{\footnotesize\ttfamily void aof\+Child\+Pipe\+Readable (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{el,  }\item[{int}]{fd,  }\item[{void $\ast$}]{privdata,  }\item[{int}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1449 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a079a93a950c81a2d9023d812fcceedf2}\label{aof_8c_a079a93a950c81a2d9023d812fcceedf2}} 
+\index{aof.\+c@{aof.\+c}!aof\+Child\+Write\+Diff\+Data@{aof\+Child\+Write\+Diff\+Data}}
+\index{aof\+Child\+Write\+Diff\+Data@{aof\+Child\+Write\+Diff\+Data}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aof\+Child\+Write\+Diff\+Data()}{aofChildWriteDiffData()}}
+{\footnotesize\ttfamily void aof\+Child\+Write\+Diff\+Data (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{el,  }\item[{int}]{fd,  }\item[{void $\ast$}]{privdata,  }\item[{int}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 95 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a296ba93d4b362fc0a14408edf1a0446b}\label{aof_8c_a296ba93d4b362fc0a14408edf1a0446b}} 
+\index{aof.\+c@{aof.\+c}!aof\+Close\+Pipes@{aof\+Close\+Pipes}}
+\index{aof\+Close\+Pipes@{aof\+Close\+Pipes}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aof\+Close\+Pipes()}{aofClosePipes()}}
+{\footnotesize\ttfamily void aof\+Close\+Pipes (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1505 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a3c8ff1f955741fe94beccb9834885fab}\label{aof_8c_a3c8ff1f955741fe94beccb9834885fab}} 
+\index{aof.\+c@{aof.\+c}!aof\+Create\+Pipes@{aof\+Create\+Pipes}}
+\index{aof\+Create\+Pipes@{aof\+Create\+Pipes}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aof\+Create\+Pipes()}{aofCreatePipes()}}
+{\footnotesize\ttfamily int aof\+Create\+Pipes (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1477 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a3cbb13a8a387de8eb98930824205293f}\label{aof_8c_a3cbb13a8a387de8eb98930824205293f}} 
+\index{aof.\+c@{aof.\+c}!aof\+Read\+Diff\+From\+Parent@{aof\+Read\+Diff\+From\+Parent}}
+\index{aof\+Read\+Diff\+From\+Parent@{aof\+Read\+Diff\+From\+Parent}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aof\+Read\+Diff\+From\+Parent()}{aofReadDiffFromParent()}}
+{\footnotesize\ttfamily ssize\+\_\+t aof\+Read\+Diff\+From\+Parent (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1250 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a75ea27ba4b875ecedc6c6e373a8a20f3}\label{aof_8c_a75ea27ba4b875ecedc6c6e373a8a20f3}} 
+\index{aof.\+c@{aof.\+c}!aof\+Remove\+Temp\+File@{aof\+Remove\+Temp\+File}}
+\index{aof\+Remove\+Temp\+File@{aof\+Remove\+Temp\+File}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aof\+Remove\+Temp\+File()}{aofRemoveTempFile()}}
+{\footnotesize\ttfamily void aof\+Remove\+Temp\+File (\begin{DoxyParamCaption}\item[{pid\+\_\+t}]{childpid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1605 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a100453453f615a53b1b3e814d0b8c138}\label{aof_8c_a100453453f615a53b1b3e814d0b8c138}} 
+\index{aof.\+c@{aof.\+c}!aof\+Rewrite\+Buffer\+Append@{aof\+Rewrite\+Buffer\+Append}}
+\index{aof\+Rewrite\+Buffer\+Append@{aof\+Rewrite\+Buffer\+Append}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aof\+Rewrite\+Buffer\+Append()}{aofRewriteBufferAppend()}}
+{\footnotesize\ttfamily void aof\+Rewrite\+Buffer\+Append (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{s,  }\item[{unsigned long}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 125 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a55a176249cd6ec3d89f7115527622f36}\label{aof_8c_a55a176249cd6ec3d89f7115527622f36}} 
+\index{aof.\+c@{aof.\+c}!aof\+Rewrite\+Buffer\+Reset@{aof\+Rewrite\+Buffer\+Reset}}
+\index{aof\+Rewrite\+Buffer\+Reset@{aof\+Rewrite\+Buffer\+Reset}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aof\+Rewrite\+Buffer\+Reset()}{aofRewriteBufferReset()}}
+{\footnotesize\ttfamily void aof\+Rewrite\+Buffer\+Reset (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 70 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_ac13e9eab03e6ba37d7567e805b54e12f}\label{aof_8c_ac13e9eab03e6ba37d7567e805b54e12f}} 
+\index{aof.\+c@{aof.\+c}!aof\+Rewrite\+Buffer\+Size@{aof\+Rewrite\+Buffer\+Size}}
+\index{aof\+Rewrite\+Buffer\+Size@{aof\+Rewrite\+Buffer\+Size}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aof\+Rewrite\+Buffer\+Size()}{aofRewriteBufferSize()}}
+{\footnotesize\ttfamily unsigned long aof\+Rewrite\+Buffer\+Size (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 79 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a13a125e5352050d0ad736190320eb160}\label{aof_8c_a13a125e5352050d0ad736190320eb160}} 
+\index{aof.\+c@{aof.\+c}!aof\+Rewrite\+Buffer\+Write@{aof\+Rewrite\+Buffer\+Write}}
+\index{aof\+Rewrite\+Buffer\+Write@{aof\+Rewrite\+Buffer\+Write}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aof\+Rewrite\+Buffer\+Write()}{aofRewriteBufferWrite()}}
+{\footnotesize\ttfamily ssize\+\_\+t aof\+Rewrite\+Buffer\+Write (\begin{DoxyParamCaption}\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 174 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_acdbfb07f697cad574930a5396f47ca3d}\label{aof_8c_acdbfb07f697cad574930a5396f47ca3d}} 
+\index{aof.\+c@{aof.\+c}!aof\+Update\+Current\+Size@{aof\+Update\+Current\+Size}}
+\index{aof\+Update\+Current\+Size@{aof\+Update\+Current\+Size}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aof\+Update\+Current\+Size()}{aofUpdateCurrentSize()}}
+{\footnotesize\ttfamily void aof\+Update\+Current\+Size (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1616 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_ad2802369d6aaec1d581503a2f9a44a97}\label{aof_8c_ad2802369d6aaec1d581503a2f9a44a97}} 
+\index{aof.\+c@{aof.\+c}!aof\+Write@{aof\+Write}}
+\index{aof\+Write@{aof\+Write}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{aof\+Write()}{aofWrite()}}
+{\footnotesize\ttfamily ssize\+\_\+t aof\+Write (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{const char $\ast$}]{buf,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 291 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a1fed587e74f1e81c22594897f3d0ccf3}\label{aof_8c_a1fed587e74f1e81c22594897f3d0ccf3}} 
+\index{aof.\+c@{aof.\+c}!background\+Rewrite\+Done\+Handler@{background\+Rewrite\+Done\+Handler}}
+\index{background\+Rewrite\+Done\+Handler@{background\+Rewrite\+Done\+Handler}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{background\+Rewrite\+Done\+Handler()}{backgroundRewriteDoneHandler()}}
+{\footnotesize\ttfamily void background\+Rewrite\+Done\+Handler (\begin{DoxyParamCaption}\item[{int}]{exitcode,  }\item[{int}]{bysignal }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1633 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_acd094b7bb70912d9fc503b07a190ee80}\label{aof_8c_acd094b7bb70912d9fc503b07a190ee80}} 
+\index{aof.\+c@{aof.\+c}!bgrewriteaof\+Command@{bgrewriteaof\+Command}}
+\index{bgrewriteaof\+Command@{bgrewriteaof\+Command}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{bgrewriteaof\+Command()}{bgrewriteaofCommand()}}
+{\footnotesize\ttfamily void bgrewriteaof\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1592 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a60dd4157a64e0e96d3a27d9bb9ad5ab9}\label{aof_8c_a60dd4157a64e0e96d3a27d9bb9ad5ab9}} 
+\index{aof.\+c@{aof.\+c}!cat\+Append\+Only\+Expire\+At\+Command@{cat\+Append\+Only\+Expire\+At\+Command}}
+\index{cat\+Append\+Only\+Expire\+At\+Command@{cat\+Append\+Only\+Expire\+At\+Command}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{cat\+Append\+Only\+Expire\+At\+Command()}{catAppendOnlyExpireAtCommand()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} cat\+Append\+Only\+Expire\+At\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{buf,  }\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{seconds }\end{DoxyParamCaption})}
+
+
+
+Definition at line 525 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a0f7fff3d9aae96b2df2ce65fb825c096}\label{aof_8c_a0f7fff3d9aae96b2df2ce65fb825c096}} 
+\index{aof.\+c@{aof.\+c}!cat\+Append\+Only\+Generic\+Command@{cat\+Append\+Only\+Generic\+Command}}
+\index{cat\+Append\+Only\+Generic\+Command@{cat\+Append\+Only\+Generic\+Command}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{cat\+Append\+Only\+Generic\+Command()}{catAppendOnlyGenericCommand()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} cat\+Append\+Only\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{dst,  }\item[{int}]{argc,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Definition at line 493 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_ab1debf22eac05b0f1e6f24f990227442}\label{aof_8c_ab1debf22eac05b0f1e6f24f990227442}} 
+\index{aof.\+c@{aof.\+c}!create\+Fake\+Client@{create\+Fake\+Client}}
+\index{create\+Fake\+Client@{create\+Fake\+Client}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{create\+Fake\+Client()}{createFakeClient()}}
+{\footnotesize\ttfamily struct \hyperlink{structclient}{client}$\ast$ create\+Fake\+Client (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 627 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_aca13d71d381248c8a1ef6caeb82c9244}\label{aof_8c_aca13d71d381248c8a1ef6caeb82c9244}} 
+\index{aof.\+c@{aof.\+c}!feed\+Append\+Only\+File@{feed\+Append\+Only\+File}}
+\index{feed\+Append\+Only\+File@{feed\+Append\+Only\+File}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{feed\+Append\+Only\+File()}{feedAppendOnlyFile()}}
+{\footnotesize\ttfamily void feed\+Append\+Only\+File (\begin{DoxyParamCaption}\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{int}]{dictid,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 555 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a85f34d09b65dafc802c9eb3c6a344d37}\label{aof_8c_a85f34d09b65dafc802c9eb3c6a344d37}} 
+\index{aof.\+c@{aof.\+c}!flush\+Append\+Only\+File@{flush\+Append\+Only\+File}}
+\index{flush\+Append\+Only\+File@{flush\+Append\+Only\+File}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{flush\+Append\+Only\+File()}{flushAppendOnlyFile()}}
+{\footnotesize\ttfamily void flush\+Append\+Only\+File (\begin{DoxyParamCaption}\item[{int}]{force }\end{DoxyParamCaption})}
+
+
+
+Definition at line 331 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_acd9f084689b0a3bbfe91a4d5fdc7cdb1}\label{aof_8c_acd9f084689b0a3bbfe91a4d5fdc7cdb1}} 
+\index{aof.\+c@{aof.\+c}!free\+Fake\+Client@{free\+Fake\+Client}}
+\index{free\+Fake\+Client@{free\+Fake\+Client}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{free\+Fake\+Client()}{freeFakeClient()}}
+{\footnotesize\ttfamily void free\+Fake\+Client (\begin{DoxyParamCaption}\item[{struct \hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 662 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a045a32406444c73e6223798ab57106a6}\label{aof_8c_a045a32406444c73e6223798ab57106a6}} 
+\index{aof.\+c@{aof.\+c}!free\+Fake\+Client\+Argv@{free\+Fake\+Client\+Argv}}
+\index{free\+Fake\+Client\+Argv@{free\+Fake\+Client\+Argv}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{free\+Fake\+Client\+Argv()}{freeFakeClientArgv()}}
+{\footnotesize\ttfamily void free\+Fake\+Client\+Argv (\begin{DoxyParamCaption}\item[{struct \hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 654 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a7c8ba26d0e1ea2c7c34d6b2bca2d4a53}\label{aof_8c_a7c8ba26d0e1ea2c7c34d6b2bca2d4a53}} 
+\index{aof.\+c@{aof.\+c}!load\+Append\+Only\+File@{load\+Append\+Only\+File}}
+\index{load\+Append\+Only\+File@{load\+Append\+Only\+File}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{load\+Append\+Only\+File()}{loadAppendOnlyFile()}}
+{\footnotesize\ttfamily int load\+Append\+Only\+File (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Definition at line 673 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a62aa3f2e3aa4039177045361119901d1}\label{aof_8c_a62aa3f2e3aa4039177045361119901d1}} 
+\index{aof.\+c@{aof.\+c}!rewrite\+Append\+Only\+File@{rewrite\+Append\+Only\+File}}
+\index{rewrite\+Append\+Only\+File@{rewrite\+Append\+Only\+File}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{rewrite\+Append\+Only\+File()}{rewriteAppendOnlyFile()}}
+{\footnotesize\ttfamily int rewrite\+Append\+Only\+File (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1344 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_aa2e5539b40259eac08d1612822ebcf9c}\label{aof_8c_aa2e5539b40259eac08d1612822ebcf9c}} 
+\index{aof.\+c@{aof.\+c}!rewrite\+Append\+Only\+File\+Background@{rewrite\+Append\+Only\+File\+Background}}
+\index{rewrite\+Append\+Only\+File\+Background@{rewrite\+Append\+Only\+File\+Background}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{rewrite\+Append\+Only\+File\+Background()}{rewriteAppendOnlyFileBackground()}}
+{\footnotesize\ttfamily int rewrite\+Append\+Only\+File\+Background (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1532 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_aac3cc1f8fc4fe2846a077f7d5445e59f}\label{aof_8c_aac3cc1f8fc4fe2846a077f7d5445e59f}} 
+\index{aof.\+c@{aof.\+c}!rewrite\+Append\+Only\+File\+Rio@{rewrite\+Append\+Only\+File\+Rio}}
+\index{rewrite\+Append\+Only\+File\+Rio@{rewrite\+Append\+Only\+File\+Rio}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{rewrite\+Append\+Only\+File\+Rio()}{rewriteAppendOnlyFileRio()}}
+{\footnotesize\ttfamily int rewrite\+Append\+Only\+File\+Rio (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{aof }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1262 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a283168b6a039db8ca5e32e826c47974d}\label{aof_8c_a283168b6a039db8ca5e32e826c47974d}} 
+\index{aof.\+c@{aof.\+c}!rewrite\+Hash\+Object@{rewrite\+Hash\+Object}}
+\index{rewrite\+Hash\+Object@{rewrite\+Hash\+Object}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{rewrite\+Hash\+Object()}{rewriteHashObject()}}
+{\footnotesize\ttfamily int rewrite\+Hash\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1071 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a6da8eefb6fec91e33e50e6de21ab34e8}\label{aof_8c_a6da8eefb6fec91e33e50e6de21ab34e8}} 
+\index{aof.\+c@{aof.\+c}!rewrite\+List\+Object@{rewrite\+List\+Object}}
+\index{rewrite\+List\+Object@{rewrite\+List\+Object}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{rewrite\+List\+Object()}{rewriteListObject()}}
+{\footnotesize\ttfamily int rewrite\+List\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 895 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_ab6e037e110287d81a5bd70a4b2ddcf88}\label{aof_8c_ab6e037e110287d81a5bd70a4b2ddcf88}} 
+\index{aof.\+c@{aof.\+c}!rewrite\+Module\+Object@{rewrite\+Module\+Object}}
+\index{rewrite\+Module\+Object@{rewrite\+Module\+Object}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{rewrite\+Module\+Object()}{rewriteModuleObject()}}
+{\footnotesize\ttfamily int rewrite\+Module\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1234 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a67082d0b56bc72fb2d7e2fc855cf40f4}\label{aof_8c_a67082d0b56bc72fb2d7e2fc855cf40f4}} 
+\index{aof.\+c@{aof.\+c}!rewrite\+Set\+Object@{rewrite\+Set\+Object}}
+\index{rewrite\+Set\+Object@{rewrite\+Set\+Object}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{rewrite\+Set\+Object()}{rewriteSetObject()}}
+{\footnotesize\ttfamily int rewrite\+Set\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 929 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_affff633435179c60f540bcb2239f4248}\label{aof_8c_affff633435179c60f540bcb2239f4248}} 
+\index{aof.\+c@{aof.\+c}!rewrite\+Sorted\+Set\+Object@{rewrite\+Sorted\+Set\+Object}}
+\index{rewrite\+Sorted\+Set\+Object@{rewrite\+Sorted\+Set\+Object}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{rewrite\+Sorted\+Set\+Object()}{rewriteSortedSetObject()}}
+{\footnotesize\ttfamily int rewrite\+Sorted\+Set\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 976 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_ad5e37ad4769b87846871acb052115193}\label{aof_8c_ad5e37ad4769b87846871acb052115193}} 
+\index{aof.\+c@{aof.\+c}!rewrite\+Stream\+Object@{rewrite\+Stream\+Object}}
+\index{rewrite\+Stream\+Object@{rewrite\+Stream\+Object}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{rewrite\+Stream\+Object()}{rewriteStreamObject()}}
+{\footnotesize\ttfamily int rewrite\+Stream\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1135 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a96c80a681f96c467d745748f5d1ab608}\label{aof_8c_a96c80a681f96c467d745748f5d1ab608}} 
+\index{aof.\+c@{aof.\+c}!rio\+Write\+Bulk\+Object@{rio\+Write\+Bulk\+Object}}
+\index{rio\+Write\+Bulk\+Object@{rio\+Write\+Bulk\+Object}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{rio\+Write\+Bulk\+Object()}{rioWriteBulkObject()}}
+{\footnotesize\ttfamily int rio\+Write\+Bulk\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 881 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a6985cdae3cf5722d5b3846710a8d165f}\label{aof_8c_a6985cdae3cf5722d5b3846710a8d165f}} 
+\index{aof.\+c@{aof.\+c}!rio\+Write\+Bulk\+Stream\+ID@{rio\+Write\+Bulk\+Stream\+ID}}
+\index{rio\+Write\+Bulk\+Stream\+ID@{rio\+Write\+Bulk\+Stream\+ID}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{rio\+Write\+Bulk\+Stream\+I\+D()}{rioWriteBulkStreamID()}}
+{\footnotesize\ttfamily int rio\+Write\+Bulk\+Stream\+ID (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{\hyperlink{structstream_i_d}{stream\+ID} $\ast$}]{id }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1099 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_a26ebb82bb5c69ea92269f951fa76b80d}\label{aof_8c_a26ebb82bb5c69ea92269f951fa76b80d}} 
+\index{aof.\+c@{aof.\+c}!rio\+Write\+Stream\+Pending\+Entry@{rio\+Write\+Stream\+Pending\+Entry}}
+\index{rio\+Write\+Stream\+Pending\+Entry@{rio\+Write\+Stream\+Pending\+Entry}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{rio\+Write\+Stream\+Pending\+Entry()}{rioWriteStreamPendingEntry()}}
+{\footnotesize\ttfamily int rio\+Write\+Stream\+Pending\+Entry (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{const char $\ast$}]{groupname,  }\item[{size\+\_\+t}]{groupname\+\_\+len,  }\item[{\hyperlink{structstream_consumer}{stream\+Consumer} $\ast$}]{consumer,  }\item[{unsigned char $\ast$}]{rawid,  }\item[{\hyperlink{structstream_n_a_c_k}{stream\+N\+A\+CK} $\ast$}]{nack }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1112 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_ac8ec248682bac05c86159f5b3d372368}\label{aof_8c_ac8ec248682bac05c86159f5b3d372368}} 
+\index{aof.\+c@{aof.\+c}!start\+Append\+Only@{start\+Append\+Only}}
+\index{start\+Append\+Only@{start\+Append\+Only}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{start\+Append\+Only()}{startAppendOnly()}}
+{\footnotesize\ttfamily int start\+Append\+Only (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 242 of file aof.\+c.
+
+\mbox{\Hypertarget{aof_8c_ae252302d320877042b5cbde04bdf75b6}\label{aof_8c_ae252302d320877042b5cbde04bdf75b6}} 
+\index{aof.\+c@{aof.\+c}!stop\+Append\+Only@{stop\+Append\+Only}}
+\index{stop\+Append\+Only@{stop\+Append\+Only}!aof.\+c@{aof.\+c}}
+\subsubsection{\texorpdfstring{stop\+Append\+Only()}{stopAppendOnly()}}
+{\footnotesize\ttfamily void stop\+Append\+Only (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 228 of file aof.\+c.
+

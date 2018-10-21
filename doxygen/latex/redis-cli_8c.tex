@@ -1,0 +1,1406 @@
+\hypertarget{redis-cli_8c}{}\section{src/redis-\/cli.c File Reference}
+\label{redis-cli_8c}\index{src/redis-\/cli.\+c@{src/redis-\/cli.\+c}}
+{\ttfamily \#include \char`\"{}fmacros.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}version.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$hiredis.\+h$>$}\newline
+{\ttfamily \#include $<$sds.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}dict.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}adlist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}zmalloc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}linenoise.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}help.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}anet.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ae.\+h\char`\"{}}\newline
+Include dependency graph for redis-\/cli.c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{redis-cli_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structcluster_manager_command}{cluster\+Manager\+Command}
+\item 
+struct {\bfseries config}
+\item 
+struct {\bfseries pref}
+\item 
+struct \hyperlink{structhelp_entry}{help\+Entry}
+\item 
+struct {\bfseries cluster\+Manager}
+\item 
+struct \hyperlink{structcluster_manager_node}{cluster\+Manager\+Node}
+\item 
+struct \hyperlink{structcluster_manager_node_array}{cluster\+Manager\+Node\+Array}
+\item 
+struct \hyperlink{structcluster_manager_reshard_table_item}{cluster\+Manager\+Reshard\+Table\+Item}
+\item 
+struct \hyperlink{structcluster_manager_command_def}{cluster\+Manager\+Command\+Def}
+\item 
+struct \hyperlink{structdistsamples}{distsamples}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{redis-cli_8c_ae7c9dc8f13568a9c856573751f1ee1ec}{U\+N\+U\+S\+ED}(V)~((void) V)
+\item 
+\#define \hyperlink{redis-cli_8c_abf624f04f4590979c3c3944bc7f94d6e}{O\+U\+T\+P\+U\+T\+\_\+\+S\+T\+A\+N\+D\+A\+RD}~0
+\item 
+\#define \hyperlink{redis-cli_8c_a4f47017b54da140967dcbd440fae227c}{O\+U\+T\+P\+U\+T\+\_\+\+R\+AW}~1
+\item 
+\#define \hyperlink{redis-cli_8c_a55fcc3cb9516c34eebf22ac9f8ebf3a2}{O\+U\+T\+P\+U\+T\+\_\+\+C\+SV}~2
+\item 
+\#define \hyperlink{redis-cli_8c_a5405864d5b0d191cc176105325fab907}{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+K\+E\+E\+P\+A\+L\+I\+V\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}~15 /$\ast$ seconds $\ast$/
+\item 
+\#define \hyperlink{redis-cli_8c_aa509dd2ea6ba533a33b1537622c215da}{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+I\+P\+E\+\_\+\+T\+I\+M\+E\+O\+UT}~30 /$\ast$ seconds $\ast$/
+\item 
+\#define \hyperlink{redis-cli_8c_a4aaf4b657b3305064e3da87ac88a95f9}{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+E\+NV}~\char`\"{}R\+E\+D\+I\+S\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+LE\char`\"{}
+\item 
+\#define \hyperlink{redis-cli_8c_ab1ba16fc9e98d602260f42a49de9a61c}{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT}~\char`\"{}.rediscli\+\_\+history\char`\"{}
+\item 
+\#define \hyperlink{redis-cli_8c_abb8e34d308514b1e024e39d127046df0}{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+E\+NV}~\char`\"{}R\+E\+D\+I\+S\+C\+L\+I\+\_\+\+R\+C\+F\+I\+LE\char`\"{}
+\item 
+\#define \hyperlink{redis-cli_8c_a0764031c702054d021e64f66271b56e3}{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT}~\char`\"{}.redisclirc\char`\"{}
+\item 
+\#define \hyperlink{redis-cli_8c_adff5eca00afc90a8c3c213bb7100cdc0}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+S\+L\+O\+TS}~16384
+\item 
+\#define \hyperlink{redis-cli_8c_a78b3cb1ab88e7abe0c471fd476204121}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+T\+I\+M\+E\+O\+UT}~60000
+\item 
+\#define \hyperlink{redis-cli_8c_a1c331cc6d2c264a5c4aa2f1d3fd04612}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+P\+I\+P\+E\+L\+I\+NE}~10
+\item 
+\#define \hyperlink{redis-cli_8c_aff0139f75eea9a481892bbc700c28fa5}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+R\+E\+B\+A\+L\+A\+N\+C\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}~2
+\item 
+\#define \hyperlink{redis-cli_8c_a88576a9cdde52411cc13c30b4594a68f}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+H\+O\+S\+T\+\_\+\+A\+RG}
+\item 
+\#define \hyperlink{redis-cli_8c_ab70fc07087205dc2620d11d8bc15dc95}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+O\+DE}()~(config.\+cluster\+\_\+manager\+\_\+command.\+name != N\+U\+LL)
+\item 
+\#define \hyperlink{redis-cli_8c_a17128b6803dd532edf67a83c45f6655a}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+S\+\_\+\+C\+O\+U\+NT}(nodes,  replicas)~(nodes/(replicas + 1))
+\item 
+\#define \hyperlink{redis-cli_8c_ae2d9b0745f04aa0abeb5c51a6b697cf7}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+O\+M\+M\+A\+ND}(n, ...)~(\hyperlink{structredis_command}{redis\+Command}(n-\/$>$context, \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+))
+\item 
+\#define \hyperlink{redis-cli_8c_a93e1a95b07101b24a373e6dfade66ad2}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+A\+R\+R\+A\+Y\+\_\+\+F\+R\+EE}(array)~\hyperlink{zmalloc_8h_ae6638523882220721b9e7cdc7b2cd58d}{zfree}(array-\/$>$alloc)
+\item 
+\#define \hyperlink{redis-cli_8c_a6ce40943079652c9c9dcaad59114176b}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+P\+R\+I\+N\+T\+\_\+\+R\+E\+P\+L\+Y\+\_\+\+E\+R\+R\+OR}(n,  err)
+\item 
+\#define \hyperlink{redis-cli_8c_a151780f0b046e0c2fef2888d0963c1f5}{cluster\+Manager\+Log\+Info}(...)~cluster\+Manager\+Log(\hyperlink{redis-cli_8c_a0ba0eba292d87bc19292a61e473d4526}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+I\+N\+FO},\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\item 
+\#define \hyperlink{redis-cli_8c_acb3b620eb83ee84317de53670a257836}{cluster\+Manager\+Log\+Err}(...)~cluster\+Manager\+Log(\hyperlink{redis-cli_8c_af5844c375f96c311eae4a130e2c6faa3}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+E\+RR},\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\item 
+\#define \hyperlink{redis-cli_8c_a2b0dfe70c8d75e47b95362a8a45b70f2}{cluster\+Manager\+Log\+Warn}(...)~cluster\+Manager\+Log(\hyperlink{redis-cli_8c_a75e1edf48f2deecde01c5f5b7a3549c5}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+W\+A\+RN},\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\item 
+\#define \hyperlink{redis-cli_8c_a1c989d91de01aaed261eb69873661323}{cluster\+Manager\+Log\+Ok}(...)~cluster\+Manager\+Log(\hyperlink{redis-cli_8c_a6a754ca7f60f191d71265d2c35c0cdde}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+S\+U\+C\+C\+E\+SS},\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\item 
+\#define \hyperlink{redis-cli_8c_a8b6dbe68da44cffbcf45bb44d1574bd4}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+M\+Y\+S\+E\+LF}~1 $<$$<$ 0
+\item 
+\#define \hyperlink{redis-cli_8c_a71c336d14254f8563ad5adee17d49511}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE}~1 $<$$<$ 1
+\item 
+\#define \hyperlink{redis-cli_8c_a5b6e3ef8d7a248fed729c7067e0aa905}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+R\+I\+E\+ND}~1 $<$$<$ 2
+\item 
+\#define \hyperlink{redis-cli_8c_ad87d5059bdadc2b00b015732b565b354}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+A\+D\+DR}~1 $<$$<$ 3
+\item 
+\#define \hyperlink{redis-cli_8c_aa0c98d5851933187ac92da57d02a01dc}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}~1 $<$$<$ 4
+\item 
+\#define \hyperlink{redis-cli_8c_ae74a382109f1c7974121633ecacdd904}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+A\+IL}~1 $<$$<$ 5
+\item 
+\#define \hyperlink{redis-cli_8c_ab247bf3596e7714242c2d6588398d346}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+F\+IX}~1 $<$$<$ 0
+\item 
+\#define \hyperlink{redis-cli_8c_a1b85abca246a47325395c55c78ea3f5e}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE}~1 $<$$<$ 1
+\item 
+\#define \hyperlink{redis-cli_8c_ad877f695c8c9a523fa3d265dea853020}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+Y\+ES}~1 $<$$<$ 2
+\item 
+\#define \hyperlink{redis-cli_8c_a6e936263f7123d6021b893facb07938d}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+A\+U\+T\+O\+W\+E\+I\+G\+H\+TS}~1 $<$$<$ 3
+\item 
+\#define \hyperlink{redis-cli_8c_a0f4346504ca94f794c2ac18b8096f9b1}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+E\+M\+P\+T\+Y\+M\+A\+S\+T\+ER}~1 $<$$<$ 4
+\item 
+\#define \hyperlink{redis-cli_8c_a2e9e0770f3872f19e6da10c0cffc1b05}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+I\+M\+U\+L\+A\+TE}~1 $<$$<$ 5
+\item 
+\#define \hyperlink{redis-cli_8c_ad68983d291b66b75e655b1c4921bb8b5}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+P\+L\+A\+CE}~1 $<$$<$ 6
+\item 
+\#define \hyperlink{redis-cli_8c_a24daab22d1c405359f69927ee2ec6bd9}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+PY}~1 $<$$<$ 7
+\item 
+\#define \hyperlink{redis-cli_8c_a43c858bf4beb1ca775c38cbd986e894c}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+L\+OR}~1 $<$$<$ 8
+\item 
+\#define \hyperlink{redis-cli_8c_accaba51f685e821890711daceec55370}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+G\+E\+T\+F\+R\+I\+E\+N\+DS}~1 $<$$<$ 0
+\item 
+\#define \hyperlink{redis-cli_8c_a392a5b7d7c5bd5fe5c6f7c8a7ff5fcef}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+C\+O\+LD}~1 $<$$<$ 1
+\item 
+\#define \hyperlink{redis-cli_8c_a71273fb1d44a531dddf3835e422c3d70}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+U\+P\+D\+A\+TE}~1 $<$$<$ 2
+\item 
+\#define \hyperlink{redis-cli_8c_a5c43854efc38d9450c4d9f760acbad6c}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+Q\+U\+I\+ET}~1 $<$$<$ 6
+\item 
+\#define \hyperlink{redis-cli_8c_ab696e5ed6594ba50a175ffc217b97e17}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+V\+E\+R\+B\+O\+SE}~1 $<$$<$ 7
+\item 
+\#define \hyperlink{redis-cli_8c_a0ba0eba292d87bc19292a61e473d4526}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+I\+N\+FO}~1
+\item 
+\#define \hyperlink{redis-cli_8c_a75e1edf48f2deecde01c5f5b7a3549c5}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+W\+A\+RN}~2
+\item 
+\#define \hyperlink{redis-cli_8c_af5844c375f96c311eae4a130e2c6faa3}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+E\+RR}~3
+\item 
+\#define \hyperlink{redis-cli_8c_a6a754ca7f60f191d71265d2c35c0cdde}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+S\+U\+C\+C\+E\+SS}~4
+\item 
+\#define \hyperlink{redis-cli_8c_a434346dd26dca0a5bbfe8075307a4c1d}{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+O\+LD}~\char`\"{}29;1m\char`\"{}
+\item 
+\#define \hyperlink{redis-cli_8c_af6467cd567c0679c15e09913f77b9555}{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+ED}~\char`\"{}31;1m\char`\"{}
+\item 
+\#define \hyperlink{redis-cli_8c_ab3f1028e542649d3ad064ca8b9b123c0}{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+G\+R\+E\+EN}~\char`\"{}32;1m\char`\"{}
+\item 
+\#define \hyperlink{redis-cli_8c_a74416ee2437694c75a11e27a158eeb5c}{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+Y\+E\+L\+L\+OW}~\char`\"{}33;1m\char`\"{}
+\item 
+\#define \hyperlink{redis-cli_8c_a8878b128231510acd20620de417738e9}{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+E\+S\+ET}~\char`\"{}0m\char`\"{}
+\item 
+\#define \hyperlink{redis-cli_8c_a6e13d822283e80732a30dacaa7a4165d}{C\+C\+\_\+\+F\+O\+R\+CE}~(1$<$$<$0)         /$\ast$ Re-\/connect if already connected. $\ast$/
+\item 
+\#define \hyperlink{redis-cli_8c_ad184832703881443fba3c47f886b51e7}{C\+C\+\_\+\+Q\+U\+I\+ET}~(1$<$$<$1)         /$\ast$ Don\textquotesingle{}t log connecting errors. $\ast$/
+\item 
+\#define \hyperlink{redis-cli_8c_ab2fbc70c2119ce8e23755a86933af1f5}{is\+Hex\+Char}(c)~(isdigit(c) $\vert$$\vert$ (c $>$= \textquotesingle{}a\textquotesingle{} \&\& c $<$= \textquotesingle{}f\textquotesingle{}))
+\item 
+\#define \hyperlink{redis-cli_8c_ab610530dccdfe42adbac4677a568645a}{decode\+Hex\+Char}(c)~(isdigit(c) ? c -\/ \textquotesingle{}0\textquotesingle{} \+: c -\/ \textquotesingle{}a\textquotesingle{} + 10)
+\item 
+\#define \hyperlink{redis-cli_8c_ae03eb95fffcdab7dfa7faeadd04ad9f4}{decode\+Hex}(h,  l)~((\hyperlink{redis-cli_8c_ab610530dccdfe42adbac4677a568645a}{decode\+Hex\+Char}(h) $<$$<$ 4) + \hyperlink{redis-cli_8c_ab610530dccdfe42adbac4677a568645a}{decode\+Hex\+Char}(l))
+\item 
+\#define \hyperlink{redis-cli_8c_ad5a18b7d635c6438f512f3c5d7f9f546}{C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+C\+O\+M\+M\+A\+ND}~1
+\item 
+\#define \hyperlink{redis-cli_8c_a3cac9e62f8d124c91f892f2236135589}{C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+G\+R\+O\+UP}~2
+\item 
+\#define \hyperlink{redis-cli_8c_a76987a88882cfc750afde2c219a0bbab}{L\+A\+T\+E\+N\+C\+Y\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+R\+A\+TE}~10 /$\ast$ milliseconds. $\ast$/
+\item 
+\#define \hyperlink{redis-cli_8c_a372f614f9e206b8f110cab48214252d5}{L\+A\+T\+E\+N\+C\+Y\+\_\+\+H\+I\+S\+T\+O\+R\+Y\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL}~15000 /$\ast$ milliseconds. $\ast$/
+\item 
+\#define \hyperlink{redis-cli_8c_a6441de268c4b35721ec39471428d836f}{L\+A\+T\+E\+N\+C\+Y\+\_\+\+D\+I\+S\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL}~1000 /$\ast$ milliseconds. $\ast$/
+\item 
+\#define \hyperlink{redis-cli_8c_aaefb577451e0f5fc0ff993bda43044b6}{P\+I\+P\+E\+M\+O\+D\+E\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+O\+P\+\_\+\+M\+A\+X\+\_\+\+B\+Y\+T\+ES}~(128$\ast$1024)
+\item 
+\#define \hyperlink{redis-cli_8c_a4e4e428e3a6a191834e3ff63bd301866}{T\+Y\+P\+E\+\_\+\+S\+T\+R\+I\+NG}~0
+\item 
+\#define \hyperlink{redis-cli_8c_a12d33da3418cfc67c9076ef7353ca50b}{T\+Y\+P\+E\+\_\+\+L\+I\+ST}~1
+\item 
+\#define \hyperlink{redis-cli_8c_a216111b323b4b6e3168596e69c72671b}{T\+Y\+P\+E\+\_\+\+S\+ET}~2
+\item 
+\#define \hyperlink{redis-cli_8c_a2ee0b296ab2dd19e14df6f097d07981e}{T\+Y\+P\+E\+\_\+\+H\+A\+SH}~3
+\item 
+\#define \hyperlink{redis-cli_8c_a9ffc96cc0a980403dc1df5cea83fb138}{T\+Y\+P\+E\+\_\+\+Z\+S\+ET}~4
+\item 
+\#define \hyperlink{redis-cli_8c_a78458977895c28f708af92554a64a8ff}{T\+Y\+P\+E\+\_\+\+S\+T\+R\+E\+AM}~5
+\item 
+\#define \hyperlink{redis-cli_8c_aa47d3c2fa05e95455d76cf052f9cca68}{T\+Y\+P\+E\+\_\+\+N\+O\+NE}~6
+\item 
+\#define \hyperlink{redis-cli_8c_a5aa140c2c2e64a57331d450a98077834}{T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT}~7
+\item 
+\#define \hyperlink{redis-cli_8c_a0f10197c353b6fcaf73df928885167ca}{H\+O\+T\+K\+E\+Y\+S\+\_\+\+S\+A\+M\+P\+LE}~16
+\item 
+\#define \hyperlink{redis-cli_8c_a514ca976fc45286ea7e8d08caf838733}{L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD}~1000 /$\ast$ 1000 milliseconds. $\ast$/
+\item 
+\#define \hyperlink{redis-cli_8c_ae524234b44cd0249095699ac9f377254}{L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+I\+P\+E\+L\+I\+N\+E\+\_\+\+S\+I\+ZE}~250
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structcluster_manager_command}{cluster\+Manager\+Command} \hyperlink{redis-cli_8c_a4a287731949d49a0194c4ba6bf5d7523}{cluster\+Manager\+Command}
+\item 
+typedef struct \hyperlink{structcluster_manager_node}{cluster\+Manager\+Node} \hyperlink{redis-cli_8c_add369fe815d567f6e0b8d573384e3fa6}{cluster\+Manager\+Node}
+\item 
+typedef struct \hyperlink{structcluster_manager_node_array}{cluster\+Manager\+Node\+Array} \hyperlink{redis-cli_8c_a7c1f7b7c2d2a1f7b366cf62f9319db26}{cluster\+Manager\+Node\+Array}
+\item 
+typedef struct \hyperlink{structcluster_manager_reshard_table_item}{cluster\+Manager\+Reshard\+Table\+Item} \hyperlink{redis-cli_8c_ae4374bcd170566d368a299bb459e5eb1}{cluster\+Manager\+Reshard\+Table\+Item}
+\item 
+typedef int \hyperlink{redis-cli_8c_a8e9cfad74d28bc05c1e55864714a460f}{cluster\+Manager\+Command\+Proc}(int argc, char $\ast$$\ast$argv)
+\item 
+typedef struct \hyperlink{structcluster_manager_command_def}{cluster\+Manager\+Command\+Def} \hyperlink{redis-cli_8c_a708569b560d5de7d6b6f472cb70e41b5}{cluster\+Manager\+Command\+Def}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{redis-cli_8c_a598b97b058f3470583dd1b6fc6498102}{redis\+Git\+S\+H\+A1} (void)
+\item 
+char $\ast$ \hyperlink{redis-cli_8c_a1dc767d40b8708fecbc214aafd78fd71}{redis\+Git\+Dirty} (void)
+\item 
+uint16\+\_\+t \hyperlink{redis-cli_8c_a1af61bf3da70181a7591b0f5758913a3}{crc16} (const char $\ast$buf, int len)
+\item 
+void \hyperlink{redis-cli_8c_ace38bb59b1a740e3b0db1cf149956c67}{\+\_\+server\+Assert} (const char $\ast$estr, const char $\ast$file, int line)
+\item 
+int \hyperlink{redis-cli_8c_a714e96cca59b2378fae3f82a093d6d55}{is\+Color\+Term} (void)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{redis-cli_8c_a5e975ae7748971b112576394ed9446be}{sdscatcolor} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} o, char $\ast$s, size\+\_\+t len, char $\ast$color)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{redis-cli_8c_a7c60ad60c617f931dc73df54d36852c4}{sds\+Cat\+Colorized\+Ldb\+Reply} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} o, char $\ast$s, size\+\_\+t len)
+\item 
+void \hyperlink{redis-cli_8c_a07d4e3ca456b6b137a92e9c7fc53ab15}{cli\+Set\+Preferences} (char $\ast$$\ast$argv, int argc, int interactive)
+\item 
+void \hyperlink{redis-cli_8c_ae90b8c7a065096325ddb291a04ac6cef}{cli\+Load\+Preferences} (void)
+\item 
+int \hyperlink{redis-cli_8c_a5ff8171578d33bc43617b2d4fc9a75b5}{cluster\+Manager\+Slot\+Compare} (const void $\ast$slot1, const void $\ast$slot2)
+\item 
+int \hyperlink{redis-cli_8c_a63abcc059e6d70d890f2e407b0c2af81}{cluster\+Manager\+Slot\+Count\+Compare\+Desc} (const void $\ast$n1, const void $\ast$n2)
+\item 
+int \hyperlink{redis-cli_8c_a472cee2ec11ec44da4b24a64cf34ab9c}{cluster\+Manager\+Compare\+Node\+Balance} (const void $\ast$n1, const void $\ast$n2)
+\item 
+void \hyperlink{redis-cli_8c_aa482d47975ad5eaa1358dae2e61dc210}{show\+Latency\+Dist\+Samples} (struct \hyperlink{structdistsamples}{distsamples} $\ast$samples, long long tot)
+\item 
+void \hyperlink{redis-cli_8c_a0f17889840978a98905f650af146bb47}{show\+Latency\+Dist\+Legend} (void)
+\item 
+unsigned long long \hyperlink{redis-cli_8c_a44d209c7dd563fe5a055b46d82c9cf49}{send\+Sync} (int fd)
+\item 
+void \hyperlink{redis-cli_8c_a36fd850a51dbdede80f4f09a6b597c76}{bytes\+To\+Human} (char $\ast$s, long long n)
+\item 
+long long \hyperlink{redis-cli_8c_aadf73ba53c2fb2744ad04f967a34e39c}{power\+Law\+Rand} (long long \hyperlink{pqsort_8c_ac6afabdc09a49a433ee19d8a9486056d}{min}, long long max, double alpha)
+\item 
+void \hyperlink{redis-cli_8c_a0310958a96dc28c6abcebccc4a75a936}{L\+R\+U\+Test\+Gen\+Key} (char $\ast$buf, size\+\_\+t buflen)
+\item 
+unsigned long \hyperlink{redis-cli_8c_a1342d8c52f123e13a4a55f87819c3f71}{compute\+\_\+something\+\_\+fast} (void)
+\item 
+int \hyperlink{redis-cli_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{redis-cli_8c_a061fe77e2709cbb2f71fc2a7398963c5}{spectrum\+\_\+palette\+\_\+color\+\_\+size} = 19
+\item 
+int \hyperlink{redis-cli_8c_a1e97bf08246f94fc853f8fcf46c1cf21}{spectrum\+\_\+palette\+\_\+color} \mbox{[}$\,$\mbox{]} = \{0,233,234,235,237,239,241,243,245,247,144,143,142,184,226,214,208,202,196\}
+\item 
+int \hyperlink{redis-cli_8c_a56c244483f637616592c0da2fa1cd0f6}{spectrum\+\_\+palette\+\_\+mono\+\_\+size} = 13
+\item 
+int \hyperlink{redis-cli_8c_a40e0ab2c77349c2cb0546ef74c434b06}{spectrum\+\_\+palette\+\_\+mono} \mbox{[}$\,$\mbox{]} = \{0,233,234,235,237,239,241,243,245,247,249,251,253\}
+\item 
+int $\ast$ \hyperlink{redis-cli_8c_a221e8d721f6f0f04badd0cf2bf40822e}{spectrum\+\_\+palette}
+\item 
+int \hyperlink{redis-cli_8c_ae51bbc7bfe53bb9fb243c65fed16fd40}{spectrum\+\_\+palette\+\_\+size}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{redis-cli_8c_ae685c0b27570c5e930353b89b1a1195e}{cluster\+Manager\+Uncovered\+Slots} = N\+U\+LL
+\item 
+\hyperlink{structcluster_manager_command_def}{cluster\+Manager\+Command\+Def} \hyperlink{redis-cli_8c_af5c710599aca211f76878c21dbf2c6e2}{cluster\+Manager\+Commands} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{redis-cli_8c_a6e13d822283e80732a30dacaa7a4165d}\label{redis-cli_8c_a6e13d822283e80732a30dacaa7a4165d}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+C\+\_\+\+F\+O\+R\+CE@{C\+C\+\_\+\+F\+O\+R\+CE}}
+\index{C\+C\+\_\+\+F\+O\+R\+CE@{C\+C\+\_\+\+F\+O\+R\+CE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+C\+\_\+\+F\+O\+R\+CE}{CC\_FORCE}}
+{\footnotesize\ttfamily \#define C\+C\+\_\+\+F\+O\+R\+CE~(1$<$$<$0)         /$\ast$ Re-\/connect if already connected. $\ast$/}
+
+
+
+Definition at line 138 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ad184832703881443fba3c47f886b51e7}\label{redis-cli_8c_ad184832703881443fba3c47f886b51e7}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+C\+\_\+\+Q\+U\+I\+ET@{C\+C\+\_\+\+Q\+U\+I\+ET}}
+\index{C\+C\+\_\+\+Q\+U\+I\+ET@{C\+C\+\_\+\+Q\+U\+I\+ET}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+C\+\_\+\+Q\+U\+I\+ET}{CC\_QUIET}}
+{\footnotesize\ttfamily \#define C\+C\+\_\+\+Q\+U\+I\+ET~(1$<$$<$1)         /$\ast$ Don\textquotesingle{}t log connecting errors. $\ast$/}
+
+
+
+Definition at line 139 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ad5a18b7d635c6438f512f3c5d7f9f546}\label{redis-cli_8c_ad5a18b7d635c6438f512f3c5d7f9f546}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+C\+O\+M\+M\+A\+ND@{C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+C\+O\+M\+M\+A\+ND}}
+\index{C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+C\+O\+M\+M\+A\+ND@{C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+C\+O\+M\+M\+A\+ND}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+C\+O\+M\+M\+A\+ND}{CLI\_HELP\_COMMAND}}
+{\footnotesize\ttfamily \#define C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+C\+O\+M\+M\+A\+ND~1}
+
+
+
+Definition at line 441 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a3cac9e62f8d124c91f892f2236135589}\label{redis-cli_8c_a3cac9e62f8d124c91f892f2236135589}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+G\+R\+O\+UP@{C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+G\+R\+O\+UP}}
+\index{C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+G\+R\+O\+UP@{C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+G\+R\+O\+UP}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+G\+R\+O\+UP}{CLI\_HELP\_GROUP}}
+{\footnotesize\ttfamily \#define C\+L\+I\+\_\+\+H\+E\+L\+P\+\_\+\+G\+R\+O\+UP~2}
+
+
+
+Definition at line 442 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a6e936263f7123d6021b893facb07938d}\label{redis-cli_8c_a6e936263f7123d6021b893facb07938d}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+A\+U\+T\+O\+W\+E\+I\+G\+H\+TS@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+A\+U\+T\+O\+W\+E\+I\+G\+H\+TS}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+A\+U\+T\+O\+W\+E\+I\+G\+H\+TS@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+A\+U\+T\+O\+W\+E\+I\+G\+H\+TS}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+A\+U\+T\+O\+W\+E\+I\+G\+H\+TS}{CLUSTER\_MANAGER\_CMD\_FLAG\_AUTOWEIGHTS}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+A\+U\+T\+O\+W\+E\+I\+G\+H\+TS~1 $<$$<$ 3}
+
+
+
+Definition at line 113 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a43c858bf4beb1ca775c38cbd986e894c}\label{redis-cli_8c_a43c858bf4beb1ca775c38cbd986e894c}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+L\+OR@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+L\+OR}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+L\+OR@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+L\+OR}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+L\+OR}{CLUSTER\_MANAGER\_CMD\_FLAG\_COLOR}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+L\+OR~1 $<$$<$ 8}
+
+
+
+Definition at line 118 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a24daab22d1c405359f69927ee2ec6bd9}\label{redis-cli_8c_a24daab22d1c405359f69927ee2ec6bd9}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+PY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+PY}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+PY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+PY}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+PY}{CLUSTER\_MANAGER\_CMD\_FLAG\_COPY}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+C\+O\+PY~1 $<$$<$ 7}
+
+
+
+Definition at line 117 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a0f4346504ca94f794c2ac18b8096f9b1}\label{redis-cli_8c_a0f4346504ca94f794c2ac18b8096f9b1}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+E\+M\+P\+T\+Y\+M\+A\+S\+T\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+E\+M\+P\+T\+Y\+M\+A\+S\+T\+ER}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+E\+M\+P\+T\+Y\+M\+A\+S\+T\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+E\+M\+P\+T\+Y\+M\+A\+S\+T\+ER}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+E\+M\+P\+T\+Y\+M\+A\+S\+T\+ER}{CLUSTER\_MANAGER\_CMD\_FLAG\_EMPTYMASTER}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+E\+M\+P\+T\+Y\+M\+A\+S\+T\+ER~1 $<$$<$ 4}
+
+
+
+Definition at line 114 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ab247bf3596e7714242c2d6588398d346}\label{redis-cli_8c_ab247bf3596e7714242c2d6588398d346}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+F\+IX@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+F\+IX}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+F\+IX@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+F\+IX}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+F\+IX}{CLUSTER\_MANAGER\_CMD\_FLAG\_FIX}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+F\+IX~1 $<$$<$ 0}
+
+
+
+Definition at line 110 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ad68983d291b66b75e655b1c4921bb8b5}\label{redis-cli_8c_ad68983d291b66b75e655b1c4921bb8b5}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+P\+L\+A\+CE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+P\+L\+A\+CE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+P\+L\+A\+CE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+P\+L\+A\+CE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+P\+L\+A\+CE}{CLUSTER\_MANAGER\_CMD\_FLAG\_REPLACE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+R\+E\+P\+L\+A\+CE~1 $<$$<$ 6}
+
+
+
+Definition at line 116 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a2e9e0770f3872f19e6da10c0cffc1b05}\label{redis-cli_8c_a2e9e0770f3872f19e6da10c0cffc1b05}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+I\+M\+U\+L\+A\+TE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+I\+M\+U\+L\+A\+TE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+I\+M\+U\+L\+A\+TE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+I\+M\+U\+L\+A\+TE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+I\+M\+U\+L\+A\+TE}{CLUSTER\_MANAGER\_CMD\_FLAG\_SIMULATE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+I\+M\+U\+L\+A\+TE~1 $<$$<$ 5}
+
+
+
+Definition at line 115 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a1b85abca246a47325395c55c78ea3f5e}\label{redis-cli_8c_a1b85abca246a47325395c55c78ea3f5e}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE}{CLUSTER\_MANAGER\_CMD\_FLAG\_SLAVE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE~1 $<$$<$ 1}
+
+
+
+Definition at line 111 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ad877f695c8c9a523fa3d265dea853020}\label{redis-cli_8c_ad877f695c8c9a523fa3d265dea853020}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+Y\+ES@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+Y\+ES}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+Y\+ES@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+Y\+ES}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+Y\+ES}{CLUSTER\_MANAGER\_CMD\_FLAG\_YES}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+M\+D\+\_\+\+F\+L\+A\+G\+\_\+\+Y\+ES~1 $<$$<$ 2}
+
+
+
+Definition at line 112 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ae2d9b0745f04aa0abeb5c51a6b697cf7}\label{redis-cli_8c_ae2d9b0745f04aa0abeb5c51a6b697cf7}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+O\+M\+M\+A\+ND@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+O\+M\+M\+A\+ND}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+O\+M\+M\+A\+ND@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+O\+M\+M\+A\+ND}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+O\+M\+M\+A\+ND}{CLUSTER\_MANAGER\_COMMAND}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+C\+O\+M\+M\+A\+ND(\begin{DoxyParamCaption}\item[{}]{n,  }\item[{}]{... }\end{DoxyParamCaption})~(\hyperlink{structredis_command}{redis\+Command}(n-\/$>$context, \+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+))}
+
+
+
+Definition at line 82 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_aa0c98d5851933187ac92da57d02a01dc}\label{redis-cli_8c_aa0c98d5851933187ac92da57d02a01dc}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT}{CLUSTER\_MANAGER\_FLAG\_DISCONNECT}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+D\+I\+S\+C\+O\+N\+N\+E\+CT~1 $<$$<$ 4}
+
+
+
+Definition at line 107 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ae74a382109f1c7974121633ecacdd904}\label{redis-cli_8c_ae74a382109f1c7974121633ecacdd904}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+A\+IL@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+A\+IL}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+A\+IL@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+A\+IL}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+A\+IL}{CLUSTER\_MANAGER\_FLAG\_FAIL}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+A\+IL~1 $<$$<$ 5}
+
+
+
+Definition at line 108 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a5b6e3ef8d7a248fed729c7067e0aa905}\label{redis-cli_8c_a5b6e3ef8d7a248fed729c7067e0aa905}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+R\+I\+E\+ND@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+R\+I\+E\+ND}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+R\+I\+E\+ND@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+R\+I\+E\+ND}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+R\+I\+E\+ND}{CLUSTER\_MANAGER\_FLAG\_FRIEND}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+F\+R\+I\+E\+ND~1 $<$$<$ 2}
+
+
+
+Definition at line 105 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a8b6dbe68da44cffbcf45bb44d1574bd4}\label{redis-cli_8c_a8b6dbe68da44cffbcf45bb44d1574bd4}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+M\+Y\+S\+E\+LF@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+M\+Y\+S\+E\+LF}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+M\+Y\+S\+E\+LF@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+M\+Y\+S\+E\+LF}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+M\+Y\+S\+E\+LF}{CLUSTER\_MANAGER\_FLAG\_MYSELF}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+M\+Y\+S\+E\+LF~1 $<$$<$ 0}
+
+
+
+Definition at line 103 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ad87d5059bdadc2b00b015732b565b354}\label{redis-cli_8c_ad87d5059bdadc2b00b015732b565b354}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+A\+D\+DR@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+A\+D\+DR}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+A\+D\+DR@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+A\+D\+DR}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+A\+D\+DR}{CLUSTER\_MANAGER\_FLAG\_NOADDR}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+A\+D\+DR~1 $<$$<$ 3}
+
+
+
+Definition at line 106 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a71c336d14254f8563ad5adee17d49511}\label{redis-cli_8c_a71c336d14254f8563ad5adee17d49511}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE}{CLUSTER\_MANAGER\_FLAG\_SLAVE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+F\+L\+A\+G\+\_\+\+S\+L\+A\+VE~1 $<$$<$ 1}
+
+
+
+Definition at line 104 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a88576a9cdde52411cc13c30b4594a68f}\label{redis-cli_8c_a88576a9cdde52411cc13c30b4594a68f}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+H\+O\+S\+T\+\_\+\+A\+RG@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+H\+O\+S\+T\+\_\+\+A\+RG}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+H\+O\+S\+T\+\_\+\+A\+RG@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+H\+O\+S\+T\+\_\+\+A\+RG}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+H\+O\+S\+T\+\_\+\+A\+RG}{CLUSTER\_MANAGER\_INVALID\_HOST\_ARG}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+I\+N\+V\+A\+L\+I\+D\+\_\+\+H\+O\+S\+T\+\_\+\+A\+RG}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{stringliteral}{"[ERR] Invalid arguments: you need to pass either a valid "} \(\backslash\)
+    \textcolor{stringliteral}{"address (ie. 120.0.0.1:7000) or space separated IP "} \(\backslash\)
+    \textcolor{stringliteral}{"and port (ie. 120.0.0.1 7000)\(\backslash\)n"}
+\end{DoxyCode}
+
+
+Definition at line 76 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_af5844c375f96c311eae4a130e2c6faa3}\label{redis-cli_8c_af5844c375f96c311eae4a130e2c6faa3}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+E\+RR@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+E\+RR}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+E\+RR@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+E\+RR}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+E\+RR}{CLUSTER\_MANAGER\_LOG\_LVL\_ERR}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+E\+RR~3}
+
+
+
+Definition at line 128 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a0ba0eba292d87bc19292a61e473d4526}\label{redis-cli_8c_a0ba0eba292d87bc19292a61e473d4526}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+I\+N\+FO@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+I\+N\+FO}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+I\+N\+FO@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+I\+N\+FO}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+I\+N\+FO}{CLUSTER\_MANAGER\_LOG\_LVL\_INFO}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+I\+N\+FO~1}
+
+
+
+Definition at line 126 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a6a754ca7f60f191d71265d2c35c0cdde}\label{redis-cli_8c_a6a754ca7f60f191d71265d2c35c0cdde}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+S\+U\+C\+C\+E\+SS@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+S\+U\+C\+C\+E\+SS}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+S\+U\+C\+C\+E\+SS@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+S\+U\+C\+C\+E\+SS}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+S\+U\+C\+C\+E\+SS}{CLUSTER\_MANAGER\_LOG\_LVL\_SUCCESS}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+S\+U\+C\+C\+E\+SS~4}
+
+
+
+Definition at line 129 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a75e1edf48f2deecde01c5f5b7a3549c5}\label{redis-cli_8c_a75e1edf48f2deecde01c5f5b7a3549c5}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+W\+A\+RN@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+W\+A\+RN}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+W\+A\+RN@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+W\+A\+RN}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+W\+A\+RN}{CLUSTER\_MANAGER\_LOG\_LVL\_WARN}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+W\+A\+RN~2}
+
+
+
+Definition at line 127 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a17128b6803dd532edf67a83c45f6655a}\label{redis-cli_8c_a17128b6803dd532edf67a83c45f6655a}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+S\+\_\+\+C\+O\+U\+NT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+S\+\_\+\+C\+O\+U\+NT}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+S\+\_\+\+C\+O\+U\+NT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+S\+\_\+\+C\+O\+U\+NT}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+S\+\_\+\+C\+O\+U\+NT}{CLUSTER\_MANAGER\_MASTERS\_COUNT}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+A\+S\+T\+E\+R\+S\+\_\+\+C\+O\+U\+NT(\begin{DoxyParamCaption}\item[{}]{nodes,  }\item[{}]{replicas }\end{DoxyParamCaption})~(nodes/(replicas + 1))}
+
+
+
+Definition at line 81 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a1c331cc6d2c264a5c4aa2f1d3fd04612}\label{redis-cli_8c_a1c331cc6d2c264a5c4aa2f1d3fd04612}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+P\+I\+P\+E\+L\+I\+NE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+P\+I\+P\+E\+L\+I\+NE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+P\+I\+P\+E\+L\+I\+NE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+P\+I\+P\+E\+L\+I\+NE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+P\+I\+P\+E\+L\+I\+NE}{CLUSTER\_MANAGER\_MIGRATE\_PIPELINE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+P\+I\+P\+E\+L\+I\+NE~10}
+
+
+
+Definition at line 73 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a78b3cb1ab88e7abe0c471fd476204121}\label{redis-cli_8c_a78b3cb1ab88e7abe0c471fd476204121}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+T\+I\+M\+E\+O\+UT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+T\+I\+M\+E\+O\+UT}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+T\+I\+M\+E\+O\+UT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+T\+I\+M\+E\+O\+UT}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+T\+I\+M\+E\+O\+UT}{CLUSTER\_MANAGER\_MIGRATE\_TIMEOUT}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+T\+I\+M\+E\+O\+UT~60000}
+
+
+
+Definition at line 72 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ab70fc07087205dc2620d11d8bc15dc95}\label{redis-cli_8c_ab70fc07087205dc2620d11d8bc15dc95}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+O\+DE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+O\+DE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+O\+DE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+O\+DE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+O\+DE}{CLUSTER\_MANAGER\_MODE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+O\+DE(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~(config.\+cluster\+\_\+manager\+\_\+command.\+name != N\+U\+LL)}
+
+
+
+Definition at line 80 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a93e1a95b07101b24a373e6dfade66ad2}\label{redis-cli_8c_a93e1a95b07101b24a373e6dfade66ad2}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+A\+R\+R\+A\+Y\+\_\+\+F\+R\+EE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+A\+R\+R\+A\+Y\+\_\+\+F\+R\+EE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+A\+R\+R\+A\+Y\+\_\+\+F\+R\+EE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+A\+R\+R\+A\+Y\+\_\+\+F\+R\+EE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+A\+R\+R\+A\+Y\+\_\+\+F\+R\+EE}{CLUSTER\_MANAGER\_NODE\_ARRAY\_FREE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+A\+R\+R\+A\+Y\+\_\+\+F\+R\+EE(\begin{DoxyParamCaption}\item[{}]{array }\end{DoxyParamCaption})~\hyperlink{zmalloc_8h_ae6638523882220721b9e7cdc7b2cd58d}{zfree}(array-\/$>$alloc)}
+
+
+
+Definition at line 85 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a392a5b7d7c5bd5fe5c6f7c8a7ff5fcef}\label{redis-cli_8c_a392a5b7d7c5bd5fe5c6f7c8a7ff5fcef}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+C\+O\+LD@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+C\+O\+LD}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+C\+O\+LD@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+C\+O\+LD}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+C\+O\+LD}{CLUSTER\_MANAGER\_OPT\_COLD}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+C\+O\+LD~1 $<$$<$ 1}
+
+
+
+Definition at line 121 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_accaba51f685e821890711daceec55370}\label{redis-cli_8c_accaba51f685e821890711daceec55370}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+G\+E\+T\+F\+R\+I\+E\+N\+DS@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+G\+E\+T\+F\+R\+I\+E\+N\+DS}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+G\+E\+T\+F\+R\+I\+E\+N\+DS@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+G\+E\+T\+F\+R\+I\+E\+N\+DS}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+G\+E\+T\+F\+R\+I\+E\+N\+DS}{CLUSTER\_MANAGER\_OPT\_GETFRIENDS}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+G\+E\+T\+F\+R\+I\+E\+N\+DS~1 $<$$<$ 0}
+
+
+
+Definition at line 120 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a5c43854efc38d9450c4d9f760acbad6c}\label{redis-cli_8c_a5c43854efc38d9450c4d9f760acbad6c}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+Q\+U\+I\+ET@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+Q\+U\+I\+ET}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+Q\+U\+I\+ET@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+Q\+U\+I\+ET}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+Q\+U\+I\+ET}{CLUSTER\_MANAGER\_OPT\_QUIET}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+Q\+U\+I\+ET~1 $<$$<$ 6}
+
+
+
+Definition at line 123 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a71273fb1d44a531dddf3835e422c3d70}\label{redis-cli_8c_a71273fb1d44a531dddf3835e422c3d70}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+U\+P\+D\+A\+TE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+U\+P\+D\+A\+TE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+U\+P\+D\+A\+TE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+U\+P\+D\+A\+TE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+U\+P\+D\+A\+TE}{CLUSTER\_MANAGER\_OPT\_UPDATE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+U\+P\+D\+A\+TE~1 $<$$<$ 2}
+
+
+
+Definition at line 122 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ab696e5ed6594ba50a175ffc217b97e17}\label{redis-cli_8c_ab696e5ed6594ba50a175ffc217b97e17}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+V\+E\+R\+B\+O\+SE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+V\+E\+R\+B\+O\+SE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+V\+E\+R\+B\+O\+SE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+V\+E\+R\+B\+O\+SE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+V\+E\+R\+B\+O\+SE}{CLUSTER\_MANAGER\_OPT\_VERBOSE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+O\+P\+T\+\_\+\+V\+E\+R\+B\+O\+SE~1 $<$$<$ 7}
+
+
+
+Definition at line 124 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a6ce40943079652c9c9dcaad59114176b}\label{redis-cli_8c_a6ce40943079652c9c9dcaad59114176b}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+P\+R\+I\+N\+T\+\_\+\+R\+E\+P\+L\+Y\+\_\+\+E\+R\+R\+OR@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+P\+R\+I\+N\+T\+\_\+\+R\+E\+P\+L\+Y\+\_\+\+E\+R\+R\+OR}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+P\+R\+I\+N\+T\+\_\+\+R\+E\+P\+L\+Y\+\_\+\+E\+R\+R\+OR@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+P\+R\+I\+N\+T\+\_\+\+R\+E\+P\+L\+Y\+\_\+\+E\+R\+R\+OR}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+P\+R\+I\+N\+T\+\_\+\+R\+E\+P\+L\+Y\+\_\+\+E\+R\+R\+OR}{CLUSTER\_MANAGER\_PRINT\_REPLY\_ERROR}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+P\+R\+I\+N\+T\+\_\+\+R\+E\+P\+L\+Y\+\_\+\+E\+R\+R\+OR(\begin{DoxyParamCaption}\item[{}]{n,  }\item[{}]{err }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{redis-cli_8c_acb3b620eb83ee84317de53670a257836}{clusterManagerLogErr}(\textcolor{stringliteral}{"Node %s:%d replied with error:\(\backslash\)n%s\(\backslash\)n"}, \(\backslash\)
+                         n->ip, n->port, err);
+\end{DoxyCode}
+
+
+Definition at line 87 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_aff0139f75eea9a481892bbc700c28fa5}\label{redis-cli_8c_aff0139f75eea9a481892bbc700c28fa5}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+R\+E\+B\+A\+L\+A\+N\+C\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+R\+E\+B\+A\+L\+A\+N\+C\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+R\+E\+B\+A\+L\+A\+N\+C\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+R\+E\+B\+A\+L\+A\+N\+C\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+R\+E\+B\+A\+L\+A\+N\+C\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}{CLUSTER\_MANAGER\_REBALANCE\_THRESHOLD}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+R\+E\+B\+A\+L\+A\+N\+C\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD~2}
+
+
+
+Definition at line 74 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_adff5eca00afc90a8c3c213bb7100cdc0}\label{redis-cli_8c_adff5eca00afc90a8c3c213bb7100cdc0}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+S\+L\+O\+TS@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+S\+L\+O\+TS}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+S\+L\+O\+TS@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+S\+L\+O\+TS}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+S\+L\+O\+TS}{CLUSTER\_MANAGER\_SLOTS}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+S\+L\+O\+TS~16384}
+
+
+
+Definition at line 71 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_acb3b620eb83ee84317de53670a257836}\label{redis-cli_8c_acb3b620eb83ee84317de53670a257836}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Log\+Err@{cluster\+Manager\+Log\+Err}}
+\index{cluster\+Manager\+Log\+Err@{cluster\+Manager\+Log\+Err}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Log\+Err}{clusterManagerLogErr}}
+{\footnotesize\ttfamily \#define cluster\+Manager\+Log\+Err(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~cluster\+Manager\+Log(\hyperlink{redis-cli_8c_af5844c375f96c311eae4a130e2c6faa3}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+E\+RR},\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}
+
+
+
+Definition at line 94 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a151780f0b046e0c2fef2888d0963c1f5}\label{redis-cli_8c_a151780f0b046e0c2fef2888d0963c1f5}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Log\+Info@{cluster\+Manager\+Log\+Info}}
+\index{cluster\+Manager\+Log\+Info@{cluster\+Manager\+Log\+Info}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Log\+Info}{clusterManagerLogInfo}}
+{\footnotesize\ttfamily \#define cluster\+Manager\+Log\+Info(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~cluster\+Manager\+Log(\hyperlink{redis-cli_8c_a0ba0eba292d87bc19292a61e473d4526}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+I\+N\+FO},\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}
+
+
+
+Definition at line 91 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a1c989d91de01aaed261eb69873661323}\label{redis-cli_8c_a1c989d91de01aaed261eb69873661323}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Log\+Ok@{cluster\+Manager\+Log\+Ok}}
+\index{cluster\+Manager\+Log\+Ok@{cluster\+Manager\+Log\+Ok}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Log\+Ok}{clusterManagerLogOk}}
+{\footnotesize\ttfamily \#define cluster\+Manager\+Log\+Ok(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~cluster\+Manager\+Log(\hyperlink{redis-cli_8c_a6a754ca7f60f191d71265d2c35c0cdde}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+S\+U\+C\+C\+E\+SS},\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}
+
+
+
+Definition at line 100 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a2b0dfe70c8d75e47b95362a8a45b70f2}\label{redis-cli_8c_a2b0dfe70c8d75e47b95362a8a45b70f2}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Log\+Warn@{cluster\+Manager\+Log\+Warn}}
+\index{cluster\+Manager\+Log\+Warn@{cluster\+Manager\+Log\+Warn}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Log\+Warn}{clusterManagerLogWarn}}
+{\footnotesize\ttfamily \#define cluster\+Manager\+Log\+Warn(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~cluster\+Manager\+Log(\hyperlink{redis-cli_8c_a75e1edf48f2deecde01c5f5b7a3549c5}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+L\+O\+G\+\_\+\+L\+V\+L\+\_\+\+W\+A\+RN},\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}
+
+
+
+Definition at line 97 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ae03eb95fffcdab7dfa7faeadd04ad9f4}\label{redis-cli_8c_ae03eb95fffcdab7dfa7faeadd04ad9f4}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!decode\+Hex@{decode\+Hex}}
+\index{decode\+Hex@{decode\+Hex}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{decode\+Hex}{decodeHex}}
+{\footnotesize\ttfamily \#define decode\+Hex(\begin{DoxyParamCaption}\item[{}]{h,  }\item[{}]{l }\end{DoxyParamCaption})~((\hyperlink{redis-cli_8c_ab610530dccdfe42adbac4677a568645a}{decode\+Hex\+Char}(h) $<$$<$ 4) + \hyperlink{redis-cli_8c_ab610530dccdfe42adbac4677a568645a}{decode\+Hex\+Char}(l))}
+
+
+
+Definition at line 319 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ab610530dccdfe42adbac4677a568645a}\label{redis-cli_8c_ab610530dccdfe42adbac4677a568645a}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!decode\+Hex\+Char@{decode\+Hex\+Char}}
+\index{decode\+Hex\+Char@{decode\+Hex\+Char}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{decode\+Hex\+Char}{decodeHexChar}}
+{\footnotesize\ttfamily \#define decode\+Hex\+Char(\begin{DoxyParamCaption}\item[{}]{c }\end{DoxyParamCaption})~(isdigit(c) ? c -\/ \textquotesingle{}0\textquotesingle{} \+: c -\/ \textquotesingle{}a\textquotesingle{} + 10)}
+
+
+
+Definition at line 318 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a0f10197c353b6fcaf73df928885167ca}\label{redis-cli_8c_a0f10197c353b6fcaf73df928885167ca}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!H\+O\+T\+K\+E\+Y\+S\+\_\+\+S\+A\+M\+P\+LE@{H\+O\+T\+K\+E\+Y\+S\+\_\+\+S\+A\+M\+P\+LE}}
+\index{H\+O\+T\+K\+E\+Y\+S\+\_\+\+S\+A\+M\+P\+LE@{H\+O\+T\+K\+E\+Y\+S\+\_\+\+S\+A\+M\+P\+LE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{H\+O\+T\+K\+E\+Y\+S\+\_\+\+S\+A\+M\+P\+LE}{HOTKEYS\_SAMPLE}}
+{\footnotesize\ttfamily \#define H\+O\+T\+K\+E\+Y\+S\+\_\+\+S\+A\+M\+P\+LE~16}
+
+
+
+Definition at line 6150 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ab2fbc70c2119ce8e23755a86933af1f5}\label{redis-cli_8c_ab2fbc70c2119ce8e23755a86933af1f5}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!is\+Hex\+Char@{is\+Hex\+Char}}
+\index{is\+Hex\+Char@{is\+Hex\+Char}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{is\+Hex\+Char}{isHexChar}}
+{\footnotesize\ttfamily \#define is\+Hex\+Char(\begin{DoxyParamCaption}\item[{}]{c }\end{DoxyParamCaption})~(isdigit(c) $\vert$$\vert$ (c $>$= \textquotesingle{}a\textquotesingle{} \&\& c $<$= \textquotesingle{}f\textquotesingle{}))}
+
+
+
+Definition at line 317 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a6441de268c4b35721ec39471428d836f}\label{redis-cli_8c_a6441de268c4b35721ec39471428d836f}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!L\+A\+T\+E\+N\+C\+Y\+\_\+\+D\+I\+S\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{L\+A\+T\+E\+N\+C\+Y\+\_\+\+D\+I\+S\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL}}
+\index{L\+A\+T\+E\+N\+C\+Y\+\_\+\+D\+I\+S\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{L\+A\+T\+E\+N\+C\+Y\+\_\+\+D\+I\+S\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{L\+A\+T\+E\+N\+C\+Y\+\_\+\+D\+I\+S\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL}{LATENCY\_DIST\_DEFAULT\_INTERVAL}}
+{\footnotesize\ttfamily \#define L\+A\+T\+E\+N\+C\+Y\+\_\+\+D\+I\+S\+T\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL~1000 /$\ast$ milliseconds. $\ast$/}
+
+
+
+Definition at line 5418 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a372f614f9e206b8f110cab48214252d5}\label{redis-cli_8c_a372f614f9e206b8f110cab48214252d5}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!L\+A\+T\+E\+N\+C\+Y\+\_\+\+H\+I\+S\+T\+O\+R\+Y\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{L\+A\+T\+E\+N\+C\+Y\+\_\+\+H\+I\+S\+T\+O\+R\+Y\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL}}
+\index{L\+A\+T\+E\+N\+C\+Y\+\_\+\+H\+I\+S\+T\+O\+R\+Y\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{L\+A\+T\+E\+N\+C\+Y\+\_\+\+H\+I\+S\+T\+O\+R\+Y\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{L\+A\+T\+E\+N\+C\+Y\+\_\+\+H\+I\+S\+T\+O\+R\+Y\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL}{LATENCY\_HISTORY\_DEFAULT\_INTERVAL}}
+{\footnotesize\ttfamily \#define L\+A\+T\+E\+N\+C\+Y\+\_\+\+H\+I\+S\+T\+O\+R\+Y\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+I\+N\+T\+E\+R\+V\+AL~15000 /$\ast$ milliseconds. $\ast$/}
+
+
+
+Definition at line 5353 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a76987a88882cfc750afde2c219a0bbab}\label{redis-cli_8c_a76987a88882cfc750afde2c219a0bbab}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!L\+A\+T\+E\+N\+C\+Y\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+R\+A\+TE@{L\+A\+T\+E\+N\+C\+Y\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+R\+A\+TE}}
+\index{L\+A\+T\+E\+N\+C\+Y\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+R\+A\+TE@{L\+A\+T\+E\+N\+C\+Y\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+R\+A\+TE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{L\+A\+T\+E\+N\+C\+Y\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+R\+A\+TE}{LATENCY\_SAMPLE\_RATE}}
+{\footnotesize\ttfamily \#define L\+A\+T\+E\+N\+C\+Y\+\_\+\+S\+A\+M\+P\+L\+E\+\_\+\+R\+A\+TE~10 /$\ast$ milliseconds. $\ast$/}
+
+
+
+Definition at line 5352 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a434346dd26dca0a5bbfe8075307a4c1d}\label{redis-cli_8c_a434346dd26dca0a5bbfe8075307a4c1d}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+O\+LD@{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+O\+LD}}
+\index{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+O\+LD@{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+O\+LD}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+O\+LD}{LOG\_COLOR\_BOLD}}
+{\footnotesize\ttfamily \#define L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+O\+LD~\char`\"{}29;1m\char`\"{}}
+
+
+
+Definition at line 131 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ab3f1028e542649d3ad064ca8b9b123c0}\label{redis-cli_8c_ab3f1028e542649d3ad064ca8b9b123c0}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+G\+R\+E\+EN@{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+G\+R\+E\+EN}}
+\index{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+G\+R\+E\+EN@{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+G\+R\+E\+EN}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+G\+R\+E\+EN}{LOG\_COLOR\_GREEN}}
+{\footnotesize\ttfamily \#define L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+G\+R\+E\+EN~\char`\"{}32;1m\char`\"{}}
+
+
+
+Definition at line 133 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_af6467cd567c0679c15e09913f77b9555}\label{redis-cli_8c_af6467cd567c0679c15e09913f77b9555}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+ED@{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+ED}}
+\index{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+ED@{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+ED}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+ED}{LOG\_COLOR\_RED}}
+{\footnotesize\ttfamily \#define L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+ED~\char`\"{}31;1m\char`\"{}}
+
+
+
+Definition at line 132 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a8878b128231510acd20620de417738e9}\label{redis-cli_8c_a8878b128231510acd20620de417738e9}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+E\+S\+ET@{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+E\+S\+ET}}
+\index{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+E\+S\+ET@{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+E\+S\+ET}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+E\+S\+ET}{LOG\_COLOR\_RESET}}
+{\footnotesize\ttfamily \#define L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+R\+E\+S\+ET~\char`\"{}0m\char`\"{}}
+
+
+
+Definition at line 135 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a74416ee2437694c75a11e27a158eeb5c}\label{redis-cli_8c_a74416ee2437694c75a11e27a158eeb5c}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+Y\+E\+L\+L\+OW@{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+Y\+E\+L\+L\+OW}}
+\index{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+Y\+E\+L\+L\+OW@{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+Y\+E\+L\+L\+OW}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+Y\+E\+L\+L\+OW}{LOG\_COLOR\_YELLOW}}
+{\footnotesize\ttfamily \#define L\+O\+G\+\_\+\+C\+O\+L\+O\+R\+\_\+\+Y\+E\+L\+L\+OW~\char`\"{}33;1m\char`\"{}}
+
+
+
+Definition at line 134 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a514ca976fc45286ea7e8d08caf838733}\label{redis-cli_8c_a514ca976fc45286ea7e8d08caf838733}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD@{L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD}}
+\index{L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD@{L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD}{LRU\_CYCLE\_PERIOD}}
+{\footnotesize\ttfamily \#define L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+E\+R\+I\+OD~1000 /$\ast$ 1000 milliseconds. $\ast$/}
+
+
+
+Definition at line 6451 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ae524234b44cd0249095699ac9f377254}\label{redis-cli_8c_ae524234b44cd0249095699ac9f377254}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+I\+P\+E\+L\+I\+N\+E\+\_\+\+S\+I\+ZE@{L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+I\+P\+E\+L\+I\+N\+E\+\_\+\+S\+I\+ZE}}
+\index{L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+I\+P\+E\+L\+I\+N\+E\+\_\+\+S\+I\+ZE@{L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+I\+P\+E\+L\+I\+N\+E\+\_\+\+S\+I\+ZE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+I\+P\+E\+L\+I\+N\+E\+\_\+\+S\+I\+ZE}{LRU\_CYCLE\_PIPELINE\_SIZE}}
+{\footnotesize\ttfamily \#define L\+R\+U\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+P\+I\+P\+E\+L\+I\+N\+E\+\_\+\+S\+I\+ZE~250}
+
+
+
+Definition at line 6452 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a55fcc3cb9516c34eebf22ac9f8ebf3a2}\label{redis-cli_8c_a55fcc3cb9516c34eebf22ac9f8ebf3a2}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!O\+U\+T\+P\+U\+T\+\_\+\+C\+SV@{O\+U\+T\+P\+U\+T\+\_\+\+C\+SV}}
+\index{O\+U\+T\+P\+U\+T\+\_\+\+C\+SV@{O\+U\+T\+P\+U\+T\+\_\+\+C\+SV}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{O\+U\+T\+P\+U\+T\+\_\+\+C\+SV}{OUTPUT\_CSV}}
+{\footnotesize\ttfamily \#define O\+U\+T\+P\+U\+T\+\_\+\+C\+SV~2}
+
+
+
+Definition at line 63 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a4f47017b54da140967dcbd440fae227c}\label{redis-cli_8c_a4f47017b54da140967dcbd440fae227c}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!O\+U\+T\+P\+U\+T\+\_\+\+R\+AW@{O\+U\+T\+P\+U\+T\+\_\+\+R\+AW}}
+\index{O\+U\+T\+P\+U\+T\+\_\+\+R\+AW@{O\+U\+T\+P\+U\+T\+\_\+\+R\+AW}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{O\+U\+T\+P\+U\+T\+\_\+\+R\+AW}{OUTPUT\_RAW}}
+{\footnotesize\ttfamily \#define O\+U\+T\+P\+U\+T\+\_\+\+R\+AW~1}
+
+
+
+Definition at line 62 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_abf624f04f4590979c3c3944bc7f94d6e}\label{redis-cli_8c_abf624f04f4590979c3c3944bc7f94d6e}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!O\+U\+T\+P\+U\+T\+\_\+\+S\+T\+A\+N\+D\+A\+RD@{O\+U\+T\+P\+U\+T\+\_\+\+S\+T\+A\+N\+D\+A\+RD}}
+\index{O\+U\+T\+P\+U\+T\+\_\+\+S\+T\+A\+N\+D\+A\+RD@{O\+U\+T\+P\+U\+T\+\_\+\+S\+T\+A\+N\+D\+A\+RD}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{O\+U\+T\+P\+U\+T\+\_\+\+S\+T\+A\+N\+D\+A\+RD}{OUTPUT\_STANDARD}}
+{\footnotesize\ttfamily \#define O\+U\+T\+P\+U\+T\+\_\+\+S\+T\+A\+N\+D\+A\+RD~0}
+
+
+
+Definition at line 61 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_aaefb577451e0f5fc0ff993bda43044b6}\label{redis-cli_8c_aaefb577451e0f5fc0ff993bda43044b6}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!P\+I\+P\+E\+M\+O\+D\+E\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+O\+P\+\_\+\+M\+A\+X\+\_\+\+B\+Y\+T\+ES@{P\+I\+P\+E\+M\+O\+D\+E\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+O\+P\+\_\+\+M\+A\+X\+\_\+\+B\+Y\+T\+ES}}
+\index{P\+I\+P\+E\+M\+O\+D\+E\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+O\+P\+\_\+\+M\+A\+X\+\_\+\+B\+Y\+T\+ES@{P\+I\+P\+E\+M\+O\+D\+E\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+O\+P\+\_\+\+M\+A\+X\+\_\+\+B\+Y\+T\+ES}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{P\+I\+P\+E\+M\+O\+D\+E\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+O\+P\+\_\+\+M\+A\+X\+\_\+\+B\+Y\+T\+ES}{PIPEMODE\_WRITE\_LOOP\_MAX\_BYTES}}
+{\footnotesize\ttfamily \#define P\+I\+P\+E\+M\+O\+D\+E\+\_\+\+W\+R\+I\+T\+E\+\_\+\+L\+O\+O\+P\+\_\+\+M\+A\+X\+\_\+\+B\+Y\+T\+ES~(128$\ast$1024)}
+
+
+
+Definition at line 5677 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_aa509dd2ea6ba533a33b1537622c215da}\label{redis-cli_8c_aa509dd2ea6ba533a33b1537622c215da}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+I\+P\+E\+\_\+\+T\+I\+M\+E\+O\+UT@{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+I\+P\+E\+\_\+\+T\+I\+M\+E\+O\+UT}}
+\index{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+I\+P\+E\+\_\+\+T\+I\+M\+E\+O\+UT@{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+I\+P\+E\+\_\+\+T\+I\+M\+E\+O\+UT}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+I\+P\+E\+\_\+\+T\+I\+M\+E\+O\+UT}{REDIS\_CLI\_DEFAULT\_PIPE\_TIMEOUT}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+P\+I\+P\+E\+\_\+\+T\+I\+M\+E\+O\+UT~30 /$\ast$ seconds $\ast$/}
+
+
+
+Definition at line 65 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ab1ba16fc9e98d602260f42a49de9a61c}\label{redis-cli_8c_ab1ba16fc9e98d602260f42a49de9a61c}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT@{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT}}
+\index{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT@{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT}{REDIS\_CLI\_HISTFILE\_DEFAULT}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT~\char`\"{}.rediscli\+\_\+history\char`\"{}}
+
+
+
+Definition at line 67 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a4aaf4b657b3305064e3da87ac88a95f9}\label{redis-cli_8c_a4aaf4b657b3305064e3da87ac88a95f9}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+E\+NV@{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+E\+NV}}
+\index{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+E\+NV@{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+E\+NV}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+E\+NV}{REDIS\_CLI\_HISTFILE\_ENV}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+L\+E\+\_\+\+E\+NV~\char`\"{}R\+E\+D\+I\+S\+C\+L\+I\+\_\+\+H\+I\+S\+T\+F\+I\+LE\char`\"{}}
+
+
+
+Definition at line 66 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a5405864d5b0d191cc176105325fab907}\label{redis-cli_8c_a5405864d5b0d191cc176105325fab907}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+K\+E\+E\+P\+A\+L\+I\+V\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+K\+E\+E\+P\+A\+L\+I\+V\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}}
+\index{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+K\+E\+E\+P\+A\+L\+I\+V\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL@{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+K\+E\+E\+P\+A\+L\+I\+V\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+K\+E\+E\+P\+A\+L\+I\+V\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL}{REDIS\_CLI\_KEEPALIVE\_INTERVAL}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+K\+E\+E\+P\+A\+L\+I\+V\+E\+\_\+\+I\+N\+T\+E\+R\+V\+AL~15 /$\ast$ seconds $\ast$/}
+
+
+
+Definition at line 64 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a0764031c702054d021e64f66271b56e3}\label{redis-cli_8c_a0764031c702054d021e64f66271b56e3}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT@{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT}}
+\index{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT@{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT}{REDIS\_CLI\_RCFILE\_DEFAULT}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+D\+E\+F\+A\+U\+LT~\char`\"{}.redisclirc\char`\"{}}
+
+
+
+Definition at line 69 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_abb8e34d308514b1e024e39d127046df0}\label{redis-cli_8c_abb8e34d308514b1e024e39d127046df0}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+E\+NV@{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+E\+NV}}
+\index{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+E\+NV@{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+E\+NV}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+E\+NV}{REDIS\_CLI\_RCFILE\_ENV}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+C\+L\+I\+\_\+\+R\+C\+F\+I\+L\+E\+\_\+\+E\+NV~\char`\"{}R\+E\+D\+I\+S\+C\+L\+I\+\_\+\+R\+C\+F\+I\+LE\char`\"{}}
+
+
+
+Definition at line 68 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a5aa140c2c2e64a57331d450a98077834}\label{redis-cli_8c_a5aa140c2c2e64a57331d450a98077834}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT@{T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT}}
+\index{T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT@{T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT}{TYPE\_COUNT}}
+{\footnotesize\ttfamily \#define T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT~7}
+
+
+
+Definition at line 5844 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a2ee0b296ab2dd19e14df6f097d07981e}\label{redis-cli_8c_a2ee0b296ab2dd19e14df6f097d07981e}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!T\+Y\+P\+E\+\_\+\+H\+A\+SH@{T\+Y\+P\+E\+\_\+\+H\+A\+SH}}
+\index{T\+Y\+P\+E\+\_\+\+H\+A\+SH@{T\+Y\+P\+E\+\_\+\+H\+A\+SH}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{T\+Y\+P\+E\+\_\+\+H\+A\+SH}{TYPE\_HASH}}
+{\footnotesize\ttfamily \#define T\+Y\+P\+E\+\_\+\+H\+A\+SH~3}
+
+
+
+Definition at line 5840 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a12d33da3418cfc67c9076ef7353ca50b}\label{redis-cli_8c_a12d33da3418cfc67c9076ef7353ca50b}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!T\+Y\+P\+E\+\_\+\+L\+I\+ST@{T\+Y\+P\+E\+\_\+\+L\+I\+ST}}
+\index{T\+Y\+P\+E\+\_\+\+L\+I\+ST@{T\+Y\+P\+E\+\_\+\+L\+I\+ST}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{T\+Y\+P\+E\+\_\+\+L\+I\+ST}{TYPE\_LIST}}
+{\footnotesize\ttfamily \#define T\+Y\+P\+E\+\_\+\+L\+I\+ST~1}
+
+
+
+Definition at line 5838 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_aa47d3c2fa05e95455d76cf052f9cca68}\label{redis-cli_8c_aa47d3c2fa05e95455d76cf052f9cca68}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!T\+Y\+P\+E\+\_\+\+N\+O\+NE@{T\+Y\+P\+E\+\_\+\+N\+O\+NE}}
+\index{T\+Y\+P\+E\+\_\+\+N\+O\+NE@{T\+Y\+P\+E\+\_\+\+N\+O\+NE}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{T\+Y\+P\+E\+\_\+\+N\+O\+NE}{TYPE\_NONE}}
+{\footnotesize\ttfamily \#define T\+Y\+P\+E\+\_\+\+N\+O\+NE~6}
+
+
+
+Definition at line 5843 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a216111b323b4b6e3168596e69c72671b}\label{redis-cli_8c_a216111b323b4b6e3168596e69c72671b}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!T\+Y\+P\+E\+\_\+\+S\+ET@{T\+Y\+P\+E\+\_\+\+S\+ET}}
+\index{T\+Y\+P\+E\+\_\+\+S\+ET@{T\+Y\+P\+E\+\_\+\+S\+ET}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{T\+Y\+P\+E\+\_\+\+S\+ET}{TYPE\_SET}}
+{\footnotesize\ttfamily \#define T\+Y\+P\+E\+\_\+\+S\+ET~2}
+
+
+
+Definition at line 5839 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a78458977895c28f708af92554a64a8ff}\label{redis-cli_8c_a78458977895c28f708af92554a64a8ff}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!T\+Y\+P\+E\+\_\+\+S\+T\+R\+E\+AM@{T\+Y\+P\+E\+\_\+\+S\+T\+R\+E\+AM}}
+\index{T\+Y\+P\+E\+\_\+\+S\+T\+R\+E\+AM@{T\+Y\+P\+E\+\_\+\+S\+T\+R\+E\+AM}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{T\+Y\+P\+E\+\_\+\+S\+T\+R\+E\+AM}{TYPE\_STREAM}}
+{\footnotesize\ttfamily \#define T\+Y\+P\+E\+\_\+\+S\+T\+R\+E\+AM~5}
+
+
+
+Definition at line 5842 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a4e4e428e3a6a191834e3ff63bd301866}\label{redis-cli_8c_a4e4e428e3a6a191834e3ff63bd301866}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!T\+Y\+P\+E\+\_\+\+S\+T\+R\+I\+NG@{T\+Y\+P\+E\+\_\+\+S\+T\+R\+I\+NG}}
+\index{T\+Y\+P\+E\+\_\+\+S\+T\+R\+I\+NG@{T\+Y\+P\+E\+\_\+\+S\+T\+R\+I\+NG}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{T\+Y\+P\+E\+\_\+\+S\+T\+R\+I\+NG}{TYPE\_STRING}}
+{\footnotesize\ttfamily \#define T\+Y\+P\+E\+\_\+\+S\+T\+R\+I\+NG~0}
+
+
+
+Definition at line 5837 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a9ffc96cc0a980403dc1df5cea83fb138}\label{redis-cli_8c_a9ffc96cc0a980403dc1df5cea83fb138}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!T\+Y\+P\+E\+\_\+\+Z\+S\+ET@{T\+Y\+P\+E\+\_\+\+Z\+S\+ET}}
+\index{T\+Y\+P\+E\+\_\+\+Z\+S\+ET@{T\+Y\+P\+E\+\_\+\+Z\+S\+ET}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{T\+Y\+P\+E\+\_\+\+Z\+S\+ET}{TYPE\_ZSET}}
+{\footnotesize\ttfamily \#define T\+Y\+P\+E\+\_\+\+Z\+S\+ET~4}
+
+
+
+Definition at line 5841 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ae7c9dc8f13568a9c856573751f1ee1ec}\label{redis-cli_8c_ae7c9dc8f13568a9c856573751f1ee1ec}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!U\+N\+U\+S\+ED@{U\+N\+U\+S\+ED}}
+\index{U\+N\+U\+S\+ED@{U\+N\+U\+S\+ED}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{U\+N\+U\+S\+ED}{UNUSED}}
+{\footnotesize\ttfamily \#define U\+N\+U\+S\+ED(\begin{DoxyParamCaption}\item[{}]{V }\end{DoxyParamCaption})~((void) V)}
+
+
+
+Definition at line 59 of file redis-\/cli.\+c.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{redis-cli_8c_a4a287731949d49a0194c4ba6bf5d7523}\label{redis-cli_8c_a4a287731949d49a0194c4ba6bf5d7523}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Command@{cluster\+Manager\+Command}}
+\index{cluster\+Manager\+Command@{cluster\+Manager\+Command}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Command}{clusterManagerCommand}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structcluster_manager_command}{cluster\+Manager\+Command}  \hyperlink{structcluster_manager_command}{cluster\+Manager\+Command}}
+
+\mbox{\Hypertarget{redis-cli_8c_a708569b560d5de7d6b6f472cb70e41b5}\label{redis-cli_8c_a708569b560d5de7d6b6f472cb70e41b5}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Command\+Def@{cluster\+Manager\+Command\+Def}}
+\index{cluster\+Manager\+Command\+Def@{cluster\+Manager\+Command\+Def}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Command\+Def}{clusterManagerCommandDef}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structcluster_manager_command_def}{cluster\+Manager\+Command\+Def}  \hyperlink{structcluster_manager_command_def}{cluster\+Manager\+Command\+Def}}
+
+\mbox{\Hypertarget{redis-cli_8c_a8e9cfad74d28bc05c1e55864714a460f}\label{redis-cli_8c_a8e9cfad74d28bc05c1e55864714a460f}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Command\+Proc@{cluster\+Manager\+Command\+Proc}}
+\index{cluster\+Manager\+Command\+Proc@{cluster\+Manager\+Command\+Proc}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Command\+Proc}{clusterManagerCommandProc}}
+{\footnotesize\ttfamily typedef int cluster\+Manager\+Command\+Proc(int argc, char $\ast$$\ast$argv)}
+
+
+
+Definition at line 1919 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_add369fe815d567f6e0b8d573384e3fa6}\label{redis-cli_8c_add369fe815d567f6e0b8d573384e3fa6}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Node}{clusterManagerNode}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structcluster_manager_node}{cluster\+Manager\+Node}  \hyperlink{structcluster_manager_node}{cluster\+Manager\+Node}}
+
+\mbox{\Hypertarget{redis-cli_8c_a7c1f7b7c2d2a1f7b366cf62f9319db26}\label{redis-cli_8c_a7c1f7b7c2d2a1f7b366cf62f9319db26}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Node\+Array@{cluster\+Manager\+Node\+Array}}
+\index{cluster\+Manager\+Node\+Array@{cluster\+Manager\+Node\+Array}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Node\+Array}{clusterManagerNodeArray}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structcluster_manager_node_array}{cluster\+Manager\+Node\+Array}  \hyperlink{structcluster_manager_node_array}{cluster\+Manager\+Node\+Array}}
+
+\mbox{\Hypertarget{redis-cli_8c_ae4374bcd170566d368a299bb459e5eb1}\label{redis-cli_8c_ae4374bcd170566d368a299bb459e5eb1}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Reshard\+Table\+Item@{cluster\+Manager\+Reshard\+Table\+Item}}
+\index{cluster\+Manager\+Reshard\+Table\+Item@{cluster\+Manager\+Reshard\+Table\+Item}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Reshard\+Table\+Item}{clusterManagerReshardTableItem}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structcluster_manager_reshard_table_item}{cluster\+Manager\+Reshard\+Table\+Item}  \hyperlink{structcluster_manager_reshard_table_item}{cluster\+Manager\+Reshard\+Table\+Item}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{redis-cli_8c_ace38bb59b1a740e3b0db1cf149956c67}\label{redis-cli_8c_ace38bb59b1a740e3b0db1cf149956c67}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!\+\_\+server\+Assert@{\+\_\+server\+Assert}}
+\index{\+\_\+server\+Assert@{\+\_\+server\+Assert}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+server\+Assert()}{\_serverAssert()}}
+{\footnotesize\ttfamily void \+\_\+server\+Assert (\begin{DoxyParamCaption}\item[{const char $\ast$}]{estr,  }\item[{const char $\ast$}]{file,  }\item[{int}]{line }\end{DoxyParamCaption})}
+
+
+
+Definition at line 431 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a36fd850a51dbdede80f4f09a6b597c76}\label{redis-cli_8c_a36fd850a51dbdede80f4f09a6b597c76}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!bytes\+To\+Human@{bytes\+To\+Human}}
+\index{bytes\+To\+Human@{bytes\+To\+Human}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{bytes\+To\+Human()}{bytesToHuman()}}
+{\footnotesize\ttfamily void bytes\+To\+Human (\begin{DoxyParamCaption}\item[{char $\ast$}]{s,  }\item[{long long}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 6280 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ae90b8c7a065096325ddb291a04ac6cef}\label{redis-cli_8c_ae90b8c7a065096325ddb291a04ac6cef}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cli\+Load\+Preferences@{cli\+Load\+Preferences}}
+\index{cli\+Load\+Preferences@{cli\+Load\+Preferences}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cli\+Load\+Preferences()}{cliLoadPreferences()}}
+{\footnotesize\ttfamily void cli\+Load\+Preferences (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1613 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a07d4e3ca456b6b137a92e9c7fc53ab15}\label{redis-cli_8c_a07d4e3ca456b6b137a92e9c7fc53ab15}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cli\+Set\+Preferences@{cli\+Set\+Preferences}}
+\index{cli\+Set\+Preferences@{cli\+Set\+Preferences}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cli\+Set\+Preferences()}{cliSetPreferences()}}
+{\footnotesize\ttfamily void cli\+Set\+Preferences (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int}]{interactive }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1596 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a472cee2ec11ec44da4b24a64cf34ab9c}\label{redis-cli_8c_a472cee2ec11ec44da4b24a64cf34ab9c}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Compare\+Node\+Balance@{cluster\+Manager\+Compare\+Node\+Balance}}
+\index{cluster\+Manager\+Compare\+Node\+Balance@{cluster\+Manager\+Compare\+Node\+Balance}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Compare\+Node\+Balance()}{clusterManagerCompareNodeBalance()}}
+{\footnotesize\ttfamily int cluster\+Manager\+Compare\+Node\+Balance (\begin{DoxyParamCaption}\item[{const void $\ast$}]{n1,  }\item[{const void $\ast$}]{n2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3275 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a5ff8171578d33bc43617b2d4fc9a75b5}\label{redis-cli_8c_a5ff8171578d33bc43617b2d4fc9a75b5}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Slot\+Compare@{cluster\+Manager\+Slot\+Compare}}
+\index{cluster\+Manager\+Slot\+Compare@{cluster\+Manager\+Slot\+Compare}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Slot\+Compare()}{clusterManagerSlotCompare()}}
+{\footnotesize\ttfamily int cluster\+Manager\+Slot\+Compare (\begin{DoxyParamCaption}\item[{const void $\ast$}]{slot1,  }\item[{const void $\ast$}]{slot2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3263 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a63abcc059e6d70d890f2e407b0c2af81}\label{redis-cli_8c_a63abcc059e6d70d890f2e407b0c2af81}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Slot\+Count\+Compare\+Desc@{cluster\+Manager\+Slot\+Count\+Compare\+Desc}}
+\index{cluster\+Manager\+Slot\+Count\+Compare\+Desc@{cluster\+Manager\+Slot\+Count\+Compare\+Desc}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Slot\+Count\+Compare\+Desc()}{clusterManagerSlotCountCompareDesc()}}
+{\footnotesize\ttfamily int cluster\+Manager\+Slot\+Count\+Compare\+Desc (\begin{DoxyParamCaption}\item[{const void $\ast$}]{n1,  }\item[{const void $\ast$}]{n2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3269 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a1342d8c52f123e13a4a55f87819c3f71}\label{redis-cli_8c_a1342d8c52f123e13a4a55f87819c3f71}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!compute\+\_\+something\+\_\+fast@{compute\+\_\+something\+\_\+fast}}
+\index{compute\+\_\+something\+\_\+fast@{compute\+\_\+something\+\_\+fast}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{compute\+\_\+something\+\_\+fast()}{compute\_something\_fast()}}
+{\footnotesize\ttfamily unsigned long compute\+\_\+something\+\_\+fast (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 6525 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a1af61bf3da70181a7591b0f5758913a3}\label{redis-cli_8c_a1af61bf3da70181a7591b0f5758913a3}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!crc16@{crc16}}
+\index{crc16@{crc16}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{crc16()}{crc16()}}
+{\footnotesize\ttfamily uint16\+\_\+t crc16 (\begin{DoxyParamCaption}\item[{const char $\ast$}]{buf,  }\item[{int}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 82 of file crc16.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a714e96cca59b2378fae3f82a093d6d55}\label{redis-cli_8c_a714e96cca59b2378fae3f82a093d6d55}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!is\+Color\+Term@{is\+Color\+Term}}
+\index{is\+Color\+Term@{is\+Color\+Term}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{is\+Color\+Term()}{isColorTerm()}}
+{\footnotesize\ttfamily int is\+Color\+Term (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 865 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a0310958a96dc28c6abcebccc4a75a936}\label{redis-cli_8c_a0310958a96dc28c6abcebccc4a75a936}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!L\+R\+U\+Test\+Gen\+Key@{L\+R\+U\+Test\+Gen\+Key}}
+\index{L\+R\+U\+Test\+Gen\+Key@{L\+R\+U\+Test\+Gen\+Key}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{L\+R\+U\+Test\+Gen\+Key()}{LRUTestGenKey()}}
+{\footnotesize\ttfamily void L\+R\+U\+Test\+Gen\+Key (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf,  }\item[{size\+\_\+t}]{buflen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 6446 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{redis-cli_8c_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!main@{main}}
+\index{main@{main}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Definition at line 6591 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_aadf73ba53c2fb2744ad04f967a34e39c}\label{redis-cli_8c_aadf73ba53c2fb2744ad04f967a34e39c}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!power\+Law\+Rand@{power\+Law\+Rand}}
+\index{power\+Law\+Rand@{power\+Law\+Rand}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{power\+Law\+Rand()}{powerLawRand()}}
+{\footnotesize\ttfamily long long power\+Law\+Rand (\begin{DoxyParamCaption}\item[{long long}]{min,  }\item[{long long}]{max,  }\item[{double}]{alpha }\end{DoxyParamCaption})}
+
+
+
+Definition at line 6433 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a1dc767d40b8708fecbc214aafd78fd71}\label{redis-cli_8c_a1dc767d40b8708fecbc214aafd78fd71}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!redis\+Git\+Dirty@{redis\+Git\+Dirty}}
+\index{redis\+Git\+Dirty@{redis\+Git\+Dirty}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{redis\+Git\+Dirty()}{redisGitDirty()}}
+{\footnotesize\ttfamily char$\ast$ redis\+Git\+Dirty (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 44 of file release.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a598b97b058f3470583dd1b6fc6498102}\label{redis-cli_8c_a598b97b058f3470583dd1b6fc6498102}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!redis\+Git\+S\+H\+A1@{redis\+Git\+S\+H\+A1}}
+\index{redis\+Git\+S\+H\+A1@{redis\+Git\+S\+H\+A1}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{redis\+Git\+S\+H\+A1()}{redisGitSHA1()}}
+{\footnotesize\ttfamily char$\ast$ redis\+Git\+S\+H\+A1 (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 40 of file release.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a5e975ae7748971b112576394ed9446be}\label{redis-cli_8c_a5e975ae7748971b112576394ed9446be}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!sdscatcolor@{sdscatcolor}}
+\index{sdscatcolor@{sdscatcolor}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{sdscatcolor()}{sdscatcolor()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdscatcolor (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{o,  }\item[{char $\ast$}]{s,  }\item[{size\+\_\+t}]{len,  }\item[{char $\ast$}]{color }\end{DoxyParamCaption})}
+
+
+
+Definition at line 872 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a7c60ad60c617f931dc73df54d36852c4}\label{redis-cli_8c_a7c60ad60c617f931dc73df54d36852c4}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!sds\+Cat\+Colorized\+Ldb\+Reply@{sds\+Cat\+Colorized\+Ldb\+Reply}}
+\index{sds\+Cat\+Colorized\+Ldb\+Reply@{sds\+Cat\+Colorized\+Ldb\+Reply}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{sds\+Cat\+Colorized\+Ldb\+Reply()}{sdsCatColorizedLdbReply()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sds\+Cat\+Colorized\+Ldb\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{o,  }\item[{char $\ast$}]{s,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 893 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a44d209c7dd563fe5a055b46d82c9cf49}\label{redis-cli_8c_a44d209c7dd563fe5a055b46d82c9cf49}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!send\+Sync@{send\+Sync}}
+\index{send\+Sync@{send\+Sync}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{send\+Sync()}{sendSync()}}
+{\footnotesize\ttfamily unsigned long long send\+Sync (\begin{DoxyParamCaption}\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5562 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a0f17889840978a98905f650af146bb47}\label{redis-cli_8c_a0f17889840978a98905f650af146bb47}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!show\+Latency\+Dist\+Legend@{show\+Latency\+Dist\+Legend}}
+\index{show\+Latency\+Dist\+Legend@{show\+Latency\+Dist\+Legend}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{show\+Latency\+Dist\+Legend()}{showLatencyDistLegend()}}
+{\footnotesize\ttfamily void show\+Latency\+Dist\+Legend (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5461 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_aa482d47975ad5eaa1358dae2e61dc210}\label{redis-cli_8c_aa482d47975ad5eaa1358dae2e61dc210}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!show\+Latency\+Dist\+Samples@{show\+Latency\+Dist\+Samples}}
+\index{show\+Latency\+Dist\+Samples@{show\+Latency\+Dist\+Samples}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{show\+Latency\+Dist\+Samples()}{showLatencyDistSamples()}}
+{\footnotesize\ttfamily void show\+Latency\+Dist\+Samples (\begin{DoxyParamCaption}\item[{struct \hyperlink{structdistsamples}{distsamples} $\ast$}]{samples,  }\item[{long long}]{tot }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5438 of file redis-\/cli.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{redis-cli_8c_af5c710599aca211f76878c21dbf2c6e2}\label{redis-cli_8c_af5c710599aca211f76878c21dbf2c6e2}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Commands@{cluster\+Manager\+Commands}}
+\index{cluster\+Manager\+Commands@{cluster\+Manager\+Commands}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Commands}{clusterManagerCommands}}
+{\footnotesize\ttfamily \hyperlink{structcluster_manager_command_def}{cluster\+Manager\+Command\+Def} cluster\+Manager\+Commands\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \{\textcolor{stringliteral}{"create"}, clusterManagerCommandCreate, -2, \textcolor{stringliteral}{"host1:port1 ... hostN:portN"},
+     \textcolor{stringliteral}{"replicas <arg>"}\},
+    \{\textcolor{stringliteral}{"check"}, clusterManagerCommandCheck, -1, \textcolor{stringliteral}{"host:port"}, NULL\},
+    \{\textcolor{stringliteral}{"info"}, clusterManagerCommandInfo, -1, \textcolor{stringliteral}{"host:port"}, NULL\},
+    \{\textcolor{stringliteral}{"fix"}, clusterManagerCommandFix, -1, \textcolor{stringliteral}{"host:port"}, NULL\},
+    \{\textcolor{stringliteral}{"reshard"}, clusterManagerCommandReshard, -1, \textcolor{stringliteral}{"host:port"},
+     \textcolor{stringliteral}{"from <arg>,to <arg>,slots <arg>,yes,timeout <arg>,pipeline <arg>"}\},
+    \{\textcolor{stringliteral}{"rebalance"}, clusterManagerCommandRebalance, -1, \textcolor{stringliteral}{"host:port"},
+     \textcolor{stringliteral}{"weight <node1=w1...nodeN=wN>,use-empty-masters,"}
+     \textcolor{stringliteral}{"timeout <arg>,simulate,pipeline <arg>,threshold <arg>"}\},
+    \{\textcolor{stringliteral}{"add-node"}, clusterManagerCommandAddNode, 2,
+     \textcolor{stringliteral}{"new\_host:new\_port existing\_host:existing\_port"}, \textcolor{stringliteral}{"slave,master-id <arg>"}\},
+    \{\textcolor{stringliteral}{"del-node"}, clusterManagerCommandDeleteNode, 2, \textcolor{stringliteral}{"host:port node\_id"},NULL\},
+    \{\textcolor{stringliteral}{"call"}, clusterManagerCommandCall, -2,
+        \textcolor{stringliteral}{"host:port command arg arg .. arg"}, NULL\},
+    \{\textcolor{stringliteral}{"set-timeout"}, clusterManagerCommandSetTimeout, 2,
+     \textcolor{stringliteral}{"host:port milliseconds"}, NULL\},
+    \{\textcolor{stringliteral}{"import"}, clusterManagerCommandImport, 1, \textcolor{stringliteral}{"host:port"},
+     \textcolor{stringliteral}{"from <arg>,copy,replace"}\},
+    \{\textcolor{stringliteral}{"help"}, clusterManagerCommandHelp, 0, NULL, NULL\}
+\}
+\end{DoxyCode}
+
+
+Definition at line 1978 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ae685c0b27570c5e930353b89b1a1195e}\label{redis-cli_8c_ae685c0b27570c5e930353b89b1a1195e}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!cluster\+Manager\+Uncovered\+Slots@{cluster\+Manager\+Uncovered\+Slots}}
+\index{cluster\+Manager\+Uncovered\+Slots@{cluster\+Manager\+Uncovered\+Slots}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Manager\+Uncovered\+Slots}{clusterManagerUncoveredSlots}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ cluster\+Manager\+Uncovered\+Slots = N\+U\+LL}
+
+
+
+Definition at line 1867 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a221e8d721f6f0f04badd0cf2bf40822e}\label{redis-cli_8c_a221e8d721f6f0f04badd0cf2bf40822e}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!spectrum\+\_\+palette@{spectrum\+\_\+palette}}
+\index{spectrum\+\_\+palette@{spectrum\+\_\+palette}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{spectrum\+\_\+palette}{spectrum\_palette}}
+{\footnotesize\ttfamily int$\ast$ spectrum\+\_\+palette}
+
+
+
+Definition at line 149 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a1e97bf08246f94fc853f8fcf46c1cf21}\label{redis-cli_8c_a1e97bf08246f94fc853f8fcf46c1cf21}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!spectrum\+\_\+palette\+\_\+color@{spectrum\+\_\+palette\+\_\+color}}
+\index{spectrum\+\_\+palette\+\_\+color@{spectrum\+\_\+palette\+\_\+color}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{spectrum\+\_\+palette\+\_\+color}{spectrum\_palette\_color}}
+{\footnotesize\ttfamily int spectrum\+\_\+palette\+\_\+color\mbox{[}$\,$\mbox{]} = \{0,233,234,235,237,239,241,243,245,247,144,143,142,184,226,214,208,202,196\}}
+
+
+
+Definition at line 143 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a061fe77e2709cbb2f71fc2a7398963c5}\label{redis-cli_8c_a061fe77e2709cbb2f71fc2a7398963c5}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!spectrum\+\_\+palette\+\_\+color\+\_\+size@{spectrum\+\_\+palette\+\_\+color\+\_\+size}}
+\index{spectrum\+\_\+palette\+\_\+color\+\_\+size@{spectrum\+\_\+palette\+\_\+color\+\_\+size}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{spectrum\+\_\+palette\+\_\+color\+\_\+size}{spectrum\_palette\_color\_size}}
+{\footnotesize\ttfamily int spectrum\+\_\+palette\+\_\+color\+\_\+size = 19}
+
+
+
+Definition at line 142 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a40e0ab2c77349c2cb0546ef74c434b06}\label{redis-cli_8c_a40e0ab2c77349c2cb0546ef74c434b06}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!spectrum\+\_\+palette\+\_\+mono@{spectrum\+\_\+palette\+\_\+mono}}
+\index{spectrum\+\_\+palette\+\_\+mono@{spectrum\+\_\+palette\+\_\+mono}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{spectrum\+\_\+palette\+\_\+mono}{spectrum\_palette\_mono}}
+{\footnotesize\ttfamily int spectrum\+\_\+palette\+\_\+mono\mbox{[}$\,$\mbox{]} = \{0,233,234,235,237,239,241,243,245,247,249,251,253\}}
+
+
+
+Definition at line 146 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_a56c244483f637616592c0da2fa1cd0f6}\label{redis-cli_8c_a56c244483f637616592c0da2fa1cd0f6}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!spectrum\+\_\+palette\+\_\+mono\+\_\+size@{spectrum\+\_\+palette\+\_\+mono\+\_\+size}}
+\index{spectrum\+\_\+palette\+\_\+mono\+\_\+size@{spectrum\+\_\+palette\+\_\+mono\+\_\+size}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{spectrum\+\_\+palette\+\_\+mono\+\_\+size}{spectrum\_palette\_mono\_size}}
+{\footnotesize\ttfamily int spectrum\+\_\+palette\+\_\+mono\+\_\+size = 13}
+
+
+
+Definition at line 145 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{redis-cli_8c_ae51bbc7bfe53bb9fb243c65fed16fd40}\label{redis-cli_8c_ae51bbc7bfe53bb9fb243c65fed16fd40}} 
+\index{redis-\/cli.\+c@{redis-\/cli.\+c}!spectrum\+\_\+palette\+\_\+size@{spectrum\+\_\+palette\+\_\+size}}
+\index{spectrum\+\_\+palette\+\_\+size@{spectrum\+\_\+palette\+\_\+size}!redis-\/cli.\+c@{redis-\/cli.\+c}}
+\subsubsection{\texorpdfstring{spectrum\+\_\+palette\+\_\+size}{spectrum\_palette\_size}}
+{\footnotesize\ttfamily int spectrum\+\_\+palette\+\_\+size}
+
+
+
+Definition at line 150 of file redis-\/cli.\+c.
+

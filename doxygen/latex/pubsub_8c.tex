@@ -1,0 +1,209 @@
+\hypertarget{pubsub_8c}{}\section{src/pubsub.c File Reference}
+\label{pubsub_8c}\index{src/pubsub.\+c@{src/pubsub.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+Include dependency graph for pubsub.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pubsub_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{pubsub_8c_abf8fab747aad35233c8ad6f2b537d691}{free\+Pubsub\+Pattern} (void $\ast$p)
+\item 
+int \hyperlink{pubsub_8c_aff060253395a382dce70cc8090c8d5bc}{list\+Match\+Pubsub\+Pattern} (void $\ast$a, void $\ast$b)
+\item 
+int \hyperlink{pubsub_8c_a92d2c1cdb4e1bfac5261b4a7e21a3202}{client\+Subscriptions\+Count} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{pubsub_8c_a1376a689f08a332b16a22734ef786c2c}{pubsub\+Subscribe\+Channel} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$channel)
+\item 
+int \hyperlink{pubsub_8c_ab2f1dfd9132bbbeaca839a4c6a6d486a}{pubsub\+Unsubscribe\+Channel} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$channel, int notify)
+\item 
+int \hyperlink{pubsub_8c_ab0d259359b13b4c3ce4511e90a101652}{pubsub\+Subscribe\+Pattern} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$pattern)
+\item 
+int \hyperlink{pubsub_8c_ac6dd10e53caa5f12866daf705b3d3c74}{pubsub\+Unsubscribe\+Pattern} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$pattern, int notify)
+\item 
+int \hyperlink{pubsub_8c_aa4eff8a44c9732b4cb6579158b7a25ff}{pubsub\+Unsubscribe\+All\+Channels} (\hyperlink{structclient}{client} $\ast$c, int notify)
+\item 
+int \hyperlink{pubsub_8c_ac3c5987f23e26935e4f9b1195f6e40e4}{pubsub\+Unsubscribe\+All\+Patterns} (\hyperlink{structclient}{client} $\ast$c, int notify)
+\item 
+int \hyperlink{pubsub_8c_a6120f7ccb7e39badfff45d5d77ef3684}{pubsub\+Publish\+Message} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$channel, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$message)
+\item 
+void \hyperlink{pubsub_8c_a7322700796b561a34a18723b5d1b754a}{subscribe\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{pubsub_8c_a472428e32d6dddf29790796d3388e135}{unsubscribe\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{pubsub_8c_adc25a077e0766a1a45816ff2c280a247}{psubscribe\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{pubsub_8c_acb5aa2733bb6ecb41cf96fa248454697}{punsubscribe\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{pubsub_8c_ac269d82d816d53b573d249343770c07a}{publish\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{pubsub_8c_a1bf715db9fa019cbdd2f6fe6422867a9}{pubsub\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{pubsub_8c_a92d2c1cdb4e1bfac5261b4a7e21a3202}\label{pubsub_8c_a92d2c1cdb4e1bfac5261b4a7e21a3202}} 
+\index{pubsub.\+c@{pubsub.\+c}!client\+Subscriptions\+Count@{client\+Subscriptions\+Count}}
+\index{client\+Subscriptions\+Count@{client\+Subscriptions\+Count}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{client\+Subscriptions\+Count()}{clientSubscriptionsCount()}}
+{\footnotesize\ttfamily int client\+Subscriptions\+Count (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 51 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_abf8fab747aad35233c8ad6f2b537d691}\label{pubsub_8c_abf8fab747aad35233c8ad6f2b537d691}} 
+\index{pubsub.\+c@{pubsub.\+c}!free\+Pubsub\+Pattern@{free\+Pubsub\+Pattern}}
+\index{free\+Pubsub\+Pattern@{free\+Pubsub\+Pattern}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{free\+Pubsub\+Pattern()}{freePubsubPattern()}}
+{\footnotesize\ttfamily void free\+Pubsub\+Pattern (\begin{DoxyParamCaption}\item[{void $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 36 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_aff060253395a382dce70cc8090c8d5bc}\label{pubsub_8c_aff060253395a382dce70cc8090c8d5bc}} 
+\index{pubsub.\+c@{pubsub.\+c}!list\+Match\+Pubsub\+Pattern@{list\+Match\+Pubsub\+Pattern}}
+\index{list\+Match\+Pubsub\+Pattern@{list\+Match\+Pubsub\+Pattern}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{list\+Match\+Pubsub\+Pattern()}{listMatchPubsubPattern()}}
+{\footnotesize\ttfamily int list\+Match\+Pubsub\+Pattern (\begin{DoxyParamCaption}\item[{void $\ast$}]{a,  }\item[{void $\ast$}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 43 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_adc25a077e0766a1a45816ff2c280a247}\label{pubsub_8c_adc25a077e0766a1a45816ff2c280a247}} 
+\index{pubsub.\+c@{pubsub.\+c}!psubscribe\+Command@{psubscribe\+Command}}
+\index{psubscribe\+Command@{psubscribe\+Command}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{psubscribe\+Command()}{psubscribeCommand()}}
+{\footnotesize\ttfamily void psubscribe\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 297 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_ac269d82d816d53b573d249343770c07a}\label{pubsub_8c_ac269d82d816d53b573d249343770c07a}} 
+\index{pubsub.\+c@{pubsub.\+c}!publish\+Command@{publish\+Command}}
+\index{publish\+Command@{publish\+Command}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{publish\+Command()}{publishCommand()}}
+{\footnotesize\ttfamily void publish\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 317 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_a1bf715db9fa019cbdd2f6fe6422867a9}\label{pubsub_8c_a1bf715db9fa019cbdd2f6fe6422867a9}} 
+\index{pubsub.\+c@{pubsub.\+c}!pubsub\+Command@{pubsub\+Command}}
+\index{pubsub\+Command@{pubsub\+Command}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{pubsub\+Command()}{pubsubCommand()}}
+{\footnotesize\ttfamily void pubsub\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 327 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_a6120f7ccb7e39badfff45d5d77ef3684}\label{pubsub_8c_a6120f7ccb7e39badfff45d5d77ef3684}} 
+\index{pubsub.\+c@{pubsub.\+c}!pubsub\+Publish\+Message@{pubsub\+Publish\+Message}}
+\index{pubsub\+Publish\+Message@{pubsub\+Publish\+Message}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{pubsub\+Publish\+Message()}{pubsubPublishMessage()}}
+{\footnotesize\ttfamily int pubsub\+Publish\+Message (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{channel,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{message }\end{DoxyParamCaption})}
+
+
+
+Definition at line 225 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_a1376a689f08a332b16a22734ef786c2c}\label{pubsub_8c_a1376a689f08a332b16a22734ef786c2c}} 
+\index{pubsub.\+c@{pubsub.\+c}!pubsub\+Subscribe\+Channel@{pubsub\+Subscribe\+Channel}}
+\index{pubsub\+Subscribe\+Channel@{pubsub\+Subscribe\+Channel}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{pubsub\+Subscribe\+Channel()}{pubsubSubscribeChannel()}}
+{\footnotesize\ttfamily int pubsub\+Subscribe\+Channel (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{channel }\end{DoxyParamCaption})}
+
+
+
+Definition at line 58 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_ab0d259359b13b4c3ce4511e90a101652}\label{pubsub_8c_ab0d259359b13b4c3ce4511e90a101652}} 
+\index{pubsub.\+c@{pubsub.\+c}!pubsub\+Subscribe\+Pattern@{pubsub\+Subscribe\+Pattern}}
+\index{pubsub\+Subscribe\+Pattern@{pubsub\+Subscribe\+Pattern}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{pubsub\+Subscribe\+Pattern()}{pubsubSubscribePattern()}}
+{\footnotesize\ttfamily int pubsub\+Subscribe\+Pattern (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{pattern }\end{DoxyParamCaption})}
+
+
+
+Definition at line 127 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_aa4eff8a44c9732b4cb6579158b7a25ff}\label{pubsub_8c_aa4eff8a44c9732b4cb6579158b7a25ff}} 
+\index{pubsub.\+c@{pubsub.\+c}!pubsub\+Unsubscribe\+All\+Channels@{pubsub\+Unsubscribe\+All\+Channels}}
+\index{pubsub\+Unsubscribe\+All\+Channels@{pubsub\+Unsubscribe\+All\+Channels}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{pubsub\+Unsubscribe\+All\+Channels()}{pubsubUnsubscribeAllChannels()}}
+{\footnotesize\ttfamily int pubsub\+Unsubscribe\+All\+Channels (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{notify }\end{DoxyParamCaption})}
+
+
+
+Definition at line 178 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_ac3c5987f23e26935e4f9b1195f6e40e4}\label{pubsub_8c_ac3c5987f23e26935e4f9b1195f6e40e4}} 
+\index{pubsub.\+c@{pubsub.\+c}!pubsub\+Unsubscribe\+All\+Patterns@{pubsub\+Unsubscribe\+All\+Patterns}}
+\index{pubsub\+Unsubscribe\+All\+Patterns@{pubsub\+Unsubscribe\+All\+Patterns}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{pubsub\+Unsubscribe\+All\+Patterns()}{pubsubUnsubscribeAllPatterns()}}
+{\footnotesize\ttfamily int pubsub\+Unsubscribe\+All\+Patterns (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{notify }\end{DoxyParamCaption})}
+
+
+
+Definition at line 202 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_ab2f1dfd9132bbbeaca839a4c6a6d486a}\label{pubsub_8c_ab2f1dfd9132bbbeaca839a4c6a6d486a}} 
+\index{pubsub.\+c@{pubsub.\+c}!pubsub\+Unsubscribe\+Channel@{pubsub\+Unsubscribe\+Channel}}
+\index{pubsub\+Unsubscribe\+Channel@{pubsub\+Unsubscribe\+Channel}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{pubsub\+Unsubscribe\+Channel()}{pubsubUnsubscribeChannel()}}
+{\footnotesize\ttfamily int pubsub\+Unsubscribe\+Channel (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{channel,  }\item[{int}]{notify }\end{DoxyParamCaption})}
+
+
+
+Definition at line 88 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_ac6dd10e53caa5f12866daf705b3d3c74}\label{pubsub_8c_ac6dd10e53caa5f12866daf705b3d3c74}} 
+\index{pubsub.\+c@{pubsub.\+c}!pubsub\+Unsubscribe\+Pattern@{pubsub\+Unsubscribe\+Pattern}}
+\index{pubsub\+Unsubscribe\+Pattern@{pubsub\+Unsubscribe\+Pattern}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{pubsub\+Unsubscribe\+Pattern()}{pubsubUnsubscribePattern()}}
+{\footnotesize\ttfamily int pubsub\+Unsubscribe\+Pattern (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{pattern,  }\item[{int}]{notify }\end{DoxyParamCaption})}
+
+
+
+Definition at line 150 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_acb5aa2733bb6ecb41cf96fa248454697}\label{pubsub_8c_acb5aa2733bb6ecb41cf96fa248454697}} 
+\index{pubsub.\+c@{pubsub.\+c}!punsubscribe\+Command@{punsubscribe\+Command}}
+\index{punsubscribe\+Command@{punsubscribe\+Command}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{punsubscribe\+Command()}{punsubscribeCommand()}}
+{\footnotesize\ttfamily void punsubscribe\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 305 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_a7322700796b561a34a18723b5d1b754a}\label{pubsub_8c_a7322700796b561a34a18723b5d1b754a}} 
+\index{pubsub.\+c@{pubsub.\+c}!subscribe\+Command@{subscribe\+Command}}
+\index{subscribe\+Command@{subscribe\+Command}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{subscribe\+Command()}{subscribeCommand()}}
+{\footnotesize\ttfamily void subscribe\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 277 of file pubsub.\+c.
+
+\mbox{\Hypertarget{pubsub_8c_a472428e32d6dddf29790796d3388e135}\label{pubsub_8c_a472428e32d6dddf29790796d3388e135}} 
+\index{pubsub.\+c@{pubsub.\+c}!unsubscribe\+Command@{unsubscribe\+Command}}
+\index{unsubscribe\+Command@{unsubscribe\+Command}!pubsub.\+c@{pubsub.\+c}}
+\subsubsection{\texorpdfstring{unsubscribe\+Command()}{unsubscribeCommand()}}
+{\footnotesize\ttfamily void unsubscribe\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 285 of file pubsub.\+c.
+

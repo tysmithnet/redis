@@ -1,0 +1,285 @@
+\hypertarget{rand_8c}{}\section{src/rand.c File Reference}
+\label{rand_8c}\index{src/rand.\+c@{src/rand.\+c}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for rand.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=140pt]{rand_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{rand_8c_a0240ac851181b84ac374872dc5434ee4}{N}~16
+\item 
+\#define \hyperlink{rand_8c_ae7520c5477c11965aabeedc033c9862b}{M\+A\+SK}~((1 $<$$<$ (\hyperlink{rand_8c_a0240ac851181b84ac374872dc5434ee4}{N} -\/ 1)) + (1 $<$$<$ (\hyperlink{rand_8c_a0240ac851181b84ac374872dc5434ee4}{N} -\/ 1)) -\/ 1)
+\item 
+\#define \hyperlink{rand_8c_a627b1c92232deafa6370178448d76527}{L\+OW}(x)~((unsigned)(x) \& \hyperlink{rand_8c_ae7520c5477c11965aabeedc033c9862b}{M\+A\+SK})
+\item 
+\#define \hyperlink{rand_8c_aadd31e5eb6e891077cb7fd6c906ef4af}{H\+I\+GH}(x)~\hyperlink{rand_8c_a627b1c92232deafa6370178448d76527}{L\+OW}((x) $>$$>$ \hyperlink{rand_8c_a0240ac851181b84ac374872dc5434ee4}{N})
+\item 
+\#define \hyperlink{rand_8c_aa41c2259bde5ac4595509b753d07129f}{M\+UL}(x,  y,  z)
+\item 
+\#define \hyperlink{rand_8c_acf24db0ba1fe8c642a00871c3156f536}{C\+A\+R\+RY}(x,  y)~((int32\+\_\+t)(x) + (long)(y) $>$ \hyperlink{rand_8c_ae7520c5477c11965aabeedc033c9862b}{M\+A\+SK})
+\item 
+\#define \hyperlink{rand_8c_a904860fb195e49dc24c327820db12801}{A\+D\+D\+E\+QU}(x,  y,  z)~(z = \hyperlink{rand_8c_acf24db0ba1fe8c642a00871c3156f536}{C\+A\+R\+RY}(x, (y)), x = \hyperlink{rand_8c_a627b1c92232deafa6370178448d76527}{L\+OW}(x + (y)))
+\item 
+\#define \hyperlink{rand_8c_a8476f4a8de2c191433342c9ce896986a}{X0}~0x330E
+\item 
+\#define \hyperlink{rand_8c_a1964818ccd90a6173ea48cecb652feeb}{X1}~0x\+A\+B\+CD
+\item 
+\#define \hyperlink{rand_8c_a79ae03a0214cb30e57b9e8835f2a0019}{X2}~0x1234
+\item 
+\#define \hyperlink{rand_8c_a0d158f1e3af2ab523eb8423db3e5bd6e}{A0}~0x\+E66D
+\item 
+\#define \hyperlink{rand_8c_acd92b430059d886880c53f13ae038e3f}{A1}~0x\+D\+E\+EC
+\item 
+\#define \hyperlink{rand_8c_a2946bc30423c2a996eeafa49e995c30e}{A2}~0x5
+\item 
+\#define \hyperlink{rand_8c_ac4cf4b2ab929bd23951a8676eeac086b}{C}~0xB
+\item 
+\#define \hyperlink{rand_8c_a2f13588e2b1316209e96e8279eb15f6c}{S\+E\+T3}(x,  x0,  x1,  x2)~((x)\mbox{[}0\mbox{]} = (x0), (x)\mbox{[}1\mbox{]} = (x1), (x)\mbox{[}2\mbox{]} = (x2))
+\item 
+\#define \hyperlink{rand_8c_a0458ae16ffc59344a341053ec9993dcc}{S\+E\+T\+L\+OW}(x,  y,  n)~\hyperlink{rand_8c_a2f13588e2b1316209e96e8279eb15f6c}{S\+E\+T3}(x, \hyperlink{rand_8c_a627b1c92232deafa6370178448d76527}{L\+OW}((y)\mbox{[}n\mbox{]}), \hyperlink{rand_8c_a627b1c92232deafa6370178448d76527}{L\+OW}((y)\mbox{[}(n)+1\mbox{]}), \hyperlink{rand_8c_a627b1c92232deafa6370178448d76527}{L\+OW}((y)\mbox{[}(n)+2\mbox{]}))
+\item 
+\#define \hyperlink{rand_8c_ad4fca189db70516678feaf2ada2b0153}{S\+E\+ED}(x0,  x1,  x2)~(\hyperlink{rand_8c_a2f13588e2b1316209e96e8279eb15f6c}{S\+E\+T3}(x, x0, x1, x2), \hyperlink{rand_8c_a2f13588e2b1316209e96e8279eb15f6c}{S\+E\+T3}(a, \hyperlink{rand_8c_a0d158f1e3af2ab523eb8423db3e5bd6e}{A0}, \hyperlink{rand_8c_acd92b430059d886880c53f13ae038e3f}{A1}, \hyperlink{rand_8c_a2946bc30423c2a996eeafa49e995c30e}{A2}), c = \hyperlink{rand_8c_ac4cf4b2ab929bd23951a8676eeac086b}{C})
+\item 
+\#define \hyperlink{rand_8c_a44e8d302bbf7fa4f3f7d8ca6a51a7711}{R\+E\+ST}(v)
+\item 
+\#define \hyperlink{rand_8c_aa65dbc7a30943e946672573a0b1bf6da}{H\+I\+\_\+\+B\+IT}~(1\+L $<$$<$ (2 $\ast$ N -\/ 1))
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int32\+\_\+t \hyperlink{rand_8c_afa045002129a8180f7de2ef72de2820c}{redis\+Lrand48} ()
+\item 
+void \hyperlink{rand_8c_a6d5a040ae9ec6bac8c5422ffb222327e}{redis\+Srand48} (int32\+\_\+t seedval)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{rand_8c_a0d158f1e3af2ab523eb8423db3e5bd6e}\label{rand_8c_a0d158f1e3af2ab523eb8423db3e5bd6e}} 
+\index{rand.\+c@{rand.\+c}!A0@{A0}}
+\index{A0@{A0}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{A0}{A0}}
+{\footnotesize\ttfamily \#define A0~0x\+E66D}
+
+
+
+Definition at line 57 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_acd92b430059d886880c53f13ae038e3f}\label{rand_8c_acd92b430059d886880c53f13ae038e3f}} 
+\index{rand.\+c@{rand.\+c}!A1@{A1}}
+\index{A1@{A1}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{A1}{A1}}
+{\footnotesize\ttfamily \#define A1~0x\+D\+E\+EC}
+
+
+
+Definition at line 58 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_a2946bc30423c2a996eeafa49e995c30e}\label{rand_8c_a2946bc30423c2a996eeafa49e995c30e}} 
+\index{rand.\+c@{rand.\+c}!A2@{A2}}
+\index{A2@{A2}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{A2}{A2}}
+{\footnotesize\ttfamily \#define A2~0x5}
+
+
+
+Definition at line 59 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_a904860fb195e49dc24c327820db12801}\label{rand_8c_a904860fb195e49dc24c327820db12801}} 
+\index{rand.\+c@{rand.\+c}!A\+D\+D\+E\+QU@{A\+D\+D\+E\+QU}}
+\index{A\+D\+D\+E\+QU@{A\+D\+D\+E\+QU}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{A\+D\+D\+E\+QU}{ADDEQU}}
+{\footnotesize\ttfamily \#define A\+D\+D\+E\+QU(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y,  }\item[{}]{z }\end{DoxyParamCaption})~(z = \hyperlink{rand_8c_acf24db0ba1fe8c642a00871c3156f536}{C\+A\+R\+RY}(x, (y)), x = \hyperlink{rand_8c_a627b1c92232deafa6370178448d76527}{L\+OW}(x + (y)))}
+
+
+
+Definition at line 53 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_ac4cf4b2ab929bd23951a8676eeac086b}\label{rand_8c_ac4cf4b2ab929bd23951a8676eeac086b}} 
+\index{rand.\+c@{rand.\+c}!C@{C}}
+\index{C@{C}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{C}{C}}
+{\footnotesize\ttfamily \#define C~0xB}
+
+
+
+Definition at line 60 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_acf24db0ba1fe8c642a00871c3156f536}\label{rand_8c_acf24db0ba1fe8c642a00871c3156f536}} 
+\index{rand.\+c@{rand.\+c}!C\+A\+R\+RY@{C\+A\+R\+RY}}
+\index{C\+A\+R\+RY@{C\+A\+R\+RY}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{C\+A\+R\+RY}{CARRY}}
+{\footnotesize\ttfamily \#define C\+A\+R\+RY(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})~((int32\+\_\+t)(x) + (long)(y) $>$ \hyperlink{rand_8c_ae7520c5477c11965aabeedc033c9862b}{M\+A\+SK})}
+
+
+
+Definition at line 52 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_aa65dbc7a30943e946672573a0b1bf6da}\label{rand_8c_aa65dbc7a30943e946672573a0b1bf6da}} 
+\index{rand.\+c@{rand.\+c}!H\+I\+\_\+\+B\+IT@{H\+I\+\_\+\+B\+IT}}
+\index{H\+I\+\_\+\+B\+IT@{H\+I\+\_\+\+B\+IT}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{H\+I\+\_\+\+B\+IT}{HI\_BIT}}
+{\footnotesize\ttfamily \#define H\+I\+\_\+\+B\+IT~(1\+L $<$$<$ (2 $\ast$ N -\/ 1))}
+
+
+
+Definition at line 66 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_aadd31e5eb6e891077cb7fd6c906ef4af}\label{rand_8c_aadd31e5eb6e891077cb7fd6c906ef4af}} 
+\index{rand.\+c@{rand.\+c}!H\+I\+GH@{H\+I\+GH}}
+\index{H\+I\+GH@{H\+I\+GH}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{H\+I\+GH}{HIGH}}
+{\footnotesize\ttfamily \#define H\+I\+GH(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~\hyperlink{rand_8c_a627b1c92232deafa6370178448d76527}{L\+OW}((x) $>$$>$ \hyperlink{rand_8c_a0240ac851181b84ac374872dc5434ee4}{N})}
+
+
+
+Definition at line 49 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_a627b1c92232deafa6370178448d76527}\label{rand_8c_a627b1c92232deafa6370178448d76527}} 
+\index{rand.\+c@{rand.\+c}!L\+OW@{L\+OW}}
+\index{L\+OW@{L\+OW}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{L\+OW}{LOW}}
+{\footnotesize\ttfamily \#define L\+OW(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~((unsigned)(x) \& \hyperlink{rand_8c_ae7520c5477c11965aabeedc033c9862b}{M\+A\+SK})}
+
+
+
+Definition at line 48 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_ae7520c5477c11965aabeedc033c9862b}\label{rand_8c_ae7520c5477c11965aabeedc033c9862b}} 
+\index{rand.\+c@{rand.\+c}!M\+A\+SK@{M\+A\+SK}}
+\index{M\+A\+SK@{M\+A\+SK}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+SK}{MASK}}
+{\footnotesize\ttfamily \#define M\+A\+SK~((1 $<$$<$ (\hyperlink{rand_8c_a0240ac851181b84ac374872dc5434ee4}{N} -\/ 1)) + (1 $<$$<$ (\hyperlink{rand_8c_a0240ac851181b84ac374872dc5434ee4}{N} -\/ 1)) -\/ 1)}
+
+
+
+Definition at line 47 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_aa41c2259bde5ac4595509b753d07129f}\label{rand_8c_aa41c2259bde5ac4595509b753d07129f}} 
+\index{rand.\+c@{rand.\+c}!M\+UL@{M\+UL}}
+\index{M\+UL@{M\+UL}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{M\+UL}{MUL}}
+{\footnotesize\ttfamily \#define M\+UL(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y,  }\item[{}]{z }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\{ int32\_t l = (long)(x) * (long)(y); \(\backslash\)
+        (z)[0] = \hyperlink{rand_8c_a627b1c92232deafa6370178448d76527}{LOW}(l); (z)[1] = \hyperlink{rand_8c_aadd31e5eb6e891077cb7fd6c906ef4af}{HIGH}(l); \}
+\end{DoxyCode}
+
+
+Definition at line 50 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_a0240ac851181b84ac374872dc5434ee4}\label{rand_8c_a0240ac851181b84ac374872dc5434ee4}} 
+\index{rand.\+c@{rand.\+c}!N@{N}}
+\index{N@{N}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{N}{N}}
+{\footnotesize\ttfamily \#define N~16}
+
+
+
+Definition at line 46 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_a44e8d302bbf7fa4f3f7d8ca6a51a7711}\label{rand_8c_a44e8d302bbf7fa4f3f7d8ca6a51a7711}} 
+\index{rand.\+c@{rand.\+c}!R\+E\+ST@{R\+E\+ST}}
+\index{R\+E\+ST@{R\+E\+ST}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+ST}{REST}}
+{\footnotesize\ttfamily \#define R\+E\+ST(\begin{DoxyParamCaption}\item[{}]{v }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{for} (i = 0; i < 3; i++) \{ xsubi[i] = x[i]; x[i] = temp[i]; \} \(\backslash\)
+        return (v);
+\end{DoxyCode}
+
+
+Definition at line 64 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_ad4fca189db70516678feaf2ada2b0153}\label{rand_8c_ad4fca189db70516678feaf2ada2b0153}} 
+\index{rand.\+c@{rand.\+c}!S\+E\+ED@{S\+E\+ED}}
+\index{S\+E\+ED@{S\+E\+ED}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+ED}{SEED}}
+{\footnotesize\ttfamily \#define S\+E\+ED(\begin{DoxyParamCaption}\item[{}]{x0,  }\item[{}]{x1,  }\item[{}]{x2 }\end{DoxyParamCaption})~(\hyperlink{rand_8c_a2f13588e2b1316209e96e8279eb15f6c}{S\+E\+T3}(x, x0, x1, x2), \hyperlink{rand_8c_a2f13588e2b1316209e96e8279eb15f6c}{S\+E\+T3}(a, \hyperlink{rand_8c_a0d158f1e3af2ab523eb8423db3e5bd6e}{A0}, \hyperlink{rand_8c_acd92b430059d886880c53f13ae038e3f}{A1}, \hyperlink{rand_8c_a2946bc30423c2a996eeafa49e995c30e}{A2}), c = \hyperlink{rand_8c_ac4cf4b2ab929bd23951a8676eeac086b}{C})}
+
+
+
+Definition at line 63 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_a2f13588e2b1316209e96e8279eb15f6c}\label{rand_8c_a2f13588e2b1316209e96e8279eb15f6c}} 
+\index{rand.\+c@{rand.\+c}!S\+E\+T3@{S\+E\+T3}}
+\index{S\+E\+T3@{S\+E\+T3}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+T3}{SET3}}
+{\footnotesize\ttfamily \#define S\+E\+T3(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{x0,  }\item[{}]{x1,  }\item[{}]{x2 }\end{DoxyParamCaption})~((x)\mbox{[}0\mbox{]} = (x0), (x)\mbox{[}1\mbox{]} = (x1), (x)\mbox{[}2\mbox{]} = (x2))}
+
+
+
+Definition at line 61 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_a0458ae16ffc59344a341053ec9993dcc}\label{rand_8c_a0458ae16ffc59344a341053ec9993dcc}} 
+\index{rand.\+c@{rand.\+c}!S\+E\+T\+L\+OW@{S\+E\+T\+L\+OW}}
+\index{S\+E\+T\+L\+OW@{S\+E\+T\+L\+OW}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+T\+L\+OW}{SETLOW}}
+{\footnotesize\ttfamily \#define S\+E\+T\+L\+OW(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y,  }\item[{}]{n }\end{DoxyParamCaption})~\hyperlink{rand_8c_a2f13588e2b1316209e96e8279eb15f6c}{S\+E\+T3}(x, \hyperlink{rand_8c_a627b1c92232deafa6370178448d76527}{L\+OW}((y)\mbox{[}n\mbox{]}), \hyperlink{rand_8c_a627b1c92232deafa6370178448d76527}{L\+OW}((y)\mbox{[}(n)+1\mbox{]}), \hyperlink{rand_8c_a627b1c92232deafa6370178448d76527}{L\+OW}((y)\mbox{[}(n)+2\mbox{]}))}
+
+
+
+Definition at line 62 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_a8476f4a8de2c191433342c9ce896986a}\label{rand_8c_a8476f4a8de2c191433342c9ce896986a}} 
+\index{rand.\+c@{rand.\+c}!X0@{X0}}
+\index{X0@{X0}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{X0}{X0}}
+{\footnotesize\ttfamily \#define X0~0x330E}
+
+
+
+Definition at line 54 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_a1964818ccd90a6173ea48cecb652feeb}\label{rand_8c_a1964818ccd90a6173ea48cecb652feeb}} 
+\index{rand.\+c@{rand.\+c}!X1@{X1}}
+\index{X1@{X1}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{X1}{X1}}
+{\footnotesize\ttfamily \#define X1~0x\+A\+B\+CD}
+
+
+
+Definition at line 55 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_a79ae03a0214cb30e57b9e8835f2a0019}\label{rand_8c_a79ae03a0214cb30e57b9e8835f2a0019}} 
+\index{rand.\+c@{rand.\+c}!X2@{X2}}
+\index{X2@{X2}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{X2}{X2}}
+{\footnotesize\ttfamily \#define X2~0x1234}
+
+
+
+Definition at line 56 of file rand.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{rand_8c_afa045002129a8180f7de2ef72de2820c}\label{rand_8c_afa045002129a8180f7de2ef72de2820c}} 
+\index{rand.\+c@{rand.\+c}!redis\+Lrand48@{redis\+Lrand48}}
+\index{redis\+Lrand48@{redis\+Lrand48}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{redis\+Lrand48()}{redisLrand48()}}
+{\footnotesize\ttfamily int32\+\_\+t redis\+Lrand48 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 71 of file rand.\+c.
+
+\mbox{\Hypertarget{rand_8c_a6d5a040ae9ec6bac8c5422ffb222327e}\label{rand_8c_a6d5a040ae9ec6bac8c5422ffb222327e}} 
+\index{rand.\+c@{rand.\+c}!redis\+Srand48@{redis\+Srand48}}
+\index{redis\+Srand48@{redis\+Srand48}!rand.\+c@{rand.\+c}}
+\subsubsection{\texorpdfstring{redis\+Srand48()}{redisSrand48()}}
+{\footnotesize\ttfamily void redis\+Srand48 (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{seedval }\end{DoxyParamCaption})}
+
+
+
+Definition at line 76 of file rand.\+c.
+

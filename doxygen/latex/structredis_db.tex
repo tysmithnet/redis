@@ -1,0 +1,130 @@
+\hypertarget{structredis_db}{}\section{redis\+Db Struct Reference}
+\label{structredis_db}\index{redis\+Db@{redis\+Db}}
+
+
+{\ttfamily \#include $<$server.\+h$>$}
+
+
+
+Collaboration diagram for redis\+Db\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{structredis_db__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structredis_db_aad961c2f260766ff3627bf363fef3551}{dict}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structredis_db_af8dcf36ca4b084db164becc8e1c71b67}{expires}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structredis_db_a439ca8f8cd0c2a19b8d2e0fe0044160d}{blocking\+\_\+keys}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structredis_db_a06ae0ac6a04c866ce83ece29d9a44073}{ready\+\_\+keys}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structredis_db_acf93a40c69ba9e3938f50aa3b1087abc}{watched\+\_\+keys}
+\item 
+int \hyperlink{structredis_db_a7441ef0865bcb3db9b8064dd7375c1ea}{id}
+\item 
+long long \hyperlink{structredis_db_a605ade426dd43b0de7ea393efa17d337}{avg\+\_\+ttl}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_db_ae22579f2281ceefa3099ad028f0c6260}{defrag\+\_\+later}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 636 of file server.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structredis_db_a605ade426dd43b0de7ea393efa17d337}\label{structredis_db_a605ade426dd43b0de7ea393efa17d337}} 
+\index{redis\+Db@{redis\+Db}!avg\+\_\+ttl@{avg\+\_\+ttl}}
+\index{avg\+\_\+ttl@{avg\+\_\+ttl}!redis\+Db@{redis\+Db}}
+\subsubsection{\texorpdfstring{avg\+\_\+ttl}{avg\_ttl}}
+{\footnotesize\ttfamily long long avg\+\_\+ttl}
+
+
+
+Definition at line 643 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_db_a439ca8f8cd0c2a19b8d2e0fe0044160d}\label{structredis_db_a439ca8f8cd0c2a19b8d2e0fe0044160d}} 
+\index{redis\+Db@{redis\+Db}!blocking\+\_\+keys@{blocking\+\_\+keys}}
+\index{blocking\+\_\+keys@{blocking\+\_\+keys}!redis\+Db@{redis\+Db}}
+\subsubsection{\texorpdfstring{blocking\+\_\+keys}{blocking\_keys}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ blocking\+\_\+keys}
+
+
+
+Definition at line 639 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_db_ae22579f2281ceefa3099ad028f0c6260}\label{structredis_db_ae22579f2281ceefa3099ad028f0c6260}} 
+\index{redis\+Db@{redis\+Db}!defrag\+\_\+later@{defrag\+\_\+later}}
+\index{defrag\+\_\+later@{defrag\+\_\+later}!redis\+Db@{redis\+Db}}
+\subsubsection{\texorpdfstring{defrag\+\_\+later}{defrag\_later}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ defrag\+\_\+later}
+
+
+
+Definition at line 644 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_db_aad961c2f260766ff3627bf363fef3551}\label{structredis_db_aad961c2f260766ff3627bf363fef3551}} 
+\index{redis\+Db@{redis\+Db}!dict@{dict}}
+\index{dict@{dict}!redis\+Db@{redis\+Db}}
+\subsubsection{\texorpdfstring{dict}{dict}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ \hyperlink{structdict}{dict}}
+
+
+
+Definition at line 637 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_db_af8dcf36ca4b084db164becc8e1c71b67}\label{structredis_db_af8dcf36ca4b084db164becc8e1c71b67}} 
+\index{redis\+Db@{redis\+Db}!expires@{expires}}
+\index{expires@{expires}!redis\+Db@{redis\+Db}}
+\subsubsection{\texorpdfstring{expires}{expires}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ expires}
+
+
+
+Definition at line 638 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_db_a7441ef0865bcb3db9b8064dd7375c1ea}\label{structredis_db_a7441ef0865bcb3db9b8064dd7375c1ea}} 
+\index{redis\+Db@{redis\+Db}!id@{id}}
+\index{id@{id}!redis\+Db@{redis\+Db}}
+\subsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily int id}
+
+
+
+Definition at line 642 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_db_a06ae0ac6a04c866ce83ece29d9a44073}\label{structredis_db_a06ae0ac6a04c866ce83ece29d9a44073}} 
+\index{redis\+Db@{redis\+Db}!ready\+\_\+keys@{ready\+\_\+keys}}
+\index{ready\+\_\+keys@{ready\+\_\+keys}!redis\+Db@{redis\+Db}}
+\subsubsection{\texorpdfstring{ready\+\_\+keys}{ready\_keys}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ ready\+\_\+keys}
+
+
+
+Definition at line 640 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_db_acf93a40c69ba9e3938f50aa3b1087abc}\label{structredis_db_acf93a40c69ba9e3938f50aa3b1087abc}} 
+\index{redis\+Db@{redis\+Db}!watched\+\_\+keys@{watched\+\_\+keys}}
+\index{watched\+\_\+keys@{watched\+\_\+keys}!redis\+Db@{redis\+Db}}
+\subsubsection{\texorpdfstring{watched\+\_\+keys}{watched\_keys}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ watched\+\_\+keys}
+
+
+
+Definition at line 641 of file server.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{server_8h}{server.\+h}\end{DoxyCompactItemize}

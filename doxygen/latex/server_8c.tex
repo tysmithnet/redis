@@ -1,0 +1,1620 @@
+\hypertarget{server_8c}{}\section{src/server.c File Reference}
+\label{server_8c}\index{src/server.\+c@{src/server.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}cluster.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}slowlog.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}bio.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}latency.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}atomicvar.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$sys/wait.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$sys/resource.\+h$>$}\newline
+{\ttfamily \#include $<$sys/uio.\+h$>$}\newline
+{\ttfamily \#include $<$sys/un.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$float.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$sys/utsname.\+h$>$}\newline
+{\ttfamily \#include $<$locale.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}asciilogo.\+h\char`\"{}}\newline
+Include dependency graph for server.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{server_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{server_8c_a0c6b952fafcc3dff58201df20f3c4302}{C\+L\+I\+E\+N\+T\+S\+\_\+\+P\+E\+A\+K\+\_\+\+M\+E\+M\+\_\+\+U\+S\+A\+G\+E\+\_\+\+S\+L\+O\+TS}~8
+\item 
+\#define \hyperlink{server_8c_a79785342d159d7e8dc4547ffb330835d}{C\+L\+I\+E\+N\+T\+S\+\_\+\+C\+R\+O\+N\+\_\+\+M\+I\+N\+\_\+\+I\+T\+E\+R\+A\+T\+I\+O\+NS}~5
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{server_8c_a096a91daf3af60dbaccb4de8aa3ca7b2}{nolocks\+\_\+localtime} (struct tm $\ast$tmp, time\+\_\+t t, time\+\_\+t tz, int dst)
+\item 
+void \hyperlink{server_8c_a9438694faedfc9ba62643c59c414b3dc}{server\+Log\+Raw} (int level, const char $\ast$msg)
+\item 
+void \hyperlink{server_8c_a5d44be26238d998d662a5d38e4d3e52c}{server\+Log} (int level, const char $\ast$fmt,...)
+\item 
+void \hyperlink{server_8c_af29037e986e1377d7a74a9c95df0f1e0}{server\+Log\+From\+Handler} (int level, const char $\ast$msg)
+\item 
+long long \hyperlink{server_8c_a9ef4824ea818b12731c36603eed062d5}{ustime} (void)
+\item 
+\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} \hyperlink{server_8c_a8e2fb79c351be966917f2cf717ed3543}{mstime} (void)
+\item 
+void \hyperlink{server_8c_a1a3a833d70823af9432a61b05c5d04fd}{exit\+From\+Child} (int retcode)
+\item 
+void \hyperlink{server_8c_a88e671bb22d29c9970e6b33a7b4312dd}{dict\+Vanilla\+Free} (void $\ast$privdata, void $\ast$val)
+\item 
+void \hyperlink{server_8c_acfaf49811894b77d8a4b8984b2fb6cbf}{dict\+List\+Destructor} (void $\ast$privdata, void $\ast$val)
+\item 
+int \hyperlink{server_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}{dict\+Sds\+Key\+Compare} (void $\ast$privdata, const void $\ast$key1, const void $\ast$key2)
+\item 
+int \hyperlink{server_8c_ac350c29f63271e4d5766b02997733738}{dict\+Sds\+Key\+Case\+Compare} (void $\ast$privdata, const void $\ast$key1, const void $\ast$key2)
+\item 
+void \hyperlink{server_8c_aafd0e9fb24b81530f828fd4ec609eedd}{dict\+Object\+Destructor} (void $\ast$privdata, void $\ast$val)
+\item 
+void \hyperlink{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}{dict\+Sds\+Destructor} (void $\ast$privdata, void $\ast$val)
+\item 
+int \hyperlink{server_8c_a1f8ea185286a42da74f3cb080e90fff1}{dict\+Obj\+Key\+Compare} (void $\ast$privdata, const void $\ast$key1, const void $\ast$key2)
+\item 
+uint64\+\_\+t \hyperlink{server_8c_aec4df04fce73561a5638b3c5137e43ef}{dict\+Obj\+Hash} (const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+uint64\+\_\+t \hyperlink{server_8c_abf11672cc702adce676d41c162b20345}{dict\+Sds\+Hash} (const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+uint64\+\_\+t \hyperlink{server_8c_ada0bb13a034f3ab2ac57be6e27f1bf7e}{dict\+Sds\+Case\+Hash} (const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+int \hyperlink{server_8c_a1cc981bc44bbef251951374538c489fd}{dict\+Enc\+Obj\+Key\+Compare} (void $\ast$privdata, const void $\ast$key1, const void $\ast$key2)
+\item 
+uint64\+\_\+t \hyperlink{server_8c_a2eb31143e51e5ff4255f8cf6cf814c88}{dict\+Enc\+Obj\+Hash} (const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+int \hyperlink{server_8c_a20f117a4c9b350a980b7e37338dd8228}{ht\+Needs\+Resize} (\hyperlink{structdict}{dict} $\ast$\hyperlink{structdict}{dict})
+\item 
+void \hyperlink{server_8c_ad7d4cb9fb361d3a287c57c45ab896010}{try\+Resize\+Hash\+Tables} (int dbid)
+\item 
+int \hyperlink{server_8c_aa06cb110ba3d25c232fd1241979cbd3e}{incrementally\+Rehash} (int dbid)
+\item 
+void \hyperlink{server_8c_af9f969928d06fbe9a2fb63f13cb4c801}{update\+Dict\+Resize\+Policy} (void)
+\item 
+void \hyperlink{server_8c_a546f229eed7911e7315e4b3f6a48ffe7}{track\+Instantaneous\+Metric} (int metric, long long current\+\_\+reading)
+\item 
+long long \hyperlink{server_8c_aaedddabdad8daace0fe8170e3227dfe6}{get\+Instantaneous\+Metric} (int metric)
+\item 
+int \hyperlink{server_8c_a74bbe29298fd27a8ade5e78f89e87f6b}{clients\+Cron\+Handle\+Timeout} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} now\+\_\+ms)
+\item 
+int \hyperlink{server_8c_a5bd4331cf0cd603021bb75be8e34cf31}{clients\+Cron\+Resize\+Query\+Buffer} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{server_8c_adfc266c0c3523ff393445b3421b9467a}{clients\+Cron\+Track\+Expansive\+Clients} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{server_8c_a1ab599246a3e9b664768ebb0c33d4cce}{get\+Expansive\+Clients\+Info} (size\+\_\+t $\ast$in\+\_\+usage, size\+\_\+t $\ast$out\+\_\+usage)
+\item 
+void \hyperlink{server_8c_a98d0c07d94ea748cb852feb8001cba41}{clients\+Cron} (void)
+\item 
+void \hyperlink{server_8c_a3807ad9bc88bdbbf3d7e02e214d56d02}{databases\+Cron} (void)
+\item 
+void \hyperlink{server_8c_a6e0f6f6fad563644eb1b2b382b1fa9dc}{update\+Cached\+Time} (void)
+\item 
+int \hyperlink{server_8c_af588c16d11b3c614a398d31edde3275b}{server\+Cron} (struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop, long long id, void $\ast$client\+Data)
+\item 
+void \hyperlink{server_8c_a1e6f24a15ad04b8e16084190fb05cc42}{before\+Sleep} (struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop)
+\item 
+void \hyperlink{server_8c_a5baf7e76a67bcd855a187fae72c2d3bf}{after\+Sleep} (struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$event\+Loop)
+\item 
+void \hyperlink{server_8c_aacccd08c1c30ec2982422f0f349f96b3}{create\+Shared\+Objects} (void)
+\item 
+void \hyperlink{server_8c_ad708a8be8ec0172827f3006e9237f840}{init\+Server\+Config} (void)
+\item 
+int \hyperlink{server_8c_a0d713384337b0a7271f1208cd5f10795}{restart\+Server} (int flags, \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} delay)
+\item 
+void \hyperlink{server_8c_a3d823b9ddd3225d0c4ebb282296bf1d3}{adjust\+Open\+Files\+Limit} (void)
+\item 
+void \hyperlink{server_8c_a4ca74222ae99615dd8eaa8ca5050046d}{check\+Tcp\+Backlog\+Settings} (void)
+\item 
+int \hyperlink{server_8c_aeac3678c664fd0436c1deb3f1b8097f4}{listen\+To\+Port} (int port, int $\ast$fds, int $\ast$count)
+\item 
+void \hyperlink{server_8c_acc7cb5c8d228c7db0b6d8d86c95e705a}{reset\+Server\+Stats} (void)
+\item 
+void \hyperlink{server_8c_ad21e41fa09dce3d1a3b91503b755b7a2}{init\+Server} (void)
+\item 
+void \hyperlink{server_8c_a9475c3fcad317183a072323859fb5409}{populate\+Command\+Table} (void)
+\item 
+void \hyperlink{server_8c_a8b0d640eab37ee8093c012db67666888}{reset\+Command\+Table\+Stats} (void)
+\item 
+void \hyperlink{server_8c_ac6c49554ad3b252a11f7736b4d2e1d79}{redis\+Op\+Array\+Init} (\hyperlink{structredis_op_array}{redis\+Op\+Array} $\ast$oa)
+\item 
+int \hyperlink{server_8c_aba16001cc1e4c8d9a92c584492ea9a40}{redis\+Op\+Array\+Append} (\hyperlink{structredis_op_array}{redis\+Op\+Array} $\ast$oa, struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, int dbid, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, int target)
+\item 
+void \hyperlink{server_8c_a68e6e5295ed738c87d1559060b0110e9}{redis\+Op\+Array\+Free} (\hyperlink{structredis_op_array}{redis\+Op\+Array} $\ast$oa)
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{server_8c_ae0246c16fba26f65782c698060d394b6}{lookup\+Command} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} name)
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{server_8c_a902505c4d30238285b73f529b8adfa21}{lookup\+Command\+By\+C\+String} (char $\ast$s)
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{server_8c_aeef77c6d0cbe617d2f68cc9ba193456b}{lookup\+Command\+Or\+Original} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} name)
+\item 
+void \hyperlink{server_8c_aa0eb79342e9715fd0886aa33c657409d}{propagate} (struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, int dbid, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, int flags)
+\item 
+void \hyperlink{server_8c_a7e6e3fe0b3bdb1bb7eb4d9e511054fa6}{also\+Propagate} (struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, int dbid, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, int target)
+\item 
+void \hyperlink{server_8c_a2926d1d3245c14f1014cc11d673d0416}{force\+Command\+Propagation} (\hyperlink{structclient}{client} $\ast$c, int flags)
+\item 
+void \hyperlink{server_8c_a4e8fb07372f94fa524c781db04cf3b20}{prevent\+Command\+Propagation} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{server_8c_af6ad2050172ff936330b3a32b853e317}{prevent\+Command\+A\+OF} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{server_8c_a595cec82a851fe7b87861d93677cc32d}{prevent\+Command\+Replication} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{server_8c_a227dd14edf2254d7b12b8ce656ce1439}{call} (\hyperlink{structclient}{client} $\ast$c, int flags)
+\item 
+int \hyperlink{server_8c_ae3e53748117462645bfdc717830e9a00}{process\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{server_8c_a414bd8f2a71956983015b78836134525}{close\+Listening\+Sockets} (int unlink\+\_\+unix\+\_\+socket)
+\item 
+int \hyperlink{server_8c_a052960af9fbd487bc866d61c2f0cc996}{prepare\+For\+Shutdown} (int flags)
+\item 
+int \hyperlink{server_8c_a1eb41b14cb13e6dd5edd3125af3073da}{write\+Commands\+Denied\+By\+Disk\+Error} (void)
+\item 
+int \hyperlink{server_8c_a26f5f7d1708111165c38a2a6ed698107}{time\+\_\+independent\+\_\+strcmp} (char $\ast$a, char $\ast$b)
+\item 
+void \hyperlink{server_8c_a102476624bc170decc56549ae0932703}{auth\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{server_8c_ae1066bde6904041087bdf3efa2bde1e7}{ping\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{server_8c_aace7644d1202bfaf862c6bb1eeacb119}{echo\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{server_8c_ae485b0f848c19fbea1b4673053553028}{time\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{server_8c_a4ecd19dd9a7426099e68b3257ae627a6}{add\+Reply\+Command\+Flag} (\hyperlink{structclient}{client} $\ast$c, struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, int f, char $\ast$reply)
+\item 
+void \hyperlink{server_8c_a89a0f14b85c7fb6f4e42fc2df8fa7f6c}{add\+Reply\+Command} (\hyperlink{structclient}{client} $\ast$c, struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd)
+\item 
+void \hyperlink{server_8c_a13ee06265ca4b39a89d55522e52e6cf0}{command\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{server_8c_ad2ab0777210672fa17a748e6f8cbb0ed}{bytes\+To\+Human} (char $\ast$s, unsigned long long n)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{server_8c_a956bcbb62ab56e4fe9d63c0a38b6cb76}{gen\+Redis\+Info\+String} (char $\ast$section)
+\item 
+void \hyperlink{server_8c_a2275257c1c0bbf34821270d4e169c0b8}{info\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{server_8c_acb9a010d69d43d85f665f6238bfc3164}{monitor\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{server_8c_a569a855cbd6e2df036f5ecc967d792c1}{create\+Pid\+File} (void)
+\item 
+void \hyperlink{server_8c_a29b0af1da2432bcc90721c0b62f4e660}{daemonize} (void)
+\item 
+void \hyperlink{server_8c_af986bd0575ec9b913dfab4b8422509ae}{version} (void)
+\item 
+void \hyperlink{server_8c_ae8605e2b78cd4a81b6c6b5c30cb7366a}{usage} (void)
+\item 
+void \hyperlink{server_8c_ae5be777467e4b7f3b1ba21bdeba4a43e}{redis\+Ascii\+Art} (void)
+\item 
+void \hyperlink{server_8c_acdd4d8214a1a0cf660e5d3a48d576344}{setup\+Signal\+Handlers} (void)
+\item 
+void \hyperlink{server_8c_a83ed68d11467f1c48f83b2d5033f16f7}{memtest} (size\+\_\+t megabytes, int passes)
+\item 
+int \hyperlink{server_8c_ac3e56d0fcda06804db751a0a519f22cd}{check\+For\+Sentinel\+Mode} (int argc, char $\ast$$\ast$argv)
+\item 
+void \hyperlink{server_8c_ab8d3fd6e5cef698cc6a7d670ed0e468d}{load\+Data\+From\+Disk} (void)
+\item 
+void \hyperlink{server_8c_acdbdba9cef241dcf2f3b6104db42229a}{redis\+Out\+Of\+Memory\+Handler} (size\+\_\+t allocation\+\_\+size)
+\item 
+void \hyperlink{server_8c_aaac83f850dd4d037f1ece1af0b689899}{redis\+Set\+Proc\+Title} (char $\ast$title)
+\item 
+int \hyperlink{server_8c_a964cda115a27998e37c5d3711ea6b676}{redis\+Supervised\+Upstart} (void)
+\item 
+int \hyperlink{server_8c_ace9629379ec546cb6be393e1302a4ea9}{redis\+Supervised\+Systemd} (void)
+\item 
+int \hyperlink{server_8c_ae45e596c457c337b249e553a27375edd}{redis\+Is\+Supervised} (int mode)
+\item 
+int \hyperlink{server_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structshared_objects_struct}{shared\+Objects\+Struct} \hyperlink{server_8c_ad92fdd9d5f8f9dbf3a0e0ca9848b6eb8}{shared}
+\item 
+double \hyperlink{server_8c_ac9a7c8e90c7d43ad161e32bb70767d0d}{R\+\_\+\+Zero}
+\item 
+double \hyperlink{server_8c_aed49f2a4bd56cf7199a1d7c7f7eceab9}{R\+\_\+\+Pos\+Inf}
+\item 
+double \hyperlink{server_8c_acb612fbd4d2085a8dad448365f5c6d61}{R\+\_\+\+Neg\+Inf}
+\item 
+double \hyperlink{server_8c_a0a74d6229ebb2e89cd8d282bb2d57cd2}{R\+\_\+\+Nan}
+\item 
+struct \hyperlink{structredis_server}{redis\+Server} \hyperlink{server_8c_a8d73c25eebeb3e3656b34e7807cb15b4}{server}
+\item 
+volatile unsigned long \hyperlink{server_8c_a9ace62050a85a5451725d854408867df}{lru\+\_\+clock}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} \hyperlink{server_8c_a28856a2957d6f48c684d877c9189fc18}{redis\+Command\+Table} \mbox{[}$\,$\mbox{]}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_ad82e385bd0bd86e560c48bd2d0f67478}{object\+Key\+Pointer\+Value\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_aeef51ee58c906c0eb51ccb8fc523337f}{object\+Key\+Heap\+Pointer\+Value\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_a6d37ca075aa0bff83305ecd2823ef744}{set\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_a3b638a07aaedd8dc871d0bbd18a662b6}{zset\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_a17053b73c765fbf5a627fdf984dfa5b5}{db\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_a71fbe9a81ae4723396f78c2099081737}{sha\+Script\+Object\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_afe9ec6263163ba1c2234d5fafafd3305}{keyptr\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_af6a5067383cda7ca4a7fdd76ed0a4e49}{command\+Table\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_a5116862ff029d61bef6506eb58b354eb}{hash\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_adb43393a4b666131c7c9d50fc07f7417}{keylist\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_ae708fe45da0f49045474eef570a9c94b}{cluster\+Nodes\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_a081bf08d6361c6866492e82b0ac7c69c}{cluster\+Nodes\+Black\+List\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_ab55a5573159f65b2989a00724b2c18d2}{modules\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_a7c3f256ff87d31f4c736b141d15649ba}{migrate\+Cache\+Dict\+Type}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{server_8c_afdc383c06704fe8b2095158efc389ebe}{repl\+Script\+Cache\+Dict\+Type}
+\item 
+size\+\_\+t \hyperlink{server_8c_adc3302e933fbaf19d474d99cd0bba5f3}{Clients\+Peak\+Mem\+Input} \mbox{[}\hyperlink{server_8c_a0c6b952fafcc3dff58201df20f3c4302}{C\+L\+I\+E\+N\+T\+S\+\_\+\+P\+E\+A\+K\+\_\+\+M\+E\+M\+\_\+\+U\+S\+A\+G\+E\+\_\+\+S\+L\+O\+TS}\mbox{]}
+\item 
+size\+\_\+t \hyperlink{server_8c_a2d93ba9c39a98eab24092115fc7840e9}{Clients\+Peak\+Mem\+Output} \mbox{[}\hyperlink{server_8c_a0c6b952fafcc3dff58201df20f3c4302}{C\+L\+I\+E\+N\+T\+S\+\_\+\+P\+E\+A\+K\+\_\+\+M\+E\+M\+\_\+\+U\+S\+A\+G\+E\+\_\+\+S\+L\+O\+TS}\mbox{]}
+\item 
+char $\ast$$\ast$ \hyperlink{server_8c_aa006daaf11f1e2e45a6ababaf463212b}{environ}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{server_8c_a79785342d159d7e8dc4547ffb330835d}\label{server_8c_a79785342d159d7e8dc4547ffb330835d}} 
+\index{server.\+c@{server.\+c}!C\+L\+I\+E\+N\+T\+S\+\_\+\+C\+R\+O\+N\+\_\+\+M\+I\+N\+\_\+\+I\+T\+E\+R\+A\+T\+I\+O\+NS@{C\+L\+I\+E\+N\+T\+S\+\_\+\+C\+R\+O\+N\+\_\+\+M\+I\+N\+\_\+\+I\+T\+E\+R\+A\+T\+I\+O\+NS}}
+\index{C\+L\+I\+E\+N\+T\+S\+\_\+\+C\+R\+O\+N\+\_\+\+M\+I\+N\+\_\+\+I\+T\+E\+R\+A\+T\+I\+O\+NS@{C\+L\+I\+E\+N\+T\+S\+\_\+\+C\+R\+O\+N\+\_\+\+M\+I\+N\+\_\+\+I\+T\+E\+R\+A\+T\+I\+O\+NS}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+I\+E\+N\+T\+S\+\_\+\+C\+R\+O\+N\+\_\+\+M\+I\+N\+\_\+\+I\+T\+E\+R\+A\+T\+I\+O\+NS}{CLIENTS\_CRON\_MIN\_ITERATIONS}}
+{\footnotesize\ttfamily \#define C\+L\+I\+E\+N\+T\+S\+\_\+\+C\+R\+O\+N\+\_\+\+M\+I\+N\+\_\+\+I\+T\+E\+R\+A\+T\+I\+O\+NS~5}
+
+
+
+Definition at line 961 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a0c6b952fafcc3dff58201df20f3c4302}\label{server_8c_a0c6b952fafcc3dff58201df20f3c4302}} 
+\index{server.\+c@{server.\+c}!C\+L\+I\+E\+N\+T\+S\+\_\+\+P\+E\+A\+K\+\_\+\+M\+E\+M\+\_\+\+U\+S\+A\+G\+E\+\_\+\+S\+L\+O\+TS@{C\+L\+I\+E\+N\+T\+S\+\_\+\+P\+E\+A\+K\+\_\+\+M\+E\+M\+\_\+\+U\+S\+A\+G\+E\+\_\+\+S\+L\+O\+TS}}
+\index{C\+L\+I\+E\+N\+T\+S\+\_\+\+P\+E\+A\+K\+\_\+\+M\+E\+M\+\_\+\+U\+S\+A\+G\+E\+\_\+\+S\+L\+O\+TS@{C\+L\+I\+E\+N\+T\+S\+\_\+\+P\+E\+A\+K\+\_\+\+M\+E\+M\+\_\+\+U\+S\+A\+G\+E\+\_\+\+S\+L\+O\+TS}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+I\+E\+N\+T\+S\+\_\+\+P\+E\+A\+K\+\_\+\+M\+E\+M\+\_\+\+U\+S\+A\+G\+E\+\_\+\+S\+L\+O\+TS}{CLIENTS\_PEAK\_MEM\_USAGE\_SLOTS}}
+{\footnotesize\ttfamily \#define C\+L\+I\+E\+N\+T\+S\+\_\+\+P\+E\+A\+K\+\_\+\+M\+E\+M\+\_\+\+U\+S\+A\+G\+E\+\_\+\+S\+L\+O\+TS~8}
+
+
+
+Definition at line 903 of file server.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{server_8c_a89a0f14b85c7fb6f4e42fc2df8fa7f6c}\label{server_8c_a89a0f14b85c7fb6f4e42fc2df8fa7f6c}} 
+\index{server.\+c@{server.\+c}!add\+Reply\+Command@{add\+Reply\+Command}}
+\index{add\+Reply\+Command@{add\+Reply\+Command}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Command()}{addReplyCommand()}}
+{\footnotesize\ttfamily void add\+Reply\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2955 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a4ecd19dd9a7426099e68b3257ae627a6}\label{server_8c_a4ecd19dd9a7426099e68b3257ae627a6}} 
+\index{server.\+c@{server.\+c}!add\+Reply\+Command\+Flag@{add\+Reply\+Command\+Flag}}
+\index{add\+Reply\+Command\+Flag@{add\+Reply\+Command\+Flag}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Command\+Flag()}{addReplyCommandFlag()}}
+{\footnotesize\ttfamily int add\+Reply\+Command\+Flag (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{int}]{f,  }\item[{char $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2946 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a3d823b9ddd3225d0c4ebb282296bf1d3}\label{server_8c_a3d823b9ddd3225d0c4ebb282296bf1d3}} 
+\index{server.\+c@{server.\+c}!adjust\+Open\+Files\+Limit@{adjust\+Open\+Files\+Limit}}
+\index{adjust\+Open\+Files\+Limit@{adjust\+Open\+Files\+Limit}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{adjust\+Open\+Files\+Limit()}{adjustOpenFilesLimit()}}
+{\footnotesize\ttfamily void adjust\+Open\+Files\+Limit (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1803 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a5baf7e76a67bcd855a187fae72c2d3bf}\label{server_8c_a5baf7e76a67bcd855a187fae72c2d3bf}} 
+\index{server.\+c@{server.\+c}!after\+Sleep@{after\+Sleep}}
+\index{after\+Sleep@{after\+Sleep}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{after\+Sleep()}{afterSleep()}}
+{\footnotesize\ttfamily void after\+Sleep (\begin{DoxyParamCaption}\item[{struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1415 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a7e6e3fe0b3bdb1bb7eb4d9e511054fa6}\label{server_8c_a7e6e3fe0b3bdb1bb7eb4d9e511054fa6}} 
+\index{server.\+c@{server.\+c}!also\+Propagate@{also\+Propagate}}
+\index{also\+Propagate@{also\+Propagate}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{also\+Propagate()}{alsoPropagate()}}
+{\footnotesize\ttfamily void also\+Propagate (\begin{DoxyParamCaption}\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{int}]{dbid,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2332 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a102476624bc170decc56549ae0932703}\label{server_8c_a102476624bc170decc56549ae0932703}} 
+\index{server.\+c@{server.\+c}!auth\+Command@{auth\+Command}}
+\index{auth\+Command@{auth\+Command}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{auth\+Command()}{authCommand()}}
+{\footnotesize\ttfamily void auth\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2893 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a1e6f24a15ad04b8e16084190fb05cc42}\label{server_8c_a1e6f24a15ad04b8e16084190fb05cc42}} 
+\index{server.\+c@{server.\+c}!before\+Sleep@{before\+Sleep}}
+\index{before\+Sleep@{before\+Sleep}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{before\+Sleep()}{beforeSleep()}}
+{\footnotesize\ttfamily void before\+Sleep (\begin{DoxyParamCaption}\item[{struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1358 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ad2ab0777210672fa17a748e6f8cbb0ed}\label{server_8c_ad2ab0777210672fa17a748e6f8cbb0ed}} 
+\index{server.\+c@{server.\+c}!bytes\+To\+Human@{bytes\+To\+Human}}
+\index{bytes\+To\+Human@{bytes\+To\+Human}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{bytes\+To\+Human()}{bytesToHuman()}}
+{\footnotesize\ttfamily void bytes\+To\+Human (\begin{DoxyParamCaption}\item[{char $\ast$}]{s,  }\item[{unsigned long long}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3054 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a227dd14edf2254d7b12b8ce656ce1439}\label{server_8c_a227dd14edf2254d7b12b8ce656ce1439}} 
+\index{server.\+c@{server.\+c}!call@{call}}
+\index{call@{call}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{call()}{call()}}
+{\footnotesize\ttfamily void call (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2410 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ac3e56d0fcda06804db751a0a519f22cd}\label{server_8c_ac3e56d0fcda06804db751a0a519f22cd}} 
+\index{server.\+c@{server.\+c}!check\+For\+Sentinel\+Mode@{check\+For\+Sentinel\+Mode}}
+\index{check\+For\+Sentinel\+Mode@{check\+For\+Sentinel\+Mode}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{check\+For\+Sentinel\+Mode()}{checkForSentinelMode()}}
+{\footnotesize\ttfamily int check\+For\+Sentinel\+Mode (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3837 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a4ca74222ae99615dd8eaa8ca5050046d}\label{server_8c_a4ca74222ae99615dd8eaa8ca5050046d}} 
+\index{server.\+c@{server.\+c}!check\+Tcp\+Backlog\+Settings@{check\+Tcp\+Backlog\+Settings}}
+\index{check\+Tcp\+Backlog\+Settings@{check\+Tcp\+Backlog\+Settings}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{check\+Tcp\+Backlog\+Settings()}{checkTcpBacklogSettings()}}
+{\footnotesize\ttfamily void check\+Tcp\+Backlog\+Settings (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1880 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a98d0c07d94ea748cb852feb8001cba41}\label{server_8c_a98d0c07d94ea748cb852feb8001cba41}} 
+\index{server.\+c@{server.\+c}!clients\+Cron@{clients\+Cron}}
+\index{clients\+Cron@{clients\+Cron}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{clients\+Cron()}{clientsCron()}}
+{\footnotesize\ttfamily void clients\+Cron (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 962 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a74bbe29298fd27a8ade5e78f89e87f6b}\label{server_8c_a74bbe29298fd27a8ade5e78f89e87f6b}} 
+\index{server.\+c@{server.\+c}!clients\+Cron\+Handle\+Timeout@{clients\+Cron\+Handle\+Timeout}}
+\index{clients\+Cron\+Handle\+Timeout@{clients\+Cron\+Handle\+Timeout}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{clients\+Cron\+Handle\+Timeout()}{clientsCronHandleTimeout()}}
+{\footnotesize\ttfamily int clients\+Cron\+Handle\+Timeout (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t}}]{now\+\_\+ms }\end{DoxyParamCaption})}
+
+
+
+Definition at line 815 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a5bd4331cf0cd603021bb75be8e34cf31}\label{server_8c_a5bd4331cf0cd603021bb75be8e34cf31}} 
+\index{server.\+c@{server.\+c}!clients\+Cron\+Resize\+Query\+Buffer@{clients\+Cron\+Resize\+Query\+Buffer}}
+\index{clients\+Cron\+Resize\+Query\+Buffer@{clients\+Cron\+Resize\+Query\+Buffer}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{clients\+Cron\+Resize\+Query\+Buffer()}{clientsCronResizeQueryBuffer()}}
+{\footnotesize\ttfamily int clients\+Cron\+Resize\+Query\+Buffer (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 851 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_adfc266c0c3523ff393445b3421b9467a}\label{server_8c_adfc266c0c3523ff393445b3421b9467a}} 
+\index{server.\+c@{server.\+c}!clients\+Cron\+Track\+Expansive\+Clients@{clients\+Cron\+Track\+Expansive\+Clients}}
+\index{clients\+Cron\+Track\+Expansive\+Clients@{clients\+Cron\+Track\+Expansive\+Clients}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{clients\+Cron\+Track\+Expansive\+Clients()}{clientsCronTrackExpansiveClients()}}
+{\footnotesize\ttfamily int clients\+Cron\+Track\+Expansive\+Clients (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 907 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a414bd8f2a71956983015b78836134525}\label{server_8c_a414bd8f2a71956983015b78836134525}} 
+\index{server.\+c@{server.\+c}!close\+Listening\+Sockets@{close\+Listening\+Sockets}}
+\index{close\+Listening\+Sockets@{close\+Listening\+Sockets}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{close\+Listening\+Sockets()}{closeListeningSockets()}}
+{\footnotesize\ttfamily void close\+Listening\+Sockets (\begin{DoxyParamCaption}\item[{int}]{unlink\+\_\+unix\+\_\+socket }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2738 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a13ee06265ca4b39a89d55522e52e6cf0}\label{server_8c_a13ee06265ca4b39a89d55522e52e6cf0}} 
+\index{server.\+c@{server.\+c}!command\+Command@{command\+Command}}
+\index{command\+Command@{command\+Command}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{command\+Command()}{commandCommand()}}
+{\footnotesize\ttfamily void command\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2994 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a569a855cbd6e2df036f5ecc967d792c1}\label{server_8c_a569a855cbd6e2df036f5ecc967d792c1}} 
+\index{server.\+c@{server.\+c}!create\+Pid\+File@{create\+Pid\+File}}
+\index{create\+Pid\+File@{create\+Pid\+File}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{create\+Pid\+File()}{createPidFile()}}
+{\footnotesize\ttfamily void create\+Pid\+File (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3686 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aacccd08c1c30ec2982422f0f349f96b3}\label{server_8c_aacccd08c1c30ec2982422f0f349f96b3}} 
+\index{server.\+c@{server.\+c}!create\+Shared\+Objects@{create\+Shared\+Objects}}
+\index{create\+Shared\+Objects@{create\+Shared\+Objects}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{create\+Shared\+Objects()}{createSharedObjects()}}
+{\footnotesize\ttfamily void create\+Shared\+Objects (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1422 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a29b0af1da2432bcc90721c0b62f4e660}\label{server_8c_a29b0af1da2432bcc90721c0b62f4e660}} 
+\index{server.\+c@{server.\+c}!daemonize@{daemonize}}
+\index{daemonize@{daemonize}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{daemonize()}{daemonize()}}
+{\footnotesize\ttfamily void daemonize (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3699 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a3807ad9bc88bdbbf3d7e02e214d56d02}\label{server_8c_a3807ad9bc88bdbbf3d7e02e214d56d02}} 
+\index{server.\+c@{server.\+c}!databases\+Cron@{databases\+Cron}}
+\index{databases\+Cron@{databases\+Cron}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{databases\+Cron()}{databasesCron()}}
+{\footnotesize\ttfamily void databases\+Cron (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1000 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a2eb31143e51e5ff4255f8cf6cf814c88}\label{server_8c_a2eb31143e51e5ff4255f8cf6cf814c88}} 
+\index{server.\+c@{server.\+c}!dict\+Enc\+Obj\+Hash@{dict\+Enc\+Obj\+Hash}}
+\index{dict\+Enc\+Obj\+Hash@{dict\+Enc\+Obj\+Hash}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{dict\+Enc\+Obj\+Hash()}{dictEncObjHash()}}
+{\footnotesize\ttfamily uint64\+\_\+t dict\+Enc\+Obj\+Hash (\begin{DoxyParamCaption}\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 546 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a1cc981bc44bbef251951374538c489fd}\label{server_8c_a1cc981bc44bbef251951374538c489fd}} 
+\index{server.\+c@{server.\+c}!dict\+Enc\+Obj\+Key\+Compare@{dict\+Enc\+Obj\+Key\+Compare}}
+\index{dict\+Enc\+Obj\+Key\+Compare@{dict\+Enc\+Obj\+Key\+Compare}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{dict\+Enc\+Obj\+Key\+Compare()}{dictEncObjKeyCompare()}}
+{\footnotesize\ttfamily int dict\+Enc\+Obj\+Key\+Compare (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{const void $\ast$}]{key1,  }\item[{const void $\ast$}]{key2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 528 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_acfaf49811894b77d8a4b8984b2fb6cbf}\label{server_8c_acfaf49811894b77d8a4b8984b2fb6cbf}} 
+\index{server.\+c@{server.\+c}!dict\+List\+Destructor@{dict\+List\+Destructor}}
+\index{dict\+List\+Destructor@{dict\+List\+Destructor}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{dict\+List\+Destructor()}{dictListDestructor()}}
+{\footnotesize\ttfamily void dict\+List\+Destructor (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{void $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 465 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aafd0e9fb24b81530f828fd4ec609eedd}\label{server_8c_aafd0e9fb24b81530f828fd4ec609eedd}} 
+\index{server.\+c@{server.\+c}!dict\+Object\+Destructor@{dict\+Object\+Destructor}}
+\index{dict\+Object\+Destructor@{dict\+Object\+Destructor}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{dict\+Object\+Destructor()}{dictObjectDestructor()}}
+{\footnotesize\ttfamily void dict\+Object\+Destructor (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{void $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 493 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aec4df04fce73561a5638b3c5137e43ef}\label{server_8c_aec4df04fce73561a5638b3c5137e43ef}} 
+\index{server.\+c@{server.\+c}!dict\+Obj\+Hash@{dict\+Obj\+Hash}}
+\index{dict\+Obj\+Hash@{dict\+Obj\+Hash}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{dict\+Obj\+Hash()}{dictObjHash()}}
+{\footnotesize\ttfamily uint64\+\_\+t dict\+Obj\+Hash (\begin{DoxyParamCaption}\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 515 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a1f8ea185286a42da74f3cb080e90fff1}\label{server_8c_a1f8ea185286a42da74f3cb080e90fff1}} 
+\index{server.\+c@{server.\+c}!dict\+Obj\+Key\+Compare@{dict\+Obj\+Key\+Compare}}
+\index{dict\+Obj\+Key\+Compare@{dict\+Obj\+Key\+Compare}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{dict\+Obj\+Key\+Compare()}{dictObjKeyCompare()}}
+{\footnotesize\ttfamily int dict\+Obj\+Key\+Compare (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{const void $\ast$}]{key1,  }\item[{const void $\ast$}]{key2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 508 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ada0bb13a034f3ab2ac57be6e27f1bf7e}\label{server_8c_ada0bb13a034f3ab2ac57be6e27f1bf7e}} 
+\index{server.\+c@{server.\+c}!dict\+Sds\+Case\+Hash@{dict\+Sds\+Case\+Hash}}
+\index{dict\+Sds\+Case\+Hash@{dict\+Sds\+Case\+Hash}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{dict\+Sds\+Case\+Hash()}{dictSdsCaseHash()}}
+{\footnotesize\ttfamily uint64\+\_\+t dict\+Sds\+Case\+Hash (\begin{DoxyParamCaption}\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 524 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}\label{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}} 
+\index{server.\+c@{server.\+c}!dict\+Sds\+Destructor@{dict\+Sds\+Destructor}}
+\index{dict\+Sds\+Destructor@{dict\+Sds\+Destructor}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{dict\+Sds\+Destructor()}{dictSdsDestructor()}}
+{\footnotesize\ttfamily void dict\+Sds\+Destructor (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{void $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 501 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_abf11672cc702adce676d41c162b20345}\label{server_8c_abf11672cc702adce676d41c162b20345}} 
+\index{server.\+c@{server.\+c}!dict\+Sds\+Hash@{dict\+Sds\+Hash}}
+\index{dict\+Sds\+Hash@{dict\+Sds\+Hash}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{dict\+Sds\+Hash()}{dictSdsHash()}}
+{\footnotesize\ttfamily uint64\+\_\+t dict\+Sds\+Hash (\begin{DoxyParamCaption}\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 520 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ac350c29f63271e4d5766b02997733738}\label{server_8c_ac350c29f63271e4d5766b02997733738}} 
+\index{server.\+c@{server.\+c}!dict\+Sds\+Key\+Case\+Compare@{dict\+Sds\+Key\+Case\+Compare}}
+\index{dict\+Sds\+Key\+Case\+Compare@{dict\+Sds\+Key\+Case\+Compare}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{dict\+Sds\+Key\+Case\+Compare()}{dictSdsKeyCaseCompare()}}
+{\footnotesize\ttfamily int dict\+Sds\+Key\+Case\+Compare (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{const void $\ast$}]{key1,  }\item[{const void $\ast$}]{key2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 485 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}\label{server_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}} 
+\index{server.\+c@{server.\+c}!dict\+Sds\+Key\+Compare@{dict\+Sds\+Key\+Compare}}
+\index{dict\+Sds\+Key\+Compare@{dict\+Sds\+Key\+Compare}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{dict\+Sds\+Key\+Compare()}{dictSdsKeyCompare()}}
+{\footnotesize\ttfamily int dict\+Sds\+Key\+Compare (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{const void $\ast$}]{key1,  }\item[{const void $\ast$}]{key2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 471 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a88e671bb22d29c9970e6b33a7b4312dd}\label{server_8c_a88e671bb22d29c9970e6b33a7b4312dd}} 
+\index{server.\+c@{server.\+c}!dict\+Vanilla\+Free@{dict\+Vanilla\+Free}}
+\index{dict\+Vanilla\+Free@{dict\+Vanilla\+Free}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{dict\+Vanilla\+Free()}{dictVanillaFree()}}
+{\footnotesize\ttfamily void dict\+Vanilla\+Free (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{void $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 459 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aace7644d1202bfaf862c6bb1eeacb119}\label{server_8c_aace7644d1202bfaf862c6bb1eeacb119}} 
+\index{server.\+c@{server.\+c}!echo\+Command@{echo\+Command}}
+\index{echo\+Command@{echo\+Command}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{echo\+Command()}{echoCommand()}}
+{\footnotesize\ttfamily void echo\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2930 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a1a3a833d70823af9432a61b05c5d04fd}\label{server_8c_a1a3a833d70823af9432a61b05c5d04fd}} 
+\index{server.\+c@{server.\+c}!exit\+From\+Child@{exit\+From\+Child}}
+\index{exit\+From\+Child@{exit\+From\+Child}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{exit\+From\+Child()}{exitFromChild()}}
+{\footnotesize\ttfamily void exit\+From\+Child (\begin{DoxyParamCaption}\item[{int}]{retcode }\end{DoxyParamCaption})}
+
+
+
+Definition at line 445 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a2926d1d3245c14f1014cc11d673d0416}\label{server_8c_a2926d1d3245c14f1014cc11d673d0416}} 
+\index{server.\+c@{server.\+c}!force\+Command\+Propagation@{force\+Command\+Propagation}}
+\index{force\+Command\+Propagation@{force\+Command\+Propagation}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{force\+Command\+Propagation()}{forceCommandPropagation()}}
+{\footnotesize\ttfamily void force\+Command\+Propagation (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2351 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a956bcbb62ab56e4fe9d63c0a38b6cb76}\label{server_8c_a956bcbb62ab56e4fe9d63c0a38b6cb76}} 
+\index{server.\+c@{server.\+c}!gen\+Redis\+Info\+String@{gen\+Redis\+Info\+String}}
+\index{gen\+Redis\+Info\+String@{gen\+Redis\+Info\+String}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{gen\+Redis\+Info\+String()}{genRedisInfoString()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} gen\+Redis\+Info\+String (\begin{DoxyParamCaption}\item[{char $\ast$}]{section }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3084 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a1ab599246a3e9b664768ebb0c33d4cce}\label{server_8c_a1ab599246a3e9b664768ebb0c33d4cce}} 
+\index{server.\+c@{server.\+c}!get\+Expansive\+Clients\+Info@{get\+Expansive\+Clients\+Info}}
+\index{get\+Expansive\+Clients\+Info@{get\+Expansive\+Clients\+Info}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{get\+Expansive\+Clients\+Info()}{getExpansiveClientsInfo()}}
+{\footnotesize\ttfamily void get\+Expansive\+Clients\+Info (\begin{DoxyParamCaption}\item[{size\+\_\+t $\ast$}]{in\+\_\+usage,  }\item[{size\+\_\+t $\ast$}]{out\+\_\+usage }\end{DoxyParamCaption})}
+
+
+
+Definition at line 936 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aaedddabdad8daace0fe8170e3227dfe6}\label{server_8c_aaedddabdad8daace0fe8170e3227dfe6}} 
+\index{server.\+c@{server.\+c}!get\+Instantaneous\+Metric@{get\+Instantaneous\+Metric}}
+\index{get\+Instantaneous\+Metric@{get\+Instantaneous\+Metric}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{get\+Instantaneous\+Metric()}{getInstantaneousMetric()}}
+{\footnotesize\ttfamily long long get\+Instantaneous\+Metric (\begin{DoxyParamCaption}\item[{int}]{metric }\end{DoxyParamCaption})}
+
+
+
+Definition at line 802 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a20f117a4c9b350a980b7e37338dd8228}\label{server_8c_a20f117a4c9b350a980b7e37338dd8228}} 
+\index{server.\+c@{server.\+c}!ht\+Needs\+Resize@{ht\+Needs\+Resize}}
+\index{ht\+Needs\+Resize@{ht\+Needs\+Resize}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{ht\+Needs\+Resize()}{htNeedsResize()}}
+{\footnotesize\ttfamily int ht\+Needs\+Resize (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{dict }\end{DoxyParamCaption})}
+
+
+
+Definition at line 730 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aa06cb110ba3d25c232fd1241979cbd3e}\label{server_8c_aa06cb110ba3d25c232fd1241979cbd3e}} 
+\index{server.\+c@{server.\+c}!incrementally\+Rehash@{incrementally\+Rehash}}
+\index{incrementally\+Rehash@{incrementally\+Rehash}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{incrementally\+Rehash()}{incrementallyRehash()}}
+{\footnotesize\ttfamily int incrementally\+Rehash (\begin{DoxyParamCaption}\item[{int}]{dbid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 755 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a2275257c1c0bbf34821270d4e169c0b8}\label{server_8c_a2275257c1c0bbf34821270d4e169c0b8}} 
+\index{server.\+c@{server.\+c}!info\+Command@{info\+Command}}
+\index{info\+Command@{info\+Command}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{info\+Command()}{infoCommand()}}
+{\footnotesize\ttfamily void info\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3640 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ad21e41fa09dce3d1a3b91503b755b7a2}\label{server_8c_ad21e41fa09dce3d1a3b91503b755b7a2}} 
+\index{server.\+c@{server.\+c}!init\+Server@{init\+Server}}
+\index{init\+Server@{init\+Server}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{init\+Server()}{initServer()}}
+{\footnotesize\ttfamily void init\+Server (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2009 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ad708a8be8ec0172827f3006e9237f840}\label{server_8c_ad708a8be8ec0172827f3006e9237f840}} 
+\index{server.\+c@{server.\+c}!init\+Server\+Config@{init\+Server\+Config}}
+\index{init\+Server\+Config@{init\+Server\+Config}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{init\+Server\+Config()}{initServerConfig()}}
+{\footnotesize\ttfamily void init\+Server\+Config (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1517 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aeac3678c664fd0436c1deb3f1b8097f4}\label{server_8c_aeac3678c664fd0436c1deb3f1b8097f4}} 
+\index{server.\+c@{server.\+c}!listen\+To\+Port@{listen\+To\+Port}}
+\index{listen\+To\+Port@{listen\+To\+Port}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{listen\+To\+Port()}{listenToPort()}}
+{\footnotesize\ttfamily int listen\+To\+Port (\begin{DoxyParamCaption}\item[{int}]{port,  }\item[{int $\ast$}]{fds,  }\item[{int $\ast$}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1913 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ab8d3fd6e5cef698cc6a7d670ed0e468d}\label{server_8c_ab8d3fd6e5cef698cc6a7d670ed0e468d}} 
+\index{server.\+c@{server.\+c}!load\+Data\+From\+Disk@{load\+Data\+From\+Disk}}
+\index{load\+Data\+From\+Disk@{load\+Data\+From\+Disk}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{load\+Data\+From\+Disk()}{loadDataFromDisk()}}
+{\footnotesize\ttfamily void load\+Data\+From\+Disk (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3847 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ae0246c16fba26f65782c698060d394b6}\label{server_8c_ae0246c16fba26f65782c698060d394b6}} 
+\index{server.\+c@{server.\+c}!lookup\+Command@{lookup\+Command}}
+\index{lookup\+Command@{lookup\+Command}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{lookup\+Command()}{lookupCommand()}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command}$\ast$ lookup\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{name }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2273 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a902505c4d30238285b73f529b8adfa21}\label{server_8c_a902505c4d30238285b73f529b8adfa21}} 
+\index{server.\+c@{server.\+c}!lookup\+Command\+By\+C\+String@{lookup\+Command\+By\+C\+String}}
+\index{lookup\+Command\+By\+C\+String@{lookup\+Command\+By\+C\+String}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{lookup\+Command\+By\+C\+String()}{lookupCommandByCString()}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command}$\ast$ lookup\+Command\+By\+C\+String (\begin{DoxyParamCaption}\item[{char $\ast$}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2277 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aeef77c6d0cbe617d2f68cc9ba193456b}\label{server_8c_aeef77c6d0cbe617d2f68cc9ba193456b}} 
+\index{server.\+c@{server.\+c}!lookup\+Command\+Or\+Original@{lookup\+Command\+Or\+Original}}
+\index{lookup\+Command\+Or\+Original@{lookup\+Command\+Or\+Original}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{lookup\+Command\+Or\+Original()}{lookupCommandOrOriginal()}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command}$\ast$ lookup\+Command\+Or\+Original (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{name }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2293 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{server_8c_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{server.\+c@{server.\+c}!main@{main}}
+\index{main@{main}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4000 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a83ed68d11467f1c48f83b2d5033f16f7}\label{server_8c_a83ed68d11467f1c48f83b2d5033f16f7}} 
+\index{server.\+c@{server.\+c}!memtest@{memtest}}
+\index{memtest@{memtest}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{memtest()}{memtest()}}
+{\footnotesize\ttfamily void memtest (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{megabytes,  }\item[{int}]{passes }\end{DoxyParamCaption})}
+
+
+
+Definition at line 349 of file memtest.\+c.
+
+\mbox{\Hypertarget{server_8c_acb9a010d69d43d85f665f6238bfc3164}\label{server_8c_acb9a010d69d43d85f665f6238bfc3164}} 
+\index{server.\+c@{server.\+c}!monitor\+Command@{monitor\+Command}}
+\index{monitor\+Command@{monitor\+Command}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{monitor\+Command()}{monitorCommand()}}
+{\footnotesize\ttfamily void monitor\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3650 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a8e2fb79c351be966917f2cf717ed3543}\label{server_8c_a8e2fb79c351be966917f2cf717ed3543}} 
+\index{server.\+c@{server.\+c}!mstime@{mstime}}
+\index{mstime@{mstime}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{mstime()}{mstime()}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} mstime (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 437 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a096a91daf3af60dbaccb4de8aa3ca7b2}\label{server_8c_a096a91daf3af60dbaccb4de8aa3ca7b2}} 
+\index{server.\+c@{server.\+c}!nolocks\+\_\+localtime@{nolocks\+\_\+localtime}}
+\index{nolocks\+\_\+localtime@{nolocks\+\_\+localtime}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{nolocks\+\_\+localtime()}{nolocks\_localtime()}}
+{\footnotesize\ttfamily void nolocks\+\_\+localtime (\begin{DoxyParamCaption}\item[{struct tm $\ast$}]{tmp,  }\item[{time\+\_\+t}]{t,  }\item[{time\+\_\+t}]{tz,  }\item[{int}]{dst }\end{DoxyParamCaption})}
+
+
+
+Definition at line 59 of file localtime.\+c.
+
+\mbox{\Hypertarget{server_8c_ae1066bde6904041087bdf3efa2bde1e7}\label{server_8c_ae1066bde6904041087bdf3efa2bde1e7}} 
+\index{server.\+c@{server.\+c}!ping\+Command@{ping\+Command}}
+\index{ping\+Command@{ping\+Command}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{ping\+Command()}{pingCommand()}}
+{\footnotesize\ttfamily void ping\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2907 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a9475c3fcad317183a072323859fb5409}\label{server_8c_a9475c3fcad317183a072323859fb5409}} 
+\index{server.\+c@{server.\+c}!populate\+Command\+Table@{populate\+Command\+Table}}
+\index{populate\+Command\+Table@{populate\+Command\+Table}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{populate\+Command\+Table()}{populateCommandTable()}}
+{\footnotesize\ttfamily void populate\+Command\+Table (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2182 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a052960af9fbd487bc866d61c2f0cc996}\label{server_8c_a052960af9fbd487bc866d61c2f0cc996}} 
+\index{server.\+c@{server.\+c}!prepare\+For\+Shutdown@{prepare\+For\+Shutdown}}
+\index{prepare\+For\+Shutdown@{prepare\+For\+Shutdown}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{prepare\+For\+Shutdown()}{prepareForShutdown()}}
+{\footnotesize\ttfamily int prepare\+For\+Shutdown (\begin{DoxyParamCaption}\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2751 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_af6ad2050172ff936330b3a32b853e317}\label{server_8c_af6ad2050172ff936330b3a32b853e317}} 
+\index{server.\+c@{server.\+c}!prevent\+Command\+A\+OF@{prevent\+Command\+A\+OF}}
+\index{prevent\+Command\+A\+OF@{prevent\+Command\+A\+OF}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{prevent\+Command\+A\+O\+F()}{preventCommandAOF()}}
+{\footnotesize\ttfamily void prevent\+Command\+A\+OF (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2364 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a4e8fb07372f94fa524c781db04cf3b20}\label{server_8c_a4e8fb07372f94fa524c781db04cf3b20}} 
+\index{server.\+c@{server.\+c}!prevent\+Command\+Propagation@{prevent\+Command\+Propagation}}
+\index{prevent\+Command\+Propagation@{prevent\+Command\+Propagation}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{prevent\+Command\+Propagation()}{preventCommandPropagation()}}
+{\footnotesize\ttfamily void prevent\+Command\+Propagation (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2359 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a595cec82a851fe7b87861d93677cc32d}\label{server_8c_a595cec82a851fe7b87861d93677cc32d}} 
+\index{server.\+c@{server.\+c}!prevent\+Command\+Replication@{prevent\+Command\+Replication}}
+\index{prevent\+Command\+Replication@{prevent\+Command\+Replication}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{prevent\+Command\+Replication()}{preventCommandReplication()}}
+{\footnotesize\ttfamily void prevent\+Command\+Replication (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2369 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ae3e53748117462645bfdc717830e9a00}\label{server_8c_ae3e53748117462645bfdc717830e9a00}} 
+\index{server.\+c@{server.\+c}!process\+Command@{process\+Command}}
+\index{process\+Command@{process\+Command}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{process\+Command()}{processCommand()}}
+{\footnotesize\ttfamily int process\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2539 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aa0eb79342e9715fd0886aa33c657409d}\label{server_8c_aa0eb79342e9715fd0886aa33c657409d}} 
+\index{server.\+c@{server.\+c}!propagate@{propagate}}
+\index{propagate@{propagate}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{propagate()}{propagate()}}
+{\footnotesize\ttfamily void propagate (\begin{DoxyParamCaption}\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{int}]{dbid,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2311 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ae5be777467e4b7f3b1ba21bdeba4a43e}\label{server_8c_ae5be777467e4b7f3b1ba21bdeba4a43e}} 
+\index{server.\+c@{server.\+c}!redis\+Ascii\+Art@{redis\+Ascii\+Art}}
+\index{redis\+Ascii\+Art@{redis\+Ascii\+Art}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{redis\+Ascii\+Art()}{redisAsciiArt()}}
+{\footnotesize\ttfamily void redis\+Ascii\+Art (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3744 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ae45e596c457c337b249e553a27375edd}\label{server_8c_ae45e596c457c337b249e553a27375edd}} 
+\index{server.\+c@{server.\+c}!redis\+Is\+Supervised@{redis\+Is\+Supervised}}
+\index{redis\+Is\+Supervised@{redis\+Is\+Supervised}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{redis\+Is\+Supervised()}{redisIsSupervised()}}
+{\footnotesize\ttfamily int redis\+Is\+Supervised (\begin{DoxyParamCaption}\item[{int}]{mode }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3980 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aba16001cc1e4c8d9a92c584492ea9a40}\label{server_8c_aba16001cc1e4c8d9a92c584492ea9a40}} 
+\index{server.\+c@{server.\+c}!redis\+Op\+Array\+Append@{redis\+Op\+Array\+Append}}
+\index{redis\+Op\+Array\+Append@{redis\+Op\+Array\+Append}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{redis\+Op\+Array\+Append()}{redisOpArrayAppend()}}
+{\footnotesize\ttfamily int redis\+Op\+Array\+Append (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_op_array}{redis\+Op\+Array} $\ast$}]{oa,  }\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{int}]{dbid,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2241 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a68e6e5295ed738c87d1559060b0110e9}\label{server_8c_a68e6e5295ed738c87d1559060b0110e9}} 
+\index{server.\+c@{server.\+c}!redis\+Op\+Array\+Free@{redis\+Op\+Array\+Free}}
+\index{redis\+Op\+Array\+Free@{redis\+Op\+Array\+Free}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{redis\+Op\+Array\+Free()}{redisOpArrayFree()}}
+{\footnotesize\ttfamily void redis\+Op\+Array\+Free (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_op_array}{redis\+Op\+Array} $\ast$}]{oa }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2257 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ac6c49554ad3b252a11f7736b4d2e1d79}\label{server_8c_ac6c49554ad3b252a11f7736b4d2e1d79}} 
+\index{server.\+c@{server.\+c}!redis\+Op\+Array\+Init@{redis\+Op\+Array\+Init}}
+\index{redis\+Op\+Array\+Init@{redis\+Op\+Array\+Init}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{redis\+Op\+Array\+Init()}{redisOpArrayInit()}}
+{\footnotesize\ttfamily void redis\+Op\+Array\+Init (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_op_array}{redis\+Op\+Array} $\ast$}]{oa }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2236 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_acdbdba9cef241dcf2f3b6104db42229a}\label{server_8c_acdbdba9cef241dcf2f3b6104db42229a}} 
+\index{server.\+c@{server.\+c}!redis\+Out\+Of\+Memory\+Handler@{redis\+Out\+Of\+Memory\+Handler}}
+\index{redis\+Out\+Of\+Memory\+Handler@{redis\+Out\+Of\+Memory\+Handler}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{redis\+Out\+Of\+Memory\+Handler()}{redisOutOfMemoryHandler()}}
+{\footnotesize\ttfamily void redis\+Out\+Of\+Memory\+Handler (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{allocation\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3882 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aaac83f850dd4d037f1ece1af0b689899}\label{server_8c_aaac83f850dd4d037f1ece1af0b689899}} 
+\index{server.\+c@{server.\+c}!redis\+Set\+Proc\+Title@{redis\+Set\+Proc\+Title}}
+\index{redis\+Set\+Proc\+Title@{redis\+Set\+Proc\+Title}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{redis\+Set\+Proc\+Title()}{redisSetProcTitle()}}
+{\footnotesize\ttfamily void redis\+Set\+Proc\+Title (\begin{DoxyParamCaption}\item[{char $\ast$}]{title }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3888 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ace9629379ec546cb6be393e1302a4ea9}\label{server_8c_ace9629379ec546cb6be393e1302a4ea9}} 
+\index{server.\+c@{server.\+c}!redis\+Supervised\+Systemd@{redis\+Supervised\+Systemd}}
+\index{redis\+Supervised\+Systemd@{redis\+Supervised\+Systemd}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{redis\+Supervised\+Systemd()}{redisSupervisedSystemd()}}
+{\footnotesize\ttfamily int redis\+Supervised\+Systemd (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3923 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a964cda115a27998e37c5d3711ea6b676}\label{server_8c_a964cda115a27998e37c5d3711ea6b676}} 
+\index{server.\+c@{server.\+c}!redis\+Supervised\+Upstart@{redis\+Supervised\+Upstart}}
+\index{redis\+Supervised\+Upstart@{redis\+Supervised\+Upstart}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{redis\+Supervised\+Upstart()}{redisSupervisedUpstart()}}
+{\footnotesize\ttfamily int redis\+Supervised\+Upstart (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3908 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a8b0d640eab37ee8093c012db67666888}\label{server_8c_a8b0d640eab37ee8093c012db67666888}} 
+\index{server.\+c@{server.\+c}!reset\+Command\+Table\+Stats@{reset\+Command\+Table\+Stats}}
+\index{reset\+Command\+Table\+Stats@{reset\+Command\+Table\+Stats}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{reset\+Command\+Table\+Stats()}{resetCommandTableStats()}}
+{\footnotesize\ttfamily void reset\+Command\+Table\+Stats (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2219 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_acc7cb5c8d228c7db0b6d8d86c95e705a}\label{server_8c_acc7cb5c8d228c7db0b6d8d86c95e705a}} 
+\index{server.\+c@{server.\+c}!reset\+Server\+Stats@{reset\+Server\+Stats}}
+\index{reset\+Server\+Stats@{reset\+Server\+Stats}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{reset\+Server\+Stats()}{resetServerStats()}}
+{\footnotesize\ttfamily void reset\+Server\+Stats (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1975 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a0d713384337b0a7271f1208cd5f10795}\label{server_8c_a0d713384337b0a7271f1208cd5f10795}} 
+\index{server.\+c@{server.\+c}!restart\+Server@{restart\+Server}}
+\index{restart\+Server@{restart\+Server}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{restart\+Server()}{restartServer()}}
+{\footnotesize\ttfamily int restart\+Server (\begin{DoxyParamCaption}\item[{int}]{flags,  }\item[{\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t}}]{delay }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1746 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_af588c16d11b3c614a398d31edde3275b}\label{server_8c_af588c16d11b3c614a398d31edde3275b}} 
+\index{server.\+c@{server.\+c}!server\+Cron@{server\+Cron}}
+\index{server\+Cron@{server\+Cron}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{server\+Cron()}{serverCron()}}
+{\footnotesize\ttfamily int server\+Cron (\begin{DoxyParamCaption}\item[{struct \hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{event\+Loop,  }\item[{long long}]{id,  }\item[{void $\ast$}]{client\+Data }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1089 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a5d44be26238d998d662a5d38e4d3e52c}\label{server_8c_a5d44be26238d998d662a5d38e4d3e52c}} 
+\index{server.\+c@{server.\+c}!server\+Log@{server\+Log}}
+\index{server\+Log@{server\+Log}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{server\+Log()}{serverLog()}}
+{\footnotesize\ttfamily void server\+Log (\begin{DoxyParamCaption}\item[{int}]{level,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 384 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_af29037e986e1377d7a74a9c95df0f1e0}\label{server_8c_af29037e986e1377d7a74a9c95df0f1e0}} 
+\index{server.\+c@{server.\+c}!server\+Log\+From\+Handler@{server\+Log\+From\+Handler}}
+\index{server\+Log\+From\+Handler@{server\+Log\+From\+Handler}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{server\+Log\+From\+Handler()}{serverLogFromHandler()}}
+{\footnotesize\ttfamily void server\+Log\+From\+Handler (\begin{DoxyParamCaption}\item[{int}]{level,  }\item[{const char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line 403 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a9438694faedfc9ba62643c59c414b3dc}\label{server_8c_a9438694faedfc9ba62643c59c414b3dc}} 
+\index{server.\+c@{server.\+c}!server\+Log\+Raw@{server\+Log\+Raw}}
+\index{server\+Log\+Raw@{server\+Log\+Raw}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{server\+Log\+Raw()}{serverLogRaw()}}
+{\footnotesize\ttfamily void server\+Log\+Raw (\begin{DoxyParamCaption}\item[{int}]{level,  }\item[{const char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line 338 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_acdd4d8214a1a0cf660e5d3a48d576344}\label{server_8c_acdd4d8214a1a0cf660e5d3a48d576344}} 
+\index{server.\+c@{server.\+c}!setup\+Signal\+Handlers@{setup\+Signal\+Handlers}}
+\index{setup\+Signal\+Handlers@{setup\+Signal\+Handlers}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{setup\+Signal\+Handlers()}{setupSignalHandlers()}}
+{\footnotesize\ttfamily void setup\+Signal\+Handlers (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3810 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a26f5f7d1708111165c38a2a6ed698107}\label{server_8c_a26f5f7d1708111165c38a2a6ed698107}} 
+\index{server.\+c@{server.\+c}!time\+\_\+independent\+\_\+strcmp@{time\+\_\+independent\+\_\+strcmp}}
+\index{time\+\_\+independent\+\_\+strcmp@{time\+\_\+independent\+\_\+strcmp}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{time\+\_\+independent\+\_\+strcmp()}{time\_independent\_strcmp()}}
+{\footnotesize\ttfamily int time\+\_\+independent\+\_\+strcmp (\begin{DoxyParamCaption}\item[{char $\ast$}]{a,  }\item[{char $\ast$}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2860 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ae485b0f848c19fbea1b4673053553028}\label{server_8c_ae485b0f848c19fbea1b4673053553028}} 
+\index{server.\+c@{server.\+c}!time\+Command@{time\+Command}}
+\index{time\+Command@{time\+Command}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{time\+Command()}{timeCommand()}}
+{\footnotesize\ttfamily void time\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2934 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a546f229eed7911e7315e4b3f6a48ffe7}\label{server_8c_a546f229eed7911e7315e4b3f6a48ffe7}} 
+\index{server.\+c@{server.\+c}!track\+Instantaneous\+Metric@{track\+Instantaneous\+Metric}}
+\index{track\+Instantaneous\+Metric@{track\+Instantaneous\+Metric}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{track\+Instantaneous\+Metric()}{trackInstantaneousMetric()}}
+{\footnotesize\ttfamily void track\+Instantaneous\+Metric (\begin{DoxyParamCaption}\item[{int}]{metric,  }\item[{long long}]{current\+\_\+reading }\end{DoxyParamCaption})}
+
+
+
+Definition at line 785 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ad7d4cb9fb361d3a287c57c45ab896010}\label{server_8c_ad7d4cb9fb361d3a287c57c45ab896010}} 
+\index{server.\+c@{server.\+c}!try\+Resize\+Hash\+Tables@{try\+Resize\+Hash\+Tables}}
+\index{try\+Resize\+Hash\+Tables@{try\+Resize\+Hash\+Tables}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{try\+Resize\+Hash\+Tables()}{tryResizeHashTables()}}
+{\footnotesize\ttfamily void try\+Resize\+Hash\+Tables (\begin{DoxyParamCaption}\item[{int}]{dbid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 741 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a6e0f6f6fad563644eb1b2b382b1fa9dc}\label{server_8c_a6e0f6f6fad563644eb1b2b382b1fa9dc}} 
+\index{server.\+c@{server.\+c}!update\+Cached\+Time@{update\+Cached\+Time}}
+\index{update\+Cached\+Time@{update\+Cached\+Time}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{update\+Cached\+Time()}{updateCachedTime()}}
+{\footnotesize\ttfamily void update\+Cached\+Time (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1056 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_af9f969928d06fbe9a2fb63f13cb4c801}\label{server_8c_af9f969928d06fbe9a2fb63f13cb4c801}} 
+\index{server.\+c@{server.\+c}!update\+Dict\+Resize\+Policy@{update\+Dict\+Resize\+Policy}}
+\index{update\+Dict\+Resize\+Policy@{update\+Dict\+Resize\+Policy}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{update\+Dict\+Resize\+Policy()}{updateDictResizePolicy()}}
+{\footnotesize\ttfamily void update\+Dict\+Resize\+Policy (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 775 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ae8605e2b78cd4a81b6c6b5c30cb7366a}\label{server_8c_ae8605e2b78cd4a81b6c6b5c30cb7366a}} 
+\index{server.\+c@{server.\+c}!usage@{usage}}
+\index{usage@{usage}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{usage()}{usage()}}
+{\footnotesize\ttfamily void usage (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3727 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a9ef4824ea818b12731c36603eed062d5}\label{server_8c_a9ef4824ea818b12731c36603eed062d5}} 
+\index{server.\+c@{server.\+c}!ustime@{ustime}}
+\index{ustime@{ustime}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{ustime()}{ustime()}}
+{\footnotesize\ttfamily long long ustime (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 426 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_af986bd0575ec9b913dfab4b8422509ae}\label{server_8c_af986bd0575ec9b913dfab4b8422509ae}} 
+\index{server.\+c@{server.\+c}!version@{version}}
+\index{version@{version}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{version()}{version()}}
+{\footnotesize\ttfamily void version (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3716 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a1eb41b14cb13e6dd5edd3125af3073da}\label{server_8c_a1eb41b14cb13e6dd5edd3125af3073da}} 
+\index{server.\+c@{server.\+c}!write\+Commands\+Denied\+By\+Disk\+Error@{write\+Commands\+Denied\+By\+Disk\+Error}}
+\index{write\+Commands\+Denied\+By\+Disk\+Error@{write\+Commands\+Denied\+By\+Disk\+Error}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{write\+Commands\+Denied\+By\+Disk\+Error()}{writeCommandsDeniedByDiskError()}}
+{\footnotesize\ttfamily int write\+Commands\+Denied\+By\+Disk\+Error (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2836 of file server.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{server_8c_adc3302e933fbaf19d474d99cd0bba5f3}\label{server_8c_adc3302e933fbaf19d474d99cd0bba5f3}} 
+\index{server.\+c@{server.\+c}!Clients\+Peak\+Mem\+Input@{Clients\+Peak\+Mem\+Input}}
+\index{Clients\+Peak\+Mem\+Input@{Clients\+Peak\+Mem\+Input}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{Clients\+Peak\+Mem\+Input}{ClientsPeakMemInput}}
+{\footnotesize\ttfamily size\+\_\+t Clients\+Peak\+Mem\+Input\mbox{[}\hyperlink{server_8c_a0c6b952fafcc3dff58201df20f3c4302}{C\+L\+I\+E\+N\+T\+S\+\_\+\+P\+E\+A\+K\+\_\+\+M\+E\+M\+\_\+\+U\+S\+A\+G\+E\+\_\+\+S\+L\+O\+TS}\mbox{]}}
+
+
+
+Definition at line 904 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a2d93ba9c39a98eab24092115fc7840e9}\label{server_8c_a2d93ba9c39a98eab24092115fc7840e9}} 
+\index{server.\+c@{server.\+c}!Clients\+Peak\+Mem\+Output@{Clients\+Peak\+Mem\+Output}}
+\index{Clients\+Peak\+Mem\+Output@{Clients\+Peak\+Mem\+Output}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{Clients\+Peak\+Mem\+Output}{ClientsPeakMemOutput}}
+{\footnotesize\ttfamily size\+\_\+t Clients\+Peak\+Mem\+Output\mbox{[}\hyperlink{server_8c_a0c6b952fafcc3dff58201df20f3c4302}{C\+L\+I\+E\+N\+T\+S\+\_\+\+P\+E\+A\+K\+\_\+\+M\+E\+M\+\_\+\+U\+S\+A\+G\+E\+\_\+\+S\+L\+O\+TS}\mbox{]}}
+
+
+
+Definition at line 905 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a081bf08d6361c6866492e82b0ac7c69c}\label{server_8c_a081bf08d6361c6866492e82b0ac7c69c}} 
+\index{server.\+c@{server.\+c}!cluster\+Nodes\+Black\+List\+Dict\+Type@{cluster\+Nodes\+Black\+List\+Dict\+Type}}
+\index{cluster\+Nodes\+Black\+List\+Dict\+Type@{cluster\+Nodes\+Black\+List\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Nodes\+Black\+List\+Dict\+Type}{clusterNodesBlackListDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} cluster\+Nodes\+Black\+List\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_ada0bb13a034f3ab2ac57be6e27f1bf7e}{dictSdsCaseHash},            
+    NULL,                       
+    NULL,                       
+    \hyperlink{server_8c_ac350c29f63271e4d5766b02997733738}{dictSdsKeyCaseCompare},      
+    \hyperlink{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}{dictSdsDestructor},          
+    NULL                        
+\}
+\end{DoxyCode}
+
+
+Definition at line 687 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ae708fe45da0f49045474eef570a9c94b}\label{server_8c_ae708fe45da0f49045474eef570a9c94b}} 
+\index{server.\+c@{server.\+c}!cluster\+Nodes\+Dict\+Type@{cluster\+Nodes\+Dict\+Type}}
+\index{cluster\+Nodes\+Dict\+Type@{cluster\+Nodes\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Nodes\+Dict\+Type}{clusterNodesDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} cluster\+Nodes\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_abf11672cc702adce676d41c162b20345}{dictSdsHash},                
+    NULL,                       
+    NULL,                       
+    \hyperlink{server_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}{dictSdsKeyCompare},          
+    \hyperlink{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}{dictSdsDestructor},          
+    NULL                        
+\}
+\end{DoxyCode}
+
+
+Definition at line 675 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_af6a5067383cda7ca4a7fdd76ed0a4e49}\label{server_8c_af6a5067383cda7ca4a7fdd76ed0a4e49}} 
+\index{server.\+c@{server.\+c}!command\+Table\+Dict\+Type@{command\+Table\+Dict\+Type}}
+\index{command\+Table\+Dict\+Type@{command\+Table\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{command\+Table\+Dict\+Type}{commandTableDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} command\+Table\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_ada0bb13a034f3ab2ac57be6e27f1bf7e}{dictSdsCaseHash},            
+    NULL,                       
+    NULL,                       
+    \hyperlink{server_8c_ac350c29f63271e4d5766b02997733738}{dictSdsKeyCaseCompare},      
+    \hyperlink{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}{dictSdsDestructor},          
+    NULL                        
+\}
+\end{DoxyCode}
+
+
+Definition at line 642 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a17053b73c765fbf5a627fdf984dfa5b5}\label{server_8c_a17053b73c765fbf5a627fdf984dfa5b5}} 
+\index{server.\+c@{server.\+c}!db\+Dict\+Type@{db\+Dict\+Type}}
+\index{db\+Dict\+Type@{db\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{db\+Dict\+Type}{dbDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} db\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_abf11672cc702adce676d41c162b20345}{dictSdsHash},                
+    NULL,                       
+    NULL,                       
+    \hyperlink{server_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}{dictSdsKeyCompare},          
+    \hyperlink{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}{dictSdsDestructor},          
+    \hyperlink{server_8c_aafd0e9fb24b81530f828fd4ec609eedd}{dictObjectDestructor}   
+\}
+\end{DoxyCode}
+
+
+Definition at line 612 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aa006daaf11f1e2e45a6ababaf463212b}\label{server_8c_aa006daaf11f1e2e45a6ababaf463212b}} 
+\index{server.\+c@{server.\+c}!environ@{environ}}
+\index{environ@{environ}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{environ}{environ}}
+{\footnotesize\ttfamily char$\ast$$\ast$ environ}
+
+\mbox{\Hypertarget{server_8c_a5116862ff029d61bef6506eb58b354eb}\label{server_8c_a5116862ff029d61bef6506eb58b354eb}} 
+\index{server.\+c@{server.\+c}!hash\+Dict\+Type@{hash\+Dict\+Type}}
+\index{hash\+Dict\+Type@{hash\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{hash\+Dict\+Type}{hashDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} hash\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_abf11672cc702adce676d41c162b20345}{dictSdsHash},                
+    NULL,                       
+    NULL,                       
+    \hyperlink{server_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}{dictSdsKeyCompare},          
+    \hyperlink{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}{dictSdsDestructor},          
+    dictSdsDestructor           
+\}
+\end{DoxyCode}
+
+
+Definition at line 652 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_adb43393a4b666131c7c9d50fc07f7417}\label{server_8c_adb43393a4b666131c7c9d50fc07f7417}} 
+\index{server.\+c@{server.\+c}!keylist\+Dict\+Type@{keylist\+Dict\+Type}}
+\index{keylist\+Dict\+Type@{keylist\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{keylist\+Dict\+Type}{keylistDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} keylist\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_aec4df04fce73561a5638b3c5137e43ef}{dictObjHash},                
+    NULL,                       
+    NULL,                       
+    \hyperlink{server_8c_a1f8ea185286a42da74f3cb080e90fff1}{dictObjKeyCompare},          
+    \hyperlink{server_8c_aafd0e9fb24b81530f828fd4ec609eedd}{dictObjectDestructor},       
+    \hyperlink{server_8c_acfaf49811894b77d8a4b8984b2fb6cbf}{dictListDestructor}          
+\}
+\end{DoxyCode}
+
+
+Definition at line 664 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_afe9ec6263163ba1c2234d5fafafd3305}\label{server_8c_afe9ec6263163ba1c2234d5fafafd3305}} 
+\index{server.\+c@{server.\+c}!keyptr\+Dict\+Type@{keyptr\+Dict\+Type}}
+\index{keyptr\+Dict\+Type@{keyptr\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{keyptr\+Dict\+Type}{keyptrDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} keyptr\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_abf11672cc702adce676d41c162b20345}{dictSdsHash},                
+    NULL,                       
+    NULL,                       
+    \hyperlink{server_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}{dictSdsKeyCompare},          
+    NULL,                       
+    NULL                        
+\}
+\end{DoxyCode}
+
+
+Definition at line 632 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a9ace62050a85a5451725d854408867df}\label{server_8c_a9ace62050a85a5451725d854408867df}} 
+\index{server.\+c@{server.\+c}!lru\+\_\+clock@{lru\+\_\+clock}}
+\index{lru\+\_\+clock@{lru\+\_\+clock}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{lru\+\_\+clock}{lru\_clock}}
+{\footnotesize\ttfamily volatile unsigned long lru\+\_\+clock}
+
+
+
+Definition at line 73 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a7c3f256ff87d31f4c736b141d15649ba}\label{server_8c_a7c3f256ff87d31f4c736b141d15649ba}} 
+\index{server.\+c@{server.\+c}!migrate\+Cache\+Dict\+Type@{migrate\+Cache\+Dict\+Type}}
+\index{migrate\+Cache\+Dict\+Type@{migrate\+Cache\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{migrate\+Cache\+Dict\+Type}{migrateCacheDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} migrate\+Cache\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_abf11672cc702adce676d41c162b20345}{dictSdsHash},                
+    NULL,                       
+    NULL,                       
+    \hyperlink{server_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}{dictSdsKeyCompare},          
+    \hyperlink{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}{dictSdsDestructor},          
+    NULL                        
+\}
+\end{DoxyCode}
+
+
+Definition at line 709 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ab55a5573159f65b2989a00724b2c18d2}\label{server_8c_ab55a5573159f65b2989a00724b2c18d2}} 
+\index{server.\+c@{server.\+c}!modules\+Dict\+Type@{modules\+Dict\+Type}}
+\index{modules\+Dict\+Type@{modules\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{modules\+Dict\+Type}{modulesDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} modules\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_ada0bb13a034f3ab2ac57be6e27f1bf7e}{dictSdsCaseHash},            
+    NULL,                       
+    NULL,                       
+    \hyperlink{server_8c_ac350c29f63271e4d5766b02997733738}{dictSdsKeyCaseCompare},      
+    \hyperlink{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}{dictSdsDestructor},          
+    NULL                        
+\}
+\end{DoxyCode}
+
+
+Definition at line 699 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aeef51ee58c906c0eb51ccb8fc523337f}\label{server_8c_aeef51ee58c906c0eb51ccb8fc523337f}} 
+\index{server.\+c@{server.\+c}!object\+Key\+Heap\+Pointer\+Value\+Dict\+Type@{object\+Key\+Heap\+Pointer\+Value\+Dict\+Type}}
+\index{object\+Key\+Heap\+Pointer\+Value\+Dict\+Type@{object\+Key\+Heap\+Pointer\+Value\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{object\+Key\+Heap\+Pointer\+Value\+Dict\+Type}{objectKeyHeapPointerValueDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} object\+Key\+Heap\+Pointer\+Value\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_a2eb31143e51e5ff4255f8cf6cf814c88}{dictEncObjHash},            
+    NULL,                      
+    NULL,                      
+    \hyperlink{server_8c_a1cc981bc44bbef251951374538c489fd}{dictEncObjKeyCompare},      
+    \hyperlink{server_8c_aafd0e9fb24b81530f828fd4ec609eedd}{dictObjectDestructor},      
+    \hyperlink{server_8c_a88e671bb22d29c9970e6b33a7b4312dd}{dictVanillaFree}            
+\}
+\end{DoxyCode}
+
+
+Definition at line 582 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ad82e385bd0bd86e560c48bd2d0f67478}\label{server_8c_ad82e385bd0bd86e560c48bd2d0f67478}} 
+\index{server.\+c@{server.\+c}!object\+Key\+Pointer\+Value\+Dict\+Type@{object\+Key\+Pointer\+Value\+Dict\+Type}}
+\index{object\+Key\+Pointer\+Value\+Dict\+Type@{object\+Key\+Pointer\+Value\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{object\+Key\+Pointer\+Value\+Dict\+Type}{objectKeyPointerValueDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} object\+Key\+Pointer\+Value\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_a2eb31143e51e5ff4255f8cf6cf814c88}{dictEncObjHash},            
+    NULL,                      
+    NULL,                      
+    \hyperlink{server_8c_a1cc981bc44bbef251951374538c489fd}{dictEncObjKeyCompare},      
+    \hyperlink{server_8c_aafd0e9fb24b81530f828fd4ec609eedd}{dictObjectDestructor},      
+    NULL                       
+\}
+\end{DoxyCode}
+
+
+Definition at line 571 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a0a74d6229ebb2e89cd8d282bb2d57cd2}\label{server_8c_a0a74d6229ebb2e89cd8d282bb2d57cd2}} 
+\index{server.\+c@{server.\+c}!R\+\_\+\+Nan@{R\+\_\+\+Nan}}
+\index{R\+\_\+\+Nan@{R\+\_\+\+Nan}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{R\+\_\+\+Nan}{R\_Nan}}
+{\footnotesize\ttfamily double R\+\_\+\+Nan}
+
+
+
+Definition at line 67 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_acb612fbd4d2085a8dad448365f5c6d61}\label{server_8c_acb612fbd4d2085a8dad448365f5c6d61}} 
+\index{server.\+c@{server.\+c}!R\+\_\+\+Neg\+Inf@{R\+\_\+\+Neg\+Inf}}
+\index{R\+\_\+\+Neg\+Inf@{R\+\_\+\+Neg\+Inf}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{R\+\_\+\+Neg\+Inf}{R\_NegInf}}
+{\footnotesize\ttfamily double R\+\_\+\+Neg\+Inf}
+
+
+
+Definition at line 67 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_aed49f2a4bd56cf7199a1d7c7f7eceab9}\label{server_8c_aed49f2a4bd56cf7199a1d7c7f7eceab9}} 
+\index{server.\+c@{server.\+c}!R\+\_\+\+Pos\+Inf@{R\+\_\+\+Pos\+Inf}}
+\index{R\+\_\+\+Pos\+Inf@{R\+\_\+\+Pos\+Inf}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{R\+\_\+\+Pos\+Inf}{R\_PosInf}}
+{\footnotesize\ttfamily double R\+\_\+\+Pos\+Inf}
+
+
+
+Definition at line 67 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ac9a7c8e90c7d43ad161e32bb70767d0d}\label{server_8c_ac9a7c8e90c7d43ad161e32bb70767d0d}} 
+\index{server.\+c@{server.\+c}!R\+\_\+\+Zero@{R\+\_\+\+Zero}}
+\index{R\+\_\+\+Zero@{R\+\_\+\+Zero}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{R\+\_\+\+Zero}{R\_Zero}}
+{\footnotesize\ttfamily double R\+\_\+\+Zero}
+
+
+
+Definition at line 67 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a28856a2957d6f48c684d877c9189fc18}\label{server_8c_a28856a2957d6f48c684d877c9189fc18}} 
+\index{server.\+c@{server.\+c}!redis\+Command\+Table@{redis\+Command\+Table}}
+\index{redis\+Command\+Table@{redis\+Command\+Table}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{redis\+Command\+Table}{redisCommandTable}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} redis\+Command\+Table\mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line 127 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_afdc383c06704fe8b2095158efc389ebe}\label{server_8c_afdc383c06704fe8b2095158efc389ebe}} 
+\index{server.\+c@{server.\+c}!repl\+Script\+Cache\+Dict\+Type@{repl\+Script\+Cache\+Dict\+Type}}
+\index{repl\+Script\+Cache\+Dict\+Type@{repl\+Script\+Cache\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{repl\+Script\+Cache\+Dict\+Type}{replScriptCacheDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} repl\+Script\+Cache\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_ada0bb13a034f3ab2ac57be6e27f1bf7e}{dictSdsCaseHash},            
+    NULL,                       
+    NULL,                       
+    \hyperlink{server_8c_ac350c29f63271e4d5766b02997733738}{dictSdsKeyCaseCompare},      
+    \hyperlink{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}{dictSdsDestructor},          
+    NULL                        
+\}
+\end{DoxyCode}
+
+
+Definition at line 721 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a8d73c25eebeb3e3656b34e7807cb15b4}\label{server_8c_a8d73c25eebeb3e3656b34e7807cb15b4}} 
+\index{server.\+c@{server.\+c}!server@{server}}
+\index{server@{server}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{server}{server}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_server}{redis\+Server} server}
+
+
+
+Definition at line 72 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a6d37ca075aa0bff83305ecd2823ef744}\label{server_8c_a6d37ca075aa0bff83305ecd2823ef744}} 
+\index{server.\+c@{server.\+c}!set\+Dict\+Type@{set\+Dict\+Type}}
+\index{set\+Dict\+Type@{set\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{set\+Dict\+Type}{setDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} set\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_abf11672cc702adce676d41c162b20345}{dictSdsHash},               
+    NULL,                      
+    NULL,                      
+    \hyperlink{server_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}{dictSdsKeyCompare},         
+    \hyperlink{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}{dictSdsDestructor},         
+    NULL                       
+\}
+\end{DoxyCode}
+
+
+Definition at line 592 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_ad92fdd9d5f8f9dbf3a0e0ca9848b6eb8}\label{server_8c_ad92fdd9d5f8f9dbf3a0e0ca9848b6eb8}} 
+\index{server.\+c@{server.\+c}!shared@{shared}}
+\index{shared@{shared}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{shared}{shared}}
+{\footnotesize\ttfamily struct \hyperlink{structshared_objects_struct}{shared\+Objects\+Struct} shared}
+
+
+
+Definition at line 61 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a71fbe9a81ae4723396f78c2099081737}\label{server_8c_a71fbe9a81ae4723396f78c2099081737}} 
+\index{server.\+c@{server.\+c}!sha\+Script\+Object\+Dict\+Type@{sha\+Script\+Object\+Dict\+Type}}
+\index{sha\+Script\+Object\+Dict\+Type@{sha\+Script\+Object\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{sha\+Script\+Object\+Dict\+Type}{shaScriptObjectDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} sha\+Script\+Object\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_ada0bb13a034f3ab2ac57be6e27f1bf7e}{dictSdsCaseHash},            
+    NULL,                       
+    NULL,                       
+    \hyperlink{server_8c_ac350c29f63271e4d5766b02997733738}{dictSdsKeyCaseCompare},      
+    \hyperlink{server_8c_af0b4e72e76f0b16f5b43f1d03879b750}{dictSdsDestructor},          
+    \hyperlink{server_8c_aafd0e9fb24b81530f828fd4ec609eedd}{dictObjectDestructor}        
+\}
+\end{DoxyCode}
+
+
+Definition at line 622 of file server.\+c.
+
+\mbox{\Hypertarget{server_8c_a3b638a07aaedd8dc871d0bbd18a662b6}\label{server_8c_a3b638a07aaedd8dc871d0bbd18a662b6}} 
+\index{server.\+c@{server.\+c}!zset\+Dict\+Type@{zset\+Dict\+Type}}
+\index{zset\+Dict\+Type@{zset\+Dict\+Type}!server.\+c@{server.\+c}}
+\subsubsection{\texorpdfstring{zset\+Dict\+Type}{zsetDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} zset\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{server_8c_abf11672cc702adce676d41c162b20345}{dictSdsHash},               
+    NULL,                      
+    NULL,                      
+    \hyperlink{server_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}{dictSdsKeyCompare},         
+    NULL,                      
+    NULL                       
+\}
+\end{DoxyCode}
+
+
+Definition at line 602 of file server.\+c.
+

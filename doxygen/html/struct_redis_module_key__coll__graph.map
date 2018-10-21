@@ -1,0 +1,22 @@
+<map id="RedisModuleKey" name="RedisModuleKey">
+<area shape="rect" id="node2" href="$structredis_db.html" title="redisDb" alt="" coords="613,293,679,320"/>
+<area shape="rect" id="node15" href="$structclient.html" title="client" alt="" coords="859,317,912,344"/>
+<area shape="rect" id="node3" href="$structdict.html" title="dict" alt="" coords="381,292,423,319"/>
+<area shape="rect" id="node16" href="$structblocking_state.html" title="blockingState" alt="" coords="595,344,697,371"/>
+<area shape="rect" id="node4" href="$structdictht.html" title="dictht" alt="" coords="189,313,244,340"/>
+<area shape="rect" id="node5" href="$structdict_entry.html" title="dictEntry" alt="" coords="5,313,80,340"/>
+<area shape="rect" id="node6" href="$structdict_type.html" title="dictType" alt="" coords="181,263,253,289"/>
+<area shape="rect" id="node7" href="$structlist.html" title="list" alt="" coords="383,105,421,132"/>
+<area shape="rect" id="node14" href="$struct_redis_module.html" title="RedisModule" alt="" coords="836,100,935,127"/>
+<area shape="rect" id="node8" href="$structlist_node.html" title="listNode" alt="" coords="181,69,252,96"/>
+<area shape="rect" id="node9" href="$structredis_object.html" title="redisObject" alt="" coords="173,452,261,479"/>
+<area shape="rect" id="node19" href="$structmulti_cmd.html" title="multiCmd" alt="" coords="363,485,441,512"/>
+<area shape="rect" id="node10" href="$structzlexrangespec.html" title="zlexrangespec" alt="" coords="1090,641,1197,668"/>
+<area shape="rect" id="node11" href="$structzrangespec.html" title="zrangespec" alt="" coords="1099,692,1188,719"/>
+<area shape="rect" id="node12" href="$struct_redis_module_ctx.html" title="RedisModuleCtx" alt="" coords="1084,228,1203,255"/>
+<area shape="rect" id="node13" href="$struct_redis_module_blocked_client.html" title="RedisModuleBlockedClient" alt="" coords="1373,228,1552,255"/>
+<area shape="rect" id="node17" href="$structredis_command.html" title="redisCommand" alt="" coords="161,563,272,589"/>
+<area shape="rect" id="node18" href="$structmulti_state.html" title="multiState" alt="" coords="605,480,687,507"/>
+<area shape="rect" id="node20" href="$struct_redis_module_pool_alloc_block.html" title="RedisModulePoolAllocBlock" alt="" coords="792,267,979,293"/>
+<area shape="rect" id="node21" href="$struct_auto_mem_entry.html" title="AutoMemEntry" alt="" coords="831,177,940,204"/>
+</map>

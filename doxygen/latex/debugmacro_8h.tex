@@ -1,0 +1,47 @@
+\hypertarget{debugmacro_8h}{}\section{src/debugmacro.h File Reference}
+\label{debugmacro_8h}\index{src/debugmacro.\+h@{src/debugmacro.\+h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for debugmacro.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{debugmacro_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{debugmacro_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{debugmacro_8h_a74021f021dcdfbb22891787b79c5529d}{D}(...)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{debugmacro_8h_a74021f021dcdfbb22891787b79c5529d}\label{debugmacro_8h_a74021f021dcdfbb22891787b79c5529d}} 
+\index{debugmacro.\+h@{debugmacro.\+h}!D@{D}}
+\index{D@{D}!debugmacro.\+h@{debugmacro.\+h}}
+\subsubsection{\texorpdfstring{D}{D}}
+{\footnotesize\ttfamily \#define D(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                     \(\backslash\)
+        FILE *fp = fopen(\textcolor{stringliteral}{"/tmp/log.txt"},\textcolor{stringliteral}{"a"});                                \(\backslash\)
+        fprintf(fp,\textcolor{stringliteral}{"%s:%s:%d:\(\backslash\)t"}, \_\_FILE\_\_, \_\_func\_\_, \_\_LINE\_\_);             \(\backslash\)
+        fprintf(fp,\_\_VA\_ARGS\_\_);                                             \(\backslash\)
+        fprintf(fp,\textcolor{stringliteral}{"\(\backslash\)n"});                                                    \(\backslash\)
+        fclose(fp);                                                          \(\backslash\)
+    \} \textcolor{keywordflow}{while} (0);
+\end{DoxyCode}
+
+
+Definition at line 34 of file debugmacro.\+h.
+

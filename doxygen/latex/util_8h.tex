@@ -1,0 +1,200 @@
+\hypertarget{util_8h}{}\section{src/util.h File Reference}
+\label{util_8h}\index{src/util.\+h@{src/util.\+h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}sds.\+h\char`\"{}}\newline
+Include dependency graph for util.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{util_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{util_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{util_8h_a29779c072e924ef4e3c8186fd9748291}{M\+A\+X\+\_\+\+L\+O\+N\+G\+\_\+\+D\+O\+U\+B\+L\+E\+\_\+\+C\+H\+A\+RS}~5$\ast$1024
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{util_8h_a9676e026e19a56385ae55e5660945a63}{stringmatchlen} (const char $\ast$p, int plen, const char $\ast$s, int slen, int nocase)
+\item 
+int \hyperlink{util_8h_ab5e8643b49290626df9ca8c4f4c5aa7f}{stringmatch} (const char $\ast$p, const char $\ast$s, int nocase)
+\item 
+long long \hyperlink{util_8h_a0a6164234104f3ed3ed1e8117d70e9a4}{memtoll} (const char $\ast$p, int $\ast$err)
+\item 
+uint32\+\_\+t \hyperlink{util_8h_a359d7904d1a14451b1b07fa622a78109}{digits10} (uint64\+\_\+t v)
+\item 
+uint32\+\_\+t \hyperlink{util_8h_ae96ca73089ed65eac700a6241bd52266}{sdigits10} (int64\+\_\+t v)
+\item 
+int \hyperlink{util_8h_aaaa2d6ac05addc3b8be0077d08729272}{ll2string} (char $\ast$s, size\+\_\+t len, long long value)
+\item 
+int \hyperlink{util_8h_a5c8ac146ff5b5323cacafbeb0e53cda0}{string2ll} (const char $\ast$s, size\+\_\+t slen, long long $\ast$value)
+\item 
+int \hyperlink{util_8h_af82bfb3d2d3de4f5b96df0bda6baece3}{string2l} (const char $\ast$s, size\+\_\+t slen, long $\ast$value)
+\item 
+int \hyperlink{util_8h_ae874d83111ea083e426551eaded7b39e}{string2ld} (const char $\ast$s, size\+\_\+t slen, long double $\ast$dp)
+\item 
+int \hyperlink{util_8h_a19234a4e08fde38a062a23c6ad362cc1}{d2string} (char $\ast$buf, size\+\_\+t len, double value)
+\item 
+int \hyperlink{util_8h_a57f59b3ee2509f5ed9cae449e0a4d81a}{ld2string} (char $\ast$buf, size\+\_\+t len, long double value, int humanfriendly)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{util_8h_a57b6fa0683401c727ce1b85077d6bc74}{get\+Absolute\+Path} (char $\ast$filename)
+\item 
+int \hyperlink{util_8h_a5196caad18407ff7ff8bcc973591b819}{path\+Is\+Base\+Name} (char $\ast$path)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{util_8h_a29779c072e924ef4e3c8186fd9748291}\label{util_8h_a29779c072e924ef4e3c8186fd9748291}} 
+\index{util.\+h@{util.\+h}!M\+A\+X\+\_\+\+L\+O\+N\+G\+\_\+\+D\+O\+U\+B\+L\+E\+\_\+\+C\+H\+A\+RS@{M\+A\+X\+\_\+\+L\+O\+N\+G\+\_\+\+D\+O\+U\+B\+L\+E\+\_\+\+C\+H\+A\+RS}}
+\index{M\+A\+X\+\_\+\+L\+O\+N\+G\+\_\+\+D\+O\+U\+B\+L\+E\+\_\+\+C\+H\+A\+RS@{M\+A\+X\+\_\+\+L\+O\+N\+G\+\_\+\+D\+O\+U\+B\+L\+E\+\_\+\+C\+H\+A\+RS}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+L\+O\+N\+G\+\_\+\+D\+O\+U\+B\+L\+E\+\_\+\+C\+H\+A\+RS}{MAX\_LONG\_DOUBLE\_CHARS}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+L\+O\+N\+G\+\_\+\+D\+O\+U\+B\+L\+E\+\_\+\+C\+H\+A\+RS~5$\ast$1024}
+
+
+
+Definition at line 39 of file util.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{util_8h_a19234a4e08fde38a062a23c6ad362cc1}\label{util_8h_a19234a4e08fde38a062a23c6ad362cc1}} 
+\index{util.\+h@{util.\+h}!d2string@{d2string}}
+\index{d2string@{d2string}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{d2string()}{d2string()}}
+{\footnotesize\ttfamily int d2string (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf,  }\item[{size\+\_\+t}]{len,  }\item[{double}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 459 of file util.\+c.
+
+\mbox{\Hypertarget{util_8h_a359d7904d1a14451b1b07fa622a78109}\label{util_8h_a359d7904d1a14451b1b07fa622a78109}} 
+\index{util.\+h@{util.\+h}!digits10@{digits10}}
+\index{digits10@{digits10}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{digits10()}{digits10()}}
+{\footnotesize\ttfamily uint32\+\_\+t digits10 (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{v }\end{DoxyParamCaption})}
+
+
+
+Definition at line 234 of file util.\+c.
+
+\mbox{\Hypertarget{util_8h_a57b6fa0683401c727ce1b85077d6bc74}\label{util_8h_a57b6fa0683401c727ce1b85077d6bc74}} 
+\index{util.\+h@{util.\+h}!get\+Absolute\+Path@{get\+Absolute\+Path}}
+\index{get\+Absolute\+Path@{get\+Absolute\+Path}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{get\+Absolute\+Path()}{getAbsolutePath()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} get\+Absolute\+Path (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Definition at line 610 of file util.\+c.
+
+\mbox{\Hypertarget{util_8h_a57f59b3ee2509f5ed9cae449e0a4d81a}\label{util_8h_a57f59b3ee2509f5ed9cae449e0a4d81a}} 
+\index{util.\+h@{util.\+h}!ld2string@{ld2string}}
+\index{ld2string@{ld2string}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{ld2string()}{ld2string()}}
+{\footnotesize\ttfamily int ld2string (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf,  }\item[{size\+\_\+t}]{len,  }\item[{long double}]{value,  }\item[{int}]{humanfriendly }\end{DoxyParamCaption})}
+
+
+
+Definition at line 503 of file util.\+c.
+
+\mbox{\Hypertarget{util_8h_aaaa2d6ac05addc3b8be0077d08729272}\label{util_8h_aaaa2d6ac05addc3b8be0077d08729272}} 
+\index{util.\+h@{util.\+h}!ll2string@{ll2string}}
+\index{ll2string@{ll2string}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{ll2string()}{ll2string()}}
+{\footnotesize\ttfamily int ll2string (\begin{DoxyParamCaption}\item[{char $\ast$}]{s,  }\item[{size\+\_\+t}]{len,  }\item[{long long}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 277 of file util.\+c.
+
+\mbox{\Hypertarget{util_8h_a0a6164234104f3ed3ed1e8117d70e9a4}\label{util_8h_a0a6164234104f3ed3ed1e8117d70e9a4}} 
+\index{util.\+h@{util.\+h}!memtoll@{memtoll}}
+\index{memtoll@{memtoll}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{memtoll()}{memtoll()}}
+{\footnotesize\ttfamily long long memtoll (\begin{DoxyParamCaption}\item[{const char $\ast$}]{p,  }\item[{int $\ast$}]{err }\end{DoxyParamCaption})}
+
+
+
+Definition at line 180 of file util.\+c.
+
+\mbox{\Hypertarget{util_8h_a5196caad18407ff7ff8bcc973591b819}\label{util_8h_a5196caad18407ff7ff8bcc973591b819}} 
+\index{util.\+h@{util.\+h}!path\+Is\+Base\+Name@{path\+Is\+Base\+Name}}
+\index{path\+Is\+Base\+Name@{path\+Is\+Base\+Name}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{path\+Is\+Base\+Name()}{pathIsBaseName()}}
+{\footnotesize\ttfamily int path\+Is\+Base\+Name (\begin{DoxyParamCaption}\item[{char $\ast$}]{path }\end{DoxyParamCaption})}
+
+
+
+Definition at line 659 of file util.\+c.
+
+\mbox{\Hypertarget{util_8h_ae96ca73089ed65eac700a6241bd52266}\label{util_8h_ae96ca73089ed65eac700a6241bd52266}} 
+\index{util.\+h@{util.\+h}!sdigits10@{sdigits10}}
+\index{sdigits10@{sdigits10}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{sdigits10()}{sdigits10()}}
+{\footnotesize\ttfamily uint32\+\_\+t sdigits10 (\begin{DoxyParamCaption}\item[{int64\+\_\+t}]{v }\end{DoxyParamCaption})}
+
+
+
+Definition at line 255 of file util.\+c.
+
+\mbox{\Hypertarget{util_8h_af82bfb3d2d3de4f5b96df0bda6baece3}\label{util_8h_af82bfb3d2d3de4f5b96df0bda6baece3}} 
+\index{util.\+h@{util.\+h}!string2l@{string2l}}
+\index{string2l@{string2l}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{string2l()}{string2l()}}
+{\footnotesize\ttfamily int string2l (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s,  }\item[{size\+\_\+t}]{slen,  }\item[{long $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 412 of file util.\+c.
+
+\mbox{\Hypertarget{util_8h_ae874d83111ea083e426551eaded7b39e}\label{util_8h_ae874d83111ea083e426551eaded7b39e}} 
+\index{util.\+h@{util.\+h}!string2ld@{string2ld}}
+\index{string2ld@{string2ld}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{string2ld()}{string2ld()}}
+{\footnotesize\ttfamily int string2ld (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s,  }\item[{size\+\_\+t}]{slen,  }\item[{long double $\ast$}]{dp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 432 of file util.\+c.
+
+\mbox{\Hypertarget{util_8h_a5c8ac146ff5b5323cacafbeb0e53cda0}\label{util_8h_a5c8ac146ff5b5323cacafbeb0e53cda0}} 
+\index{util.\+h@{util.\+h}!string2ll@{string2ll}}
+\index{string2ll@{string2ll}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{string2ll()}{string2ll()}}
+{\footnotesize\ttfamily int string2ll (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s,  }\item[{size\+\_\+t}]{slen,  }\item[{long long $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 343 of file util.\+c.
+
+\mbox{\Hypertarget{util_8h_ab5e8643b49290626df9ca8c4f4c5aa7f}\label{util_8h_ab5e8643b49290626df9ca8c4f4c5aa7f}} 
+\index{util.\+h@{util.\+h}!stringmatch@{stringmatch}}
+\index{stringmatch@{stringmatch}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{stringmatch()}{stringmatch()}}
+{\footnotesize\ttfamily int stringmatch (\begin{DoxyParamCaption}\item[{const char $\ast$}]{p,  }\item[{const char $\ast$}]{s,  }\item[{int}]{nocase }\end{DoxyParamCaption})}
+
+
+
+Definition at line 169 of file util.\+c.
+
+\mbox{\Hypertarget{util_8h_a9676e026e19a56385ae55e5660945a63}\label{util_8h_a9676e026e19a56385ae55e5660945a63}} 
+\index{util.\+h@{util.\+h}!stringmatchlen@{stringmatchlen}}
+\index{stringmatchlen@{stringmatchlen}!util.\+h@{util.\+h}}
+\subsubsection{\texorpdfstring{stringmatchlen()}{stringmatchlen()}}
+{\footnotesize\ttfamily int stringmatchlen (\begin{DoxyParamCaption}\item[{const char $\ast$}]{p,  }\item[{int}]{plen,  }\item[{const char $\ast$}]{s,  }\item[{int}]{slen,  }\item[{int}]{nocase }\end{DoxyParamCaption})}
+
+
+
+Definition at line 47 of file util.\+c.
+

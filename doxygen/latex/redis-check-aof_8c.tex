@@ -1,0 +1,128 @@
+\hypertarget{redis-check-aof_8c}{}\section{src/redis-\/check-\/aof.c File Reference}
+\label{redis-check-aof_8c}\index{src/redis-\/check-\/aof.\+c@{src/redis-\/check-\/aof.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+Include dependency graph for redis-\/check-\/aof.c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{redis-check-aof_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{redis-check-aof_8c_a02ce8a968600d004ba60858425c46307}{E\+R\+R\+OR}(...)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{redis-check-aof_8c_ad257fd8e80f1bb36006b6d53d7197f55}{consume\+Newline} (char $\ast$buf)
+\item 
+int \hyperlink{redis-check-aof_8c_a25d1a2f4b61372995c5ddaa8719f4778}{read\+Long} (F\+I\+LE $\ast$fp, char prefix, long $\ast$target)
+\item 
+int \hyperlink{redis-check-aof_8c_a93da48750c3c32a24e15ceca70785ef5}{read\+Bytes} (F\+I\+LE $\ast$fp, char $\ast$target, long length)
+\item 
+int \hyperlink{redis-check-aof_8c_a5ffcae5a68079488c621f58b7a346e97}{read\+String} (F\+I\+LE $\ast$fp, char $\ast$$\ast$target)
+\item 
+int \hyperlink{redis-check-aof_8c_ad47ad8d006923ece737472043b76baca}{read\+Argc} (F\+I\+LE $\ast$fp, long $\ast$target)
+\item 
+off\+\_\+t \hyperlink{redis-check-aof_8c_a8cf1106df50e81c2487c1ac7c26119c0}{process} (F\+I\+LE $\ast$fp)
+\item 
+int \hyperlink{redis-check-aof_8c_a4cf4c173fb3690dd908cd74f72847972}{redis\+\_\+check\+\_\+aof\+\_\+main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{redis-check-aof_8c_a02ce8a968600d004ba60858425c46307}\label{redis-check-aof_8c_a02ce8a968600d004ba60858425c46307}} 
+\index{redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}!E\+R\+R\+OR@{E\+R\+R\+OR}}
+\index{E\+R\+R\+OR@{E\+R\+R\+OR}!redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}}
+\subsubsection{\texorpdfstring{E\+R\+R\+OR}{ERROR}}
+{\footnotesize\ttfamily \#define E\+R\+R\+OR(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\{ \(\backslash\)
+    char \_\_buf[1024]; \(\backslash\)
+    sprintf(\_\_buf, \_\_VA\_ARGS\_\_); \(\backslash\)
+    sprintf(\hyperlink{redis-check-rdb_8c_a998302b0b110ee83418a3f0e3ef808d9}{error}, \textcolor{stringliteral}{"0x%16llx: %s"}, (\textcolor{keywordtype}{long} \textcolor{keywordtype}{long})epos, \_\_buf); \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 34 of file redis-\/check-\/aof.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{redis-check-aof_8c_ad257fd8e80f1bb36006b6d53d7197f55}\label{redis-check-aof_8c_ad257fd8e80f1bb36006b6d53d7197f55}} 
+\index{redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}!consume\+Newline@{consume\+Newline}}
+\index{consume\+Newline@{consume\+Newline}!redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}}
+\subsubsection{\texorpdfstring{consume\+Newline()}{consumeNewline()}}
+{\footnotesize\ttfamily int consume\+Newline (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf }\end{DoxyParamCaption})}
+
+
+
+Definition at line 43 of file redis-\/check-\/aof.\+c.
+
+\mbox{\Hypertarget{redis-check-aof_8c_a8cf1106df50e81c2487c1ac7c26119c0}\label{redis-check-aof_8c_a8cf1106df50e81c2487c1ac7c26119c0}} 
+\index{redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}!process@{process}}
+\index{process@{process}!redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}}
+\subsubsection{\texorpdfstring{process()}{process()}}
+{\footnotesize\ttfamily off\+\_\+t process (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 100 of file redis-\/check-\/aof.\+c.
+
+\mbox{\Hypertarget{redis-check-aof_8c_ad47ad8d006923ece737472043b76baca}\label{redis-check-aof_8c_ad47ad8d006923ece737472043b76baca}} 
+\index{redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}!read\+Argc@{read\+Argc}}
+\index{read\+Argc@{read\+Argc}!redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}}
+\subsubsection{\texorpdfstring{read\+Argc()}{readArgc()}}
+{\footnotesize\ttfamily int read\+Argc (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp,  }\item[{long $\ast$}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line 96 of file redis-\/check-\/aof.\+c.
+
+\mbox{\Hypertarget{redis-check-aof_8c_a93da48750c3c32a24e15ceca70785ef5}\label{redis-check-aof_8c_a93da48750c3c32a24e15ceca70785ef5}} 
+\index{redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}!read\+Bytes@{read\+Bytes}}
+\index{read\+Bytes@{read\+Bytes}!redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}}
+\subsubsection{\texorpdfstring{read\+Bytes()}{readBytes()}}
+{\footnotesize\ttfamily int read\+Bytes (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp,  }\item[{char $\ast$}]{target,  }\item[{long}]{length }\end{DoxyParamCaption})}
+
+
+
+Definition at line 65 of file redis-\/check-\/aof.\+c.
+
+\mbox{\Hypertarget{redis-check-aof_8c_a25d1a2f4b61372995c5ddaa8719f4778}\label{redis-check-aof_8c_a25d1a2f4b61372995c5ddaa8719f4778}} 
+\index{redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}!read\+Long@{read\+Long}}
+\index{read\+Long@{read\+Long}!redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}}
+\subsubsection{\texorpdfstring{read\+Long()}{readLong()}}
+{\footnotesize\ttfamily int read\+Long (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp,  }\item[{char}]{prefix,  }\item[{long $\ast$}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line 51 of file redis-\/check-\/aof.\+c.
+
+\mbox{\Hypertarget{redis-check-aof_8c_a5ffcae5a68079488c621f58b7a346e97}\label{redis-check-aof_8c_a5ffcae5a68079488c621f58b7a346e97}} 
+\index{redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}!read\+String@{read\+String}}
+\index{read\+String@{read\+String}!redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}}
+\subsubsection{\texorpdfstring{read\+String()}{readString()}}
+{\footnotesize\ttfamily int read\+String (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp,  }\item[{char $\ast$$\ast$}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line 76 of file redis-\/check-\/aof.\+c.
+
+\mbox{\Hypertarget{redis-check-aof_8c_a4cf4c173fb3690dd908cd74f72847972}\label{redis-check-aof_8c_a4cf4c173fb3690dd908cd74f72847972}} 
+\index{redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}!redis\+\_\+check\+\_\+aof\+\_\+main@{redis\+\_\+check\+\_\+aof\+\_\+main}}
+\index{redis\+\_\+check\+\_\+aof\+\_\+main@{redis\+\_\+check\+\_\+aof\+\_\+main}!redis-\/check-\/aof.\+c@{redis-\/check-\/aof.\+c}}
+\subsubsection{\texorpdfstring{redis\+\_\+check\+\_\+aof\+\_\+main()}{redis\_check\_aof\_main()}}
+{\footnotesize\ttfamily int redis\+\_\+check\+\_\+aof\+\_\+main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Definition at line 144 of file redis-\/check-\/aof.\+c.
+

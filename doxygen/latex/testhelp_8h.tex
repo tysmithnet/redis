@@ -1,0 +1,81 @@
+\hypertarget{testhelp_8h}{}\section{src/testhelp.h File Reference}
+\label{testhelp_8h}\index{src/testhelp.\+h@{src/testhelp.\+h}}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{testhelp_8h_afd2b8d96174cfb3b877f24b5fd7dacfa}{test\+\_\+cond}(descr,  \+\_\+c)
+\item 
+\#define \hyperlink{testhelp_8h_aa21b198a2a227d18b3ddafdde8ac4169}{test\+\_\+report}()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{testhelp_8h_a293fc0f85320deb8d4bc21780fd63470}{\+\_\+\+\_\+failed\+\_\+tests} = 0
+\item 
+int \hyperlink{testhelp_8h_a7386055320f012ec85ecd9d85afb3fff}{\+\_\+\+\_\+test\+\_\+num} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{testhelp_8h_afd2b8d96174cfb3b877f24b5fd7dacfa}\label{testhelp_8h_afd2b8d96174cfb3b877f24b5fd7dacfa}} 
+\index{testhelp.\+h@{testhelp.\+h}!test\+\_\+cond@{test\+\_\+cond}}
+\index{test\+\_\+cond@{test\+\_\+cond}!testhelp.\+h@{testhelp.\+h}}
+\subsubsection{\texorpdfstring{test\+\_\+cond}{test\_cond}}
+{\footnotesize\ttfamily \#define test\+\_\+cond(\begin{DoxyParamCaption}\item[{}]{descr,  }\item[{}]{\+\_\+c }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    \_\_test\_num++; printf(\textcolor{stringliteral}{"%d - %s: "}, \hyperlink{testhelp_8h_a7386055320f012ec85ecd9d85afb3fff}{\_\_test\_num}, descr); \(\backslash\)
+    if(\_c) printf(\textcolor{stringliteral}{"PASSED\(\backslash\)n"}); \textcolor{keywordflow}{else} \{printf(\textcolor{stringliteral}{"FAILED\(\backslash\)n"}); \hyperlink{testhelp_8h_a293fc0f85320deb8d4bc21780fd63470}{\_\_failed\_tests}++;\} \(\backslash\)
+\} \textcolor{keywordflow}{while}(0);
+\end{DoxyCode}
+
+
+Definition at line 44 of file testhelp.\+h.
+
+\mbox{\Hypertarget{testhelp_8h_aa21b198a2a227d18b3ddafdde8ac4169}\label{testhelp_8h_aa21b198a2a227d18b3ddafdde8ac4169}} 
+\index{testhelp.\+h@{testhelp.\+h}!test\+\_\+report@{test\+\_\+report}}
+\index{test\+\_\+report@{test\+\_\+report}!testhelp.\+h@{testhelp.\+h}}
+\subsubsection{\texorpdfstring{test\+\_\+report}{test\_report}}
+{\footnotesize\ttfamily \#define test\+\_\+report(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    printf(\textcolor{stringliteral}{"%d tests, %d passed, %d failed\(\backslash\)n"}, \hyperlink{testhelp_8h_a7386055320f012ec85ecd9d85afb3fff}{\_\_test\_num}, \(\backslash\)
+                    \hyperlink{testhelp_8h_a7386055320f012ec85ecd9d85afb3fff}{\_\_test\_num}-\hyperlink{testhelp_8h_a293fc0f85320deb8d4bc21780fd63470}{\_\_failed\_tests}, 
+      \hyperlink{testhelp_8h_a293fc0f85320deb8d4bc21780fd63470}{\_\_failed\_tests}); \(\backslash\)
+    if (\hyperlink{testhelp_8h_a293fc0f85320deb8d4bc21780fd63470}{\_\_failed\_tests}) \{ \(\backslash\)
+        printf(\textcolor{stringliteral}{"=== WARNING === We have failed tests here...\(\backslash\)n"}); \(\backslash\)
+        exit(1); \(\backslash\)
+    \} \(\backslash\)
+\} \textcolor{keywordflow}{while}(0);
+\end{DoxyCode}
+
+
+Definition at line 48 of file testhelp.\+h.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{testhelp_8h_a293fc0f85320deb8d4bc21780fd63470}\label{testhelp_8h_a293fc0f85320deb8d4bc21780fd63470}} 
+\index{testhelp.\+h@{testhelp.\+h}!\+\_\+\+\_\+failed\+\_\+tests@{\+\_\+\+\_\+failed\+\_\+tests}}
+\index{\+\_\+\+\_\+failed\+\_\+tests@{\+\_\+\+\_\+failed\+\_\+tests}!testhelp.\+h@{testhelp.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+failed\+\_\+tests}{\_\_failed\_tests}}
+{\footnotesize\ttfamily int \+\_\+\+\_\+failed\+\_\+tests = 0}
+
+
+
+Definition at line 42 of file testhelp.\+h.
+
+\mbox{\Hypertarget{testhelp_8h_a7386055320f012ec85ecd9d85afb3fff}\label{testhelp_8h_a7386055320f012ec85ecd9d85afb3fff}} 
+\index{testhelp.\+h@{testhelp.\+h}!\+\_\+\+\_\+test\+\_\+num@{\+\_\+\+\_\+test\+\_\+num}}
+\index{\+\_\+\+\_\+test\+\_\+num@{\+\_\+\+\_\+test\+\_\+num}!testhelp.\+h@{testhelp.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+test\+\_\+num}{\_\_test\_num}}
+{\footnotesize\ttfamily int \+\_\+\+\_\+test\+\_\+num = 0}
+
+
+
+Definition at line 43 of file testhelp.\+h.
+

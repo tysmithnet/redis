@@ -1,0 +1,455 @@
+\hypertarget{t__set_8c}{}\section{src/t\+\_\+set.c File Reference}
+\label{t__set_8c}\index{src/t\+\_\+set.\+c@{src/t\+\_\+set.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+Include dependency graph for t\+\_\+set.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{t__set_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{t__set_8c_a335afb64760239e89abc51603161dd51}{S\+P\+O\+P\+\_\+\+M\+O\+V\+E\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL}~5
+\item 
+\#define \hyperlink{t__set_8c_a9edf8cf2fd1e44f7347fd8a19ba92257}{S\+R\+A\+N\+D\+M\+E\+M\+B\+E\+R\+\_\+\+S\+U\+B\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL}~3
+\item 
+\#define \hyperlink{t__set_8c_af00a414b6d78bff8b325eb9cf82c3edb}{S\+E\+T\+\_\+\+O\+P\+\_\+\+U\+N\+I\+ON}~0
+\item 
+\#define \hyperlink{t__set_8c_ad22703ffec4b7bf6cd262099917dc6a1}{S\+E\+T\+\_\+\+O\+P\+\_\+\+D\+I\+FF}~1
+\item 
+\#define \hyperlink{t__set_8c_af089a3b4de4c69fa5d3c7f5ae0d94008}{S\+E\+T\+\_\+\+O\+P\+\_\+\+I\+N\+T\+ER}~2
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{t__set_8c_ab38e17c421ff93577fb62fb449ec618b}{sunion\+Diff\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$setkeys, int setnum, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$dstkey, int op)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{t__set_8c_a41dcf738da8a3036efb30ad2555abb0a}{set\+Type\+Create} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} value)
+\item 
+int \hyperlink{t__set_8c_a481c9a885317cc45ed67b8441363a808}{set\+Type\+Add} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$subject, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} value)
+\item 
+int \hyperlink{t__set_8c_a4c763e808762fa5a7dab516e466c7ba2}{set\+Type\+Remove} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$setobj, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} value)
+\item 
+int \hyperlink{t__set_8c_a5bc0b584aa9b8b3f4ee75bb47ceb21b6}{set\+Type\+Is\+Member} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$subject, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} value)
+\item 
+\hyperlink{structset_type_iterator}{set\+Type\+Iterator} $\ast$ \hyperlink{t__set_8c_a0f819e821b8c6a06352c464e1a36d0d5}{set\+Type\+Init\+Iterator} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$subject)
+\item 
+void \hyperlink{t__set_8c_a8a2c04be5514aa178b1660cf24ce66cb}{set\+Type\+Release\+Iterator} (\hyperlink{structset_type_iterator}{set\+Type\+Iterator} $\ast$si)
+\item 
+int \hyperlink{t__set_8c_ac6dda321ea8e806223cc198713ae31c2}{set\+Type\+Next} (\hyperlink{structset_type_iterator}{set\+Type\+Iterator} $\ast$si, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$sdsele, int64\+\_\+t $\ast$llele)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{t__set_8c_a582a5b15715393a94cb1fa888ab3a6dd}{set\+Type\+Next\+Object} (\hyperlink{structset_type_iterator}{set\+Type\+Iterator} $\ast$si)
+\item 
+int \hyperlink{t__set_8c_a7551446f83260c33378d13393fe6901c}{set\+Type\+Random\+Element} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$setobj, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$sdsele, int64\+\_\+t $\ast$llele)
+\item 
+unsigned long \hyperlink{t__set_8c_a61131e1fb7be5606d463ed2001175384}{set\+Type\+Size} (const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$subject)
+\item 
+void \hyperlink{t__set_8c_adc389b9ebcee2b4d62326cb01cbc6a61}{set\+Type\+Convert} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$setobj, int enc)
+\item 
+void \hyperlink{t__set_8c_a81bfa438480da1127e7338b44596ac01}{sadd\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_a4efe64e73e38a940543888e6c61453d8}{srem\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_abc22c5bbf656d114e74df1ab353c8906}{smove\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_a32774e3d7df495ab453ea9b310c597c1}{sismember\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_a7a91d1ddcd40677b0f5521a9a42f4638}{scard\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_a96fe9a6c5e03c412be38480214b6d6c8}{spop\+With\+Count\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_a79f5e9dd310e06a26497ab01b3d99faf}{spop\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_aae7ce670dde9d2ce53cdb852a67e6ebe}{srandmember\+With\+Count\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_a685b89e1976480e5eab98f110b12af93}{srandmember\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{t__set_8c_a74b5bf2f7b3b22434ee0d248b2458778}{qsort\+Compare\+Sets\+By\+Cardinality} (const void $\ast$s1, const void $\ast$s2)
+\item 
+int \hyperlink{t__set_8c_aa25b9ec43259ca7ae672d02e004ad5a4}{qsort\+Compare\+Sets\+By\+Rev\+Cardinality} (const void $\ast$s1, const void $\ast$s2)
+\item 
+void \hyperlink{t__set_8c_a9178d242574ba6a85810b7a895048e10}{sinter\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$setkeys, unsigned long setnum, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$dstkey)
+\item 
+void \hyperlink{t__set_8c_a4fee297599eb9a8a4f86e3fcf77e9fa2}{sinter\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_a21029b37e9d0139bd20c77751e99795a}{sinterstore\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_add7103c0a8afae48dd4d6912675dfa1e}{sunion\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_a1aaa4bc76dc063da787c63d40dec5930}{sunionstore\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_afd035a2d3cedcd2b9f6cbf968f45ef2e}{sdiff\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_a8801ccf1a973c132e7aaca2a55dadbc2}{sdiffstore\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__set_8c_a4e835145118ea509fa83e502ddd7825f}{sscan\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{t__set_8c_ad22703ffec4b7bf6cd262099917dc6a1}\label{t__set_8c_ad22703ffec4b7bf6cd262099917dc6a1}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!S\+E\+T\+\_\+\+O\+P\+\_\+\+D\+I\+FF@{S\+E\+T\+\_\+\+O\+P\+\_\+\+D\+I\+FF}}
+\index{S\+E\+T\+\_\+\+O\+P\+\_\+\+D\+I\+FF@{S\+E\+T\+\_\+\+O\+P\+\_\+\+D\+I\+FF}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+T\+\_\+\+O\+P\+\_\+\+D\+I\+FF}{SET\_OP\_DIFF}}
+{\footnotesize\ttfamily \#define S\+E\+T\+\_\+\+O\+P\+\_\+\+D\+I\+FF~1}
+
+
+
+Definition at line 928 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_af089a3b4de4c69fa5d3c7f5ae0d94008}\label{t__set_8c_af089a3b4de4c69fa5d3c7f5ae0d94008}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!S\+E\+T\+\_\+\+O\+P\+\_\+\+I\+N\+T\+ER@{S\+E\+T\+\_\+\+O\+P\+\_\+\+I\+N\+T\+ER}}
+\index{S\+E\+T\+\_\+\+O\+P\+\_\+\+I\+N\+T\+ER@{S\+E\+T\+\_\+\+O\+P\+\_\+\+I\+N\+T\+ER}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+T\+\_\+\+O\+P\+\_\+\+I\+N\+T\+ER}{SET\_OP\_INTER}}
+{\footnotesize\ttfamily \#define S\+E\+T\+\_\+\+O\+P\+\_\+\+I\+N\+T\+ER~2}
+
+
+
+Definition at line 929 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_af00a414b6d78bff8b325eb9cf82c3edb}\label{t__set_8c_af00a414b6d78bff8b325eb9cf82c3edb}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!S\+E\+T\+\_\+\+O\+P\+\_\+\+U\+N\+I\+ON@{S\+E\+T\+\_\+\+O\+P\+\_\+\+U\+N\+I\+ON}}
+\index{S\+E\+T\+\_\+\+O\+P\+\_\+\+U\+N\+I\+ON@{S\+E\+T\+\_\+\+O\+P\+\_\+\+U\+N\+I\+ON}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+T\+\_\+\+O\+P\+\_\+\+U\+N\+I\+ON}{SET\_OP\_UNION}}
+{\footnotesize\ttfamily \#define S\+E\+T\+\_\+\+O\+P\+\_\+\+U\+N\+I\+ON~0}
+
+
+
+Definition at line 927 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a335afb64760239e89abc51603161dd51}\label{t__set_8c_a335afb64760239e89abc51603161dd51}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!S\+P\+O\+P\+\_\+\+M\+O\+V\+E\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL@{S\+P\+O\+P\+\_\+\+M\+O\+V\+E\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL}}
+\index{S\+P\+O\+P\+\_\+\+M\+O\+V\+E\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL@{S\+P\+O\+P\+\_\+\+M\+O\+V\+E\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{S\+P\+O\+P\+\_\+\+M\+O\+V\+E\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL}{SPOP\_MOVE\_STRATEGY\_MUL}}
+{\footnotesize\ttfamily \#define S\+P\+O\+P\+\_\+\+M\+O\+V\+E\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL~5}
+
+
+
+Definition at line 400 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a9edf8cf2fd1e44f7347fd8a19ba92257}\label{t__set_8c_a9edf8cf2fd1e44f7347fd8a19ba92257}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!S\+R\+A\+N\+D\+M\+E\+M\+B\+E\+R\+\_\+\+S\+U\+B\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL@{S\+R\+A\+N\+D\+M\+E\+M\+B\+E\+R\+\_\+\+S\+U\+B\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL}}
+\index{S\+R\+A\+N\+D\+M\+E\+M\+B\+E\+R\+\_\+\+S\+U\+B\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL@{S\+R\+A\+N\+D\+M\+E\+M\+B\+E\+R\+\_\+\+S\+U\+B\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{S\+R\+A\+N\+D\+M\+E\+M\+B\+E\+R\+\_\+\+S\+U\+B\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL}{SRANDMEMBER\_SUB\_STRATEGY\_MUL}}
+{\footnotesize\ttfamily \#define S\+R\+A\+N\+D\+M\+E\+M\+B\+E\+R\+\_\+\+S\+U\+B\+\_\+\+S\+T\+R\+A\+T\+E\+G\+Y\+\_\+\+M\+UL~3}
+
+
+
+Definition at line 612 of file t\+\_\+set.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{t__set_8c_a74b5bf2f7b3b22434ee0d248b2458778}\label{t__set_8c_a74b5bf2f7b3b22434ee0d248b2458778}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!qsort\+Compare\+Sets\+By\+Cardinality@{qsort\+Compare\+Sets\+By\+Cardinality}}
+\index{qsort\+Compare\+Sets\+By\+Cardinality@{qsort\+Compare\+Sets\+By\+Cardinality}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{qsort\+Compare\+Sets\+By\+Cardinality()}{qsortCompareSetsByCardinality()}}
+{\footnotesize\ttfamily int qsort\+Compare\+Sets\+By\+Cardinality (\begin{DoxyParamCaption}\item[{const void $\ast$}]{s1,  }\item[{const void $\ast$}]{s2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 774 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_aa25b9ec43259ca7ae672d02e004ad5a4}\label{t__set_8c_aa25b9ec43259ca7ae672d02e004ad5a4}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!qsort\+Compare\+Sets\+By\+Rev\+Cardinality@{qsort\+Compare\+Sets\+By\+Rev\+Cardinality}}
+\index{qsort\+Compare\+Sets\+By\+Rev\+Cardinality@{qsort\+Compare\+Sets\+By\+Rev\+Cardinality}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{qsort\+Compare\+Sets\+By\+Rev\+Cardinality()}{qsortCompareSetsByRevCardinality()}}
+{\footnotesize\ttfamily int qsort\+Compare\+Sets\+By\+Rev\+Cardinality (\begin{DoxyParamCaption}\item[{const void $\ast$}]{s1,  }\item[{const void $\ast$}]{s2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 782 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a81bfa438480da1127e7338b44596ac01}\label{t__set_8c_a81bfa438480da1127e7338b44596ac01}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!sadd\+Command@{sadd\+Command}}
+\index{sadd\+Command@{sadd\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{sadd\+Command()}{saddCommand()}}
+{\footnotesize\ttfamily void sadd\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 264 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a7a91d1ddcd40677b0f5521a9a42f4638}\label{t__set_8c_a7a91d1ddcd40677b0f5521a9a42f4638}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!scard\+Command@{scard\+Command}}
+\index{scard\+Command@{scard\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{scard\+Command()}{scardCommand()}}
+{\footnotesize\ttfamily void scard\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 385 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_afd035a2d3cedcd2b9f6cbf968f45ef2e}\label{t__set_8c_afd035a2d3cedcd2b9f6cbf968f45ef2e}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!sdiff\+Command@{sdiff\+Command}}
+\index{sdiff\+Command@{sdiff\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{sdiff\+Command()}{sdiffCommand()}}
+{\footnotesize\ttfamily void sdiff\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1099 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a8801ccf1a973c132e7aaca2a55dadbc2}\label{t__set_8c_a8801ccf1a973c132e7aaca2a55dadbc2}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!sdiffstore\+Command@{sdiffstore\+Command}}
+\index{sdiffstore\+Command@{sdiffstore\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{sdiffstore\+Command()}{sdiffstoreCommand()}}
+{\footnotesize\ttfamily void sdiffstore\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1103 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a481c9a885317cc45ed67b8441363a808}\label{t__set_8c_a481c9a885317cc45ed67b8441363a808}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!set\+Type\+Add@{set\+Type\+Add}}
+\index{set\+Type\+Add@{set\+Type\+Add}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{set\+Type\+Add()}{setTypeAdd()}}
+{\footnotesize\ttfamily int set\+Type\+Add (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{subject,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 52 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_adc389b9ebcee2b4d62326cb01cbc6a61}\label{t__set_8c_adc389b9ebcee2b4d62326cb01cbc6a61}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!set\+Type\+Convert@{set\+Type\+Convert}}
+\index{set\+Type\+Convert@{set\+Type\+Convert}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{set\+Type\+Convert()}{setTypeConvert()}}
+{\footnotesize\ttfamily void set\+Type\+Convert (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{setobj,  }\item[{int}]{enc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 235 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a41dcf738da8a3036efb30ad2555abb0a}\label{t__set_8c_a41dcf738da8a3036efb30ad2555abb0a}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!set\+Type\+Create@{set\+Type\+Create}}
+\index{set\+Type\+Create@{set\+Type\+Create}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{set\+Type\+Create()}{setTypeCreate()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ set\+Type\+Create (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 42 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a0f819e821b8c6a06352c464e1a36d0d5}\label{t__set_8c_a0f819e821b8c6a06352c464e1a36d0d5}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!set\+Type\+Init\+Iterator@{set\+Type\+Init\+Iterator}}
+\index{set\+Type\+Init\+Iterator@{set\+Type\+Init\+Iterator}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{set\+Type\+Init\+Iterator()}{setTypeInitIterator()}}
+{\footnotesize\ttfamily \hyperlink{structset_type_iterator}{set\+Type\+Iterator}$\ast$ set\+Type\+Init\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{subject }\end{DoxyParamCaption})}
+
+
+
+Definition at line 121 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a5bc0b584aa9b8b3f4ee75bb47ceb21b6}\label{t__set_8c_a5bc0b584aa9b8b3f4ee75bb47ceb21b6}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!set\+Type\+Is\+Member@{set\+Type\+Is\+Member}}
+\index{set\+Type\+Is\+Member@{set\+Type\+Is\+Member}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{set\+Type\+Is\+Member()}{setTypeIsMember()}}
+{\footnotesize\ttfamily int set\+Type\+Is\+Member (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{subject,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 107 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_ac6dda321ea8e806223cc198713ae31c2}\label{t__set_8c_ac6dda321ea8e806223cc198713ae31c2}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!set\+Type\+Next@{set\+Type\+Next}}
+\index{set\+Type\+Next@{set\+Type\+Next}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{set\+Type\+Next()}{setTypeNext()}}
+{\footnotesize\ttfamily int set\+Type\+Next (\begin{DoxyParamCaption}\item[{\hyperlink{structset_type_iterator}{set\+Type\+Iterator} $\ast$}]{si,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{sdsele,  }\item[{int64\+\_\+t $\ast$}]{llele }\end{DoxyParamCaption})}
+
+
+
+Definition at line 154 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a582a5b15715393a94cb1fa888ab3a6dd}\label{t__set_8c_a582a5b15715393a94cb1fa888ab3a6dd}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!set\+Type\+Next\+Object@{set\+Type\+Next\+Object}}
+\index{set\+Type\+Next\+Object@{set\+Type\+Next\+Object}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{set\+Type\+Next\+Object()}{setTypeNextObject()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} set\+Type\+Next\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{structset_type_iterator}{set\+Type\+Iterator} $\ast$}]{si }\end{DoxyParamCaption})}
+
+
+
+Definition at line 177 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a7551446f83260c33378d13393fe6901c}\label{t__set_8c_a7551446f83260c33378d13393fe6901c}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!set\+Type\+Random\+Element@{set\+Type\+Random\+Element}}
+\index{set\+Type\+Random\+Element@{set\+Type\+Random\+Element}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{set\+Type\+Random\+Element()}{setTypeRandomElement()}}
+{\footnotesize\ttfamily int set\+Type\+Random\+Element (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{setobj,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{sdsele,  }\item[{int64\+\_\+t $\ast$}]{llele }\end{DoxyParamCaption})}
+
+
+
+Definition at line 208 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a8a2c04be5514aa178b1660cf24ce66cb}\label{t__set_8c_a8a2c04be5514aa178b1660cf24ce66cb}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!set\+Type\+Release\+Iterator@{set\+Type\+Release\+Iterator}}
+\index{set\+Type\+Release\+Iterator@{set\+Type\+Release\+Iterator}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{set\+Type\+Release\+Iterator()}{setTypeReleaseIterator()}}
+{\footnotesize\ttfamily void set\+Type\+Release\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{structset_type_iterator}{set\+Type\+Iterator} $\ast$}]{si }\end{DoxyParamCaption})}
+
+
+
+Definition at line 135 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a4c763e808762fa5a7dab516e466c7ba2}\label{t__set_8c_a4c763e808762fa5a7dab516e466c7ba2}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!set\+Type\+Remove@{set\+Type\+Remove}}
+\index{set\+Type\+Remove@{set\+Type\+Remove}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{set\+Type\+Remove()}{setTypeRemove()}}
+{\footnotesize\ttfamily int set\+Type\+Remove (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{setobj,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 88 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a61131e1fb7be5606d463ed2001175384}\label{t__set_8c_a61131e1fb7be5606d463ed2001175384}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!set\+Type\+Size@{set\+Type\+Size}}
+\index{set\+Type\+Size@{set\+Type\+Size}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{set\+Type\+Size()}{setTypeSize()}}
+{\footnotesize\ttfamily unsigned long set\+Type\+Size (\begin{DoxyParamCaption}\item[{const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{subject }\end{DoxyParamCaption})}
+
+
+
+Definition at line 222 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a4fee297599eb9a8a4f86e3fcf77e9fa2}\label{t__set_8c_a4fee297599eb9a8a4f86e3fcf77e9fa2}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!sinter\+Command@{sinter\+Command}}
+\index{sinter\+Command@{sinter\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{sinter\+Command()}{sinterCommand()}}
+{\footnotesize\ttfamily void sinter\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 919 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a9178d242574ba6a85810b7a895048e10}\label{t__set_8c_a9178d242574ba6a85810b7a895048e10}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!sinter\+Generic\+Command@{sinter\+Generic\+Command}}
+\index{sinter\+Generic\+Command@{sinter\+Generic\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{sinter\+Generic\+Command()}{sinterGenericCommand()}}
+{\footnotesize\ttfamily void sinter\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{setkeys,  }\item[{unsigned long}]{setnum,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{dstkey }\end{DoxyParamCaption})}
+
+
+
+Definition at line 792 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a21029b37e9d0139bd20c77751e99795a}\label{t__set_8c_a21029b37e9d0139bd20c77751e99795a}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!sinterstore\+Command@{sinterstore\+Command}}
+\index{sinterstore\+Command@{sinterstore\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{sinterstore\+Command()}{sinterstoreCommand()}}
+{\footnotesize\ttfamily void sinterstore\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 923 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a32774e3d7df495ab453ea9b310c597c1}\label{t__set_8c_a32774e3d7df495ab453ea9b310c597c1}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!sismember\+Command@{sismember\+Command}}
+\index{sismember\+Command@{sismember\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{sismember\+Command()}{sismemberCommand()}}
+{\footnotesize\ttfamily void sismember\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 373 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_abc22c5bbf656d114e74df1ab353c8906}\label{t__set_8c_abc22c5bbf656d114e74df1ab353c8906}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!smove\+Command@{smove\+Command}}
+\index{smove\+Command@{smove\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{smove\+Command()}{smoveCommand()}}
+{\footnotesize\ttfamily void smove\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 318 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a79f5e9dd310e06a26497ab01b3d99faf}\label{t__set_8c_a79f5e9dd310e06a26497ab01b3d99faf}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!spop\+Command@{spop\+Command}}
+\index{spop\+Command@{spop\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{spop\+Command()}{spopCommand()}}
+{\footnotesize\ttfamily void spop\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 553 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a96fe9a6c5e03c412be38480214b6d6c8}\label{t__set_8c_a96fe9a6c5e03c412be38480214b6d6c8}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!spop\+With\+Count\+Command@{spop\+With\+Count\+Command}}
+\index{spop\+With\+Count\+Command@{spop\+With\+Count\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{spop\+With\+Count\+Command()}{spopWithCountCommand()}}
+{\footnotesize\ttfamily void spop\+With\+Count\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 402 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a685b89e1976480e5eab98f110b12af93}\label{t__set_8c_a685b89e1976480e5eab98f110b12af93}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!srandmember\+Command@{srandmember\+Command}}
+\index{srandmember\+Command@{srandmember\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{srandmember\+Command()}{srandmemberCommand()}}
+{\footnotesize\ttfamily void srandmember\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 749 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_aae7ce670dde9d2ce53cdb852a67e6ebe}\label{t__set_8c_aae7ce670dde9d2ce53cdb852a67e6ebe}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!srandmember\+With\+Count\+Command@{srandmember\+With\+Count\+Command}}
+\index{srandmember\+With\+Count\+Command@{srandmember\+With\+Count\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{srandmember\+With\+Count\+Command()}{srandmemberWithCountCommand()}}
+{\footnotesize\ttfamily void srandmember\+With\+Count\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 614 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a4efe64e73e38a940543888e6c61453d8}\label{t__set_8c_a4efe64e73e38a940543888e6c61453d8}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!srem\+Command@{srem\+Command}}
+\index{srem\+Command@{srem\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{srem\+Command()}{sremCommand()}}
+{\footnotesize\ttfamily void srem\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 290 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a4e835145118ea509fa83e502ddd7825f}\label{t__set_8c_a4e835145118ea509fa83e502ddd7825f}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!sscan\+Command@{sscan\+Command}}
+\index{sscan\+Command@{sscan\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{sscan\+Command()}{sscanCommand()}}
+{\footnotesize\ttfamily void sscan\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1107 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_add7103c0a8afae48dd4d6912675dfa1e}\label{t__set_8c_add7103c0a8afae48dd4d6912675dfa1e}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!sunion\+Command@{sunion\+Command}}
+\index{sunion\+Command@{sunion\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{sunion\+Command()}{sunionCommand()}}
+{\footnotesize\ttfamily void sunion\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1091 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_ab38e17c421ff93577fb62fb449ec618b}\label{t__set_8c_ab38e17c421ff93577fb62fb449ec618b}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!sunion\+Diff\+Generic\+Command@{sunion\+Diff\+Generic\+Command}}
+\index{sunion\+Diff\+Generic\+Command@{sunion\+Diff\+Generic\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{sunion\+Diff\+Generic\+Command()}{sunionDiffGenericCommand()}}
+{\footnotesize\ttfamily void sunion\+Diff\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{setkeys,  }\item[{int}]{setnum,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{dstkey,  }\item[{int}]{op }\end{DoxyParamCaption})}
+
+
+
+Definition at line 931 of file t\+\_\+set.\+c.
+
+\mbox{\Hypertarget{t__set_8c_a1aaa4bc76dc063da787c63d40dec5930}\label{t__set_8c_a1aaa4bc76dc063da787c63d40dec5930}} 
+\index{t\+\_\+set.\+c@{t\+\_\+set.\+c}!sunionstore\+Command@{sunionstore\+Command}}
+\index{sunionstore\+Command@{sunionstore\+Command}!t\+\_\+set.\+c@{t\+\_\+set.\+c}}
+\subsubsection{\texorpdfstring{sunionstore\+Command()}{sunionstoreCommand()}}
+{\footnotesize\ttfamily void sunionstore\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1095 of file t\+\_\+set.\+c.
+

@@ -1,0 +1,178 @@
+\hypertarget{structblocking_state}{}\section{blocking\+State Struct Reference}
+\label{structblocking_state}\index{blocking\+State@{blocking\+State}}
+
+
+{\ttfamily \#include $<$server.\+h$>$}
+
+
+
+Collaboration diagram for blocking\+State\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{structblocking_state__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} \hyperlink{structblocking_state_a1adf524d2a0c7f9eb77f4f78e6c05620}{timeout}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structblocking_state_af63a8281ce9a4285e41df3e045e7c91f}{keys}
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{structblocking_state_acb665c66e7b32809e1371a4bdec1907e}{target}
+\item 
+size\+\_\+t \hyperlink{structblocking_state_a1158eb78330481cd4b10428513888bf6}{xread\+\_\+count}
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{structblocking_state_a410020be56fcf2afc10554265f111cf5}{xread\+\_\+group}
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{structblocking_state_acc7493490f2c56371b38f76c15ed7912}{xread\+\_\+consumer}
+\item 
+\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} \hyperlink{structblocking_state_aab944cd8b3460c6e1a73853f47edd379}{xread\+\_\+retry\+\_\+time}
+\item 
+\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} \hyperlink{structblocking_state_a7ee5bfe490a220cccc4c44fd5640a2b3}{xread\+\_\+retry\+\_\+ttl}
+\item 
+int \hyperlink{structblocking_state_a8ea7b41dabb441998b04529342f97355}{xread\+\_\+group\+\_\+noack}
+\item 
+int \hyperlink{structblocking_state_a77bbb7714f638a33a511b7c79b05d9bf}{numreplicas}
+\item 
+long long \hyperlink{structblocking_state_a640179b63c7bf95361949de7cb214d9c}{reploffset}
+\item 
+void $\ast$ \hyperlink{structblocking_state_a6761112482922feef30b00f99612ad2c}{module\+\_\+blocked\+\_\+handle}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 663 of file server.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structblocking_state_af63a8281ce9a4285e41df3e045e7c91f}\label{structblocking_state_af63a8281ce9a4285e41df3e045e7c91f}} 
+\index{blocking\+State@{blocking\+State}!keys@{keys}}
+\index{keys@{keys}!blocking\+State@{blocking\+State}}
+\subsubsection{\texorpdfstring{keys}{keys}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ keys}
+
+
+
+Definition at line 669 of file server.\+h.
+
+\mbox{\Hypertarget{structblocking_state_a6761112482922feef30b00f99612ad2c}\label{structblocking_state_a6761112482922feef30b00f99612ad2c}} 
+\index{blocking\+State@{blocking\+State}!module\+\_\+blocked\+\_\+handle@{module\+\_\+blocked\+\_\+handle}}
+\index{module\+\_\+blocked\+\_\+handle@{module\+\_\+blocked\+\_\+handle}!blocking\+State@{blocking\+State}}
+\subsubsection{\texorpdfstring{module\+\_\+blocked\+\_\+handle}{module\_blocked\_handle}}
+{\footnotesize\ttfamily void$\ast$ module\+\_\+blocked\+\_\+handle}
+
+
+
+Definition at line 686 of file server.\+h.
+
+\mbox{\Hypertarget{structblocking_state_a77bbb7714f638a33a511b7c79b05d9bf}\label{structblocking_state_a77bbb7714f638a33a511b7c79b05d9bf}} 
+\index{blocking\+State@{blocking\+State}!numreplicas@{numreplicas}}
+\index{numreplicas@{numreplicas}!blocking\+State@{blocking\+State}}
+\subsubsection{\texorpdfstring{numreplicas}{numreplicas}}
+{\footnotesize\ttfamily int numreplicas}
+
+
+
+Definition at line 682 of file server.\+h.
+
+\mbox{\Hypertarget{structblocking_state_a640179b63c7bf95361949de7cb214d9c}\label{structblocking_state_a640179b63c7bf95361949de7cb214d9c}} 
+\index{blocking\+State@{blocking\+State}!reploffset@{reploffset}}
+\index{reploffset@{reploffset}!blocking\+State@{blocking\+State}}
+\subsubsection{\texorpdfstring{reploffset}{reploffset}}
+{\footnotesize\ttfamily long long reploffset}
+
+
+
+Definition at line 683 of file server.\+h.
+
+\mbox{\Hypertarget{structblocking_state_acb665c66e7b32809e1371a4bdec1907e}\label{structblocking_state_acb665c66e7b32809e1371a4bdec1907e}} 
+\index{blocking\+State@{blocking\+State}!target@{target}}
+\index{target@{target}!blocking\+State@{blocking\+State}}
+\subsubsection{\texorpdfstring{target}{target}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ target}
+
+
+
+Definition at line 671 of file server.\+h.
+
+\mbox{\Hypertarget{structblocking_state_a1adf524d2a0c7f9eb77f4f78e6c05620}\label{structblocking_state_a1adf524d2a0c7f9eb77f4f78e6c05620}} 
+\index{blocking\+State@{blocking\+State}!timeout@{timeout}}
+\index{timeout@{timeout}!blocking\+State@{blocking\+State}}
+\subsubsection{\texorpdfstring{timeout}{timeout}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} timeout}
+
+
+
+Definition at line 665 of file server.\+h.
+
+\mbox{\Hypertarget{structblocking_state_acc7493490f2c56371b38f76c15ed7912}\label{structblocking_state_acc7493490f2c56371b38f76c15ed7912}} 
+\index{blocking\+State@{blocking\+State}!xread\+\_\+consumer@{xread\+\_\+consumer}}
+\index{xread\+\_\+consumer@{xread\+\_\+consumer}!blocking\+State@{blocking\+State}}
+\subsubsection{\texorpdfstring{xread\+\_\+consumer}{xread\_consumer}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ xread\+\_\+consumer}
+
+
+
+Definition at line 677 of file server.\+h.
+
+\mbox{\Hypertarget{structblocking_state_a1158eb78330481cd4b10428513888bf6}\label{structblocking_state_a1158eb78330481cd4b10428513888bf6}} 
+\index{blocking\+State@{blocking\+State}!xread\+\_\+count@{xread\+\_\+count}}
+\index{xread\+\_\+count@{xread\+\_\+count}!blocking\+State@{blocking\+State}}
+\subsubsection{\texorpdfstring{xread\+\_\+count}{xread\_count}}
+{\footnotesize\ttfamily size\+\_\+t xread\+\_\+count}
+
+
+
+Definition at line 675 of file server.\+h.
+
+\mbox{\Hypertarget{structblocking_state_a410020be56fcf2afc10554265f111cf5}\label{structblocking_state_a410020be56fcf2afc10554265f111cf5}} 
+\index{blocking\+State@{blocking\+State}!xread\+\_\+group@{xread\+\_\+group}}
+\index{xread\+\_\+group@{xread\+\_\+group}!blocking\+State@{blocking\+State}}
+\subsubsection{\texorpdfstring{xread\+\_\+group}{xread\_group}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ xread\+\_\+group}
+
+
+
+Definition at line 676 of file server.\+h.
+
+\mbox{\Hypertarget{structblocking_state_a8ea7b41dabb441998b04529342f97355}\label{structblocking_state_a8ea7b41dabb441998b04529342f97355}} 
+\index{blocking\+State@{blocking\+State}!xread\+\_\+group\+\_\+noack@{xread\+\_\+group\+\_\+noack}}
+\index{xread\+\_\+group\+\_\+noack@{xread\+\_\+group\+\_\+noack}!blocking\+State@{blocking\+State}}
+\subsubsection{\texorpdfstring{xread\+\_\+group\+\_\+noack}{xread\_group\_noack}}
+{\footnotesize\ttfamily int xread\+\_\+group\+\_\+noack}
+
+
+
+Definition at line 679 of file server.\+h.
+
+\mbox{\Hypertarget{structblocking_state_aab944cd8b3460c6e1a73853f47edd379}\label{structblocking_state_aab944cd8b3460c6e1a73853f47edd379}} 
+\index{blocking\+State@{blocking\+State}!xread\+\_\+retry\+\_\+time@{xread\+\_\+retry\+\_\+time}}
+\index{xread\+\_\+retry\+\_\+time@{xread\+\_\+retry\+\_\+time}!blocking\+State@{blocking\+State}}
+\subsubsection{\texorpdfstring{xread\+\_\+retry\+\_\+time}{xread\_retry\_time}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} xread\+\_\+retry\+\_\+time}
+
+
+
+Definition at line 678 of file server.\+h.
+
+\mbox{\Hypertarget{structblocking_state_a7ee5bfe490a220cccc4c44fd5640a2b3}\label{structblocking_state_a7ee5bfe490a220cccc4c44fd5640a2b3}} 
+\index{blocking\+State@{blocking\+State}!xread\+\_\+retry\+\_\+ttl@{xread\+\_\+retry\+\_\+ttl}}
+\index{xread\+\_\+retry\+\_\+ttl@{xread\+\_\+retry\+\_\+ttl}!blocking\+State@{blocking\+State}}
+\subsubsection{\texorpdfstring{xread\+\_\+retry\+\_\+ttl}{xread\_retry\_ttl}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} xread\+\_\+retry\+\_\+ttl}
+
+
+
+Definition at line 678 of file server.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{server_8h}{server.\+h}\end{DoxyCompactItemize}

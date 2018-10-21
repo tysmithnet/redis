@@ -1,0 +1,164 @@
+\hypertarget{lazyfree_8c}{}\section{src/lazyfree.c File Reference}
+\label{lazyfree_8c}\index{src/lazyfree.\+c@{src/lazyfree.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}bio.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}atomicvar.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}cluster.\+h\char`\"{}}\newline
+Include dependency graph for lazyfree.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{lazyfree_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{lazyfree_8c_a16c7a657b0fbf79b2e92306f347c4512}{L\+A\+Z\+Y\+F\+R\+E\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}~64
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \hyperlink{lazyfree_8c_a3e9b6c8fa1b461d094e096637f0cf3cf}{lazyfree\+Get\+Pending\+Objects\+Count} (void)
+\item 
+size\+\_\+t \hyperlink{lazyfree_8c_a995296582e6096eb09ab01cc1ff780b6}{lazyfree\+Get\+Free\+Effort} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$obj)
+\item 
+int \hyperlink{lazyfree_8c_a2d311ae327879cbc949ad2caeb20dbc7}{db\+Async\+Delete} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+void \hyperlink{lazyfree_8c_aab1ba930309bf703c66b7e7796d4d0f4}{free\+Obj\+Async} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{lazyfree_8c_a0f34b51c71e9b1da8a307dafb4e2dd10}{empty\+Db\+Async} (\hyperlink{structredis_db}{redis\+Db} $\ast$db)
+\item 
+void \hyperlink{lazyfree_8c_ab6b96c4cfad5983ba0db4ce7b58b9f05}{slot\+To\+Key\+Flush\+Async} (void)
+\item 
+void \hyperlink{lazyfree_8c_a5789164f25a7c015db0a87f03eb38b0b}{lazyfree\+Free\+Object\+From\+Bio\+Thread} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{lazyfree_8c_af602e9bb7f9d2842f42a1d063abb5371}{lazyfree\+Free\+Database\+From\+Bio\+Thread} (\hyperlink{structdict}{dict} $\ast$ht1, \hyperlink{structdict}{dict} $\ast$ht2)
+\item 
+void \hyperlink{lazyfree_8c_a09c38248a412b48bb0a7b51af90c7595}{lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread} (\hyperlink{structrax}{rax} $\ast$rt)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+pthread\+\_\+mutex\+\_\+t \hyperlink{lazyfree_8c_a86b71719aea21ed1a8c982b8930a372b}{lazyfree\+\_\+objects\+\_\+mutex} = P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+ER
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{lazyfree_8c_a16c7a657b0fbf79b2e92306f347c4512}\label{lazyfree_8c_a16c7a657b0fbf79b2e92306f347c4512}} 
+\index{lazyfree.\+c@{lazyfree.\+c}!L\+A\+Z\+Y\+F\+R\+E\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD@{L\+A\+Z\+Y\+F\+R\+E\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}}
+\index{L\+A\+Z\+Y\+F\+R\+E\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD@{L\+A\+Z\+Y\+F\+R\+E\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}!lazyfree.\+c@{lazyfree.\+c}}
+\subsubsection{\texorpdfstring{L\+A\+Z\+Y\+F\+R\+E\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}{LAZYFREE\_THRESHOLD}}
+{\footnotesize\ttfamily \#define L\+A\+Z\+Y\+F\+R\+E\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD~64}
+
+
+
+Definition at line 53 of file lazyfree.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{lazyfree_8c_a2d311ae327879cbc949ad2caeb20dbc7}\label{lazyfree_8c_a2d311ae327879cbc949ad2caeb20dbc7}} 
+\index{lazyfree.\+c@{lazyfree.\+c}!db\+Async\+Delete@{db\+Async\+Delete}}
+\index{db\+Async\+Delete@{db\+Async\+Delete}!lazyfree.\+c@{lazyfree.\+c}}
+\subsubsection{\texorpdfstring{db\+Async\+Delete()}{dbAsyncDelete()}}
+{\footnotesize\ttfamily int db\+Async\+Delete (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 54 of file lazyfree.\+c.
+
+\mbox{\Hypertarget{lazyfree_8c_a0f34b51c71e9b1da8a307dafb4e2dd10}\label{lazyfree_8c_a0f34b51c71e9b1da8a307dafb4e2dd10}} 
+\index{lazyfree.\+c@{lazyfree.\+c}!empty\+Db\+Async@{empty\+Db\+Async}}
+\index{empty\+Db\+Async@{empty\+Db\+Async}!lazyfree.\+c@{lazyfree.\+c}}
+\subsubsection{\texorpdfstring{empty\+Db\+Async()}{emptyDbAsync()}}
+{\footnotesize\ttfamily void empty\+Db\+Async (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db }\end{DoxyParamCaption})}
+
+
+
+Definition at line 107 of file lazyfree.\+c.
+
+\mbox{\Hypertarget{lazyfree_8c_aab1ba930309bf703c66b7e7796d4d0f4}\label{lazyfree_8c_aab1ba930309bf703c66b7e7796d4d0f4}} 
+\index{lazyfree.\+c@{lazyfree.\+c}!free\+Obj\+Async@{free\+Obj\+Async}}
+\index{free\+Obj\+Async@{free\+Obj\+Async}!lazyfree.\+c@{lazyfree.\+c}}
+\subsubsection{\texorpdfstring{free\+Obj\+Async()}{freeObjAsync()}}
+{\footnotesize\ttfamily void free\+Obj\+Async (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 94 of file lazyfree.\+c.
+
+\mbox{\Hypertarget{lazyfree_8c_af602e9bb7f9d2842f42a1d063abb5371}\label{lazyfree_8c_af602e9bb7f9d2842f42a1d063abb5371}} 
+\index{lazyfree.\+c@{lazyfree.\+c}!lazyfree\+Free\+Database\+From\+Bio\+Thread@{lazyfree\+Free\+Database\+From\+Bio\+Thread}}
+\index{lazyfree\+Free\+Database\+From\+Bio\+Thread@{lazyfree\+Free\+Database\+From\+Bio\+Thread}!lazyfree.\+c@{lazyfree.\+c}}
+\subsubsection{\texorpdfstring{lazyfree\+Free\+Database\+From\+Bio\+Thread()}{lazyfreeFreeDatabaseFromBioThread()}}
+{\footnotesize\ttfamily void lazyfree\+Free\+Database\+From\+Bio\+Thread (\begin{DoxyParamCaption}\item[{\hyperlink{structdict}{dict} $\ast$}]{ht1,  }\item[{\hyperlink{structdict}{dict} $\ast$}]{ht2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 139 of file lazyfree.\+c.
+
+\mbox{\Hypertarget{lazyfree_8c_a5789164f25a7c015db0a87f03eb38b0b}\label{lazyfree_8c_a5789164f25a7c015db0a87f03eb38b0b}} 
+\index{lazyfree.\+c@{lazyfree.\+c}!lazyfree\+Free\+Object\+From\+Bio\+Thread@{lazyfree\+Free\+Object\+From\+Bio\+Thread}}
+\index{lazyfree\+Free\+Object\+From\+Bio\+Thread@{lazyfree\+Free\+Object\+From\+Bio\+Thread}!lazyfree.\+c@{lazyfree.\+c}}
+\subsubsection{\texorpdfstring{lazyfree\+Free\+Object\+From\+Bio\+Thread()}{lazyfreeFreeObjectFromBioThread()}}
+{\footnotesize\ttfamily void lazyfree\+Free\+Object\+From\+Bio\+Thread (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 129 of file lazyfree.\+c.
+
+\mbox{\Hypertarget{lazyfree_8c_a09c38248a412b48bb0a7b51af90c7595}\label{lazyfree_8c_a09c38248a412b48bb0a7b51af90c7595}} 
+\index{lazyfree.\+c@{lazyfree.\+c}!lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread@{lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread}}
+\index{lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread@{lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread}!lazyfree.\+c@{lazyfree.\+c}}
+\subsubsection{\texorpdfstring{lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread()}{lazyfreeFreeSlotsMapFromBioThread()}}
+{\footnotesize\ttfamily void lazyfree\+Free\+Slots\+Map\+From\+Bio\+Thread (\begin{DoxyParamCaption}\item[{\hyperlink{structrax}{rax} $\ast$}]{rt }\end{DoxyParamCaption})}
+
+
+
+Definition at line 148 of file lazyfree.\+c.
+
+\mbox{\Hypertarget{lazyfree_8c_a995296582e6096eb09ab01cc1ff780b6}\label{lazyfree_8c_a995296582e6096eb09ab01cc1ff780b6}} 
+\index{lazyfree.\+c@{lazyfree.\+c}!lazyfree\+Get\+Free\+Effort@{lazyfree\+Get\+Free\+Effort}}
+\index{lazyfree\+Get\+Free\+Effort@{lazyfree\+Get\+Free\+Effort}!lazyfree.\+c@{lazyfree.\+c}}
+\subsubsection{\texorpdfstring{lazyfree\+Get\+Free\+Effort()}{lazyfreeGetFreeEffort()}}
+{\footnotesize\ttfamily size\+\_\+t lazyfree\+Get\+Free\+Effort (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 31 of file lazyfree.\+c.
+
+\mbox{\Hypertarget{lazyfree_8c_a3e9b6c8fa1b461d094e096637f0cf3cf}\label{lazyfree_8c_a3e9b6c8fa1b461d094e096637f0cf3cf}} 
+\index{lazyfree.\+c@{lazyfree.\+c}!lazyfree\+Get\+Pending\+Objects\+Count@{lazyfree\+Get\+Pending\+Objects\+Count}}
+\index{lazyfree\+Get\+Pending\+Objects\+Count@{lazyfree\+Get\+Pending\+Objects\+Count}!lazyfree.\+c@{lazyfree.\+c}}
+\subsubsection{\texorpdfstring{lazyfree\+Get\+Pending\+Objects\+Count()}{lazyfreeGetPendingObjectsCount()}}
+{\footnotesize\ttfamily size\+\_\+t lazyfree\+Get\+Pending\+Objects\+Count (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 10 of file lazyfree.\+c.
+
+\mbox{\Hypertarget{lazyfree_8c_ab6b96c4cfad5983ba0db4ce7b58b9f05}\label{lazyfree_8c_ab6b96c4cfad5983ba0db4ce7b58b9f05}} 
+\index{lazyfree.\+c@{lazyfree.\+c}!slot\+To\+Key\+Flush\+Async@{slot\+To\+Key\+Flush\+Async}}
+\index{slot\+To\+Key\+Flush\+Async@{slot\+To\+Key\+Flush\+Async}!lazyfree.\+c@{lazyfree.\+c}}
+\subsubsection{\texorpdfstring{slot\+To\+Key\+Flush\+Async()}{slotToKeyFlushAsync()}}
+{\footnotesize\ttfamily void slot\+To\+Key\+Flush\+Async (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 117 of file lazyfree.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{lazyfree_8c_a86b71719aea21ed1a8c982b8930a372b}\label{lazyfree_8c_a86b71719aea21ed1a8c982b8930a372b}} 
+\index{lazyfree.\+c@{lazyfree.\+c}!lazyfree\+\_\+objects\+\_\+mutex@{lazyfree\+\_\+objects\+\_\+mutex}}
+\index{lazyfree\+\_\+objects\+\_\+mutex@{lazyfree\+\_\+objects\+\_\+mutex}!lazyfree.\+c@{lazyfree.\+c}}
+\subsubsection{\texorpdfstring{lazyfree\+\_\+objects\+\_\+mutex}{lazyfree\_objects\_mutex}}
+{\footnotesize\ttfamily pthread\+\_\+mutex\+\_\+t lazyfree\+\_\+objects\+\_\+mutex = P\+T\+H\+R\+E\+A\+D\+\_\+\+M\+U\+T\+E\+X\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+ER}
+
+
+
+Definition at line 7 of file lazyfree.\+c.
+

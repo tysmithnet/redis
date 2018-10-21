@@ -1,0 +1,138 @@
+\hypertarget{struct_redis_module_blocked_client}{}\section{Redis\+Module\+Blocked\+Client Struct Reference}
+\label{struct_redis_module_blocked_client}\index{Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}}
+
+
+Collaboration diagram for Redis\+Module\+Blocked\+Client\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_redis_module_blocked_client__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structclient}{client} $\ast$ \hyperlink{struct_redis_module_blocked_client_a6d99956d3d06c98958feb17baf491c71}{client}
+\item 
+\hyperlink{struct_redis_module}{Redis\+Module} $\ast$ \hyperlink{struct_redis_module_blocked_client_a9b71e67bccc12e40caf1d263db4172f3}{module}
+\item 
+\hyperlink{redismodule_8h_afd84062b24c2151cf8f2a53b955f9eed}{Redis\+Module\+Cmd\+Func} \hyperlink{struct_redis_module_blocked_client_ab1ad2ba0d6d49066ac12d91dd71eaa9e}{reply\+\_\+callback}
+\item 
+\hyperlink{redismodule_8h_afd84062b24c2151cf8f2a53b955f9eed}{Redis\+Module\+Cmd\+Func} \hyperlink{struct_redis_module_blocked_client_ad5b2a934fdf4cacf6ea5126c4ae31bf6}{timeout\+\_\+callback}
+\item 
+\hyperlink{redismodule_8h_a018e927d445b896dc38572db79f4907c}{Redis\+Module\+Disconnect\+Func} \hyperlink{struct_redis_module_blocked_client_a9fd300fed0252624be5cd1d87c1e9a2c}{disconnect\+\_\+callback}
+\item 
+void($\ast$ \hyperlink{struct_redis_module_blocked_client_a09d89fa730dac748044db7cfcb19ef1d}{free\+\_\+privdata} )(\hyperlink{struct_redis_module_ctx}{Redis\+Module\+Ctx} $\ast$, void $\ast$)
+\item 
+void $\ast$ \hyperlink{struct_redis_module_blocked_client_ac5df247494dd66a10946e2d67e56b2a1}{privdata}
+\item 
+\hyperlink{structclient}{client} $\ast$ \hyperlink{struct_redis_module_blocked_client_a09bd4914134a6336a5c03d4546ce0ba1}{reply\+\_\+client}
+\item 
+int \hyperlink{struct_redis_module_blocked_client_adc62368127157e2b3ff9cabe77f4f337}{dbid}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 201 of file module.\+c.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{struct_redis_module_blocked_client_a6d99956d3d06c98958feb17baf491c71}\label{struct_redis_module_blocked_client_a6d99956d3d06c98958feb17baf491c71}} 
+\index{Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}!client@{client}}
+\index{client@{client}!Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}}
+\subsubsection{\texorpdfstring{client}{client}}
+{\footnotesize\ttfamily \hyperlink{structclient}{client}$\ast$ \hyperlink{structclient}{client}}
+
+
+
+Definition at line 202 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_blocked_client_adc62368127157e2b3ff9cabe77f4f337}\label{struct_redis_module_blocked_client_adc62368127157e2b3ff9cabe77f4f337}} 
+\index{Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}!dbid@{dbid}}
+\index{dbid@{dbid}!Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}}
+\subsubsection{\texorpdfstring{dbid}{dbid}}
+{\footnotesize\ttfamily int dbid}
+
+
+
+Definition at line 214 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_blocked_client_a9fd300fed0252624be5cd1d87c1e9a2c}\label{struct_redis_module_blocked_client_a9fd300fed0252624be5cd1d87c1e9a2c}} 
+\index{Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}!disconnect\+\_\+callback@{disconnect\+\_\+callback}}
+\index{disconnect\+\_\+callback@{disconnect\+\_\+callback}!Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}}
+\subsubsection{\texorpdfstring{disconnect\+\_\+callback}{disconnect\_callback}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_a018e927d445b896dc38572db79f4907c}{Redis\+Module\+Disconnect\+Func} disconnect\+\_\+callback}
+
+
+
+Definition at line 207 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_blocked_client_a09d89fa730dac748044db7cfcb19ef1d}\label{struct_redis_module_blocked_client_a09d89fa730dac748044db7cfcb19ef1d}} 
+\index{Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}!free\+\_\+privdata@{free\+\_\+privdata}}
+\index{free\+\_\+privdata@{free\+\_\+privdata}!Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}}
+\subsubsection{\texorpdfstring{free\+\_\+privdata}{free\_privdata}}
+{\footnotesize\ttfamily void($\ast$ free\+\_\+privdata) (\hyperlink{struct_redis_module_ctx}{Redis\+Module\+Ctx} $\ast$, void $\ast$)}
+
+
+
+Definition at line 208 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_blocked_client_a9b71e67bccc12e40caf1d263db4172f3}\label{struct_redis_module_blocked_client_a9b71e67bccc12e40caf1d263db4172f3}} 
+\index{Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}!module@{module}}
+\index{module@{module}!Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}}
+\subsubsection{\texorpdfstring{module}{module}}
+{\footnotesize\ttfamily \hyperlink{struct_redis_module}{Redis\+Module}$\ast$ module}
+
+
+
+Definition at line 204 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_blocked_client_ac5df247494dd66a10946e2d67e56b2a1}\label{struct_redis_module_blocked_client_ac5df247494dd66a10946e2d67e56b2a1}} 
+\index{Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}!privdata@{privdata}}
+\index{privdata@{privdata}!Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}}
+\subsubsection{\texorpdfstring{privdata}{privdata}}
+{\footnotesize\ttfamily void$\ast$ privdata}
+
+
+
+Definition at line 209 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_blocked_client_ab1ad2ba0d6d49066ac12d91dd71eaa9e}\label{struct_redis_module_blocked_client_ab1ad2ba0d6d49066ac12d91dd71eaa9e}} 
+\index{Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}!reply\+\_\+callback@{reply\+\_\+callback}}
+\index{reply\+\_\+callback@{reply\+\_\+callback}!Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}}
+\subsubsection{\texorpdfstring{reply\+\_\+callback}{reply\_callback}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_afd84062b24c2151cf8f2a53b955f9eed}{Redis\+Module\+Cmd\+Func} reply\+\_\+callback}
+
+
+
+Definition at line 205 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_blocked_client_a09bd4914134a6336a5c03d4546ce0ba1}\label{struct_redis_module_blocked_client_a09bd4914134a6336a5c03d4546ce0ba1}} 
+\index{Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}!reply\+\_\+client@{reply\+\_\+client}}
+\index{reply\+\_\+client@{reply\+\_\+client}!Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}}
+\subsubsection{\texorpdfstring{reply\+\_\+client}{reply\_client}}
+{\footnotesize\ttfamily \hyperlink{structclient}{client}$\ast$ reply\+\_\+client}
+
+
+
+Definition at line 212 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_blocked_client_ad5b2a934fdf4cacf6ea5126c4ae31bf6}\label{struct_redis_module_blocked_client_ad5b2a934fdf4cacf6ea5126c4ae31bf6}} 
+\index{Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}!timeout\+\_\+callback@{timeout\+\_\+callback}}
+\index{timeout\+\_\+callback@{timeout\+\_\+callback}!Redis\+Module\+Blocked\+Client@{Redis\+Module\+Blocked\+Client}}
+\subsubsection{\texorpdfstring{timeout\+\_\+callback}{timeout\_callback}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_afd84062b24c2151cf8f2a53b955f9eed}{Redis\+Module\+Cmd\+Func} timeout\+\_\+callback}
+
+
+
+Definition at line 206 of file module.\+c.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{module_8c}{module.\+c}\end{DoxyCompactItemize}

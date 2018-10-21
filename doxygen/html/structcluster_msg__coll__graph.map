@@ -1,0 +1,8 @@
+<map id="clusterMsg" name="clusterMsg">
+<area shape="rect" id="node2" href="$unioncluster_msg_data.html" title="clusterMsgData" alt="" coords="261,107,376,133"/>
+<area shape="rect" id="node3" href="$structcluster_msg_data_publish.html" title="clusterMsgDataPublish" alt="" coords="5,5,163,32"/>
+<area shape="rect" id="node4" href="$structcluster_msg_data_update.html" title="clusterMsgDataUpdate" alt="" coords="6,56,162,83"/>
+<area shape="rect" id="node5" href="$structcluster_msg_data_fail.html" title="clusterMsgDataFail" alt="" coords="17,107,151,133"/>
+<area shape="rect" id="node6" href="$structcluster_msg_module.html" title="clusterMsgModule" alt="" coords="20,157,148,184"/>
+<area shape="rect" id="node7" href="$structcluster_msg_data_gossip.html" title="clusterMsgDataGossip" alt="" coords="7,208,161,235"/>
+</map>

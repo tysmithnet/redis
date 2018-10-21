@@ -1,0 +1,12 @@
+<map id="clusterState" name="clusterState">
+<area shape="rect" id="node2" href="$structrax.html" title="rax" alt="" coords="21,203,61,229"/>
+<area shape="rect" id="node3" href="$structrax_node.html" title="raxNode" alt="" coords="5,112,76,139"/>
+<area shape="rect" id="node4" href="$structcluster_node.html" title="clusterNode" alt="" coords="359,203,451,229"/>
+<area shape="rect" id="node5" href="$structcluster_link.html" title="clusterLink" alt="" coords="394,381,479,408"/>
+<area shape="rect" id="node6" href="$structlist.html" title="list" alt="" coords="385,112,424,139"/>
+<area shape="rect" id="node7" href="$structlist_node.html" title="listNode" alt="" coords="369,7,440,33"/>
+<area shape="rect" id="node8" href="$structdict.html" title="dict" alt="" coords="135,203,178,229"/>
+<area shape="rect" id="node9" href="$structdictht.html" title="dictht" alt="" coords="207,112,261,139"/>
+<area shape="rect" id="node10" href="$structdict_entry.html" title="dictEntry" alt="" coords="197,7,271,33"/>
+<area shape="rect" id="node11" href="$structdict_type.html" title="dictType" alt="" coords="110,112,182,139"/>
+</map>

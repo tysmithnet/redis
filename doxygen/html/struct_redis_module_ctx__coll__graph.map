@@ -1,0 +1,19 @@
+<map id="RedisModuleCtx" name="RedisModuleCtx">
+<area shape="rect" id="node2" href="$struct_redis_module_blocked_client.html" title="RedisModuleBlockedClient" alt="" coords="349,684,528,711"/>
+<area shape="rect" id="node3" href="$struct_redis_module.html" title="RedisModule" alt="" coords="257,473,356,500"/>
+<area shape="rect" id="node4" href="$structlist.html" title="list" alt="" coords="83,210,122,237"/>
+<area shape="rect" id="node6" href="$structclient.html" title="client" alt="" coords="401,473,455,500"/>
+<area shape="rect" id="node7" href="$structredis_db.html" title="redisDb" alt="" coords="201,375,268,402"/>
+<area shape="rect" id="node5" href="$structlist_node.html" title="listNode" alt="" coords="154,96,225,123"/>
+<area shape="rect" id="node8" href="$structdict.html" title="dict" alt="" coords="452,210,495,237"/>
+<area shape="rect" id="node13" href="$structblocking_state.html" title="blockingState" alt="" coords="377,375,479,402"/>
+<area shape="rect" id="node9" href="$structdictht.html" title="dictht" alt="" coords="486,96,541,123"/>
+<area shape="rect" id="node10" href="$structdict_entry.html" title="dictEntry" alt="" coords="476,5,551,32"/>
+<area shape="rect" id="node11" href="$structdict_type.html" title="dictType" alt="" coords="389,96,461,123"/>
+<area shape="rect" id="node12" href="$structredis_object.html" title="redisObject" alt="" coords="651,96,739,123"/>
+<area shape="rect" id="node16" href="$structmulti_cmd.html" title="multiCmd" alt="" coords="733,210,811,237"/>
+<area shape="rect" id="node14" href="$structredis_command.html" title="redisCommand" alt="" coords="787,96,898,123"/>
+<area shape="rect" id="node15" href="$structmulti_state.html" title="multiState" alt="" coords="733,375,814,402"/>
+<area shape="rect" id="node17" href="$struct_redis_module_pool_alloc_block.html" title="RedisModulePoolAllocBlock" alt="" coords="479,473,665,500"/>
+<area shape="rect" id="node18" href="$struct_auto_mem_entry.html" title="AutoMemEntry" alt="" coords="743,473,852,500"/>
+</map>

@@ -1,0 +1,256 @@
+\hypertarget{geohash__helper_8c}{}\section{src/geohash\+\_\+helper.c File Reference}
+\label{geohash__helper_8c}\index{src/geohash\+\_\+helper.\+c@{src/geohash\+\_\+helper.\+c}}
+{\ttfamily \#include \char`\"{}fmacros.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}geohash\+\_\+helper.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}debugmacro.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for geohash\+\_\+helper.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geohash__helper_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{geohash__helper_8c_a96d3ed094cee215a1c3806455ecfc4d2}{D\+\_\+R}~(M\+\_\+\+PI / 180.\+0)
+\item 
+\#define \hyperlink{geohash__helper_8c_a829002fc4dfdb3d37fa2d2e8ca61d2cf}{R\+\_\+\+M\+A\+J\+OR}~6378137.\+0
+\item 
+\#define \hyperlink{geohash__helper_8c_aaed2746737d8a4ae298ef4c61d58a1eb}{R\+\_\+\+M\+I\+N\+OR}~6356752.\+3142
+\item 
+\#define \hyperlink{geohash__helper_8c_a7e8b3c8482e593df0ace933ad3de22ee}{R\+A\+T\+IO}~(\hyperlink{geohash__helper_8c_aaed2746737d8a4ae298ef4c61d58a1eb}{R\+\_\+\+M\+I\+N\+OR} / \hyperlink{geohash__helper_8c_a829002fc4dfdb3d37fa2d2e8ca61d2cf}{R\+\_\+\+M\+A\+J\+OR})
+\item 
+\#define \hyperlink{geohash__helper_8c_a6e8637818fcb5466c85681cabd563e88}{E\+C\+C\+E\+NT}~(sqrt(1.\+0 -\/ (\hyperlink{geohash__helper_8c_a7e8b3c8482e593df0ace933ad3de22ee}{R\+A\+T\+IO} $\ast$\hyperlink{geohash__helper_8c_a7e8b3c8482e593df0ace933ad3de22ee}{R\+A\+T\+IO})))
+\item 
+\#define \hyperlink{geohash__helper_8c_a1557807c0d07a5b03c12753033006bdb}{C\+OM}~(0.\+5 $\ast$ \hyperlink{geohash__helper_8c_a6e8637818fcb5466c85681cabd563e88}{E\+C\+C\+E\+NT})
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \hyperlink{geohash__helper_8c_a99e639b3ecbdcd2f6d85d7f0d5bf41af}{geohash\+Estimate\+Steps\+By\+Radius} (double range\+\_\+meters, double lat)
+\item 
+int \hyperlink{geohash__helper_8c_aab5b423e1fd75fbba31bd62acbd6c576}{geohash\+Bounding\+Box} (double longitude, double latitude, double radius\+\_\+meters, double $\ast$bounds)
+\item 
+\hyperlink{struct_geo_hash_radius}{Geo\+Hash\+Radius} \hyperlink{geohash__helper_8c_aba4e7e152c8b78bce9ee13ced8e09989}{geohash\+Get\+Areas\+By\+Radius} (double longitude, double latitude, double radius\+\_\+meters)
+\item 
+\hyperlink{struct_geo_hash_radius}{Geo\+Hash\+Radius} \hyperlink{geohash__helper_8c_aa786f4b3ef9bd190a6c9d3f15b7e07a3}{geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84} (double longitude, double latitude, double radius\+\_\+meters)
+\item 
+\hyperlink{geohash__helper_8h_a3f9f7f7e1532501bd39bc64e3def333a}{Geo\+Hash\+Fix52\+Bits} \hyperlink{geohash__helper_8c_a28d482398092c27e7f4d299c86bdcabe}{geohash\+Align52\+Bits} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash)
+\item 
+double \hyperlink{geohash__helper_8c_a065523c9d54ab5f334b59241e5eaa502}{geohash\+Get\+Distance} (double lon1d, double lat1d, double lon2d, double lat2d)
+\item 
+int \hyperlink{geohash__helper_8c_a6eab38834cee78cee8fc60919de0a54e}{geohash\+Get\+Distance\+If\+In\+Radius} (double x1, double y1, double x2, double y2, double radius, double $\ast$distance)
+\item 
+int \hyperlink{geohash__helper_8c_afa8056fec384f91245e4c34dc9567e19}{geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84} (double x1, double y1, double x2, double y2, double radius, double $\ast$distance)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const double \hyperlink{geohash__helper_8c_a9c9055219f2dcfd6ee8466b6d530dcf1}{D\+E\+G\+\_\+\+T\+O\+\_\+\+R\+AD} = 0.\+017453292519943295769236907684886
+\begin{DoxyCompactList}\small\item\em The usual P\+I/180 constant. \end{DoxyCompactList}\item 
+const double \hyperlink{geohash__helper_8c_a3ba28fc60526f425743e9a369d202b33}{E\+A\+R\+T\+H\+\_\+\+R\+A\+D\+I\+U\+S\+\_\+\+I\+N\+\_\+\+M\+E\+T\+E\+RS} = 6372797.\+560856
+\begin{DoxyCompactList}\small\item\em Earth\textquotesingle{}s quatratic mean radius for W\+G\+S-\/84. \end{DoxyCompactList}\item 
+const double \hyperlink{geohash__helper_8c_a19d1c929d758e00fa45ae1557f556b60}{M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+AX} = 20037726.\+37
+\item 
+const double \hyperlink{geohash__helper_8c_ab0c9976aab28a22167d4271640c647dd}{M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+IN} = -\/20037726.\+37
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{geohash__helper_8c_a1557807c0d07a5b03c12753033006bdb}\label{geohash__helper_8c_a1557807c0d07a5b03c12753033006bdb}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!C\+OM@{C\+OM}}
+\index{C\+OM@{C\+OM}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{C\+OM}{COM}}
+{\footnotesize\ttfamily \#define C\+OM~(0.\+5 $\ast$ \hyperlink{geohash__helper_8c_a6e8637818fcb5466c85681cabd563e88}{E\+C\+C\+E\+NT})}
+
+
+
+Definition at line 47 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_a96d3ed094cee215a1c3806455ecfc4d2}\label{geohash__helper_8c_a96d3ed094cee215a1c3806455ecfc4d2}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!D\+\_\+R@{D\+\_\+R}}
+\index{D\+\_\+R@{D\+\_\+R}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{D\+\_\+R}{D\_R}}
+{\footnotesize\ttfamily \#define D\+\_\+R~(M\+\_\+\+PI / 180.\+0)}
+
+
+
+Definition at line 42 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_a6e8637818fcb5466c85681cabd563e88}\label{geohash__helper_8c_a6e8637818fcb5466c85681cabd563e88}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!E\+C\+C\+E\+NT@{E\+C\+C\+E\+NT}}
+\index{E\+C\+C\+E\+NT@{E\+C\+C\+E\+NT}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{E\+C\+C\+E\+NT}{ECCENT}}
+{\footnotesize\ttfamily \#define E\+C\+C\+E\+NT~(sqrt(1.\+0 -\/ (\hyperlink{geohash__helper_8c_a7e8b3c8482e593df0ace933ad3de22ee}{R\+A\+T\+IO} $\ast$\hyperlink{geohash__helper_8c_a7e8b3c8482e593df0ace933ad3de22ee}{R\+A\+T\+IO})))}
+
+
+
+Definition at line 46 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_a829002fc4dfdb3d37fa2d2e8ca61d2cf}\label{geohash__helper_8c_a829002fc4dfdb3d37fa2d2e8ca61d2cf}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!R\+\_\+\+M\+A\+J\+OR@{R\+\_\+\+M\+A\+J\+OR}}
+\index{R\+\_\+\+M\+A\+J\+OR@{R\+\_\+\+M\+A\+J\+OR}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{R\+\_\+\+M\+A\+J\+OR}{R\_MAJOR}}
+{\footnotesize\ttfamily \#define R\+\_\+\+M\+A\+J\+OR~6378137.\+0}
+
+
+
+Definition at line 43 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_aaed2746737d8a4ae298ef4c61d58a1eb}\label{geohash__helper_8c_aaed2746737d8a4ae298ef4c61d58a1eb}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!R\+\_\+\+M\+I\+N\+OR@{R\+\_\+\+M\+I\+N\+OR}}
+\index{R\+\_\+\+M\+I\+N\+OR@{R\+\_\+\+M\+I\+N\+OR}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{R\+\_\+\+M\+I\+N\+OR}{R\_MINOR}}
+{\footnotesize\ttfamily \#define R\+\_\+\+M\+I\+N\+OR~6356752.\+3142}
+
+
+
+Definition at line 44 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_a7e8b3c8482e593df0ace933ad3de22ee}\label{geohash__helper_8c_a7e8b3c8482e593df0ace933ad3de22ee}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!R\+A\+T\+IO@{R\+A\+T\+IO}}
+\index{R\+A\+T\+IO@{R\+A\+T\+IO}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{R\+A\+T\+IO}{RATIO}}
+{\footnotesize\ttfamily \#define R\+A\+T\+IO~(\hyperlink{geohash__helper_8c_aaed2746737d8a4ae298ef4c61d58a1eb}{R\+\_\+\+M\+I\+N\+OR} / \hyperlink{geohash__helper_8c_a829002fc4dfdb3d37fa2d2e8ca61d2cf}{R\+\_\+\+M\+A\+J\+OR})}
+
+
+
+Definition at line 45 of file geohash\+\_\+helper.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{geohash__helper_8c_a28d482398092c27e7f4d299c86bdcabe}\label{geohash__helper_8c_a28d482398092c27e7f4d299c86bdcabe}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!geohash\+Align52\+Bits@{geohash\+Align52\+Bits}}
+\index{geohash\+Align52\+Bits@{geohash\+Align52\+Bits}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Align52\+Bits()}{geohashAlign52Bits()}}
+{\footnotesize\ttfamily \hyperlink{geohash__helper_8h_a3f9f7f7e1532501bd39bc64e3def333a}{Geo\+Hash\+Fix52\+Bits} geohash\+Align52\+Bits (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash }\end{DoxyParamCaption})}
+
+
+
+Definition at line 204 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_aab5b423e1fd75fbba31bd62acbd6c576}\label{geohash__helper_8c_aab5b423e1fd75fbba31bd62acbd6c576}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!geohash\+Bounding\+Box@{geohash\+Bounding\+Box}}
+\index{geohash\+Bounding\+Box@{geohash\+Bounding\+Box}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Bounding\+Box()}{geohashBoundingBox()}}
+{\footnotesize\ttfamily int geohash\+Bounding\+Box (\begin{DoxyParamCaption}\item[{double}]{longitude,  }\item[{double}]{latitude,  }\item[{double}]{radius\+\_\+meters,  }\item[{double $\ast$}]{bounds }\end{DoxyParamCaption})}
+
+
+
+Definition at line 103 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_a99e639b3ecbdcd2f6d85d7f0d5bf41af}\label{geohash__helper_8c_a99e639b3ecbdcd2f6d85d7f0d5bf41af}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!geohash\+Estimate\+Steps\+By\+Radius@{geohash\+Estimate\+Steps\+By\+Radius}}
+\index{geohash\+Estimate\+Steps\+By\+Radius@{geohash\+Estimate\+Steps\+By\+Radius}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Estimate\+Steps\+By\+Radius()}{geohashEstimateStepsByRadius()}}
+{\footnotesize\ttfamily uint8\+\_\+t geohash\+Estimate\+Steps\+By\+Radius (\begin{DoxyParamCaption}\item[{double}]{range\+\_\+meters,  }\item[{double}]{lat }\end{DoxyParamCaption})}
+
+
+
+Definition at line 62 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_aba4e7e152c8b78bce9ee13ced8e09989}\label{geohash__helper_8c_aba4e7e152c8b78bce9ee13ced8e09989}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!geohash\+Get\+Areas\+By\+Radius@{geohash\+Get\+Areas\+By\+Radius}}
+\index{geohash\+Get\+Areas\+By\+Radius@{geohash\+Get\+Areas\+By\+Radius}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Get\+Areas\+By\+Radius()}{geohashGetAreasByRadius()}}
+{\footnotesize\ttfamily \hyperlink{struct_geo_hash_radius}{Geo\+Hash\+Radius} geohash\+Get\+Areas\+By\+Radius (\begin{DoxyParamCaption}\item[{double}]{longitude,  }\item[{double}]{latitude,  }\item[{double}]{radius\+\_\+meters }\end{DoxyParamCaption})}
+
+
+
+Definition at line 116 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_aa786f4b3ef9bd190a6c9d3f15b7e07a3}\label{geohash__helper_8c_aa786f4b3ef9bd190a6c9d3f15b7e07a3}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84@{geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84}}
+\index{geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84@{geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84()}{geohashGetAreasByRadiusWGS84()}}
+{\footnotesize\ttfamily \hyperlink{struct_geo_hash_radius}{Geo\+Hash\+Radius} geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84 (\begin{DoxyParamCaption}\item[{double}]{longitude,  }\item[{double}]{latitude,  }\item[{double}]{radius\+\_\+meters }\end{DoxyParamCaption})}
+
+
+
+Definition at line 199 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_a065523c9d54ab5f334b59241e5eaa502}\label{geohash__helper_8c_a065523c9d54ab5f334b59241e5eaa502}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!geohash\+Get\+Distance@{geohash\+Get\+Distance}}
+\index{geohash\+Get\+Distance@{geohash\+Get\+Distance}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Get\+Distance()}{geohashGetDistance()}}
+{\footnotesize\ttfamily double geohash\+Get\+Distance (\begin{DoxyParamCaption}\item[{double}]{lon1d,  }\item[{double}]{lat1d,  }\item[{double}]{lon2d,  }\item[{double}]{lat2d }\end{DoxyParamCaption})}
+
+
+
+Definition at line 211 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_a6eab38834cee78cee8fc60919de0a54e}\label{geohash__helper_8c_a6eab38834cee78cee8fc60919de0a54e}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!geohash\+Get\+Distance\+If\+In\+Radius@{geohash\+Get\+Distance\+If\+In\+Radius}}
+\index{geohash\+Get\+Distance\+If\+In\+Radius@{geohash\+Get\+Distance\+If\+In\+Radius}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Get\+Distance\+If\+In\+Radius()}{geohashGetDistanceIfInRadius()}}
+{\footnotesize\ttfamily int geohash\+Get\+Distance\+If\+In\+Radius (\begin{DoxyParamCaption}\item[{double}]{x1,  }\item[{double}]{y1,  }\item[{double}]{x2,  }\item[{double}]{y2,  }\item[{double}]{radius,  }\item[{double $\ast$}]{distance }\end{DoxyParamCaption})}
+
+
+
+Definition at line 223 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_afa8056fec384f91245e4c34dc9567e19}\label{geohash__helper_8c_afa8056fec384f91245e4c34dc9567e19}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84@{geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84}}
+\index{geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84@{geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84()}{geohashGetDistanceIfInRadiusWGS84()}}
+{\footnotesize\ttfamily int geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84 (\begin{DoxyParamCaption}\item[{double}]{x1,  }\item[{double}]{y1,  }\item[{double}]{x2,  }\item[{double}]{y2,  }\item[{double}]{radius,  }\item[{double $\ast$}]{distance }\end{DoxyParamCaption})}
+
+
+
+Definition at line 231 of file geohash\+\_\+helper.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{geohash__helper_8c_a9c9055219f2dcfd6ee8466b6d530dcf1}\label{geohash__helper_8c_a9c9055219f2dcfd6ee8466b6d530dcf1}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!D\+E\+G\+\_\+\+T\+O\+\_\+\+R\+AD@{D\+E\+G\+\_\+\+T\+O\+\_\+\+R\+AD}}
+\index{D\+E\+G\+\_\+\+T\+O\+\_\+\+R\+AD@{D\+E\+G\+\_\+\+T\+O\+\_\+\+R\+AD}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{D\+E\+G\+\_\+\+T\+O\+\_\+\+R\+AD}{DEG\_TO\_RAD}}
+{\footnotesize\ttfamily const double D\+E\+G\+\_\+\+T\+O\+\_\+\+R\+AD = 0.\+017453292519943295769236907684886}
+
+
+
+The usual P\+I/180 constant. 
+
+
+
+Definition at line 50 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_a3ba28fc60526f425743e9a369d202b33}\label{geohash__helper_8c_a3ba28fc60526f425743e9a369d202b33}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!E\+A\+R\+T\+H\+\_\+\+R\+A\+D\+I\+U\+S\+\_\+\+I\+N\+\_\+\+M\+E\+T\+E\+RS@{E\+A\+R\+T\+H\+\_\+\+R\+A\+D\+I\+U\+S\+\_\+\+I\+N\+\_\+\+M\+E\+T\+E\+RS}}
+\index{E\+A\+R\+T\+H\+\_\+\+R\+A\+D\+I\+U\+S\+\_\+\+I\+N\+\_\+\+M\+E\+T\+E\+RS@{E\+A\+R\+T\+H\+\_\+\+R\+A\+D\+I\+U\+S\+\_\+\+I\+N\+\_\+\+M\+E\+T\+E\+RS}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{E\+A\+R\+T\+H\+\_\+\+R\+A\+D\+I\+U\+S\+\_\+\+I\+N\+\_\+\+M\+E\+T\+E\+RS}{EARTH\_RADIUS\_IN\_METERS}}
+{\footnotesize\ttfamily const double E\+A\+R\+T\+H\+\_\+\+R\+A\+D\+I\+U\+S\+\_\+\+I\+N\+\_\+\+M\+E\+T\+E\+RS = 6372797.\+560856}
+
+
+
+Earth\textquotesingle{}s quatratic mean radius for W\+G\+S-\/84. 
+
+
+
+Definition at line 52 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_a19d1c929d758e00fa45ae1557f556b60}\label{geohash__helper_8c_a19d1c929d758e00fa45ae1557f556b60}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+AX@{M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+AX}}
+\index{M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+AX@{M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+AX}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+AX}{MERCATOR\_MAX}}
+{\footnotesize\ttfamily const double M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+AX = 20037726.\+37}
+
+
+
+Definition at line 54 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8c_ab0c9976aab28a22167d4271640c647dd}\label{geohash__helper_8c_ab0c9976aab28a22167d4271640c647dd}} 
+\index{geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}!M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+IN@{M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+IN}}
+\index{M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+IN@{M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+IN}!geohash\+\_\+helper.\+c@{geohash\+\_\+helper.\+c}}
+\subsubsection{\texorpdfstring{M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+IN}{MERCATOR\_MIN}}
+{\footnotesize\ttfamily const double M\+E\+R\+C\+A\+T\+O\+R\+\_\+\+M\+IN = -\/20037726.\+37}
+
+
+
+Definition at line 55 of file geohash\+\_\+helper.\+c.
+

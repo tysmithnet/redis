@@ -1,0 +1,142 @@
+\hypertarget{struct_redis_module_type}{}\section{Redis\+Module\+Type Struct Reference}
+\label{struct_redis_module_type}\index{Redis\+Module\+Type@{Redis\+Module\+Type}}
+
+
+{\ttfamily \#include $<$server.\+h$>$}
+
+
+
+Collaboration diagram for Redis\+Module\+Type\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_redis_module_type__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint64\+\_\+t \hyperlink{struct_redis_module_type_a7e290573ef1be67b92a2c745e3b00d1d}{id}
+\item 
+struct \hyperlink{struct_redis_module}{Redis\+Module} $\ast$ \hyperlink{struct_redis_module_type_a0b5d3833feb2320585734795fb7f62b6}{module}
+\item 
+\hyperlink{server_8h_a828eedada3f580a3c87038a86451482a}{module\+Type\+Load\+Func} \hyperlink{struct_redis_module_type_a40f9f41115e6664b101f4b358deebd3b}{rdb\+\_\+load}
+\item 
+\hyperlink{server_8h_a135930c4755891558676ed788fae701b}{module\+Type\+Save\+Func} \hyperlink{struct_redis_module_type_a0cd3611f995b73531f3cba3716f69839}{rdb\+\_\+save}
+\item 
+\hyperlink{server_8h_a40830f84874e380a79a349e91552d187}{module\+Type\+Rewrite\+Func} \hyperlink{struct_redis_module_type_af8f8737aabdb7c45ccbf85e7d4351541}{aof\+\_\+rewrite}
+\item 
+\hyperlink{server_8h_a686795dcf15453eb345d43007c933f9b}{module\+Type\+Mem\+Usage\+Func} \hyperlink{struct_redis_module_type_ae3702833db2444b2ec958b5116dc00d3}{mem\+\_\+usage}
+\item 
+\hyperlink{server_8h_abd6a3739d32c76c9d560324215668d1b}{module\+Type\+Digest\+Func} \hyperlink{struct_redis_module_type_ad99df9c318d570861b92496bbf158efa}{digest}
+\item 
+\hyperlink{server_8h_a3106a404efe2080365b6b39517601a45}{module\+Type\+Free\+Func} \hyperlink{struct_redis_module_type_a966c47580ef5f4abf50e4109df7168ad}{free}
+\item 
+char \hyperlink{struct_redis_module_type_a38db771080a5bca533de0f0236ff11ec}{name} \mbox{[}10\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 511 of file server.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{struct_redis_module_type_af8f8737aabdb7c45ccbf85e7d4351541}\label{struct_redis_module_type_af8f8737aabdb7c45ccbf85e7d4351541}} 
+\index{Redis\+Module\+Type@{Redis\+Module\+Type}!aof\+\_\+rewrite@{aof\+\_\+rewrite}}
+\index{aof\+\_\+rewrite@{aof\+\_\+rewrite}!Redis\+Module\+Type@{Redis\+Module\+Type}}
+\subsubsection{\texorpdfstring{aof\+\_\+rewrite}{aof\_rewrite}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a40830f84874e380a79a349e91552d187}{module\+Type\+Rewrite\+Func} aof\+\_\+rewrite}
+
+
+
+Definition at line 516 of file server.\+h.
+
+\mbox{\Hypertarget{struct_redis_module_type_ad99df9c318d570861b92496bbf158efa}\label{struct_redis_module_type_ad99df9c318d570861b92496bbf158efa}} 
+\index{Redis\+Module\+Type@{Redis\+Module\+Type}!digest@{digest}}
+\index{digest@{digest}!Redis\+Module\+Type@{Redis\+Module\+Type}}
+\subsubsection{\texorpdfstring{digest}{digest}}
+{\footnotesize\ttfamily \hyperlink{server_8h_abd6a3739d32c76c9d560324215668d1b}{module\+Type\+Digest\+Func} digest}
+
+
+
+Definition at line 518 of file server.\+h.
+
+\mbox{\Hypertarget{struct_redis_module_type_a966c47580ef5f4abf50e4109df7168ad}\label{struct_redis_module_type_a966c47580ef5f4abf50e4109df7168ad}} 
+\index{Redis\+Module\+Type@{Redis\+Module\+Type}!free@{free}}
+\index{free@{free}!Redis\+Module\+Type@{Redis\+Module\+Type}}
+\subsubsection{\texorpdfstring{free}{free}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a3106a404efe2080365b6b39517601a45}{module\+Type\+Free\+Func} free}
+
+
+
+Definition at line 519 of file server.\+h.
+
+\mbox{\Hypertarget{struct_redis_module_type_a7e290573ef1be67b92a2c745e3b00d1d}\label{struct_redis_module_type_a7e290573ef1be67b92a2c745e3b00d1d}} 
+\index{Redis\+Module\+Type@{Redis\+Module\+Type}!id@{id}}
+\index{id@{id}!Redis\+Module\+Type@{Redis\+Module\+Type}}
+\subsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily uint64\+\_\+t id}
+
+
+
+Definition at line 512 of file server.\+h.
+
+\mbox{\Hypertarget{struct_redis_module_type_ae3702833db2444b2ec958b5116dc00d3}\label{struct_redis_module_type_ae3702833db2444b2ec958b5116dc00d3}} 
+\index{Redis\+Module\+Type@{Redis\+Module\+Type}!mem\+\_\+usage@{mem\+\_\+usage}}
+\index{mem\+\_\+usage@{mem\+\_\+usage}!Redis\+Module\+Type@{Redis\+Module\+Type}}
+\subsubsection{\texorpdfstring{mem\+\_\+usage}{mem\_usage}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a686795dcf15453eb345d43007c933f9b}{module\+Type\+Mem\+Usage\+Func} mem\+\_\+usage}
+
+
+
+Definition at line 517 of file server.\+h.
+
+\mbox{\Hypertarget{struct_redis_module_type_a0b5d3833feb2320585734795fb7f62b6}\label{struct_redis_module_type_a0b5d3833feb2320585734795fb7f62b6}} 
+\index{Redis\+Module\+Type@{Redis\+Module\+Type}!module@{module}}
+\index{module@{module}!Redis\+Module\+Type@{Redis\+Module\+Type}}
+\subsubsection{\texorpdfstring{module}{module}}
+{\footnotesize\ttfamily struct \hyperlink{struct_redis_module}{Redis\+Module}$\ast$ module}
+
+
+
+Definition at line 513 of file server.\+h.
+
+\mbox{\Hypertarget{struct_redis_module_type_a38db771080a5bca533de0f0236ff11ec}\label{struct_redis_module_type_a38db771080a5bca533de0f0236ff11ec}} 
+\index{Redis\+Module\+Type@{Redis\+Module\+Type}!name@{name}}
+\index{name@{name}!Redis\+Module\+Type@{Redis\+Module\+Type}}
+\subsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily char name\mbox{[}10\mbox{]}}
+
+
+
+Definition at line 520 of file server.\+h.
+
+\mbox{\Hypertarget{struct_redis_module_type_a40f9f41115e6664b101f4b358deebd3b}\label{struct_redis_module_type_a40f9f41115e6664b101f4b358deebd3b}} 
+\index{Redis\+Module\+Type@{Redis\+Module\+Type}!rdb\+\_\+load@{rdb\+\_\+load}}
+\index{rdb\+\_\+load@{rdb\+\_\+load}!Redis\+Module\+Type@{Redis\+Module\+Type}}
+\subsubsection{\texorpdfstring{rdb\+\_\+load}{rdb\_load}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a828eedada3f580a3c87038a86451482a}{module\+Type\+Load\+Func} rdb\+\_\+load}
+
+
+
+Definition at line 514 of file server.\+h.
+
+\mbox{\Hypertarget{struct_redis_module_type_a0cd3611f995b73531f3cba3716f69839}\label{struct_redis_module_type_a0cd3611f995b73531f3cba3716f69839}} 
+\index{Redis\+Module\+Type@{Redis\+Module\+Type}!rdb\+\_\+save@{rdb\+\_\+save}}
+\index{rdb\+\_\+save@{rdb\+\_\+save}!Redis\+Module\+Type@{Redis\+Module\+Type}}
+\subsubsection{\texorpdfstring{rdb\+\_\+save}{rdb\_save}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a135930c4755891558676ed788fae701b}{module\+Type\+Save\+Func} rdb\+\_\+save}
+
+
+
+Definition at line 515 of file server.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{server_8h}{server.\+h}\end{DoxyCompactItemize}

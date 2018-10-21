@@ -1,0 +1,154 @@
+\hypertarget{structrax_iterator}{}\section{rax\+Iterator Struct Reference}
+\label{structrax_iterator}\index{rax\+Iterator@{rax\+Iterator}}
+
+
+{\ttfamily \#include $<$rax.\+h$>$}
+
+
+
+Collaboration diagram for rax\+Iterator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{structrax_iterator__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{structrax_iterator_ac8bf36fe0577cba66bccda3a6f7e80a4}{flags}
+\item 
+\hyperlink{structrax}{rax} $\ast$ \hyperlink{structrax_iterator_a58939ec4439701d170853cf158043d57}{rt}
+\item 
+unsigned char $\ast$ \hyperlink{structrax_iterator_a1cb5ee363f3d6d0f548eb6e64d72a7c8}{key}
+\item 
+void $\ast$ \hyperlink{structrax_iterator_a735984d41155bc1032e09bece8f8d66d}{data}
+\item 
+size\+\_\+t \hyperlink{structrax_iterator_aaa2dc552577da2bba064c4d36d971c26}{key\+\_\+len}
+\item 
+size\+\_\+t \hyperlink{structrax_iterator_a7e65a3134205dfce4a447bc3359f1a07}{key\+\_\+max}
+\item 
+unsigned char \hyperlink{structrax_iterator_a5854437e7714a04ea59691e0e5167883}{key\+\_\+static\+\_\+string} \mbox{[}\hyperlink{rax_8h_a172e740ce3572b21018192e7877217dd}{R\+A\+X\+\_\+\+I\+T\+E\+R\+\_\+\+S\+T\+A\+T\+I\+C\+\_\+\+L\+EN}\mbox{]}
+\item 
+\hyperlink{structrax_node}{rax\+Node} $\ast$ \hyperlink{structrax_iterator_ae2c06018ed6b76e72dd8b8372011afa5}{node}
+\item 
+\hyperlink{structrax_stack}{rax\+Stack} \hyperlink{structrax_iterator_ad25901300905129025788c7c8f27cb8e}{stack}
+\item 
+\hyperlink{rax_8h_a08d5db58149f8656e7f4d046b70a4ef1}{rax\+Node\+Callback} \hyperlink{structrax_iterator_af80d4e8e6dcdfdb2c80c37457122426c}{node\+\_\+cb}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 175 of file rax.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structrax_iterator_a735984d41155bc1032e09bece8f8d66d}\label{structrax_iterator_a735984d41155bc1032e09bece8f8d66d}} 
+\index{rax\+Iterator@{rax\+Iterator}!data@{data}}
+\index{data@{data}!rax\+Iterator@{rax\+Iterator}}
+\subsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily void$\ast$ data}
+
+
+
+Definition at line 179 of file rax.\+h.
+
+\mbox{\Hypertarget{structrax_iterator_ac8bf36fe0577cba66bccda3a6f7e80a4}\label{structrax_iterator_ac8bf36fe0577cba66bccda3a6f7e80a4}} 
+\index{rax\+Iterator@{rax\+Iterator}!flags@{flags}}
+\index{flags@{flags}!rax\+Iterator@{rax\+Iterator}}
+\subsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily int flags}
+
+
+
+Definition at line 176 of file rax.\+h.
+
+\mbox{\Hypertarget{structrax_iterator_a1cb5ee363f3d6d0f548eb6e64d72a7c8}\label{structrax_iterator_a1cb5ee363f3d6d0f548eb6e64d72a7c8}} 
+\index{rax\+Iterator@{rax\+Iterator}!key@{key}}
+\index{key@{key}!rax\+Iterator@{rax\+Iterator}}
+\subsubsection{\texorpdfstring{key}{key}}
+{\footnotesize\ttfamily unsigned char$\ast$ key}
+
+
+
+Definition at line 178 of file rax.\+h.
+
+\mbox{\Hypertarget{structrax_iterator_aaa2dc552577da2bba064c4d36d971c26}\label{structrax_iterator_aaa2dc552577da2bba064c4d36d971c26}} 
+\index{rax\+Iterator@{rax\+Iterator}!key\+\_\+len@{key\+\_\+len}}
+\index{key\+\_\+len@{key\+\_\+len}!rax\+Iterator@{rax\+Iterator}}
+\subsubsection{\texorpdfstring{key\+\_\+len}{key\_len}}
+{\footnotesize\ttfamily size\+\_\+t key\+\_\+len}
+
+
+
+Definition at line 180 of file rax.\+h.
+
+\mbox{\Hypertarget{structrax_iterator_a7e65a3134205dfce4a447bc3359f1a07}\label{structrax_iterator_a7e65a3134205dfce4a447bc3359f1a07}} 
+\index{rax\+Iterator@{rax\+Iterator}!key\+\_\+max@{key\+\_\+max}}
+\index{key\+\_\+max@{key\+\_\+max}!rax\+Iterator@{rax\+Iterator}}
+\subsubsection{\texorpdfstring{key\+\_\+max}{key\_max}}
+{\footnotesize\ttfamily size\+\_\+t key\+\_\+max}
+
+
+
+Definition at line 181 of file rax.\+h.
+
+\mbox{\Hypertarget{structrax_iterator_a5854437e7714a04ea59691e0e5167883}\label{structrax_iterator_a5854437e7714a04ea59691e0e5167883}} 
+\index{rax\+Iterator@{rax\+Iterator}!key\+\_\+static\+\_\+string@{key\+\_\+static\+\_\+string}}
+\index{key\+\_\+static\+\_\+string@{key\+\_\+static\+\_\+string}!rax\+Iterator@{rax\+Iterator}}
+\subsubsection{\texorpdfstring{key\+\_\+static\+\_\+string}{key\_static\_string}}
+{\footnotesize\ttfamily unsigned char key\+\_\+static\+\_\+string\mbox{[}\hyperlink{rax_8h_a172e740ce3572b21018192e7877217dd}{R\+A\+X\+\_\+\+I\+T\+E\+R\+\_\+\+S\+T\+A\+T\+I\+C\+\_\+\+L\+EN}\mbox{]}}
+
+
+
+Definition at line 182 of file rax.\+h.
+
+\mbox{\Hypertarget{structrax_iterator_ae2c06018ed6b76e72dd8b8372011afa5}\label{structrax_iterator_ae2c06018ed6b76e72dd8b8372011afa5}} 
+\index{rax\+Iterator@{rax\+Iterator}!node@{node}}
+\index{node@{node}!rax\+Iterator@{rax\+Iterator}}
+\subsubsection{\texorpdfstring{node}{node}}
+{\footnotesize\ttfamily \hyperlink{structrax_node}{rax\+Node}$\ast$ node}
+
+
+
+Definition at line 183 of file rax.\+h.
+
+\mbox{\Hypertarget{structrax_iterator_af80d4e8e6dcdfdb2c80c37457122426c}\label{structrax_iterator_af80d4e8e6dcdfdb2c80c37457122426c}} 
+\index{rax\+Iterator@{rax\+Iterator}!node\+\_\+cb@{node\+\_\+cb}}
+\index{node\+\_\+cb@{node\+\_\+cb}!rax\+Iterator@{rax\+Iterator}}
+\subsubsection{\texorpdfstring{node\+\_\+cb}{node\_cb}}
+{\footnotesize\ttfamily \hyperlink{rax_8h_a08d5db58149f8656e7f4d046b70a4ef1}{rax\+Node\+Callback} node\+\_\+cb}
+
+
+
+Definition at line 185 of file rax.\+h.
+
+\mbox{\Hypertarget{structrax_iterator_a58939ec4439701d170853cf158043d57}\label{structrax_iterator_a58939ec4439701d170853cf158043d57}} 
+\index{rax\+Iterator@{rax\+Iterator}!rt@{rt}}
+\index{rt@{rt}!rax\+Iterator@{rax\+Iterator}}
+\subsubsection{\texorpdfstring{rt}{rt}}
+{\footnotesize\ttfamily \hyperlink{structrax}{rax}$\ast$ rt}
+
+
+
+Definition at line 177 of file rax.\+h.
+
+\mbox{\Hypertarget{structrax_iterator_ad25901300905129025788c7c8f27cb8e}\label{structrax_iterator_ad25901300905129025788c7c8f27cb8e}} 
+\index{rax\+Iterator@{rax\+Iterator}!stack@{stack}}
+\index{stack@{stack}!rax\+Iterator@{rax\+Iterator}}
+\subsubsection{\texorpdfstring{stack}{stack}}
+{\footnotesize\ttfamily \hyperlink{structrax_stack}{rax\+Stack} stack}
+
+
+
+Definition at line 184 of file rax.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{rax_8h}{rax.\+h}\end{DoxyCompactItemize}

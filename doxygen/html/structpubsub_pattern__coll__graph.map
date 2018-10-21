@@ -1,0 +1,15 @@
+<map id="pubsubPattern" name="pubsubPattern">
+<area shape="rect" id="node2" href="$structredis_object.html" title="redisObject" alt="" coords="107,96,195,123"/>
+<area shape="rect" id="node3" href="$structclient.html" title="client" alt="" coords="387,473,440,500"/>
+<area shape="rect" id="node11" href="$structblocking_state.html" title="blockingState" alt="" coords="157,375,259,402"/>
+<area shape="rect" id="node14" href="$structmulti_cmd.html" title="multiCmd" alt="" coords="303,210,382,237"/>
+<area shape="rect" id="node4" href="$structredis_db.html" title="redisDb" alt="" coords="543,375,609,402"/>
+<area shape="rect" id="node5" href="$structdict.html" title="dict" alt="" coords="436,210,479,237"/>
+<area shape="rect" id="node6" href="$structdictht.html" title="dictht" alt="" coords="594,96,649,123"/>
+<area shape="rect" id="node7" href="$structdict_entry.html" title="dictEntry" alt="" coords="584,5,659,32"/>
+<area shape="rect" id="node8" href="$structdict_type.html" title="dictType" alt="" coords="423,96,495,123"/>
+<area shape="rect" id="node9" href="$structlist.html" title="list" alt="" coords="733,210,771,237"/>
+<area shape="rect" id="node10" href="$structlist_node.html" title="listNode" alt="" coords="817,96,887,123"/>
+<area shape="rect" id="node12" href="$structredis_command.html" title="redisCommand" alt="" coords="287,96,398,123"/>
+<area shape="rect" id="node13" href="$structmulti_state.html" title="multiState" alt="" coords="283,375,365,402"/>
+</map>

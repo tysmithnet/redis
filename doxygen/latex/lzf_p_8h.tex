@@ -1,0 +1,201 @@
+\hypertarget{lzf_p_8h}{}\section{src/lzfP.h File Reference}
+\label{lzf_p_8h}\index{src/lzf\+P.\+h@{src/lzf\+P.\+h}}
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for lzf\+P.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{lzf_p_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{lzf_p_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{lzf_p_8h_ab1c59581eafa11e55bf8f6ea8b877dd6}{S\+T\+A\+N\+D\+A\+L\+O\+NE}~1 /$\ast$ at the moment, this is ok. $\ast$/
+\item 
+\#define \hyperlink{lzf_p_8h_aaa67275c53290bd99d516d4b9a5d7d76}{H\+L\+OG}~16
+\item 
+\#define \hyperlink{lzf_p_8h_a48a08aed5b9070297732293c1429ad88}{V\+E\+R\+Y\+\_\+\+F\+A\+ST}~1
+\item 
+\#define \hyperlink{lzf_p_8h_a35a67224caa202606b05b24f286bcb9e}{U\+L\+T\+R\+A\+\_\+\+F\+A\+ST}~0
+\item 
+\#define \hyperlink{lzf_p_8h_a34203552492ece577af0130f4bc3afe5}{S\+T\+R\+I\+C\+T\+\_\+\+A\+L\+I\+GN}~1
+\item 
+\#define \hyperlink{lzf_p_8h_a4c39dab09d3f4c2e0ab1e1d63799af37}{I\+N\+I\+T\+\_\+\+H\+T\+AB}~0
+\item 
+\#define \hyperlink{lzf_p_8h_ab79b1248963e926daff345624578d082}{A\+V\+O\+I\+D\+\_\+\+E\+R\+R\+NO}~0
+\item 
+\#define \hyperlink{lzf_p_8h_a2bf88c8c88ba8168003f54ea1970367a}{L\+Z\+F\+\_\+\+S\+T\+A\+T\+E\+\_\+\+A\+RG}~0
+\item 
+\#define \hyperlink{lzf_p_8h_a1a4fde3dbdd8e8f920a325f551fcfd94}{C\+H\+E\+C\+K\+\_\+\+I\+N\+P\+UT}~1
+\item 
+\#define \hyperlink{lzf_p_8h_a457514b44b38b3933357c7723c137ba5}{L\+Z\+F\+\_\+\+U\+S\+E\+\_\+\+O\+F\+F\+S\+E\+TS}~(U\+I\+N\+T\+P\+T\+R\+\_\+\+M\+AX $>$ 0xffffffff\+U)
+\item 
+\#define \hyperlink{lzf_p_8h_a980629f2ad88980e35ca8519e53abac8}{L\+Z\+F\+\_\+\+H\+S\+L\+O\+T\+\_\+\+B\+I\+AS}~0
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned char \hyperlink{lzf_p_8h_aed742c436da53c1080638ce6ef7d13de}{u8}
+\item 
+typedef const \hyperlink{lzf_p_8h_aed742c436da53c1080638ce6ef7d13de}{u8} $\ast$ \hyperlink{lzf_p_8h_a81cf737cd8a581746e2996abe6d2177b}{L\+Z\+F\+\_\+\+H\+S\+L\+OT}
+\item 
+typedef \hyperlink{lzf_p_8h_a81cf737cd8a581746e2996abe6d2177b}{L\+Z\+F\+\_\+\+H\+S\+L\+OT} \hyperlink{lzf_p_8h_a9c308eb32d02ede71f1465d54c619465}{L\+Z\+F\+\_\+\+S\+T\+A\+TE}\mbox{[}1$<$$<$(\hyperlink{lzf_p_8h_aaa67275c53290bd99d516d4b9a5d7d76}{H\+L\+OG})\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{lzf_p_8h_ab79b1248963e926daff345624578d082}\label{lzf_p_8h_ab79b1248963e926daff345624578d082}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!A\+V\+O\+I\+D\+\_\+\+E\+R\+R\+NO@{A\+V\+O\+I\+D\+\_\+\+E\+R\+R\+NO}}
+\index{A\+V\+O\+I\+D\+\_\+\+E\+R\+R\+NO@{A\+V\+O\+I\+D\+\_\+\+E\+R\+R\+NO}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{A\+V\+O\+I\+D\+\_\+\+E\+R\+R\+NO}{AVOID\_ERRNO}}
+{\footnotesize\ttfamily \#define A\+V\+O\+I\+D\+\_\+\+E\+R\+R\+NO~0}
+
+
+
+Definition at line 104 of file lzf\+P.\+h.
+
+\mbox{\Hypertarget{lzf_p_8h_a1a4fde3dbdd8e8f920a325f551fcfd94}\label{lzf_p_8h_a1a4fde3dbdd8e8f920a325f551fcfd94}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!C\+H\+E\+C\+K\+\_\+\+I\+N\+P\+UT@{C\+H\+E\+C\+K\+\_\+\+I\+N\+P\+UT}}
+\index{C\+H\+E\+C\+K\+\_\+\+I\+N\+P\+UT@{C\+H\+E\+C\+K\+\_\+\+I\+N\+P\+UT}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{C\+H\+E\+C\+K\+\_\+\+I\+N\+P\+UT}{CHECK\_INPUT}}
+{\footnotesize\ttfamily \#define C\+H\+E\+C\+K\+\_\+\+I\+N\+P\+UT~1}
+
+
+
+Definition at line 125 of file lzf\+P.\+h.
+
+\mbox{\Hypertarget{lzf_p_8h_aaa67275c53290bd99d516d4b9a5d7d76}\label{lzf_p_8h_aaa67275c53290bd99d516d4b9a5d7d76}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!H\+L\+OG@{H\+L\+OG}}
+\index{H\+L\+OG@{H\+L\+OG}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{H\+L\+OG}{HLOG}}
+{\footnotesize\ttfamily \#define H\+L\+OG~16}
+
+
+
+Definition at line 55 of file lzf\+P.\+h.
+
+\mbox{\Hypertarget{lzf_p_8h_a4c39dab09d3f4c2e0ab1e1d63799af37}\label{lzf_p_8h_a4c39dab09d3f4c2e0ab1e1d63799af37}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!I\+N\+I\+T\+\_\+\+H\+T\+AB@{I\+N\+I\+T\+\_\+\+H\+T\+AB}}
+\index{I\+N\+I\+T\+\_\+\+H\+T\+AB@{I\+N\+I\+T\+\_\+\+H\+T\+AB}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{I\+N\+I\+T\+\_\+\+H\+T\+AB}{INIT\_HTAB}}
+{\footnotesize\ttfamily \#define I\+N\+I\+T\+\_\+\+H\+T\+AB~0}
+
+
+
+Definition at line 95 of file lzf\+P.\+h.
+
+\mbox{\Hypertarget{lzf_p_8h_a980629f2ad88980e35ca8519e53abac8}\label{lzf_p_8h_a980629f2ad88980e35ca8519e53abac8}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!L\+Z\+F\+\_\+\+H\+S\+L\+O\+T\+\_\+\+B\+I\+AS@{L\+Z\+F\+\_\+\+H\+S\+L\+O\+T\+\_\+\+B\+I\+AS}}
+\index{L\+Z\+F\+\_\+\+H\+S\+L\+O\+T\+\_\+\+B\+I\+AS@{L\+Z\+F\+\_\+\+H\+S\+L\+O\+T\+\_\+\+B\+I\+AS}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{L\+Z\+F\+\_\+\+H\+S\+L\+O\+T\+\_\+\+B\+I\+AS}{LZF\_HSLOT\_BIAS}}
+{\footnotesize\ttfamily \#define L\+Z\+F\+\_\+\+H\+S\+L\+O\+T\+\_\+\+B\+I\+AS~0}
+
+
+
+Definition at line 166 of file lzf\+P.\+h.
+
+\mbox{\Hypertarget{lzf_p_8h_a2bf88c8c88ba8168003f54ea1970367a}\label{lzf_p_8h_a2bf88c8c88ba8168003f54ea1970367a}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!L\+Z\+F\+\_\+\+S\+T\+A\+T\+E\+\_\+\+A\+RG@{L\+Z\+F\+\_\+\+S\+T\+A\+T\+E\+\_\+\+A\+RG}}
+\index{L\+Z\+F\+\_\+\+S\+T\+A\+T\+E\+\_\+\+A\+RG@{L\+Z\+F\+\_\+\+S\+T\+A\+T\+E\+\_\+\+A\+RG}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{L\+Z\+F\+\_\+\+S\+T\+A\+T\+E\+\_\+\+A\+RG}{LZF\_STATE\_ARG}}
+{\footnotesize\ttfamily \#define L\+Z\+F\+\_\+\+S\+T\+A\+T\+E\+\_\+\+A\+RG~0}
+
+
+
+Definition at line 113 of file lzf\+P.\+h.
+
+\mbox{\Hypertarget{lzf_p_8h_a457514b44b38b3933357c7723c137ba5}\label{lzf_p_8h_a457514b44b38b3933357c7723c137ba5}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!L\+Z\+F\+\_\+\+U\+S\+E\+\_\+\+O\+F\+F\+S\+E\+TS@{L\+Z\+F\+\_\+\+U\+S\+E\+\_\+\+O\+F\+F\+S\+E\+TS}}
+\index{L\+Z\+F\+\_\+\+U\+S\+E\+\_\+\+O\+F\+F\+S\+E\+TS@{L\+Z\+F\+\_\+\+U\+S\+E\+\_\+\+O\+F\+F\+S\+E\+TS}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{L\+Z\+F\+\_\+\+U\+S\+E\+\_\+\+O\+F\+F\+S\+E\+TS}{LZF\_USE\_OFFSETS}}
+{\footnotesize\ttfamily \#define L\+Z\+F\+\_\+\+U\+S\+E\+\_\+\+O\+F\+F\+S\+E\+TS~(U\+I\+N\+T\+P\+T\+R\+\_\+\+M\+AX $>$ 0xffffffff\+U)}
+
+
+
+Definition at line 156 of file lzf\+P.\+h.
+
+\mbox{\Hypertarget{lzf_p_8h_ab1c59581eafa11e55bf8f6ea8b877dd6}\label{lzf_p_8h_ab1c59581eafa11e55bf8f6ea8b877dd6}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!S\+T\+A\+N\+D\+A\+L\+O\+NE@{S\+T\+A\+N\+D\+A\+L\+O\+NE}}
+\index{S\+T\+A\+N\+D\+A\+L\+O\+NE@{S\+T\+A\+N\+D\+A\+L\+O\+NE}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{S\+T\+A\+N\+D\+A\+L\+O\+NE}{STANDALONE}}
+{\footnotesize\ttfamily \#define S\+T\+A\+N\+D\+A\+L\+O\+NE~1 /$\ast$ at the moment, this is ok. $\ast$/}
+
+
+
+Definition at line 40 of file lzf\+P.\+h.
+
+\mbox{\Hypertarget{lzf_p_8h_a34203552492ece577af0130f4bc3afe5}\label{lzf_p_8h_a34203552492ece577af0130f4bc3afe5}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!S\+T\+R\+I\+C\+T\+\_\+\+A\+L\+I\+GN@{S\+T\+R\+I\+C\+T\+\_\+\+A\+L\+I\+GN}}
+\index{S\+T\+R\+I\+C\+T\+\_\+\+A\+L\+I\+GN@{S\+T\+R\+I\+C\+T\+\_\+\+A\+L\+I\+GN}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{S\+T\+R\+I\+C\+T\+\_\+\+A\+L\+I\+GN}{STRICT\_ALIGN}}
+{\footnotesize\ttfamily \#define S\+T\+R\+I\+C\+T\+\_\+\+A\+L\+I\+GN~1}
+
+
+
+Definition at line 83 of file lzf\+P.\+h.
+
+\mbox{\Hypertarget{lzf_p_8h_a35a67224caa202606b05b24f286bcb9e}\label{lzf_p_8h_a35a67224caa202606b05b24f286bcb9e}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!U\+L\+T\+R\+A\+\_\+\+F\+A\+ST@{U\+L\+T\+R\+A\+\_\+\+F\+A\+ST}}
+\index{U\+L\+T\+R\+A\+\_\+\+F\+A\+ST@{U\+L\+T\+R\+A\+\_\+\+F\+A\+ST}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{U\+L\+T\+R\+A\+\_\+\+F\+A\+ST}{ULTRA\_FAST}}
+{\footnotesize\ttfamily \#define U\+L\+T\+R\+A\+\_\+\+F\+A\+ST~0}
+
+
+
+Definition at line 75 of file lzf\+P.\+h.
+
+\mbox{\Hypertarget{lzf_p_8h_a48a08aed5b9070297732293c1429ad88}\label{lzf_p_8h_a48a08aed5b9070297732293c1429ad88}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!V\+E\+R\+Y\+\_\+\+F\+A\+ST@{V\+E\+R\+Y\+\_\+\+F\+A\+ST}}
+\index{V\+E\+R\+Y\+\_\+\+F\+A\+ST@{V\+E\+R\+Y\+\_\+\+F\+A\+ST}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{V\+E\+R\+Y\+\_\+\+F\+A\+ST}{VERY\_FAST}}
+{\footnotesize\ttfamily \#define V\+E\+R\+Y\+\_\+\+F\+A\+ST~1}
+
+
+
+Definition at line 64 of file lzf\+P.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{lzf_p_8h_a81cf737cd8a581746e2996abe6d2177b}\label{lzf_p_8h_a81cf737cd8a581746e2996abe6d2177b}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!L\+Z\+F\+\_\+\+H\+S\+L\+OT@{L\+Z\+F\+\_\+\+H\+S\+L\+OT}}
+\index{L\+Z\+F\+\_\+\+H\+S\+L\+OT@{L\+Z\+F\+\_\+\+H\+S\+L\+OT}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{L\+Z\+F\+\_\+\+H\+S\+L\+OT}{LZF\_HSLOT}}
+{\footnotesize\ttfamily typedef const \hyperlink{lzf_p_8h_aed742c436da53c1080638ce6ef7d13de}{u8}$\ast$ \hyperlink{lzf_p_8h_a81cf737cd8a581746e2996abe6d2177b}{L\+Z\+F\+\_\+\+H\+S\+L\+OT}}
+
+
+
+Definition at line 167 of file lzf\+P.\+h.
+
+\mbox{\Hypertarget{lzf_p_8h_a9c308eb32d02ede71f1465d54c619465}\label{lzf_p_8h_a9c308eb32d02ede71f1465d54c619465}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!L\+Z\+F\+\_\+\+S\+T\+A\+TE@{L\+Z\+F\+\_\+\+S\+T\+A\+TE}}
+\index{L\+Z\+F\+\_\+\+S\+T\+A\+TE@{L\+Z\+F\+\_\+\+S\+T\+A\+TE}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{L\+Z\+F\+\_\+\+S\+T\+A\+TE}{LZF\_STATE}}
+{\footnotesize\ttfamily typedef \hyperlink{lzf_p_8h_a81cf737cd8a581746e2996abe6d2177b}{L\+Z\+F\+\_\+\+H\+S\+L\+OT} L\+Z\+F\+\_\+\+S\+T\+A\+TE\mbox{[}1$<$$<$(\hyperlink{lzf_p_8h_aaa67275c53290bd99d516d4b9a5d7d76}{H\+L\+OG})\mbox{]}}
+
+
+
+Definition at line 170 of file lzf\+P.\+h.
+
+\mbox{\Hypertarget{lzf_p_8h_aed742c436da53c1080638ce6ef7d13de}\label{lzf_p_8h_aed742c436da53c1080638ce6ef7d13de}} 
+\index{lzf\+P.\+h@{lzf\+P.\+h}!u8@{u8}}
+\index{u8@{u8}!lzf\+P.\+h@{lzf\+P.\+h}}
+\subsubsection{\texorpdfstring{u8}{u8}}
+{\footnotesize\ttfamily typedef unsigned char \hyperlink{lzf_p_8h_aed742c436da53c1080638ce6ef7d13de}{u8}}
+
+
+
+Definition at line 160 of file lzf\+P.\+h.
+

@@ -1,0 +1,294 @@
+\hypertarget{structcluster_manager_node}{}\section{cluster\+Manager\+Node Struct Reference}
+\label{structcluster_manager_node}\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+
+
+Collaboration diagram for cluster\+Manager\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{structcluster_manager_node__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+redis\+Context $\ast$ \hyperlink{structcluster_manager_node_ace869d36dc1b4de4b6d046c0c71486cb}{context}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{structcluster_manager_node_a78d661a433637c5e0fac8a377e3ddeb6}{name}
+\item 
+char $\ast$ \hyperlink{structcluster_manager_node_afbc356cd0e25d1dbbece7c10fd025fa6}{ip}
+\item 
+int \hyperlink{structcluster_manager_node_a63c89c04d1feae07ca35558055155ffb}{port}
+\item 
+uint64\+\_\+t \hyperlink{structcluster_manager_node_ab523bc9f0cc579208ad514cc588d3981}{current\+\_\+epoch}
+\item 
+time\+\_\+t \hyperlink{structcluster_manager_node_a3131021cfa8e1212d327a9ea5593e585}{ping\+\_\+sent}
+\item 
+time\+\_\+t \hyperlink{structcluster_manager_node_ad8bbaa889c9a9c08137836207b72b64a}{ping\+\_\+recv}
+\item 
+int \hyperlink{structcluster_manager_node_ac8bf36fe0577cba66bccda3a6f7e80a4}{flags}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structcluster_manager_node_a2996ddb21acb702fdb383abf6ea1c0b3}{flags\+\_\+str}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{structcluster_manager_node_af6f45314e664ae7be8f68488be45354d}{replicate}
+\item 
+\hyperlink{structlist}{list} \hyperlink{structcluster_manager_node_ad83e6ba102626a40bb3fab569c04a735}{replicas}
+\item 
+int \hyperlink{structcluster_manager_node_a120b75c12097e7fdda71535d04ae7880}{dirty}
+\item 
+uint8\+\_\+t \hyperlink{structcluster_manager_node_a6f06905b827dc0f8fb569761fb55cab6}{slots} \mbox{[}\hyperlink{redis-cli_8c_adff5eca00afc90a8c3c213bb7100cdc0}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+S\+L\+O\+TS}\mbox{]}
+\item 
+int \hyperlink{structcluster_manager_node_ac71d8fbda6f0a3ab58593d31114de67a}{slots\+\_\+count}
+\item 
+int \hyperlink{structcluster_manager_node_a6a823cf956d3d5ba7505d98158f95c45}{replicas\+\_\+count}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structcluster_manager_node_ae23d28d899b0e45974609c4ac7f1ea8f}{friends}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$ \hyperlink{structcluster_manager_node_a604c80c491c9223758b948b037f86c71}{migrating}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$ \hyperlink{structcluster_manager_node_a5a772e4c6ce0e8c19238f6e054e7c277}{importing}
+\item 
+int \hyperlink{structcluster_manager_node_af1e54163cd1ecf546c6ccd63a4be9caa}{migrating\+\_\+count}
+\item 
+int \hyperlink{structcluster_manager_node_a25436798b02625247a3e5dd2625c4e96}{importing\+\_\+count}
+\item 
+float \hyperlink{structcluster_manager_node_a8128625c9e3fd04c27b82957732d8781}{weight}
+\item 
+int \hyperlink{structcluster_manager_node_ac794434112478f3134ad93778a0f2860}{balance}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 1869 of file redis-\/cli.\+c.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structcluster_manager_node_ac794434112478f3134ad93778a0f2860}\label{structcluster_manager_node_ac794434112478f3134ad93778a0f2860}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!balance@{balance}}
+\index{balance@{balance}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{balance}{balance}}
+{\footnotesize\ttfamily int balance}
+
+
+
+Definition at line 1893 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_ace869d36dc1b4de4b6d046c0c71486cb}\label{structcluster_manager_node_ace869d36dc1b4de4b6d046c0c71486cb}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!context@{context}}
+\index{context@{context}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{context}{context}}
+{\footnotesize\ttfamily redis\+Context$\ast$ context}
+
+
+
+Definition at line 1870 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_ab523bc9f0cc579208ad514cc588d3981}\label{structcluster_manager_node_ab523bc9f0cc579208ad514cc588d3981}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!current\+\_\+epoch@{current\+\_\+epoch}}
+\index{current\+\_\+epoch@{current\+\_\+epoch}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{current\+\_\+epoch}{current\_epoch}}
+{\footnotesize\ttfamily uint64\+\_\+t current\+\_\+epoch}
+
+
+
+Definition at line 1874 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_a120b75c12097e7fdda71535d04ae7880}\label{structcluster_manager_node_a120b75c12097e7fdda71535d04ae7880}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!dirty@{dirty}}
+\index{dirty@{dirty}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{dirty}{dirty}}
+{\footnotesize\ttfamily int dirty}
+
+
+
+Definition at line 1881 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_ac8bf36fe0577cba66bccda3a6f7e80a4}\label{structcluster_manager_node_ac8bf36fe0577cba66bccda3a6f7e80a4}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!flags@{flags}}
+\index{flags@{flags}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily int flags}
+
+
+
+Definition at line 1877 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_a2996ddb21acb702fdb383abf6ea1c0b3}\label{structcluster_manager_node_a2996ddb21acb702fdb383abf6ea1c0b3}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!flags\+\_\+str@{flags\+\_\+str}}
+\index{flags\+\_\+str@{flags\+\_\+str}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{flags\+\_\+str}{flags\_str}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ flags\+\_\+str}
+
+
+
+Definition at line 1878 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_ae23d28d899b0e45974609c4ac7f1ea8f}\label{structcluster_manager_node_ae23d28d899b0e45974609c4ac7f1ea8f}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!friends@{friends}}
+\index{friends@{friends}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{friends}{friends}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ friends}
+
+
+
+Definition at line 1885 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_a5a772e4c6ce0e8c19238f6e054e7c277}\label{structcluster_manager_node_a5a772e4c6ce0e8c19238f6e054e7c277}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!importing@{importing}}
+\index{importing@{importing}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{importing}{importing}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}$\ast$ importing}
+
+
+
+Definition at line 1888 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_a25436798b02625247a3e5dd2625c4e96}\label{structcluster_manager_node_a25436798b02625247a3e5dd2625c4e96}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!importing\+\_\+count@{importing\+\_\+count}}
+\index{importing\+\_\+count@{importing\+\_\+count}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{importing\+\_\+count}{importing\_count}}
+{\footnotesize\ttfamily int importing\+\_\+count}
+
+
+
+Definition at line 1891 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_afbc356cd0e25d1dbbece7c10fd025fa6}\label{structcluster_manager_node_afbc356cd0e25d1dbbece7c10fd025fa6}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!ip@{ip}}
+\index{ip@{ip}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{ip}{ip}}
+{\footnotesize\ttfamily char$\ast$ ip}
+
+
+
+Definition at line 1872 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_a604c80c491c9223758b948b037f86c71}\label{structcluster_manager_node_a604c80c491c9223758b948b037f86c71}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!migrating@{migrating}}
+\index{migrating@{migrating}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{migrating}{migrating}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}$\ast$ migrating}
+
+
+
+Definition at line 1886 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_af1e54163cd1ecf546c6ccd63a4be9caa}\label{structcluster_manager_node_af1e54163cd1ecf546c6ccd63a4be9caa}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!migrating\+\_\+count@{migrating\+\_\+count}}
+\index{migrating\+\_\+count@{migrating\+\_\+count}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{migrating\+\_\+count}{migrating\_count}}
+{\footnotesize\ttfamily int migrating\+\_\+count}
+
+
+
+Definition at line 1890 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_a78d661a433637c5e0fac8a377e3ddeb6}\label{structcluster_manager_node_a78d661a433637c5e0fac8a377e3ddeb6}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!name@{name}}
+\index{name@{name}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} name}
+
+
+
+Definition at line 1871 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_ad8bbaa889c9a9c08137836207b72b64a}\label{structcluster_manager_node_ad8bbaa889c9a9c08137836207b72b64a}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!ping\+\_\+recv@{ping\+\_\+recv}}
+\index{ping\+\_\+recv@{ping\+\_\+recv}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{ping\+\_\+recv}{ping\_recv}}
+{\footnotesize\ttfamily time\+\_\+t ping\+\_\+recv}
+
+
+
+Definition at line 1876 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_a3131021cfa8e1212d327a9ea5593e585}\label{structcluster_manager_node_a3131021cfa8e1212d327a9ea5593e585}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!ping\+\_\+sent@{ping\+\_\+sent}}
+\index{ping\+\_\+sent@{ping\+\_\+sent}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{ping\+\_\+sent}{ping\_sent}}
+{\footnotesize\ttfamily time\+\_\+t ping\+\_\+sent}
+
+
+
+Definition at line 1875 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_a63c89c04d1feae07ca35558055155ffb}\label{structcluster_manager_node_a63c89c04d1feae07ca35558055155ffb}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!port@{port}}
+\index{port@{port}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{port}{port}}
+{\footnotesize\ttfamily int port}
+
+
+
+Definition at line 1873 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_ad83e6ba102626a40bb3fab569c04a735}\label{structcluster_manager_node_ad83e6ba102626a40bb3fab569c04a735}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!replicas@{replicas}}
+\index{replicas@{replicas}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{replicas}{replicas}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list} replicas}
+
+
+
+Definition at line 1880 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_a6a823cf956d3d5ba7505d98158f95c45}\label{structcluster_manager_node_a6a823cf956d3d5ba7505d98158f95c45}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!replicas\+\_\+count@{replicas\+\_\+count}}
+\index{replicas\+\_\+count@{replicas\+\_\+count}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{replicas\+\_\+count}{replicas\_count}}
+{\footnotesize\ttfamily int replicas\+\_\+count}
+
+
+
+Definition at line 1884 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_af6f45314e664ae7be8f68488be45354d}\label{structcluster_manager_node_af6f45314e664ae7be8f68488be45354d}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!replicate@{replicate}}
+\index{replicate@{replicate}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{replicate}{replicate}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} replicate}
+
+
+
+Definition at line 1879 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_a6f06905b827dc0f8fb569761fb55cab6}\label{structcluster_manager_node_a6f06905b827dc0f8fb569761fb55cab6}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!slots@{slots}}
+\index{slots@{slots}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{slots}{slots}}
+{\footnotesize\ttfamily uint8\+\_\+t slots\mbox{[}\hyperlink{redis-cli_8c_adff5eca00afc90a8c3c213bb7100cdc0}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+S\+L\+O\+TS}\mbox{]}}
+
+
+
+Definition at line 1882 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_ac71d8fbda6f0a3ab58593d31114de67a}\label{structcluster_manager_node_ac71d8fbda6f0a3ab58593d31114de67a}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!slots\+\_\+count@{slots\+\_\+count}}
+\index{slots\+\_\+count@{slots\+\_\+count}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{slots\+\_\+count}{slots\_count}}
+{\footnotesize\ttfamily int slots\+\_\+count}
+
+
+
+Definition at line 1883 of file redis-\/cli.\+c.
+
+\mbox{\Hypertarget{structcluster_manager_node_a8128625c9e3fd04c27b82957732d8781}\label{structcluster_manager_node_a8128625c9e3fd04c27b82957732d8781}} 
+\index{cluster\+Manager\+Node@{cluster\+Manager\+Node}!weight@{weight}}
+\index{weight@{weight}!cluster\+Manager\+Node@{cluster\+Manager\+Node}}
+\subsubsection{\texorpdfstring{weight}{weight}}
+{\footnotesize\ttfamily float weight}
+
+
+
+Definition at line 1892 of file redis-\/cli.\+c.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{redis-cli_8c}{redis-\/cli.\+c}\end{DoxyCompactItemize}

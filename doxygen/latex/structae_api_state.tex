@@ -1,0 +1,167 @@
+\hypertarget{structae_api_state}{}\section{ae\+Api\+State Struct Reference}
+\label{structae_api_state}\index{ae\+Api\+State@{ae\+Api\+State}}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{structae_api_state_ad9ea3108c3907d7dedaf4ee7283bef1d}{epfd}
+\item 
+struct epoll\+\_\+event $\ast$ \hyperlink{structae_api_state_a18bcd14e4d4cab5184d3b046754cd248}{events}
+\item 
+int \hyperlink{structae_api_state_aa9eafa913479690a5a1dd276dda1e270}{portfd}
+\item 
+int \hyperlink{structae_api_state_a6f4c81b06defc657dcf060888fa72ad2}{npending}
+\item 
+int \hyperlink{structae_api_state_adffd92b7629bbcebdbf55f077e1df317}{pending\+\_\+fds} \mbox{[}\hyperlink{ae__evport_8c_ab9854fb7f580a9077208ed70f45c8f15}{M\+A\+X\+\_\+\+E\+V\+E\+N\+T\+\_\+\+B\+A\+T\+C\+H\+SZ}\mbox{]}
+\item 
+int \hyperlink{structae_api_state_a60c7db13c66fbee7d2107c9dbe05acbe}{pending\+\_\+masks} \mbox{[}\hyperlink{ae__evport_8c_ab9854fb7f580a9077208ed70f45c8f15}{M\+A\+X\+\_\+\+E\+V\+E\+N\+T\+\_\+\+B\+A\+T\+C\+H\+SZ}\mbox{]}
+\item 
+int \hyperlink{structae_api_state_aa16ac46da03ffb75e8913e2b978ad813}{kqfd}
+\item 
+struct kevent $\ast$ \hyperlink{structae_api_state_ac4b7894707b47b577951136ff0c44929}{events}
+\item 
+fd\+\_\+set \hyperlink{structae_api_state_a66342c63e01fe543ed20793f32385f7e}{rfds}
+\item 
+fd\+\_\+set \hyperlink{structae_api_state_a6391a90ddf873c2555b842a474fb9309}{wfds}
+\item 
+fd\+\_\+set \hyperlink{structae_api_state_a0e84e684034812e7fd687c23ccf3019a}{\+\_\+rfds}
+\item 
+fd\+\_\+set \hyperlink{structae_api_state_a244aead6b00af6366ffb8ca8f49fdcd5}{\+\_\+wfds}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 34 of file ae\+\_\+epoll.\+c.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structae_api_state_a0e84e684034812e7fd687c23ccf3019a}\label{structae_api_state_a0e84e684034812e7fd687c23ccf3019a}} 
+\index{ae\+Api\+State@{ae\+Api\+State}!\+\_\+rfds@{\+\_\+rfds}}
+\index{\+\_\+rfds@{\+\_\+rfds}!ae\+Api\+State@{ae\+Api\+State}}
+\subsubsection{\texorpdfstring{\+\_\+rfds}{\_rfds}}
+{\footnotesize\ttfamily fd\+\_\+set \+\_\+rfds}
+
+
+
+Definition at line 39 of file ae\+\_\+select.\+c.
+
+\mbox{\Hypertarget{structae_api_state_a244aead6b00af6366ffb8ca8f49fdcd5}\label{structae_api_state_a244aead6b00af6366ffb8ca8f49fdcd5}} 
+\index{ae\+Api\+State@{ae\+Api\+State}!\+\_\+wfds@{\+\_\+wfds}}
+\index{\+\_\+wfds@{\+\_\+wfds}!ae\+Api\+State@{ae\+Api\+State}}
+\subsubsection{\texorpdfstring{\+\_\+wfds}{\_wfds}}
+{\footnotesize\ttfamily fd\+\_\+set \+\_\+wfds}
+
+
+
+Definition at line 39 of file ae\+\_\+select.\+c.
+
+\mbox{\Hypertarget{structae_api_state_ad9ea3108c3907d7dedaf4ee7283bef1d}\label{structae_api_state_ad9ea3108c3907d7dedaf4ee7283bef1d}} 
+\index{ae\+Api\+State@{ae\+Api\+State}!epfd@{epfd}}
+\index{epfd@{epfd}!ae\+Api\+State@{ae\+Api\+State}}
+\subsubsection{\texorpdfstring{epfd}{epfd}}
+{\footnotesize\ttfamily int epfd}
+
+
+
+Definition at line 35 of file ae\+\_\+epoll.\+c.
+
+\mbox{\Hypertarget{structae_api_state_a18bcd14e4d4cab5184d3b046754cd248}\label{structae_api_state_a18bcd14e4d4cab5184d3b046754cd248}} 
+\index{ae\+Api\+State@{ae\+Api\+State}!events@{events}}
+\index{events@{events}!ae\+Api\+State@{ae\+Api\+State}}
+\subsubsection{\texorpdfstring{events}{events}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily struct epoll\+\_\+event$\ast$ events}
+
+
+
+Definition at line 36 of file ae\+\_\+epoll.\+c.
+
+\mbox{\Hypertarget{structae_api_state_ac4b7894707b47b577951136ff0c44929}\label{structae_api_state_ac4b7894707b47b577951136ff0c44929}} 
+\index{ae\+Api\+State@{ae\+Api\+State}!events@{events}}
+\index{events@{events}!ae\+Api\+State@{ae\+Api\+State}}
+\subsubsection{\texorpdfstring{events}{events}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily struct kevent$\ast$ events}
+
+
+
+Definition at line 38 of file ae\+\_\+kqueue.\+c.
+
+\mbox{\Hypertarget{structae_api_state_aa16ac46da03ffb75e8913e2b978ad813}\label{structae_api_state_aa16ac46da03ffb75e8913e2b978ad813}} 
+\index{ae\+Api\+State@{ae\+Api\+State}!kqfd@{kqfd}}
+\index{kqfd@{kqfd}!ae\+Api\+State@{ae\+Api\+State}}
+\subsubsection{\texorpdfstring{kqfd}{kqfd}}
+{\footnotesize\ttfamily int kqfd}
+
+
+
+Definition at line 37 of file ae\+\_\+kqueue.\+c.
+
+\mbox{\Hypertarget{structae_api_state_a6f4c81b06defc657dcf060888fa72ad2}\label{structae_api_state_a6f4c81b06defc657dcf060888fa72ad2}} 
+\index{ae\+Api\+State@{ae\+Api\+State}!npending@{npending}}
+\index{npending@{npending}!ae\+Api\+State@{ae\+Api\+State}}
+\subsubsection{\texorpdfstring{npending}{npending}}
+{\footnotesize\ttfamily int npending}
+
+
+
+Definition at line 70 of file ae\+\_\+evport.\+c.
+
+\mbox{\Hypertarget{structae_api_state_adffd92b7629bbcebdbf55f077e1df317}\label{structae_api_state_adffd92b7629bbcebdbf55f077e1df317}} 
+\index{ae\+Api\+State@{ae\+Api\+State}!pending\+\_\+fds@{pending\+\_\+fds}}
+\index{pending\+\_\+fds@{pending\+\_\+fds}!ae\+Api\+State@{ae\+Api\+State}}
+\subsubsection{\texorpdfstring{pending\+\_\+fds}{pending\_fds}}
+{\footnotesize\ttfamily int pending\+\_\+fds\mbox{[}\hyperlink{ae__evport_8c_ab9854fb7f580a9077208ed70f45c8f15}{M\+A\+X\+\_\+\+E\+V\+E\+N\+T\+\_\+\+B\+A\+T\+C\+H\+SZ}\mbox{]}}
+
+
+
+Definition at line 71 of file ae\+\_\+evport.\+c.
+
+\mbox{\Hypertarget{structae_api_state_a60c7db13c66fbee7d2107c9dbe05acbe}\label{structae_api_state_a60c7db13c66fbee7d2107c9dbe05acbe}} 
+\index{ae\+Api\+State@{ae\+Api\+State}!pending\+\_\+masks@{pending\+\_\+masks}}
+\index{pending\+\_\+masks@{pending\+\_\+masks}!ae\+Api\+State@{ae\+Api\+State}}
+\subsubsection{\texorpdfstring{pending\+\_\+masks}{pending\_masks}}
+{\footnotesize\ttfamily int pending\+\_\+masks\mbox{[}\hyperlink{ae__evport_8c_ab9854fb7f580a9077208ed70f45c8f15}{M\+A\+X\+\_\+\+E\+V\+E\+N\+T\+\_\+\+B\+A\+T\+C\+H\+SZ}\mbox{]}}
+
+
+
+Definition at line 72 of file ae\+\_\+evport.\+c.
+
+\mbox{\Hypertarget{structae_api_state_aa9eafa913479690a5a1dd276dda1e270}\label{structae_api_state_aa9eafa913479690a5a1dd276dda1e270}} 
+\index{ae\+Api\+State@{ae\+Api\+State}!portfd@{portfd}}
+\index{portfd@{portfd}!ae\+Api\+State@{ae\+Api\+State}}
+\subsubsection{\texorpdfstring{portfd}{portfd}}
+{\footnotesize\ttfamily int portfd}
+
+
+
+Definition at line 69 of file ae\+\_\+evport.\+c.
+
+\mbox{\Hypertarget{structae_api_state_a66342c63e01fe543ed20793f32385f7e}\label{structae_api_state_a66342c63e01fe543ed20793f32385f7e}} 
+\index{ae\+Api\+State@{ae\+Api\+State}!rfds@{rfds}}
+\index{rfds@{rfds}!ae\+Api\+State@{ae\+Api\+State}}
+\subsubsection{\texorpdfstring{rfds}{rfds}}
+{\footnotesize\ttfamily fd\+\_\+set rfds}
+
+
+
+Definition at line 36 of file ae\+\_\+select.\+c.
+
+\mbox{\Hypertarget{structae_api_state_a6391a90ddf873c2555b842a474fb9309}\label{structae_api_state_a6391a90ddf873c2555b842a474fb9309}} 
+\index{ae\+Api\+State@{ae\+Api\+State}!wfds@{wfds}}
+\index{wfds@{wfds}!ae\+Api\+State@{ae\+Api\+State}}
+\subsubsection{\texorpdfstring{wfds}{wfds}}
+{\footnotesize\ttfamily fd\+\_\+set wfds}
+
+
+
+Definition at line 36 of file ae\+\_\+select.\+c.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{ae__epoll_8c}{ae\+\_\+epoll.\+c}\item 
+src/\hyperlink{ae__evport_8c}{ae\+\_\+evport.\+c}\item 
+src/\hyperlink{ae__kqueue_8c}{ae\+\_\+kqueue.\+c}\item 
+src/\hyperlink{ae__select_8c}{ae\+\_\+select.\+c}\end{DoxyCompactItemize}

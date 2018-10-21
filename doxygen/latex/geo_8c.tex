@@ -1,0 +1,397 @@
+\hypertarget{geo_8c}{}\section{src/geo.c File Reference}
+\label{geo_8c}\index{src/geo.\+c@{src/geo.\+c}}
+{\ttfamily \#include \char`\"{}geo.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}geohash\+\_\+helper.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}debugmacro.\+h\char`\"{}}\newline
+Include dependency graph for geo.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{geo_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{geo_8c_ac14be771411e01611e9e539c87567be4}{S\+O\+R\+T\+\_\+\+N\+O\+NE}~0
+\item 
+\#define \hyperlink{geo_8c_a4cc2ef7982bc374e2ba1832ace8338b7}{S\+O\+R\+T\+\_\+\+A\+SC}~1
+\item 
+\#define \hyperlink{geo_8c_ad337a9ccff0b910f5a05d97cb5f3231e}{S\+O\+R\+T\+\_\+\+D\+E\+SC}~2
+\item 
+\#define \hyperlink{geo_8c_a81d5eea6d1e3b777aa5fb123bc0e02a0}{R\+A\+D\+I\+U\+S\+\_\+\+C\+O\+O\+R\+DS}~(1$<$$<$0)    /$\ast$ Search around coordinates. $\ast$/
+\item 
+\#define \hyperlink{geo_8c_ac9a2d1a380b6e56d2c1dabe19085a9ba}{R\+A\+D\+I\+U\+S\+\_\+\+M\+E\+M\+B\+ER}~(1$<$$<$1)    /$\ast$ Search around member. $\ast$/
+\item 
+\#define \hyperlink{geo_8c_a0207f8145c258dfb559a8c0a1c960a2c}{R\+A\+D\+I\+U\+S\+\_\+\+N\+O\+S\+T\+O\+RE}~(1$<$$<$2)   /$\ast$ Do not acceot S\+T\+O\+RE/S\+T\+O\+R\+E\+D\+I\+ST option. $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char $\ast$ \hyperlink{geo_8c_a105ce2a4f97e1caf928bf2cebef6e811}{zzl\+First\+In\+Range} (unsigned char $\ast$zl, \hyperlink{structzrangespec}{zrangespec} $\ast$range)
+\item 
+int \hyperlink{geo_8c_a31c8f94d76b0d67646935a486a0d69d1}{zsl\+Value\+Lte\+Max} (double value, \hyperlink{structzrangespec}{zrangespec} $\ast$spec)
+\item 
+\hyperlink{structgeo_array}{geo\+Array} $\ast$ \hyperlink{geo_8c_af27e7260c4e4a0258fdcf23b79f0fca5}{geo\+Array\+Create} (void)
+\item 
+\hyperlink{structgeo_point}{geo\+Point} $\ast$ \hyperlink{geo_8c_ad0ec98d77577a8e6447343bb7226e820}{geo\+Array\+Append} (\hyperlink{structgeo_array}{geo\+Array} $\ast$ga)
+\item 
+void \hyperlink{geo_8c_a7003895afa68a47cc1c0e86dad5f3500}{geo\+Array\+Free} (\hyperlink{structgeo_array}{geo\+Array} $\ast$ga)
+\item 
+int \hyperlink{geo_8c_ac827e5c83de9a5bb819aa84d0fe23c58}{decode\+Geohash} (double bits, double $\ast$xy)
+\item 
+int \hyperlink{geo_8c_a62522112e09905e3d97562e1896522e0}{extract\+Long\+Lat\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, double $\ast$xy)
+\item 
+int \hyperlink{geo_8c_aea4805a047e6fb51bb8f4349bb21b014}{long\+Lat\+From\+Member} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$zobj, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$member, double $\ast$xy)
+\item 
+double \hyperlink{geo_8c_a5a2fc8d628151dbc729c9be9bc2fa9d6}{extract\+Unit\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$unit)
+\item 
+double \hyperlink{geo_8c_ae238b76a4d4acba937f639bcd7757dc7}{extract\+Distance\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, double $\ast$conversion)
+\item 
+void \hyperlink{geo_8c_a35fabe39011db9d41797433a7520fe15}{add\+Reply\+Double\+Distance} (\hyperlink{structclient}{client} $\ast$c, double d)
+\item 
+int \hyperlink{geo_8c_a42d7264d0c1111df78882266852a8bcb}{geo\+Append\+If\+Within\+Radius} (\hyperlink{structgeo_array}{geo\+Array} $\ast$ga, double lon, double lat, double radius, double score, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} member)
+\item 
+int \hyperlink{geo_8c_a94df038f19b4cbf10d3312ddefbbeb96}{geo\+Get\+Points\+In\+Range} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$zobj, double \hyperlink{pqsort_8c_ac6afabdc09a49a433ee19d8a9486056d}{min}, double max, double lon, double lat, double radius, \hyperlink{structgeo_array}{geo\+Array} $\ast$ga)
+\item 
+void \hyperlink{geo_8c_a6a06775be0a612ab3ef5afac6da5ecfd}{scores\+Of\+Geo\+Hash\+Box} (\hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash, \hyperlink{geohash__helper_8h_a3f9f7f7e1532501bd39bc64e3def333a}{Geo\+Hash\+Fix52\+Bits} $\ast$\hyperlink{pqsort_8c_ac6afabdc09a49a433ee19d8a9486056d}{min}, \hyperlink{geohash__helper_8h_a3f9f7f7e1532501bd39bc64e3def333a}{Geo\+Hash\+Fix52\+Bits} $\ast$max)
+\item 
+int \hyperlink{geo_8c_a40bae0dabab1588b6de4c0886f1552bc}{members\+Of\+Geo\+Hash\+Box} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$zobj, \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash, \hyperlink{structgeo_array}{geo\+Array} $\ast$ga, double lon, double lat, double radius)
+\item 
+int \hyperlink{geo_8c_a963197fb81bd20268ee24de99ea0656c}{members\+Of\+All\+Neighbors} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$zobj, \hyperlink{struct_geo_hash_radius}{Geo\+Hash\+Radius} n, double lon, double lat, double radius, \hyperlink{structgeo_array}{geo\+Array} $\ast$ga)
+\item 
+void \hyperlink{geo_8c_a82b4ce858571367183e61934bc7956ee}{geoadd\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{geo_8c_a46a81307d5e160ce5d1832adc249bd5d}{georadius\+Generic} (\hyperlink{structclient}{client} $\ast$c, int flags)
+\item 
+void \hyperlink{geo_8c_a72b8d1b78f421a4b45cf1d5f512f222d}{georadius\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{geo_8c_a543609a8c18d15f679a23355a8fb66f6}{georadiusbymember\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{geo_8c_a44f8201e2ead35ff305230162fda6473}{georadiusro\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{geo_8c_a455937ea1a76e1b4f6ee295b1d504295}{georadiusbymemberro\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{geo_8c_a6392ef9236b185a2988e3bcda4b92307}{geohash\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{geo_8c_a421ca0fe58969d4979d1dea40559b641}{geopos\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{geo_8c_ac430686cb8d0fdb278f003407c7c2139}{geodist\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{geo_8c_a81d5eea6d1e3b777aa5fb123bc0e02a0}\label{geo_8c_a81d5eea6d1e3b777aa5fb123bc0e02a0}} 
+\index{geo.\+c@{geo.\+c}!R\+A\+D\+I\+U\+S\+\_\+\+C\+O\+O\+R\+DS@{R\+A\+D\+I\+U\+S\+\_\+\+C\+O\+O\+R\+DS}}
+\index{R\+A\+D\+I\+U\+S\+\_\+\+C\+O\+O\+R\+DS@{R\+A\+D\+I\+U\+S\+\_\+\+C\+O\+O\+R\+DS}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{R\+A\+D\+I\+U\+S\+\_\+\+C\+O\+O\+R\+DS}{RADIUS\_COORDS}}
+{\footnotesize\ttfamily \#define R\+A\+D\+I\+U\+S\+\_\+\+C\+O\+O\+R\+DS~(1$<$$<$0)    /$\ast$ Search around coordinates. $\ast$/}
+
+
+
+Definition at line 455 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_ac9a2d1a380b6e56d2c1dabe19085a9ba}\label{geo_8c_ac9a2d1a380b6e56d2c1dabe19085a9ba}} 
+\index{geo.\+c@{geo.\+c}!R\+A\+D\+I\+U\+S\+\_\+\+M\+E\+M\+B\+ER@{R\+A\+D\+I\+U\+S\+\_\+\+M\+E\+M\+B\+ER}}
+\index{R\+A\+D\+I\+U\+S\+\_\+\+M\+E\+M\+B\+ER@{R\+A\+D\+I\+U\+S\+\_\+\+M\+E\+M\+B\+ER}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{R\+A\+D\+I\+U\+S\+\_\+\+M\+E\+M\+B\+ER}{RADIUS\_MEMBER}}
+{\footnotesize\ttfamily \#define R\+A\+D\+I\+U\+S\+\_\+\+M\+E\+M\+B\+ER~(1$<$$<$1)    /$\ast$ Search around member. $\ast$/}
+
+
+
+Definition at line 456 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a0207f8145c258dfb559a8c0a1c960a2c}\label{geo_8c_a0207f8145c258dfb559a8c0a1c960a2c}} 
+\index{geo.\+c@{geo.\+c}!R\+A\+D\+I\+U\+S\+\_\+\+N\+O\+S\+T\+O\+RE@{R\+A\+D\+I\+U\+S\+\_\+\+N\+O\+S\+T\+O\+RE}}
+\index{R\+A\+D\+I\+U\+S\+\_\+\+N\+O\+S\+T\+O\+RE@{R\+A\+D\+I\+U\+S\+\_\+\+N\+O\+S\+T\+O\+RE}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{R\+A\+D\+I\+U\+S\+\_\+\+N\+O\+S\+T\+O\+RE}{RADIUS\_NOSTORE}}
+{\footnotesize\ttfamily \#define R\+A\+D\+I\+U\+S\+\_\+\+N\+O\+S\+T\+O\+RE~(1$<$$<$2)   /$\ast$ Do not acceot S\+T\+O\+RE/S\+T\+O\+R\+E\+D\+I\+ST option. $\ast$/}
+
+
+
+Definition at line 457 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a4cc2ef7982bc374e2ba1832ace8338b7}\label{geo_8c_a4cc2ef7982bc374e2ba1832ace8338b7}} 
+\index{geo.\+c@{geo.\+c}!S\+O\+R\+T\+\_\+\+A\+SC@{S\+O\+R\+T\+\_\+\+A\+SC}}
+\index{S\+O\+R\+T\+\_\+\+A\+SC@{S\+O\+R\+T\+\_\+\+A\+SC}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{S\+O\+R\+T\+\_\+\+A\+SC}{SORT\_ASC}}
+{\footnotesize\ttfamily \#define S\+O\+R\+T\+\_\+\+A\+SC~1}
+
+
+
+Definition at line 452 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_ad337a9ccff0b910f5a05d97cb5f3231e}\label{geo_8c_ad337a9ccff0b910f5a05d97cb5f3231e}} 
+\index{geo.\+c@{geo.\+c}!S\+O\+R\+T\+\_\+\+D\+E\+SC@{S\+O\+R\+T\+\_\+\+D\+E\+SC}}
+\index{S\+O\+R\+T\+\_\+\+D\+E\+SC@{S\+O\+R\+T\+\_\+\+D\+E\+SC}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{S\+O\+R\+T\+\_\+\+D\+E\+SC}{SORT\_DESC}}
+{\footnotesize\ttfamily \#define S\+O\+R\+T\+\_\+\+D\+E\+SC~2}
+
+
+
+Definition at line 453 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_ac14be771411e01611e9e539c87567be4}\label{geo_8c_ac14be771411e01611e9e539c87567be4}} 
+\index{geo.\+c@{geo.\+c}!S\+O\+R\+T\+\_\+\+N\+O\+NE@{S\+O\+R\+T\+\_\+\+N\+O\+NE}}
+\index{S\+O\+R\+T\+\_\+\+N\+O\+NE@{S\+O\+R\+T\+\_\+\+N\+O\+NE}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{S\+O\+R\+T\+\_\+\+N\+O\+NE}{SORT\_NONE}}
+{\footnotesize\ttfamily \#define S\+O\+R\+T\+\_\+\+N\+O\+NE~0}
+
+
+
+Definition at line 451 of file geo.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{geo_8c_a35fabe39011db9d41797433a7520fe15}\label{geo_8c_a35fabe39011db9d41797433a7520fe15}} 
+\index{geo.\+c@{geo.\+c}!add\+Reply\+Double\+Distance@{add\+Reply\+Double\+Distance}}
+\index{add\+Reply\+Double\+Distance@{add\+Reply\+Double\+Distance}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Double\+Distance()}{addReplyDoubleDistance()}}
+{\footnotesize\ttfamily void add\+Reply\+Double\+Distance (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{double}]{d }\end{DoxyParamCaption})}
+
+
+
+Definition at line 179 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_ac827e5c83de9a5bb819aa84d0fe23c58}\label{geo_8c_ac827e5c83de9a5bb819aa84d0fe23c58}} 
+\index{geo.\+c@{geo.\+c}!decode\+Geohash@{decode\+Geohash}}
+\index{decode\+Geohash@{decode\+Geohash}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{decode\+Geohash()}{decodeGeohash()}}
+{\footnotesize\ttfamily int decode\+Geohash (\begin{DoxyParamCaption}\item[{double}]{bits,  }\item[{double $\ast$}]{xy }\end{DoxyParamCaption})}
+
+
+
+Definition at line 85 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_ae238b76a4d4acba937f639bcd7757dc7}\label{geo_8c_ae238b76a4d4acba937f639bcd7757dc7}} 
+\index{geo.\+c@{geo.\+c}!extract\+Distance\+Or\+Reply@{extract\+Distance\+Or\+Reply}}
+\index{extract\+Distance\+Or\+Reply@{extract\+Distance\+Or\+Reply}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{extract\+Distance\+Or\+Reply()}{extractDistanceOrReply()}}
+{\footnotesize\ttfamily double extract\+Distance\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{double $\ast$}]{conversion }\end{DoxyParamCaption})}
+
+
+
+Definition at line 152 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a62522112e09905e3d97562e1896522e0}\label{geo_8c_a62522112e09905e3d97562e1896522e0}} 
+\index{geo.\+c@{geo.\+c}!extract\+Long\+Lat\+Or\+Reply@{extract\+Long\+Lat\+Or\+Reply}}
+\index{extract\+Long\+Lat\+Or\+Reply@{extract\+Long\+Lat\+Or\+Reply}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{extract\+Long\+Lat\+Or\+Reply()}{extractLongLatOrReply()}}
+{\footnotesize\ttfamily int extract\+Long\+Lat\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{double $\ast$}]{xy }\end{DoxyParamCaption})}
+
+
+
+Definition at line 93 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a5a2fc8d628151dbc729c9be9bc2fa9d6}\label{geo_8c_a5a2fc8d628151dbc729c9be9bc2fa9d6}} 
+\index{geo.\+c@{geo.\+c}!extract\+Unit\+Or\+Reply@{extract\+Unit\+Or\+Reply}}
+\index{extract\+Unit\+Or\+Reply@{extract\+Unit\+Or\+Reply}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{extract\+Unit\+Or\+Reply()}{extractUnitOrReply()}}
+{\footnotesize\ttfamily double extract\+Unit\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{unit }\end{DoxyParamCaption})}
+
+
+
+Definition at line 127 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a82b4ce858571367183e61934bc7956ee}\label{geo_8c_a82b4ce858571367183e61934bc7956ee}} 
+\index{geo.\+c@{geo.\+c}!geoadd\+Command@{geoadd\+Command}}
+\index{geoadd\+Command@{geoadd\+Command}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{geoadd\+Command()}{geoaddCommand()}}
+{\footnotesize\ttfamily void geoadd\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 405 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a42d7264d0c1111df78882266852a8bcb}\label{geo_8c_a42d7264d0c1111df78882266852a8bcb}} 
+\index{geo.\+c@{geo.\+c}!geo\+Append\+If\+Within\+Radius@{geo\+Append\+If\+Within\+Radius}}
+\index{geo\+Append\+If\+Within\+Radius@{geo\+Append\+If\+Within\+Radius}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{geo\+Append\+If\+Within\+Radius()}{geoAppendIfWithinRadius()}}
+{\footnotesize\ttfamily int geo\+Append\+If\+Within\+Radius (\begin{DoxyParamCaption}\item[{\hyperlink{structgeo_array}{geo\+Array} $\ast$}]{ga,  }\item[{double}]{lon,  }\item[{double}]{lat,  }\item[{double}]{radius,  }\item[{double}]{score,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{member }\end{DoxyParamCaption})}
+
+
+
+Definition at line 191 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_ad0ec98d77577a8e6447343bb7226e820}\label{geo_8c_ad0ec98d77577a8e6447343bb7226e820}} 
+\index{geo.\+c@{geo.\+c}!geo\+Array\+Append@{geo\+Array\+Append}}
+\index{geo\+Array\+Append@{geo\+Array\+Append}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{geo\+Array\+Append()}{geoArrayAppend()}}
+{\footnotesize\ttfamily \hyperlink{structgeo_point}{geo\+Point}$\ast$ geo\+Array\+Append (\begin{DoxyParamCaption}\item[{\hyperlink{structgeo_array}{geo\+Array} $\ast$}]{ga }\end{DoxyParamCaption})}
+
+
+
+Definition at line 64 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_af27e7260c4e4a0258fdcf23b79f0fca5}\label{geo_8c_af27e7260c4e4a0258fdcf23b79f0fca5}} 
+\index{geo.\+c@{geo.\+c}!geo\+Array\+Create@{geo\+Array\+Create}}
+\index{geo\+Array\+Create@{geo\+Array\+Create}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{geo\+Array\+Create()}{geoArrayCreate()}}
+{\footnotesize\ttfamily \hyperlink{structgeo_array}{geo\+Array}$\ast$ geo\+Array\+Create (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 53 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a7003895afa68a47cc1c0e86dad5f3500}\label{geo_8c_a7003895afa68a47cc1c0e86dad5f3500}} 
+\index{geo.\+c@{geo.\+c}!geo\+Array\+Free@{geo\+Array\+Free}}
+\index{geo\+Array\+Free@{geo\+Array\+Free}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{geo\+Array\+Free()}{geoArrayFree()}}
+{\footnotesize\ttfamily void geo\+Array\+Free (\begin{DoxyParamCaption}\item[{\hyperlink{structgeo_array}{geo\+Array} $\ast$}]{ga }\end{DoxyParamCaption})}
+
+
+
+Definition at line 75 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_ac430686cb8d0fdb278f003407c7c2139}\label{geo_8c_ac430686cb8d0fdb278f003407c7c2139}} 
+\index{geo.\+c@{geo.\+c}!geodist\+Command@{geodist\+Command}}
+\index{geodist\+Command@{geodist\+Command}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{geodist\+Command()}{geodistCommand()}}
+{\footnotesize\ttfamily void geodist\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 786 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a94df038f19b4cbf10d3312ddefbbeb96}\label{geo_8c_a94df038f19b4cbf10d3312ddefbbeb96}} 
+\index{geo.\+c@{geo.\+c}!geo\+Get\+Points\+In\+Range@{geo\+Get\+Points\+In\+Range}}
+\index{geo\+Get\+Points\+In\+Range@{geo\+Get\+Points\+In\+Range}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{geo\+Get\+Points\+In\+Range()}{geoGetPointsInRange()}}
+{\footnotesize\ttfamily int geo\+Get\+Points\+In\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{zobj,  }\item[{double}]{min,  }\item[{double}]{max,  }\item[{double}]{lon,  }\item[{double}]{lat,  }\item[{double}]{radius,  }\item[{\hyperlink{structgeo_array}{geo\+Array} $\ast$}]{ga }\end{DoxyParamCaption})}
+
+
+
+Definition at line 225 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a6392ef9236b185a2988e3bcda4b92307}\label{geo_8c_a6392ef9236b185a2988e3bcda4b92307}} 
+\index{geo.\+c@{geo.\+c}!geohash\+Command@{geohash\+Command}}
+\index{geohash\+Command@{geohash\+Command}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{geohash\+Command()}{geohashCommand()}}
+{\footnotesize\ttfamily void geohash\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 699 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a421ca0fe58969d4979d1dea40559b641}\label{geo_8c_a421ca0fe58969d4979d1dea40559b641}} 
+\index{geo.\+c@{geo.\+c}!geopos\+Command@{geopos\+Command}}
+\index{geopos\+Command@{geopos\+Command}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{geopos\+Command()}{geoposCommand()}}
+{\footnotesize\ttfamily void geopos\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 753 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a543609a8c18d15f679a23355a8fb66f6}\label{geo_8c_a543609a8c18d15f679a23355a8fb66f6}} 
+\index{geo.\+c@{geo.\+c}!georadiusbymember\+Command@{georadiusbymember\+Command}}
+\index{georadiusbymember\+Command@{georadiusbymember\+Command}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{georadiusbymember\+Command()}{georadiusbymemberCommand()}}
+{\footnotesize\ttfamily void georadiusbymember\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 681 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a455937ea1a76e1b4f6ee295b1d504295}\label{geo_8c_a455937ea1a76e1b4f6ee295b1d504295}} 
+\index{geo.\+c@{geo.\+c}!georadiusbymemberro\+Command@{georadiusbymemberro\+Command}}
+\index{georadiusbymemberro\+Command@{georadiusbymemberro\+Command}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{georadiusbymemberro\+Command()}{georadiusbymemberroCommand()}}
+{\footnotesize\ttfamily void georadiusbymemberro\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 691 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a72b8d1b78f421a4b45cf1d5f512f222d}\label{geo_8c_a72b8d1b78f421a4b45cf1d5f512f222d}} 
+\index{geo.\+c@{geo.\+c}!georadius\+Command@{georadius\+Command}}
+\index{georadius\+Command@{georadius\+Command}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{georadius\+Command()}{georadiusCommand()}}
+{\footnotesize\ttfamily void georadius\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 676 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a46a81307d5e160ce5d1832adc249bd5d}\label{geo_8c_a46a81307d5e160ce5d1832adc249bd5d}} 
+\index{geo.\+c@{geo.\+c}!georadius\+Generic@{georadius\+Generic}}
+\index{georadius\+Generic@{georadius\+Generic}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{georadius\+Generic()}{georadiusGeneric()}}
+{\footnotesize\ttfamily void georadius\+Generic (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 462 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a44f8201e2ead35ff305230162fda6473}\label{geo_8c_a44f8201e2ead35ff305230162fda6473}} 
+\index{geo.\+c@{geo.\+c}!georadiusro\+Command@{georadiusro\+Command}}
+\index{georadiusro\+Command@{georadiusro\+Command}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{georadiusro\+Command()}{georadiusroCommand()}}
+{\footnotesize\ttfamily void georadiusro\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 686 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_aea4805a047e6fb51bb8f4349bb21b014}\label{geo_8c_aea4805a047e6fb51bb8f4349bb21b014}} 
+\index{geo.\+c@{geo.\+c}!long\+Lat\+From\+Member@{long\+Lat\+From\+Member}}
+\index{long\+Lat\+From\+Member@{long\+Lat\+From\+Member}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{long\+Lat\+From\+Member()}{longLatFromMember()}}
+{\footnotesize\ttfamily int long\+Lat\+From\+Member (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{zobj,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{member,  }\item[{double $\ast$}]{xy }\end{DoxyParamCaption})}
+
+
+
+Definition at line 113 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a963197fb81bd20268ee24de99ea0656c}\label{geo_8c_a963197fb81bd20268ee24de99ea0656c}} 
+\index{geo.\+c@{geo.\+c}!members\+Of\+All\+Neighbors@{members\+Of\+All\+Neighbors}}
+\index{members\+Of\+All\+Neighbors@{members\+Of\+All\+Neighbors}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{members\+Of\+All\+Neighbors()}{membersOfAllNeighbors()}}
+{\footnotesize\ttfamily int members\+Of\+All\+Neighbors (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{zobj,  }\item[{\hyperlink{struct_geo_hash_radius}{Geo\+Hash\+Radius}}]{n,  }\item[{double}]{lon,  }\item[{double}]{lat,  }\item[{double}]{radius,  }\item[{\hyperlink{structgeo_array}{geo\+Array} $\ast$}]{ga }\end{DoxyParamCaption})}
+
+
+
+Definition at line 326 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a40bae0dabab1588b6de4c0886f1552bc}\label{geo_8c_a40bae0dabab1588b6de4c0886f1552bc}} 
+\index{geo.\+c@{geo.\+c}!members\+Of\+Geo\+Hash\+Box@{members\+Of\+Geo\+Hash\+Box}}
+\index{members\+Of\+Geo\+Hash\+Box@{members\+Of\+Geo\+Hash\+Box}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{members\+Of\+Geo\+Hash\+Box()}{membersOfGeoHashBox()}}
+{\footnotesize\ttfamily int members\+Of\+Geo\+Hash\+Box (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{zobj,  }\item[{\hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash,  }\item[{\hyperlink{structgeo_array}{geo\+Array} $\ast$}]{ga,  }\item[{double}]{lon,  }\item[{double}]{lat,  }\item[{double}]{radius }\end{DoxyParamCaption})}
+
+
+
+Definition at line 318 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a6a06775be0a612ab3ef5afac6da5ecfd}\label{geo_8c_a6a06775be0a612ab3ef5afac6da5ecfd}} 
+\index{geo.\+c@{geo.\+c}!scores\+Of\+Geo\+Hash\+Box@{scores\+Of\+Geo\+Hash\+Box}}
+\index{scores\+Of\+Geo\+Hash\+Box@{scores\+Of\+Geo\+Hash\+Box}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{scores\+Of\+Geo\+Hash\+Box()}{scoresOfGeoHashBox()}}
+{\footnotesize\ttfamily void scores\+Of\+Geo\+Hash\+Box (\begin{DoxyParamCaption}\item[{\hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash,  }\item[{\hyperlink{geohash__helper_8h_a3f9f7f7e1532501bd39bc64e3def333a}{Geo\+Hash\+Fix52\+Bits} $\ast$}]{min,  }\item[{\hyperlink{geohash__helper_8h_a3f9f7f7e1532501bd39bc64e3def333a}{Geo\+Hash\+Fix52\+Bits} $\ast$}]{max }\end{DoxyParamCaption})}
+
+
+
+Definition at line 289 of file geo.\+c.
+
+\mbox{\Hypertarget{geo_8c_a31c8f94d76b0d67646935a486a0d69d1}\label{geo_8c_a31c8f94d76b0d67646935a486a0d69d1}} 
+\index{geo.\+c@{geo.\+c}!zsl\+Value\+Lte\+Max@{zsl\+Value\+Lte\+Max}}
+\index{zsl\+Value\+Lte\+Max@{zsl\+Value\+Lte\+Max}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Value\+Lte\+Max()}{zslValueLteMax()}}
+{\footnotesize\ttfamily int zsl\+Value\+Lte\+Max (\begin{DoxyParamCaption}\item[{double}]{value,  }\item[{\hyperlink{structzrangespec}{zrangespec} $\ast$}]{spec }\end{DoxyParamCaption})}
+
+
+
+Definition at line 306 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{geo_8c_a105ce2a4f97e1caf928bf2cebef6e811}\label{geo_8c_a105ce2a4f97e1caf928bf2cebef6e811}} 
+\index{geo.\+c@{geo.\+c}!zzl\+First\+In\+Range@{zzl\+First\+In\+Range}}
+\index{zzl\+First\+In\+Range@{zzl\+First\+In\+Range}!geo.\+c@{geo.\+c}}
+\subsubsection{\texorpdfstring{zzl\+First\+In\+Range()}{zzlFirstInRange()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zzl\+First\+In\+Range (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{\hyperlink{structzrangespec}{zrangespec} $\ast$}]{range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 851 of file t\+\_\+zset.\+c.
+

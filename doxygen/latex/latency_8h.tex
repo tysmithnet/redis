@@ -1,0 +1,143 @@
+\hypertarget{latency_8h}{}\section{src/latency.h File Reference}
+\label{latency_8h}\index{src/latency.\+h@{src/latency.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{latency_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structlatency_sample}{latency\+Sample}
+\item 
+struct \hyperlink{structlatency_time_series}{latency\+Time\+Series}
+\item 
+struct \hyperlink{structlatency_stats}{latency\+Stats}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{latency_8h_a7e3ba352d9d7bb4c88c2c42c16e6674b}{L\+A\+T\+E\+N\+C\+Y\+\_\+\+T\+S\+\_\+\+L\+EN}~160 /$\ast$ History length for every monitored event. $\ast$/
+\item 
+\#define \hyperlink{latency_8h_a87d7b5b368dad97457f13466d760b0e1}{latency\+Start\+Monitor}(var)
+\item 
+\#define \hyperlink{latency_8h_a88461aee20da0a648fe3332b5f068df7}{latency\+End\+Monitor}(var)
+\item 
+\#define \hyperlink{latency_8h_a77922ab34035890c90f98831a9071359}{latency\+Add\+Sample\+If\+Needed}(event,  var)
+\item 
+\#define \hyperlink{latency_8h_a5a61a1e8705dbbb0dfbdf016fe32c6e4}{latency\+Remove\+Nested\+Event}(event\+\_\+var,  nested\+\_\+var)~event\+\_\+var += nested\+\_\+var;
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{latency_8h_a7f4b4d18fb9666b1ecd84b944ca3cc8f}{latency\+Monitor\+Init} (void)
+\item 
+void \hyperlink{latency_8h_a03f7f5f5c6ab0c742958472f56151f8d}{latency\+Add\+Sample} (char $\ast$event, \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} latency)
+\item 
+int \hyperlink{latency_8h_a57a542a709b21e9654b0b297303c966c}{T\+H\+P\+Is\+Enabled} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{latency_8h_a7e3ba352d9d7bb4c88c2c42c16e6674b}\label{latency_8h_a7e3ba352d9d7bb4c88c2c42c16e6674b}} 
+\index{latency.\+h@{latency.\+h}!L\+A\+T\+E\+N\+C\+Y\+\_\+\+T\+S\+\_\+\+L\+EN@{L\+A\+T\+E\+N\+C\+Y\+\_\+\+T\+S\+\_\+\+L\+EN}}
+\index{L\+A\+T\+E\+N\+C\+Y\+\_\+\+T\+S\+\_\+\+L\+EN@{L\+A\+T\+E\+N\+C\+Y\+\_\+\+T\+S\+\_\+\+L\+EN}!latency.\+h@{latency.\+h}}
+\subsubsection{\texorpdfstring{L\+A\+T\+E\+N\+C\+Y\+\_\+\+T\+S\+\_\+\+L\+EN}{LATENCY\_TS\_LEN}}
+{\footnotesize\ttfamily \#define L\+A\+T\+E\+N\+C\+Y\+\_\+\+T\+S\+\_\+\+L\+EN~160 /$\ast$ History length for every monitored event. $\ast$/}
+
+
+
+Definition at line 37 of file latency.\+h.
+
+\mbox{\Hypertarget{latency_8h_a77922ab34035890c90f98831a9071359}\label{latency_8h_a77922ab34035890c90f98831a9071359}} 
+\index{latency.\+h@{latency.\+h}!latency\+Add\+Sample\+If\+Needed@{latency\+Add\+Sample\+If\+Needed}}
+\index{latency\+Add\+Sample\+If\+Needed@{latency\+Add\+Sample\+If\+Needed}!latency.\+h@{latency.\+h}}
+\subsubsection{\texorpdfstring{latency\+Add\+Sample\+If\+Needed}{latencyAddSampleIfNeeded}}
+{\footnotesize\ttfamily \#define latency\+Add\+Sample\+If\+Needed(\begin{DoxyParamCaption}\item[{}]{event,  }\item[{}]{var }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{if} (\hyperlink{server_8c_a8d73c25eebeb3e3656b34e7807cb15b4}{server}.\hyperlink{structredis_server_a73ce15b906abae61ce26fda115af09e4}{latency\_monitor\_threshold} && \(\backslash\)
+        (var) >= \hyperlink{server_8c_a8d73c25eebeb3e3656b34e7807cb15b4}{server}.\hyperlink{structredis_server_a73ce15b906abae61ce26fda115af09e4}{latency\_monitor\_threshold}) \(\backslash\)
+          latencyAddSample((event),(var));
+\end{DoxyCode}
+
+
+Definition at line 84 of file latency.\+h.
+
+\mbox{\Hypertarget{latency_8h_a88461aee20da0a648fe3332b5f068df7}\label{latency_8h_a88461aee20da0a648fe3332b5f068df7}} 
+\index{latency.\+h@{latency.\+h}!latency\+End\+Monitor@{latency\+End\+Monitor}}
+\index{latency\+End\+Monitor@{latency\+End\+Monitor}!latency.\+h@{latency.\+h}}
+\subsubsection{\texorpdfstring{latency\+End\+Monitor}{latencyEndMonitor}}
+{\footnotesize\ttfamily \#define latency\+End\+Monitor(\begin{DoxyParamCaption}\item[{}]{var }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{if} (\hyperlink{server_8c_a8d73c25eebeb3e3656b34e7807cb15b4}{server}.\hyperlink{structredis_server_a73ce15b906abae61ce26fda115af09e4}{latency\_monitor\_threshold}) \{ \(\backslash\)
+    var = \hyperlink{server_8c_a8e2fb79c351be966917f2cf717ed3543}{mstime}() - var; \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 79 of file latency.\+h.
+
+\mbox{\Hypertarget{latency_8h_a5a61a1e8705dbbb0dfbdf016fe32c6e4}\label{latency_8h_a5a61a1e8705dbbb0dfbdf016fe32c6e4}} 
+\index{latency.\+h@{latency.\+h}!latency\+Remove\+Nested\+Event@{latency\+Remove\+Nested\+Event}}
+\index{latency\+Remove\+Nested\+Event@{latency\+Remove\+Nested\+Event}!latency.\+h@{latency.\+h}}
+\subsubsection{\texorpdfstring{latency\+Remove\+Nested\+Event}{latencyRemoveNestedEvent}}
+{\footnotesize\ttfamily \#define latency\+Remove\+Nested\+Event(\begin{DoxyParamCaption}\item[{}]{event\+\_\+var,  }\item[{}]{nested\+\_\+var }\end{DoxyParamCaption})~event\+\_\+var += nested\+\_\+var;}
+
+
+
+Definition at line 90 of file latency.\+h.
+
+\mbox{\Hypertarget{latency_8h_a87d7b5b368dad97457f13466d760b0e1}\label{latency_8h_a87d7b5b368dad97457f13466d760b0e1}} 
+\index{latency.\+h@{latency.\+h}!latency\+Start\+Monitor@{latency\+Start\+Monitor}}
+\index{latency\+Start\+Monitor@{latency\+Start\+Monitor}!latency.\+h@{latency.\+h}}
+\subsubsection{\texorpdfstring{latency\+Start\+Monitor}{latencyStartMonitor}}
+{\footnotesize\ttfamily \#define latency\+Start\+Monitor(\begin{DoxyParamCaption}\item[{}]{var }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{if} (\hyperlink{server_8c_a8d73c25eebeb3e3656b34e7807cb15b4}{server}.\hyperlink{structredis_server_a73ce15b906abae61ce26fda115af09e4}{latency\_monitor\_threshold}) \{ \(\backslash\)
+    var = \hyperlink{server_8c_a8e2fb79c351be966917f2cf717ed3543}{mstime}(); \(\backslash\)
+\} \textcolor{keywordflow}{else} \{ \(\backslash\)
+    var = 0; \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 71 of file latency.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{latency_8h_a03f7f5f5c6ab0c742958472f56151f8d}\label{latency_8h_a03f7f5f5c6ab0c742958472f56151f8d}} 
+\index{latency.\+h@{latency.\+h}!latency\+Add\+Sample@{latency\+Add\+Sample}}
+\index{latency\+Add\+Sample@{latency\+Add\+Sample}!latency.\+h@{latency.\+h}}
+\subsubsection{\texorpdfstring{latency\+Add\+Sample()}{latencyAddSample()}}
+{\footnotesize\ttfamily void latency\+Add\+Sample (\begin{DoxyParamCaption}\item[{char $\ast$}]{event,  }\item[{\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t}}]{latency }\end{DoxyParamCaption})}
+
+
+
+Definition at line 98 of file latency.\+c.
+
+\mbox{\Hypertarget{latency_8h_a7f4b4d18fb9666b1ecd84b944ca3cc8f}\label{latency_8h_a7f4b4d18fb9666b1ecd84b944ca3cc8f}} 
+\index{latency.\+h@{latency.\+h}!latency\+Monitor\+Init@{latency\+Monitor\+Init}}
+\index{latency\+Monitor\+Init@{latency\+Monitor\+Init}!latency.\+h@{latency.\+h}}
+\subsubsection{\texorpdfstring{latency\+Monitor\+Init()}{latencyMonitorInit()}}
+{\footnotesize\ttfamily void latency\+Monitor\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 90 of file latency.\+c.
+
+\mbox{\Hypertarget{latency_8h_a57a542a709b21e9654b0b297303c966c}\label{latency_8h_a57a542a709b21e9654b0b297303c966c}} 
+\index{latency.\+h@{latency.\+h}!T\+H\+P\+Is\+Enabled@{T\+H\+P\+Is\+Enabled}}
+\index{T\+H\+P\+Is\+Enabled@{T\+H\+P\+Is\+Enabled}!latency.\+h@{latency.\+h}}
+\subsubsection{\texorpdfstring{T\+H\+P\+Is\+Enabled()}{THPIsEnabled()}}
+{\footnotesize\ttfamily int T\+H\+P\+Is\+Enabled (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+

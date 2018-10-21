@@ -1,0 +1,101 @@
+\hypertarget{slowlog_8h}{}\section{src/slowlog.h File Reference}
+\label{slowlog_8h}\index{src/slowlog.\+h@{src/slowlog.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{slowlog_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structslowlog_entry}{slowlog\+Entry}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{slowlog_8h_a0b9eefa88302f670eaec2f86a71900f7}{S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GC}~32
+\item 
+\#define \hyperlink{slowlog_8h_a2b240c1b44f90bb05f0902c94a6a9b57}{S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+NG}~128
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structslowlog_entry}{slowlog\+Entry} \hyperlink{slowlog_8h_ae7d8330c93a015af26b8a8c1fda94c44}{slowlog\+Entry}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{slowlog_8h_a9f809d36b7eec2078bc7a3e4ed497505}{slowlog\+Init} (void)
+\item 
+void \hyperlink{slowlog_8h_a61d4ecda7c04939cade4011b30c4fad0}{slowlog\+Push\+Entry\+If\+Needed} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, long long duration)
+\item 
+void \hyperlink{slowlog_8h_a09b465bea2c8178bf67b7910b5c9cd80}{slowlog\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{slowlog_8h_a0b9eefa88302f670eaec2f86a71900f7}\label{slowlog_8h_a0b9eefa88302f670eaec2f86a71900f7}} 
+\index{slowlog.\+h@{slowlog.\+h}!S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GC@{S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GC}}
+\index{S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GC@{S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GC}!slowlog.\+h@{slowlog.\+h}}
+\subsubsection{\texorpdfstring{S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GC}{SLOWLOG\_ENTRY\_MAX\_ARGC}}
+{\footnotesize\ttfamily \#define S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+A\+R\+GC~32}
+
+
+
+Definition at line 30 of file slowlog.\+h.
+
+\mbox{\Hypertarget{slowlog_8h_a2b240c1b44f90bb05f0902c94a6a9b57}\label{slowlog_8h_a2b240c1b44f90bb05f0902c94a6a9b57}} 
+\index{slowlog.\+h@{slowlog.\+h}!S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+NG@{S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+NG}}
+\index{S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+NG@{S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+NG}!slowlog.\+h@{slowlog.\+h}}
+\subsubsection{\texorpdfstring{S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+NG}{SLOWLOG\_ENTRY\_MAX\_STRING}}
+{\footnotesize\ttfamily \#define S\+L\+O\+W\+L\+O\+G\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+M\+A\+X\+\_\+\+S\+T\+R\+I\+NG~128}
+
+
+
+Definition at line 31 of file slowlog.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{slowlog_8h_ae7d8330c93a015af26b8a8c1fda94c44}\label{slowlog_8h_ae7d8330c93a015af26b8a8c1fda94c44}} 
+\index{slowlog.\+h@{slowlog.\+h}!slowlog\+Entry@{slowlog\+Entry}}
+\index{slowlog\+Entry@{slowlog\+Entry}!slowlog.\+h@{slowlog.\+h}}
+\subsubsection{\texorpdfstring{slowlog\+Entry}{slowlogEntry}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structslowlog_entry}{slowlog\+Entry}  \hyperlink{structslowlog_entry}{slowlog\+Entry}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{slowlog_8h_a09b465bea2c8178bf67b7910b5c9cd80}\label{slowlog_8h_a09b465bea2c8178bf67b7910b5c9cd80}} 
+\index{slowlog.\+h@{slowlog.\+h}!slowlog\+Command@{slowlog\+Command}}
+\index{slowlog\+Command@{slowlog\+Command}!slowlog.\+h@{slowlog.\+h}}
+\subsubsection{\texorpdfstring{slowlog\+Command()}{slowlogCommand()}}
+{\footnotesize\ttfamily void slowlog\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 142 of file slowlog.\+c.
+
+\mbox{\Hypertarget{slowlog_8h_a9f809d36b7eec2078bc7a3e4ed497505}\label{slowlog_8h_a9f809d36b7eec2078bc7a3e4ed497505}} 
+\index{slowlog.\+h@{slowlog.\+h}!slowlog\+Init@{slowlog\+Init}}
+\index{slowlog\+Init@{slowlog\+Init}!slowlog.\+h@{slowlog.\+h}}
+\subsubsection{\texorpdfstring{slowlog\+Init()}{slowlogInit()}}
+{\footnotesize\ttfamily void slowlog\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 114 of file slowlog.\+c.
+
+\mbox{\Hypertarget{slowlog_8h_a61d4ecda7c04939cade4011b30c4fad0}\label{slowlog_8h_a61d4ecda7c04939cade4011b30c4fad0}} 
+\index{slowlog.\+h@{slowlog.\+h}!slowlog\+Push\+Entry\+If\+Needed@{slowlog\+Push\+Entry\+If\+Needed}}
+\index{slowlog\+Push\+Entry\+If\+Needed@{slowlog\+Push\+Entry\+If\+Needed}!slowlog.\+h@{slowlog.\+h}}
+\subsubsection{\texorpdfstring{slowlog\+Push\+Entry\+If\+Needed()}{slowlogPushEntryIfNeeded()}}
+{\footnotesize\ttfamily void slowlog\+Push\+Entry\+If\+Needed (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{long long}]{duration }\end{DoxyParamCaption})}
+
+
+
+Definition at line 123 of file slowlog.\+c.
+

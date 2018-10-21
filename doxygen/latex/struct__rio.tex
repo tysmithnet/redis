@@ -1,0 +1,256 @@
+\hypertarget{struct__rio}{}\section{\+\_\+rio Struct Reference}
+\label{struct__rio}\index{\+\_\+rio@{\+\_\+rio}}
+
+
+{\ttfamily \#include $<$rio.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t($\ast$ \hyperlink{struct__rio_a6562dde444181d8dc56163cd5bd5a880}{read} )(struct \hyperlink{struct__rio}{\+\_\+rio} $\ast$, void $\ast$\hyperlink{struct__rio_ae8dd93102163eea99d3d0949d1974628}{buf}, size\+\_\+t len)
+\item 
+size\+\_\+t($\ast$ \hyperlink{struct__rio_aa7c29e99e2a05a47c569af36fa61272c}{write} )(struct \hyperlink{struct__rio}{\+\_\+rio} $\ast$, const void $\ast$\hyperlink{struct__rio_ae8dd93102163eea99d3d0949d1974628}{buf}, size\+\_\+t len)
+\item 
+off\+\_\+t($\ast$ \hyperlink{struct__rio_ab06eb2e08a6cba498c63adf5e9ffa2ff}{tell} )(struct \hyperlink{struct__rio}{\+\_\+rio} $\ast$)
+\item 
+int($\ast$ \hyperlink{struct__rio_a6400f2e1372884609119ec5fa095b6b9}{flush} )(struct \hyperlink{struct__rio}{\+\_\+rio} $\ast$)
+\item 
+void($\ast$ \hyperlink{struct__rio_a0d11c9195df688114fd7e3d39b06c269}{update\+\_\+cksum} )(struct \hyperlink{struct__rio}{\+\_\+rio} $\ast$, const void $\ast$\hyperlink{struct__rio_ae8dd93102163eea99d3d0949d1974628}{buf}, size\+\_\+t len)
+\item 
+uint64\+\_\+t \hyperlink{struct__rio_aa7e1f76c805332914541fb978311b7b4}{cksum}
+\item 
+size\+\_\+t \hyperlink{struct__rio_a4bfc464c439f7f4da758b39d6f31cf22}{processed\+\_\+bytes}
+\item 
+size\+\_\+t \hyperlink{struct__rio_ad1ae3d0cef59f6c43a68302a5bc673cd}{max\+\_\+processing\+\_\+chunk}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct \{\\
+\>\>\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{struct__rio_ac787a06d755eb260b16d6cf74c06eaf9}{ptr}\\
+\>\>off\_t \hyperlink{struct__rio_a320b91e58d067b5097a431e6da94f247}{pos}\\
+\>\} \hyperlink{struct__rio_a08fd4992ea2a6cc4f1cae2d22475e950}{buffer}\\
+\>struct \{\\
+\>\>FILE $\ast$ \hyperlink{struct__rio_aa065f30aa9f5f9a42132c82c787ee70b}{fp}\\
+\>\>off\_t \hyperlink{struct__rio_aaf9c739870ce662f03414e87c0a3947b}{buffered}\\
+\>\>off\_t \hyperlink{struct__rio_a26ab7c3adc5a936bacbe48d501c163f2}{autosync}\\
+\>\} \hyperlink{struct__rio_abc0d7429e6b98d70aadb166991f8e5e3}{file}\\
+\>struct \{\\
+\>\>int $\ast$ \hyperlink{struct__rio_ad259456372b9b7ad374dccd9d0f80eac}{fds}\\
+\>\>int $\ast$ \hyperlink{struct__rio_ace50bce9d6e7ed2958418778a6b1711f}{state}\\
+\>\>int \hyperlink{struct__rio_a01ef09680a9926f281067248a833e69b}{numfds}\\
+\>\>off\_t \hyperlink{struct__rio_a320b91e58d067b5097a431e6da94f247}{pos}\\
+\>\>\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{struct__rio_ae8dd93102163eea99d3d0949d1974628}{buf}\\
+\>\} \hyperlink{struct__rio_a5101c27f29f6ce315129e5c9a00f9cc9}{fdset}\\
+\} \hyperlink{struct__rio_ad359e2e86f3623eccc8b70ee6f18bc46}{io}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 39 of file rio.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{struct__rio_a26ab7c3adc5a936bacbe48d501c163f2}\label{struct__rio_a26ab7c3adc5a936bacbe48d501c163f2}} 
+\index{\+\_\+rio@{\+\_\+rio}!autosync@{autosync}}
+\index{autosync@{autosync}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{autosync}{autosync}}
+{\footnotesize\ttfamily off\+\_\+t autosync}
+
+
+
+Definition at line 74 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_ae8dd93102163eea99d3d0949d1974628}\label{struct__rio_ae8dd93102163eea99d3d0949d1974628}} 
+\index{\+\_\+rio@{\+\_\+rio}!buf@{buf}}
+\index{buf@{buf}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{buf}{buf}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} buf}
+
+
+
+Definition at line 82 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_a08fd4992ea2a6cc4f1cae2d22475e950}\label{struct__rio_a08fd4992ea2a6cc4f1cae2d22475e950}} 
+\index{\+\_\+rio@{\+\_\+rio}!buffer@{buffer}}
+\index{buffer@{buffer}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{buffer}{buffer}}
+{\footnotesize\ttfamily struct \{ ... \}   buffer}
+
+\mbox{\Hypertarget{struct__rio_aaf9c739870ce662f03414e87c0a3947b}\label{struct__rio_aaf9c739870ce662f03414e87c0a3947b}} 
+\index{\+\_\+rio@{\+\_\+rio}!buffered@{buffered}}
+\index{buffered@{buffered}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{buffered}{buffered}}
+{\footnotesize\ttfamily off\+\_\+t buffered}
+
+
+
+Definition at line 73 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_aa7e1f76c805332914541fb978311b7b4}\label{struct__rio_aa7e1f76c805332914541fb978311b7b4}} 
+\index{\+\_\+rio@{\+\_\+rio}!cksum@{cksum}}
+\index{cksum@{cksum}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{cksum}{cksum}}
+{\footnotesize\ttfamily uint64\+\_\+t cksum}
+
+
+
+Definition at line 55 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_ad259456372b9b7ad374dccd9d0f80eac}\label{struct__rio_ad259456372b9b7ad374dccd9d0f80eac}} 
+\index{\+\_\+rio@{\+\_\+rio}!fds@{fds}}
+\index{fds@{fds}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{fds}{fds}}
+{\footnotesize\ttfamily int$\ast$ fds}
+
+
+
+Definition at line 78 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_a5101c27f29f6ce315129e5c9a00f9cc9}\label{struct__rio_a5101c27f29f6ce315129e5c9a00f9cc9}} 
+\index{\+\_\+rio@{\+\_\+rio}!fdset@{fdset}}
+\index{fdset@{fdset}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{fdset}{fdset}}
+{\footnotesize\ttfamily struct \{ ... \}   fdset}
+
+\mbox{\Hypertarget{struct__rio_abc0d7429e6b98d70aadb166991f8e5e3}\label{struct__rio_abc0d7429e6b98d70aadb166991f8e5e3}} 
+\index{\+\_\+rio@{\+\_\+rio}!file@{file}}
+\index{file@{file}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{file}{file}}
+{\footnotesize\ttfamily struct \{ ... \}   file}
+
+\mbox{\Hypertarget{struct__rio_a6400f2e1372884609119ec5fa095b6b9}\label{struct__rio_a6400f2e1372884609119ec5fa095b6b9}} 
+\index{\+\_\+rio@{\+\_\+rio}!flush@{flush}}
+\index{flush@{flush}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{flush}{flush}}
+{\footnotesize\ttfamily int($\ast$ flush) (struct \hyperlink{struct__rio}{\+\_\+rio} $\ast$)}
+
+
+
+Definition at line 46 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_aa065f30aa9f5f9a42132c82c787ee70b}\label{struct__rio_aa065f30aa9f5f9a42132c82c787ee70b}} 
+\index{\+\_\+rio@{\+\_\+rio}!fp@{fp}}
+\index{fp@{fp}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{fp}{fp}}
+{\footnotesize\ttfamily F\+I\+LE$\ast$ fp}
+
+
+
+Definition at line 72 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_ad359e2e86f3623eccc8b70ee6f18bc46}\label{struct__rio_ad359e2e86f3623eccc8b70ee6f18bc46}} 
+\index{\+\_\+rio@{\+\_\+rio}!io@{io}}
+\index{io@{io}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{io}{io}}
+{\footnotesize\ttfamily union \{ ... \}   io}
+
+\mbox{\Hypertarget{struct__rio_ad1ae3d0cef59f6c43a68302a5bc673cd}\label{struct__rio_ad1ae3d0cef59f6c43a68302a5bc673cd}} 
+\index{\+\_\+rio@{\+\_\+rio}!max\+\_\+processing\+\_\+chunk@{max\+\_\+processing\+\_\+chunk}}
+\index{max\+\_\+processing\+\_\+chunk@{max\+\_\+processing\+\_\+chunk}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{max\+\_\+processing\+\_\+chunk}{max\_processing\_chunk}}
+{\footnotesize\ttfamily size\+\_\+t max\+\_\+processing\+\_\+chunk}
+
+
+
+Definition at line 61 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_a01ef09680a9926f281067248a833e69b}\label{struct__rio_a01ef09680a9926f281067248a833e69b}} 
+\index{\+\_\+rio@{\+\_\+rio}!numfds@{numfds}}
+\index{numfds@{numfds}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{numfds}{numfds}}
+{\footnotesize\ttfamily int numfds}
+
+
+
+Definition at line 80 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_a320b91e58d067b5097a431e6da94f247}\label{struct__rio_a320b91e58d067b5097a431e6da94f247}} 
+\index{\+\_\+rio@{\+\_\+rio}!pos@{pos}}
+\index{pos@{pos}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{pos}{pos}}
+{\footnotesize\ttfamily off\+\_\+t pos}
+
+
+
+Definition at line 68 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_a4bfc464c439f7f4da758b39d6f31cf22}\label{struct__rio_a4bfc464c439f7f4da758b39d6f31cf22}} 
+\index{\+\_\+rio@{\+\_\+rio}!processed\+\_\+bytes@{processed\+\_\+bytes}}
+\index{processed\+\_\+bytes@{processed\+\_\+bytes}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{processed\+\_\+bytes}{processed\_bytes}}
+{\footnotesize\ttfamily size\+\_\+t processed\+\_\+bytes}
+
+
+
+Definition at line 58 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_ac787a06d755eb260b16d6cf74c06eaf9}\label{struct__rio_ac787a06d755eb260b16d6cf74c06eaf9}} 
+\index{\+\_\+rio@{\+\_\+rio}!ptr@{ptr}}
+\index{ptr@{ptr}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{ptr}{ptr}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ptr}
+
+
+
+Definition at line 67 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_a6562dde444181d8dc56163cd5bd5a880}\label{struct__rio_a6562dde444181d8dc56163cd5bd5a880}} 
+\index{\+\_\+rio@{\+\_\+rio}!read@{read}}
+\index{read@{read}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{read}{read}}
+{\footnotesize\ttfamily size\+\_\+t($\ast$ read) (struct \hyperlink{struct__rio}{\+\_\+rio} $\ast$, void $\ast$\hyperlink{struct__rio_ae8dd93102163eea99d3d0949d1974628}{buf}, size\+\_\+t len)}
+
+
+
+Definition at line 43 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_ace50bce9d6e7ed2958418778a6b1711f}\label{struct__rio_ace50bce9d6e7ed2958418778a6b1711f}} 
+\index{\+\_\+rio@{\+\_\+rio}!state@{state}}
+\index{state@{state}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily int$\ast$ state}
+
+
+
+Definition at line 79 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_ab06eb2e08a6cba498c63adf5e9ffa2ff}\label{struct__rio_ab06eb2e08a6cba498c63adf5e9ffa2ff}} 
+\index{\+\_\+rio@{\+\_\+rio}!tell@{tell}}
+\index{tell@{tell}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{tell}{tell}}
+{\footnotesize\ttfamily off\+\_\+t($\ast$ tell) (struct \hyperlink{struct__rio}{\+\_\+rio} $\ast$)}
+
+
+
+Definition at line 45 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_a0d11c9195df688114fd7e3d39b06c269}\label{struct__rio_a0d11c9195df688114fd7e3d39b06c269}} 
+\index{\+\_\+rio@{\+\_\+rio}!update\+\_\+cksum@{update\+\_\+cksum}}
+\index{update\+\_\+cksum@{update\+\_\+cksum}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{update\+\_\+cksum}{update\_cksum}}
+{\footnotesize\ttfamily void($\ast$ update\+\_\+cksum) (struct \hyperlink{struct__rio}{\+\_\+rio} $\ast$, const void $\ast$\hyperlink{struct__rio_ae8dd93102163eea99d3d0949d1974628}{buf}, size\+\_\+t len)}
+
+
+
+Definition at line 52 of file rio.\+h.
+
+\mbox{\Hypertarget{struct__rio_aa7c29e99e2a05a47c569af36fa61272c}\label{struct__rio_aa7c29e99e2a05a47c569af36fa61272c}} 
+\index{\+\_\+rio@{\+\_\+rio}!write@{write}}
+\index{write@{write}!\+\_\+rio@{\+\_\+rio}}
+\subsubsection{\texorpdfstring{write}{write}}
+{\footnotesize\ttfamily size\+\_\+t($\ast$ write) (struct \hyperlink{struct__rio}{\+\_\+rio} $\ast$, const void $\ast$\hyperlink{struct__rio_ae8dd93102163eea99d3d0949d1974628}{buf}, size\+\_\+t len)}
+
+
+
+Definition at line 44 of file rio.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{rio_8h}{rio.\+h}\end{DoxyCompactItemize}

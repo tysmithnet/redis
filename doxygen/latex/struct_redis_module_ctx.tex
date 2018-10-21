@@ -1,0 +1,198 @@
+\hypertarget{struct_redis_module_ctx}{}\section{Redis\+Module\+Ctx Struct Reference}
+\label{struct_redis_module_ctx}\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+
+
+Collaboration diagram for Redis\+Module\+Ctx\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_redis_module_ctx__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{struct_redis_module_ctx_ac6329d63f19c6310742a84c334627e6f}{getapifuncptr}
+\item 
+struct \hyperlink{struct_redis_module}{Redis\+Module} $\ast$ \hyperlink{struct_redis_module_ctx_a0b5d3833feb2320585734795fb7f62b6}{module}
+\item 
+\hyperlink{structclient}{client} $\ast$ \hyperlink{struct_redis_module_ctx_a6d99956d3d06c98958feb17baf491c71}{client}
+\item 
+struct \hyperlink{struct_redis_module_blocked_client}{Redis\+Module\+Blocked\+Client} $\ast$ \hyperlink{struct_redis_module_ctx_af1859b71d91af8412370224b3a37b1dc}{blocked\+\_\+client}
+\item 
+struct \hyperlink{struct_auto_mem_entry}{Auto\+Mem\+Entry} $\ast$ \hyperlink{struct_redis_module_ctx_add0d0fd5c12e402e4decbaf015619d1c}{amqueue}
+\item 
+int \hyperlink{struct_redis_module_ctx_a85eb81641193eff3e499ff05da42f752}{amqueue\+\_\+len}
+\item 
+int \hyperlink{struct_redis_module_ctx_af5e94a4bf2e602db90d341b3483b71ab}{amqueue\+\_\+used}
+\item 
+int \hyperlink{struct_redis_module_ctx_ac8bf36fe0577cba66bccda3a6f7e80a4}{flags}
+\item 
+void $\ast$$\ast$ \hyperlink{struct_redis_module_ctx_aeb39a4536bdedc8392cdda36e7380c22}{postponed\+\_\+arrays}
+\item 
+int \hyperlink{struct_redis_module_ctx_a3eb93de851bb356c791e34b7b0cd4bde}{postponed\+\_\+arrays\+\_\+count}
+\item 
+void $\ast$ \hyperlink{struct_redis_module_ctx_a5d0fe014667071528b4f68c65b085808}{blocked\+\_\+privdata}
+\item 
+int $\ast$ \hyperlink{struct_redis_module_ctx_a559d6c952058c05bc208033d3d3576d1}{keys\+\_\+pos}
+\item 
+int \hyperlink{struct_redis_module_ctx_a24bb9d3a9dccb24581d359a218837c6f}{keys\+\_\+count}
+\item 
+struct \hyperlink{struct_redis_module_pool_alloc_block}{Redis\+Module\+Pool\+Alloc\+Block} $\ast$ \hyperlink{struct_redis_module_ctx_ad70f06a690907f850f125ae974b0aeed}{pa\+\_\+head}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 102 of file module.\+c.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{struct_redis_module_ctx_add0d0fd5c12e402e4decbaf015619d1c}\label{struct_redis_module_ctx_add0d0fd5c12e402e4decbaf015619d1c}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!amqueue@{amqueue}}
+\index{amqueue@{amqueue}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{amqueue}{amqueue}}
+{\footnotesize\ttfamily struct \hyperlink{struct_auto_mem_entry}{Auto\+Mem\+Entry}$\ast$ amqueue}
+
+
+
+Definition at line 108 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_ctx_a85eb81641193eff3e499ff05da42f752}\label{struct_redis_module_ctx_a85eb81641193eff3e499ff05da42f752}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!amqueue\+\_\+len@{amqueue\+\_\+len}}
+\index{amqueue\+\_\+len@{amqueue\+\_\+len}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{amqueue\+\_\+len}{amqueue\_len}}
+{\footnotesize\ttfamily int amqueue\+\_\+len}
+
+
+
+Definition at line 109 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_ctx_af5e94a4bf2e602db90d341b3483b71ab}\label{struct_redis_module_ctx_af5e94a4bf2e602db90d341b3483b71ab}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!amqueue\+\_\+used@{amqueue\+\_\+used}}
+\index{amqueue\+\_\+used@{amqueue\+\_\+used}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{amqueue\+\_\+used}{amqueue\_used}}
+{\footnotesize\ttfamily int amqueue\+\_\+used}
+
+
+
+Definition at line 110 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_ctx_af1859b71d91af8412370224b3a37b1dc}\label{struct_redis_module_ctx_af1859b71d91af8412370224b3a37b1dc}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!blocked\+\_\+client@{blocked\+\_\+client}}
+\index{blocked\+\_\+client@{blocked\+\_\+client}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{blocked\+\_\+client}{blocked\_client}}
+{\footnotesize\ttfamily struct \hyperlink{struct_redis_module_blocked_client}{Redis\+Module\+Blocked\+Client}$\ast$ blocked\+\_\+client}
+
+
+
+Definition at line 106 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_ctx_a5d0fe014667071528b4f68c65b085808}\label{struct_redis_module_ctx_a5d0fe014667071528b4f68c65b085808}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!blocked\+\_\+privdata@{blocked\+\_\+privdata}}
+\index{blocked\+\_\+privdata@{blocked\+\_\+privdata}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{blocked\+\_\+privdata}{blocked\_privdata}}
+{\footnotesize\ttfamily void$\ast$ blocked\+\_\+privdata}
+
+
+
+Definition at line 114 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_ctx_a6d99956d3d06c98958feb17baf491c71}\label{struct_redis_module_ctx_a6d99956d3d06c98958feb17baf491c71}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!client@{client}}
+\index{client@{client}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{client}{client}}
+{\footnotesize\ttfamily \hyperlink{structclient}{client}$\ast$ \hyperlink{structclient}{client}}
+
+
+
+Definition at line 105 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_ctx_ac8bf36fe0577cba66bccda3a6f7e80a4}\label{struct_redis_module_ctx_ac8bf36fe0577cba66bccda3a6f7e80a4}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!flags@{flags}}
+\index{flags@{flags}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily int flags}
+
+
+
+Definition at line 111 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_ctx_ac6329d63f19c6310742a84c334627e6f}\label{struct_redis_module_ctx_ac6329d63f19c6310742a84c334627e6f}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!getapifuncptr@{getapifuncptr}}
+\index{getapifuncptr@{getapifuncptr}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{getapifuncptr}{getapifuncptr}}
+{\footnotesize\ttfamily void$\ast$ getapifuncptr}
+
+
+
+Definition at line 103 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_ctx_a24bb9d3a9dccb24581d359a218837c6f}\label{struct_redis_module_ctx_a24bb9d3a9dccb24581d359a218837c6f}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!keys\+\_\+count@{keys\+\_\+count}}
+\index{keys\+\_\+count@{keys\+\_\+count}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{keys\+\_\+count}{keys\_count}}
+{\footnotesize\ttfamily int keys\+\_\+count}
+
+
+
+Definition at line 118 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_ctx_a559d6c952058c05bc208033d3d3576d1}\label{struct_redis_module_ctx_a559d6c952058c05bc208033d3d3576d1}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!keys\+\_\+pos@{keys\+\_\+pos}}
+\index{keys\+\_\+pos@{keys\+\_\+pos}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{keys\+\_\+pos}{keys\_pos}}
+{\footnotesize\ttfamily int$\ast$ keys\+\_\+pos}
+
+
+
+Definition at line 117 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_ctx_a0b5d3833feb2320585734795fb7f62b6}\label{struct_redis_module_ctx_a0b5d3833feb2320585734795fb7f62b6}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!module@{module}}
+\index{module@{module}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{module}{module}}
+{\footnotesize\ttfamily struct \hyperlink{struct_redis_module}{Redis\+Module}$\ast$ module}
+
+
+
+Definition at line 104 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_ctx_ad70f06a690907f850f125ae974b0aeed}\label{struct_redis_module_ctx_ad70f06a690907f850f125ae974b0aeed}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!pa\+\_\+head@{pa\+\_\+head}}
+\index{pa\+\_\+head@{pa\+\_\+head}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{pa\+\_\+head}{pa\_head}}
+{\footnotesize\ttfamily struct \hyperlink{struct_redis_module_pool_alloc_block}{Redis\+Module\+Pool\+Alloc\+Block}$\ast$ pa\+\_\+head}
+
+
+
+Definition at line 120 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_ctx_aeb39a4536bdedc8392cdda36e7380c22}\label{struct_redis_module_ctx_aeb39a4536bdedc8392cdda36e7380c22}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!postponed\+\_\+arrays@{postponed\+\_\+arrays}}
+\index{postponed\+\_\+arrays@{postponed\+\_\+arrays}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{postponed\+\_\+arrays}{postponed\_arrays}}
+{\footnotesize\ttfamily void$\ast$$\ast$ postponed\+\_\+arrays}
+
+
+
+Definition at line 112 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_ctx_a3eb93de851bb356c791e34b7b0cd4bde}\label{struct_redis_module_ctx_a3eb93de851bb356c791e34b7b0cd4bde}} 
+\index{Redis\+Module\+Ctx@{Redis\+Module\+Ctx}!postponed\+\_\+arrays\+\_\+count@{postponed\+\_\+arrays\+\_\+count}}
+\index{postponed\+\_\+arrays\+\_\+count@{postponed\+\_\+arrays\+\_\+count}!Redis\+Module\+Ctx@{Redis\+Module\+Ctx}}
+\subsubsection{\texorpdfstring{postponed\+\_\+arrays\+\_\+count}{postponed\_arrays\_count}}
+{\footnotesize\ttfamily int postponed\+\_\+arrays\+\_\+count}
+
+
+
+Definition at line 113 of file module.\+c.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{module_8c}{module.\+c}\end{DoxyCompactItemize}

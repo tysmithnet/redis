@@ -1,0 +1,348 @@
+\hypertarget{t__string_8c}{}\section{src/t\+\_\+string.c File Reference}
+\label{t__string_8c}\index{src/t\+\_\+string.\+c@{src/t\+\_\+string.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for t\+\_\+string.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{t__string_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{t__string_8c_a066d0cea68eb46959e4de40ad0115c5b}{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS}~0
+\item 
+\#define \hyperlink{t__string_8c_ad2c320e7c632cb6c42ff431ec0d0bfaf}{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+NX}~(1$<$$<$0)     /$\ast$ Set if \hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key} not exists. $\ast$/
+\item 
+\#define \hyperlink{t__string_8c_a01e9fee690658334c3fa5fb0dfed3ed8}{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+XX}~(1$<$$<$1)     /$\ast$ Set if \hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key} exists. $\ast$/
+\item 
+\#define \hyperlink{t__string_8c_a57e6bca7c3405142669c40d9d254a81e}{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+EX}~(1$<$$<$2)     /$\ast$ Set if time in seconds is given $\ast$/
+\item 
+\#define \hyperlink{t__string_8c_a7b6e95f021b2885665c3ac078df68509}{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+PX}~(1$<$$<$3)     /$\ast$ Set if time in ms in given $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{t__string_8c_aba390212af462aaa1d2d27d1b20554d6}{set\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int flags, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$val, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$expire, int unit, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ok\+\_\+reply, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$abort\+\_\+reply)
+\item 
+void \hyperlink{t__string_8c_acff0bf145e0c32f0ce05da78aac8a85f}{set\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a85ed2d5f370914814d254fdb182cca46}{setnx\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_ac8f41381de6a73069064befd66482b57}{setex\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_acc08f077e279fea572c00484f4744fc1}{psetex\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{t__string_8c_a266b8b7c5f869fa8ed74c0f7689d733f}{get\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a06bd26a900d06b177e0b9bbb67977761}{get\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a0ff1c70665289eef5bc6f530c8fecf0a}{getset\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a84ef395cc8698721347af9fa5ac00904}{setrange\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a9d350e3ba0a6a560b3731f9cce78ca2a}{getrange\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a5c06e803ad12cd034a808a885bc342cf}{mget\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a50b6de81bfcf3a4ff5a5a18ca85b8a27}{mset\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int nx)
+\item 
+void \hyperlink{t__string_8c_a6a8bd5902de5f6d6d0eb7e5105f40fef}{mset\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a87641859a9a0701a1d2ff93f5c9a6e7b}{msetnx\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a432e12f895618e0f83aa84f6caa6a9cc}{incr\+Decr\+Command} (\hyperlink{structclient}{client} $\ast$c, long long incr)
+\item 
+void \hyperlink{t__string_8c_a26b127b9f676a82e78c29694e284cc73}{incr\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a395b1661b661c1dd3983e856955e3a75}{decr\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_ac93d3efcff085863089f595a037ac664}{incrby\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a17ef8e7bb0aa527068a2667fc9c77a40}{decrby\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a3dec1c137e29e15e8f5bfcf372766609}{incrbyfloat\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a4dba63a3cf60c2e23d5dffa26fb3c8bc}{append\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__string_8c_a452e0a39c42c68759c8cdd072b5336cd}{strlen\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{t__string_8c_a57e6bca7c3405142669c40d9d254a81e}\label{t__string_8c_a57e6bca7c3405142669c40d9d254a81e}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+EX@{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+EX}}
+\index{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+EX@{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+EX}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+EX}{OBJ\_SET\_EX}}
+{\footnotesize\ttfamily \#define O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+EX~(1$<$$<$2)     /$\ast$ Set if time in seconds is given $\ast$/}
+
+
+
+Definition at line 64 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a066d0cea68eb46959e4de40ad0115c5b}\label{t__string_8c_a066d0cea68eb46959e4de40ad0115c5b}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS@{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS}}
+\index{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS@{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS}{OBJ\_SET\_NO\_FLAGS}}
+{\footnotesize\ttfamily \#define O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS~0}
+
+
+
+Definition at line 61 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_ad2c320e7c632cb6c42ff431ec0d0bfaf}\label{t__string_8c_ad2c320e7c632cb6c42ff431ec0d0bfaf}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+NX@{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+NX}}
+\index{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+NX@{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+NX}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+NX}{OBJ\_SET\_NX}}
+{\footnotesize\ttfamily \#define O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+NX~(1$<$$<$0)     /$\ast$ Set if \hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key} not exists. $\ast$/}
+
+
+
+Definition at line 62 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a7b6e95f021b2885665c3ac078df68509}\label{t__string_8c_a7b6e95f021b2885665c3ac078df68509}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+PX@{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+PX}}
+\index{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+PX@{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+PX}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+PX}{OBJ\_SET\_PX}}
+{\footnotesize\ttfamily \#define O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+PX~(1$<$$<$3)     /$\ast$ Set if time in ms in given $\ast$/}
+
+
+
+Definition at line 65 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a01e9fee690658334c3fa5fb0dfed3ed8}\label{t__string_8c_a01e9fee690658334c3fa5fb0dfed3ed8}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+XX@{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+XX}}
+\index{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+XX@{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+XX}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+XX}{OBJ\_SET\_XX}}
+{\footnotesize\ttfamily \#define O\+B\+J\+\_\+\+S\+E\+T\+\_\+\+XX~(1$<$$<$1)     /$\ast$ Set if \hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key} exists. $\ast$/}
+
+
+
+Definition at line 63 of file t\+\_\+string.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{t__string_8c_a4dba63a3cf60c2e23d5dffa26fb3c8bc}\label{t__string_8c_a4dba63a3cf60c2e23d5dffa26fb3c8bc}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!append\+Command@{append\+Command}}
+\index{append\+Command@{append\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{append\+Command()}{appendCommand()}}
+{\footnotesize\ttfamily void append\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 435 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a17ef8e7bb0aa527068a2667fc9c77a40}\label{t__string_8c_a17ef8e7bb0aa527068a2667fc9c77a40}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!decrby\+Command@{decrby\+Command}}
+\index{decrby\+Command@{decrby\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{decrby\+Command()}{decrbyCommand()}}
+{\footnotesize\ttfamily void decrby\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 394 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a395b1661b661c1dd3983e856955e3a75}\label{t__string_8c_a395b1661b661c1dd3983e856955e3a75}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!decr\+Command@{decr\+Command}}
+\index{decr\+Command@{decr\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{decr\+Command()}{decrCommand()}}
+{\footnotesize\ttfamily void decr\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 383 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a06bd26a900d06b177e0b9bbb67977761}\label{t__string_8c_a06bd26a900d06b177e0b9bbb67977761}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!get\+Command@{get\+Command}}
+\index{get\+Command@{get\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{get\+Command()}{getCommand()}}
+{\footnotesize\ttfamily void get\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 172 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a266b8b7c5f869fa8ed74c0f7689d733f}\label{t__string_8c_a266b8b7c5f869fa8ed74c0f7689d733f}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!get\+Generic\+Command@{get\+Generic\+Command}}
+\index{get\+Generic\+Command@{get\+Generic\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{get\+Generic\+Command()}{getGenericCommand()}}
+{\footnotesize\ttfamily int get\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 157 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a9d350e3ba0a6a560b3731f9cce78ca2a}\label{t__string_8c_a9d350e3ba0a6a560b3731f9cce78ca2a}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!getrange\+Command@{getrange\+Command}}
+\index{getrange\+Command@{getrange\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{getrange\+Command()}{getrangeCommand()}}
+{\footnotesize\ttfamily void getrange\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 244 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a0ff1c70665289eef5bc6f530c8fecf0a}\label{t__string_8c_a0ff1c70665289eef5bc6f530c8fecf0a}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!getset\+Command@{getset\+Command}}
+\index{getset\+Command@{getset\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{getset\+Command()}{getsetCommand()}}
+{\footnotesize\ttfamily void getset\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 176 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_ac93d3efcff085863089f595a037ac664}\label{t__string_8c_ac93d3efcff085863089f595a037ac664}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!incrby\+Command@{incrby\+Command}}
+\index{incrby\+Command@{incrby\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{incrby\+Command()}{incrbyCommand()}}
+{\footnotesize\ttfamily void incrby\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 387 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a3dec1c137e29e15e8f5bfcf372766609}\label{t__string_8c_a3dec1c137e29e15e8f5bfcf372766609}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!incrbyfloat\+Command@{incrbyfloat\+Command}}
+\index{incrbyfloat\+Command@{incrbyfloat\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{incrbyfloat\+Command()}{incrbyfloatCommand()}}
+{\footnotesize\ttfamily void incrbyfloat\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 401 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a26b127b9f676a82e78c29694e284cc73}\label{t__string_8c_a26b127b9f676a82e78c29694e284cc73}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!incr\+Command@{incr\+Command}}
+\index{incr\+Command@{incr\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{incr\+Command()}{incrCommand()}}
+{\footnotesize\ttfamily void incr\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 379 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a432e12f895618e0f83aa84f6caa6a9cc}\label{t__string_8c_a432e12f895618e0f83aa84f6caa6a9cc}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!incr\+Decr\+Command@{incr\+Decr\+Command}}
+\index{incr\+Decr\+Command@{incr\+Decr\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{incr\+Decr\+Command()}{incrDecrCommand()}}
+{\footnotesize\ttfamily void incr\+Decr\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{long long}]{incr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 341 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a5c06e803ad12cd034a808a885bc342cf}\label{t__string_8c_a5c06e803ad12cd034a808a885bc342cf}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!mget\+Command@{mget\+Command}}
+\index{mget\+Command@{mget\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{mget\+Command()}{mgetCommand()}}
+{\footnotesize\ttfamily void mget\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 285 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a6a8bd5902de5f6d6d0eb7e5105f40fef}\label{t__string_8c_a6a8bd5902de5f6d6d0eb7e5105f40fef}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!mset\+Command@{mset\+Command}}
+\index{mset\+Command@{mset\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{mset\+Command()}{msetCommand()}}
+{\footnotesize\ttfamily void mset\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 333 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a50b6de81bfcf3a4ff5a5a18ca85b8a27}\label{t__string_8c_a50b6de81bfcf3a4ff5a5a18ca85b8a27}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!mset\+Generic\+Command@{mset\+Generic\+Command}}
+\index{mset\+Generic\+Command@{mset\+Generic\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{mset\+Generic\+Command()}{msetGenericCommand()}}
+{\footnotesize\ttfamily void mset\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{nx }\end{DoxyParamCaption})}
+
+
+
+Definition at line 303 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a87641859a9a0701a1d2ff93f5c9a6e7b}\label{t__string_8c_a87641859a9a0701a1d2ff93f5c9a6e7b}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!msetnx\+Command@{msetnx\+Command}}
+\index{msetnx\+Command@{msetnx\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{msetnx\+Command()}{msetnxCommand()}}
+{\footnotesize\ttfamily void msetnx\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 337 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_acc08f077e279fea572c00484f4744fc1}\label{t__string_8c_acc08f077e279fea572c00484f4744fc1}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!psetex\+Command@{psetex\+Command}}
+\index{psetex\+Command@{psetex\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{psetex\+Command()}{psetexCommand()}}
+{\footnotesize\ttfamily void psetex\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 152 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_acff0bf145e0c32f0ce05da78aac8a85f}\label{t__string_8c_acff0bf145e0c32f0ce05da78aac8a85f}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!set\+Command@{set\+Command}}
+\index{set\+Command@{set\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{set\+Command()}{setCommand()}}
+{\footnotesize\ttfamily void set\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 96 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_ac8f41381de6a73069064befd66482b57}\label{t__string_8c_ac8f41381de6a73069064befd66482b57}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!setex\+Command@{setex\+Command}}
+\index{setex\+Command@{setex\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{setex\+Command()}{setexCommand()}}
+{\footnotesize\ttfamily void setex\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 147 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_aba390212af462aaa1d2d27d1b20554d6}\label{t__string_8c_aba390212af462aaa1d2d27d1b20554d6}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!set\+Generic\+Command@{set\+Generic\+Command}}
+\index{set\+Generic\+Command@{set\+Generic\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{set\+Generic\+Command()}{setGenericCommand()}}
+{\footnotesize\ttfamily void set\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{flags,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{val,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{expire,  }\item[{int}]{unit,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{ok\+\_\+reply,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{abort\+\_\+reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 67 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a85ed2d5f370914814d254fdb182cca46}\label{t__string_8c_a85ed2d5f370914814d254fdb182cca46}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!setnx\+Command@{setnx\+Command}}
+\index{setnx\+Command@{setnx\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{setnx\+Command()}{setnxCommand()}}
+{\footnotesize\ttfamily void setnx\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 142 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a84ef395cc8698721347af9fa5ac00904}\label{t__string_8c_a84ef395cc8698721347af9fa5ac00904}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!setrange\+Command@{setrange\+Command}}
+\index{setrange\+Command@{setrange\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{setrange\+Command()}{setrangeCommand()}}
+{\footnotesize\ttfamily void setrange\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 184 of file t\+\_\+string.\+c.
+
+\mbox{\Hypertarget{t__string_8c_a452e0a39c42c68759c8cdd072b5336cd}\label{t__string_8c_a452e0a39c42c68759c8cdd072b5336cd}} 
+\index{t\+\_\+string.\+c@{t\+\_\+string.\+c}!strlen\+Command@{strlen\+Command}}
+\index{strlen\+Command@{strlen\+Command}!t\+\_\+string.\+c@{t\+\_\+string.\+c}}
+\subsubsection{\texorpdfstring{strlen\+Command()}{strlenCommand()}}
+{\footnotesize\ttfamily void strlen\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 468 of file t\+\_\+string.\+c.
+

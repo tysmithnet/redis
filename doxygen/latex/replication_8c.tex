@@ -1,0 +1,833 @@
+\hypertarget{replication_8c}{}\section{src/replication.c File Reference}
+\label{replication_8c}\index{src/replication.\+c@{src/replication.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+Include dependency graph for replication.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{replication_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{replication_8c_a9a25193630fb39ddc25ea99935beca00}{R\+E\+P\+L\+\_\+\+M\+A\+X\+\_\+\+W\+R\+I\+T\+T\+E\+N\+\_\+\+B\+E\+F\+O\+R\+E\+\_\+\+F\+S\+Y\+NC}~(1024$\ast$1024$\ast$8) /$\ast$ 8 MB $\ast$/
+\item 
+\#define \hyperlink{replication_8c_a5dde0948d622fc1b0327b0d49cb3cef5}{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+R\+E\+AD}~(1$<$$<$0)
+\item 
+\#define \hyperlink{replication_8c_aa4480c458f209657b59d476157d44aab}{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+W\+R\+I\+TE}~(1$<$$<$1)
+\item 
+\#define \hyperlink{replication_8c_aba1a7d03d32caebf3b34cd2c226823a8}{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+F\+U\+LL}~(\hyperlink{replication_8c_a5dde0948d622fc1b0327b0d49cb3cef5}{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+R\+E\+AD}$\vert$\hyperlink{replication_8c_aa4480c458f209657b59d476157d44aab}{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+W\+R\+I\+TE})
+\item 
+\#define \hyperlink{replication_8c_a63479df7aec0103920c029d735f6b4ba}{P\+S\+Y\+N\+C\+\_\+\+W\+R\+I\+T\+E\+\_\+\+E\+R\+R\+OR}~0
+\item 
+\#define \hyperlink{replication_8c_a4308c1e1292e0c34cf84d6e54b4869aa}{P\+S\+Y\+N\+C\+\_\+\+W\+A\+I\+T\+\_\+\+R\+E\+P\+LY}~1
+\item 
+\#define \hyperlink{replication_8c_a96f39718bf5cfd2859bdaea530f509b9}{P\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+T\+I\+N\+UE}~2
+\item 
+\#define \hyperlink{replication_8c_a9d0b6b76f92efdd69eba7de13dae3764}{P\+S\+Y\+N\+C\+\_\+\+F\+U\+L\+L\+R\+E\+S\+Y\+NC}~3
+\item 
+\#define \hyperlink{replication_8c_a9722855166099ab95f712e73ed819abf}{P\+S\+Y\+N\+C\+\_\+\+N\+O\+T\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED}~4
+\item 
+\#define \hyperlink{replication_8c_a033726631820c6ebdfb2f034a870e9da}{P\+S\+Y\+N\+C\+\_\+\+T\+R\+Y\+\_\+\+L\+A\+T\+ER}~5
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{replication_8c_ac5e5562e9b3dcef76cfe3286c0ba1ec5}{replication\+Discard\+Cached\+Master} (void)
+\item 
+void \hyperlink{replication_8c_a3f9f59f69a09950586c7ee145764865c}{replication\+Resurrect\+Cached\+Master} (int newfd)
+\item 
+void \hyperlink{replication_8c_a0570bdf08589b26434cc24aa3611e627}{replication\+Send\+Ack} (void)
+\item 
+void \hyperlink{replication_8c_a83505d729004cedfdd4c46f8e8133df3}{put\+Slave\+Online} (\hyperlink{structclient}{client} $\ast$slave)
+\item 
+int \hyperlink{replication_8c_aeacf0ec0f31193e9a4dde15d359b52ab}{cancel\+Replication\+Handshake} (void)
+\item 
+char $\ast$ \hyperlink{replication_8c_acbeb0d8f6506ed7a0039545f1e698aed}{replication\+Get\+Slave\+Name} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{replication_8c_a6169f0fc0846bb90fa4ebe8195f7d456}{create\+Replication\+Backlog} (void)
+\item 
+void \hyperlink{replication_8c_a47a8b41e75ade752a3ac740871803532}{resize\+Replication\+Backlog} (long long newsize)
+\item 
+void \hyperlink{replication_8c_a61eb22a6807ce8e176deea2a88a18095}{free\+Replication\+Backlog} (void)
+\item 
+void \hyperlink{replication_8c_a4e504f59d713e1c5e8ae1cc5be3deb71}{feed\+Replication\+Backlog} (void $\ast$ptr, size\+\_\+t len)
+\item 
+void \hyperlink{replication_8c_a74697ca8d2b805546d751763e7f0d5e9}{feed\+Replication\+Backlog\+With\+Object} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{replication_8c_a767d8f1bda78e1aca2fcb8da3d495a59}{replication\+Feed\+Slaves} (\hyperlink{structlist}{list} $\ast$slaves, int dictid, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc)
+\item 
+void \hyperlink{replication_8c_abbd068de816b9e74070b9118a9700f57}{replication\+Feed\+Slaves\+From\+Master\+Stream} (\hyperlink{structlist}{list} $\ast$slaves, char $\ast$buf, size\+\_\+t buflen)
+\item 
+void \hyperlink{replication_8c_a210b8e82fb1482b1655f23bac2b09509}{replication\+Feed\+Monitors} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{structlist}{list} $\ast$monitors, int dictid, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc)
+\item 
+long long \hyperlink{replication_8c_a139ea5ac028685b5664df07d908e3411}{add\+Reply\+Replication\+Backlog} (\hyperlink{structclient}{client} $\ast$c, long long offset)
+\item 
+long long \hyperlink{replication_8c_af5b10f42cad3e7313b7ba5957ba1e6b0}{get\+Psync\+Initial\+Offset} (void)
+\item 
+int \hyperlink{replication_8c_ac554eef720663d55ce24bd3efa79f13e}{replication\+Setup\+Slave\+For\+Full\+Resync} (\hyperlink{structclient}{client} $\ast$slave, long long offset)
+\item 
+int \hyperlink{replication_8c_a504cb3c0675dd3fd4a269271a9ca144f}{master\+Try\+Partial\+Resynchronization} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{replication_8c_a38b542f0e889afffe5504bb06432e51e}{start\+Bgsave\+For\+Replication} (int mincapa)
+\item 
+void \hyperlink{replication_8c_a7c1fd41f13821ba72fb98e077bbd61f0}{sync\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{replication_8c_a6f8585370e62320875abea412e5c8a9a}{replconf\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{replication_8c_aa89faed598533d3dc23e3c848d5bcfde}{send\+Bulk\+To\+Slave} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$el, int fd, void $\ast$privdata, int mask)
+\item 
+void \hyperlink{replication_8c_a72ca1ebe5d56c2a647f7fe390d5c0b5d}{update\+Slaves\+Waiting\+Bgsave} (int bgsaveerr, int type)
+\item 
+void \hyperlink{replication_8c_af842a6430c5f5a08a39d5e2112041a85}{change\+Replication\+Id} (void)
+\item 
+void \hyperlink{replication_8c_a37d4584ae9eb714716d84482498a1fe6}{clear\+Replication\+Id2} (void)
+\item 
+void \hyperlink{replication_8c_a8bc3443a7354fe994095db240b36a72c}{shift\+Replication\+Id} (void)
+\item 
+int \hyperlink{replication_8c_a8ed18c38fdecec18b2c064dbb8b8a1af}{slave\+Is\+In\+Handshake\+State} (void)
+\item 
+void \hyperlink{replication_8c_a64a3efadf96c653d4c30c57f078ce31f}{replication\+Send\+Newline\+To\+Master} (void)
+\item 
+void \hyperlink{replication_8c_a8f1a016dad897a4c619e3096c7e3ce9b}{replication\+Empty\+Db\+Callback} (void $\ast$privdata)
+\item 
+void \hyperlink{replication_8c_ac0a3ab4acb74a052cac4520c186b6faa}{replication\+Create\+Master\+Client} (int fd, int dbid)
+\item 
+void \hyperlink{replication_8c_a8d9034f19806b034741471158a9a20a0}{restart\+A\+OF} ()
+\item 
+void \hyperlink{replication_8c_a94c7e6a7ea31f7f5c5a2ce36992875c2}{read\+Sync\+Bulk\+Payload} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$el, int fd, void $\ast$privdata, int mask)
+\item 
+char $\ast$ \hyperlink{replication_8c_aae281c61023595b33302eca6b40f6261}{send\+Synchronous\+Command} (int flags, int fd,...)
+\item 
+int \hyperlink{replication_8c_afa1816f0fe1fda7260ce8db32823b502}{slave\+Try\+Partial\+Resynchronization} (int fd, int read\+\_\+reply)
+\item 
+void \hyperlink{replication_8c_a36cacbac8a5e619d3cfc1c146c39c1a1}{sync\+With\+Master} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$el, int fd, void $\ast$privdata, int mask)
+\item 
+int \hyperlink{replication_8c_a3f6844ab74fb5a9a5fe96786be066b46}{connect\+With\+Master} (void)
+\item 
+void \hyperlink{replication_8c_aca7515906cb31f32951b3ca65da34cf5}{undo\+Connect\+With\+Master} (void)
+\item 
+void \hyperlink{replication_8c_afe3ac93a97f50e01c1ba9778d1a762fd}{replication\+Abort\+Sync\+Transfer} (void)
+\item 
+void \hyperlink{replication_8c_aef2a9718bc6042354ae0da0bc5523ff7}{replication\+Set\+Master} (char $\ast$ip, int port)
+\item 
+void \hyperlink{replication_8c_a2a28f11270877844ad26e69b6ff42904}{replication\+Unset\+Master} (void)
+\item 
+void \hyperlink{replication_8c_a274bbd07b210f9d7aecfaeef59f294ff}{replication\+Handle\+Master\+Disconnection} (void)
+\item 
+void \hyperlink{replication_8c_a965792099fe57baacccb8bd8be7d2bd0}{replicaof\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{replication_8c_a513fcda284bfbf4e1cebe298c3e1f8a8}{role\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{replication_8c_adec8d2f5385b40dd0b5fe4c86fbe99f6}{replication\+Cache\+Master} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{replication_8c_a61c860bc8a13a585b4864358faf305f3}{replication\+Cache\+Master\+Using\+Myself} (void)
+\item 
+void \hyperlink{replication_8c_a24ab845a8c7e418e3c2284eab74b5d9c}{refresh\+Good\+Slaves\+Count} (void)
+\item 
+void \hyperlink{replication_8c_a952c0abc9ec545a730536aa35c5a1ee2}{replication\+Script\+Cache\+Init} (void)
+\item 
+void \hyperlink{replication_8c_a1ad446303a7240f31cd494a3b097effc}{replication\+Script\+Cache\+Flush} (void)
+\item 
+void \hyperlink{replication_8c_ae61af0ae002b3b9f44f5ec507e2ed295}{replication\+Script\+Cache\+Add} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sha1)
+\item 
+int \hyperlink{replication_8c_a53a1ead29f608daf5f43f3e7daaf8de8}{replication\+Script\+Cache\+Exists} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sha1)
+\item 
+void \hyperlink{replication_8c_ad973caa5aec43999c35b64e25a7edbe1}{replication\+Request\+Ack\+From\+Slaves} (void)
+\item 
+int \hyperlink{replication_8c_ab46b5db3f55f4035a1cfc8fb4bbc06db}{replication\+Count\+Acks\+By\+Offset} (long long offset)
+\item 
+void \hyperlink{replication_8c_a7165ef8a155631ec4056f99153277c2b}{wait\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{replication_8c_aa6160a18658c00b9fd9e8c68b262cf91}{unblock\+Client\+Waiting\+Replicas} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{replication_8c_a52f8e1fcf71986503c1a7fff6066bfaa}{process\+Clients\+Waiting\+Replicas} (void)
+\item 
+long long \hyperlink{replication_8c_a962e083510d3a161ee4f46a1f609adca}{replication\+Get\+Slave\+Offset} (void)
+\item 
+void \hyperlink{replication_8c_a1e6f92550637c74bd1ae6b34ee8e36dc}{replication\+Cron} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{replication_8c_a96f39718bf5cfd2859bdaea530f509b9}\label{replication_8c_a96f39718bf5cfd2859bdaea530f509b9}} 
+\index{replication.\+c@{replication.\+c}!P\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+T\+I\+N\+UE@{P\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+T\+I\+N\+UE}}
+\index{P\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+T\+I\+N\+UE@{P\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+T\+I\+N\+UE}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{P\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+T\+I\+N\+UE}{PSYNC\_CONTINUE}}
+{\footnotesize\ttfamily \#define P\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+T\+I\+N\+UE~2}
+
+
+
+Definition at line 1421 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a9d0b6b76f92efdd69eba7de13dae3764}\label{replication_8c_a9d0b6b76f92efdd69eba7de13dae3764}} 
+\index{replication.\+c@{replication.\+c}!P\+S\+Y\+N\+C\+\_\+\+F\+U\+L\+L\+R\+E\+S\+Y\+NC@{P\+S\+Y\+N\+C\+\_\+\+F\+U\+L\+L\+R\+E\+S\+Y\+NC}}
+\index{P\+S\+Y\+N\+C\+\_\+\+F\+U\+L\+L\+R\+E\+S\+Y\+NC@{P\+S\+Y\+N\+C\+\_\+\+F\+U\+L\+L\+R\+E\+S\+Y\+NC}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{P\+S\+Y\+N\+C\+\_\+\+F\+U\+L\+L\+R\+E\+S\+Y\+NC}{PSYNC\_FULLRESYNC}}
+{\footnotesize\ttfamily \#define P\+S\+Y\+N\+C\+\_\+\+F\+U\+L\+L\+R\+E\+S\+Y\+NC~3}
+
+
+
+Definition at line 1422 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a9722855166099ab95f712e73ed819abf}\label{replication_8c_a9722855166099ab95f712e73ed819abf}} 
+\index{replication.\+c@{replication.\+c}!P\+S\+Y\+N\+C\+\_\+\+N\+O\+T\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED@{P\+S\+Y\+N\+C\+\_\+\+N\+O\+T\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED}}
+\index{P\+S\+Y\+N\+C\+\_\+\+N\+O\+T\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED@{P\+S\+Y\+N\+C\+\_\+\+N\+O\+T\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{P\+S\+Y\+N\+C\+\_\+\+N\+O\+T\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED}{PSYNC\_NOT\_SUPPORTED}}
+{\footnotesize\ttfamily \#define P\+S\+Y\+N\+C\+\_\+\+N\+O\+T\+\_\+\+S\+U\+P\+P\+O\+R\+T\+ED~4}
+
+
+
+Definition at line 1423 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a033726631820c6ebdfb2f034a870e9da}\label{replication_8c_a033726631820c6ebdfb2f034a870e9da}} 
+\index{replication.\+c@{replication.\+c}!P\+S\+Y\+N\+C\+\_\+\+T\+R\+Y\+\_\+\+L\+A\+T\+ER@{P\+S\+Y\+N\+C\+\_\+\+T\+R\+Y\+\_\+\+L\+A\+T\+ER}}
+\index{P\+S\+Y\+N\+C\+\_\+\+T\+R\+Y\+\_\+\+L\+A\+T\+ER@{P\+S\+Y\+N\+C\+\_\+\+T\+R\+Y\+\_\+\+L\+A\+T\+ER}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{P\+S\+Y\+N\+C\+\_\+\+T\+R\+Y\+\_\+\+L\+A\+T\+ER}{PSYNC\_TRY\_LATER}}
+{\footnotesize\ttfamily \#define P\+S\+Y\+N\+C\+\_\+\+T\+R\+Y\+\_\+\+L\+A\+T\+ER~5}
+
+
+
+Definition at line 1424 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a4308c1e1292e0c34cf84d6e54b4869aa}\label{replication_8c_a4308c1e1292e0c34cf84d6e54b4869aa}} 
+\index{replication.\+c@{replication.\+c}!P\+S\+Y\+N\+C\+\_\+\+W\+A\+I\+T\+\_\+\+R\+E\+P\+LY@{P\+S\+Y\+N\+C\+\_\+\+W\+A\+I\+T\+\_\+\+R\+E\+P\+LY}}
+\index{P\+S\+Y\+N\+C\+\_\+\+W\+A\+I\+T\+\_\+\+R\+E\+P\+LY@{P\+S\+Y\+N\+C\+\_\+\+W\+A\+I\+T\+\_\+\+R\+E\+P\+LY}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{P\+S\+Y\+N\+C\+\_\+\+W\+A\+I\+T\+\_\+\+R\+E\+P\+LY}{PSYNC\_WAIT\_REPLY}}
+{\footnotesize\ttfamily \#define P\+S\+Y\+N\+C\+\_\+\+W\+A\+I\+T\+\_\+\+R\+E\+P\+LY~1}
+
+
+
+Definition at line 1420 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a63479df7aec0103920c029d735f6b4ba}\label{replication_8c_a63479df7aec0103920c029d735f6b4ba}} 
+\index{replication.\+c@{replication.\+c}!P\+S\+Y\+N\+C\+\_\+\+W\+R\+I\+T\+E\+\_\+\+E\+R\+R\+OR@{P\+S\+Y\+N\+C\+\_\+\+W\+R\+I\+T\+E\+\_\+\+E\+R\+R\+OR}}
+\index{P\+S\+Y\+N\+C\+\_\+\+W\+R\+I\+T\+E\+\_\+\+E\+R\+R\+OR@{P\+S\+Y\+N\+C\+\_\+\+W\+R\+I\+T\+E\+\_\+\+E\+R\+R\+OR}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{P\+S\+Y\+N\+C\+\_\+\+W\+R\+I\+T\+E\+\_\+\+E\+R\+R\+OR}{PSYNC\_WRITE\_ERROR}}
+{\footnotesize\ttfamily \#define P\+S\+Y\+N\+C\+\_\+\+W\+R\+I\+T\+E\+\_\+\+E\+R\+R\+OR~0}
+
+
+
+Definition at line 1419 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a9a25193630fb39ddc25ea99935beca00}\label{replication_8c_a9a25193630fb39ddc25ea99935beca00}} 
+\index{replication.\+c@{replication.\+c}!R\+E\+P\+L\+\_\+\+M\+A\+X\+\_\+\+W\+R\+I\+T\+T\+E\+N\+\_\+\+B\+E\+F\+O\+R\+E\+\_\+\+F\+S\+Y\+NC@{R\+E\+P\+L\+\_\+\+M\+A\+X\+\_\+\+W\+R\+I\+T\+T\+E\+N\+\_\+\+B\+E\+F\+O\+R\+E\+\_\+\+F\+S\+Y\+NC}}
+\index{R\+E\+P\+L\+\_\+\+M\+A\+X\+\_\+\+W\+R\+I\+T\+T\+E\+N\+\_\+\+B\+E\+F\+O\+R\+E\+\_\+\+F\+S\+Y\+NC@{R\+E\+P\+L\+\_\+\+M\+A\+X\+\_\+\+W\+R\+I\+T\+T\+E\+N\+\_\+\+B\+E\+F\+O\+R\+E\+\_\+\+F\+S\+Y\+NC}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+P\+L\+\_\+\+M\+A\+X\+\_\+\+W\+R\+I\+T\+T\+E\+N\+\_\+\+B\+E\+F\+O\+R\+E\+\_\+\+F\+S\+Y\+NC}{REPL\_MAX\_WRITTEN\_BEFORE\_FSYNC}}
+{\footnotesize\ttfamily \#define R\+E\+P\+L\+\_\+\+M\+A\+X\+\_\+\+W\+R\+I\+T\+T\+E\+N\+\_\+\+B\+E\+F\+O\+R\+E\+\_\+\+F\+S\+Y\+NC~(1024$\ast$1024$\ast$8) /$\ast$ 8 MB $\ast$/}
+
+
+
+Definition at line 1105 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_aba1a7d03d32caebf3b34cd2c226823a8}\label{replication_8c_aba1a7d03d32caebf3b34cd2c226823a8}} 
+\index{replication.\+c@{replication.\+c}!S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+F\+U\+LL@{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+F\+U\+LL}}
+\index{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+F\+U\+LL@{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+F\+U\+LL}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+F\+U\+LL}{SYNC\_CMD\_FULL}}
+{\footnotesize\ttfamily \#define S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+F\+U\+LL~(\hyperlink{replication_8c_a5dde0948d622fc1b0327b0d49cb3cef5}{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+R\+E\+AD}$\vert$\hyperlink{replication_8c_aa4480c458f209657b59d476157d44aab}{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+W\+R\+I\+TE})}
+
+
+
+Definition at line 1316 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a5dde0948d622fc1b0327b0d49cb3cef5}\label{replication_8c_a5dde0948d622fc1b0327b0d49cb3cef5}} 
+\index{replication.\+c@{replication.\+c}!S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+R\+E\+AD@{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+R\+E\+AD}}
+\index{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+R\+E\+AD@{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+R\+E\+AD}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+R\+E\+AD}{SYNC\_CMD\_READ}}
+{\footnotesize\ttfamily \#define S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+R\+E\+AD~(1$<$$<$0)}
+
+
+
+Definition at line 1314 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_aa4480c458f209657b59d476157d44aab}\label{replication_8c_aa4480c458f209657b59d476157d44aab}} 
+\index{replication.\+c@{replication.\+c}!S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+W\+R\+I\+TE@{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+W\+R\+I\+TE}}
+\index{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+W\+R\+I\+TE@{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+W\+R\+I\+TE}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+W\+R\+I\+TE}{SYNC\_CMD\_WRITE}}
+{\footnotesize\ttfamily \#define S\+Y\+N\+C\+\_\+\+C\+M\+D\+\_\+\+W\+R\+I\+TE~(1$<$$<$1)}
+
+
+
+Definition at line 1315 of file replication.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{replication_8c_a139ea5ac028685b5664df07d908e3411}\label{replication_8c_a139ea5ac028685b5664df07d908e3411}} 
+\index{replication.\+c@{replication.\+c}!add\+Reply\+Replication\+Backlog@{add\+Reply\+Replication\+Backlog}}
+\index{add\+Reply\+Replication\+Backlog@{add\+Reply\+Replication\+Backlog}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Replication\+Backlog()}{addReplyReplicationBacklog()}}
+{\footnotesize\ttfamily long long add\+Reply\+Replication\+Backlog (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{long long}]{offset }\end{DoxyParamCaption})}
+
+
+
+Definition at line 344 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_aeacf0ec0f31193e9a4dde15d359b52ab}\label{replication_8c_aeacf0ec0f31193e9a4dde15d359b52ab}} 
+\index{replication.\+c@{replication.\+c}!cancel\+Replication\+Handshake@{cancel\+Replication\+Handshake}}
+\index{cancel\+Replication\+Handshake@{cancel\+Replication\+Handshake}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{cancel\+Replication\+Handshake()}{cancelReplicationHandshake()}}
+{\footnotesize\ttfamily int cancel\+Replication\+Handshake (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1919 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_af842a6430c5f5a08a39d5e2112041a85}\label{replication_8c_af842a6430c5f5a08a39d5e2112041a85}} 
+\index{replication.\+c@{replication.\+c}!change\+Replication\+Id@{change\+Replication\+Id}}
+\index{change\+Replication\+Id@{change\+Replication\+Id}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{change\+Replication\+Id()}{changeReplicationId()}}
+{\footnotesize\ttfamily void change\+Replication\+Id (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1007 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a37d4584ae9eb714716d84482498a1fe6}\label{replication_8c_a37d4584ae9eb714716d84482498a1fe6}} 
+\index{replication.\+c@{replication.\+c}!clear\+Replication\+Id2@{clear\+Replication\+Id2}}
+\index{clear\+Replication\+Id2@{clear\+Replication\+Id2}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{clear\+Replication\+Id2()}{clearReplicationId2()}}
+{\footnotesize\ttfamily void clear\+Replication\+Id2 (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1015 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a3f6844ab74fb5a9a5fe96786be066b46}\label{replication_8c_a3f6844ab74fb5a9a5fe96786be066b46}} 
+\index{replication.\+c@{replication.\+c}!connect\+With\+Master@{connect\+With\+Master}}
+\index{connect\+With\+Master@{connect\+With\+Master}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{connect\+With\+Master()}{connectWithMaster()}}
+{\footnotesize\ttfamily int connect\+With\+Master (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1863 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a6169f0fc0846bb90fa4ebe8195f7d456}\label{replication_8c_a6169f0fc0846bb90fa4ebe8195f7d456}} 
+\index{replication.\+c@{replication.\+c}!create\+Replication\+Backlog@{create\+Replication\+Backlog}}
+\index{create\+Replication\+Backlog@{create\+Replication\+Backlog}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{create\+Replication\+Backlog()}{createReplicationBacklog()}}
+{\footnotesize\ttfamily void create\+Replication\+Backlog (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 77 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a4e504f59d713e1c5e8ae1cc5be3deb71}\label{replication_8c_a4e504f59d713e1c5e8ae1cc5be3deb71}} 
+\index{replication.\+c@{replication.\+c}!feed\+Replication\+Backlog@{feed\+Replication\+Backlog}}
+\index{feed\+Replication\+Backlog@{feed\+Replication\+Backlog}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{feed\+Replication\+Backlog()}{feedReplicationBacklog()}}
+{\footnotesize\ttfamily void feed\+Replication\+Backlog (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 126 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a74697ca8d2b805546d751763e7f0d5e9}\label{replication_8c_a74697ca8d2b805546d751763e7f0d5e9}} 
+\index{replication.\+c@{replication.\+c}!feed\+Replication\+Backlog\+With\+Object@{feed\+Replication\+Backlog\+With\+Object}}
+\index{feed\+Replication\+Backlog\+With\+Object@{feed\+Replication\+Backlog\+With\+Object}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{feed\+Replication\+Backlog\+With\+Object()}{feedReplicationBacklogWithObject()}}
+{\footnotesize\ttfamily void feed\+Replication\+Backlog\+With\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 153 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a61eb22a6807ce8e176deea2a88a18095}\label{replication_8c_a61eb22a6807ce8e176deea2a88a18095}} 
+\index{replication.\+c@{replication.\+c}!free\+Replication\+Backlog@{free\+Replication\+Backlog}}
+\index{free\+Replication\+Backlog@{free\+Replication\+Backlog}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{free\+Replication\+Backlog()}{freeReplicationBacklog()}}
+{\footnotesize\ttfamily void free\+Replication\+Backlog (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 116 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_af5b10f42cad3e7313b7ba5957ba1e6b0}\label{replication_8c_af5b10f42cad3e7313b7ba5957ba1e6b0}} 
+\index{replication.\+c@{replication.\+c}!get\+Psync\+Initial\+Offset@{get\+Psync\+Initial\+Offset}}
+\index{get\+Psync\+Initial\+Offset@{get\+Psync\+Initial\+Offset}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{get\+Psync\+Initial\+Offset()}{getPsyncInitialOffset()}}
+{\footnotesize\ttfamily long long get\+Psync\+Initial\+Offset (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 398 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a504cb3c0675dd3fd4a269271a9ca144f}\label{replication_8c_a504cb3c0675dd3fd4a269271a9ca144f}} 
+\index{replication.\+c@{replication.\+c}!master\+Try\+Partial\+Resynchronization@{master\+Try\+Partial\+Resynchronization}}
+\index{master\+Try\+Partial\+Resynchronization@{master\+Try\+Partial\+Resynchronization}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{master\+Try\+Partial\+Resynchronization()}{masterTryPartialResynchronization()}}
+{\footnotesize\ttfamily int master\+Try\+Partial\+Resynchronization (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 447 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a52f8e1fcf71986503c1a7fff6066bfaa}\label{replication_8c_a52f8e1fcf71986503c1a7fff6066bfaa}} 
+\index{replication.\+c@{replication.\+c}!process\+Clients\+Waiting\+Replicas@{process\+Clients\+Waiting\+Replicas}}
+\index{process\+Clients\+Waiting\+Replicas@{process\+Clients\+Waiting\+Replicas}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{process\+Clients\+Waiting\+Replicas()}{processClientsWaitingReplicas()}}
+{\footnotesize\ttfamily void process\+Clients\+Waiting\+Replicas (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2452 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a83505d729004cedfdd4c46f8e8133df3}\label{replication_8c_a83505d729004cedfdd4c46f8e8133df3}} 
+\index{replication.\+c@{replication.\+c}!put\+Slave\+Online@{put\+Slave\+Online}}
+\index{put\+Slave\+Online@{put\+Slave\+Online}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{put\+Slave\+Online()}{putSlaveOnline()}}
+{\footnotesize\ttfamily void put\+Slave\+Online (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{slave }\end{DoxyParamCaption})}
+
+
+
+Definition at line 855 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a94c7e6a7ea31f7f5c5a2ce36992875c2}\label{replication_8c_a94c7e6a7ea31f7f5c5a2ce36992875c2}} 
+\index{replication.\+c@{replication.\+c}!read\+Sync\+Bulk\+Payload@{read\+Sync\+Bulk\+Payload}}
+\index{read\+Sync\+Bulk\+Payload@{read\+Sync\+Bulk\+Payload}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{read\+Sync\+Bulk\+Payload()}{readSyncBulkPayload()}}
+{\footnotesize\ttfamily void read\+Sync\+Bulk\+Payload (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{el,  }\item[{int}]{fd,  }\item[{void $\ast$}]{privdata,  }\item[{int}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1106 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a24ab845a8c7e418e3c2284eab74b5d9c}\label{replication_8c_a24ab845a8c7e418e3c2284eab74b5d9c}} 
+\index{replication.\+c@{replication.\+c}!refresh\+Good\+Slaves\+Count@{refresh\+Good\+Slaves\+Count}}
+\index{refresh\+Good\+Slaves\+Count@{refresh\+Good\+Slaves\+Count}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{refresh\+Good\+Slaves\+Count()}{refreshGoodSlavesCount()}}
+{\footnotesize\ttfamily void refresh\+Good\+Slaves\+Count (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2248 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a6f8585370e62320875abea412e5c8a9a}\label{replication_8c_a6f8585370e62320875abea412e5c8a9a}} 
+\index{replication.\+c@{replication.\+c}!replconf\+Command@{replconf\+Command}}
+\index{replconf\+Command@{replconf\+Command}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replconf\+Command()}{replconfCommand()}}
+{\footnotesize\ttfamily void replconf\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 776 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a965792099fe57baacccb8bd8be7d2bd0}\label{replication_8c_a965792099fe57baacccb8bd8be7d2bd0}} 
+\index{replication.\+c@{replication.\+c}!replicaof\+Command@{replicaof\+Command}}
+\index{replicaof\+Command@{replicaof\+Command}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replicaof\+Command()}{replicaofCommand()}}
+{\footnotesize\ttfamily void replicaof\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2000 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_afe3ac93a97f50e01c1ba9778d1a762fd}\label{replication_8c_afe3ac93a97f50e01c1ba9778d1a762fd}} 
+\index{replication.\+c@{replication.\+c}!replication\+Abort\+Sync\+Transfer@{replication\+Abort\+Sync\+Transfer}}
+\index{replication\+Abort\+Sync\+Transfer@{replication\+Abort\+Sync\+Transfer}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Abort\+Sync\+Transfer()}{replicationAbortSyncTransfer()}}
+{\footnotesize\ttfamily void replication\+Abort\+Sync\+Transfer (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1903 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_adec8d2f5385b40dd0b5fe4c86fbe99f6}\label{replication_8c_adec8d2f5385b40dd0b5fe4c86fbe99f6}} 
+\index{replication.\+c@{replication.\+c}!replication\+Cache\+Master@{replication\+Cache\+Master}}
+\index{replication\+Cache\+Master@{replication\+Cache\+Master}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Cache\+Master()}{replicationCacheMaster()}}
+{\footnotesize\ttfamily void replication\+Cache\+Master (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2135 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a61c860bc8a13a585b4864358faf305f3}\label{replication_8c_a61c860bc8a13a585b4864358faf305f3}} 
+\index{replication.\+c@{replication.\+c}!replication\+Cache\+Master\+Using\+Myself@{replication\+Cache\+Master\+Using\+Myself}}
+\index{replication\+Cache\+Master\+Using\+Myself@{replication\+Cache\+Master\+Using\+Myself}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Cache\+Master\+Using\+Myself()}{replicationCacheMasterUsingMyself()}}
+{\footnotesize\ttfamily void replication\+Cache\+Master\+Using\+Myself (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2181 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_ab46b5db3f55f4035a1cfc8fb4bbc06db}\label{replication_8c_ab46b5db3f55f4035a1cfc8fb4bbc06db}} 
+\index{replication.\+c@{replication.\+c}!replication\+Count\+Acks\+By\+Offset@{replication\+Count\+Acks\+By\+Offset}}
+\index{replication\+Count\+Acks\+By\+Offset@{replication\+Count\+Acks\+By\+Offset}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Count\+Acks\+By\+Offset()}{replicationCountAcksByOffset()}}
+{\footnotesize\ttfamily int replication\+Count\+Acks\+By\+Offset (\begin{DoxyParamCaption}\item[{long long}]{offset }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2387 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_ac0a3ab4acb74a052cac4520c186b6faa}\label{replication_8c_ac0a3ab4acb74a052cac4520c186b6faa}} 
+\index{replication.\+c@{replication.\+c}!replication\+Create\+Master\+Client@{replication\+Create\+Master\+Client}}
+\index{replication\+Create\+Master\+Client@{replication\+Create\+Master\+Client}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Create\+Master\+Client()}{replicationCreateMasterClient()}}
+{\footnotesize\ttfamily void replication\+Create\+Master\+Client (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{int}]{dbid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1077 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a1e6f92550637c74bd1ae6b34ee8e36dc}\label{replication_8c_a1e6f92550637c74bd1ae6b34ee8e36dc}} 
+\index{replication.\+c@{replication.\+c}!replication\+Cron@{replication\+Cron}}
+\index{replication\+Cron@{replication\+Cron}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Cron()}{replicationCron()}}
+{\footnotesize\ttfamily void replication\+Cron (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2508 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_ac5e5562e9b3dcef76cfe3286c0ba1ec5}\label{replication_8c_ac5e5562e9b3dcef76cfe3286c0ba1ec5}} 
+\index{replication.\+c@{replication.\+c}!replication\+Discard\+Cached\+Master@{replication\+Discard\+Cached\+Master}}
+\index{replication\+Discard\+Cached\+Master@{replication\+Discard\+Cached\+Master}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Discard\+Cached\+Master()}{replicationDiscardCachedMaster()}}
+{\footnotesize\ttfamily void replication\+Discard\+Cached\+Master (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2199 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a8f1a016dad897a4c619e3096c7e3ce9b}\label{replication_8c_a8f1a016dad897a4c619e3096c7e3ce9b}} 
+\index{replication.\+c@{replication.\+c}!replication\+Empty\+Db\+Callback@{replication\+Empty\+Db\+Callback}}
+\index{replication\+Empty\+Db\+Callback@{replication\+Empty\+Db\+Callback}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Empty\+Db\+Callback()}{replicationEmptyDbCallback()}}
+{\footnotesize\ttfamily void replication\+Empty\+Db\+Callback (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1069 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a210b8e82fb1482b1655f23bac2b09509}\label{replication_8c_a210b8e82fb1482b1655f23bac2b09509}} 
+\index{replication.\+c@{replication.\+c}!replication\+Feed\+Monitors@{replication\+Feed\+Monitors}}
+\index{replication\+Feed\+Monitors@{replication\+Feed\+Monitors}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Feed\+Monitors()}{replicationFeedMonitors()}}
+{\footnotesize\ttfamily void replication\+Feed\+Monitors (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{structlist}{list} $\ast$}]{monitors,  }\item[{int}]{dictid,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 303 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a767d8f1bda78e1aca2fcb8da3d495a59}\label{replication_8c_a767d8f1bda78e1aca2fcb8da3d495a59}} 
+\index{replication.\+c@{replication.\+c}!replication\+Feed\+Slaves@{replication\+Feed\+Slaves}}
+\index{replication\+Feed\+Slaves@{replication\+Feed\+Slaves}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Feed\+Slaves()}{replicationFeedSlaves()}}
+{\footnotesize\ttfamily void replication\+Feed\+Slaves (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{slaves,  }\item[{int}]{dictid,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 173 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_abbd068de816b9e74070b9118a9700f57}\label{replication_8c_abbd068de816b9e74070b9118a9700f57}} 
+\index{replication.\+c@{replication.\+c}!replication\+Feed\+Slaves\+From\+Master\+Stream@{replication\+Feed\+Slaves\+From\+Master\+Stream}}
+\index{replication\+Feed\+Slaves\+From\+Master\+Stream@{replication\+Feed\+Slaves\+From\+Master\+Stream}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Feed\+Slaves\+From\+Master\+Stream()}{replicationFeedSlavesFromMasterStream()}}
+{\footnotesize\ttfamily void replication\+Feed\+Slaves\+From\+Master\+Stream (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{slaves,  }\item[{char $\ast$}]{buf,  }\item[{size\+\_\+t}]{buflen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 278 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_acbeb0d8f6506ed7a0039545f1e698aed}\label{replication_8c_acbeb0d8f6506ed7a0039545f1e698aed}} 
+\index{replication.\+c@{replication.\+c}!replication\+Get\+Slave\+Name@{replication\+Get\+Slave\+Name}}
+\index{replication\+Get\+Slave\+Name@{replication\+Get\+Slave\+Name}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Get\+Slave\+Name()}{replicationGetSlaveName()}}
+{\footnotesize\ttfamily char$\ast$ replication\+Get\+Slave\+Name (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 52 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a962e083510d3a161ee4f46a1f609adca}\label{replication_8c_a962e083510d3a161ee4f46a1f609adca}} 
+\index{replication.\+c@{replication.\+c}!replication\+Get\+Slave\+Offset@{replication\+Get\+Slave\+Offset}}
+\index{replication\+Get\+Slave\+Offset@{replication\+Get\+Slave\+Offset}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Get\+Slave\+Offset()}{replicationGetSlaveOffset()}}
+{\footnotesize\ttfamily long long replication\+Get\+Slave\+Offset (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2487 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a274bbd07b210f9d7aecfaeef59f294ff}\label{replication_8c_a274bbd07b210f9d7aecfaeef59f294ff}} 
+\index{replication.\+c@{replication.\+c}!replication\+Handle\+Master\+Disconnection@{replication\+Handle\+Master\+Disconnection}}
+\index{replication\+Handle\+Master\+Disconnection@{replication\+Handle\+Master\+Disconnection}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Handle\+Master\+Disconnection()}{replicationHandleMasterDisconnection()}}
+{\footnotesize\ttfamily void replication\+Handle\+Master\+Disconnection (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1991 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_ad973caa5aec43999c35b64e25a7edbe1}\label{replication_8c_ad973caa5aec43999c35b64e25a7edbe1}} 
+\index{replication.\+c@{replication.\+c}!replication\+Request\+Ack\+From\+Slaves@{replication\+Request\+Ack\+From\+Slaves}}
+\index{replication\+Request\+Ack\+From\+Slaves@{replication\+Request\+Ack\+From\+Slaves}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Request\+Ack\+From\+Slaves()}{replicationRequestAckFromSlaves()}}
+{\footnotesize\ttfamily void replication\+Request\+Ack\+From\+Slaves (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2381 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a3f9f59f69a09950586c7ee145764865c}\label{replication_8c_a3f9f59f69a09950586c7ee145764865c}} 
+\index{replication.\+c@{replication.\+c}!replication\+Resurrect\+Cached\+Master@{replication\+Resurrect\+Cached\+Master}}
+\index{replication\+Resurrect\+Cached\+Master@{replication\+Resurrect\+Cached\+Master}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Resurrect\+Cached\+Master()}{replicationResurrectCachedMaster()}}
+{\footnotesize\ttfamily void replication\+Resurrect\+Cached\+Master (\begin{DoxyParamCaption}\item[{int}]{newfd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2214 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_ae61af0ae002b3b9f44f5ec507e2ed295}\label{replication_8c_ae61af0ae002b3b9f44f5ec507e2ed295}} 
+\index{replication.\+c@{replication.\+c}!replication\+Script\+Cache\+Add@{replication\+Script\+Cache\+Add}}
+\index{replication\+Script\+Cache\+Add@{replication\+Script\+Cache\+Add}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Script\+Cache\+Add()}{replicationScriptCacheAdd()}}
+{\footnotesize\ttfamily void replication\+Script\+Cache\+Add (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{sha1 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2324 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a53a1ead29f608daf5f43f3e7daaf8de8}\label{replication_8c_a53a1ead29f608daf5f43f3e7daaf8de8}} 
+\index{replication.\+c@{replication.\+c}!replication\+Script\+Cache\+Exists@{replication\+Script\+Cache\+Exists}}
+\index{replication\+Script\+Cache\+Exists@{replication\+Script\+Cache\+Exists}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Script\+Cache\+Exists()}{replicationScriptCacheExists()}}
+{\footnotesize\ttfamily int replication\+Script\+Cache\+Exists (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{sha1 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2347 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a1ad446303a7240f31cd494a3b097effc}\label{replication_8c_a1ad446303a7240f31cd494a3b097effc}} 
+\index{replication.\+c@{replication.\+c}!replication\+Script\+Cache\+Flush@{replication\+Script\+Cache\+Flush}}
+\index{replication\+Script\+Cache\+Flush@{replication\+Script\+Cache\+Flush}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Script\+Cache\+Flush()}{replicationScriptCacheFlush()}}
+{\footnotesize\ttfamily void replication\+Script\+Cache\+Flush (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2316 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a952c0abc9ec545a730536aa35c5a1ee2}\label{replication_8c_a952c0abc9ec545a730536aa35c5a1ee2}} 
+\index{replication.\+c@{replication.\+c}!replication\+Script\+Cache\+Init@{replication\+Script\+Cache\+Init}}
+\index{replication\+Script\+Cache\+Init@{replication\+Script\+Cache\+Init}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Script\+Cache\+Init()}{replicationScriptCacheInit()}}
+{\footnotesize\ttfamily void replication\+Script\+Cache\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2299 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a0570bdf08589b26434cc24aa3611e627}\label{replication_8c_a0570bdf08589b26434cc24aa3611e627}} 
+\index{replication.\+c@{replication.\+c}!replication\+Send\+Ack@{replication\+Send\+Ack}}
+\index{replication\+Send\+Ack@{replication\+Send\+Ack}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Send\+Ack()}{replicationSendAck()}}
+{\footnotesize\ttfamily void replication\+Send\+Ack (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2102 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a64a3efadf96c653d4c30c57f078ce31f}\label{replication_8c_a64a3efadf96c653d4c30c57f078ce31f}} 
+\index{replication.\+c@{replication.\+c}!replication\+Send\+Newline\+To\+Master@{replication\+Send\+Newline\+To\+Master}}
+\index{replication\+Send\+Newline\+To\+Master@{replication\+Send\+Newline\+To\+Master}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Send\+Newline\+To\+Master()}{replicationSendNewlineToMaster()}}
+{\footnotesize\ttfamily void replication\+Send\+Newline\+To\+Master (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1057 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_aef2a9718bc6042354ae0da0bc5523ff7}\label{replication_8c_aef2a9718bc6042354ae0da0bc5523ff7}} 
+\index{replication.\+c@{replication.\+c}!replication\+Set\+Master@{replication\+Set\+Master}}
+\index{replication\+Set\+Master@{replication\+Set\+Master}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Set\+Master()}{replicationSetMaster()}}
+{\footnotesize\ttfamily void replication\+Set\+Master (\begin{DoxyParamCaption}\item[{char $\ast$}]{ip,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1935 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_ac554eef720663d55ce24bd3efa79f13e}\label{replication_8c_ac554eef720663d55ce24bd3efa79f13e}} 
+\index{replication.\+c@{replication.\+c}!replication\+Setup\+Slave\+For\+Full\+Resync@{replication\+Setup\+Slave\+For\+Full\+Resync}}
+\index{replication\+Setup\+Slave\+For\+Full\+Resync@{replication\+Setup\+Slave\+For\+Full\+Resync}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Setup\+Slave\+For\+Full\+Resync()}{replicationSetupSlaveForFullResync()}}
+{\footnotesize\ttfamily int replication\+Setup\+Slave\+For\+Full\+Resync (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{slave,  }\item[{long long}]{offset }\end{DoxyParamCaption})}
+
+
+
+Definition at line 418 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a2a28f11270877844ad26e69b6ff42904}\label{replication_8c_a2a28f11270877844ad26e69b6ff42904}} 
+\index{replication.\+c@{replication.\+c}!replication\+Unset\+Master@{replication\+Unset\+Master}}
+\index{replication\+Unset\+Master@{replication\+Unset\+Master}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{replication\+Unset\+Master()}{replicationUnsetMaster()}}
+{\footnotesize\ttfamily void replication\+Unset\+Master (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1957 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a47a8b41e75ade752a3ac740871803532}\label{replication_8c_a47a8b41e75ade752a3ac740871803532}} 
+\index{replication.\+c@{replication.\+c}!resize\+Replication\+Backlog@{resize\+Replication\+Backlog}}
+\index{resize\+Replication\+Backlog@{resize\+Replication\+Backlog}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{resize\+Replication\+Backlog()}{resizeReplicationBacklog()}}
+{\footnotesize\ttfamily void resize\+Replication\+Backlog (\begin{DoxyParamCaption}\item[{long long}]{newsize }\end{DoxyParamCaption})}
+
+
+
+Definition at line 95 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a8d9034f19806b034741471158a9a20a0}\label{replication_8c_a8d9034f19806b034741471158a9a20a0}} 
+\index{replication.\+c@{replication.\+c}!restart\+A\+OF@{restart\+A\+OF}}
+\index{restart\+A\+OF@{restart\+A\+OF}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{restart\+A\+O\+F()}{restartAOF()}}
+{\footnotesize\ttfamily void restart\+A\+OF (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1092 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a513fcda284bfbf4e1cebe298c3e1f8a8}\label{replication_8c_a513fcda284bfbf4e1cebe298c3e1f8a8}} 
+\index{replication.\+c@{replication.\+c}!role\+Command@{role\+Command}}
+\index{role\+Command@{role\+Command}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{role\+Command()}{roleCommand()}}
+{\footnotesize\ttfamily void role\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2046 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_aa89faed598533d3dc23e3c848d5bcfde}\label{replication_8c_aa89faed598533d3dc23e3c848d5bcfde}} 
+\index{replication.\+c@{replication.\+c}!send\+Bulk\+To\+Slave@{send\+Bulk\+To\+Slave}}
+\index{send\+Bulk\+To\+Slave@{send\+Bulk\+To\+Slave}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{send\+Bulk\+To\+Slave()}{sendBulkToSlave()}}
+{\footnotesize\ttfamily void send\+Bulk\+To\+Slave (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{el,  }\item[{int}]{fd,  }\item[{void $\ast$}]{privdata,  }\item[{int}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 870 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_aae281c61023595b33302eca6b40f6261}\label{replication_8c_aae281c61023595b33302eca6b40f6261}} 
+\index{replication.\+c@{replication.\+c}!send\+Synchronous\+Command@{send\+Synchronous\+Command}}
+\index{send\+Synchronous\+Command@{send\+Synchronous\+Command}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{send\+Synchronous\+Command()}{sendSynchronousCommand()}}
+{\footnotesize\ttfamily char$\ast$ send\+Synchronous\+Command (\begin{DoxyParamCaption}\item[{int}]{flags,  }\item[{int}]{fd,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1317 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a8bc3443a7354fe994095db240b36a72c}\label{replication_8c_a8bc3443a7354fe994095db240b36a72c}} 
+\index{replication.\+c@{replication.\+c}!shift\+Replication\+Id@{shift\+Replication\+Id}}
+\index{shift\+Replication\+Id@{shift\+Replication\+Id}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{shift\+Replication\+Id()}{shiftReplicationId()}}
+{\footnotesize\ttfamily void shift\+Replication\+Id (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1026 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a8ed18c38fdecec18b2c064dbb8b8a1af}\label{replication_8c_a8ed18c38fdecec18b2c064dbb8b8a1af}} 
+\index{replication.\+c@{replication.\+c}!slave\+Is\+In\+Handshake\+State@{slave\+Is\+In\+Handshake\+State}}
+\index{slave\+Is\+In\+Handshake\+State@{slave\+Is\+In\+Handshake\+State}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{slave\+Is\+In\+Handshake\+State()}{slaveIsInHandshakeState()}}
+{\footnotesize\ttfamily int slave\+Is\+In\+Handshake\+State (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1044 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_afa1816f0fe1fda7260ce8db32823b502}\label{replication_8c_afa1816f0fe1fda7260ce8db32823b502}} 
+\index{replication.\+c@{replication.\+c}!slave\+Try\+Partial\+Resynchronization@{slave\+Try\+Partial\+Resynchronization}}
+\index{slave\+Try\+Partial\+Resynchronization@{slave\+Try\+Partial\+Resynchronization}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{slave\+Try\+Partial\+Resynchronization()}{slaveTryPartialResynchronization()}}
+{\footnotesize\ttfamily int slave\+Try\+Partial\+Resynchronization (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{int}]{read\+\_\+reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1425 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a38b542f0e889afffe5504bb06432e51e}\label{replication_8c_a38b542f0e889afffe5504bb06432e51e}} 
+\index{replication.\+c@{replication.\+c}!start\+Bgsave\+For\+Replication@{start\+Bgsave\+For\+Replication}}
+\index{start\+Bgsave\+For\+Replication@{start\+Bgsave\+For\+Replication}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{start\+Bgsave\+For\+Replication()}{startBgsaveForReplication()}}
+{\footnotesize\ttfamily int start\+Bgsave\+For\+Replication (\begin{DoxyParamCaption}\item[{int}]{mincapa }\end{DoxyParamCaption})}
+
+
+
+Definition at line 563 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a7c1fd41f13821ba72fb98e077bbd61f0}\label{replication_8c_a7c1fd41f13821ba72fb98e077bbd61f0}} 
+\index{replication.\+c@{replication.\+c}!sync\+Command@{sync\+Command}}
+\index{sync\+Command@{sync\+Command}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{sync\+Command()}{syncCommand()}}
+{\footnotesize\ttfamily void sync\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 627 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a36cacbac8a5e619d3cfc1c146c39c1a1}\label{replication_8c_a36cacbac8a5e619d3cfc1c146c39c1a1}} 
+\index{replication.\+c@{replication.\+c}!sync\+With\+Master@{sync\+With\+Master}}
+\index{sync\+With\+Master@{sync\+With\+Master}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{sync\+With\+Master()}{syncWithMaster()}}
+{\footnotesize\ttfamily void sync\+With\+Master (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{el,  }\item[{int}]{fd,  }\item[{void $\ast$}]{privdata,  }\item[{int}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1585 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_aa6160a18658c00b9fd9e8c68b262cf91}\label{replication_8c_aa6160a18658c00b9fd9e8c68b262cf91}} 
+\index{replication.\+c@{replication.\+c}!unblock\+Client\+Waiting\+Replicas@{unblock\+Client\+Waiting\+Replicas}}
+\index{unblock\+Client\+Waiting\+Replicas@{unblock\+Client\+Waiting\+Replicas}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{unblock\+Client\+Waiting\+Replicas()}{unblockClientWaitingReplicas()}}
+{\footnotesize\ttfamily void unblock\+Client\+Waiting\+Replicas (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2444 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_aca7515906cb31f32951b3ca65da34cf5}\label{replication_8c_aca7515906cb31f32951b3ca65da34cf5}} 
+\index{replication.\+c@{replication.\+c}!undo\+Connect\+With\+Master@{undo\+Connect\+With\+Master}}
+\index{undo\+Connect\+With\+Master@{undo\+Connect\+With\+Master}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{undo\+Connect\+With\+Master()}{undoConnectWithMaster()}}
+{\footnotesize\ttfamily void undo\+Connect\+With\+Master (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1892 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a72ca1ebe5d56c2a647f7fe390d5c0b5d}\label{replication_8c_a72ca1ebe5d56c2a647f7fe390d5c0b5d}} 
+\index{replication.\+c@{replication.\+c}!update\+Slaves\+Waiting\+Bgsave@{update\+Slaves\+Waiting\+Bgsave}}
+\index{update\+Slaves\+Waiting\+Bgsave@{update\+Slaves\+Waiting\+Bgsave}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{update\+Slaves\+Waiting\+Bgsave()}{updateSlavesWaitingBgsave()}}
+{\footnotesize\ttfamily void update\+Slaves\+Waiting\+Bgsave (\begin{DoxyParamCaption}\item[{int}]{bgsaveerr,  }\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 940 of file replication.\+c.
+
+\mbox{\Hypertarget{replication_8c_a7165ef8a155631ec4056f99153277c2b}\label{replication_8c_a7165ef8a155631ec4056f99153277c2b}} 
+\index{replication.\+c@{replication.\+c}!wait\+Command@{wait\+Command}}
+\index{wait\+Command@{wait\+Command}!replication.\+c@{replication.\+c}}
+\subsubsection{\texorpdfstring{wait\+Command()}{waitCommand()}}
+{\footnotesize\ttfamily void wait\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2404 of file replication.\+c.
+

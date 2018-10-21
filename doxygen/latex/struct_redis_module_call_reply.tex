@@ -1,0 +1,147 @@
+\hypertarget{struct_redis_module_call_reply}{}\section{Redis\+Module\+Call\+Reply Struct Reference}
+\label{struct_redis_module_call_reply}\index{Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}}
+
+
+Collaboration diagram for Redis\+Module\+Call\+Reply\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{struct_redis_module_call_reply__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_redis_module_ctx}{Redis\+Module\+Ctx} $\ast$ \hyperlink{struct_redis_module_call_reply_a221ba73ece36a4c95c593459c3fc1d8d}{ctx}
+\item 
+int \hyperlink{struct_redis_module_call_reply_ac765329451135abec74c45e1897abf26}{type}
+\item 
+int \hyperlink{struct_redis_module_call_reply_ac8bf36fe0577cba66bccda3a6f7e80a4}{flags}
+\item 
+size\+\_\+t \hyperlink{struct_redis_module_call_reply_a7360b55975153b822efc5217b7734e6a}{len}
+\item 
+char $\ast$ \hyperlink{struct_redis_module_call_reply_a217a90f335b3a7d2fc125fac94c80d95}{proto}
+\item 
+size\+\_\+t \hyperlink{struct_redis_module_call_reply_a43257d3e2ccef83fbabcc3b06a20b01f}{protolen}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>const char $\ast$ \hyperlink{struct_redis_module_call_reply_af25d6dc49269fa2003ac7c7fa6f13915}{str}\\
+\>long long \hyperlink{struct_redis_module_call_reply_a78dd8c96fe7632134a6dc8665944aa35}{ll}\\
+\>struct \hyperlink{struct_redis_module_call_reply}{RedisModuleCallReply} $\ast$ \hyperlink{struct_redis_module_call_reply_ae8b3a272518c53c865e974e0fa56c8b0}{array}\\
+\} \hyperlink{struct_redis_module_call_reply_adceb462742f61786b2f766e71de4cabd}{val}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 182 of file module.\+c.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{struct_redis_module_call_reply_ae8b3a272518c53c865e974e0fa56c8b0}\label{struct_redis_module_call_reply_ae8b3a272518c53c865e974e0fa56c8b0}} 
+\index{Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}!array@{array}}
+\index{array@{array}!Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}}
+\subsubsection{\texorpdfstring{array}{array}}
+{\footnotesize\ttfamily struct \hyperlink{struct_redis_module_call_reply}{Redis\+Module\+Call\+Reply}$\ast$ array}
+
+
+
+Definition at line 195 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_call_reply_a221ba73ece36a4c95c593459c3fc1d8d}\label{struct_redis_module_call_reply_a221ba73ece36a4c95c593459c3fc1d8d}} 
+\index{Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}!ctx@{ctx}}
+\index{ctx@{ctx}!Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}}
+\subsubsection{\texorpdfstring{ctx}{ctx}}
+{\footnotesize\ttfamily \hyperlink{struct_redis_module_ctx}{Redis\+Module\+Ctx}$\ast$ ctx}
+
+
+
+Definition at line 183 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_call_reply_ac8bf36fe0577cba66bccda3a6f7e80a4}\label{struct_redis_module_call_reply_ac8bf36fe0577cba66bccda3a6f7e80a4}} 
+\index{Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}!flags@{flags}}
+\index{flags@{flags}!Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}}
+\subsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily int flags}
+
+
+
+Definition at line 185 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_call_reply_a7360b55975153b822efc5217b7734e6a}\label{struct_redis_module_call_reply_a7360b55975153b822efc5217b7734e6a}} 
+\index{Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}!len@{len}}
+\index{len@{len}!Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}}
+\subsubsection{\texorpdfstring{len}{len}}
+{\footnotesize\ttfamily size\+\_\+t len}
+
+
+
+Definition at line 186 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_call_reply_a78dd8c96fe7632134a6dc8665944aa35}\label{struct_redis_module_call_reply_a78dd8c96fe7632134a6dc8665944aa35}} 
+\index{Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}!ll@{ll}}
+\index{ll@{ll}!Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}}
+\subsubsection{\texorpdfstring{ll}{ll}}
+{\footnotesize\ttfamily long long ll}
+
+
+
+Definition at line 194 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_call_reply_a217a90f335b3a7d2fc125fac94c80d95}\label{struct_redis_module_call_reply_a217a90f335b3a7d2fc125fac94c80d95}} 
+\index{Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}!proto@{proto}}
+\index{proto@{proto}!Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}}
+\subsubsection{\texorpdfstring{proto}{proto}}
+{\footnotesize\ttfamily char$\ast$ proto}
+
+
+
+Definition at line 187 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_call_reply_a43257d3e2ccef83fbabcc3b06a20b01f}\label{struct_redis_module_call_reply_a43257d3e2ccef83fbabcc3b06a20b01f}} 
+\index{Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}!protolen@{protolen}}
+\index{protolen@{protolen}!Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}}
+\subsubsection{\texorpdfstring{protolen}{protolen}}
+{\footnotesize\ttfamily size\+\_\+t protolen}
+
+
+
+Definition at line 188 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_call_reply_af25d6dc49269fa2003ac7c7fa6f13915}\label{struct_redis_module_call_reply_af25d6dc49269fa2003ac7c7fa6f13915}} 
+\index{Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}!str@{str}}
+\index{str@{str}!Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}}
+\subsubsection{\texorpdfstring{str}{str}}
+{\footnotesize\ttfamily const char$\ast$ str}
+
+
+
+Definition at line 190 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_call_reply_ac765329451135abec74c45e1897abf26}\label{struct_redis_module_call_reply_ac765329451135abec74c45e1897abf26}} 
+\index{Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}!type@{type}}
+\index{type@{type}!Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}}
+\subsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily int type}
+
+
+
+Definition at line 184 of file module.\+c.
+
+\mbox{\Hypertarget{struct_redis_module_call_reply_adceb462742f61786b2f766e71de4cabd}\label{struct_redis_module_call_reply_adceb462742f61786b2f766e71de4cabd}} 
+\index{Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}!val@{val}}
+\index{val@{val}!Redis\+Module\+Call\+Reply@{Redis\+Module\+Call\+Reply}}
+\subsubsection{\texorpdfstring{val}{val}}
+{\footnotesize\ttfamily union \{ ... \}   val}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{module_8c}{module.\+c}\end{DoxyCompactItemize}

@@ -1,0 +1,781 @@
+\hypertarget{object_8c}{}\section{src/object.c File Reference}
+\label{object_8c}\index{src/object.\+c@{src/object.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+Include dependency graph for object.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{object_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{object_8c_a3e762d5fac271c94b01875920ff57fb2}{O\+B\+J\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+E\+M\+B\+S\+T\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+I\+M\+IT}~44
+\item 
+\#define \hyperlink{object_8c_ac672f1c478e4a045035444729510d946}{R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+B\+I\+N\+A\+RY}~(1$<$$<$0)
+\item 
+\#define \hyperlink{object_8c_aa471c38fc2e9e96a23693e7ff5e73209}{R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+C\+O\+LL}~(1$<$$<$1)
+\item 
+\#define \hyperlink{object_8c_a46d9ae99d237582e21c70e7de56a032e}{O\+B\+J\+\_\+\+C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+D\+E\+F\+\_\+\+S\+A\+M\+P\+L\+ES}~5 /$\ast$ Default \hyperlink{structsample}{sample} size. $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a5f534218574d15e8333875d10d7e7316}{create\+Object} (int type, void $\ast$ptr)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_aa14f89ea2cc52c4e3d9ba91d85478a1c}{make\+Object\+Shared} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a85905658f263d18a5d422d275e5c18ac}{create\+Raw\+String\+Object} (const char $\ast$ptr, size\+\_\+t len)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_afc552e6090cf7fa56b3db458078be7f1}{create\+Embedded\+String\+Object} (const char $\ast$ptr, size\+\_\+t len)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a58bf6fb802750d04c587b4d13a2f3c0a}{create\+String\+Object} (const char $\ast$ptr, size\+\_\+t len)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a49de04ba218b5603d00087cfc6029e82}{create\+String\+Object\+From\+Long\+Long\+With\+Options} (long long value, int valueobj)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_abb5873d69dbe9b2c5034c686d17d8c1d}{create\+String\+Object\+From\+Long\+Long} (long long value)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a94b3dee86e33a84f45d37fc957227559}{create\+String\+Object\+From\+Long\+Long\+For\+Value} (long long value)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a828cbcce5d59a527c9a3d7c19bde3f3f}{create\+String\+Object\+From\+Long\+Double} (long double value, int humanfriendly)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a2b5eada89b890fd9bf2859c9bc7185d6}{dup\+String\+Object} (const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a2dcf3148f7c5b6631b3d42c3f6d1e29c}{create\+Quicklist\+Object} (void)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a4a1211c9a32ce830f9f6682bc310357c}{create\+Ziplist\+Object} (void)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a58920b17e6783e82f49a2baba4261093}{create\+Set\+Object} (void)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_ab8fb80d55a55fc2fdaad8763b94c2207}{create\+Intset\+Object} (void)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a5f0ed362e09930575ce97431dda2f987}{create\+Hash\+Object} (void)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_ac18b9b0bcb75a95609aea70a882863d2}{create\+Zset\+Object} (void)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a4163ff8fa0cd1864c6ea78bcffa54589}{create\+Zset\+Ziplist\+Object} (void)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a6ba807c719b2ce522847bd794a789c85}{create\+Stream\+Object} (void)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a794a7928c34cfe1ae50146fe13e9179a}{create\+Module\+Object} (\hyperlink{server_8h_a3e81a33920e783a6b35dedfd7bdb6a2c}{module\+Type} $\ast$mt, void $\ast$value)
+\item 
+void \hyperlink{object_8c_a7317d00fbb81c4cfe09e68ee60979cfb}{free\+String\+Object} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{object_8c_ab42800614721abadb142208f8e72cc9d}{free\+List\+Object} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{object_8c_a9d03597c960b9cbed2bd71bd2d6fd5f1}{free\+Set\+Object} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{object_8c_a860552c3f312632c9481eb8fdc5108bb}{free\+Zset\+Object} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{object_8c_aae30d790d50c2301ada8c68f9c554dd6}{free\+Hash\+Object} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{object_8c_a4678c8cf824a0745311c39fb8f300290}{free\+Module\+Object} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{object_8c_a6bdcf469e2903315a2ecf46c2e058e1c}{free\+Stream\+Object} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{object_8c_aa84594b5dd7a5dda8201c15c85b1457a}{incr\+Ref\+Count} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{object_8c_a03474153296385df26f24b265d2a22eb}{decr\+Ref\+Count} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{object_8c_a8362c0e483b38b8debe5979f4dbe883b}{decr\+Ref\+Count\+Void} (void $\ast$o)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_af22e46f03c49934062838d3208bd3fa1}{reset\+Ref\+Count} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$obj)
+\item 
+int \hyperlink{object_8c_a8c2fcb5a9e55b784002397ecee2619d7}{check\+Type} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, int type)
+\item 
+int \hyperlink{object_8c_a1404413f92cc603c272880c75415321b}{is\+Sds\+Representable\+As\+Long\+Long} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, long long $\ast$llval)
+\item 
+int \hyperlink{object_8c_a6c17958992e396575864ce48574349c7}{is\+Object\+Representable\+As\+Long\+Long} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, long long $\ast$llval)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a69038fedc976828a3dfc5f106c478544}{try\+Object\+Encoding} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a42d455241ac5e34b9db676b6e7a23cef}{get\+Decoded\+Object} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+int \hyperlink{object_8c_ae6b84426afc2eaecaffcaa0628fa5a47}{compare\+String\+Objects\+With\+Flags} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$a, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$b, int flags)
+\item 
+int \hyperlink{object_8c_a1b107d21fcb90b8c57203904e96c02f3}{compare\+String\+Objects} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$a, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$b)
+\item 
+int \hyperlink{object_8c_a27f308f6b75cf83cde04d51399a6e014}{collate\+String\+Objects} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$a, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$b)
+\item 
+int \hyperlink{object_8c_a0fb3848777c9ddaac670a2ee174546dd}{equal\+String\+Objects} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$a, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$b)
+\item 
+size\+\_\+t \hyperlink{object_8c_a869b8cea49f26cb18bf1138839696480}{string\+Object\+Len} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+int \hyperlink{object_8c_a45ffbf979c99e0a0985141ae4d9316a2}{get\+Double\+From\+Object} (const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, double $\ast$target)
+\item 
+int \hyperlink{object_8c_a7a7968bc470b0da48ead4e8191c454d8}{get\+Double\+From\+Object\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, double $\ast$target, const char $\ast$msg)
+\item 
+int \hyperlink{object_8c_ab1682abd71cd968dc006d34d20550e9f}{get\+Long\+Double\+From\+Object} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, long double $\ast$target)
+\item 
+int \hyperlink{object_8c_a2fbd492cd9e05cd09febb2d82aeb695b}{get\+Long\+Double\+From\+Object\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, long double $\ast$target, const char $\ast$msg)
+\item 
+int \hyperlink{object_8c_ade9e166ea7caa357b0f742e63ba37c7f}{get\+Long\+Long\+From\+Object} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, long long $\ast$target)
+\item 
+int \hyperlink{object_8c_a39155431bb51f438f1e38f0ec06366a2}{get\+Long\+Long\+From\+Object\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, long long $\ast$target, const char $\ast$msg)
+\item 
+int \hyperlink{object_8c_ae39b213c26365e47c49958ca36400533}{get\+Long\+From\+Object\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, long $\ast$target, const char $\ast$msg)
+\item 
+char $\ast$ \hyperlink{object_8c_a89772282d38fe17fe42ec0087c0e9bd5}{str\+Encoding} (int encoding)
+\item 
+size\+\_\+t \hyperlink{object_8c_a4dceec0f005ea221a5ee41659297ce30}{stream\+Radix\+Tree\+Memory\+Usage} (\hyperlink{structrax}{rax} $\ast$\hyperlink{structrax}{rax})
+\item 
+size\+\_\+t \hyperlink{object_8c_a3f9054ae0c2ce0a1fd35c1863d14177c}{object\+Compute\+Size} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, size\+\_\+t sample\+\_\+size)
+\item 
+void \hyperlink{object_8c_ab09baeae3f0b14d5e0f36b7a8af2bdcf}{free\+Memory\+Overhead\+Data} (struct \hyperlink{structredis_mem_overhead}{redis\+Mem\+Overhead} $\ast$mh)
+\item 
+struct \hyperlink{structredis_mem_overhead}{redis\+Mem\+Overhead} $\ast$ \hyperlink{object_8c_a1032572b4b3b6e9425744bb86d98ec15}{get\+Memory\+Overhead\+Data} (void)
+\item 
+void \hyperlink{object_8c_a3157a90055dab4dce92cc76500c3a51b}{input\+Cat\+Sds} (void $\ast$result, const char $\ast$str)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{object_8c_a946acba4fa7f28a34f3435bb98b452e0}{get\+Memory\+Doctor\+Report} (void)
+\item 
+void \hyperlink{object_8c_ae793c69b79f7e18a50ec3ee4a9cb4d3a}{object\+Set\+L\+R\+U\+Or\+L\+FU} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$val, long long lfu\+\_\+freq, long long lru\+\_\+idle, long long \hyperlink{server_8c_a9ace62050a85a5451725d854408867df}{lru\+\_\+clock})
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a9137654b1169778bf6c8b8439667e44e}{object\+Command\+Lookup} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{object_8c_a4b47bf3e99f2b333ee7f6106c532d6b5}{object\+Command\+Lookup\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$reply)
+\item 
+void \hyperlink{object_8c_af4babb9f5d489b16aebeafedfa0ee244}{object\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{object_8c_a082ea922419a3d6fe58a9b369e89f359}{memory\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{object_8c_a46d9ae99d237582e21c70e7de56a032e}\label{object_8c_a46d9ae99d237582e21c70e7de56a032e}} 
+\index{object.\+c@{object.\+c}!O\+B\+J\+\_\+\+C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+D\+E\+F\+\_\+\+S\+A\+M\+P\+L\+ES@{O\+B\+J\+\_\+\+C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+D\+E\+F\+\_\+\+S\+A\+M\+P\+L\+ES}}
+\index{O\+B\+J\+\_\+\+C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+D\+E\+F\+\_\+\+S\+A\+M\+P\+L\+ES@{O\+B\+J\+\_\+\+C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+D\+E\+F\+\_\+\+S\+A\+M\+P\+L\+ES}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{O\+B\+J\+\_\+\+C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+D\+E\+F\+\_\+\+S\+A\+M\+P\+L\+ES}{OBJ\_COMPUTE\_SIZE\_DEF\_SAMPLES}}
+{\footnotesize\ttfamily \#define O\+B\+J\+\_\+\+C\+O\+M\+P\+U\+T\+E\+\_\+\+S\+I\+Z\+E\+\_\+\+D\+E\+F\+\_\+\+S\+A\+M\+P\+L\+ES~5 /$\ast$ Default \hyperlink{structsample}{sample} size. $\ast$/}
+
+
+
+Definition at line 771 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a3e762d5fac271c94b01875920ff57fb2}\label{object_8c_a3e762d5fac271c94b01875920ff57fb2}} 
+\index{object.\+c@{object.\+c}!O\+B\+J\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+E\+M\+B\+S\+T\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+I\+M\+IT@{O\+B\+J\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+E\+M\+B\+S\+T\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+I\+M\+IT}}
+\index{O\+B\+J\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+E\+M\+B\+S\+T\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+I\+M\+IT@{O\+B\+J\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+E\+M\+B\+S\+T\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+I\+M\+IT}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{O\+B\+J\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+E\+M\+B\+S\+T\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+I\+M\+IT}{OBJ\_ENCODING\_EMBSTR\_SIZE\_LIMIT}}
+{\footnotesize\ttfamily \#define O\+B\+J\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+E\+M\+B\+S\+T\+R\+\_\+\+S\+I\+Z\+E\+\_\+\+L\+I\+M\+IT~44}
+
+
+
+Definition at line 118 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_ac672f1c478e4a045035444729510d946}\label{object_8c_ac672f1c478e4a045035444729510d946}} 
+\index{object.\+c@{object.\+c}!R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+B\+I\+N\+A\+RY@{R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+B\+I\+N\+A\+RY}}
+\index{R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+B\+I\+N\+A\+RY@{R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+B\+I\+N\+A\+RY}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+B\+I\+N\+A\+RY}{REDIS\_COMPARE\_BINARY}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+B\+I\+N\+A\+RY~(1$<$$<$0)}
+
+
+
+Definition at line 525 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_aa471c38fc2e9e96a23693e7ff5e73209}\label{object_8c_aa471c38fc2e9e96a23693e7ff5e73209}} 
+\index{object.\+c@{object.\+c}!R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+C\+O\+LL@{R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+C\+O\+LL}}
+\index{R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+C\+O\+LL@{R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+C\+O\+LL}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+C\+O\+LL}{REDIS\_COMPARE\_COLL}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+C\+O\+LL~(1$<$$<$1)}
+
+
+
+Definition at line 526 of file object.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{object_8c_a8c2fcb5a9e55b784002397ecee2619d7}\label{object_8c_a8c2fcb5a9e55b784002397ecee2619d7}} 
+\index{object.\+c@{object.\+c}!check\+Type@{check\+Type}}
+\index{check\+Type@{check\+Type}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{check\+Type()}{checkType()}}
+{\footnotesize\ttfamily int check\+Type (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 396 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a27f308f6b75cf83cde04d51399a6e014}\label{object_8c_a27f308f6b75cf83cde04d51399a6e014}} 
+\index{object.\+c@{object.\+c}!collate\+String\+Objects@{collate\+String\+Objects}}
+\index{collate\+String\+Objects@{collate\+String\+Objects}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{collate\+String\+Objects()}{collateStringObjects()}}
+{\footnotesize\ttfamily int collate\+String\+Objects (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{a,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 566 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a1b107d21fcb90b8c57203904e96c02f3}\label{object_8c_a1b107d21fcb90b8c57203904e96c02f3}} 
+\index{object.\+c@{object.\+c}!compare\+String\+Objects@{compare\+String\+Objects}}
+\index{compare\+String\+Objects@{compare\+String\+Objects}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{compare\+String\+Objects()}{compareStringObjects()}}
+{\footnotesize\ttfamily int compare\+String\+Objects (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{a,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 561 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_ae6b84426afc2eaecaffcaa0628fa5a47}\label{object_8c_ae6b84426afc2eaecaffcaa0628fa5a47}} 
+\index{object.\+c@{object.\+c}!compare\+String\+Objects\+With\+Flags@{compare\+String\+Objects\+With\+Flags}}
+\index{compare\+String\+Objects\+With\+Flags@{compare\+String\+Objects\+With\+Flags}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{compare\+String\+Objects\+With\+Flags()}{compareStringObjectsWithFlags()}}
+{\footnotesize\ttfamily int compare\+String\+Objects\+With\+Flags (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{a,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{b,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 528 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_afc552e6090cf7fa56b3db458078be7f1}\label{object_8c_afc552e6090cf7fa56b3db458078be7f1}} 
+\index{object.\+c@{object.\+c}!create\+Embedded\+String\+Object@{create\+Embedded\+String\+Object}}
+\index{create\+Embedded\+String\+Object@{create\+Embedded\+String\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+Embedded\+String\+Object()}{createEmbeddedStringObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+Embedded\+String\+Object (\begin{DoxyParamCaption}\item[{const char $\ast$}]{ptr,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 84 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a5f0ed362e09930575ce97431dda2f987}\label{object_8c_a5f0ed362e09930575ce97431dda2f987}} 
+\index{object.\+c@{object.\+c}!create\+Hash\+Object@{create\+Hash\+Object}}
+\index{create\+Hash\+Object@{create\+Hash\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+Hash\+Object()}{createHashObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+Hash\+Object (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 242 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_ab8fb80d55a55fc2fdaad8763b94c2207}\label{object_8c_ab8fb80d55a55fc2fdaad8763b94c2207}} 
+\index{object.\+c@{object.\+c}!create\+Intset\+Object@{create\+Intset\+Object}}
+\index{create\+Intset\+Object@{create\+Intset\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+Intset\+Object()}{createIntsetObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+Intset\+Object (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 235 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a794a7928c34cfe1ae50146fe13e9179a}\label{object_8c_a794a7928c34cfe1ae50146fe13e9179a}} 
+\index{object.\+c@{object.\+c}!create\+Module\+Object@{create\+Module\+Object}}
+\index{create\+Module\+Object@{create\+Module\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+Module\+Object()}{createModuleObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+Module\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a3e81a33920e783a6b35dedfd7bdb6a2c}{module\+Type} $\ast$}]{mt,  }\item[{void $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 274 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a5f534218574d15e8333875d10d7e7316}\label{object_8c_a5f534218574d15e8333875d10d7e7316}} 
+\index{object.\+c@{object.\+c}!create\+Object@{create\+Object}}
+\index{create\+Object@{create\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+Object()}{createObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+Object (\begin{DoxyParamCaption}\item[{int}]{type,  }\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 41 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a2dcf3148f7c5b6631b3d42c3f6d1e29c}\label{object_8c_a2dcf3148f7c5b6631b3d42c3f6d1e29c}} 
+\index{object.\+c@{object.\+c}!create\+Quicklist\+Object@{create\+Quicklist\+Object}}
+\index{create\+Quicklist\+Object@{create\+Quicklist\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+Quicklist\+Object()}{createQuicklistObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+Quicklist\+Object (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 214 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a85905658f263d18a5d422d275e5c18ac}\label{object_8c_a85905658f263d18a5d422d275e5c18ac}} 
+\index{object.\+c@{object.\+c}!create\+Raw\+String\+Object@{create\+Raw\+String\+Object}}
+\index{create\+Raw\+String\+Object@{create\+Raw\+String\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+Raw\+String\+Object()}{createRawStringObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+Raw\+String\+Object (\begin{DoxyParamCaption}\item[{const char $\ast$}]{ptr,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 77 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a58920b17e6783e82f49a2baba4261093}\label{object_8c_a58920b17e6783e82f49a2baba4261093}} 
+\index{object.\+c@{object.\+c}!create\+Set\+Object@{create\+Set\+Object}}
+\index{create\+Set\+Object@{create\+Set\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+Set\+Object()}{createSetObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+Set\+Object (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 228 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a6ba807c719b2ce522847bd794a789c85}\label{object_8c_a6ba807c719b2ce522847bd794a789c85}} 
+\index{object.\+c@{object.\+c}!create\+Stream\+Object@{create\+Stream\+Object}}
+\index{create\+Stream\+Object@{create\+Stream\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+Stream\+Object()}{createStreamObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+Stream\+Object (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 267 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a58bf6fb802750d04c587b4d13a2f3c0a}\label{object_8c_a58bf6fb802750d04c587b4d13a2f3c0a}} 
+\index{object.\+c@{object.\+c}!create\+String\+Object@{create\+String\+Object}}
+\index{create\+String\+Object@{create\+String\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+String\+Object()}{createStringObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+String\+Object (\begin{DoxyParamCaption}\item[{const char $\ast$}]{ptr,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 119 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a828cbcce5d59a527c9a3d7c19bde3f3f}\label{object_8c_a828cbcce5d59a527c9a3d7c19bde3f3f}} 
+\index{object.\+c@{object.\+c}!create\+String\+Object\+From\+Long\+Double@{create\+String\+Object\+From\+Long\+Double}}
+\index{create\+String\+Object\+From\+Long\+Double@{create\+String\+Object\+From\+Long\+Double}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+String\+Object\+From\+Long\+Double()}{createStringObjectFromLongDouble()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+String\+Object\+From\+Long\+Double (\begin{DoxyParamCaption}\item[{long double}]{value,  }\item[{int}]{humanfriendly }\end{DoxyParamCaption})}
+
+
+
+Definition at line 179 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_abb5873d69dbe9b2c5034c686d17d8c1d}\label{object_8c_abb5873d69dbe9b2c5034c686d17d8c1d}} 
+\index{object.\+c@{object.\+c}!create\+String\+Object\+From\+Long\+Long@{create\+String\+Object\+From\+Long\+Long}}
+\index{create\+String\+Object\+From\+Long\+Long@{create\+String\+Object\+From\+Long\+Long}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+String\+Object\+From\+Long\+Long()}{createStringObjectFromLongLong()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+String\+Object\+From\+Long\+Long (\begin{DoxyParamCaption}\item[{long long}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 161 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a94b3dee86e33a84f45d37fc957227559}\label{object_8c_a94b3dee86e33a84f45d37fc957227559}} 
+\index{object.\+c@{object.\+c}!create\+String\+Object\+From\+Long\+Long\+For\+Value@{create\+String\+Object\+From\+Long\+Long\+For\+Value}}
+\index{create\+String\+Object\+From\+Long\+Long\+For\+Value@{create\+String\+Object\+From\+Long\+Long\+For\+Value}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+String\+Object\+From\+Long\+Long\+For\+Value()}{createStringObjectFromLongLongForValue()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+String\+Object\+From\+Long\+Long\+For\+Value (\begin{DoxyParamCaption}\item[{long long}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 169 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a49de04ba218b5603d00087cfc6029e82}\label{object_8c_a49de04ba218b5603d00087cfc6029e82}} 
+\index{object.\+c@{object.\+c}!create\+String\+Object\+From\+Long\+Long\+With\+Options@{create\+String\+Object\+From\+Long\+Long\+With\+Options}}
+\index{create\+String\+Object\+From\+Long\+Long\+With\+Options@{create\+String\+Object\+From\+Long\+Long\+With\+Options}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+String\+Object\+From\+Long\+Long\+With\+Options()}{createStringObjectFromLongLongWithOptions()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+String\+Object\+From\+Long\+Long\+With\+Options (\begin{DoxyParamCaption}\item[{long long}]{value,  }\item[{int}]{valueobj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 133 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a4a1211c9a32ce830f9f6682bc310357c}\label{object_8c_a4a1211c9a32ce830f9f6682bc310357c}} 
+\index{object.\+c@{object.\+c}!create\+Ziplist\+Object@{create\+Ziplist\+Object}}
+\index{create\+Ziplist\+Object@{create\+Ziplist\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+Ziplist\+Object()}{createZiplistObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+Ziplist\+Object (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 221 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_ac18b9b0bcb75a95609aea70a882863d2}\label{object_8c_ac18b9b0bcb75a95609aea70a882863d2}} 
+\index{object.\+c@{object.\+c}!create\+Zset\+Object@{create\+Zset\+Object}}
+\index{create\+Zset\+Object@{create\+Zset\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+Zset\+Object()}{createZsetObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+Zset\+Object (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 249 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a4163ff8fa0cd1864c6ea78bcffa54589}\label{object_8c_a4163ff8fa0cd1864c6ea78bcffa54589}} 
+\index{object.\+c@{object.\+c}!create\+Zset\+Ziplist\+Object@{create\+Zset\+Ziplist\+Object}}
+\index{create\+Zset\+Ziplist\+Object@{create\+Zset\+Ziplist\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{create\+Zset\+Ziplist\+Object()}{createZsetZiplistObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ create\+Zset\+Ziplist\+Object (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 260 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a03474153296385df26f24b265d2a22eb}\label{object_8c_a03474153296385df26f24b265d2a22eb}} 
+\index{object.\+c@{object.\+c}!decr\+Ref\+Count@{decr\+Ref\+Count}}
+\index{decr\+Ref\+Count@{decr\+Ref\+Count}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{decr\+Ref\+Count()}{decrRefCount()}}
+{\footnotesize\ttfamily void decr\+Ref\+Count (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 353 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a8362c0e483b38b8debe5979f4dbe883b}\label{object_8c_a8362c0e483b38b8debe5979f4dbe883b}} 
+\index{object.\+c@{object.\+c}!decr\+Ref\+Count\+Void@{decr\+Ref\+Count\+Void}}
+\index{decr\+Ref\+Count\+Void@{decr\+Ref\+Count\+Void}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{decr\+Ref\+Count\+Void()}{decrRefCountVoid()}}
+{\footnotesize\ttfamily void decr\+Ref\+Count\+Void (\begin{DoxyParamCaption}\item[{void $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 375 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a2b5eada89b890fd9bf2859c9bc7185d6}\label{object_8c_a2b5eada89b890fd9bf2859c9bc7185d6}} 
+\index{object.\+c@{object.\+c}!dup\+String\+Object@{dup\+String\+Object}}
+\index{dup\+String\+Object@{dup\+String\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{dup\+String\+Object()}{dupStringObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ dup\+String\+Object (\begin{DoxyParamCaption}\item[{const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 193 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a0fb3848777c9ddaac670a2ee174546dd}\label{object_8c_a0fb3848777c9ddaac670a2ee174546dd}} 
+\index{object.\+c@{object.\+c}!equal\+String\+Objects@{equal\+String\+Objects}}
+\index{equal\+String\+Objects@{equal\+String\+Objects}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{equal\+String\+Objects()}{equalStringObjects()}}
+{\footnotesize\ttfamily int equal\+String\+Objects (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{a,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 574 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_aae30d790d50c2301ada8c68f9c554dd6}\label{object_8c_aae30d790d50c2301ada8c68f9c554dd6}} 
+\index{object.\+c@{object.\+c}!free\+Hash\+Object@{free\+Hash\+Object}}
+\index{free\+Hash\+Object@{free\+Hash\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{free\+Hash\+Object()}{freeHashObject()}}
+{\footnotesize\ttfamily void free\+Hash\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 325 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_ab42800614721abadb142208f8e72cc9d}\label{object_8c_ab42800614721abadb142208f8e72cc9d}} 
+\index{object.\+c@{object.\+c}!free\+List\+Object@{free\+List\+Object}}
+\index{free\+List\+Object@{free\+List\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{free\+List\+Object()}{freeListObject()}}
+{\footnotesize\ttfamily void free\+List\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 287 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_ab09baeae3f0b14d5e0f36b7a8af2bdcf}\label{object_8c_ab09baeae3f0b14d5e0f36b7a8af2bdcf}} 
+\index{object.\+c@{object.\+c}!free\+Memory\+Overhead\+Data@{free\+Memory\+Overhead\+Data}}
+\index{free\+Memory\+Overhead\+Data@{free\+Memory\+Overhead\+Data}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{free\+Memory\+Overhead\+Data()}{freeMemoryOverheadData()}}
+{\footnotesize\ttfamily void free\+Memory\+Overhead\+Data (\begin{DoxyParamCaption}\item[{struct \hyperlink{structredis_mem_overhead}{redis\+Mem\+Overhead} $\ast$}]{mh }\end{DoxyParamCaption})}
+
+
+
+Definition at line 935 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a4678c8cf824a0745311c39fb8f300290}\label{object_8c_a4678c8cf824a0745311c39fb8f300290}} 
+\index{object.\+c@{object.\+c}!free\+Module\+Object@{free\+Module\+Object}}
+\index{free\+Module\+Object@{free\+Module\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{free\+Module\+Object()}{freeModuleObject()}}
+{\footnotesize\ttfamily void free\+Module\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 339 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a9d03597c960b9cbed2bd71bd2d6fd5f1}\label{object_8c_a9d03597c960b9cbed2bd71bd2d6fd5f1}} 
+\index{object.\+c@{object.\+c}!free\+Set\+Object@{free\+Set\+Object}}
+\index{free\+Set\+Object@{free\+Set\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{free\+Set\+Object()}{freeSetObject()}}
+{\footnotesize\ttfamily void free\+Set\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 295 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a6bdcf469e2903315a2ecf46c2e058e1c}\label{object_8c_a6bdcf469e2903315a2ecf46c2e058e1c}} 
+\index{object.\+c@{object.\+c}!free\+Stream\+Object@{free\+Stream\+Object}}
+\index{free\+Stream\+Object@{free\+Stream\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{free\+Stream\+Object()}{freeStreamObject()}}
+{\footnotesize\ttfamily void free\+Stream\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 345 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a7317d00fbb81c4cfe09e68ee60979cfb}\label{object_8c_a7317d00fbb81c4cfe09e68ee60979cfb}} 
+\index{object.\+c@{object.\+c}!free\+String\+Object@{free\+String\+Object}}
+\index{free\+String\+Object@{free\+String\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{free\+String\+Object()}{freeStringObject()}}
+{\footnotesize\ttfamily void free\+String\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 281 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a860552c3f312632c9481eb8fdc5108bb}\label{object_8c_a860552c3f312632c9481eb8fdc5108bb}} 
+\index{object.\+c@{object.\+c}!free\+Zset\+Object@{free\+Zset\+Object}}
+\index{free\+Zset\+Object@{free\+Zset\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{free\+Zset\+Object()}{freeZsetObject()}}
+{\footnotesize\ttfamily void free\+Zset\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 308 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a42d455241ac5e34b9db676b6e7a23cef}\label{object_8c_a42d455241ac5e34b9db676b6e7a23cef}} 
+\index{object.\+c@{object.\+c}!get\+Decoded\+Object@{get\+Decoded\+Object}}
+\index{get\+Decoded\+Object@{get\+Decoded\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{get\+Decoded\+Object()}{getDecodedObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ get\+Decoded\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 499 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a45ffbf979c99e0a0985141ae4d9316a2}\label{object_8c_a45ffbf979c99e0a0985141ae4d9316a2}} 
+\index{object.\+c@{object.\+c}!get\+Double\+From\+Object@{get\+Double\+From\+Object}}
+\index{get\+Double\+From\+Object@{get\+Double\+From\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{get\+Double\+From\+Object()}{getDoubleFromObject()}}
+{\footnotesize\ttfamily int get\+Double\+From\+Object (\begin{DoxyParamCaption}\item[{const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{double $\ast$}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line 594 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a7a7968bc470b0da48ead4e8191c454d8}\label{object_8c_a7a7968bc470b0da48ead4e8191c454d8}} 
+\index{object.\+c@{object.\+c}!get\+Double\+From\+Object\+Or\+Reply@{get\+Double\+From\+Object\+Or\+Reply}}
+\index{get\+Double\+From\+Object\+Or\+Reply@{get\+Double\+From\+Object\+Or\+Reply}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{get\+Double\+From\+Object\+Or\+Reply()}{getDoubleFromObjectOrReply()}}
+{\footnotesize\ttfamily int get\+Double\+From\+Object\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{double $\ast$}]{target,  }\item[{const char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line 622 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_ab1682abd71cd968dc006d34d20550e9f}\label{object_8c_ab1682abd71cd968dc006d34d20550e9f}} 
+\index{object.\+c@{object.\+c}!get\+Long\+Double\+From\+Object@{get\+Long\+Double\+From\+Object}}
+\index{get\+Long\+Double\+From\+Object@{get\+Long\+Double\+From\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{get\+Long\+Double\+From\+Object()}{getLongDoubleFromObject()}}
+{\footnotesize\ttfamily int get\+Long\+Double\+From\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{long double $\ast$}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line 636 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a2fbd492cd9e05cd09febb2d82aeb695b}\label{object_8c_a2fbd492cd9e05cd09febb2d82aeb695b}} 
+\index{object.\+c@{object.\+c}!get\+Long\+Double\+From\+Object\+Or\+Reply@{get\+Long\+Double\+From\+Object\+Or\+Reply}}
+\index{get\+Long\+Double\+From\+Object\+Or\+Reply@{get\+Long\+Double\+From\+Object\+Or\+Reply}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{get\+Long\+Double\+From\+Object\+Or\+Reply()}{getLongDoubleFromObjectOrReply()}}
+{\footnotesize\ttfamily int get\+Long\+Double\+From\+Object\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{long double $\ast$}]{target,  }\item[{const char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line 664 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_ae39b213c26365e47c49958ca36400533}\label{object_8c_ae39b213c26365e47c49958ca36400533}} 
+\index{object.\+c@{object.\+c}!get\+Long\+From\+Object\+Or\+Reply@{get\+Long\+From\+Object\+Or\+Reply}}
+\index{get\+Long\+From\+Object\+Or\+Reply@{get\+Long\+From\+Object\+Or\+Reply}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{get\+Long\+From\+Object\+Or\+Reply()}{getLongFromObjectOrReply()}}
+{\footnotesize\ttfamily int get\+Long\+From\+Object\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{long $\ast$}]{target,  }\item[{const char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line 711 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_ade9e166ea7caa357b0f742e63ba37c7f}\label{object_8c_ade9e166ea7caa357b0f742e63ba37c7f}} 
+\index{object.\+c@{object.\+c}!get\+Long\+Long\+From\+Object@{get\+Long\+Long\+From\+Object}}
+\index{get\+Long\+Long\+From\+Object@{get\+Long\+Long\+From\+Object}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{get\+Long\+Long\+From\+Object()}{getLongLongFromObject()}}
+{\footnotesize\ttfamily int get\+Long\+Long\+From\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{long long $\ast$}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line 678 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a39155431bb51f438f1e38f0ec06366a2}\label{object_8c_a39155431bb51f438f1e38f0ec06366a2}} 
+\index{object.\+c@{object.\+c}!get\+Long\+Long\+From\+Object\+Or\+Reply@{get\+Long\+Long\+From\+Object\+Or\+Reply}}
+\index{get\+Long\+Long\+From\+Object\+Or\+Reply@{get\+Long\+Long\+From\+Object\+Or\+Reply}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{get\+Long\+Long\+From\+Object\+Or\+Reply()}{getLongLongFromObjectOrReply()}}
+{\footnotesize\ttfamily int get\+Long\+Long\+From\+Object\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{long long $\ast$}]{target,  }\item[{const char $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Definition at line 697 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a946acba4fa7f28a34f3435bb98b452e0}\label{object_8c_a946acba4fa7f28a34f3435bb98b452e0}} 
+\index{object.\+c@{object.\+c}!get\+Memory\+Doctor\+Report@{get\+Memory\+Doctor\+Report}}
+\index{get\+Memory\+Doctor\+Report@{get\+Memory\+Doctor\+Report}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{get\+Memory\+Doctor\+Report()}{getMemoryDoctorReport()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} get\+Memory\+Doctor\+Report (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1080 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a1032572b4b3b6e9425744bb86d98ec15}\label{object_8c_a1032572b4b3b6e9425744bb86d98ec15}} 
+\index{object.\+c@{object.\+c}!get\+Memory\+Overhead\+Data@{get\+Memory\+Overhead\+Data}}
+\index{get\+Memory\+Overhead\+Data@{get\+Memory\+Overhead\+Data}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{get\+Memory\+Overhead\+Data()}{getMemoryOverheadData()}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_mem_overhead}{redis\+Mem\+Overhead}$\ast$ get\+Memory\+Overhead\+Data (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 943 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_aa84594b5dd7a5dda8201c15c85b1457a}\label{object_8c_aa84594b5dd7a5dda8201c15c85b1457a}} 
+\index{object.\+c@{object.\+c}!incr\+Ref\+Count@{incr\+Ref\+Count}}
+\index{incr\+Ref\+Count@{incr\+Ref\+Count}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{incr\+Ref\+Count()}{incrRefCount()}}
+{\footnotesize\ttfamily void incr\+Ref\+Count (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 349 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a3157a90055dab4dce92cc76500c3a51b}\label{object_8c_a3157a90055dab4dce92cc76500c3a51b}} 
+\index{object.\+c@{object.\+c}!input\+Cat\+Sds@{input\+Cat\+Sds}}
+\index{input\+Cat\+Sds@{input\+Cat\+Sds}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{input\+Cat\+Sds()}{inputCatSds()}}
+{\footnotesize\ttfamily void input\+Cat\+Sds (\begin{DoxyParamCaption}\item[{void $\ast$}]{result,  }\item[{const char $\ast$}]{str }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1072 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a6c17958992e396575864ce48574349c7}\label{object_8c_a6c17958992e396575864ce48574349c7}} 
+\index{object.\+c@{object.\+c}!is\+Object\+Representable\+As\+Long\+Long@{is\+Object\+Representable\+As\+Long\+Long}}
+\index{is\+Object\+Representable\+As\+Long\+Long@{is\+Object\+Representable\+As\+Long\+Long}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{is\+Object\+Representable\+As\+Long\+Long()}{isObjectRepresentableAsLongLong()}}
+{\footnotesize\ttfamily int is\+Object\+Representable\+As\+Long\+Long (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{long long $\ast$}]{llval }\end{DoxyParamCaption})}
+
+
+
+Definition at line 408 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a1404413f92cc603c272880c75415321b}\label{object_8c_a1404413f92cc603c272880c75415321b}} 
+\index{object.\+c@{object.\+c}!is\+Sds\+Representable\+As\+Long\+Long@{is\+Sds\+Representable\+As\+Long\+Long}}
+\index{is\+Sds\+Representable\+As\+Long\+Long@{is\+Sds\+Representable\+As\+Long\+Long}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{is\+Sds\+Representable\+As\+Long\+Long()}{isSdsRepresentableAsLongLong()}}
+{\footnotesize\ttfamily int is\+Sds\+Representable\+As\+Long\+Long (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{long long $\ast$}]{llval }\end{DoxyParamCaption})}
+
+
+
+Definition at line 404 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_aa14f89ea2cc52c4e3d9ba91d85478a1c}\label{object_8c_aa14f89ea2cc52c4e3d9ba91d85478a1c}} 
+\index{object.\+c@{object.\+c}!make\+Object\+Shared@{make\+Object\+Shared}}
+\index{make\+Object\+Shared@{make\+Object\+Shared}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{make\+Object\+Shared()}{makeObjectShared()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ make\+Object\+Shared (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 69 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a082ea922419a3d6fe58a9b369e89f359}\label{object_8c_a082ea922419a3d6fe58a9b369e89f359}} 
+\index{object.\+c@{object.\+c}!memory\+Command@{memory\+Command}}
+\index{memory\+Command@{memory\+Command}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{memory\+Command()}{memoryCommand()}}
+{\footnotesize\ttfamily void memory\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1287 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_af4babb9f5d489b16aebeafedfa0ee244}\label{object_8c_af4babb9f5d489b16aebeafedfa0ee244}} 
+\index{object.\+c@{object.\+c}!object\+Command@{object\+Command}}
+\index{object\+Command@{object\+Command}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{object\+Command()}{objectCommand()}}
+{\footnotesize\ttfamily void object\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1238 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a9137654b1169778bf6c8b8439667e44e}\label{object_8c_a9137654b1169778bf6c8b8439667e44e}} 
+\index{object.\+c@{object.\+c}!object\+Command\+Lookup@{object\+Command\+Lookup}}
+\index{object\+Command\+Lookup@{object\+Command\+Lookup}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{object\+Command\+Lookup()}{objectCommandLookup()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ object\+Command\+Lookup (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1222 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a4b47bf3e99f2b333ee7f6106c532d6b5}\label{object_8c_a4b47bf3e99f2b333ee7f6106c532d6b5}} 
+\index{object.\+c@{object.\+c}!object\+Command\+Lookup\+Or\+Reply@{object\+Command\+Lookup\+Or\+Reply}}
+\index{object\+Command\+Lookup\+Or\+Reply@{object\+Command\+Lookup\+Or\+Reply}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{object\+Command\+Lookup\+Or\+Reply()}{objectCommandLookupOrReply()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ object\+Command\+Lookup\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{reply }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1229 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a3f9054ae0c2ce0a1fd35c1863d14177c}\label{object_8c_a3f9054ae0c2ce0a1fd35c1863d14177c}} 
+\index{object.\+c@{object.\+c}!object\+Compute\+Size@{object\+Compute\+Size}}
+\index{object\+Compute\+Size@{object\+Compute\+Size}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{object\+Compute\+Size()}{objectComputeSize()}}
+{\footnotesize\ttfamily size\+\_\+t object\+Compute\+Size (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{size\+\_\+t}]{sample\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 772 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_ae793c69b79f7e18a50ec3ee4a9cb4d3a}\label{object_8c_ae793c69b79f7e18a50ec3ee4a9cb4d3a}} 
+\index{object.\+c@{object.\+c}!object\+Set\+L\+R\+U\+Or\+L\+FU@{object\+Set\+L\+R\+U\+Or\+L\+FU}}
+\index{object\+Set\+L\+R\+U\+Or\+L\+FU@{object\+Set\+L\+R\+U\+Or\+L\+FU}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{object\+Set\+L\+R\+U\+Or\+L\+F\+U()}{objectSetLRUOrLFU()}}
+{\footnotesize\ttfamily void object\+Set\+L\+R\+U\+Or\+L\+FU (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{val,  }\item[{long long}]{lfu\+\_\+freq,  }\item[{long long}]{lru\+\_\+idle,  }\item[{long long}]{lru\+\_\+clock }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1197 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_af22e46f03c49934062838d3208bd3fa1}\label{object_8c_af22e46f03c49934062838d3208bd3fa1}} 
+\index{object.\+c@{object.\+c}!reset\+Ref\+Count@{reset\+Ref\+Count}}
+\index{reset\+Ref\+Count@{reset\+Ref\+Count}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{reset\+Ref\+Count()}{resetRefCount()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ reset\+Ref\+Count (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 391 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a4dceec0f005ea221a5ee41659297ce30}\label{object_8c_a4dceec0f005ea221a5ee41659297ce30}} 
+\index{object.\+c@{object.\+c}!stream\+Radix\+Tree\+Memory\+Usage@{stream\+Radix\+Tree\+Memory\+Usage}}
+\index{stream\+Radix\+Tree\+Memory\+Usage@{stream\+Radix\+Tree\+Memory\+Usage}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{stream\+Radix\+Tree\+Memory\+Usage()}{streamRadixTreeMemoryUsage()}}
+{\footnotesize\ttfamily size\+\_\+t stream\+Radix\+Tree\+Memory\+Usage (\begin{DoxyParamCaption}\item[{\hyperlink{structrax}{rax} $\ast$}]{rax }\end{DoxyParamCaption})}
+
+
+
+Definition at line 758 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a89772282d38fe17fe42ec0087c0e9bd5}\label{object_8c_a89772282d38fe17fe42ec0087c0e9bd5}} 
+\index{object.\+c@{object.\+c}!str\+Encoding@{str\+Encoding}}
+\index{str\+Encoding@{str\+Encoding}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{str\+Encoding()}{strEncoding()}}
+{\footnotesize\ttfamily char$\ast$ str\+Encoding (\begin{DoxyParamCaption}\item[{int}]{encoding }\end{DoxyParamCaption})}
+
+
+
+Definition at line 727 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a869b8cea49f26cb18bf1138839696480}\label{object_8c_a869b8cea49f26cb18bf1138839696480}} 
+\index{object.\+c@{object.\+c}!string\+Object\+Len@{string\+Object\+Len}}
+\index{string\+Object\+Len@{string\+Object\+Len}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{string\+Object\+Len()}{stringObjectLen()}}
+{\footnotesize\ttfamily size\+\_\+t string\+Object\+Len (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 585 of file object.\+c.
+
+\mbox{\Hypertarget{object_8c_a69038fedc976828a3dfc5f106c478544}\label{object_8c_a69038fedc976828a3dfc5f106c478544}} 
+\index{object.\+c@{object.\+c}!try\+Object\+Encoding@{try\+Object\+Encoding}}
+\index{try\+Object\+Encoding@{try\+Object\+Encoding}!object.\+c@{object.\+c}}
+\subsubsection{\texorpdfstring{try\+Object\+Encoding()}{tryObjectEncoding()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ try\+Object\+Encoding (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 419 of file object.\+c.
+

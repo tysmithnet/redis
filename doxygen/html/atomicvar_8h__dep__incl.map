@@ -1,0 +1,8 @@
+<map id="src/atomicvar.h" name="src/atomicvar.h">
+<area shape="rect" id="node2" href="$db_8c.html" title="src/db.c" alt="" coords="5,80,75,107"/>
+<area shape="rect" id="node3" href="$evict_8c.html" title="src/evict.c" alt="" coords="99,80,181,107"/>
+<area shape="rect" id="node4" href="$lazyfree_8c.html" title="src/lazyfree.c" alt="" coords="205,80,307,107"/>
+<area shape="rect" id="node5" href="$networking_8c.html" title="src/networking.c" alt="" coords="331,80,450,107"/>
+<area shape="rect" id="node6" href="$server_8c.html" title="src/server.c" alt="" coords="475,80,565,107"/>
+<area shape="rect" id="node7" href="$zmalloc_8c.html" title="src/zmalloc.c" alt="" coords="590,80,690,107"/>
+</map>

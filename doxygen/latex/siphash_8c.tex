@@ -1,0 +1,184 @@
+\hypertarget{siphash_8c}{}\section{src/siphash.c File Reference}
+\label{siphash_8c}\index{src/siphash.\+c@{src/siphash.\+c}}
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+Include dependency graph for siphash.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{siphash_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{siphash_8c_addd42b95ef425979d1d0dca095dec800}{R\+O\+TL}(x,  b)~(uint64\+\_\+t)(((x) $<$$<$ (b)) $\vert$ ((x) $>$$>$ (64 -\/ (b))))
+\item 
+\#define \hyperlink{siphash_8c_a08af2fb25b17973248d8cc16f9aa7c46}{U32\+T\+O8\+\_\+\+LE}(p,  v)
+\item 
+\#define \hyperlink{siphash_8c_a46b0f26e70f8e8ad39288d04bc710077}{U64\+T\+O8\+\_\+\+LE}(p,  v)
+\item 
+\#define \hyperlink{siphash_8c_a1de2481f51a86cbfa0b7d0cdd4d68a69}{U8\+T\+O64\+\_\+\+LE}(p)
+\item 
+\#define \hyperlink{siphash_8c_a8682efbe353b9e5b9a5c014e5a3809ec}{U8\+T\+O64\+\_\+\+L\+E\+\_\+\+N\+O\+C\+A\+SE}(p)
+\item 
+\#define \hyperlink{siphash_8c_abd545ba6d36990ee5903ff4d0e6edecf}{S\+I\+P\+R\+O\+U\+ND}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{siphash_8c_a85e65aa51e5eeb5013fbb8bffab769b1}{siptlw} (int c)
+\item 
+uint64\+\_\+t \hyperlink{siphash_8c_aa9904e2d4f56af56fa9e65c3dcc239e5}{siphash} (const uint8\+\_\+t $\ast$in, const size\+\_\+t inlen, const uint8\+\_\+t $\ast$k)
+\item 
+uint64\+\_\+t \hyperlink{siphash_8c_a42a3f892a18e6090199a3018872ef7aa}{siphash\+\_\+nocase} (const uint8\+\_\+t $\ast$in, const size\+\_\+t inlen, const uint8\+\_\+t $\ast$k)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{siphash_8c_addd42b95ef425979d1d0dca095dec800}\label{siphash_8c_addd42b95ef425979d1d0dca095dec800}} 
+\index{siphash.\+c@{siphash.\+c}!R\+O\+TL@{R\+O\+TL}}
+\index{R\+O\+TL@{R\+O\+TL}!siphash.\+c@{siphash.\+c}}
+\subsubsection{\texorpdfstring{R\+O\+TL}{ROTL}}
+{\footnotesize\ttfamily \#define R\+O\+TL(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{b }\end{DoxyParamCaption})~(uint64\+\_\+t)(((x) $<$$<$ (b)) $\vert$ ((x) $>$$>$ (64 -\/ (b))))}
+
+
+
+Definition at line 65 of file siphash.\+c.
+
+\mbox{\Hypertarget{siphash_8c_abd545ba6d36990ee5903ff4d0e6edecf}\label{siphash_8c_abd545ba6d36990ee5903ff4d0e6edecf}} 
+\index{siphash.\+c@{siphash.\+c}!S\+I\+P\+R\+O\+U\+ND@{S\+I\+P\+R\+O\+U\+ND}}
+\index{S\+I\+P\+R\+O\+U\+ND@{S\+I\+P\+R\+O\+U\+ND}!siphash.\+c@{siphash.\+c}}
+\subsubsection{\texorpdfstring{S\+I\+P\+R\+O\+U\+ND}{SIPROUND}}
+{\footnotesize\ttfamily \#define S\+I\+P\+R\+O\+U\+ND}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                       \(\backslash\)
+        v0 += v1;                                                              \(\backslash\)
+        v1 = \hyperlink{siphash_8c_addd42b95ef425979d1d0dca095dec800}{ROTL}(v1, 13);                                                     \(\backslash\)
+        v1 ^= v0;                                                              \(\backslash\)
+        v0 = \hyperlink{siphash_8c_addd42b95ef425979d1d0dca095dec800}{ROTL}(v0, 32);                                                     \(\backslash\)
+        v2 += v3;                                                              \(\backslash\)
+        v3 = \hyperlink{siphash_8c_addd42b95ef425979d1d0dca095dec800}{ROTL}(v3, 16);                                                     \(\backslash\)
+        v3 ^= v2;                                                              \(\backslash\)
+        v0 += v3;                                                              \(\backslash\)
+        v3 = \hyperlink{siphash_8c_addd42b95ef425979d1d0dca095dec800}{ROTL}(v3, 21);                                                     \(\backslash\)
+        v3 ^= v0;                                                              \(\backslash\)
+        v2 += v1;                                                              \(\backslash\)
+        v1 = \hyperlink{siphash_8c_addd42b95ef425979d1d0dca095dec800}{ROTL}(v1, 17);                                                     \(\backslash\)
+        v1 ^= v2;                                                              \(\backslash\)
+        v2 = \hyperlink{siphash_8c_addd42b95ef425979d1d0dca095dec800}{ROTL}(v2, 32);                                                     \(\backslash\)
+    \} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Definition at line 97 of file siphash.\+c.
+
+\mbox{\Hypertarget{siphash_8c_a08af2fb25b17973248d8cc16f9aa7c46}\label{siphash_8c_a08af2fb25b17973248d8cc16f9aa7c46}} 
+\index{siphash.\+c@{siphash.\+c}!U32\+T\+O8\+\_\+\+LE@{U32\+T\+O8\+\_\+\+LE}}
+\index{U32\+T\+O8\+\_\+\+LE@{U32\+T\+O8\+\_\+\+LE}!siphash.\+c@{siphash.\+c}}
+\subsubsection{\texorpdfstring{U32\+T\+O8\+\_\+\+LE}{U32TO8\_LE}}
+{\footnotesize\ttfamily \#define U32\+T\+O8\+\_\+\+LE(\begin{DoxyParamCaption}\item[{}]{p,  }\item[{}]{v }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(p)[0] = (uint8\_t)((v));                                                   \(\backslash\)
+    (p)[1] = (uint8\_t)((v) >> 8);                                              \(\backslash\)
+    (p)[2] = (uint8\_t)((v) >> 16);                                             \(\backslash\)
+    (p)[3] = (uint8\_t)((v) >> 24);
+\end{DoxyCode}
+
+
+Definition at line 67 of file siphash.\+c.
+
+\mbox{\Hypertarget{siphash_8c_a46b0f26e70f8e8ad39288d04bc710077}\label{siphash_8c_a46b0f26e70f8e8ad39288d04bc710077}} 
+\index{siphash.\+c@{siphash.\+c}!U64\+T\+O8\+\_\+\+LE@{U64\+T\+O8\+\_\+\+LE}}
+\index{U64\+T\+O8\+\_\+\+LE@{U64\+T\+O8\+\_\+\+LE}!siphash.\+c@{siphash.\+c}}
+\subsubsection{\texorpdfstring{U64\+T\+O8\+\_\+\+LE}{U64TO8\_LE}}
+{\footnotesize\ttfamily \#define U64\+T\+O8\+\_\+\+LE(\begin{DoxyParamCaption}\item[{}]{p,  }\item[{}]{v }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{siphash_8c_a08af2fb25b17973248d8cc16f9aa7c46}{U32TO8\_LE}((p), (uint32\_t)((v)));                                           \(\backslash\)
+    U32TO8\_LE((p) + 4, (uint32\_t)((v) >> 32));
+\end{DoxyCode}
+
+
+Definition at line 73 of file siphash.\+c.
+
+\mbox{\Hypertarget{siphash_8c_a1de2481f51a86cbfa0b7d0cdd4d68a69}\label{siphash_8c_a1de2481f51a86cbfa0b7d0cdd4d68a69}} 
+\index{siphash.\+c@{siphash.\+c}!U8\+T\+O64\+\_\+\+LE@{U8\+T\+O64\+\_\+\+LE}}
+\index{U8\+T\+O64\+\_\+\+LE@{U8\+T\+O64\+\_\+\+LE}!siphash.\+c@{siphash.\+c}}
+\subsubsection{\texorpdfstring{U8\+T\+O64\+\_\+\+LE}{U8TO64\_LE}}
+{\footnotesize\ttfamily \#define U8\+T\+O64\+\_\+\+LE(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(((uint64\_t)((p)[0])) | ((uint64\_t)((p)[1]) << 8) |                        \(\backslash\)
+     ((uint64\_t)((p)[2]) << 16) | ((uint64\_t)((p)[3]) << 24) |                 \(\backslash\)
+     ((uint64\_t)((p)[4]) << 32) | ((uint64\_t)((p)[5]) << 40) |                 \(\backslash\)
+     ((uint64\_t)((p)[6]) << 48) | ((uint64\_t)((p)[7]) << 56))
+\end{DoxyCode}
+
+
+Definition at line 80 of file siphash.\+c.
+
+\mbox{\Hypertarget{siphash_8c_a8682efbe353b9e5b9a5c014e5a3809ec}\label{siphash_8c_a8682efbe353b9e5b9a5c014e5a3809ec}} 
+\index{siphash.\+c@{siphash.\+c}!U8\+T\+O64\+\_\+\+L\+E\+\_\+\+N\+O\+C\+A\+SE@{U8\+T\+O64\+\_\+\+L\+E\+\_\+\+N\+O\+C\+A\+SE}}
+\index{U8\+T\+O64\+\_\+\+L\+E\+\_\+\+N\+O\+C\+A\+SE@{U8\+T\+O64\+\_\+\+L\+E\+\_\+\+N\+O\+C\+A\+SE}!siphash.\+c@{siphash.\+c}}
+\subsubsection{\texorpdfstring{U8\+T\+O64\+\_\+\+L\+E\+\_\+\+N\+O\+C\+A\+SE}{U8TO64\_LE\_NOCASE}}
+{\footnotesize\ttfamily \#define U8\+T\+O64\+\_\+\+L\+E\+\_\+\+N\+O\+C\+A\+SE(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(((uint64\_t)(\hyperlink{siphash_8c_a85e65aa51e5eeb5013fbb8bffab769b1}{siptlw}((p)[0]))) |                                           \(\backslash\)
+     ((uint64\_t)(\hyperlink{siphash_8c_a85e65aa51e5eeb5013fbb8bffab769b1}{siptlw}((p)[1])) << 8) |                                      \(\backslash\)
+     ((uint64\_t)(\hyperlink{siphash_8c_a85e65aa51e5eeb5013fbb8bffab769b1}{siptlw}((p)[2])) << 16) |                                     \(\backslash\)
+     ((uint64\_t)(\hyperlink{siphash_8c_a85e65aa51e5eeb5013fbb8bffab769b1}{siptlw}((p)[3])) << 24) |                                     \(\backslash\)
+     ((uint64\_t)(\hyperlink{siphash_8c_a85e65aa51e5eeb5013fbb8bffab769b1}{siptlw}((p)[4])) << 32) |                                              \(\backslash\)
+     ((uint64\_t)(\hyperlink{siphash_8c_a85e65aa51e5eeb5013fbb8bffab769b1}{siptlw}((p)[5])) << 40) |                                              \(\backslash\)
+     ((uint64\_t)(\hyperlink{siphash_8c_a85e65aa51e5eeb5013fbb8bffab769b1}{siptlw}((p)[6])) << 48) |                                              \(\backslash\)
+     ((uint64\_t)(\hyperlink{siphash_8c_a85e65aa51e5eeb5013fbb8bffab769b1}{siptlw}((p)[7])) << 56))
+\end{DoxyCode}
+
+
+Definition at line 87 of file siphash.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{siphash_8c_aa9904e2d4f56af56fa9e65c3dcc239e5}\label{siphash_8c_aa9904e2d4f56af56fa9e65c3dcc239e5}} 
+\index{siphash.\+c@{siphash.\+c}!siphash@{siphash}}
+\index{siphash@{siphash}!siphash.\+c@{siphash.\+c}}
+\subsubsection{\texorpdfstring{siphash()}{siphash()}}
+{\footnotesize\ttfamily uint64\+\_\+t siphash (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t $\ast$}]{in,  }\item[{const size\+\_\+t}]{inlen,  }\item[{const uint8\+\_\+t $\ast$}]{k }\end{DoxyParamCaption})}
+
+
+
+Definition at line 115 of file siphash.\+c.
+
+\mbox{\Hypertarget{siphash_8c_a42a3f892a18e6090199a3018872ef7aa}\label{siphash_8c_a42a3f892a18e6090199a3018872ef7aa}} 
+\index{siphash.\+c@{siphash.\+c}!siphash\+\_\+nocase@{siphash\+\_\+nocase}}
+\index{siphash\+\_\+nocase@{siphash\+\_\+nocase}!siphash.\+c@{siphash.\+c}}
+\subsubsection{\texorpdfstring{siphash\+\_\+nocase()}{siphash\_nocase()}}
+{\footnotesize\ttfamily uint64\+\_\+t siphash\+\_\+nocase (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t $\ast$}]{in,  }\item[{const size\+\_\+t}]{inlen,  }\item[{const uint8\+\_\+t $\ast$}]{k }\end{DoxyParamCaption})}
+
+
+
+Definition at line 174 of file siphash.\+c.
+
+\mbox{\Hypertarget{siphash_8c_a85e65aa51e5eeb5013fbb8bffab769b1}\label{siphash_8c_a85e65aa51e5eeb5013fbb8bffab769b1}} 
+\index{siphash.\+c@{siphash.\+c}!siptlw@{siptlw}}
+\index{siptlw@{siptlw}!siphash.\+c@{siphash.\+c}}
+\subsubsection{\texorpdfstring{siptlw()}{siptlw()}}
+{\footnotesize\ttfamily int siptlw (\begin{DoxyParamCaption}\item[{int}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 50 of file siphash.\+c.
+

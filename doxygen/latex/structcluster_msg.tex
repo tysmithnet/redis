@@ -1,0 +1,262 @@
+\hypertarget{structcluster_msg}{}\section{cluster\+Msg Struct Reference}
+\label{structcluster_msg}\index{cluster\+Msg@{cluster\+Msg}}
+
+
+{\ttfamily \#include $<$cluster.\+h$>$}
+
+
+
+Collaboration diagram for cluster\+Msg\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcluster_msg__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+char \hyperlink{structcluster_msg_a44ca5d775a516861cbad4ea8f7ae5364}{sig} \mbox{[}4\mbox{]}
+\item 
+uint32\+\_\+t \hyperlink{structcluster_msg_a7c3d75c00327eb7e03f283418392443e}{totlen}
+\item 
+uint16\+\_\+t \hyperlink{structcluster_msg_aa10697fa6dc414fbc83710764c48899b}{ver}
+\item 
+uint16\+\_\+t \hyperlink{structcluster_msg_a8e0798404bf2cf5dabb84c5ba9a4f236}{port}
+\item 
+uint16\+\_\+t \hyperlink{structcluster_msg_acb5cfd209ba75c853d03f701e7f91679}{type}
+\item 
+uint16\+\_\+t \hyperlink{structcluster_msg_af6a39bfc7e1dc3b6f9c997c1c43fa996}{count}
+\item 
+uint64\+\_\+t \hyperlink{structcluster_msg_a97f41589e815c407f015841f5a3d816f}{current\+Epoch}
+\item 
+uint64\+\_\+t \hyperlink{structcluster_msg_a6bf0844859acadf5df37a7d49595680e}{config\+Epoch}
+\item 
+uint64\+\_\+t \hyperlink{structcluster_msg_a612bb2807d848cca89ea1437cceea886}{offset}
+\item 
+char \hyperlink{structcluster_msg_a81cb807c080c326e68e1ff07d2eaccce}{sender} \mbox{[}\hyperlink{cluster_8h_ace7a882972eff7149675252938643b6e}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+A\+M\+E\+L\+EN}\mbox{]}
+\item 
+unsigned char \hyperlink{structcluster_msg_a5208677bb0ea19be90a6a6a5b742b7bf}{myslots} \mbox{[}\hyperlink{cluster_8h_aa3e2cb951eebb16725ecc3f5beefd9fd}{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}/8\mbox{]}
+\item 
+char \hyperlink{structcluster_msg_a110072ca1cda63a0b08d06c3195056e2}{slaveof} \mbox{[}\hyperlink{cluster_8h_ace7a882972eff7149675252938643b6e}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+A\+M\+E\+L\+EN}\mbox{]}
+\item 
+char \hyperlink{structcluster_msg_adc202e2ef9102baf45fe88d6adfbdb9d}{myip} \mbox{[}\hyperlink{server_8h_ad97c5405ed22a94e9fcc10fba577d6c0}{N\+E\+T\+\_\+\+I\+P\+\_\+\+S\+T\+R\+\_\+\+L\+EN}\mbox{]}
+\item 
+char \hyperlink{structcluster_msg_a1755ac7161beb0d2bf27b9dacb7e3888}{notused1} \mbox{[}34\mbox{]}
+\item 
+uint16\+\_\+t \hyperlink{structcluster_msg_a6adf88a477cb0a9a34317bf4adbca458}{cport}
+\item 
+uint16\+\_\+t \hyperlink{structcluster_msg_a1e87af3c18a2fd36c61faf89949bdc3f}{flags}
+\item 
+unsigned char \hyperlink{structcluster_msg_ab12828525693568ae9c217805bea1ef9}{state}
+\item 
+unsigned char \hyperlink{structcluster_msg_a4b3606717108e723301f368f58e8ac55}{mflags} \mbox{[}3\mbox{]}
+\item 
+union \hyperlink{unioncluster_msg_data}{cluster\+Msg\+Data} \hyperlink{structcluster_msg_a1baf00312c0917b903606364f0a51211}{data}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 252 of file cluster.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structcluster_msg_a6bf0844859acadf5df37a7d49595680e}\label{structcluster_msg_a6bf0844859acadf5df37a7d49595680e}} 
+\index{cluster\+Msg@{cluster\+Msg}!config\+Epoch@{config\+Epoch}}
+\index{config\+Epoch@{config\+Epoch}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{config\+Epoch}{configEpoch}}
+{\footnotesize\ttfamily uint64\+\_\+t config\+Epoch}
+
+
+
+Definition at line 260 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_af6a39bfc7e1dc3b6f9c997c1c43fa996}\label{structcluster_msg_af6a39bfc7e1dc3b6f9c997c1c43fa996}} 
+\index{cluster\+Msg@{cluster\+Msg}!count@{count}}
+\index{count@{count}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{count}{count}}
+{\footnotesize\ttfamily uint16\+\_\+t count}
+
+
+
+Definition at line 258 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_a6adf88a477cb0a9a34317bf4adbca458}\label{structcluster_msg_a6adf88a477cb0a9a34317bf4adbca458}} 
+\index{cluster\+Msg@{cluster\+Msg}!cport@{cport}}
+\index{cport@{cport}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{cport}{cport}}
+{\footnotesize\ttfamily uint16\+\_\+t cport}
+
+
+
+Definition at line 270 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_a97f41589e815c407f015841f5a3d816f}\label{structcluster_msg_a97f41589e815c407f015841f5a3d816f}} 
+\index{cluster\+Msg@{cluster\+Msg}!current\+Epoch@{current\+Epoch}}
+\index{current\+Epoch@{current\+Epoch}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{current\+Epoch}{currentEpoch}}
+{\footnotesize\ttfamily uint64\+\_\+t current\+Epoch}
+
+
+
+Definition at line 259 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_a1baf00312c0917b903606364f0a51211}\label{structcluster_msg_a1baf00312c0917b903606364f0a51211}} 
+\index{cluster\+Msg@{cluster\+Msg}!data@{data}}
+\index{data@{data}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily union \hyperlink{unioncluster_msg_data}{cluster\+Msg\+Data} data}
+
+
+
+Definition at line 274 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_a1e87af3c18a2fd36c61faf89949bdc3f}\label{structcluster_msg_a1e87af3c18a2fd36c61faf89949bdc3f}} 
+\index{cluster\+Msg@{cluster\+Msg}!flags@{flags}}
+\index{flags@{flags}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily uint16\+\_\+t flags}
+
+
+
+Definition at line 271 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_a4b3606717108e723301f368f58e8ac55}\label{structcluster_msg_a4b3606717108e723301f368f58e8ac55}} 
+\index{cluster\+Msg@{cluster\+Msg}!mflags@{mflags}}
+\index{mflags@{mflags}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{mflags}{mflags}}
+{\footnotesize\ttfamily unsigned char mflags\mbox{[}3\mbox{]}}
+
+
+
+Definition at line 273 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_adc202e2ef9102baf45fe88d6adfbdb9d}\label{structcluster_msg_adc202e2ef9102baf45fe88d6adfbdb9d}} 
+\index{cluster\+Msg@{cluster\+Msg}!myip@{myip}}
+\index{myip@{myip}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{myip}{myip}}
+{\footnotesize\ttfamily char myip\mbox{[}\hyperlink{server_8h_ad97c5405ed22a94e9fcc10fba577d6c0}{N\+E\+T\+\_\+\+I\+P\+\_\+\+S\+T\+R\+\_\+\+L\+EN}\mbox{]}}
+
+
+
+Definition at line 268 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_a5208677bb0ea19be90a6a6a5b742b7bf}\label{structcluster_msg_a5208677bb0ea19be90a6a6a5b742b7bf}} 
+\index{cluster\+Msg@{cluster\+Msg}!myslots@{myslots}}
+\index{myslots@{myslots}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{myslots}{myslots}}
+{\footnotesize\ttfamily unsigned char myslots\mbox{[}\hyperlink{cluster_8h_aa3e2cb951eebb16725ecc3f5beefd9fd}{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}/8\mbox{]}}
+
+
+
+Definition at line 266 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_a1755ac7161beb0d2bf27b9dacb7e3888}\label{structcluster_msg_a1755ac7161beb0d2bf27b9dacb7e3888}} 
+\index{cluster\+Msg@{cluster\+Msg}!notused1@{notused1}}
+\index{notused1@{notused1}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{notused1}{notused1}}
+{\footnotesize\ttfamily char notused1\mbox{[}34\mbox{]}}
+
+
+
+Definition at line 269 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_a612bb2807d848cca89ea1437cceea886}\label{structcluster_msg_a612bb2807d848cca89ea1437cceea886}} 
+\index{cluster\+Msg@{cluster\+Msg}!offset@{offset}}
+\index{offset@{offset}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{offset}{offset}}
+{\footnotesize\ttfamily uint64\+\_\+t offset}
+
+
+
+Definition at line 263 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_a8e0798404bf2cf5dabb84c5ba9a4f236}\label{structcluster_msg_a8e0798404bf2cf5dabb84c5ba9a4f236}} 
+\index{cluster\+Msg@{cluster\+Msg}!port@{port}}
+\index{port@{port}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{port}{port}}
+{\footnotesize\ttfamily uint16\+\_\+t port}
+
+
+
+Definition at line 256 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_a81cb807c080c326e68e1ff07d2eaccce}\label{structcluster_msg_a81cb807c080c326e68e1ff07d2eaccce}} 
+\index{cluster\+Msg@{cluster\+Msg}!sender@{sender}}
+\index{sender@{sender}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{sender}{sender}}
+{\footnotesize\ttfamily char sender\mbox{[}\hyperlink{cluster_8h_ace7a882972eff7149675252938643b6e}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+A\+M\+E\+L\+EN}\mbox{]}}
+
+
+
+Definition at line 265 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_a44ca5d775a516861cbad4ea8f7ae5364}\label{structcluster_msg_a44ca5d775a516861cbad4ea8f7ae5364}} 
+\index{cluster\+Msg@{cluster\+Msg}!sig@{sig}}
+\index{sig@{sig}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{sig}{sig}}
+{\footnotesize\ttfamily char sig\mbox{[}4\mbox{]}}
+
+
+
+Definition at line 253 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_a110072ca1cda63a0b08d06c3195056e2}\label{structcluster_msg_a110072ca1cda63a0b08d06c3195056e2}} 
+\index{cluster\+Msg@{cluster\+Msg}!slaveof@{slaveof}}
+\index{slaveof@{slaveof}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{slaveof}{slaveof}}
+{\footnotesize\ttfamily char slaveof\mbox{[}\hyperlink{cluster_8h_ace7a882972eff7149675252938643b6e}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+A\+M\+E\+L\+EN}\mbox{]}}
+
+
+
+Definition at line 267 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_ab12828525693568ae9c217805bea1ef9}\label{structcluster_msg_ab12828525693568ae9c217805bea1ef9}} 
+\index{cluster\+Msg@{cluster\+Msg}!state@{state}}
+\index{state@{state}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily unsigned char state}
+
+
+
+Definition at line 272 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_a7c3d75c00327eb7e03f283418392443e}\label{structcluster_msg_a7c3d75c00327eb7e03f283418392443e}} 
+\index{cluster\+Msg@{cluster\+Msg}!totlen@{totlen}}
+\index{totlen@{totlen}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{totlen}{totlen}}
+{\footnotesize\ttfamily uint32\+\_\+t totlen}
+
+
+
+Definition at line 254 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_acb5cfd209ba75c853d03f701e7f91679}\label{structcluster_msg_acb5cfd209ba75c853d03f701e7f91679}} 
+\index{cluster\+Msg@{cluster\+Msg}!type@{type}}
+\index{type@{type}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily uint16\+\_\+t type}
+
+
+
+Definition at line 257 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_msg_aa10697fa6dc414fbc83710764c48899b}\label{structcluster_msg_aa10697fa6dc414fbc83710764c48899b}} 
+\index{cluster\+Msg@{cluster\+Msg}!ver@{ver}}
+\index{ver@{ver}!cluster\+Msg@{cluster\+Msg}}
+\subsubsection{\texorpdfstring{ver}{ver}}
+{\footnotesize\ttfamily uint16\+\_\+t ver}
+
+
+
+Definition at line 255 of file cluster.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{cluster_8h}{cluster.\+h}\end{DoxyCompactItemize}

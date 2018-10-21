@@ -1,0 +1,3675 @@
+\hypertarget{structredis_server}{}\section{redis\+Server Struct Reference}
+\label{structredis_server}\index{redis\+Server@{redis\+Server}}
+
+
+{\ttfamily \#include $<$server.\+h$>$}
+
+
+
+Collaboration diagram for redis\+Server\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structredis_server__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+pid\+\_\+t \hyperlink{structredis_server_ae0d46a978d5cd6707411f276ad869b9c}{pid}
+\item 
+char $\ast$ \hyperlink{structredis_server_a761e2c812e0a5ab3b7afcbb2586d4012}{configfile}
+\item 
+char $\ast$ \hyperlink{structredis_server_afa475ce704a1c8de8a4472f89ba59fd4}{executable}
+\item 
+char $\ast$$\ast$ \hyperlink{structredis_server_a2073b64fc7793a03e76ed750a46dd25e}{exec\+\_\+argv}
+\item 
+int \hyperlink{structredis_server_abb58a3bfa3d302d8c4b74b7c4f59644b}{dynamic\+\_\+hz}
+\item 
+int \hyperlink{structredis_server_aeae2d40a88ece004cc0fa4bc228077a8}{config\+\_\+hz}
+\item 
+int \hyperlink{structredis_server_a873124c5659edc141c67aab7999e314a}{hz}
+\item 
+\hyperlink{structredis_db}{redis\+Db} $\ast$ \hyperlink{structredis_server_a9bee04e09635a42fef289e42a89f5502}{db}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structredis_server_aaa854fe2fafd385073db1c59dfbffc9d}{commands}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structredis_server_a2282515ee7614e17de7aeae0db6ea65b}{orig\+\_\+commands}
+\item 
+\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$ \hyperlink{structredis_server_ada2e0bf12be2309801d2515e67c008e8}{el}
+\item 
+unsigned int \hyperlink{structredis_server_a99c6b6e30b43c077eb30507d7c1d0813}{lruclock}
+\item 
+int \hyperlink{structredis_server_a32598da1cf7182e823ebf3d440038455}{shutdown\+\_\+asap}
+\item 
+int \hyperlink{structredis_server_a0fd4dc9c26fc4a70bfbfe3e97a6c4295}{activerehashing}
+\item 
+int \hyperlink{structredis_server_abe0f85c6013794d585451f21440f5982}{active\+\_\+defrag\+\_\+running}
+\item 
+char $\ast$ \hyperlink{structredis_server_a0ba0e84624d22e52e900533adf7d9ba8}{requirepass}
+\item 
+char $\ast$ \hyperlink{structredis_server_a9319f4233d0597188c3119f4dc7b3f0f}{pidfile}
+\item 
+int \hyperlink{structredis_server_a4fa04e8ede4efc50a4eae5a4ee94be15}{arch\+\_\+bits}
+\item 
+int \hyperlink{structredis_server_aa80c0c1c323f199611105d43a6e5ed28}{cronloops}
+\item 
+char \hyperlink{structredis_server_a3bd69064f36a186f0a83bbe22cee41d2}{runid} \mbox{[}\hyperlink{server_8h_aba6794fa3ee28f85165eaed93190f1df}{C\+O\+N\+F\+I\+G\+\_\+\+R\+U\+N\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}+1\mbox{]}
+\item 
+int \hyperlink{structredis_server_a86dbe4f3f3de690343436c85dcf139c2}{sentinel\+\_\+mode}
+\item 
+size\+\_\+t \hyperlink{structredis_server_a1e552149c10f70ef055718ed88837bc3}{initial\+\_\+memory\+\_\+usage}
+\item 
+int \hyperlink{structredis_server_a7dff68985c6f97d270358d27472972e2}{always\+\_\+show\+\_\+logo}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structredis_server_a50474c537b218c04ee7e8667c3b6e177}{moduleapi}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_server_aa5a12ada98b21efbafa6a3068581ac76}{loadmodule\+\_\+queue}
+\item 
+int \hyperlink{structredis_server_a25bdcbb11f0d80bf9a7df68456b425b5}{module\+\_\+blocked\+\_\+pipe} \mbox{[}2\mbox{]}
+\item 
+int \hyperlink{structredis_server_a63c89c04d1feae07ca35558055155ffb}{port}
+\item 
+int \hyperlink{structredis_server_abb9634da7f2c5db97777a636828a4638}{tcp\+\_\+backlog}
+\item 
+char $\ast$ \hyperlink{structredis_server_ae0efb08252c56c2e14f08027b256b705}{bindaddr} \mbox{[}\hyperlink{server_8h_a314d02fcabccac3e59ecaa9d34f0d597}{C\+O\+N\+F\+I\+G\+\_\+\+B\+I\+N\+D\+A\+D\+D\+R\+\_\+\+M\+AX}\mbox{]}
+\item 
+int \hyperlink{structredis_server_afa0e3099c4f00ad746e97d1bc7685f95}{bindaddr\+\_\+count}
+\item 
+char $\ast$ \hyperlink{structredis_server_abe85a8c7083d28cbcb693b625db5ec1a}{unixsocket}
+\item 
+mode\+\_\+t \hyperlink{structredis_server_aadc46c1e937463532712d5cf6579eaa8}{unixsocketperm}
+\item 
+int \hyperlink{structredis_server_a396e19fe18c6bdeb9a1ac2a342323b6f}{ipfd} \mbox{[}\hyperlink{server_8h_a314d02fcabccac3e59ecaa9d34f0d597}{C\+O\+N\+F\+I\+G\+\_\+\+B\+I\+N\+D\+A\+D\+D\+R\+\_\+\+M\+AX}\mbox{]}
+\item 
+int \hyperlink{structredis_server_ab46270ee7e6852c96471da3aae7a3a02}{ipfd\+\_\+count}
+\item 
+int \hyperlink{structredis_server_ad780220bf56199a5e24492ce3e1adae8}{sofd}
+\item 
+int \hyperlink{structredis_server_a78645cb094289da318fa90b1cf3ad692}{cfd} \mbox{[}\hyperlink{server_8h_a314d02fcabccac3e59ecaa9d34f0d597}{C\+O\+N\+F\+I\+G\+\_\+\+B\+I\+N\+D\+A\+D\+D\+R\+\_\+\+M\+AX}\mbox{]}
+\item 
+int \hyperlink{structredis_server_a902c2c73c0b20af987cc22e032044e29}{cfd\+\_\+count}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_server_a268febb2b0b1add2594f2d7c8999567e}{clients}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_server_afc193ee38ed3ebcc1aa1bee7a506c0f9}{clients\+\_\+to\+\_\+close}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_server_a98158f8fefde91e0943a1b16668c4529}{clients\+\_\+pending\+\_\+write}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_server_a6a317d8f5c5ed50aa4c4756bb5e95ee9}{slaves}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_server_adafbaec515301e4446949c48a2670a84}{monitors}
+\item 
+\hyperlink{structclient}{client} $\ast$ \hyperlink{structredis_server_a6997b24b6b724923db5756c39f5e0662}{current\+\_\+client}
+\item 
+\hyperlink{structrax}{rax} $\ast$ \hyperlink{structredis_server_a309f80dceccd8fa762e54a07499f4a24}{clients\+\_\+index}
+\item 
+int \hyperlink{structredis_server_a98ae4963dfd94a8a552ec143cbd04ccb}{clients\+\_\+paused}
+\item 
+\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} \hyperlink{structredis_server_a69fcf2120369ec67c09fa04ee0bbdddd}{clients\+\_\+pause\+\_\+end\+\_\+time}
+\item 
+char \hyperlink{structredis_server_a792473f9197291c19d0c522011b09630}{neterr} \mbox{[}\hyperlink{anet_8h_a92d565f421c133e9fac9dbbe8c88922b}{A\+N\+E\+T\+\_\+\+E\+R\+R\+\_\+\+L\+EN}\mbox{]}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structredis_server_abc582fb4bb1c2a826e1fe27280a716e7}{migrate\+\_\+cached\+\_\+sockets}
+\item 
+uint64\+\_\+t \hyperlink{structredis_server_aeb9ca9dc2e5a71a7d964e2389d48678f}{next\+\_\+client\+\_\+id}
+\item 
+int \hyperlink{structredis_server_a3d1de338a7f6bb594efb159e1e34bf2d}{protected\+\_\+mode}
+\item 
+int \hyperlink{structredis_server_a6825c9e12c2d5353c1741e71fbe29fc0}{loading}
+\item 
+off\+\_\+t \hyperlink{structredis_server_aa44041d261395c51536c5db7da288874}{loading\+\_\+total\+\_\+bytes}
+\item 
+off\+\_\+t \hyperlink{structredis_server_a8537de4289165760c3c21814b6c0841d}{loading\+\_\+loaded\+\_\+bytes}
+\item 
+time\+\_\+t \hyperlink{structredis_server_a1c3272cd13cdd1159cf7a804264b6d46}{loading\+\_\+start\+\_\+time}
+\item 
+off\+\_\+t \hyperlink{structredis_server_a8a999e130bddf30284b12a4b625afe3d}{loading\+\_\+process\+\_\+events\+\_\+interval\+\_\+bytes}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structredis_server_a577bbf6b03a99e785eed8ea6ebd4a665}{del\+Command}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structredis_server_a1a7fbbf584c0a372e035053026784436}{multi\+Command}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structredis_server_ad5f3f0f97fb511f8f86f21d13e03801c}{lpush\+Command}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structredis_server_aa67bd29148b6d1ad47541e9e40b7cb82}{lpop\+Command}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structredis_server_ad4fa040bb64cd95458a6d5c959daa380}{rpop\+Command}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structredis_server_a1ad649607159f0284068556041fcd387}{zpopmin\+Command}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structredis_server_a3227752cf5245878455863e34d768180}{zpopmax\+Command}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structredis_server_adca63c4602215bd9e28e5e81bcf91fe6}{srem\+Command}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structredis_server_ada9d4d8c776057d1f91e8e40dfdc70a4}{exec\+Command}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structredis_server_ac9f201a49ff1edc5864a68753ef8bf6d}{expire\+Command}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structredis_server_aeea48ca4b779b703c49b82fd535b2922}{pexpire\+Command}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structredis_server_a19a694ea86bc8d8418f366392c0d8bdb}{xclaim\+Command}
+\item 
+struct \hyperlink{structredis_command}{redis\+Command} $\ast$ \hyperlink{structredis_server_a41f877042e8ddc732d1aecbf4e2a472b}{xgroup\+Command}
+\item 
+time\+\_\+t \hyperlink{structredis_server_a2e6bd1e4e734c677e1a73aa12931b8d2}{stat\+\_\+starttime}
+\item 
+long long \hyperlink{structredis_server_aa818a00bded05cbfc242fbd30a51bd06}{stat\+\_\+numcommands}
+\item 
+long long \hyperlink{structredis_server_afcaf03ea9071943ef74fc499a34f364c}{stat\+\_\+numconnections}
+\item 
+long long \hyperlink{structredis_server_a898017f30dfd6e8b25edf9ace36b175a}{stat\+\_\+expiredkeys}
+\item 
+double \hyperlink{structredis_server_a908fb5c9a872cac4539382205fec357b}{stat\+\_\+expired\+\_\+stale\+\_\+perc}
+\item 
+long long \hyperlink{structredis_server_a3cd30a9c8ce282f08de3c733d1ccd19d}{stat\+\_\+expired\+\_\+time\+\_\+cap\+\_\+reached\+\_\+count}
+\item 
+long long \hyperlink{structredis_server_a45229d2d3b593513143c5a9871a2be10}{stat\+\_\+evictedkeys}
+\item 
+long long \hyperlink{structredis_server_ad7d881fd1df3221d80a749be2e66d0d0}{stat\+\_\+keyspace\+\_\+hits}
+\item 
+long long \hyperlink{structredis_server_ad5efcac8b7288ed40db68e69b9ff306b}{stat\+\_\+keyspace\+\_\+misses}
+\item 
+long long \hyperlink{structredis_server_acf21ed827000471af091d6f7f2820843}{stat\+\_\+active\+\_\+defrag\+\_\+hits}
+\item 
+long long \hyperlink{structredis_server_a2cfe978a155a9359c774048dd502afc3}{stat\+\_\+active\+\_\+defrag\+\_\+misses}
+\item 
+long long \hyperlink{structredis_server_a67834c6012b1d5912befb42573b3138f}{stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+hits}
+\item 
+long long \hyperlink{structredis_server_a88f7d67b743022ba822fd5c7b6ea6964}{stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+misses}
+\item 
+long long \hyperlink{structredis_server_a3de172bb2507aa566698d109c783153a}{stat\+\_\+active\+\_\+defrag\+\_\+scanned}
+\item 
+size\+\_\+t \hyperlink{structredis_server_a9153369284c79d6fcf505c5882ec29ab}{stat\+\_\+peak\+\_\+memory}
+\item 
+long long \hyperlink{structredis_server_a4cdd4eed3d7fac9da3b95c1f6fe29de8}{stat\+\_\+fork\+\_\+time}
+\item 
+double \hyperlink{structredis_server_ae0463703f3899cad4e931faefe7b591b}{stat\+\_\+fork\+\_\+rate}
+\item 
+long long \hyperlink{structredis_server_afbe16be5f4b41cc85b8952c52f8afae0}{stat\+\_\+rejected\+\_\+conn}
+\item 
+long long \hyperlink{structredis_server_a75b9c0bc4b9974b3880f057a519c8cac}{stat\+\_\+sync\+\_\+full}
+\item 
+long long \hyperlink{structredis_server_a426c3298fab0d00a17cb6f35c5f607b0}{stat\+\_\+sync\+\_\+partial\+\_\+ok}
+\item 
+long long \hyperlink{structredis_server_afae1b2ee523b006366dbe18ce9dae2e1}{stat\+\_\+sync\+\_\+partial\+\_\+err}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_server_a664128e21b656b41a1c87347d805d37c}{slowlog}
+\item 
+long long \hyperlink{structredis_server_af895a22288bf16d8114a2f9a1d5be938}{slowlog\+\_\+entry\+\_\+id}
+\item 
+long long \hyperlink{structredis_server_a16d71dc7df6d4a717d3a6e6a840bf6a5}{slowlog\+\_\+log\+\_\+slower\+\_\+than}
+\item 
+unsigned long \hyperlink{structredis_server_a007cbc9d6c2e3d0fa86d9355a96c9f69}{slowlog\+\_\+max\+\_\+len}
+\item 
+struct \hyperlink{structmalloc__stats}{malloc\+\_\+stats} \hyperlink{structredis_server_ac781bc597dbf0ec72337e6c648a55817}{cron\+\_\+malloc\+\_\+stats}
+\item 
+long long \hyperlink{structredis_server_abe1289d87c7c7b12540c36b93d1bdb25}{stat\+\_\+net\+\_\+input\+\_\+bytes}
+\item 
+long long \hyperlink{structredis_server_ae0e3c35b8ea641cec0a4afb2658bccb9}{stat\+\_\+net\+\_\+output\+\_\+bytes}
+\item 
+size\+\_\+t \hyperlink{structredis_server_a23a0a2cb99e43742881408116b2fbd08}{stat\+\_\+rdb\+\_\+cow\+\_\+bytes}
+\item 
+size\+\_\+t \hyperlink{structredis_server_ab89dd03338e3ba557ce26478c4edcdc4}{stat\+\_\+aof\+\_\+cow\+\_\+bytes}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>long long \hyperlink{structredis_server_a6174bec3505236755e0fde7aae802526}{last\_sample\_time}\\
+\>long long \hyperlink{structredis_server_a5b4e7d9ab981c793773240b967e69b35}{last\_sample\_count}\\
+\>long long \hyperlink{structredis_server_a33ae086151bbbc7e1930cd04c3a58ed0}{samples} \mbox{[}\hyperlink{server_8h_a225a9e35f2cb8aa663571625bc59a533}{STATS\_METRIC\_SAMPLES}\mbox{]}\\
+\>int \hyperlink{structredis_server_ae40354a1051342eb5a9db005715dcfa9}{idx}\\
+\} \hyperlink{structredis_server_a660205d2332ba1f32771cb13b9e829cf}{inst\_metric} \mbox{[}\hyperlink{server_8h_ad9e350cb5eeb396592d0d80f70e6e040}{STATS\_METRIC\_COUNT}\mbox{]}\\
+
+\end{tabbing}\item 
+int \hyperlink{structredis_server_a1bdcfae3209cbd96db35a2ae356fa15e}{verbosity}
+\item 
+int \hyperlink{structredis_server_a8938316e9f6211b407eb2b1b74648f86}{maxidletime}
+\item 
+int \hyperlink{structredis_server_a93ff934e4b3870c270b9149fc4f65fe6}{tcpkeepalive}
+\item 
+int \hyperlink{structredis_server_a78056184f7c0e33de7ae2c47c06241d9}{active\+\_\+expire\+\_\+enabled}
+\item 
+int \hyperlink{structredis_server_a942145ea5901d08771aba9d27746f2cc}{active\+\_\+defrag\+\_\+enabled}
+\item 
+size\+\_\+t \hyperlink{structredis_server_abc0787f1240642d77c7e797e7a9b5667}{active\+\_\+defrag\+\_\+ignore\+\_\+bytes}
+\item 
+int \hyperlink{structredis_server_acd747facbe7c55a698e167667b5deddc}{active\+\_\+defrag\+\_\+threshold\+\_\+lower}
+\item 
+int \hyperlink{structredis_server_ad96648ad6e6ace0d086d5d599a0dba60}{active\+\_\+defrag\+\_\+threshold\+\_\+upper}
+\item 
+int \hyperlink{structredis_server_a1ed4dbd1b85eb15f7d9afca46a1342da}{active\+\_\+defrag\+\_\+cycle\+\_\+min}
+\item 
+int \hyperlink{structredis_server_abb5ed4e0e888f5378c38ea3667cec956}{active\+\_\+defrag\+\_\+cycle\+\_\+max}
+\item 
+unsigned long \hyperlink{structredis_server_a6da0c59bbc902ce083758c4498893a65}{active\+\_\+defrag\+\_\+max\+\_\+scan\+\_\+fields}
+\item 
+size\+\_\+t \hyperlink{structredis_server_a2a6541cee50890f9c9be5d252b2f9b31}{client\+\_\+max\+\_\+querybuf\+\_\+len}
+\item 
+int \hyperlink{structredis_server_a4a23db6c6bac41afb7aee155283dbf9b}{dbnum}
+\item 
+int \hyperlink{structredis_server_ae4d226836f4e8579243896d2ad72c8fd}{supervised}
+\item 
+int \hyperlink{structredis_server_a2be7aa4385144f8fb0d9b18f0a7a63b9}{supervised\+\_\+mode}
+\item 
+int \hyperlink{structredis_server_aa2339b21f98abccd12533a54d5f9d712}{daemonize}
+\item 
+\hyperlink{structclient_buffer_limits_config}{client\+Buffer\+Limits\+Config} \hyperlink{structredis_server_ad2bce729f21c3a876e4f5527c16a93ff}{client\+\_\+obuf\+\_\+limits} \mbox{[}\hyperlink{server_8h_aea8f6f3fac3a68e35807eba109dbc501}{C\+L\+I\+E\+N\+T\+\_\+\+T\+Y\+P\+E\+\_\+\+O\+B\+U\+F\+\_\+\+C\+O\+U\+NT}\mbox{]}
+\item 
+int \hyperlink{structredis_server_a9142dcad31984d994f392be24e91daff}{aof\+\_\+state}
+\item 
+int \hyperlink{structredis_server_a051898042b62130483a09369ab92e5b0}{aof\+\_\+fsync}
+\item 
+char $\ast$ \hyperlink{structredis_server_a9bdcedcc3282626ac99ee15091d20586}{aof\+\_\+filename}
+\item 
+int \hyperlink{structredis_server_a3cdc960c3fc022e4c1d7a92aafc7ae2f}{aof\+\_\+no\+\_\+fsync\+\_\+on\+\_\+rewrite}
+\item 
+int \hyperlink{structredis_server_ac106a3df3840507040d96398c5872311}{aof\+\_\+rewrite\+\_\+perc}
+\item 
+off\+\_\+t \hyperlink{structredis_server_a1fc70c8161cd5f19a076dc119c7cf0af}{aof\+\_\+rewrite\+\_\+min\+\_\+size}
+\item 
+off\+\_\+t \hyperlink{structredis_server_a44b41e9adbd5c3f5d46df203b79d987a}{aof\+\_\+rewrite\+\_\+base\+\_\+size}
+\item 
+off\+\_\+t \hyperlink{structredis_server_a144bfd85a66513e2cba147e3329c6e0d}{aof\+\_\+current\+\_\+size}
+\item 
+int \hyperlink{structredis_server_aab840164dbc88da9dd9f21004b92e3ea}{aof\+\_\+rewrite\+\_\+scheduled}
+\item 
+pid\+\_\+t \hyperlink{structredis_server_af73bffcc3e30fc85b9d48a90ac28adb1}{aof\+\_\+child\+\_\+pid}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_server_aa6e66223da4f3db4ea910d642783d1bb}{aof\+\_\+rewrite\+\_\+buf\+\_\+blocks}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{structredis_server_a4546e03b0256d4d50b71681b6cd45f52}{aof\+\_\+buf}
+\item 
+int \hyperlink{structredis_server_a1499cec4d5dc7a8bda9c061289c7a500}{aof\+\_\+fd}
+\item 
+int \hyperlink{structredis_server_a6e58fa4905fbaedc73bcc1c128f34f68}{aof\+\_\+selected\+\_\+db}
+\item 
+time\+\_\+t \hyperlink{structredis_server_addf6373063f352c2ede7d06f1260b820}{aof\+\_\+flush\+\_\+postponed\+\_\+start}
+\item 
+time\+\_\+t \hyperlink{structredis_server_acbcfbae88969a2dd7d176d58ae6110d7}{aof\+\_\+last\+\_\+fsync}
+\item 
+time\+\_\+t \hyperlink{structredis_server_ace9d6cef9af1e3feb31816a30a017a7c}{aof\+\_\+rewrite\+\_\+time\+\_\+last}
+\item 
+time\+\_\+t \hyperlink{structredis_server_af6832f23d61ee1b6d41ec93f837aa9d5}{aof\+\_\+rewrite\+\_\+time\+\_\+start}
+\item 
+int \hyperlink{structredis_server_af53a8a16d14d100894cab6431a4622d9}{aof\+\_\+lastbgrewrite\+\_\+status}
+\item 
+unsigned long \hyperlink{structredis_server_a187b658f1e959f3f46ec5caa22b782cd}{aof\+\_\+delayed\+\_\+fsync}
+\item 
+int \hyperlink{structredis_server_a320d427960bbcbd74742e22bb212b30f}{aof\+\_\+rewrite\+\_\+incremental\+\_\+fsync}
+\item 
+int \hyperlink{structredis_server_a4db97e483512d8067f0527e75efac10b}{rdb\+\_\+save\+\_\+incremental\+\_\+fsync}
+\item 
+int \hyperlink{structredis_server_aa67a20f0faa8ffcc2abcb42b15d4b3d0}{aof\+\_\+last\+\_\+write\+\_\+status}
+\item 
+int \hyperlink{structredis_server_ad47f78d56e1b3866a1a31c4389fc753e}{aof\+\_\+last\+\_\+write\+\_\+errno}
+\item 
+int \hyperlink{structredis_server_af5cd250e4dc688a3d3db7ea6844efb8c}{aof\+\_\+load\+\_\+truncated}
+\item 
+int \hyperlink{structredis_server_a0c953f8b0a592e40db65c5af748d7974}{aof\+\_\+use\+\_\+rdb\+\_\+preamble}
+\item 
+int \hyperlink{structredis_server_a299e5a9a69eab6c960a258a9de896b76}{aof\+\_\+pipe\+\_\+write\+\_\+data\+\_\+to\+\_\+child}
+\item 
+int \hyperlink{structredis_server_a1ed00bc25515fa8d081baae93961047f}{aof\+\_\+pipe\+\_\+read\+\_\+data\+\_\+from\+\_\+parent}
+\item 
+int \hyperlink{structredis_server_a4301e8d7b571c3283e84825c2ac134e0}{aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+parent}
+\item 
+int \hyperlink{structredis_server_aced8d616b224cec8494fdd4ab142d362}{aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+child}
+\item 
+int \hyperlink{structredis_server_ae56cf8c0c9ebeaf2d0e69ed6f21e3215}{aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+child}
+\item 
+int \hyperlink{structredis_server_afeb80641524799eca963181e6df6d266}{aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+parent}
+\item 
+int \hyperlink{structredis_server_a777db759da5a87abb48602c83140f20e}{aof\+\_\+stop\+\_\+sending\+\_\+diff}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{structredis_server_a271e57a2ee7bec8acce8060704c268e3}{aof\+\_\+child\+\_\+diff}
+\item 
+long long \hyperlink{structredis_server_a7d1f8a07982c1093e48e8dcb120fcf2f}{dirty}
+\item 
+long long \hyperlink{structredis_server_a82e4e7fd01817a9ae3acae8de8aac8ba}{dirty\+\_\+before\+\_\+bgsave}
+\item 
+pid\+\_\+t \hyperlink{structredis_server_ad3d5e16b8c8e1f62d71cf49c41c89b9d}{rdb\+\_\+child\+\_\+pid}
+\item 
+struct \hyperlink{structsaveparam}{saveparam} $\ast$ \hyperlink{structredis_server_a2ef075c5a1090a6b39536909cd779787}{saveparams}
+\item 
+int \hyperlink{structredis_server_ad4654cdc5b77789a9175000290abc831}{saveparamslen}
+\item 
+char $\ast$ \hyperlink{structredis_server_a062a156ed7bfa9a38ac03d6b28d7732a}{rdb\+\_\+filename}
+\item 
+int \hyperlink{structredis_server_a672826c5f111e440081c74f2f07180d6}{rdb\+\_\+compression}
+\item 
+int \hyperlink{structredis_server_a3a842ed365a5fb2b92ea473ce9aa13f2}{rdb\+\_\+checksum}
+\item 
+time\+\_\+t \hyperlink{structredis_server_ae08caa5f869e19e94cd95d1a2edea4b2}{lastsave}
+\item 
+time\+\_\+t \hyperlink{structredis_server_ab23a754e7d3bd832810530b360eabd91}{lastbgsave\+\_\+try}
+\item 
+time\+\_\+t \hyperlink{structredis_server_ae6262935d09c243040d0a767dc4781d9}{rdb\+\_\+save\+\_\+time\+\_\+last}
+\item 
+time\+\_\+t \hyperlink{structredis_server_a94be71fb61af4310e0bef804992da1ed}{rdb\+\_\+save\+\_\+time\+\_\+start}
+\item 
+int \hyperlink{structredis_server_a15ca1e9689b70a0f66fe2ccc7ae435cb}{rdb\+\_\+bgsave\+\_\+scheduled}
+\item 
+int \hyperlink{structredis_server_ad3a0208c5b729ff578851041f2e01441}{rdb\+\_\+child\+\_\+type}
+\item 
+int \hyperlink{structredis_server_a3171edf0e16ac5d2f1284e46c20762a3}{lastbgsave\+\_\+status}
+\item 
+int \hyperlink{structredis_server_a74b48fc7843d6cfaf61b0e49a47e2be1}{stop\+\_\+writes\+\_\+on\+\_\+bgsave\+\_\+err}
+\item 
+int \hyperlink{structredis_server_a163087bdcef645bff76259ff3c46bf83}{rdb\+\_\+pipe\+\_\+write\+\_\+result\+\_\+to\+\_\+parent}
+\item 
+int \hyperlink{structredis_server_a54523a05033d32457238dbf95154f6fa}{rdb\+\_\+pipe\+\_\+read\+\_\+result\+\_\+from\+\_\+child}
+\item 
+int \hyperlink{structredis_server_a03c39bc68938b334e9c4722f34ca097d}{child\+\_\+info\+\_\+pipe} \mbox{[}2\mbox{]}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>int \hyperlink{structredis_server_ac9eff851ad156de1a36494a5e5b3ae8d}{process\_type}\\
+\>size\_t \hyperlink{structredis_server_abf5f3ab99224e13f1b05690ba42216ca}{cow\_size}\\
+\>unsigned long long \hyperlink{structredis_server_a08654d4e800966822ca48a08cf86deac}{magic}\\
+\} \hyperlink{structredis_server_aa96405b85d2082e0f231cb462e821a54}{child\_info\_data}\\
+
+\end{tabbing}\item 
+\hyperlink{structredis_op_array}{redis\+Op\+Array} \hyperlink{structredis_server_ab052b1f4d90e418f3ebca7f25debec8d}{also\+\_\+propagate}
+\item 
+char $\ast$ \hyperlink{structredis_server_a539bec706ac5acbbdef66f363a7a2524}{logfile}
+\item 
+int \hyperlink{structredis_server_a1e234838fd4211781e47a97ca8dd03cc}{syslog\+\_\+enabled}
+\item 
+char $\ast$ \hyperlink{structredis_server_ae4a6e447ef5fbc09a9765fa2da7c51d7}{syslog\+\_\+ident}
+\item 
+int \hyperlink{structredis_server_a4f074cb73b7191ef570261fb35b29a8e}{syslog\+\_\+facility}
+\item 
+char \hyperlink{structredis_server_a467ab80673fbca31b4729a65effc8362}{replid} \mbox{[}\hyperlink{server_8h_aba6794fa3ee28f85165eaed93190f1df}{C\+O\+N\+F\+I\+G\+\_\+\+R\+U\+N\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}+1\mbox{]}
+\item 
+char \hyperlink{structredis_server_a06df01ff396d99c1b22692272de940d7}{replid2} \mbox{[}\hyperlink{server_8h_aba6794fa3ee28f85165eaed93190f1df}{C\+O\+N\+F\+I\+G\+\_\+\+R\+U\+N\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}+1\mbox{]}
+\item 
+long long \hyperlink{structredis_server_a6ba0eb500edf919e115c9d159b991cd1}{master\+\_\+repl\+\_\+offset}
+\item 
+long long \hyperlink{structredis_server_aa63d306ce9b3447e242ab5eafab120a5}{second\+\_\+replid\+\_\+offset}
+\item 
+int \hyperlink{structredis_server_a5d8345cb446035f33a1ff2c093870f35}{slaveseldb}
+\item 
+int \hyperlink{structredis_server_a86ac125d831ba2b0ad05e80972cdb0d2}{repl\+\_\+ping\+\_\+slave\+\_\+period}
+\item 
+char $\ast$ \hyperlink{structredis_server_acabb38054cd6d1d619d7c19d3e57bf28}{repl\+\_\+backlog}
+\item 
+long long \hyperlink{structredis_server_a036a70cd5499d31b3b3964aeb182cd97}{repl\+\_\+backlog\+\_\+size}
+\item 
+long long \hyperlink{structredis_server_ad76d83545056feccc5ff262ed29488c6}{repl\+\_\+backlog\+\_\+histlen}
+\item 
+long long \hyperlink{structredis_server_ae11d40717bf4cf77473590daf20922db}{repl\+\_\+backlog\+\_\+idx}
+\item 
+long long \hyperlink{structredis_server_aa215648deded4376d85651aa4e999815}{repl\+\_\+backlog\+\_\+off}
+\item 
+time\+\_\+t \hyperlink{structredis_server_a959bf5f04d138a3af6b360b20d5d25bd}{repl\+\_\+backlog\+\_\+time\+\_\+limit}
+\item 
+time\+\_\+t \hyperlink{structredis_server_aa24c62412daaae8c6a8356c85524b7c7}{repl\+\_\+no\+\_\+slaves\+\_\+since}
+\item 
+int \hyperlink{structredis_server_a2948a0fa6ec92b071befb3e78fd57b2f}{repl\+\_\+min\+\_\+slaves\+\_\+to\+\_\+write}
+\item 
+int \hyperlink{structredis_server_ad3b224fc091bae066a03314069adf205}{repl\+\_\+min\+\_\+slaves\+\_\+max\+\_\+lag}
+\item 
+int \hyperlink{structredis_server_a4a1716a96025de1fff867e1af23329e9}{repl\+\_\+good\+\_\+slaves\+\_\+count}
+\item 
+int \hyperlink{structredis_server_ad28a95e9b6cd31f5feb7ebe5a8a8992a}{repl\+\_\+diskless\+\_\+sync}
+\item 
+int \hyperlink{structredis_server_a2f5a9f08effdaba922ea7a432c753175}{repl\+\_\+diskless\+\_\+sync\+\_\+delay}
+\item 
+char $\ast$ \hyperlink{structredis_server_a22a84652dad6047f6c28d032b3c8327e}{masterauth}
+\item 
+char $\ast$ \hyperlink{structredis_server_a7f25b998323782ef03f738b92d3eac69}{masterhost}
+\item 
+int \hyperlink{structredis_server_a8310dd417853e8153b749f1be9afe9b0}{masterport}
+\item 
+int \hyperlink{structredis_server_af8b98ad90dc60d4e8b2bf836b518e198}{repl\+\_\+timeout}
+\item 
+\hyperlink{structclient}{client} $\ast$ \hyperlink{structredis_server_af992bf15650bd1a57d0eab937c2042df}{master}
+\item 
+\hyperlink{structclient}{client} $\ast$ \hyperlink{structredis_server_aa6d326e1db1991e81cd897babf52ea8d}{cached\+\_\+master}
+\item 
+int \hyperlink{structredis_server_aca3e40a81aabd234727f99625efdd84c}{repl\+\_\+syncio\+\_\+timeout}
+\item 
+int \hyperlink{structredis_server_a185612136a48819bd307781e32e7b3a9}{repl\+\_\+state}
+\item 
+off\+\_\+t \hyperlink{structredis_server_a31c9cafcb063d450af2fa2a760f7b6c9}{repl\+\_\+transfer\+\_\+size}
+\item 
+off\+\_\+t \hyperlink{structredis_server_a159af50e60cf5a0b6b06ab72332a4fb8}{repl\+\_\+transfer\+\_\+read}
+\item 
+off\+\_\+t \hyperlink{structredis_server_aee161759a20cb366dceab6cd980cc2ba}{repl\+\_\+transfer\+\_\+last\+\_\+fsync\+\_\+off}
+\item 
+int \hyperlink{structredis_server_af7b52eab258eb9f0ce90194f893d2991}{repl\+\_\+transfer\+\_\+s}
+\item 
+int \hyperlink{structredis_server_a276118ccb59133b72bd8833332a90429}{repl\+\_\+transfer\+\_\+fd}
+\item 
+char $\ast$ \hyperlink{structredis_server_a2f1f07797bc7750959217108dfff0efe}{repl\+\_\+transfer\+\_\+tmpfile}
+\item 
+time\+\_\+t \hyperlink{structredis_server_a15d293cf510cec1fc1fe3310ea74506e}{repl\+\_\+transfer\+\_\+lastio}
+\item 
+int \hyperlink{structredis_server_ac57f30da06fd89c76b8dd1f93ea0083f}{repl\+\_\+serve\+\_\+stale\+\_\+data}
+\item 
+int \hyperlink{structredis_server_a297743fec342702645d8b174a4877e3b}{repl\+\_\+slave\+\_\+ro}
+\item 
+int \hyperlink{structredis_server_a3ec18fc81887ca7248668fd8151956c3}{repl\+\_\+slave\+\_\+ignore\+\_\+maxmemory}
+\item 
+time\+\_\+t \hyperlink{structredis_server_abe6a14c37b00e7e4ace95e04b1c2ded7}{repl\+\_\+down\+\_\+since}
+\item 
+int \hyperlink{structredis_server_a56c6284aa27660523e8fe4ddc6b2f38b}{repl\+\_\+disable\+\_\+tcp\+\_\+nodelay}
+\item 
+int \hyperlink{structredis_server_aaf81cefb84c292ee7dee2cbf749595fb}{slave\+\_\+priority}
+\item 
+int \hyperlink{structredis_server_a531f1468f7a70bf4efc1004cdc8570b5}{slave\+\_\+announce\+\_\+port}
+\item 
+char $\ast$ \hyperlink{structredis_server_ac7835028128a4b2dbf35822063fb73f8}{slave\+\_\+announce\+\_\+ip}
+\item 
+char \hyperlink{structredis_server_a908131984b2d8e5cb5b7f582ab13f553}{master\+\_\+replid} \mbox{[}\hyperlink{server_8h_aba6794fa3ee28f85165eaed93190f1df}{C\+O\+N\+F\+I\+G\+\_\+\+R\+U\+N\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}+1\mbox{]}
+\item 
+long long \hyperlink{structredis_server_a3d9da20a74aeccf932f6dccaef7075a6}{master\+\_\+initial\+\_\+offset}
+\item 
+int \hyperlink{structredis_server_a1456517f960c1a06b3eb29614ab5f16e}{repl\+\_\+slave\+\_\+lazy\+\_\+flush}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structredis_server_ade120d8eb790ebd186e7c4468002177f}{repl\+\_\+scriptcache\+\_\+dict}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_server_a61642879c8697309e0a0b1f8e27d79a0}{repl\+\_\+scriptcache\+\_\+fifo}
+\item 
+unsigned int \hyperlink{structredis_server_a55aa7d1ce933f80d06cbcbeef8d03601}{repl\+\_\+scriptcache\+\_\+size}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_server_a5f87bbf8bd892d1459c39ae55c19bdec}{clients\+\_\+waiting\+\_\+acks}
+\item 
+int \hyperlink{structredis_server_a07a4e0373efa220e37c571db92057029}{get\+\_\+ack\+\_\+from\+\_\+slaves}
+\item 
+unsigned int \hyperlink{structredis_server_a0773e5d1aebd4a30557321a36a1b8c57}{maxclients}
+\item 
+unsigned long long \hyperlink{structredis_server_a7f900ab67c16f474082be15af9380a78}{maxmemory}
+\item 
+int \hyperlink{structredis_server_a98440b0fba87820830ee90965c9f54f4}{maxmemory\+\_\+policy}
+\item 
+int \hyperlink{structredis_server_a7dfb65e4690d5e3ddf6689e030c624c4}{maxmemory\+\_\+samples}
+\item 
+int \hyperlink{structredis_server_a1a4fb70d4b90d928d032e1be232c4566}{lfu\+\_\+log\+\_\+factor}
+\item 
+int \hyperlink{structredis_server_a933413e654fa963feaa5c069387e825c}{lfu\+\_\+decay\+\_\+time}
+\item 
+long long \hyperlink{structredis_server_ad8b9c110356e88c74267accd345b669d}{proto\+\_\+max\+\_\+bulk\+\_\+len}
+\item 
+unsigned int \hyperlink{structredis_server_aa58813aba5328ff8194bcf2c2326dda7}{blocked\+\_\+clients}
+\item 
+unsigned int \hyperlink{structredis_server_a6f19e371db996c707abef6d06c6231c2}{blocked\+\_\+clients\+\_\+by\+\_\+type} \mbox{[}\hyperlink{server_8h_a7b2645977d2cac8f57f1b8b51048a3ef}{B\+L\+O\+C\+K\+E\+D\+\_\+\+N\+UM}\mbox{]}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_server_af1e6c692e015469af388bc1e9e1307ed}{unblocked\+\_\+clients}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_server_a7a707c2da0ace2b0eb8a278960c34f7a}{ready\+\_\+keys}
+\item 
+int \hyperlink{structredis_server_acd3679efc199ee2622e96ae80d379cfe}{sort\+\_\+desc}
+\item 
+int \hyperlink{structredis_server_af5b90328549c92ac3aeadcb79ce890a8}{sort\+\_\+alpha}
+\item 
+int \hyperlink{structredis_server_ac21e8e3dc0bf13b7822dfd50c26105c9}{sort\+\_\+bypattern}
+\item 
+int \hyperlink{structredis_server_a7cf5a502c3eed4d54cadaa419ed4799b}{sort\+\_\+store}
+\item 
+size\+\_\+t \hyperlink{structredis_server_aaa33ecfb95959d1b06853cc81e176ac2}{hash\+\_\+max\+\_\+ziplist\+\_\+entries}
+\item 
+size\+\_\+t \hyperlink{structredis_server_a0035ae0969e226acb750cf0859bfd2c5}{hash\+\_\+max\+\_\+ziplist\+\_\+value}
+\item 
+size\+\_\+t \hyperlink{structredis_server_a5e2c040b399186b37bf289ea387c55e2}{set\+\_\+max\+\_\+intset\+\_\+entries}
+\item 
+size\+\_\+t \hyperlink{structredis_server_a8e76d99dd09948088702e8d138fb5662}{zset\+\_\+max\+\_\+ziplist\+\_\+entries}
+\item 
+size\+\_\+t \hyperlink{structredis_server_ae1bafd11e7b9f269c3ab48acb8046f32}{zset\+\_\+max\+\_\+ziplist\+\_\+value}
+\item 
+size\+\_\+t \hyperlink{structredis_server_a40b0c5a28706a3d79fd7f38f76543796}{hll\+\_\+sparse\+\_\+max\+\_\+bytes}
+\item 
+size\+\_\+t \hyperlink{structredis_server_a293e6dedeaca2bf16929f9903380c7d3}{stream\+\_\+node\+\_\+max\+\_\+bytes}
+\item 
+int64\+\_\+t \hyperlink{structredis_server_a51f312f9239789ab90069710fa720bf1}{stream\+\_\+node\+\_\+max\+\_\+entries}
+\item 
+int \hyperlink{structredis_server_a96b12a6138b1998b70ecb702f40735e8}{list\+\_\+max\+\_\+ziplist\+\_\+size}
+\item 
+int \hyperlink{structredis_server_a59696a740cc848c44be295172dc0e052}{list\+\_\+compress\+\_\+depth}
+\item 
+time\+\_\+t \hyperlink{structredis_server_ac61bf06d5e2894efe1dd86783dbb4e1d}{unixtime}
+\item 
+time\+\_\+t \hyperlink{structredis_server_aaffc55850982666923b1b7497631ac79}{timezone}
+\item 
+int \hyperlink{structredis_server_a6baf24aca17821492f320e69d6707a7e}{daylight\+\_\+active}
+\item 
+long long \hyperlink{structredis_server_aaef517ca82e5d3ac5b2dbdebbd35f857}{mstime}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structredis_server_ac6c18a3bf3ec4d85777ca2db7d4a9b47}{pubsub\+\_\+channels}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{structredis_server_aced844471ea20e757a4bc7bdee34d930}{pubsub\+\_\+patterns}
+\item 
+int \hyperlink{structredis_server_aa886fb87091fa910b444f9d00d792b18}{notify\+\_\+keyspace\+\_\+events}
+\item 
+int \hyperlink{structredis_server_a6ed7e8eb73b7d9072d719f525ea51063}{cluster\+\_\+enabled}
+\item 
+\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} \hyperlink{structredis_server_a096ccc623839d9ec2ce7b80cf9d1b4a2}{cluster\+\_\+node\+\_\+timeout}
+\item 
+char $\ast$ \hyperlink{structredis_server_a073361fbb3cafb1304ba30260585b408}{cluster\+\_\+configfile}
+\item 
+struct \hyperlink{structcluster_state}{cluster\+State} $\ast$ \hyperlink{structredis_server_a99f21f2f011d0994a31c20057fe79a72}{cluster}
+\item 
+int \hyperlink{structredis_server_a4a08cd2c8856e15a14b0ebcff7305a6e}{cluster\+\_\+migration\+\_\+barrier}
+\item 
+int \hyperlink{structredis_server_ae410e7aa29b3cb4a15ab178f573e6fa2}{cluster\+\_\+slave\+\_\+validity\+\_\+factor}
+\item 
+int \hyperlink{structredis_server_a75c9adc095d3d8e9670249063267c1e4}{cluster\+\_\+require\+\_\+full\+\_\+coverage}
+\item 
+int \hyperlink{structredis_server_a20f2120dbdc24446be7f4a2950a7ad9e}{cluster\+\_\+slave\+\_\+no\+\_\+failover}
+\item 
+char $\ast$ \hyperlink{structredis_server_a8273ca89328d272782c8aed13b137526}{cluster\+\_\+announce\+\_\+ip}
+\item 
+int \hyperlink{structredis_server_a8128d183929124046c3411691de82b0a}{cluster\+\_\+announce\+\_\+port}
+\item 
+int \hyperlink{structredis_server_a6b891047e7daea5f7d603218e0249b7e}{cluster\+\_\+announce\+\_\+bus\+\_\+port}
+\item 
+int \hyperlink{structredis_server_a55d43de23d27c946ee397eb185bd8e98}{cluster\+\_\+module\+\_\+flags}
+\item 
+lua\+\_\+\+State $\ast$ \hyperlink{structredis_server_ab44819023af4734d6f559d7f4e3d18bb}{lua}
+\item 
+\hyperlink{structclient}{client} $\ast$ \hyperlink{structredis_server_a407493a25d3985e05f34c9ccf0413c3b}{lua\+\_\+client}
+\item 
+\hyperlink{structclient}{client} $\ast$ \hyperlink{structredis_server_a358f45ac0e9b0130b7bef78e34537106}{lua\+\_\+caller}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structredis_server_a7f3d3d90cccad86c685008f3f02492fe}{lua\+\_\+scripts}
+\item 
+unsigned long long \hyperlink{structredis_server_a412e66c4f2ef9fdb6601bcc2e09b5da9}{lua\+\_\+scripts\+\_\+mem}
+\item 
+\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} \hyperlink{structredis_server_a0ee11cd40096c9b2be4753c10113db7d}{lua\+\_\+time\+\_\+limit}
+\item 
+\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} \hyperlink{structredis_server_a9a42f59c5d930ed9816e67c3feb38807}{lua\+\_\+time\+\_\+start}
+\item 
+int \hyperlink{structredis_server_a74bf8a5fcf2bb65e2efc4d6b8a9085da}{lua\+\_\+write\+\_\+dirty}
+\item 
+int \hyperlink{structredis_server_ace94217c2aba45821ed2283269f12cd4}{lua\+\_\+random\+\_\+dirty}
+\item 
+int \hyperlink{structredis_server_aa0db2d41d070ec4ddc5b4b44f0927f94}{lua\+\_\+replicate\+\_\+commands}
+\item 
+int \hyperlink{structredis_server_abf8fc7ed7008ccb1bb2ea176853c8f1a}{lua\+\_\+multi\+\_\+emitted}
+\item 
+int \hyperlink{structredis_server_a9d0bfd8abb30771a52424ba960fc5a5b}{lua\+\_\+repl}
+\item 
+int \hyperlink{structredis_server_afce7261d2fd1519a835614d28df5afb5}{lua\+\_\+timedout}
+\item 
+int \hyperlink{structredis_server_a32bd0732216941887e0244f584f5ddb8}{lua\+\_\+kill}
+\item 
+int \hyperlink{structredis_server_a1bdb308c6148667ad72670aa18d883ba}{lua\+\_\+always\+\_\+replicate\+\_\+commands}
+\item 
+int \hyperlink{structredis_server_aa2a751d9d0430a065d573c0adafdb90b}{lazyfree\+\_\+lazy\+\_\+eviction}
+\item 
+int \hyperlink{structredis_server_a192b9c651f47c1e7e927b0c6c2620952}{lazyfree\+\_\+lazy\+\_\+expire}
+\item 
+int \hyperlink{structredis_server_a7d2a15a8dbe14095038ad527dea866d5}{lazyfree\+\_\+lazy\+\_\+server\+\_\+del}
+\item 
+long long \hyperlink{structredis_server_a73ce15b906abae61ce26fda115af09e4}{latency\+\_\+monitor\+\_\+threshold}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structredis_server_a821e7827b8f03e754976119886d929bd}{latency\+\_\+events}
+\item 
+const char $\ast$ \hyperlink{structredis_server_a7efbc19379f272f8ce13f1eb663a0fdb}{assert\+\_\+failed}
+\item 
+const char $\ast$ \hyperlink{structredis_server_a88cc72814affa99c142827f25b714fd9}{assert\+\_\+file}
+\item 
+int \hyperlink{structredis_server_ae0f9ff421f7264992c5857ea7f03fb50}{assert\+\_\+line}
+\item 
+int \hyperlink{structredis_server_ae14e3c2d101f572b27b06e1f23613000}{bug\+\_\+report\+\_\+start}
+\item 
+int \hyperlink{structredis_server_a6b2bc45f4e219cd3c7f1dbc717ad88ea}{watchdog\+\_\+period}
+\item 
+size\+\_\+t \hyperlink{structredis_server_a6ee3dc3ba57fc269a2becfe29fdc8d42}{system\+\_\+memory\+\_\+size}
+\item 
+pthread\+\_\+mutex\+\_\+t \hyperlink{structredis_server_abbd87a8d07dfa99cfb535b59fcb83b4c}{lruclock\+\_\+mutex}
+\item 
+pthread\+\_\+mutex\+\_\+t \hyperlink{structredis_server_ab3c25439f27c5b8411020804ffe59b51}{next\+\_\+client\+\_\+id\+\_\+mutex}
+\item 
+pthread\+\_\+mutex\+\_\+t \hyperlink{structredis_server_a25c0d5c7a909d3768192bd96a83116fc}{unixtime\+\_\+mutex}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 926 of file server.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structredis_server_abb5ed4e0e888f5378c38ea3667cec956}\label{structredis_server_abb5ed4e0e888f5378c38ea3667cec956}} 
+\index{redis\+Server@{redis\+Server}!active\+\_\+defrag\+\_\+cycle\+\_\+max@{active\+\_\+defrag\+\_\+cycle\+\_\+max}}
+\index{active\+\_\+defrag\+\_\+cycle\+\_\+max@{active\+\_\+defrag\+\_\+cycle\+\_\+max}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{active\+\_\+defrag\+\_\+cycle\+\_\+max}{active\_defrag\_cycle\_max}}
+{\footnotesize\ttfamily int active\+\_\+defrag\+\_\+cycle\+\_\+max}
+
+
+
+Definition at line 1044 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a1ed4dbd1b85eb15f7d9afca46a1342da}\label{structredis_server_a1ed4dbd1b85eb15f7d9afca46a1342da}} 
+\index{redis\+Server@{redis\+Server}!active\+\_\+defrag\+\_\+cycle\+\_\+min@{active\+\_\+defrag\+\_\+cycle\+\_\+min}}
+\index{active\+\_\+defrag\+\_\+cycle\+\_\+min@{active\+\_\+defrag\+\_\+cycle\+\_\+min}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{active\+\_\+defrag\+\_\+cycle\+\_\+min}{active\_defrag\_cycle\_min}}
+{\footnotesize\ttfamily int active\+\_\+defrag\+\_\+cycle\+\_\+min}
+
+
+
+Definition at line 1043 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a942145ea5901d08771aba9d27746f2cc}\label{structredis_server_a942145ea5901d08771aba9d27746f2cc}} 
+\index{redis\+Server@{redis\+Server}!active\+\_\+defrag\+\_\+enabled@{active\+\_\+defrag\+\_\+enabled}}
+\index{active\+\_\+defrag\+\_\+enabled@{active\+\_\+defrag\+\_\+enabled}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{active\+\_\+defrag\+\_\+enabled}{active\_defrag\_enabled}}
+{\footnotesize\ttfamily int active\+\_\+defrag\+\_\+enabled}
+
+
+
+Definition at line 1039 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_abc0787f1240642d77c7e797e7a9b5667}\label{structredis_server_abc0787f1240642d77c7e797e7a9b5667}} 
+\index{redis\+Server@{redis\+Server}!active\+\_\+defrag\+\_\+ignore\+\_\+bytes@{active\+\_\+defrag\+\_\+ignore\+\_\+bytes}}
+\index{active\+\_\+defrag\+\_\+ignore\+\_\+bytes@{active\+\_\+defrag\+\_\+ignore\+\_\+bytes}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{active\+\_\+defrag\+\_\+ignore\+\_\+bytes}{active\_defrag\_ignore\_bytes}}
+{\footnotesize\ttfamily size\+\_\+t active\+\_\+defrag\+\_\+ignore\+\_\+bytes}
+
+
+
+Definition at line 1040 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a6da0c59bbc902ce083758c4498893a65}\label{structredis_server_a6da0c59bbc902ce083758c4498893a65}} 
+\index{redis\+Server@{redis\+Server}!active\+\_\+defrag\+\_\+max\+\_\+scan\+\_\+fields@{active\+\_\+defrag\+\_\+max\+\_\+scan\+\_\+fields}}
+\index{active\+\_\+defrag\+\_\+max\+\_\+scan\+\_\+fields@{active\+\_\+defrag\+\_\+max\+\_\+scan\+\_\+fields}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{active\+\_\+defrag\+\_\+max\+\_\+scan\+\_\+fields}{active\_defrag\_max\_scan\_fields}}
+{\footnotesize\ttfamily unsigned long active\+\_\+defrag\+\_\+max\+\_\+scan\+\_\+fields}
+
+
+
+Definition at line 1045 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_abe0f85c6013794d585451f21440f5982}\label{structredis_server_abe0f85c6013794d585451f21440f5982}} 
+\index{redis\+Server@{redis\+Server}!active\+\_\+defrag\+\_\+running@{active\+\_\+defrag\+\_\+running}}
+\index{active\+\_\+defrag\+\_\+running@{active\+\_\+defrag\+\_\+running}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{active\+\_\+defrag\+\_\+running}{active\_defrag\_running}}
+{\footnotesize\ttfamily int active\+\_\+defrag\+\_\+running}
+
+
+
+Definition at line 944 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_acd747facbe7c55a698e167667b5deddc}\label{structredis_server_acd747facbe7c55a698e167667b5deddc}} 
+\index{redis\+Server@{redis\+Server}!active\+\_\+defrag\+\_\+threshold\+\_\+lower@{active\+\_\+defrag\+\_\+threshold\+\_\+lower}}
+\index{active\+\_\+defrag\+\_\+threshold\+\_\+lower@{active\+\_\+defrag\+\_\+threshold\+\_\+lower}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{active\+\_\+defrag\+\_\+threshold\+\_\+lower}{active\_defrag\_threshold\_lower}}
+{\footnotesize\ttfamily int active\+\_\+defrag\+\_\+threshold\+\_\+lower}
+
+
+
+Definition at line 1041 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad96648ad6e6ace0d086d5d599a0dba60}\label{structredis_server_ad96648ad6e6ace0d086d5d599a0dba60}} 
+\index{redis\+Server@{redis\+Server}!active\+\_\+defrag\+\_\+threshold\+\_\+upper@{active\+\_\+defrag\+\_\+threshold\+\_\+upper}}
+\index{active\+\_\+defrag\+\_\+threshold\+\_\+upper@{active\+\_\+defrag\+\_\+threshold\+\_\+upper}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{active\+\_\+defrag\+\_\+threshold\+\_\+upper}{active\_defrag\_threshold\_upper}}
+{\footnotesize\ttfamily int active\+\_\+defrag\+\_\+threshold\+\_\+upper}
+
+
+
+Definition at line 1042 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a78056184f7c0e33de7ae2c47c06241d9}\label{structredis_server_a78056184f7c0e33de7ae2c47c06241d9}} 
+\index{redis\+Server@{redis\+Server}!active\+\_\+expire\+\_\+enabled@{active\+\_\+expire\+\_\+enabled}}
+\index{active\+\_\+expire\+\_\+enabled@{active\+\_\+expire\+\_\+enabled}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{active\+\_\+expire\+\_\+enabled}{active\_expire\_enabled}}
+{\footnotesize\ttfamily int active\+\_\+expire\+\_\+enabled}
+
+
+
+Definition at line 1038 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a0fd4dc9c26fc4a70bfbfe3e97a6c4295}\label{structredis_server_a0fd4dc9c26fc4a70bfbfe3e97a6c4295}} 
+\index{redis\+Server@{redis\+Server}!activerehashing@{activerehashing}}
+\index{activerehashing@{activerehashing}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{activerehashing}{activerehashing}}
+{\footnotesize\ttfamily int activerehashing}
+
+
+
+Definition at line 943 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ab052b1f4d90e418f3ebca7f25debec8d}\label{structredis_server_ab052b1f4d90e418f3ebca7f25debec8d}} 
+\index{redis\+Server@{redis\+Server}!also\+\_\+propagate@{also\+\_\+propagate}}
+\index{also\+\_\+propagate@{also\+\_\+propagate}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{also\+\_\+propagate}{also\_propagate}}
+{\footnotesize\ttfamily \hyperlink{structredis_op_array}{redis\+Op\+Array} also\+\_\+propagate}
+
+
+
+Definition at line 1116 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a7dff68985c6f97d270358d27472972e2}\label{structredis_server_a7dff68985c6f97d270358d27472972e2}} 
+\index{redis\+Server@{redis\+Server}!always\+\_\+show\+\_\+logo@{always\+\_\+show\+\_\+logo}}
+\index{always\+\_\+show\+\_\+logo@{always\+\_\+show\+\_\+logo}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{always\+\_\+show\+\_\+logo}{always\_show\_logo}}
+{\footnotesize\ttfamily int always\+\_\+show\+\_\+logo}
+
+
+
+Definition at line 952 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a4546e03b0256d4d50b71681b6cd45f52}\label{structredis_server_a4546e03b0256d4d50b71681b6cd45f52}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+buf@{aof\+\_\+buf}}
+\index{aof\+\_\+buf@{aof\+\_\+buf}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+buf}{aof\_buf}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} aof\+\_\+buf}
+
+
+
+Definition at line 1064 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a271e57a2ee7bec8acce8060704c268e3}\label{structredis_server_a271e57a2ee7bec8acce8060704c268e3}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+child\+\_\+diff@{aof\+\_\+child\+\_\+diff}}
+\index{aof\+\_\+child\+\_\+diff@{aof\+\_\+child\+\_\+diff}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+child\+\_\+diff}{aof\_child\_diff}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} aof\+\_\+child\+\_\+diff}
+
+
+
+Definition at line 1088 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_af73bffcc3e30fc85b9d48a90ac28adb1}\label{structredis_server_af73bffcc3e30fc85b9d48a90ac28adb1}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+child\+\_\+pid@{aof\+\_\+child\+\_\+pid}}
+\index{aof\+\_\+child\+\_\+pid@{aof\+\_\+child\+\_\+pid}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+child\+\_\+pid}{aof\_child\_pid}}
+{\footnotesize\ttfamily pid\+\_\+t aof\+\_\+child\+\_\+pid}
+
+
+
+Definition at line 1062 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a144bfd85a66513e2cba147e3329c6e0d}\label{structredis_server_a144bfd85a66513e2cba147e3329c6e0d}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+current\+\_\+size@{aof\+\_\+current\+\_\+size}}
+\index{aof\+\_\+current\+\_\+size@{aof\+\_\+current\+\_\+size}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+current\+\_\+size}{aof\_current\_size}}
+{\footnotesize\ttfamily off\+\_\+t aof\+\_\+current\+\_\+size}
+
+
+
+Definition at line 1060 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a187b658f1e959f3f46ec5caa22b782cd}\label{structredis_server_a187b658f1e959f3f46ec5caa22b782cd}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+delayed\+\_\+fsync@{aof\+\_\+delayed\+\_\+fsync}}
+\index{aof\+\_\+delayed\+\_\+fsync@{aof\+\_\+delayed\+\_\+fsync}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+delayed\+\_\+fsync}{aof\_delayed\_fsync}}
+{\footnotesize\ttfamily unsigned long aof\+\_\+delayed\+\_\+fsync}
+
+
+
+Definition at line 1072 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a1499cec4d5dc7a8bda9c061289c7a500}\label{structredis_server_a1499cec4d5dc7a8bda9c061289c7a500}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+fd@{aof\+\_\+fd}}
+\index{aof\+\_\+fd@{aof\+\_\+fd}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+fd}{aof\_fd}}
+{\footnotesize\ttfamily int aof\+\_\+fd}
+
+
+
+Definition at line 1065 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a9bdcedcc3282626ac99ee15091d20586}\label{structredis_server_a9bdcedcc3282626ac99ee15091d20586}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+filename@{aof\+\_\+filename}}
+\index{aof\+\_\+filename@{aof\+\_\+filename}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+filename}{aof\_filename}}
+{\footnotesize\ttfamily char$\ast$ aof\+\_\+filename}
+
+
+
+Definition at line 1055 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_addf6373063f352c2ede7d06f1260b820}\label{structredis_server_addf6373063f352c2ede7d06f1260b820}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+flush\+\_\+postponed\+\_\+start@{aof\+\_\+flush\+\_\+postponed\+\_\+start}}
+\index{aof\+\_\+flush\+\_\+postponed\+\_\+start@{aof\+\_\+flush\+\_\+postponed\+\_\+start}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+flush\+\_\+postponed\+\_\+start}{aof\_flush\_postponed\_start}}
+{\footnotesize\ttfamily time\+\_\+t aof\+\_\+flush\+\_\+postponed\+\_\+start}
+
+
+
+Definition at line 1067 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a051898042b62130483a09369ab92e5b0}\label{structredis_server_a051898042b62130483a09369ab92e5b0}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+fsync@{aof\+\_\+fsync}}
+\index{aof\+\_\+fsync@{aof\+\_\+fsync}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+fsync}{aof\_fsync}}
+{\footnotesize\ttfamily int aof\+\_\+fsync}
+
+
+
+Definition at line 1054 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_acbcfbae88969a2dd7d176d58ae6110d7}\label{structredis_server_acbcfbae88969a2dd7d176d58ae6110d7}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+last\+\_\+fsync@{aof\+\_\+last\+\_\+fsync}}
+\index{aof\+\_\+last\+\_\+fsync@{aof\+\_\+last\+\_\+fsync}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+last\+\_\+fsync}{aof\_last\_fsync}}
+{\footnotesize\ttfamily time\+\_\+t aof\+\_\+last\+\_\+fsync}
+
+
+
+Definition at line 1068 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad47f78d56e1b3866a1a31c4389fc753e}\label{structredis_server_ad47f78d56e1b3866a1a31c4389fc753e}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+last\+\_\+write\+\_\+errno@{aof\+\_\+last\+\_\+write\+\_\+errno}}
+\index{aof\+\_\+last\+\_\+write\+\_\+errno@{aof\+\_\+last\+\_\+write\+\_\+errno}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+last\+\_\+write\+\_\+errno}{aof\_last\_write\_errno}}
+{\footnotesize\ttfamily int aof\+\_\+last\+\_\+write\+\_\+errno}
+
+
+
+Definition at line 1076 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa67a20f0faa8ffcc2abcb42b15d4b3d0}\label{structredis_server_aa67a20f0faa8ffcc2abcb42b15d4b3d0}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+last\+\_\+write\+\_\+status@{aof\+\_\+last\+\_\+write\+\_\+status}}
+\index{aof\+\_\+last\+\_\+write\+\_\+status@{aof\+\_\+last\+\_\+write\+\_\+status}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+last\+\_\+write\+\_\+status}{aof\_last\_write\_status}}
+{\footnotesize\ttfamily int aof\+\_\+last\+\_\+write\+\_\+status}
+
+
+
+Definition at line 1075 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_af53a8a16d14d100894cab6431a4622d9}\label{structredis_server_af53a8a16d14d100894cab6431a4622d9}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+lastbgrewrite\+\_\+status@{aof\+\_\+lastbgrewrite\+\_\+status}}
+\index{aof\+\_\+lastbgrewrite\+\_\+status@{aof\+\_\+lastbgrewrite\+\_\+status}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+lastbgrewrite\+\_\+status}{aof\_lastbgrewrite\_status}}
+{\footnotesize\ttfamily int aof\+\_\+lastbgrewrite\+\_\+status}
+
+
+
+Definition at line 1071 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_af5cd250e4dc688a3d3db7ea6844efb8c}\label{structredis_server_af5cd250e4dc688a3d3db7ea6844efb8c}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+load\+\_\+truncated@{aof\+\_\+load\+\_\+truncated}}
+\index{aof\+\_\+load\+\_\+truncated@{aof\+\_\+load\+\_\+truncated}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+load\+\_\+truncated}{aof\_load\_truncated}}
+{\footnotesize\ttfamily int aof\+\_\+load\+\_\+truncated}
+
+
+
+Definition at line 1077 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a3cdc960c3fc022e4c1d7a92aafc7ae2f}\label{structredis_server_a3cdc960c3fc022e4c1d7a92aafc7ae2f}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+no\+\_\+fsync\+\_\+on\+\_\+rewrite@{aof\+\_\+no\+\_\+fsync\+\_\+on\+\_\+rewrite}}
+\index{aof\+\_\+no\+\_\+fsync\+\_\+on\+\_\+rewrite@{aof\+\_\+no\+\_\+fsync\+\_\+on\+\_\+rewrite}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+no\+\_\+fsync\+\_\+on\+\_\+rewrite}{aof\_no\_fsync\_on\_rewrite}}
+{\footnotesize\ttfamily int aof\+\_\+no\+\_\+fsync\+\_\+on\+\_\+rewrite}
+
+
+
+Definition at line 1056 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aced8d616b224cec8494fdd4ab142d362}\label{structredis_server_aced8d616b224cec8494fdd4ab142d362}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+child@{aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+child}}
+\index{aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+child@{aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+child}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+child}{aof\_pipe\_read\_ack\_from\_child}}
+{\footnotesize\ttfamily int aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+child}
+
+
+
+Definition at line 1083 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_afeb80641524799eca963181e6df6d266}\label{structredis_server_afeb80641524799eca963181e6df6d266}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+parent@{aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+parent}}
+\index{aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+parent@{aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+parent}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+parent}{aof\_pipe\_read\_ack\_from\_parent}}
+{\footnotesize\ttfamily int aof\+\_\+pipe\+\_\+read\+\_\+ack\+\_\+from\+\_\+parent}
+
+
+
+Definition at line 1085 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a1ed00bc25515fa8d081baae93961047f}\label{structredis_server_a1ed00bc25515fa8d081baae93961047f}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+pipe\+\_\+read\+\_\+data\+\_\+from\+\_\+parent@{aof\+\_\+pipe\+\_\+read\+\_\+data\+\_\+from\+\_\+parent}}
+\index{aof\+\_\+pipe\+\_\+read\+\_\+data\+\_\+from\+\_\+parent@{aof\+\_\+pipe\+\_\+read\+\_\+data\+\_\+from\+\_\+parent}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+pipe\+\_\+read\+\_\+data\+\_\+from\+\_\+parent}{aof\_pipe\_read\_data\_from\_parent}}
+{\footnotesize\ttfamily int aof\+\_\+pipe\+\_\+read\+\_\+data\+\_\+from\+\_\+parent}
+
+
+
+Definition at line 1081 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae56cf8c0c9ebeaf2d0e69ed6f21e3215}\label{structredis_server_ae56cf8c0c9ebeaf2d0e69ed6f21e3215}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+child@{aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+child}}
+\index{aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+child@{aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+child}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+child}{aof\_pipe\_write\_ack\_to\_child}}
+{\footnotesize\ttfamily int aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+child}
+
+
+
+Definition at line 1084 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a4301e8d7b571c3283e84825c2ac134e0}\label{structredis_server_a4301e8d7b571c3283e84825c2ac134e0}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+parent@{aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+parent}}
+\index{aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+parent@{aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+parent}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+parent}{aof\_pipe\_write\_ack\_to\_parent}}
+{\footnotesize\ttfamily int aof\+\_\+pipe\+\_\+write\+\_\+ack\+\_\+to\+\_\+parent}
+
+
+
+Definition at line 1082 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a299e5a9a69eab6c960a258a9de896b76}\label{structredis_server_a299e5a9a69eab6c960a258a9de896b76}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+pipe\+\_\+write\+\_\+data\+\_\+to\+\_\+child@{aof\+\_\+pipe\+\_\+write\+\_\+data\+\_\+to\+\_\+child}}
+\index{aof\+\_\+pipe\+\_\+write\+\_\+data\+\_\+to\+\_\+child@{aof\+\_\+pipe\+\_\+write\+\_\+data\+\_\+to\+\_\+child}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+pipe\+\_\+write\+\_\+data\+\_\+to\+\_\+child}{aof\_pipe\_write\_data\_to\_child}}
+{\footnotesize\ttfamily int aof\+\_\+pipe\+\_\+write\+\_\+data\+\_\+to\+\_\+child}
+
+
+
+Definition at line 1080 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a44b41e9adbd5c3f5d46df203b79d987a}\label{structredis_server_a44b41e9adbd5c3f5d46df203b79d987a}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+rewrite\+\_\+base\+\_\+size@{aof\+\_\+rewrite\+\_\+base\+\_\+size}}
+\index{aof\+\_\+rewrite\+\_\+base\+\_\+size@{aof\+\_\+rewrite\+\_\+base\+\_\+size}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+rewrite\+\_\+base\+\_\+size}{aof\_rewrite\_base\_size}}
+{\footnotesize\ttfamily off\+\_\+t aof\+\_\+rewrite\+\_\+base\+\_\+size}
+
+
+
+Definition at line 1059 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa6e66223da4f3db4ea910d642783d1bb}\label{structredis_server_aa6e66223da4f3db4ea910d642783d1bb}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+rewrite\+\_\+buf\+\_\+blocks@{aof\+\_\+rewrite\+\_\+buf\+\_\+blocks}}
+\index{aof\+\_\+rewrite\+\_\+buf\+\_\+blocks@{aof\+\_\+rewrite\+\_\+buf\+\_\+blocks}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+rewrite\+\_\+buf\+\_\+blocks}{aof\_rewrite\_buf\_blocks}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ aof\+\_\+rewrite\+\_\+buf\+\_\+blocks}
+
+
+
+Definition at line 1063 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a320d427960bbcbd74742e22bb212b30f}\label{structredis_server_a320d427960bbcbd74742e22bb212b30f}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+rewrite\+\_\+incremental\+\_\+fsync@{aof\+\_\+rewrite\+\_\+incremental\+\_\+fsync}}
+\index{aof\+\_\+rewrite\+\_\+incremental\+\_\+fsync@{aof\+\_\+rewrite\+\_\+incremental\+\_\+fsync}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+rewrite\+\_\+incremental\+\_\+fsync}{aof\_rewrite\_incremental\_fsync}}
+{\footnotesize\ttfamily int aof\+\_\+rewrite\+\_\+incremental\+\_\+fsync}
+
+
+
+Definition at line 1073 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a1fc70c8161cd5f19a076dc119c7cf0af}\label{structredis_server_a1fc70c8161cd5f19a076dc119c7cf0af}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+rewrite\+\_\+min\+\_\+size@{aof\+\_\+rewrite\+\_\+min\+\_\+size}}
+\index{aof\+\_\+rewrite\+\_\+min\+\_\+size@{aof\+\_\+rewrite\+\_\+min\+\_\+size}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+rewrite\+\_\+min\+\_\+size}{aof\_rewrite\_min\_size}}
+{\footnotesize\ttfamily off\+\_\+t aof\+\_\+rewrite\+\_\+min\+\_\+size}
+
+
+
+Definition at line 1058 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ac106a3df3840507040d96398c5872311}\label{structredis_server_ac106a3df3840507040d96398c5872311}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+rewrite\+\_\+perc@{aof\+\_\+rewrite\+\_\+perc}}
+\index{aof\+\_\+rewrite\+\_\+perc@{aof\+\_\+rewrite\+\_\+perc}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+rewrite\+\_\+perc}{aof\_rewrite\_perc}}
+{\footnotesize\ttfamily int aof\+\_\+rewrite\+\_\+perc}
+
+
+
+Definition at line 1057 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aab840164dbc88da9dd9f21004b92e3ea}\label{structredis_server_aab840164dbc88da9dd9f21004b92e3ea}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+rewrite\+\_\+scheduled@{aof\+\_\+rewrite\+\_\+scheduled}}
+\index{aof\+\_\+rewrite\+\_\+scheduled@{aof\+\_\+rewrite\+\_\+scheduled}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+rewrite\+\_\+scheduled}{aof\_rewrite\_scheduled}}
+{\footnotesize\ttfamily int aof\+\_\+rewrite\+\_\+scheduled}
+
+
+
+Definition at line 1061 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ace9d6cef9af1e3feb31816a30a017a7c}\label{structredis_server_ace9d6cef9af1e3feb31816a30a017a7c}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+rewrite\+\_\+time\+\_\+last@{aof\+\_\+rewrite\+\_\+time\+\_\+last}}
+\index{aof\+\_\+rewrite\+\_\+time\+\_\+last@{aof\+\_\+rewrite\+\_\+time\+\_\+last}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+rewrite\+\_\+time\+\_\+last}{aof\_rewrite\_time\_last}}
+{\footnotesize\ttfamily time\+\_\+t aof\+\_\+rewrite\+\_\+time\+\_\+last}
+
+
+
+Definition at line 1069 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_af6832f23d61ee1b6d41ec93f837aa9d5}\label{structredis_server_af6832f23d61ee1b6d41ec93f837aa9d5}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+rewrite\+\_\+time\+\_\+start@{aof\+\_\+rewrite\+\_\+time\+\_\+start}}
+\index{aof\+\_\+rewrite\+\_\+time\+\_\+start@{aof\+\_\+rewrite\+\_\+time\+\_\+start}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+rewrite\+\_\+time\+\_\+start}{aof\_rewrite\_time\_start}}
+{\footnotesize\ttfamily time\+\_\+t aof\+\_\+rewrite\+\_\+time\+\_\+start}
+
+
+
+Definition at line 1070 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a6e58fa4905fbaedc73bcc1c128f34f68}\label{structredis_server_a6e58fa4905fbaedc73bcc1c128f34f68}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+selected\+\_\+db@{aof\+\_\+selected\+\_\+db}}
+\index{aof\+\_\+selected\+\_\+db@{aof\+\_\+selected\+\_\+db}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+selected\+\_\+db}{aof\_selected\_db}}
+{\footnotesize\ttfamily int aof\+\_\+selected\+\_\+db}
+
+
+
+Definition at line 1066 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a9142dcad31984d994f392be24e91daff}\label{structredis_server_a9142dcad31984d994f392be24e91daff}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+state@{aof\+\_\+state}}
+\index{aof\+\_\+state@{aof\+\_\+state}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+state}{aof\_state}}
+{\footnotesize\ttfamily int aof\+\_\+state}
+
+
+
+Definition at line 1053 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a777db759da5a87abb48602c83140f20e}\label{structredis_server_a777db759da5a87abb48602c83140f20e}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+stop\+\_\+sending\+\_\+diff@{aof\+\_\+stop\+\_\+sending\+\_\+diff}}
+\index{aof\+\_\+stop\+\_\+sending\+\_\+diff@{aof\+\_\+stop\+\_\+sending\+\_\+diff}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+stop\+\_\+sending\+\_\+diff}{aof\_stop\_sending\_diff}}
+{\footnotesize\ttfamily int aof\+\_\+stop\+\_\+sending\+\_\+diff}
+
+
+
+Definition at line 1086 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a0c953f8b0a592e40db65c5af748d7974}\label{structredis_server_a0c953f8b0a592e40db65c5af748d7974}} 
+\index{redis\+Server@{redis\+Server}!aof\+\_\+use\+\_\+rdb\+\_\+preamble@{aof\+\_\+use\+\_\+rdb\+\_\+preamble}}
+\index{aof\+\_\+use\+\_\+rdb\+\_\+preamble@{aof\+\_\+use\+\_\+rdb\+\_\+preamble}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{aof\+\_\+use\+\_\+rdb\+\_\+preamble}{aof\_use\_rdb\_preamble}}
+{\footnotesize\ttfamily int aof\+\_\+use\+\_\+rdb\+\_\+preamble}
+
+
+
+Definition at line 1078 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a4fa04e8ede4efc50a4eae5a4ee94be15}\label{structredis_server_a4fa04e8ede4efc50a4eae5a4ee94be15}} 
+\index{redis\+Server@{redis\+Server}!arch\+\_\+bits@{arch\+\_\+bits}}
+\index{arch\+\_\+bits@{arch\+\_\+bits}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{arch\+\_\+bits}{arch\_bits}}
+{\footnotesize\ttfamily int arch\+\_\+bits}
+
+
+
+Definition at line 947 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a7efbc19379f272f8ce13f1eb663a0fdb}\label{structredis_server_a7efbc19379f272f8ce13f1eb663a0fdb}} 
+\index{redis\+Server@{redis\+Server}!assert\+\_\+failed@{assert\+\_\+failed}}
+\index{assert\+\_\+failed@{assert\+\_\+failed}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{assert\+\_\+failed}{assert\_failed}}
+{\footnotesize\ttfamily const char$\ast$ assert\+\_\+failed}
+
+
+
+Definition at line 1268 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a88cc72814affa99c142827f25b714fd9}\label{structredis_server_a88cc72814affa99c142827f25b714fd9}} 
+\index{redis\+Server@{redis\+Server}!assert\+\_\+file@{assert\+\_\+file}}
+\index{assert\+\_\+file@{assert\+\_\+file}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{assert\+\_\+file}{assert\_file}}
+{\footnotesize\ttfamily const char$\ast$ assert\+\_\+file}
+
+
+
+Definition at line 1269 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae0f9ff421f7264992c5857ea7f03fb50}\label{structredis_server_ae0f9ff421f7264992c5857ea7f03fb50}} 
+\index{redis\+Server@{redis\+Server}!assert\+\_\+line@{assert\+\_\+line}}
+\index{assert\+\_\+line@{assert\+\_\+line}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{assert\+\_\+line}{assert\_line}}
+{\footnotesize\ttfamily int assert\+\_\+line}
+
+
+
+Definition at line 1270 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae0efb08252c56c2e14f08027b256b705}\label{structredis_server_ae0efb08252c56c2e14f08027b256b705}} 
+\index{redis\+Server@{redis\+Server}!bindaddr@{bindaddr}}
+\index{bindaddr@{bindaddr}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{bindaddr}{bindaddr}}
+{\footnotesize\ttfamily char$\ast$ bindaddr\mbox{[}\hyperlink{server_8h_a314d02fcabccac3e59ecaa9d34f0d597}{C\+O\+N\+F\+I\+G\+\_\+\+B\+I\+N\+D\+A\+D\+D\+R\+\_\+\+M\+AX}\mbox{]}}
+
+
+
+Definition at line 962 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_afa0e3099c4f00ad746e97d1bc7685f95}\label{structredis_server_afa0e3099c4f00ad746e97d1bc7685f95}} 
+\index{redis\+Server@{redis\+Server}!bindaddr\+\_\+count@{bindaddr\+\_\+count}}
+\index{bindaddr\+\_\+count@{bindaddr\+\_\+count}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{bindaddr\+\_\+count}{bindaddr\_count}}
+{\footnotesize\ttfamily int bindaddr\+\_\+count}
+
+
+
+Definition at line 963 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa58813aba5328ff8194bcf2c2326dda7}\label{structredis_server_aa58813aba5328ff8194bcf2c2326dda7}} 
+\index{redis\+Server@{redis\+Server}!blocked\+\_\+clients@{blocked\+\_\+clients}}
+\index{blocked\+\_\+clients@{blocked\+\_\+clients}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{blocked\+\_\+clients}{blocked\_clients}}
+{\footnotesize\ttfamily unsigned int blocked\+\_\+clients}
+
+
+
+Definition at line 1191 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a6f19e371db996c707abef6d06c6231c2}\label{structredis_server_a6f19e371db996c707abef6d06c6231c2}} 
+\index{redis\+Server@{redis\+Server}!blocked\+\_\+clients\+\_\+by\+\_\+type@{blocked\+\_\+clients\+\_\+by\+\_\+type}}
+\index{blocked\+\_\+clients\+\_\+by\+\_\+type@{blocked\+\_\+clients\+\_\+by\+\_\+type}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{blocked\+\_\+clients\+\_\+by\+\_\+type}{blocked\_clients\_by\_type}}
+{\footnotesize\ttfamily unsigned int blocked\+\_\+clients\+\_\+by\+\_\+type\mbox{[}\hyperlink{server_8h_a7b2645977d2cac8f57f1b8b51048a3ef}{B\+L\+O\+C\+K\+E\+D\+\_\+\+N\+UM}\mbox{]}}
+
+
+
+Definition at line 1192 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae14e3c2d101f572b27b06e1f23613000}\label{structredis_server_ae14e3c2d101f572b27b06e1f23613000}} 
+\index{redis\+Server@{redis\+Server}!bug\+\_\+report\+\_\+start@{bug\+\_\+report\+\_\+start}}
+\index{bug\+\_\+report\+\_\+start@{bug\+\_\+report\+\_\+start}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{bug\+\_\+report\+\_\+start}{bug\_report\_start}}
+{\footnotesize\ttfamily int bug\+\_\+report\+\_\+start}
+
+
+
+Definition at line 1271 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa6d326e1db1991e81cd897babf52ea8d}\label{structredis_server_aa6d326e1db1991e81cd897babf52ea8d}} 
+\index{redis\+Server@{redis\+Server}!cached\+\_\+master@{cached\+\_\+master}}
+\index{cached\+\_\+master@{cached\+\_\+master}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cached\+\_\+master}{cached\_master}}
+{\footnotesize\ttfamily \hyperlink{structclient}{client}$\ast$ cached\+\_\+master}
+
+
+
+Definition at line 1151 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a78645cb094289da318fa90b1cf3ad692}\label{structredis_server_a78645cb094289da318fa90b1cf3ad692}} 
+\index{redis\+Server@{redis\+Server}!cfd@{cfd}}
+\index{cfd@{cfd}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cfd}{cfd}}
+{\footnotesize\ttfamily int cfd\mbox{[}\hyperlink{server_8h_a314d02fcabccac3e59ecaa9d34f0d597}{C\+O\+N\+F\+I\+G\+\_\+\+B\+I\+N\+D\+A\+D\+D\+R\+\_\+\+M\+AX}\mbox{]}}
+
+
+
+Definition at line 969 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a902c2c73c0b20af987cc22e032044e29}\label{structredis_server_a902c2c73c0b20af987cc22e032044e29}} 
+\index{redis\+Server@{redis\+Server}!cfd\+\_\+count@{cfd\+\_\+count}}
+\index{cfd\+\_\+count@{cfd\+\_\+count}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cfd\+\_\+count}{cfd\_count}}
+{\footnotesize\ttfamily int cfd\+\_\+count}
+
+
+
+Definition at line 970 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa96405b85d2082e0f231cb462e821a54}\label{structredis_server_aa96405b85d2082e0f231cb462e821a54}} 
+\index{redis\+Server@{redis\+Server}!child\+\_\+info\+\_\+data@{child\+\_\+info\+\_\+data}}
+\index{child\+\_\+info\+\_\+data@{child\+\_\+info\+\_\+data}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{child\+\_\+info\+\_\+data}{child\_info\_data}}
+{\footnotesize\ttfamily struct \{ ... \}   child\+\_\+info\+\_\+data}
+
+\mbox{\Hypertarget{structredis_server_a03c39bc68938b334e9c4722f34ca097d}\label{structredis_server_a03c39bc68938b334e9c4722f34ca097d}} 
+\index{redis\+Server@{redis\+Server}!child\+\_\+info\+\_\+pipe@{child\+\_\+info\+\_\+pipe}}
+\index{child\+\_\+info\+\_\+pipe@{child\+\_\+info\+\_\+pipe}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{child\+\_\+info\+\_\+pipe}{child\_info\_pipe}}
+{\footnotesize\ttfamily int child\+\_\+info\+\_\+pipe\mbox{[}2\mbox{]}}
+
+
+
+Definition at line 1109 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a2a6541cee50890f9c9be5d252b2f9b31}\label{structredis_server_a2a6541cee50890f9c9be5d252b2f9b31}} 
+\index{redis\+Server@{redis\+Server}!client\+\_\+max\+\_\+querybuf\+\_\+len@{client\+\_\+max\+\_\+querybuf\+\_\+len}}
+\index{client\+\_\+max\+\_\+querybuf\+\_\+len@{client\+\_\+max\+\_\+querybuf\+\_\+len}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{client\+\_\+max\+\_\+querybuf\+\_\+len}{client\_max\_querybuf\_len}}
+{\footnotesize\ttfamily size\+\_\+t client\+\_\+max\+\_\+querybuf\+\_\+len}
+
+
+
+Definition at line 1046 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad2bce729f21c3a876e4f5527c16a93ff}\label{structredis_server_ad2bce729f21c3a876e4f5527c16a93ff}} 
+\index{redis\+Server@{redis\+Server}!client\+\_\+obuf\+\_\+limits@{client\+\_\+obuf\+\_\+limits}}
+\index{client\+\_\+obuf\+\_\+limits@{client\+\_\+obuf\+\_\+limits}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{client\+\_\+obuf\+\_\+limits}{client\_obuf\_limits}}
+{\footnotesize\ttfamily \hyperlink{structclient_buffer_limits_config}{client\+Buffer\+Limits\+Config} client\+\_\+obuf\+\_\+limits\mbox{[}\hyperlink{server_8h_aea8f6f3fac3a68e35807eba109dbc501}{C\+L\+I\+E\+N\+T\+\_\+\+T\+Y\+P\+E\+\_\+\+O\+B\+U\+F\+\_\+\+C\+O\+U\+NT}\mbox{]}}
+
+
+
+Definition at line 1051 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a268febb2b0b1add2594f2d7c8999567e}\label{structredis_server_a268febb2b0b1add2594f2d7c8999567e}} 
+\index{redis\+Server@{redis\+Server}!clients@{clients}}
+\index{clients@{clients}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{clients}{clients}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ clients}
+
+
+
+Definition at line 971 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a309f80dceccd8fa762e54a07499f4a24}\label{structredis_server_a309f80dceccd8fa762e54a07499f4a24}} 
+\index{redis\+Server@{redis\+Server}!clients\+\_\+index@{clients\+\_\+index}}
+\index{clients\+\_\+index@{clients\+\_\+index}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{clients\+\_\+index}{clients\_index}}
+{\footnotesize\ttfamily \hyperlink{structrax}{rax}$\ast$ clients\+\_\+index}
+
+
+
+Definition at line 976 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a69fcf2120369ec67c09fa04ee0bbdddd}\label{structredis_server_a69fcf2120369ec67c09fa04ee0bbdddd}} 
+\index{redis\+Server@{redis\+Server}!clients\+\_\+pause\+\_\+end\+\_\+time@{clients\+\_\+pause\+\_\+end\+\_\+time}}
+\index{clients\+\_\+pause\+\_\+end\+\_\+time@{clients\+\_\+pause\+\_\+end\+\_\+time}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{clients\+\_\+pause\+\_\+end\+\_\+time}{clients\_pause\_end\_time}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} clients\+\_\+pause\+\_\+end\+\_\+time}
+
+
+
+Definition at line 978 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a98ae4963dfd94a8a552ec143cbd04ccb}\label{structredis_server_a98ae4963dfd94a8a552ec143cbd04ccb}} 
+\index{redis\+Server@{redis\+Server}!clients\+\_\+paused@{clients\+\_\+paused}}
+\index{clients\+\_\+paused@{clients\+\_\+paused}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{clients\+\_\+paused}{clients\_paused}}
+{\footnotesize\ttfamily int clients\+\_\+paused}
+
+
+
+Definition at line 977 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a98158f8fefde91e0943a1b16668c4529}\label{structredis_server_a98158f8fefde91e0943a1b16668c4529}} 
+\index{redis\+Server@{redis\+Server}!clients\+\_\+pending\+\_\+write@{clients\+\_\+pending\+\_\+write}}
+\index{clients\+\_\+pending\+\_\+write@{clients\+\_\+pending\+\_\+write}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{clients\+\_\+pending\+\_\+write}{clients\_pending\_write}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ clients\+\_\+pending\+\_\+write}
+
+
+
+Definition at line 973 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_afc193ee38ed3ebcc1aa1bee7a506c0f9}\label{structredis_server_afc193ee38ed3ebcc1aa1bee7a506c0f9}} 
+\index{redis\+Server@{redis\+Server}!clients\+\_\+to\+\_\+close@{clients\+\_\+to\+\_\+close}}
+\index{clients\+\_\+to\+\_\+close@{clients\+\_\+to\+\_\+close}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{clients\+\_\+to\+\_\+close}{clients\_to\_close}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ clients\+\_\+to\+\_\+close}
+
+
+
+Definition at line 972 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a5f87bbf8bd892d1459c39ae55c19bdec}\label{structredis_server_a5f87bbf8bd892d1459c39ae55c19bdec}} 
+\index{redis\+Server@{redis\+Server}!clients\+\_\+waiting\+\_\+acks@{clients\+\_\+waiting\+\_\+acks}}
+\index{clients\+\_\+waiting\+\_\+acks@{clients\+\_\+waiting\+\_\+acks}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{clients\+\_\+waiting\+\_\+acks}{clients\_waiting\_acks}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ clients\+\_\+waiting\+\_\+acks}
+
+
+
+Definition at line 1180 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a99f21f2f011d0994a31c20057fe79a72}\label{structredis_server_a99f21f2f011d0994a31c20057fe79a72}} 
+\index{redis\+Server@{redis\+Server}!cluster@{cluster}}
+\index{cluster@{cluster}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cluster}{cluster}}
+{\footnotesize\ttfamily struct \hyperlink{structcluster_state}{cluster\+State}$\ast$ cluster}
+
+
+
+Definition at line 1227 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a6b891047e7daea5f7d603218e0249b7e}\label{structredis_server_a6b891047e7daea5f7d603218e0249b7e}} 
+\index{redis\+Server@{redis\+Server}!cluster\+\_\+announce\+\_\+bus\+\_\+port@{cluster\+\_\+announce\+\_\+bus\+\_\+port}}
+\index{cluster\+\_\+announce\+\_\+bus\+\_\+port@{cluster\+\_\+announce\+\_\+bus\+\_\+port}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cluster\+\_\+announce\+\_\+bus\+\_\+port}{cluster\_announce\_bus\_port}}
+{\footnotesize\ttfamily int cluster\+\_\+announce\+\_\+bus\+\_\+port}
+
+
+
+Definition at line 1236 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a8273ca89328d272782c8aed13b137526}\label{structredis_server_a8273ca89328d272782c8aed13b137526}} 
+\index{redis\+Server@{redis\+Server}!cluster\+\_\+announce\+\_\+ip@{cluster\+\_\+announce\+\_\+ip}}
+\index{cluster\+\_\+announce\+\_\+ip@{cluster\+\_\+announce\+\_\+ip}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cluster\+\_\+announce\+\_\+ip}{cluster\_announce\_ip}}
+{\footnotesize\ttfamily char$\ast$ cluster\+\_\+announce\+\_\+ip}
+
+
+
+Definition at line 1234 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a8128d183929124046c3411691de82b0a}\label{structredis_server_a8128d183929124046c3411691de82b0a}} 
+\index{redis\+Server@{redis\+Server}!cluster\+\_\+announce\+\_\+port@{cluster\+\_\+announce\+\_\+port}}
+\index{cluster\+\_\+announce\+\_\+port@{cluster\+\_\+announce\+\_\+port}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cluster\+\_\+announce\+\_\+port}{cluster\_announce\_port}}
+{\footnotesize\ttfamily int cluster\+\_\+announce\+\_\+port}
+
+
+
+Definition at line 1235 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a073361fbb3cafb1304ba30260585b408}\label{structredis_server_a073361fbb3cafb1304ba30260585b408}} 
+\index{redis\+Server@{redis\+Server}!cluster\+\_\+configfile@{cluster\+\_\+configfile}}
+\index{cluster\+\_\+configfile@{cluster\+\_\+configfile}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cluster\+\_\+configfile}{cluster\_configfile}}
+{\footnotesize\ttfamily char$\ast$ cluster\+\_\+configfile}
+
+
+
+Definition at line 1226 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a6ed7e8eb73b7d9072d719f525ea51063}\label{structredis_server_a6ed7e8eb73b7d9072d719f525ea51063}} 
+\index{redis\+Server@{redis\+Server}!cluster\+\_\+enabled@{cluster\+\_\+enabled}}
+\index{cluster\+\_\+enabled@{cluster\+\_\+enabled}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cluster\+\_\+enabled}{cluster\_enabled}}
+{\footnotesize\ttfamily int cluster\+\_\+enabled}
+
+
+
+Definition at line 1224 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a4a08cd2c8856e15a14b0ebcff7305a6e}\label{structredis_server_a4a08cd2c8856e15a14b0ebcff7305a6e}} 
+\index{redis\+Server@{redis\+Server}!cluster\+\_\+migration\+\_\+barrier@{cluster\+\_\+migration\+\_\+barrier}}
+\index{cluster\+\_\+migration\+\_\+barrier@{cluster\+\_\+migration\+\_\+barrier}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cluster\+\_\+migration\+\_\+barrier}{cluster\_migration\_barrier}}
+{\footnotesize\ttfamily int cluster\+\_\+migration\+\_\+barrier}
+
+
+
+Definition at line 1228 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a55d43de23d27c946ee397eb185bd8e98}\label{structredis_server_a55d43de23d27c946ee397eb185bd8e98}} 
+\index{redis\+Server@{redis\+Server}!cluster\+\_\+module\+\_\+flags@{cluster\+\_\+module\+\_\+flags}}
+\index{cluster\+\_\+module\+\_\+flags@{cluster\+\_\+module\+\_\+flags}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cluster\+\_\+module\+\_\+flags}{cluster\_module\_flags}}
+{\footnotesize\ttfamily int cluster\+\_\+module\+\_\+flags}
+
+
+
+Definition at line 1237 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a096ccc623839d9ec2ce7b80cf9d1b4a2}\label{structredis_server_a096ccc623839d9ec2ce7b80cf9d1b4a2}} 
+\index{redis\+Server@{redis\+Server}!cluster\+\_\+node\+\_\+timeout@{cluster\+\_\+node\+\_\+timeout}}
+\index{cluster\+\_\+node\+\_\+timeout@{cluster\+\_\+node\+\_\+timeout}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cluster\+\_\+node\+\_\+timeout}{cluster\_node\_timeout}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} cluster\+\_\+node\+\_\+timeout}
+
+
+
+Definition at line 1225 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a75c9adc095d3d8e9670249063267c1e4}\label{structredis_server_a75c9adc095d3d8e9670249063267c1e4}} 
+\index{redis\+Server@{redis\+Server}!cluster\+\_\+require\+\_\+full\+\_\+coverage@{cluster\+\_\+require\+\_\+full\+\_\+coverage}}
+\index{cluster\+\_\+require\+\_\+full\+\_\+coverage@{cluster\+\_\+require\+\_\+full\+\_\+coverage}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cluster\+\_\+require\+\_\+full\+\_\+coverage}{cluster\_require\_full\_coverage}}
+{\footnotesize\ttfamily int cluster\+\_\+require\+\_\+full\+\_\+coverage}
+
+
+
+Definition at line 1230 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a20f2120dbdc24446be7f4a2950a7ad9e}\label{structredis_server_a20f2120dbdc24446be7f4a2950a7ad9e}} 
+\index{redis\+Server@{redis\+Server}!cluster\+\_\+slave\+\_\+no\+\_\+failover@{cluster\+\_\+slave\+\_\+no\+\_\+failover}}
+\index{cluster\+\_\+slave\+\_\+no\+\_\+failover@{cluster\+\_\+slave\+\_\+no\+\_\+failover}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cluster\+\_\+slave\+\_\+no\+\_\+failover}{cluster\_slave\_no\_failover}}
+{\footnotesize\ttfamily int cluster\+\_\+slave\+\_\+no\+\_\+failover}
+
+
+
+Definition at line 1232 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae410e7aa29b3cb4a15ab178f573e6fa2}\label{structredis_server_ae410e7aa29b3cb4a15ab178f573e6fa2}} 
+\index{redis\+Server@{redis\+Server}!cluster\+\_\+slave\+\_\+validity\+\_\+factor@{cluster\+\_\+slave\+\_\+validity\+\_\+factor}}
+\index{cluster\+\_\+slave\+\_\+validity\+\_\+factor@{cluster\+\_\+slave\+\_\+validity\+\_\+factor}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cluster\+\_\+slave\+\_\+validity\+\_\+factor}{cluster\_slave\_validity\_factor}}
+{\footnotesize\ttfamily int cluster\+\_\+slave\+\_\+validity\+\_\+factor}
+
+
+
+Definition at line 1229 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aaa854fe2fafd385073db1c59dfbffc9d}\label{structredis_server_aaa854fe2fafd385073db1c59dfbffc9d}} 
+\index{redis\+Server@{redis\+Server}!commands@{commands}}
+\index{commands@{commands}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{commands}{commands}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ commands}
+
+
+
+Definition at line 938 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aeae2d40a88ece004cc0fa4bc228077a8}\label{structredis_server_aeae2d40a88ece004cc0fa4bc228077a8}} 
+\index{redis\+Server@{redis\+Server}!config\+\_\+hz@{config\+\_\+hz}}
+\index{config\+\_\+hz@{config\+\_\+hz}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{config\+\_\+hz}{config\_hz}}
+{\footnotesize\ttfamily int config\+\_\+hz}
+
+
+
+Definition at line 933 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a761e2c812e0a5ab3b7afcbb2586d4012}\label{structredis_server_a761e2c812e0a5ab3b7afcbb2586d4012}} 
+\index{redis\+Server@{redis\+Server}!configfile@{configfile}}
+\index{configfile@{configfile}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{configfile}{configfile}}
+{\footnotesize\ttfamily char$\ast$ configfile}
+
+
+
+Definition at line 929 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_abf5f3ab99224e13f1b05690ba42216ca}\label{structredis_server_abf5f3ab99224e13f1b05690ba42216ca}} 
+\index{redis\+Server@{redis\+Server}!cow\+\_\+size@{cow\+\_\+size}}
+\index{cow\+\_\+size@{cow\+\_\+size}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cow\+\_\+size}{cow\_size}}
+{\footnotesize\ttfamily size\+\_\+t cow\+\_\+size}
+
+
+
+Definition at line 1112 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ac781bc597dbf0ec72337e6c648a55817}\label{structredis_server_ac781bc597dbf0ec72337e6c648a55817}} 
+\index{redis\+Server@{redis\+Server}!cron\+\_\+malloc\+\_\+stats@{cron\+\_\+malloc\+\_\+stats}}
+\index{cron\+\_\+malloc\+\_\+stats@{cron\+\_\+malloc\+\_\+stats}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cron\+\_\+malloc\+\_\+stats}{cron\_malloc\_stats}}
+{\footnotesize\ttfamily struct \hyperlink{structmalloc__stats}{malloc\+\_\+stats} cron\+\_\+malloc\+\_\+stats}
+
+
+
+Definition at line 1021 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa80c0c1c323f199611105d43a6e5ed28}\label{structredis_server_aa80c0c1c323f199611105d43a6e5ed28}} 
+\index{redis\+Server@{redis\+Server}!cronloops@{cronloops}}
+\index{cronloops@{cronloops}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{cronloops}{cronloops}}
+{\footnotesize\ttfamily int cronloops}
+
+
+
+Definition at line 948 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a6997b24b6b724923db5756c39f5e0662}\label{structredis_server_a6997b24b6b724923db5756c39f5e0662}} 
+\index{redis\+Server@{redis\+Server}!current\+\_\+client@{current\+\_\+client}}
+\index{current\+\_\+client@{current\+\_\+client}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{current\+\_\+client}{current\_client}}
+{\footnotesize\ttfamily \hyperlink{structclient}{client}$\ast$ current\+\_\+client}
+
+
+
+Definition at line 975 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa2339b21f98abccd12533a54d5f9d712}\label{structredis_server_aa2339b21f98abccd12533a54d5f9d712}} 
+\index{redis\+Server@{redis\+Server}!daemonize@{daemonize}}
+\index{daemonize@{daemonize}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{daemonize}{daemonize}}
+{\footnotesize\ttfamily int daemonize}
+
+
+
+Definition at line 1050 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a6baf24aca17821492f320e69d6707a7e}\label{structredis_server_a6baf24aca17821492f320e69d6707a7e}} 
+\index{redis\+Server@{redis\+Server}!daylight\+\_\+active@{daylight\+\_\+active}}
+\index{daylight\+\_\+active@{daylight\+\_\+active}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{daylight\+\_\+active}{daylight\_active}}
+{\footnotesize\ttfamily int daylight\+\_\+active}
+
+
+
+Definition at line 1216 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a9bee04e09635a42fef289e42a89f5502}\label{structredis_server_a9bee04e09635a42fef289e42a89f5502}} 
+\index{redis\+Server@{redis\+Server}!db@{db}}
+\index{db@{db}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{db}{db}}
+{\footnotesize\ttfamily \hyperlink{structredis_db}{redis\+Db}$\ast$ db}
+
+
+
+Definition at line 937 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a4a23db6c6bac41afb7aee155283dbf9b}\label{structredis_server_a4a23db6c6bac41afb7aee155283dbf9b}} 
+\index{redis\+Server@{redis\+Server}!dbnum@{dbnum}}
+\index{dbnum@{dbnum}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{dbnum}{dbnum}}
+{\footnotesize\ttfamily int dbnum}
+
+
+
+Definition at line 1047 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a577bbf6b03a99e785eed8ea6ebd4a665}\label{structredis_server_a577bbf6b03a99e785eed8ea6ebd4a665}} 
+\index{redis\+Server@{redis\+Server}!del\+Command@{del\+Command}}
+\index{del\+Command@{del\+Command}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{del\+Command}{delCommand}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command}$\ast$ del\+Command}
+
+
+
+Definition at line 990 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a7d1f8a07982c1093e48e8dcb120fcf2f}\label{structredis_server_a7d1f8a07982c1093e48e8dcb120fcf2f}} 
+\index{redis\+Server@{redis\+Server}!dirty@{dirty}}
+\index{dirty@{dirty}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{dirty}{dirty}}
+{\footnotesize\ttfamily long long dirty}
+
+
+
+Definition at line 1090 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a82e4e7fd01817a9ae3acae8de8aac8ba}\label{structredis_server_a82e4e7fd01817a9ae3acae8de8aac8ba}} 
+\index{redis\+Server@{redis\+Server}!dirty\+\_\+before\+\_\+bgsave@{dirty\+\_\+before\+\_\+bgsave}}
+\index{dirty\+\_\+before\+\_\+bgsave@{dirty\+\_\+before\+\_\+bgsave}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{dirty\+\_\+before\+\_\+bgsave}{dirty\_before\_bgsave}}
+{\footnotesize\ttfamily long long dirty\+\_\+before\+\_\+bgsave}
+
+
+
+Definition at line 1091 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_abb58a3bfa3d302d8c4b74b7c4f59644b}\label{structredis_server_abb58a3bfa3d302d8c4b74b7c4f59644b}} 
+\index{redis\+Server@{redis\+Server}!dynamic\+\_\+hz@{dynamic\+\_\+hz}}
+\index{dynamic\+\_\+hz@{dynamic\+\_\+hz}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{dynamic\+\_\+hz}{dynamic\_hz}}
+{\footnotesize\ttfamily int dynamic\+\_\+hz}
+
+
+
+Definition at line 932 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ada2e0bf12be2309801d2515e67c008e8}\label{structredis_server_ada2e0bf12be2309801d2515e67c008e8}} 
+\index{redis\+Server@{redis\+Server}!el@{el}}
+\index{el@{el}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{el}{el}}
+{\footnotesize\ttfamily \hyperlink{structae_event_loop}{ae\+Event\+Loop}$\ast$ el}
+
+
+
+Definition at line 940 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a2073b64fc7793a03e76ed750a46dd25e}\label{structredis_server_a2073b64fc7793a03e76ed750a46dd25e}} 
+\index{redis\+Server@{redis\+Server}!exec\+\_\+argv@{exec\+\_\+argv}}
+\index{exec\+\_\+argv@{exec\+\_\+argv}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{exec\+\_\+argv}{exec\_argv}}
+{\footnotesize\ttfamily char$\ast$$\ast$ exec\+\_\+argv}
+
+
+
+Definition at line 931 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ada9d4d8c776057d1f91e8e40dfdc70a4}\label{structredis_server_ada9d4d8c776057d1f91e8e40dfdc70a4}} 
+\index{redis\+Server@{redis\+Server}!exec\+Command@{exec\+Command}}
+\index{exec\+Command@{exec\+Command}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{exec\+Command}{execCommand}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} $\ast$ exec\+Command}
+
+
+
+Definition at line 990 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_afa475ce704a1c8de8a4472f89ba59fd4}\label{structredis_server_afa475ce704a1c8de8a4472f89ba59fd4}} 
+\index{redis\+Server@{redis\+Server}!executable@{executable}}
+\index{executable@{executable}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{executable}{executable}}
+{\footnotesize\ttfamily char$\ast$ executable}
+
+
+
+Definition at line 930 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ac9f201a49ff1edc5864a68753ef8bf6d}\label{structredis_server_ac9f201a49ff1edc5864a68753ef8bf6d}} 
+\index{redis\+Server@{redis\+Server}!expire\+Command@{expire\+Command}}
+\index{expire\+Command@{expire\+Command}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{expire\+Command}{expireCommand}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} $\ast$ expire\+Command}
+
+
+
+Definition at line 990 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a07a4e0373efa220e37c571db92057029}\label{structredis_server_a07a4e0373efa220e37c571db92057029}} 
+\index{redis\+Server@{redis\+Server}!get\+\_\+ack\+\_\+from\+\_\+slaves@{get\+\_\+ack\+\_\+from\+\_\+slaves}}
+\index{get\+\_\+ack\+\_\+from\+\_\+slaves@{get\+\_\+ack\+\_\+from\+\_\+slaves}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{get\+\_\+ack\+\_\+from\+\_\+slaves}{get\_ack\_from\_slaves}}
+{\footnotesize\ttfamily int get\+\_\+ack\+\_\+from\+\_\+slaves}
+
+
+
+Definition at line 1181 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aaa33ecfb95959d1b06853cc81e176ac2}\label{structredis_server_aaa33ecfb95959d1b06853cc81e176ac2}} 
+\index{redis\+Server@{redis\+Server}!hash\+\_\+max\+\_\+ziplist\+\_\+entries@{hash\+\_\+max\+\_\+ziplist\+\_\+entries}}
+\index{hash\+\_\+max\+\_\+ziplist\+\_\+entries@{hash\+\_\+max\+\_\+ziplist\+\_\+entries}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{hash\+\_\+max\+\_\+ziplist\+\_\+entries}{hash\_max\_ziplist\_entries}}
+{\footnotesize\ttfamily size\+\_\+t hash\+\_\+max\+\_\+ziplist\+\_\+entries}
+
+
+
+Definition at line 1202 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a0035ae0969e226acb750cf0859bfd2c5}\label{structredis_server_a0035ae0969e226acb750cf0859bfd2c5}} 
+\index{redis\+Server@{redis\+Server}!hash\+\_\+max\+\_\+ziplist\+\_\+value@{hash\+\_\+max\+\_\+ziplist\+\_\+value}}
+\index{hash\+\_\+max\+\_\+ziplist\+\_\+value@{hash\+\_\+max\+\_\+ziplist\+\_\+value}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{hash\+\_\+max\+\_\+ziplist\+\_\+value}{hash\_max\_ziplist\_value}}
+{\footnotesize\ttfamily size\+\_\+t hash\+\_\+max\+\_\+ziplist\+\_\+value}
+
+
+
+Definition at line 1203 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a40b0c5a28706a3d79fd7f38f76543796}\label{structredis_server_a40b0c5a28706a3d79fd7f38f76543796}} 
+\index{redis\+Server@{redis\+Server}!hll\+\_\+sparse\+\_\+max\+\_\+bytes@{hll\+\_\+sparse\+\_\+max\+\_\+bytes}}
+\index{hll\+\_\+sparse\+\_\+max\+\_\+bytes@{hll\+\_\+sparse\+\_\+max\+\_\+bytes}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{hll\+\_\+sparse\+\_\+max\+\_\+bytes}{hll\_sparse\_max\_bytes}}
+{\footnotesize\ttfamily size\+\_\+t hll\+\_\+sparse\+\_\+max\+\_\+bytes}
+
+
+
+Definition at line 1207 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a873124c5659edc141c67aab7999e314a}\label{structredis_server_a873124c5659edc141c67aab7999e314a}} 
+\index{redis\+Server@{redis\+Server}!hz@{hz}}
+\index{hz@{hz}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{hz}{hz}}
+{\footnotesize\ttfamily int hz}
+
+
+
+Definition at line 936 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae40354a1051342eb5a9db005715dcfa9}\label{structredis_server_ae40354a1051342eb5a9db005715dcfa9}} 
+\index{redis\+Server@{redis\+Server}!idx@{idx}}
+\index{idx@{idx}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{idx}{idx}}
+{\footnotesize\ttfamily int idx}
+
+
+
+Definition at line 1032 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a1e552149c10f70ef055718ed88837bc3}\label{structredis_server_a1e552149c10f70ef055718ed88837bc3}} 
+\index{redis\+Server@{redis\+Server}!initial\+\_\+memory\+\_\+usage@{initial\+\_\+memory\+\_\+usage}}
+\index{initial\+\_\+memory\+\_\+usage@{initial\+\_\+memory\+\_\+usage}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{initial\+\_\+memory\+\_\+usage}{initial\_memory\_usage}}
+{\footnotesize\ttfamily size\+\_\+t initial\+\_\+memory\+\_\+usage}
+
+
+
+Definition at line 951 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a660205d2332ba1f32771cb13b9e829cf}\label{structredis_server_a660205d2332ba1f32771cb13b9e829cf}} 
+\index{redis\+Server@{redis\+Server}!inst\+\_\+metric@{inst\+\_\+metric}}
+\index{inst\+\_\+metric@{inst\+\_\+metric}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{inst\+\_\+metric}{inst\_metric}}
+{\footnotesize\ttfamily struct \{ ... \}   inst\+\_\+metric\mbox{[}\hyperlink{server_8h_ad9e350cb5eeb396592d0d80f70e6e040}{S\+T\+A\+T\+S\+\_\+\+M\+E\+T\+R\+I\+C\+\_\+\+C\+O\+U\+NT}\mbox{]}}
+
+\mbox{\Hypertarget{structredis_server_a396e19fe18c6bdeb9a1ac2a342323b6f}\label{structredis_server_a396e19fe18c6bdeb9a1ac2a342323b6f}} 
+\index{redis\+Server@{redis\+Server}!ipfd@{ipfd}}
+\index{ipfd@{ipfd}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{ipfd}{ipfd}}
+{\footnotesize\ttfamily int ipfd\mbox{[}\hyperlink{server_8h_a314d02fcabccac3e59ecaa9d34f0d597}{C\+O\+N\+F\+I\+G\+\_\+\+B\+I\+N\+D\+A\+D\+D\+R\+\_\+\+M\+AX}\mbox{]}}
+
+
+
+Definition at line 966 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ab46270ee7e6852c96471da3aae7a3a02}\label{structredis_server_ab46270ee7e6852c96471da3aae7a3a02}} 
+\index{redis\+Server@{redis\+Server}!ipfd\+\_\+count@{ipfd\+\_\+count}}
+\index{ipfd\+\_\+count@{ipfd\+\_\+count}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{ipfd\+\_\+count}{ipfd\_count}}
+{\footnotesize\ttfamily int ipfd\+\_\+count}
+
+
+
+Definition at line 967 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a5b4e7d9ab981c793773240b967e69b35}\label{structredis_server_a5b4e7d9ab981c793773240b967e69b35}} 
+\index{redis\+Server@{redis\+Server}!last\+\_\+sample\+\_\+count@{last\+\_\+sample\+\_\+count}}
+\index{last\+\_\+sample\+\_\+count@{last\+\_\+sample\+\_\+count}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{last\+\_\+sample\+\_\+count}{last\_sample\_count}}
+{\footnotesize\ttfamily long long last\+\_\+sample\+\_\+count}
+
+
+
+Definition at line 1030 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a6174bec3505236755e0fde7aae802526}\label{structredis_server_a6174bec3505236755e0fde7aae802526}} 
+\index{redis\+Server@{redis\+Server}!last\+\_\+sample\+\_\+time@{last\+\_\+sample\+\_\+time}}
+\index{last\+\_\+sample\+\_\+time@{last\+\_\+sample\+\_\+time}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{last\+\_\+sample\+\_\+time}{last\_sample\_time}}
+{\footnotesize\ttfamily long long last\+\_\+sample\+\_\+time}
+
+
+
+Definition at line 1029 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a3171edf0e16ac5d2f1284e46c20762a3}\label{structredis_server_a3171edf0e16ac5d2f1284e46c20762a3}} 
+\index{redis\+Server@{redis\+Server}!lastbgsave\+\_\+status@{lastbgsave\+\_\+status}}
+\index{lastbgsave\+\_\+status@{lastbgsave\+\_\+status}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lastbgsave\+\_\+status}{lastbgsave\_status}}
+{\footnotesize\ttfamily int lastbgsave\+\_\+status}
+
+
+
+Definition at line 1104 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ab23a754e7d3bd832810530b360eabd91}\label{structredis_server_ab23a754e7d3bd832810530b360eabd91}} 
+\index{redis\+Server@{redis\+Server}!lastbgsave\+\_\+try@{lastbgsave\+\_\+try}}
+\index{lastbgsave\+\_\+try@{lastbgsave\+\_\+try}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lastbgsave\+\_\+try}{lastbgsave\_try}}
+{\footnotesize\ttfamily time\+\_\+t lastbgsave\+\_\+try}
+
+
+
+Definition at line 1099 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae08caa5f869e19e94cd95d1a2edea4b2}\label{structredis_server_ae08caa5f869e19e94cd95d1a2edea4b2}} 
+\index{redis\+Server@{redis\+Server}!lastsave@{lastsave}}
+\index{lastsave@{lastsave}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lastsave}{lastsave}}
+{\footnotesize\ttfamily time\+\_\+t lastsave}
+
+
+
+Definition at line 1098 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a821e7827b8f03e754976119886d929bd}\label{structredis_server_a821e7827b8f03e754976119886d929bd}} 
+\index{redis\+Server@{redis\+Server}!latency\+\_\+events@{latency\+\_\+events}}
+\index{latency\+\_\+events@{latency\+\_\+events}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{latency\+\_\+events}{latency\_events}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ latency\+\_\+events}
+
+
+
+Definition at line 1266 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a73ce15b906abae61ce26fda115af09e4}\label{structredis_server_a73ce15b906abae61ce26fda115af09e4}} 
+\index{redis\+Server@{redis\+Server}!latency\+\_\+monitor\+\_\+threshold@{latency\+\_\+monitor\+\_\+threshold}}
+\index{latency\+\_\+monitor\+\_\+threshold@{latency\+\_\+monitor\+\_\+threshold}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{latency\+\_\+monitor\+\_\+threshold}{latency\_monitor\_threshold}}
+{\footnotesize\ttfamily long long latency\+\_\+monitor\+\_\+threshold}
+
+
+
+Definition at line 1265 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa2a751d9d0430a065d573c0adafdb90b}\label{structredis_server_aa2a751d9d0430a065d573c0adafdb90b}} 
+\index{redis\+Server@{redis\+Server}!lazyfree\+\_\+lazy\+\_\+eviction@{lazyfree\+\_\+lazy\+\_\+eviction}}
+\index{lazyfree\+\_\+lazy\+\_\+eviction@{lazyfree\+\_\+lazy\+\_\+eviction}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lazyfree\+\_\+lazy\+\_\+eviction}{lazyfree\_lazy\_eviction}}
+{\footnotesize\ttfamily int lazyfree\+\_\+lazy\+\_\+eviction}
+
+
+
+Definition at line 1261 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a192b9c651f47c1e7e927b0c6c2620952}\label{structredis_server_a192b9c651f47c1e7e927b0c6c2620952}} 
+\index{redis\+Server@{redis\+Server}!lazyfree\+\_\+lazy\+\_\+expire@{lazyfree\+\_\+lazy\+\_\+expire}}
+\index{lazyfree\+\_\+lazy\+\_\+expire@{lazyfree\+\_\+lazy\+\_\+expire}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lazyfree\+\_\+lazy\+\_\+expire}{lazyfree\_lazy\_expire}}
+{\footnotesize\ttfamily int lazyfree\+\_\+lazy\+\_\+expire}
+
+
+
+Definition at line 1262 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a7d2a15a8dbe14095038ad527dea866d5}\label{structredis_server_a7d2a15a8dbe14095038ad527dea866d5}} 
+\index{redis\+Server@{redis\+Server}!lazyfree\+\_\+lazy\+\_\+server\+\_\+del@{lazyfree\+\_\+lazy\+\_\+server\+\_\+del}}
+\index{lazyfree\+\_\+lazy\+\_\+server\+\_\+del@{lazyfree\+\_\+lazy\+\_\+server\+\_\+del}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lazyfree\+\_\+lazy\+\_\+server\+\_\+del}{lazyfree\_lazy\_server\_del}}
+{\footnotesize\ttfamily int lazyfree\+\_\+lazy\+\_\+server\+\_\+del}
+
+
+
+Definition at line 1263 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a933413e654fa963feaa5c069387e825c}\label{structredis_server_a933413e654fa963feaa5c069387e825c}} 
+\index{redis\+Server@{redis\+Server}!lfu\+\_\+decay\+\_\+time@{lfu\+\_\+decay\+\_\+time}}
+\index{lfu\+\_\+decay\+\_\+time@{lfu\+\_\+decay\+\_\+time}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lfu\+\_\+decay\+\_\+time}{lfu\_decay\_time}}
+{\footnotesize\ttfamily int lfu\+\_\+decay\+\_\+time}
+
+
+
+Definition at line 1188 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a1a4fb70d4b90d928d032e1be232c4566}\label{structredis_server_a1a4fb70d4b90d928d032e1be232c4566}} 
+\index{redis\+Server@{redis\+Server}!lfu\+\_\+log\+\_\+factor@{lfu\+\_\+log\+\_\+factor}}
+\index{lfu\+\_\+log\+\_\+factor@{lfu\+\_\+log\+\_\+factor}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lfu\+\_\+log\+\_\+factor}{lfu\_log\_factor}}
+{\footnotesize\ttfamily int lfu\+\_\+log\+\_\+factor}
+
+
+
+Definition at line 1187 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a59696a740cc848c44be295172dc0e052}\label{structredis_server_a59696a740cc848c44be295172dc0e052}} 
+\index{redis\+Server@{redis\+Server}!list\+\_\+compress\+\_\+depth@{list\+\_\+compress\+\_\+depth}}
+\index{list\+\_\+compress\+\_\+depth@{list\+\_\+compress\+\_\+depth}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{list\+\_\+compress\+\_\+depth}{list\_compress\_depth}}
+{\footnotesize\ttfamily int list\+\_\+compress\+\_\+depth}
+
+
+
+Definition at line 1212 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a96b12a6138b1998b70ecb702f40735e8}\label{structredis_server_a96b12a6138b1998b70ecb702f40735e8}} 
+\index{redis\+Server@{redis\+Server}!list\+\_\+max\+\_\+ziplist\+\_\+size@{list\+\_\+max\+\_\+ziplist\+\_\+size}}
+\index{list\+\_\+max\+\_\+ziplist\+\_\+size@{list\+\_\+max\+\_\+ziplist\+\_\+size}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{list\+\_\+max\+\_\+ziplist\+\_\+size}{list\_max\_ziplist\_size}}
+{\footnotesize\ttfamily int list\+\_\+max\+\_\+ziplist\+\_\+size}
+
+
+
+Definition at line 1211 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a6825c9e12c2d5353c1741e71fbe29fc0}\label{structredis_server_a6825c9e12c2d5353c1741e71fbe29fc0}} 
+\index{redis\+Server@{redis\+Server}!loading@{loading}}
+\index{loading@{loading}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{loading}{loading}}
+{\footnotesize\ttfamily int loading}
+
+
+
+Definition at line 984 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a8537de4289165760c3c21814b6c0841d}\label{structredis_server_a8537de4289165760c3c21814b6c0841d}} 
+\index{redis\+Server@{redis\+Server}!loading\+\_\+loaded\+\_\+bytes@{loading\+\_\+loaded\+\_\+bytes}}
+\index{loading\+\_\+loaded\+\_\+bytes@{loading\+\_\+loaded\+\_\+bytes}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{loading\+\_\+loaded\+\_\+bytes}{loading\_loaded\_bytes}}
+{\footnotesize\ttfamily off\+\_\+t loading\+\_\+loaded\+\_\+bytes}
+
+
+
+Definition at line 986 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a8a999e130bddf30284b12a4b625afe3d}\label{structredis_server_a8a999e130bddf30284b12a4b625afe3d}} 
+\index{redis\+Server@{redis\+Server}!loading\+\_\+process\+\_\+events\+\_\+interval\+\_\+bytes@{loading\+\_\+process\+\_\+events\+\_\+interval\+\_\+bytes}}
+\index{loading\+\_\+process\+\_\+events\+\_\+interval\+\_\+bytes@{loading\+\_\+process\+\_\+events\+\_\+interval\+\_\+bytes}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{loading\+\_\+process\+\_\+events\+\_\+interval\+\_\+bytes}{loading\_process\_events\_interval\_bytes}}
+{\footnotesize\ttfamily off\+\_\+t loading\+\_\+process\+\_\+events\+\_\+interval\+\_\+bytes}
+
+
+
+Definition at line 988 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a1c3272cd13cdd1159cf7a804264b6d46}\label{structredis_server_a1c3272cd13cdd1159cf7a804264b6d46}} 
+\index{redis\+Server@{redis\+Server}!loading\+\_\+start\+\_\+time@{loading\+\_\+start\+\_\+time}}
+\index{loading\+\_\+start\+\_\+time@{loading\+\_\+start\+\_\+time}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{loading\+\_\+start\+\_\+time}{loading\_start\_time}}
+{\footnotesize\ttfamily time\+\_\+t loading\+\_\+start\+\_\+time}
+
+
+
+Definition at line 987 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa44041d261395c51536c5db7da288874}\label{structredis_server_aa44041d261395c51536c5db7da288874}} 
+\index{redis\+Server@{redis\+Server}!loading\+\_\+total\+\_\+bytes@{loading\+\_\+total\+\_\+bytes}}
+\index{loading\+\_\+total\+\_\+bytes@{loading\+\_\+total\+\_\+bytes}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{loading\+\_\+total\+\_\+bytes}{loading\_total\_bytes}}
+{\footnotesize\ttfamily off\+\_\+t loading\+\_\+total\+\_\+bytes}
+
+
+
+Definition at line 985 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa5a12ada98b21efbafa6a3068581ac76}\label{structredis_server_aa5a12ada98b21efbafa6a3068581ac76}} 
+\index{redis\+Server@{redis\+Server}!loadmodule\+\_\+queue@{loadmodule\+\_\+queue}}
+\index{loadmodule\+\_\+queue@{loadmodule\+\_\+queue}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{loadmodule\+\_\+queue}{loadmodule\_queue}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ loadmodule\+\_\+queue}
+
+
+
+Definition at line 955 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a539bec706ac5acbbdef66f363a7a2524}\label{structredis_server_a539bec706ac5acbbdef66f363a7a2524}} 
+\index{redis\+Server@{redis\+Server}!logfile@{logfile}}
+\index{logfile@{logfile}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{logfile}{logfile}}
+{\footnotesize\ttfamily char$\ast$ logfile}
+
+
+
+Definition at line 1118 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa67bd29148b6d1ad47541e9e40b7cb82}\label{structredis_server_aa67bd29148b6d1ad47541e9e40b7cb82}} 
+\index{redis\+Server@{redis\+Server}!lpop\+Command@{lpop\+Command}}
+\index{lpop\+Command@{lpop\+Command}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lpop\+Command}{lpopCommand}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} $\ast$ lpop\+Command}
+
+
+
+Definition at line 990 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad5f3f0f97fb511f8f86f21d13e03801c}\label{structredis_server_ad5f3f0f97fb511f8f86f21d13e03801c}} 
+\index{redis\+Server@{redis\+Server}!lpush\+Command@{lpush\+Command}}
+\index{lpush\+Command@{lpush\+Command}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lpush\+Command}{lpushCommand}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} $\ast$ lpush\+Command}
+
+
+
+Definition at line 990 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a99c6b6e30b43c077eb30507d7c1d0813}\label{structredis_server_a99c6b6e30b43c077eb30507d7c1d0813}} 
+\index{redis\+Server@{redis\+Server}!lruclock@{lruclock}}
+\index{lruclock@{lruclock}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lruclock}{lruclock}}
+{\footnotesize\ttfamily unsigned int lruclock}
+
+
+
+Definition at line 941 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_abbd87a8d07dfa99cfb535b59fcb83b4c}\label{structredis_server_abbd87a8d07dfa99cfb535b59fcb83b4c}} 
+\index{redis\+Server@{redis\+Server}!lruclock\+\_\+mutex@{lruclock\+\_\+mutex}}
+\index{lruclock\+\_\+mutex@{lruclock\+\_\+mutex}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lruclock\+\_\+mutex}{lruclock\_mutex}}
+{\footnotesize\ttfamily pthread\+\_\+mutex\+\_\+t lruclock\+\_\+mutex}
+
+
+
+Definition at line 1278 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ab44819023af4734d6f559d7f4e3d18bb}\label{structredis_server_ab44819023af4734d6f559d7f4e3d18bb}} 
+\index{redis\+Server@{redis\+Server}!lua@{lua}}
+\index{lua@{lua}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua}{lua}}
+{\footnotesize\ttfamily lua\+\_\+\+State$\ast$ lua}
+
+
+
+Definition at line 1242 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a1bdb308c6148667ad72670aa18d883ba}\label{structredis_server_a1bdb308c6148667ad72670aa18d883ba}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+always\+\_\+replicate\+\_\+commands@{lua\+\_\+always\+\_\+replicate\+\_\+commands}}
+\index{lua\+\_\+always\+\_\+replicate\+\_\+commands@{lua\+\_\+always\+\_\+replicate\+\_\+commands}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+always\+\_\+replicate\+\_\+commands}{lua\_always\_replicate\_commands}}
+{\footnotesize\ttfamily int lua\+\_\+always\+\_\+replicate\+\_\+commands}
+
+
+
+Definition at line 1259 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a358f45ac0e9b0130b7bef78e34537106}\label{structredis_server_a358f45ac0e9b0130b7bef78e34537106}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+caller@{lua\+\_\+caller}}
+\index{lua\+\_\+caller@{lua\+\_\+caller}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+caller}{lua\_caller}}
+{\footnotesize\ttfamily \hyperlink{structclient}{client}$\ast$ lua\+\_\+caller}
+
+
+
+Definition at line 1244 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a407493a25d3985e05f34c9ccf0413c3b}\label{structredis_server_a407493a25d3985e05f34c9ccf0413c3b}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+client@{lua\+\_\+client}}
+\index{lua\+\_\+client@{lua\+\_\+client}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+client}{lua\_client}}
+{\footnotesize\ttfamily \hyperlink{structclient}{client}$\ast$ lua\+\_\+client}
+
+
+
+Definition at line 1243 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a32bd0732216941887e0244f584f5ddb8}\label{structredis_server_a32bd0732216941887e0244f584f5ddb8}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+kill@{lua\+\_\+kill}}
+\index{lua\+\_\+kill@{lua\+\_\+kill}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+kill}{lua\_kill}}
+{\footnotesize\ttfamily int lua\+\_\+kill}
+
+
+
+Definition at line 1258 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_abf8fc7ed7008ccb1bb2ea176853c8f1a}\label{structredis_server_abf8fc7ed7008ccb1bb2ea176853c8f1a}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+multi\+\_\+emitted@{lua\+\_\+multi\+\_\+emitted}}
+\index{lua\+\_\+multi\+\_\+emitted@{lua\+\_\+multi\+\_\+emitted}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+multi\+\_\+emitted}{lua\_multi\_emitted}}
+{\footnotesize\ttfamily int lua\+\_\+multi\+\_\+emitted}
+
+
+
+Definition at line 1254 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ace94217c2aba45821ed2283269f12cd4}\label{structredis_server_ace94217c2aba45821ed2283269f12cd4}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+random\+\_\+dirty@{lua\+\_\+random\+\_\+dirty}}
+\index{lua\+\_\+random\+\_\+dirty@{lua\+\_\+random\+\_\+dirty}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+random\+\_\+dirty}{lua\_random\_dirty}}
+{\footnotesize\ttfamily int lua\+\_\+random\+\_\+dirty}
+
+
+
+Definition at line 1251 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a9d0bfd8abb30771a52424ba960fc5a5b}\label{structredis_server_a9d0bfd8abb30771a52424ba960fc5a5b}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+repl@{lua\+\_\+repl}}
+\index{lua\+\_\+repl@{lua\+\_\+repl}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+repl}{lua\_repl}}
+{\footnotesize\ttfamily int lua\+\_\+repl}
+
+
+
+Definition at line 1255 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa0db2d41d070ec4ddc5b4b44f0927f94}\label{structredis_server_aa0db2d41d070ec4ddc5b4b44f0927f94}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+replicate\+\_\+commands@{lua\+\_\+replicate\+\_\+commands}}
+\index{lua\+\_\+replicate\+\_\+commands@{lua\+\_\+replicate\+\_\+commands}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+replicate\+\_\+commands}{lua\_replicate\_commands}}
+{\footnotesize\ttfamily int lua\+\_\+replicate\+\_\+commands}
+
+
+
+Definition at line 1253 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a7f3d3d90cccad86c685008f3f02492fe}\label{structredis_server_a7f3d3d90cccad86c685008f3f02492fe}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+scripts@{lua\+\_\+scripts}}
+\index{lua\+\_\+scripts@{lua\+\_\+scripts}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+scripts}{lua\_scripts}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ lua\+\_\+scripts}
+
+
+
+Definition at line 1245 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a412e66c4f2ef9fdb6601bcc2e09b5da9}\label{structredis_server_a412e66c4f2ef9fdb6601bcc2e09b5da9}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+scripts\+\_\+mem@{lua\+\_\+scripts\+\_\+mem}}
+\index{lua\+\_\+scripts\+\_\+mem@{lua\+\_\+scripts\+\_\+mem}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+scripts\+\_\+mem}{lua\_scripts\_mem}}
+{\footnotesize\ttfamily unsigned long long lua\+\_\+scripts\+\_\+mem}
+
+
+
+Definition at line 1246 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a0ee11cd40096c9b2be4753c10113db7d}\label{structredis_server_a0ee11cd40096c9b2be4753c10113db7d}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+time\+\_\+limit@{lua\+\_\+time\+\_\+limit}}
+\index{lua\+\_\+time\+\_\+limit@{lua\+\_\+time\+\_\+limit}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+time\+\_\+limit}{lua\_time\_limit}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} lua\+\_\+time\+\_\+limit}
+
+
+
+Definition at line 1247 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a9a42f59c5d930ed9816e67c3feb38807}\label{structredis_server_a9a42f59c5d930ed9816e67c3feb38807}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+time\+\_\+start@{lua\+\_\+time\+\_\+start}}
+\index{lua\+\_\+time\+\_\+start@{lua\+\_\+time\+\_\+start}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+time\+\_\+start}{lua\_time\_start}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} lua\+\_\+time\+\_\+start}
+
+
+
+Definition at line 1248 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_afce7261d2fd1519a835614d28df5afb5}\label{structredis_server_afce7261d2fd1519a835614d28df5afb5}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+timedout@{lua\+\_\+timedout}}
+\index{lua\+\_\+timedout@{lua\+\_\+timedout}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+timedout}{lua\_timedout}}
+{\footnotesize\ttfamily int lua\+\_\+timedout}
+
+
+
+Definition at line 1256 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a74bf8a5fcf2bb65e2efc4d6b8a9085da}\label{structredis_server_a74bf8a5fcf2bb65e2efc4d6b8a9085da}} 
+\index{redis\+Server@{redis\+Server}!lua\+\_\+write\+\_\+dirty@{lua\+\_\+write\+\_\+dirty}}
+\index{lua\+\_\+write\+\_\+dirty@{lua\+\_\+write\+\_\+dirty}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{lua\+\_\+write\+\_\+dirty}{lua\_write\_dirty}}
+{\footnotesize\ttfamily int lua\+\_\+write\+\_\+dirty}
+
+
+
+Definition at line 1249 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a08654d4e800966822ca48a08cf86deac}\label{structredis_server_a08654d4e800966822ca48a08cf86deac}} 
+\index{redis\+Server@{redis\+Server}!magic@{magic}}
+\index{magic@{magic}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{magic}{magic}}
+{\footnotesize\ttfamily unsigned long long magic}
+
+
+
+Definition at line 1113 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_af992bf15650bd1a57d0eab937c2042df}\label{structredis_server_af992bf15650bd1a57d0eab937c2042df}} 
+\index{redis\+Server@{redis\+Server}!master@{master}}
+\index{master@{master}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{master}{master}}
+{\footnotesize\ttfamily \hyperlink{structclient}{client}$\ast$ master}
+
+
+
+Definition at line 1150 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a3d9da20a74aeccf932f6dccaef7075a6}\label{structredis_server_a3d9da20a74aeccf932f6dccaef7075a6}} 
+\index{redis\+Server@{redis\+Server}!master\+\_\+initial\+\_\+offset@{master\+\_\+initial\+\_\+offset}}
+\index{master\+\_\+initial\+\_\+offset@{master\+\_\+initial\+\_\+offset}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{master\+\_\+initial\+\_\+offset}{master\_initial\_offset}}
+{\footnotesize\ttfamily long long master\+\_\+initial\+\_\+offset}
+
+
+
+Definition at line 1173 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a6ba0eb500edf919e115c9d159b991cd1}\label{structredis_server_a6ba0eb500edf919e115c9d159b991cd1}} 
+\index{redis\+Server@{redis\+Server}!master\+\_\+repl\+\_\+offset@{master\+\_\+repl\+\_\+offset}}
+\index{master\+\_\+repl\+\_\+offset@{master\+\_\+repl\+\_\+offset}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{master\+\_\+repl\+\_\+offset}{master\_repl\_offset}}
+{\footnotesize\ttfamily long long master\+\_\+repl\+\_\+offset}
+
+
+
+Definition at line 1125 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a908131984b2d8e5cb5b7f582ab13f553}\label{structredis_server_a908131984b2d8e5cb5b7f582ab13f553}} 
+\index{redis\+Server@{redis\+Server}!master\+\_\+replid@{master\+\_\+replid}}
+\index{master\+\_\+replid@{master\+\_\+replid}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{master\+\_\+replid}{master\_replid}}
+{\footnotesize\ttfamily char master\+\_\+replid\mbox{[}\hyperlink{server_8h_aba6794fa3ee28f85165eaed93190f1df}{C\+O\+N\+F\+I\+G\+\_\+\+R\+U\+N\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}+1\mbox{]}}
+
+
+
+Definition at line 1172 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a22a84652dad6047f6c28d032b3c8327e}\label{structredis_server_a22a84652dad6047f6c28d032b3c8327e}} 
+\index{redis\+Server@{redis\+Server}!masterauth@{masterauth}}
+\index{masterauth@{masterauth}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{masterauth}{masterauth}}
+{\footnotesize\ttfamily char$\ast$ masterauth}
+
+
+
+Definition at line 1146 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a7f25b998323782ef03f738b92d3eac69}\label{structredis_server_a7f25b998323782ef03f738b92d3eac69}} 
+\index{redis\+Server@{redis\+Server}!masterhost@{masterhost}}
+\index{masterhost@{masterhost}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{masterhost}{masterhost}}
+{\footnotesize\ttfamily char$\ast$ masterhost}
+
+
+
+Definition at line 1147 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a8310dd417853e8153b749f1be9afe9b0}\label{structredis_server_a8310dd417853e8153b749f1be9afe9b0}} 
+\index{redis\+Server@{redis\+Server}!masterport@{masterport}}
+\index{masterport@{masterport}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{masterport}{masterport}}
+{\footnotesize\ttfamily int masterport}
+
+
+
+Definition at line 1148 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a0773e5d1aebd4a30557321a36a1b8c57}\label{structredis_server_a0773e5d1aebd4a30557321a36a1b8c57}} 
+\index{redis\+Server@{redis\+Server}!maxclients@{maxclients}}
+\index{maxclients@{maxclients}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{maxclients}{maxclients}}
+{\footnotesize\ttfamily unsigned int maxclients}
+
+
+
+Definition at line 1183 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a8938316e9f6211b407eb2b1b74648f86}\label{structredis_server_a8938316e9f6211b407eb2b1b74648f86}} 
+\index{redis\+Server@{redis\+Server}!maxidletime@{maxidletime}}
+\index{maxidletime@{maxidletime}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{maxidletime}{maxidletime}}
+{\footnotesize\ttfamily int maxidletime}
+
+
+
+Definition at line 1036 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a7f900ab67c16f474082be15af9380a78}\label{structredis_server_a7f900ab67c16f474082be15af9380a78}} 
+\index{redis\+Server@{redis\+Server}!maxmemory@{maxmemory}}
+\index{maxmemory@{maxmemory}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{maxmemory}{maxmemory}}
+{\footnotesize\ttfamily unsigned long long maxmemory}
+
+
+
+Definition at line 1184 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a98440b0fba87820830ee90965c9f54f4}\label{structredis_server_a98440b0fba87820830ee90965c9f54f4}} 
+\index{redis\+Server@{redis\+Server}!maxmemory\+\_\+policy@{maxmemory\+\_\+policy}}
+\index{maxmemory\+\_\+policy@{maxmemory\+\_\+policy}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{maxmemory\+\_\+policy}{maxmemory\_policy}}
+{\footnotesize\ttfamily int maxmemory\+\_\+policy}
+
+
+
+Definition at line 1185 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a7dfb65e4690d5e3ddf6689e030c624c4}\label{structredis_server_a7dfb65e4690d5e3ddf6689e030c624c4}} 
+\index{redis\+Server@{redis\+Server}!maxmemory\+\_\+samples@{maxmemory\+\_\+samples}}
+\index{maxmemory\+\_\+samples@{maxmemory\+\_\+samples}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{maxmemory\+\_\+samples}{maxmemory\_samples}}
+{\footnotesize\ttfamily int maxmemory\+\_\+samples}
+
+
+
+Definition at line 1186 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_abc582fb4bb1c2a826e1fe27280a716e7}\label{structredis_server_abc582fb4bb1c2a826e1fe27280a716e7}} 
+\index{redis\+Server@{redis\+Server}!migrate\+\_\+cached\+\_\+sockets@{migrate\+\_\+cached\+\_\+sockets}}
+\index{migrate\+\_\+cached\+\_\+sockets@{migrate\+\_\+cached\+\_\+sockets}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{migrate\+\_\+cached\+\_\+sockets}{migrate\_cached\_sockets}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ migrate\+\_\+cached\+\_\+sockets}
+
+
+
+Definition at line 980 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a25bdcbb11f0d80bf9a7df68456b425b5}\label{structredis_server_a25bdcbb11f0d80bf9a7df68456b425b5}} 
+\index{redis\+Server@{redis\+Server}!module\+\_\+blocked\+\_\+pipe@{module\+\_\+blocked\+\_\+pipe}}
+\index{module\+\_\+blocked\+\_\+pipe@{module\+\_\+blocked\+\_\+pipe}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{module\+\_\+blocked\+\_\+pipe}{module\_blocked\_pipe}}
+{\footnotesize\ttfamily int module\+\_\+blocked\+\_\+pipe\mbox{[}2\mbox{]}}
+
+
+
+Definition at line 956 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a50474c537b218c04ee7e8667c3b6e177}\label{structredis_server_a50474c537b218c04ee7e8667c3b6e177}} 
+\index{redis\+Server@{redis\+Server}!moduleapi@{moduleapi}}
+\index{moduleapi@{moduleapi}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{moduleapi}{moduleapi}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ moduleapi}
+
+
+
+Definition at line 954 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_adafbaec515301e4446949c48a2670a84}\label{structredis_server_adafbaec515301e4446949c48a2670a84}} 
+\index{redis\+Server@{redis\+Server}!monitors@{monitors}}
+\index{monitors@{monitors}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{monitors}{monitors}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list} $\ast$ monitors}
+
+
+
+Definition at line 974 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aaef517ca82e5d3ac5b2dbdebbd35f857}\label{structredis_server_aaef517ca82e5d3ac5b2dbdebbd35f857}} 
+\index{redis\+Server@{redis\+Server}!mstime@{mstime}}
+\index{mstime@{mstime}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{mstime}{mstime}}
+{\footnotesize\ttfamily long long mstime}
+
+
+
+Definition at line 1217 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a1a7fbbf584c0a372e035053026784436}\label{structredis_server_a1a7fbbf584c0a372e035053026784436}} 
+\index{redis\+Server@{redis\+Server}!multi\+Command@{multi\+Command}}
+\index{multi\+Command@{multi\+Command}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{multi\+Command}{multiCommand}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} $\ast$ multi\+Command}
+
+
+
+Definition at line 990 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a792473f9197291c19d0c522011b09630}\label{structredis_server_a792473f9197291c19d0c522011b09630}} 
+\index{redis\+Server@{redis\+Server}!neterr@{neterr}}
+\index{neterr@{neterr}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{neterr}{neterr}}
+{\footnotesize\ttfamily char neterr\mbox{[}\hyperlink{anet_8h_a92d565f421c133e9fac9dbbe8c88922b}{A\+N\+E\+T\+\_\+\+E\+R\+R\+\_\+\+L\+EN}\mbox{]}}
+
+
+
+Definition at line 979 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aeb9ca9dc2e5a71a7d964e2389d48678f}\label{structredis_server_aeb9ca9dc2e5a71a7d964e2389d48678f}} 
+\index{redis\+Server@{redis\+Server}!next\+\_\+client\+\_\+id@{next\+\_\+client\+\_\+id}}
+\index{next\+\_\+client\+\_\+id@{next\+\_\+client\+\_\+id}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{next\+\_\+client\+\_\+id}{next\_client\_id}}
+{\footnotesize\ttfamily uint64\+\_\+t next\+\_\+client\+\_\+id}
+
+
+
+Definition at line 981 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ab3c25439f27c5b8411020804ffe59b51}\label{structredis_server_ab3c25439f27c5b8411020804ffe59b51}} 
+\index{redis\+Server@{redis\+Server}!next\+\_\+client\+\_\+id\+\_\+mutex@{next\+\_\+client\+\_\+id\+\_\+mutex}}
+\index{next\+\_\+client\+\_\+id\+\_\+mutex@{next\+\_\+client\+\_\+id\+\_\+mutex}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{next\+\_\+client\+\_\+id\+\_\+mutex}{next\_client\_id\_mutex}}
+{\footnotesize\ttfamily pthread\+\_\+mutex\+\_\+t next\+\_\+client\+\_\+id\+\_\+mutex}
+
+
+
+Definition at line 1279 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa886fb87091fa910b444f9d00d792b18}\label{structredis_server_aa886fb87091fa910b444f9d00d792b18}} 
+\index{redis\+Server@{redis\+Server}!notify\+\_\+keyspace\+\_\+events@{notify\+\_\+keyspace\+\_\+events}}
+\index{notify\+\_\+keyspace\+\_\+events@{notify\+\_\+keyspace\+\_\+events}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{notify\+\_\+keyspace\+\_\+events}{notify\_keyspace\_events}}
+{\footnotesize\ttfamily int notify\+\_\+keyspace\+\_\+events}
+
+
+
+Definition at line 1221 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a2282515ee7614e17de7aeae0db6ea65b}\label{structredis_server_a2282515ee7614e17de7aeae0db6ea65b}} 
+\index{redis\+Server@{redis\+Server}!orig\+\_\+commands@{orig\+\_\+commands}}
+\index{orig\+\_\+commands@{orig\+\_\+commands}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{orig\+\_\+commands}{orig\_commands}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ orig\+\_\+commands}
+
+
+
+Definition at line 939 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aeea48ca4b779b703c49b82fd535b2922}\label{structredis_server_aeea48ca4b779b703c49b82fd535b2922}} 
+\index{redis\+Server@{redis\+Server}!pexpire\+Command@{pexpire\+Command}}
+\index{pexpire\+Command@{pexpire\+Command}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{pexpire\+Command}{pexpireCommand}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} $\ast$ pexpire\+Command}
+
+
+
+Definition at line 990 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae0d46a978d5cd6707411f276ad869b9c}\label{structredis_server_ae0d46a978d5cd6707411f276ad869b9c}} 
+\index{redis\+Server@{redis\+Server}!pid@{pid}}
+\index{pid@{pid}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{pid}{pid}}
+{\footnotesize\ttfamily pid\+\_\+t pid}
+
+
+
+Definition at line 928 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a9319f4233d0597188c3119f4dc7b3f0f}\label{structredis_server_a9319f4233d0597188c3119f4dc7b3f0f}} 
+\index{redis\+Server@{redis\+Server}!pidfile@{pidfile}}
+\index{pidfile@{pidfile}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{pidfile}{pidfile}}
+{\footnotesize\ttfamily char$\ast$ pidfile}
+
+
+
+Definition at line 946 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a63c89c04d1feae07ca35558055155ffb}\label{structredis_server_a63c89c04d1feae07ca35558055155ffb}} 
+\index{redis\+Server@{redis\+Server}!port@{port}}
+\index{port@{port}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{port}{port}}
+{\footnotesize\ttfamily int port}
+
+
+
+Definition at line 960 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ac9eff851ad156de1a36494a5e5b3ae8d}\label{structredis_server_ac9eff851ad156de1a36494a5e5b3ae8d}} 
+\index{redis\+Server@{redis\+Server}!process\+\_\+type@{process\+\_\+type}}
+\index{process\+\_\+type@{process\+\_\+type}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{process\+\_\+type}{process\_type}}
+{\footnotesize\ttfamily int process\+\_\+type}
+
+
+
+Definition at line 1111 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a3d1de338a7f6bb594efb159e1e34bf2d}\label{structredis_server_a3d1de338a7f6bb594efb159e1e34bf2d}} 
+\index{redis\+Server@{redis\+Server}!protected\+\_\+mode@{protected\+\_\+mode}}
+\index{protected\+\_\+mode@{protected\+\_\+mode}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{protected\+\_\+mode}{protected\_mode}}
+{\footnotesize\ttfamily int protected\+\_\+mode}
+
+
+
+Definition at line 982 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad8b9c110356e88c74267accd345b669d}\label{structredis_server_ad8b9c110356e88c74267accd345b669d}} 
+\index{redis\+Server@{redis\+Server}!proto\+\_\+max\+\_\+bulk\+\_\+len@{proto\+\_\+max\+\_\+bulk\+\_\+len}}
+\index{proto\+\_\+max\+\_\+bulk\+\_\+len@{proto\+\_\+max\+\_\+bulk\+\_\+len}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{proto\+\_\+max\+\_\+bulk\+\_\+len}{proto\_max\_bulk\_len}}
+{\footnotesize\ttfamily long long proto\+\_\+max\+\_\+bulk\+\_\+len}
+
+
+
+Definition at line 1189 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ac6c18a3bf3ec4d85777ca2db7d4a9b47}\label{structredis_server_ac6c18a3bf3ec4d85777ca2db7d4a9b47}} 
+\index{redis\+Server@{redis\+Server}!pubsub\+\_\+channels@{pubsub\+\_\+channels}}
+\index{pubsub\+\_\+channels@{pubsub\+\_\+channels}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{pubsub\+\_\+channels}{pubsub\_channels}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ pubsub\+\_\+channels}
+
+
+
+Definition at line 1219 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aced844471ea20e757a4bc7bdee34d930}\label{structredis_server_aced844471ea20e757a4bc7bdee34d930}} 
+\index{redis\+Server@{redis\+Server}!pubsub\+\_\+patterns@{pubsub\+\_\+patterns}}
+\index{pubsub\+\_\+patterns@{pubsub\+\_\+patterns}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{pubsub\+\_\+patterns}{pubsub\_patterns}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ pubsub\+\_\+patterns}
+
+
+
+Definition at line 1220 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a15ca1e9689b70a0f66fe2ccc7ae435cb}\label{structredis_server_a15ca1e9689b70a0f66fe2ccc7ae435cb}} 
+\index{redis\+Server@{redis\+Server}!rdb\+\_\+bgsave\+\_\+scheduled@{rdb\+\_\+bgsave\+\_\+scheduled}}
+\index{rdb\+\_\+bgsave\+\_\+scheduled@{rdb\+\_\+bgsave\+\_\+scheduled}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{rdb\+\_\+bgsave\+\_\+scheduled}{rdb\_bgsave\_scheduled}}
+{\footnotesize\ttfamily int rdb\+\_\+bgsave\+\_\+scheduled}
+
+
+
+Definition at line 1102 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a3a842ed365a5fb2b92ea473ce9aa13f2}\label{structredis_server_a3a842ed365a5fb2b92ea473ce9aa13f2}} 
+\index{redis\+Server@{redis\+Server}!rdb\+\_\+checksum@{rdb\+\_\+checksum}}
+\index{rdb\+\_\+checksum@{rdb\+\_\+checksum}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{rdb\+\_\+checksum}{rdb\_checksum}}
+{\footnotesize\ttfamily int rdb\+\_\+checksum}
+
+
+
+Definition at line 1097 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad3d5e16b8c8e1f62d71cf49c41c89b9d}\label{structredis_server_ad3d5e16b8c8e1f62d71cf49c41c89b9d}} 
+\index{redis\+Server@{redis\+Server}!rdb\+\_\+child\+\_\+pid@{rdb\+\_\+child\+\_\+pid}}
+\index{rdb\+\_\+child\+\_\+pid@{rdb\+\_\+child\+\_\+pid}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{rdb\+\_\+child\+\_\+pid}{rdb\_child\_pid}}
+{\footnotesize\ttfamily pid\+\_\+t rdb\+\_\+child\+\_\+pid}
+
+
+
+Definition at line 1092 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad3a0208c5b729ff578851041f2e01441}\label{structredis_server_ad3a0208c5b729ff578851041f2e01441}} 
+\index{redis\+Server@{redis\+Server}!rdb\+\_\+child\+\_\+type@{rdb\+\_\+child\+\_\+type}}
+\index{rdb\+\_\+child\+\_\+type@{rdb\+\_\+child\+\_\+type}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{rdb\+\_\+child\+\_\+type}{rdb\_child\_type}}
+{\footnotesize\ttfamily int rdb\+\_\+child\+\_\+type}
+
+
+
+Definition at line 1103 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a672826c5f111e440081c74f2f07180d6}\label{structredis_server_a672826c5f111e440081c74f2f07180d6}} 
+\index{redis\+Server@{redis\+Server}!rdb\+\_\+compression@{rdb\+\_\+compression}}
+\index{rdb\+\_\+compression@{rdb\+\_\+compression}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{rdb\+\_\+compression}{rdb\_compression}}
+{\footnotesize\ttfamily int rdb\+\_\+compression}
+
+
+
+Definition at line 1096 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a062a156ed7bfa9a38ac03d6b28d7732a}\label{structredis_server_a062a156ed7bfa9a38ac03d6b28d7732a}} 
+\index{redis\+Server@{redis\+Server}!rdb\+\_\+filename@{rdb\+\_\+filename}}
+\index{rdb\+\_\+filename@{rdb\+\_\+filename}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{rdb\+\_\+filename}{rdb\_filename}}
+{\footnotesize\ttfamily char$\ast$ rdb\+\_\+filename}
+
+
+
+Definition at line 1095 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a54523a05033d32457238dbf95154f6fa}\label{structredis_server_a54523a05033d32457238dbf95154f6fa}} 
+\index{redis\+Server@{redis\+Server}!rdb\+\_\+pipe\+\_\+read\+\_\+result\+\_\+from\+\_\+child@{rdb\+\_\+pipe\+\_\+read\+\_\+result\+\_\+from\+\_\+child}}
+\index{rdb\+\_\+pipe\+\_\+read\+\_\+result\+\_\+from\+\_\+child@{rdb\+\_\+pipe\+\_\+read\+\_\+result\+\_\+from\+\_\+child}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{rdb\+\_\+pipe\+\_\+read\+\_\+result\+\_\+from\+\_\+child}{rdb\_pipe\_read\_result\_from\_child}}
+{\footnotesize\ttfamily int rdb\+\_\+pipe\+\_\+read\+\_\+result\+\_\+from\+\_\+child}
+
+
+
+Definition at line 1107 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a163087bdcef645bff76259ff3c46bf83}\label{structredis_server_a163087bdcef645bff76259ff3c46bf83}} 
+\index{redis\+Server@{redis\+Server}!rdb\+\_\+pipe\+\_\+write\+\_\+result\+\_\+to\+\_\+parent@{rdb\+\_\+pipe\+\_\+write\+\_\+result\+\_\+to\+\_\+parent}}
+\index{rdb\+\_\+pipe\+\_\+write\+\_\+result\+\_\+to\+\_\+parent@{rdb\+\_\+pipe\+\_\+write\+\_\+result\+\_\+to\+\_\+parent}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{rdb\+\_\+pipe\+\_\+write\+\_\+result\+\_\+to\+\_\+parent}{rdb\_pipe\_write\_result\_to\_parent}}
+{\footnotesize\ttfamily int rdb\+\_\+pipe\+\_\+write\+\_\+result\+\_\+to\+\_\+parent}
+
+
+
+Definition at line 1106 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a4db97e483512d8067f0527e75efac10b}\label{structredis_server_a4db97e483512d8067f0527e75efac10b}} 
+\index{redis\+Server@{redis\+Server}!rdb\+\_\+save\+\_\+incremental\+\_\+fsync@{rdb\+\_\+save\+\_\+incremental\+\_\+fsync}}
+\index{rdb\+\_\+save\+\_\+incremental\+\_\+fsync@{rdb\+\_\+save\+\_\+incremental\+\_\+fsync}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{rdb\+\_\+save\+\_\+incremental\+\_\+fsync}{rdb\_save\_incremental\_fsync}}
+{\footnotesize\ttfamily int rdb\+\_\+save\+\_\+incremental\+\_\+fsync}
+
+
+
+Definition at line 1074 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae6262935d09c243040d0a767dc4781d9}\label{structredis_server_ae6262935d09c243040d0a767dc4781d9}} 
+\index{redis\+Server@{redis\+Server}!rdb\+\_\+save\+\_\+time\+\_\+last@{rdb\+\_\+save\+\_\+time\+\_\+last}}
+\index{rdb\+\_\+save\+\_\+time\+\_\+last@{rdb\+\_\+save\+\_\+time\+\_\+last}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{rdb\+\_\+save\+\_\+time\+\_\+last}{rdb\_save\_time\_last}}
+{\footnotesize\ttfamily time\+\_\+t rdb\+\_\+save\+\_\+time\+\_\+last}
+
+
+
+Definition at line 1100 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a94be71fb61af4310e0bef804992da1ed}\label{structredis_server_a94be71fb61af4310e0bef804992da1ed}} 
+\index{redis\+Server@{redis\+Server}!rdb\+\_\+save\+\_\+time\+\_\+start@{rdb\+\_\+save\+\_\+time\+\_\+start}}
+\index{rdb\+\_\+save\+\_\+time\+\_\+start@{rdb\+\_\+save\+\_\+time\+\_\+start}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{rdb\+\_\+save\+\_\+time\+\_\+start}{rdb\_save\_time\_start}}
+{\footnotesize\ttfamily time\+\_\+t rdb\+\_\+save\+\_\+time\+\_\+start}
+
+
+
+Definition at line 1101 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a7a707c2da0ace2b0eb8a278960c34f7a}\label{structredis_server_a7a707c2da0ace2b0eb8a278960c34f7a}} 
+\index{redis\+Server@{redis\+Server}!ready\+\_\+keys@{ready\+\_\+keys}}
+\index{ready\+\_\+keys@{ready\+\_\+keys}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{ready\+\_\+keys}{ready\_keys}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ ready\+\_\+keys}
+
+
+
+Definition at line 1194 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_acabb38054cd6d1d619d7c19d3e57bf28}\label{structredis_server_acabb38054cd6d1d619d7c19d3e57bf28}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+backlog@{repl\+\_\+backlog}}
+\index{repl\+\_\+backlog@{repl\+\_\+backlog}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+backlog}{repl\_backlog}}
+{\footnotesize\ttfamily char$\ast$ repl\+\_\+backlog}
+
+
+
+Definition at line 1129 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad76d83545056feccc5ff262ed29488c6}\label{structredis_server_ad76d83545056feccc5ff262ed29488c6}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+backlog\+\_\+histlen@{repl\+\_\+backlog\+\_\+histlen}}
+\index{repl\+\_\+backlog\+\_\+histlen@{repl\+\_\+backlog\+\_\+histlen}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+backlog\+\_\+histlen}{repl\_backlog\_histlen}}
+{\footnotesize\ttfamily long long repl\+\_\+backlog\+\_\+histlen}
+
+
+
+Definition at line 1131 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae11d40717bf4cf77473590daf20922db}\label{structredis_server_ae11d40717bf4cf77473590daf20922db}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+backlog\+\_\+idx@{repl\+\_\+backlog\+\_\+idx}}
+\index{repl\+\_\+backlog\+\_\+idx@{repl\+\_\+backlog\+\_\+idx}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+backlog\+\_\+idx}{repl\_backlog\_idx}}
+{\footnotesize\ttfamily long long repl\+\_\+backlog\+\_\+idx}
+
+
+
+Definition at line 1132 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa215648deded4376d85651aa4e999815}\label{structredis_server_aa215648deded4376d85651aa4e999815}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+backlog\+\_\+off@{repl\+\_\+backlog\+\_\+off}}
+\index{repl\+\_\+backlog\+\_\+off@{repl\+\_\+backlog\+\_\+off}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+backlog\+\_\+off}{repl\_backlog\_off}}
+{\footnotesize\ttfamily long long repl\+\_\+backlog\+\_\+off}
+
+
+
+Definition at line 1134 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a036a70cd5499d31b3b3964aeb182cd97}\label{structredis_server_a036a70cd5499d31b3b3964aeb182cd97}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+backlog\+\_\+size@{repl\+\_\+backlog\+\_\+size}}
+\index{repl\+\_\+backlog\+\_\+size@{repl\+\_\+backlog\+\_\+size}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+backlog\+\_\+size}{repl\_backlog\_size}}
+{\footnotesize\ttfamily long long repl\+\_\+backlog\+\_\+size}
+
+
+
+Definition at line 1130 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a959bf5f04d138a3af6b360b20d5d25bd}\label{structredis_server_a959bf5f04d138a3af6b360b20d5d25bd}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+backlog\+\_\+time\+\_\+limit@{repl\+\_\+backlog\+\_\+time\+\_\+limit}}
+\index{repl\+\_\+backlog\+\_\+time\+\_\+limit@{repl\+\_\+backlog\+\_\+time\+\_\+limit}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+backlog\+\_\+time\+\_\+limit}{repl\_backlog\_time\_limit}}
+{\footnotesize\ttfamily time\+\_\+t repl\+\_\+backlog\+\_\+time\+\_\+limit}
+
+
+
+Definition at line 1136 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a56c6284aa27660523e8fe4ddc6b2f38b}\label{structredis_server_a56c6284aa27660523e8fe4ddc6b2f38b}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+disable\+\_\+tcp\+\_\+nodelay@{repl\+\_\+disable\+\_\+tcp\+\_\+nodelay}}
+\index{repl\+\_\+disable\+\_\+tcp\+\_\+nodelay@{repl\+\_\+disable\+\_\+tcp\+\_\+nodelay}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+disable\+\_\+tcp\+\_\+nodelay}{repl\_disable\_tcp\_nodelay}}
+{\footnotesize\ttfamily int repl\+\_\+disable\+\_\+tcp\+\_\+nodelay}
+
+
+
+Definition at line 1165 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad28a95e9b6cd31f5feb7ebe5a8a8992a}\label{structredis_server_ad28a95e9b6cd31f5feb7ebe5a8a8992a}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+diskless\+\_\+sync@{repl\+\_\+diskless\+\_\+sync}}
+\index{repl\+\_\+diskless\+\_\+sync@{repl\+\_\+diskless\+\_\+sync}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+diskless\+\_\+sync}{repl\_diskless\_sync}}
+{\footnotesize\ttfamily int repl\+\_\+diskless\+\_\+sync}
+
+
+
+Definition at line 1143 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a2f5a9f08effdaba922ea7a432c753175}\label{structredis_server_a2f5a9f08effdaba922ea7a432c753175}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+diskless\+\_\+sync\+\_\+delay@{repl\+\_\+diskless\+\_\+sync\+\_\+delay}}
+\index{repl\+\_\+diskless\+\_\+sync\+\_\+delay@{repl\+\_\+diskless\+\_\+sync\+\_\+delay}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+diskless\+\_\+sync\+\_\+delay}{repl\_diskless\_sync\_delay}}
+{\footnotesize\ttfamily int repl\+\_\+diskless\+\_\+sync\+\_\+delay}
+
+
+
+Definition at line 1144 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_abe6a14c37b00e7e4ace95e04b1c2ded7}\label{structredis_server_abe6a14c37b00e7e4ace95e04b1c2ded7}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+down\+\_\+since@{repl\+\_\+down\+\_\+since}}
+\index{repl\+\_\+down\+\_\+since@{repl\+\_\+down\+\_\+since}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+down\+\_\+since}{repl\_down\_since}}
+{\footnotesize\ttfamily time\+\_\+t repl\+\_\+down\+\_\+since}
+
+
+
+Definition at line 1164 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a4a1716a96025de1fff867e1af23329e9}\label{structredis_server_a4a1716a96025de1fff867e1af23329e9}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+good\+\_\+slaves\+\_\+count@{repl\+\_\+good\+\_\+slaves\+\_\+count}}
+\index{repl\+\_\+good\+\_\+slaves\+\_\+count@{repl\+\_\+good\+\_\+slaves\+\_\+count}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+good\+\_\+slaves\+\_\+count}{repl\_good\_slaves\_count}}
+{\footnotesize\ttfamily int repl\+\_\+good\+\_\+slaves\+\_\+count}
+
+
+
+Definition at line 1142 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad3b224fc091bae066a03314069adf205}\label{structredis_server_ad3b224fc091bae066a03314069adf205}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+min\+\_\+slaves\+\_\+max\+\_\+lag@{repl\+\_\+min\+\_\+slaves\+\_\+max\+\_\+lag}}
+\index{repl\+\_\+min\+\_\+slaves\+\_\+max\+\_\+lag@{repl\+\_\+min\+\_\+slaves\+\_\+max\+\_\+lag}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+min\+\_\+slaves\+\_\+max\+\_\+lag}{repl\_min\_slaves\_max\_lag}}
+{\footnotesize\ttfamily int repl\+\_\+min\+\_\+slaves\+\_\+max\+\_\+lag}
+
+
+
+Definition at line 1141 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a2948a0fa6ec92b071befb3e78fd57b2f}\label{structredis_server_a2948a0fa6ec92b071befb3e78fd57b2f}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+min\+\_\+slaves\+\_\+to\+\_\+write@{repl\+\_\+min\+\_\+slaves\+\_\+to\+\_\+write}}
+\index{repl\+\_\+min\+\_\+slaves\+\_\+to\+\_\+write@{repl\+\_\+min\+\_\+slaves\+\_\+to\+\_\+write}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+min\+\_\+slaves\+\_\+to\+\_\+write}{repl\_min\_slaves\_to\_write}}
+{\footnotesize\ttfamily int repl\+\_\+min\+\_\+slaves\+\_\+to\+\_\+write}
+
+
+
+Definition at line 1140 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa24c62412daaae8c6a8356c85524b7c7}\label{structredis_server_aa24c62412daaae8c6a8356c85524b7c7}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+no\+\_\+slaves\+\_\+since@{repl\+\_\+no\+\_\+slaves\+\_\+since}}
+\index{repl\+\_\+no\+\_\+slaves\+\_\+since@{repl\+\_\+no\+\_\+slaves\+\_\+since}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+no\+\_\+slaves\+\_\+since}{repl\_no\_slaves\_since}}
+{\footnotesize\ttfamily time\+\_\+t repl\+\_\+no\+\_\+slaves\+\_\+since}
+
+
+
+Definition at line 1138 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a86ac125d831ba2b0ad05e80972cdb0d2}\label{structredis_server_a86ac125d831ba2b0ad05e80972cdb0d2}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+ping\+\_\+slave\+\_\+period@{repl\+\_\+ping\+\_\+slave\+\_\+period}}
+\index{repl\+\_\+ping\+\_\+slave\+\_\+period@{repl\+\_\+ping\+\_\+slave\+\_\+period}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+ping\+\_\+slave\+\_\+period}{repl\_ping\_slave\_period}}
+{\footnotesize\ttfamily int repl\+\_\+ping\+\_\+slave\+\_\+period}
+
+
+
+Definition at line 1128 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ade120d8eb790ebd186e7c4468002177f}\label{structredis_server_ade120d8eb790ebd186e7c4468002177f}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+scriptcache\+\_\+dict@{repl\+\_\+scriptcache\+\_\+dict}}
+\index{repl\+\_\+scriptcache\+\_\+dict@{repl\+\_\+scriptcache\+\_\+dict}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+scriptcache\+\_\+dict}{repl\_scriptcache\_dict}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ repl\+\_\+scriptcache\+\_\+dict}
+
+
+
+Definition at line 1176 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a61642879c8697309e0a0b1f8e27d79a0}\label{structredis_server_a61642879c8697309e0a0b1f8e27d79a0}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+scriptcache\+\_\+fifo@{repl\+\_\+scriptcache\+\_\+fifo}}
+\index{repl\+\_\+scriptcache\+\_\+fifo@{repl\+\_\+scriptcache\+\_\+fifo}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+scriptcache\+\_\+fifo}{repl\_scriptcache\_fifo}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ repl\+\_\+scriptcache\+\_\+fifo}
+
+
+
+Definition at line 1177 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a55aa7d1ce933f80d06cbcbeef8d03601}\label{structredis_server_a55aa7d1ce933f80d06cbcbeef8d03601}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+scriptcache\+\_\+size@{repl\+\_\+scriptcache\+\_\+size}}
+\index{repl\+\_\+scriptcache\+\_\+size@{repl\+\_\+scriptcache\+\_\+size}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+scriptcache\+\_\+size}{repl\_scriptcache\_size}}
+{\footnotesize\ttfamily unsigned int repl\+\_\+scriptcache\+\_\+size}
+
+
+
+Definition at line 1178 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ac57f30da06fd89c76b8dd1f93ea0083f}\label{structredis_server_ac57f30da06fd89c76b8dd1f93ea0083f}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+serve\+\_\+stale\+\_\+data@{repl\+\_\+serve\+\_\+stale\+\_\+data}}
+\index{repl\+\_\+serve\+\_\+stale\+\_\+data@{repl\+\_\+serve\+\_\+stale\+\_\+data}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+serve\+\_\+stale\+\_\+data}{repl\_serve\_stale\_data}}
+{\footnotesize\ttfamily int repl\+\_\+serve\+\_\+stale\+\_\+data}
+
+
+
+Definition at line 1161 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a3ec18fc81887ca7248668fd8151956c3}\label{structredis_server_a3ec18fc81887ca7248668fd8151956c3}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+slave\+\_\+ignore\+\_\+maxmemory@{repl\+\_\+slave\+\_\+ignore\+\_\+maxmemory}}
+\index{repl\+\_\+slave\+\_\+ignore\+\_\+maxmemory@{repl\+\_\+slave\+\_\+ignore\+\_\+maxmemory}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+slave\+\_\+ignore\+\_\+maxmemory}{repl\_slave\_ignore\_maxmemory}}
+{\footnotesize\ttfamily int repl\+\_\+slave\+\_\+ignore\+\_\+maxmemory}
+
+
+
+Definition at line 1163 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a1456517f960c1a06b3eb29614ab5f16e}\label{structredis_server_a1456517f960c1a06b3eb29614ab5f16e}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+slave\+\_\+lazy\+\_\+flush@{repl\+\_\+slave\+\_\+lazy\+\_\+flush}}
+\index{repl\+\_\+slave\+\_\+lazy\+\_\+flush@{repl\+\_\+slave\+\_\+lazy\+\_\+flush}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+slave\+\_\+lazy\+\_\+flush}{repl\_slave\_lazy\_flush}}
+{\footnotesize\ttfamily int repl\+\_\+slave\+\_\+lazy\+\_\+flush}
+
+
+
+Definition at line 1174 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a297743fec342702645d8b174a4877e3b}\label{structredis_server_a297743fec342702645d8b174a4877e3b}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+slave\+\_\+ro@{repl\+\_\+slave\+\_\+ro}}
+\index{repl\+\_\+slave\+\_\+ro@{repl\+\_\+slave\+\_\+ro}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+slave\+\_\+ro}{repl\_slave\_ro}}
+{\footnotesize\ttfamily int repl\+\_\+slave\+\_\+ro}
+
+
+
+Definition at line 1162 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a185612136a48819bd307781e32e7b3a9}\label{structredis_server_a185612136a48819bd307781e32e7b3a9}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+state@{repl\+\_\+state}}
+\index{repl\+\_\+state@{repl\+\_\+state}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+state}{repl\_state}}
+{\footnotesize\ttfamily int repl\+\_\+state}
+
+
+
+Definition at line 1153 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aca3e40a81aabd234727f99625efdd84c}\label{structredis_server_aca3e40a81aabd234727f99625efdd84c}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+syncio\+\_\+timeout@{repl\+\_\+syncio\+\_\+timeout}}
+\index{repl\+\_\+syncio\+\_\+timeout@{repl\+\_\+syncio\+\_\+timeout}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+syncio\+\_\+timeout}{repl\_syncio\_timeout}}
+{\footnotesize\ttfamily int repl\+\_\+syncio\+\_\+timeout}
+
+
+
+Definition at line 1152 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_af8b98ad90dc60d4e8b2bf836b518e198}\label{structredis_server_af8b98ad90dc60d4e8b2bf836b518e198}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+timeout@{repl\+\_\+timeout}}
+\index{repl\+\_\+timeout@{repl\+\_\+timeout}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+timeout}{repl\_timeout}}
+{\footnotesize\ttfamily int repl\+\_\+timeout}
+
+
+
+Definition at line 1149 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a276118ccb59133b72bd8833332a90429}\label{structredis_server_a276118ccb59133b72bd8833332a90429}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+transfer\+\_\+fd@{repl\+\_\+transfer\+\_\+fd}}
+\index{repl\+\_\+transfer\+\_\+fd@{repl\+\_\+transfer\+\_\+fd}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+transfer\+\_\+fd}{repl\_transfer\_fd}}
+{\footnotesize\ttfamily int repl\+\_\+transfer\+\_\+fd}
+
+
+
+Definition at line 1158 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aee161759a20cb366dceab6cd980cc2ba}\label{structredis_server_aee161759a20cb366dceab6cd980cc2ba}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+transfer\+\_\+last\+\_\+fsync\+\_\+off@{repl\+\_\+transfer\+\_\+last\+\_\+fsync\+\_\+off}}
+\index{repl\+\_\+transfer\+\_\+last\+\_\+fsync\+\_\+off@{repl\+\_\+transfer\+\_\+last\+\_\+fsync\+\_\+off}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+transfer\+\_\+last\+\_\+fsync\+\_\+off}{repl\_transfer\_last\_fsync\_off}}
+{\footnotesize\ttfamily off\+\_\+t repl\+\_\+transfer\+\_\+last\+\_\+fsync\+\_\+off}
+
+
+
+Definition at line 1156 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a15d293cf510cec1fc1fe3310ea74506e}\label{structredis_server_a15d293cf510cec1fc1fe3310ea74506e}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+transfer\+\_\+lastio@{repl\+\_\+transfer\+\_\+lastio}}
+\index{repl\+\_\+transfer\+\_\+lastio@{repl\+\_\+transfer\+\_\+lastio}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+transfer\+\_\+lastio}{repl\_transfer\_lastio}}
+{\footnotesize\ttfamily time\+\_\+t repl\+\_\+transfer\+\_\+lastio}
+
+
+
+Definition at line 1160 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a159af50e60cf5a0b6b06ab72332a4fb8}\label{structredis_server_a159af50e60cf5a0b6b06ab72332a4fb8}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+transfer\+\_\+read@{repl\+\_\+transfer\+\_\+read}}
+\index{repl\+\_\+transfer\+\_\+read@{repl\+\_\+transfer\+\_\+read}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+transfer\+\_\+read}{repl\_transfer\_read}}
+{\footnotesize\ttfamily off\+\_\+t repl\+\_\+transfer\+\_\+read}
+
+
+
+Definition at line 1155 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_af7b52eab258eb9f0ce90194f893d2991}\label{structredis_server_af7b52eab258eb9f0ce90194f893d2991}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+transfer\+\_\+s@{repl\+\_\+transfer\+\_\+s}}
+\index{repl\+\_\+transfer\+\_\+s@{repl\+\_\+transfer\+\_\+s}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+transfer\+\_\+s}{repl\_transfer\_s}}
+{\footnotesize\ttfamily int repl\+\_\+transfer\+\_\+s}
+
+
+
+Definition at line 1157 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a31c9cafcb063d450af2fa2a760f7b6c9}\label{structredis_server_a31c9cafcb063d450af2fa2a760f7b6c9}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+transfer\+\_\+size@{repl\+\_\+transfer\+\_\+size}}
+\index{repl\+\_\+transfer\+\_\+size@{repl\+\_\+transfer\+\_\+size}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+transfer\+\_\+size}{repl\_transfer\_size}}
+{\footnotesize\ttfamily off\+\_\+t repl\+\_\+transfer\+\_\+size}
+
+
+
+Definition at line 1154 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a2f1f07797bc7750959217108dfff0efe}\label{structredis_server_a2f1f07797bc7750959217108dfff0efe}} 
+\index{redis\+Server@{redis\+Server}!repl\+\_\+transfer\+\_\+tmpfile@{repl\+\_\+transfer\+\_\+tmpfile}}
+\index{repl\+\_\+transfer\+\_\+tmpfile@{repl\+\_\+transfer\+\_\+tmpfile}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{repl\+\_\+transfer\+\_\+tmpfile}{repl\_transfer\_tmpfile}}
+{\footnotesize\ttfamily char$\ast$ repl\+\_\+transfer\+\_\+tmpfile}
+
+
+
+Definition at line 1159 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a467ab80673fbca31b4729a65effc8362}\label{structredis_server_a467ab80673fbca31b4729a65effc8362}} 
+\index{redis\+Server@{redis\+Server}!replid@{replid}}
+\index{replid@{replid}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{replid}{replid}}
+{\footnotesize\ttfamily char replid\mbox{[}\hyperlink{server_8h_aba6794fa3ee28f85165eaed93190f1df}{C\+O\+N\+F\+I\+G\+\_\+\+R\+U\+N\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}+1\mbox{]}}
+
+
+
+Definition at line 1123 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a06df01ff396d99c1b22692272de940d7}\label{structredis_server_a06df01ff396d99c1b22692272de940d7}} 
+\index{redis\+Server@{redis\+Server}!replid2@{replid2}}
+\index{replid2@{replid2}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{replid2}{replid2}}
+{\footnotesize\ttfamily char replid2\mbox{[}\hyperlink{server_8h_aba6794fa3ee28f85165eaed93190f1df}{C\+O\+N\+F\+I\+G\+\_\+\+R\+U\+N\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}+1\mbox{]}}
+
+
+
+Definition at line 1124 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a0ba0e84624d22e52e900533adf7d9ba8}\label{structredis_server_a0ba0e84624d22e52e900533adf7d9ba8}} 
+\index{redis\+Server@{redis\+Server}!requirepass@{requirepass}}
+\index{requirepass@{requirepass}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{requirepass}{requirepass}}
+{\footnotesize\ttfamily char$\ast$ requirepass}
+
+
+
+Definition at line 945 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad4fa040bb64cd95458a6d5c959daa380}\label{structredis_server_ad4fa040bb64cd95458a6d5c959daa380}} 
+\index{redis\+Server@{redis\+Server}!rpop\+Command@{rpop\+Command}}
+\index{rpop\+Command@{rpop\+Command}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{rpop\+Command}{rpopCommand}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} $\ast$ rpop\+Command}
+
+
+
+Definition at line 990 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a3bd69064f36a186f0a83bbe22cee41d2}\label{structredis_server_a3bd69064f36a186f0a83bbe22cee41d2}} 
+\index{redis\+Server@{redis\+Server}!runid@{runid}}
+\index{runid@{runid}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{runid}{runid}}
+{\footnotesize\ttfamily char runid\mbox{[}\hyperlink{server_8h_aba6794fa3ee28f85165eaed93190f1df}{C\+O\+N\+F\+I\+G\+\_\+\+R\+U\+N\+\_\+\+I\+D\+\_\+\+S\+I\+ZE}+1\mbox{]}}
+
+
+
+Definition at line 949 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a33ae086151bbbc7e1930cd04c3a58ed0}\label{structredis_server_a33ae086151bbbc7e1930cd04c3a58ed0}} 
+\index{redis\+Server@{redis\+Server}!samples@{samples}}
+\index{samples@{samples}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{samples}{samples}}
+{\footnotesize\ttfamily long long samples\mbox{[}\hyperlink{server_8h_a225a9e35f2cb8aa663571625bc59a533}{S\+T\+A\+T\+S\+\_\+\+M\+E\+T\+R\+I\+C\+\_\+\+S\+A\+M\+P\+L\+ES}\mbox{]}}
+
+
+
+Definition at line 1031 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a2ef075c5a1090a6b39536909cd779787}\label{structredis_server_a2ef075c5a1090a6b39536909cd779787}} 
+\index{redis\+Server@{redis\+Server}!saveparams@{saveparams}}
+\index{saveparams@{saveparams}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{saveparams}{saveparams}}
+{\footnotesize\ttfamily struct \hyperlink{structsaveparam}{saveparam}$\ast$ saveparams}
+
+
+
+Definition at line 1093 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad4654cdc5b77789a9175000290abc831}\label{structredis_server_ad4654cdc5b77789a9175000290abc831}} 
+\index{redis\+Server@{redis\+Server}!saveparamslen@{saveparamslen}}
+\index{saveparamslen@{saveparamslen}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{saveparamslen}{saveparamslen}}
+{\footnotesize\ttfamily int saveparamslen}
+
+
+
+Definition at line 1094 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa63d306ce9b3447e242ab5eafab120a5}\label{structredis_server_aa63d306ce9b3447e242ab5eafab120a5}} 
+\index{redis\+Server@{redis\+Server}!second\+\_\+replid\+\_\+offset@{second\+\_\+replid\+\_\+offset}}
+\index{second\+\_\+replid\+\_\+offset@{second\+\_\+replid\+\_\+offset}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{second\+\_\+replid\+\_\+offset}{second\_replid\_offset}}
+{\footnotesize\ttfamily long long second\+\_\+replid\+\_\+offset}
+
+
+
+Definition at line 1126 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a86dbe4f3f3de690343436c85dcf139c2}\label{structredis_server_a86dbe4f3f3de690343436c85dcf139c2}} 
+\index{redis\+Server@{redis\+Server}!sentinel\+\_\+mode@{sentinel\+\_\+mode}}
+\index{sentinel\+\_\+mode@{sentinel\+\_\+mode}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{sentinel\+\_\+mode}{sentinel\_mode}}
+{\footnotesize\ttfamily int sentinel\+\_\+mode}
+
+
+
+Definition at line 950 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a5e2c040b399186b37bf289ea387c55e2}\label{structredis_server_a5e2c040b399186b37bf289ea387c55e2}} 
+\index{redis\+Server@{redis\+Server}!set\+\_\+max\+\_\+intset\+\_\+entries@{set\+\_\+max\+\_\+intset\+\_\+entries}}
+\index{set\+\_\+max\+\_\+intset\+\_\+entries@{set\+\_\+max\+\_\+intset\+\_\+entries}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{set\+\_\+max\+\_\+intset\+\_\+entries}{set\_max\_intset\_entries}}
+{\footnotesize\ttfamily size\+\_\+t set\+\_\+max\+\_\+intset\+\_\+entries}
+
+
+
+Definition at line 1204 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a32598da1cf7182e823ebf3d440038455}\label{structredis_server_a32598da1cf7182e823ebf3d440038455}} 
+\index{redis\+Server@{redis\+Server}!shutdown\+\_\+asap@{shutdown\+\_\+asap}}
+\index{shutdown\+\_\+asap@{shutdown\+\_\+asap}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{shutdown\+\_\+asap}{shutdown\_asap}}
+{\footnotesize\ttfamily int shutdown\+\_\+asap}
+
+
+
+Definition at line 942 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ac7835028128a4b2dbf35822063fb73f8}\label{structredis_server_ac7835028128a4b2dbf35822063fb73f8}} 
+\index{redis\+Server@{redis\+Server}!slave\+\_\+announce\+\_\+ip@{slave\+\_\+announce\+\_\+ip}}
+\index{slave\+\_\+announce\+\_\+ip@{slave\+\_\+announce\+\_\+ip}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{slave\+\_\+announce\+\_\+ip}{slave\_announce\_ip}}
+{\footnotesize\ttfamily char$\ast$ slave\+\_\+announce\+\_\+ip}
+
+
+
+Definition at line 1168 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a531f1468f7a70bf4efc1004cdc8570b5}\label{structredis_server_a531f1468f7a70bf4efc1004cdc8570b5}} 
+\index{redis\+Server@{redis\+Server}!slave\+\_\+announce\+\_\+port@{slave\+\_\+announce\+\_\+port}}
+\index{slave\+\_\+announce\+\_\+port@{slave\+\_\+announce\+\_\+port}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{slave\+\_\+announce\+\_\+port}{slave\_announce\_port}}
+{\footnotesize\ttfamily int slave\+\_\+announce\+\_\+port}
+
+
+
+Definition at line 1167 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aaf81cefb84c292ee7dee2cbf749595fb}\label{structredis_server_aaf81cefb84c292ee7dee2cbf749595fb}} 
+\index{redis\+Server@{redis\+Server}!slave\+\_\+priority@{slave\+\_\+priority}}
+\index{slave\+\_\+priority@{slave\+\_\+priority}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{slave\+\_\+priority}{slave\_priority}}
+{\footnotesize\ttfamily int slave\+\_\+priority}
+
+
+
+Definition at line 1166 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a6a317d8f5c5ed50aa4c4756bb5e95ee9}\label{structredis_server_a6a317d8f5c5ed50aa4c4756bb5e95ee9}} 
+\index{redis\+Server@{redis\+Server}!slaves@{slaves}}
+\index{slaves@{slaves}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{slaves}{slaves}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ slaves}
+
+
+
+Definition at line 974 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a5d8345cb446035f33a1ff2c093870f35}\label{structredis_server_a5d8345cb446035f33a1ff2c093870f35}} 
+\index{redis\+Server@{redis\+Server}!slaveseldb@{slaveseldb}}
+\index{slaveseldb@{slaveseldb}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{slaveseldb}{slaveseldb}}
+{\footnotesize\ttfamily int slaveseldb}
+
+
+
+Definition at line 1127 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a664128e21b656b41a1c87347d805d37c}\label{structredis_server_a664128e21b656b41a1c87347d805d37c}} 
+\index{redis\+Server@{redis\+Server}!slowlog@{slowlog}}
+\index{slowlog@{slowlog}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{slowlog}{slowlog}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ slowlog}
+
+
+
+Definition at line 1017 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_af895a22288bf16d8114a2f9a1d5be938}\label{structredis_server_af895a22288bf16d8114a2f9a1d5be938}} 
+\index{redis\+Server@{redis\+Server}!slowlog\+\_\+entry\+\_\+id@{slowlog\+\_\+entry\+\_\+id}}
+\index{slowlog\+\_\+entry\+\_\+id@{slowlog\+\_\+entry\+\_\+id}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{slowlog\+\_\+entry\+\_\+id}{slowlog\_entry\_id}}
+{\footnotesize\ttfamily long long slowlog\+\_\+entry\+\_\+id}
+
+
+
+Definition at line 1018 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a16d71dc7df6d4a717d3a6e6a840bf6a5}\label{structredis_server_a16d71dc7df6d4a717d3a6e6a840bf6a5}} 
+\index{redis\+Server@{redis\+Server}!slowlog\+\_\+log\+\_\+slower\+\_\+than@{slowlog\+\_\+log\+\_\+slower\+\_\+than}}
+\index{slowlog\+\_\+log\+\_\+slower\+\_\+than@{slowlog\+\_\+log\+\_\+slower\+\_\+than}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{slowlog\+\_\+log\+\_\+slower\+\_\+than}{slowlog\_log\_slower\_than}}
+{\footnotesize\ttfamily long long slowlog\+\_\+log\+\_\+slower\+\_\+than}
+
+
+
+Definition at line 1019 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a007cbc9d6c2e3d0fa86d9355a96c9f69}\label{structredis_server_a007cbc9d6c2e3d0fa86d9355a96c9f69}} 
+\index{redis\+Server@{redis\+Server}!slowlog\+\_\+max\+\_\+len@{slowlog\+\_\+max\+\_\+len}}
+\index{slowlog\+\_\+max\+\_\+len@{slowlog\+\_\+max\+\_\+len}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{slowlog\+\_\+max\+\_\+len}{slowlog\_max\_len}}
+{\footnotesize\ttfamily unsigned long slowlog\+\_\+max\+\_\+len}
+
+
+
+Definition at line 1020 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad780220bf56199a5e24492ce3e1adae8}\label{structredis_server_ad780220bf56199a5e24492ce3e1adae8}} 
+\index{redis\+Server@{redis\+Server}!sofd@{sofd}}
+\index{sofd@{sofd}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{sofd}{sofd}}
+{\footnotesize\ttfamily int sofd}
+
+
+
+Definition at line 968 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_af5b90328549c92ac3aeadcb79ce890a8}\label{structredis_server_af5b90328549c92ac3aeadcb79ce890a8}} 
+\index{redis\+Server@{redis\+Server}!sort\+\_\+alpha@{sort\+\_\+alpha}}
+\index{sort\+\_\+alpha@{sort\+\_\+alpha}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{sort\+\_\+alpha}{sort\_alpha}}
+{\footnotesize\ttfamily int sort\+\_\+alpha}
+
+
+
+Definition at line 1198 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ac21e8e3dc0bf13b7822dfd50c26105c9}\label{structredis_server_ac21e8e3dc0bf13b7822dfd50c26105c9}} 
+\index{redis\+Server@{redis\+Server}!sort\+\_\+bypattern@{sort\+\_\+bypattern}}
+\index{sort\+\_\+bypattern@{sort\+\_\+bypattern}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{sort\+\_\+bypattern}{sort\_bypattern}}
+{\footnotesize\ttfamily int sort\+\_\+bypattern}
+
+
+
+Definition at line 1199 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_acd3679efc199ee2622e96ae80d379cfe}\label{structredis_server_acd3679efc199ee2622e96ae80d379cfe}} 
+\index{redis\+Server@{redis\+Server}!sort\+\_\+desc@{sort\+\_\+desc}}
+\index{sort\+\_\+desc@{sort\+\_\+desc}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{sort\+\_\+desc}{sort\_desc}}
+{\footnotesize\ttfamily int sort\+\_\+desc}
+
+
+
+Definition at line 1197 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a7cf5a502c3eed4d54cadaa419ed4799b}\label{structredis_server_a7cf5a502c3eed4d54cadaa419ed4799b}} 
+\index{redis\+Server@{redis\+Server}!sort\+\_\+store@{sort\+\_\+store}}
+\index{sort\+\_\+store@{sort\+\_\+store}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{sort\+\_\+store}{sort\_store}}
+{\footnotesize\ttfamily int sort\+\_\+store}
+
+
+
+Definition at line 1200 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_adca63c4602215bd9e28e5e81bcf91fe6}\label{structredis_server_adca63c4602215bd9e28e5e81bcf91fe6}} 
+\index{redis\+Server@{redis\+Server}!srem\+Command@{srem\+Command}}
+\index{srem\+Command@{srem\+Command}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{srem\+Command}{sremCommand}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} $\ast$ srem\+Command}
+
+
+
+Definition at line 990 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_acf21ed827000471af091d6f7f2820843}\label{structredis_server_acf21ed827000471af091d6f7f2820843}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+active\+\_\+defrag\+\_\+hits@{stat\+\_\+active\+\_\+defrag\+\_\+hits}}
+\index{stat\+\_\+active\+\_\+defrag\+\_\+hits@{stat\+\_\+active\+\_\+defrag\+\_\+hits}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+active\+\_\+defrag\+\_\+hits}{stat\_active\_defrag\_hits}}
+{\footnotesize\ttfamily long long stat\+\_\+active\+\_\+defrag\+\_\+hits}
+
+
+
+Definition at line 1005 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a67834c6012b1d5912befb42573b3138f}\label{structredis_server_a67834c6012b1d5912befb42573b3138f}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+hits@{stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+hits}}
+\index{stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+hits@{stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+hits}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+hits}{stat\_active\_defrag\_key\_hits}}
+{\footnotesize\ttfamily long long stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+hits}
+
+
+
+Definition at line 1007 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a88f7d67b743022ba822fd5c7b6ea6964}\label{structredis_server_a88f7d67b743022ba822fd5c7b6ea6964}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+misses@{stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+misses}}
+\index{stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+misses@{stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+misses}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+misses}{stat\_active\_defrag\_key\_misses}}
+{\footnotesize\ttfamily long long stat\+\_\+active\+\_\+defrag\+\_\+key\+\_\+misses}
+
+
+
+Definition at line 1008 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a2cfe978a155a9359c774048dd502afc3}\label{structredis_server_a2cfe978a155a9359c774048dd502afc3}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+active\+\_\+defrag\+\_\+misses@{stat\+\_\+active\+\_\+defrag\+\_\+misses}}
+\index{stat\+\_\+active\+\_\+defrag\+\_\+misses@{stat\+\_\+active\+\_\+defrag\+\_\+misses}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+active\+\_\+defrag\+\_\+misses}{stat\_active\_defrag\_misses}}
+{\footnotesize\ttfamily long long stat\+\_\+active\+\_\+defrag\+\_\+misses}
+
+
+
+Definition at line 1006 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a3de172bb2507aa566698d109c783153a}\label{structredis_server_a3de172bb2507aa566698d109c783153a}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+active\+\_\+defrag\+\_\+scanned@{stat\+\_\+active\+\_\+defrag\+\_\+scanned}}
+\index{stat\+\_\+active\+\_\+defrag\+\_\+scanned@{stat\+\_\+active\+\_\+defrag\+\_\+scanned}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+active\+\_\+defrag\+\_\+scanned}{stat\_active\_defrag\_scanned}}
+{\footnotesize\ttfamily long long stat\+\_\+active\+\_\+defrag\+\_\+scanned}
+
+
+
+Definition at line 1009 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ab89dd03338e3ba557ce26478c4edcdc4}\label{structredis_server_ab89dd03338e3ba557ce26478c4edcdc4}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+aof\+\_\+cow\+\_\+bytes@{stat\+\_\+aof\+\_\+cow\+\_\+bytes}}
+\index{stat\+\_\+aof\+\_\+cow\+\_\+bytes@{stat\+\_\+aof\+\_\+cow\+\_\+bytes}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+aof\+\_\+cow\+\_\+bytes}{stat\_aof\_cow\_bytes}}
+{\footnotesize\ttfamily size\+\_\+t stat\+\_\+aof\+\_\+cow\+\_\+bytes}
+
+
+
+Definition at line 1025 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a45229d2d3b593513143c5a9871a2be10}\label{structredis_server_a45229d2d3b593513143c5a9871a2be10}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+evictedkeys@{stat\+\_\+evictedkeys}}
+\index{stat\+\_\+evictedkeys@{stat\+\_\+evictedkeys}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+evictedkeys}{stat\_evictedkeys}}
+{\footnotesize\ttfamily long long stat\+\_\+evictedkeys}
+
+
+
+Definition at line 1002 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a908fb5c9a872cac4539382205fec357b}\label{structredis_server_a908fb5c9a872cac4539382205fec357b}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+expired\+\_\+stale\+\_\+perc@{stat\+\_\+expired\+\_\+stale\+\_\+perc}}
+\index{stat\+\_\+expired\+\_\+stale\+\_\+perc@{stat\+\_\+expired\+\_\+stale\+\_\+perc}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+expired\+\_\+stale\+\_\+perc}{stat\_expired\_stale\_perc}}
+{\footnotesize\ttfamily double stat\+\_\+expired\+\_\+stale\+\_\+perc}
+
+
+
+Definition at line 1000 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a3cd30a9c8ce282f08de3c733d1ccd19d}\label{structredis_server_a3cd30a9c8ce282f08de3c733d1ccd19d}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+expired\+\_\+time\+\_\+cap\+\_\+reached\+\_\+count@{stat\+\_\+expired\+\_\+time\+\_\+cap\+\_\+reached\+\_\+count}}
+\index{stat\+\_\+expired\+\_\+time\+\_\+cap\+\_\+reached\+\_\+count@{stat\+\_\+expired\+\_\+time\+\_\+cap\+\_\+reached\+\_\+count}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+expired\+\_\+time\+\_\+cap\+\_\+reached\+\_\+count}{stat\_expired\_time\_cap\_reached\_count}}
+{\footnotesize\ttfamily long long stat\+\_\+expired\+\_\+time\+\_\+cap\+\_\+reached\+\_\+count}
+
+
+
+Definition at line 1001 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a898017f30dfd6e8b25edf9ace36b175a}\label{structredis_server_a898017f30dfd6e8b25edf9ace36b175a}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+expiredkeys@{stat\+\_\+expiredkeys}}
+\index{stat\+\_\+expiredkeys@{stat\+\_\+expiredkeys}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+expiredkeys}{stat\_expiredkeys}}
+{\footnotesize\ttfamily long long stat\+\_\+expiredkeys}
+
+
+
+Definition at line 999 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae0463703f3899cad4e931faefe7b591b}\label{structredis_server_ae0463703f3899cad4e931faefe7b591b}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+fork\+\_\+rate@{stat\+\_\+fork\+\_\+rate}}
+\index{stat\+\_\+fork\+\_\+rate@{stat\+\_\+fork\+\_\+rate}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+fork\+\_\+rate}{stat\_fork\_rate}}
+{\footnotesize\ttfamily double stat\+\_\+fork\+\_\+rate}
+
+
+
+Definition at line 1012 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a4cdd4eed3d7fac9da3b95c1f6fe29de8}\label{structredis_server_a4cdd4eed3d7fac9da3b95c1f6fe29de8}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+fork\+\_\+time@{stat\+\_\+fork\+\_\+time}}
+\index{stat\+\_\+fork\+\_\+time@{stat\+\_\+fork\+\_\+time}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+fork\+\_\+time}{stat\_fork\_time}}
+{\footnotesize\ttfamily long long stat\+\_\+fork\+\_\+time}
+
+
+
+Definition at line 1011 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad7d881fd1df3221d80a749be2e66d0d0}\label{structredis_server_ad7d881fd1df3221d80a749be2e66d0d0}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+keyspace\+\_\+hits@{stat\+\_\+keyspace\+\_\+hits}}
+\index{stat\+\_\+keyspace\+\_\+hits@{stat\+\_\+keyspace\+\_\+hits}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+keyspace\+\_\+hits}{stat\_keyspace\_hits}}
+{\footnotesize\ttfamily long long stat\+\_\+keyspace\+\_\+hits}
+
+
+
+Definition at line 1003 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ad5efcac8b7288ed40db68e69b9ff306b}\label{structredis_server_ad5efcac8b7288ed40db68e69b9ff306b}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+keyspace\+\_\+misses@{stat\+\_\+keyspace\+\_\+misses}}
+\index{stat\+\_\+keyspace\+\_\+misses@{stat\+\_\+keyspace\+\_\+misses}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+keyspace\+\_\+misses}{stat\_keyspace\_misses}}
+{\footnotesize\ttfamily long long stat\+\_\+keyspace\+\_\+misses}
+
+
+
+Definition at line 1004 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_abe1289d87c7c7b12540c36b93d1bdb25}\label{structredis_server_abe1289d87c7c7b12540c36b93d1bdb25}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+net\+\_\+input\+\_\+bytes@{stat\+\_\+net\+\_\+input\+\_\+bytes}}
+\index{stat\+\_\+net\+\_\+input\+\_\+bytes@{stat\+\_\+net\+\_\+input\+\_\+bytes}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+net\+\_\+input\+\_\+bytes}{stat\_net\_input\_bytes}}
+{\footnotesize\ttfamily long long stat\+\_\+net\+\_\+input\+\_\+bytes}
+
+
+
+Definition at line 1022 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae0e3c35b8ea641cec0a4afb2658bccb9}\label{structredis_server_ae0e3c35b8ea641cec0a4afb2658bccb9}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+net\+\_\+output\+\_\+bytes@{stat\+\_\+net\+\_\+output\+\_\+bytes}}
+\index{stat\+\_\+net\+\_\+output\+\_\+bytes@{stat\+\_\+net\+\_\+output\+\_\+bytes}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+net\+\_\+output\+\_\+bytes}{stat\_net\_output\_bytes}}
+{\footnotesize\ttfamily long long stat\+\_\+net\+\_\+output\+\_\+bytes}
+
+
+
+Definition at line 1023 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aa818a00bded05cbfc242fbd30a51bd06}\label{structredis_server_aa818a00bded05cbfc242fbd30a51bd06}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+numcommands@{stat\+\_\+numcommands}}
+\index{stat\+\_\+numcommands@{stat\+\_\+numcommands}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+numcommands}{stat\_numcommands}}
+{\footnotesize\ttfamily long long stat\+\_\+numcommands}
+
+
+
+Definition at line 997 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_afcaf03ea9071943ef74fc499a34f364c}\label{structredis_server_afcaf03ea9071943ef74fc499a34f364c}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+numconnections@{stat\+\_\+numconnections}}
+\index{stat\+\_\+numconnections@{stat\+\_\+numconnections}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+numconnections}{stat\_numconnections}}
+{\footnotesize\ttfamily long long stat\+\_\+numconnections}
+
+
+
+Definition at line 998 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a9153369284c79d6fcf505c5882ec29ab}\label{structredis_server_a9153369284c79d6fcf505c5882ec29ab}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+peak\+\_\+memory@{stat\+\_\+peak\+\_\+memory}}
+\index{stat\+\_\+peak\+\_\+memory@{stat\+\_\+peak\+\_\+memory}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+peak\+\_\+memory}{stat\_peak\_memory}}
+{\footnotesize\ttfamily size\+\_\+t stat\+\_\+peak\+\_\+memory}
+
+
+
+Definition at line 1010 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a23a0a2cb99e43742881408116b2fbd08}\label{structredis_server_a23a0a2cb99e43742881408116b2fbd08}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+rdb\+\_\+cow\+\_\+bytes@{stat\+\_\+rdb\+\_\+cow\+\_\+bytes}}
+\index{stat\+\_\+rdb\+\_\+cow\+\_\+bytes@{stat\+\_\+rdb\+\_\+cow\+\_\+bytes}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+rdb\+\_\+cow\+\_\+bytes}{stat\_rdb\_cow\_bytes}}
+{\footnotesize\ttfamily size\+\_\+t stat\+\_\+rdb\+\_\+cow\+\_\+bytes}
+
+
+
+Definition at line 1024 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_afbe16be5f4b41cc85b8952c52f8afae0}\label{structredis_server_afbe16be5f4b41cc85b8952c52f8afae0}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+rejected\+\_\+conn@{stat\+\_\+rejected\+\_\+conn}}
+\index{stat\+\_\+rejected\+\_\+conn@{stat\+\_\+rejected\+\_\+conn}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+rejected\+\_\+conn}{stat\_rejected\_conn}}
+{\footnotesize\ttfamily long long stat\+\_\+rejected\+\_\+conn}
+
+
+
+Definition at line 1013 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a2e6bd1e4e734c677e1a73aa12931b8d2}\label{structredis_server_a2e6bd1e4e734c677e1a73aa12931b8d2}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+starttime@{stat\+\_\+starttime}}
+\index{stat\+\_\+starttime@{stat\+\_\+starttime}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+starttime}{stat\_starttime}}
+{\footnotesize\ttfamily time\+\_\+t stat\+\_\+starttime}
+
+
+
+Definition at line 996 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a75b9c0bc4b9974b3880f057a519c8cac}\label{structredis_server_a75b9c0bc4b9974b3880f057a519c8cac}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+sync\+\_\+full@{stat\+\_\+sync\+\_\+full}}
+\index{stat\+\_\+sync\+\_\+full@{stat\+\_\+sync\+\_\+full}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+sync\+\_\+full}{stat\_sync\_full}}
+{\footnotesize\ttfamily long long stat\+\_\+sync\+\_\+full}
+
+
+
+Definition at line 1014 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_afae1b2ee523b006366dbe18ce9dae2e1}\label{structredis_server_afae1b2ee523b006366dbe18ce9dae2e1}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+sync\+\_\+partial\+\_\+err@{stat\+\_\+sync\+\_\+partial\+\_\+err}}
+\index{stat\+\_\+sync\+\_\+partial\+\_\+err@{stat\+\_\+sync\+\_\+partial\+\_\+err}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+sync\+\_\+partial\+\_\+err}{stat\_sync\_partial\_err}}
+{\footnotesize\ttfamily long long stat\+\_\+sync\+\_\+partial\+\_\+err}
+
+
+
+Definition at line 1016 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a426c3298fab0d00a17cb6f35c5f607b0}\label{structredis_server_a426c3298fab0d00a17cb6f35c5f607b0}} 
+\index{redis\+Server@{redis\+Server}!stat\+\_\+sync\+\_\+partial\+\_\+ok@{stat\+\_\+sync\+\_\+partial\+\_\+ok}}
+\index{stat\+\_\+sync\+\_\+partial\+\_\+ok@{stat\+\_\+sync\+\_\+partial\+\_\+ok}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stat\+\_\+sync\+\_\+partial\+\_\+ok}{stat\_sync\_partial\_ok}}
+{\footnotesize\ttfamily long long stat\+\_\+sync\+\_\+partial\+\_\+ok}
+
+
+
+Definition at line 1015 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a74b48fc7843d6cfaf61b0e49a47e2be1}\label{structredis_server_a74b48fc7843d6cfaf61b0e49a47e2be1}} 
+\index{redis\+Server@{redis\+Server}!stop\+\_\+writes\+\_\+on\+\_\+bgsave\+\_\+err@{stop\+\_\+writes\+\_\+on\+\_\+bgsave\+\_\+err}}
+\index{stop\+\_\+writes\+\_\+on\+\_\+bgsave\+\_\+err@{stop\+\_\+writes\+\_\+on\+\_\+bgsave\+\_\+err}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stop\+\_\+writes\+\_\+on\+\_\+bgsave\+\_\+err}{stop\_writes\_on\_bgsave\_err}}
+{\footnotesize\ttfamily int stop\+\_\+writes\+\_\+on\+\_\+bgsave\+\_\+err}
+
+
+
+Definition at line 1105 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a293e6dedeaca2bf16929f9903380c7d3}\label{structredis_server_a293e6dedeaca2bf16929f9903380c7d3}} 
+\index{redis\+Server@{redis\+Server}!stream\+\_\+node\+\_\+max\+\_\+bytes@{stream\+\_\+node\+\_\+max\+\_\+bytes}}
+\index{stream\+\_\+node\+\_\+max\+\_\+bytes@{stream\+\_\+node\+\_\+max\+\_\+bytes}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stream\+\_\+node\+\_\+max\+\_\+bytes}{stream\_node\_max\_bytes}}
+{\footnotesize\ttfamily size\+\_\+t stream\+\_\+node\+\_\+max\+\_\+bytes}
+
+
+
+Definition at line 1208 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a51f312f9239789ab90069710fa720bf1}\label{structredis_server_a51f312f9239789ab90069710fa720bf1}} 
+\index{redis\+Server@{redis\+Server}!stream\+\_\+node\+\_\+max\+\_\+entries@{stream\+\_\+node\+\_\+max\+\_\+entries}}
+\index{stream\+\_\+node\+\_\+max\+\_\+entries@{stream\+\_\+node\+\_\+max\+\_\+entries}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{stream\+\_\+node\+\_\+max\+\_\+entries}{stream\_node\_max\_entries}}
+{\footnotesize\ttfamily int64\+\_\+t stream\+\_\+node\+\_\+max\+\_\+entries}
+
+
+
+Definition at line 1209 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae4d226836f4e8579243896d2ad72c8fd}\label{structredis_server_ae4d226836f4e8579243896d2ad72c8fd}} 
+\index{redis\+Server@{redis\+Server}!supervised@{supervised}}
+\index{supervised@{supervised}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{supervised}{supervised}}
+{\footnotesize\ttfamily int supervised}
+
+
+
+Definition at line 1048 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a2be7aa4385144f8fb0d9b18f0a7a63b9}\label{structredis_server_a2be7aa4385144f8fb0d9b18f0a7a63b9}} 
+\index{redis\+Server@{redis\+Server}!supervised\+\_\+mode@{supervised\+\_\+mode}}
+\index{supervised\+\_\+mode@{supervised\+\_\+mode}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{supervised\+\_\+mode}{supervised\_mode}}
+{\footnotesize\ttfamily int supervised\+\_\+mode}
+
+
+
+Definition at line 1049 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a1e234838fd4211781e47a97ca8dd03cc}\label{structredis_server_a1e234838fd4211781e47a97ca8dd03cc}} 
+\index{redis\+Server@{redis\+Server}!syslog\+\_\+enabled@{syslog\+\_\+enabled}}
+\index{syslog\+\_\+enabled@{syslog\+\_\+enabled}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{syslog\+\_\+enabled}{syslog\_enabled}}
+{\footnotesize\ttfamily int syslog\+\_\+enabled}
+
+
+
+Definition at line 1119 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a4f074cb73b7191ef570261fb35b29a8e}\label{structredis_server_a4f074cb73b7191ef570261fb35b29a8e}} 
+\index{redis\+Server@{redis\+Server}!syslog\+\_\+facility@{syslog\+\_\+facility}}
+\index{syslog\+\_\+facility@{syslog\+\_\+facility}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{syslog\+\_\+facility}{syslog\_facility}}
+{\footnotesize\ttfamily int syslog\+\_\+facility}
+
+
+
+Definition at line 1121 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae4a6e447ef5fbc09a9765fa2da7c51d7}\label{structredis_server_ae4a6e447ef5fbc09a9765fa2da7c51d7}} 
+\index{redis\+Server@{redis\+Server}!syslog\+\_\+ident@{syslog\+\_\+ident}}
+\index{syslog\+\_\+ident@{syslog\+\_\+ident}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{syslog\+\_\+ident}{syslog\_ident}}
+{\footnotesize\ttfamily char$\ast$ syslog\+\_\+ident}
+
+
+
+Definition at line 1120 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a6ee3dc3ba57fc269a2becfe29fdc8d42}\label{structredis_server_a6ee3dc3ba57fc269a2becfe29fdc8d42}} 
+\index{redis\+Server@{redis\+Server}!system\+\_\+memory\+\_\+size@{system\+\_\+memory\+\_\+size}}
+\index{system\+\_\+memory\+\_\+size@{system\+\_\+memory\+\_\+size}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{system\+\_\+memory\+\_\+size}{system\_memory\_size}}
+{\footnotesize\ttfamily size\+\_\+t system\+\_\+memory\+\_\+size}
+
+
+
+Definition at line 1274 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_abb9634da7f2c5db97777a636828a4638}\label{structredis_server_abb9634da7f2c5db97777a636828a4638}} 
+\index{redis\+Server@{redis\+Server}!tcp\+\_\+backlog@{tcp\+\_\+backlog}}
+\index{tcp\+\_\+backlog@{tcp\+\_\+backlog}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{tcp\+\_\+backlog}{tcp\_backlog}}
+{\footnotesize\ttfamily int tcp\+\_\+backlog}
+
+
+
+Definition at line 961 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a93ff934e4b3870c270b9149fc4f65fe6}\label{structredis_server_a93ff934e4b3870c270b9149fc4f65fe6}} 
+\index{redis\+Server@{redis\+Server}!tcpkeepalive@{tcpkeepalive}}
+\index{tcpkeepalive@{tcpkeepalive}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{tcpkeepalive}{tcpkeepalive}}
+{\footnotesize\ttfamily int tcpkeepalive}
+
+
+
+Definition at line 1037 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aaffc55850982666923b1b7497631ac79}\label{structredis_server_aaffc55850982666923b1b7497631ac79}} 
+\index{redis\+Server@{redis\+Server}!timezone@{timezone}}
+\index{timezone@{timezone}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{timezone}{timezone}}
+{\footnotesize\ttfamily time\+\_\+t timezone}
+
+
+
+Definition at line 1215 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_af1e6c692e015469af388bc1e9e1307ed}\label{structredis_server_af1e6c692e015469af388bc1e9e1307ed}} 
+\index{redis\+Server@{redis\+Server}!unblocked\+\_\+clients@{unblocked\+\_\+clients}}
+\index{unblocked\+\_\+clients@{unblocked\+\_\+clients}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{unblocked\+\_\+clients}{unblocked\_clients}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ unblocked\+\_\+clients}
+
+
+
+Definition at line 1193 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_abe85a8c7083d28cbcb693b625db5ec1a}\label{structredis_server_abe85a8c7083d28cbcb693b625db5ec1a}} 
+\index{redis\+Server@{redis\+Server}!unixsocket@{unixsocket}}
+\index{unixsocket@{unixsocket}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{unixsocket}{unixsocket}}
+{\footnotesize\ttfamily char$\ast$ unixsocket}
+
+
+
+Definition at line 964 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_aadc46c1e937463532712d5cf6579eaa8}\label{structredis_server_aadc46c1e937463532712d5cf6579eaa8}} 
+\index{redis\+Server@{redis\+Server}!unixsocketperm@{unixsocketperm}}
+\index{unixsocketperm@{unixsocketperm}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{unixsocketperm}{unixsocketperm}}
+{\footnotesize\ttfamily mode\+\_\+t unixsocketperm}
+
+
+
+Definition at line 965 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ac61bf06d5e2894efe1dd86783dbb4e1d}\label{structredis_server_ac61bf06d5e2894efe1dd86783dbb4e1d}} 
+\index{redis\+Server@{redis\+Server}!unixtime@{unixtime}}
+\index{unixtime@{unixtime}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{unixtime}{unixtime}}
+{\footnotesize\ttfamily time\+\_\+t unixtime}
+
+
+
+Definition at line 1214 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a25c0d5c7a909d3768192bd96a83116fc}\label{structredis_server_a25c0d5c7a909d3768192bd96a83116fc}} 
+\index{redis\+Server@{redis\+Server}!unixtime\+\_\+mutex@{unixtime\+\_\+mutex}}
+\index{unixtime\+\_\+mutex@{unixtime\+\_\+mutex}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{unixtime\+\_\+mutex}{unixtime\_mutex}}
+{\footnotesize\ttfamily pthread\+\_\+mutex\+\_\+t unixtime\+\_\+mutex}
+
+
+
+Definition at line 1280 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a1bdcfae3209cbd96db35a2ae356fa15e}\label{structredis_server_a1bdcfae3209cbd96db35a2ae356fa15e}} 
+\index{redis\+Server@{redis\+Server}!verbosity@{verbosity}}
+\index{verbosity@{verbosity}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{verbosity}{verbosity}}
+{\footnotesize\ttfamily int verbosity}
+
+
+
+Definition at line 1035 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a6b2bc45f4e219cd3c7f1dbc717ad88ea}\label{structredis_server_a6b2bc45f4e219cd3c7f1dbc717ad88ea}} 
+\index{redis\+Server@{redis\+Server}!watchdog\+\_\+period@{watchdog\+\_\+period}}
+\index{watchdog\+\_\+period@{watchdog\+\_\+period}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{watchdog\+\_\+period}{watchdog\_period}}
+{\footnotesize\ttfamily int watchdog\+\_\+period}
+
+
+
+Definition at line 1272 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a19a694ea86bc8d8418f366392c0d8bdb}\label{structredis_server_a19a694ea86bc8d8418f366392c0d8bdb}} 
+\index{redis\+Server@{redis\+Server}!xclaim\+Command@{xclaim\+Command}}
+\index{xclaim\+Command@{xclaim\+Command}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{xclaim\+Command}{xclaimCommand}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} $\ast$ xclaim\+Command}
+
+
+
+Definition at line 990 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a41f877042e8ddc732d1aecbf4e2a472b}\label{structredis_server_a41f877042e8ddc732d1aecbf4e2a472b}} 
+\index{redis\+Server@{redis\+Server}!xgroup\+Command@{xgroup\+Command}}
+\index{xgroup\+Command@{xgroup\+Command}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{xgroup\+Command}{xgroupCommand}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} $\ast$ xgroup\+Command}
+
+
+
+Definition at line 990 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a3227752cf5245878455863e34d768180}\label{structredis_server_a3227752cf5245878455863e34d768180}} 
+\index{redis\+Server@{redis\+Server}!zpopmax\+Command@{zpopmax\+Command}}
+\index{zpopmax\+Command@{zpopmax\+Command}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{zpopmax\+Command}{zpopmaxCommand}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} $\ast$ zpopmax\+Command}
+
+
+
+Definition at line 990 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a1ad649607159f0284068556041fcd387}\label{structredis_server_a1ad649607159f0284068556041fcd387}} 
+\index{redis\+Server@{redis\+Server}!zpopmin\+Command@{zpopmin\+Command}}
+\index{zpopmin\+Command@{zpopmin\+Command}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{zpopmin\+Command}{zpopminCommand}}
+{\footnotesize\ttfamily struct \hyperlink{structredis_command}{redis\+Command} $\ast$ zpopmin\+Command}
+
+
+
+Definition at line 990 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_a8e76d99dd09948088702e8d138fb5662}\label{structredis_server_a8e76d99dd09948088702e8d138fb5662}} 
+\index{redis\+Server@{redis\+Server}!zset\+\_\+max\+\_\+ziplist\+\_\+entries@{zset\+\_\+max\+\_\+ziplist\+\_\+entries}}
+\index{zset\+\_\+max\+\_\+ziplist\+\_\+entries@{zset\+\_\+max\+\_\+ziplist\+\_\+entries}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{zset\+\_\+max\+\_\+ziplist\+\_\+entries}{zset\_max\_ziplist\_entries}}
+{\footnotesize\ttfamily size\+\_\+t zset\+\_\+max\+\_\+ziplist\+\_\+entries}
+
+
+
+Definition at line 1205 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_server_ae1bafd11e7b9f269c3ab48acb8046f32}\label{structredis_server_ae1bafd11e7b9f269c3ab48acb8046f32}} 
+\index{redis\+Server@{redis\+Server}!zset\+\_\+max\+\_\+ziplist\+\_\+value@{zset\+\_\+max\+\_\+ziplist\+\_\+value}}
+\index{zset\+\_\+max\+\_\+ziplist\+\_\+value@{zset\+\_\+max\+\_\+ziplist\+\_\+value}!redis\+Server@{redis\+Server}}
+\subsubsection{\texorpdfstring{zset\+\_\+max\+\_\+ziplist\+\_\+value}{zset\_max\_ziplist\_value}}
+{\footnotesize\ttfamily size\+\_\+t zset\+\_\+max\+\_\+ziplist\+\_\+value}
+
+
+
+Definition at line 1206 of file server.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{server_8h}{server.\+h}\end{DoxyCompactItemize}

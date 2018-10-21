@@ -1,0 +1,341 @@
+\hypertarget{geohash_8h}{}\section{src/geohash.h File Reference}
+\label{geohash_8h}\index{src/geohash.\+h@{src/geohash.\+h}}
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for geohash.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{geohash_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=311pt]{geohash_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}
+\item 
+struct \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range}
+\item 
+struct \hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area}
+\item 
+struct \hyperlink{struct_geo_hash_neighbors}{Geo\+Hash\+Neighbors}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{geohash_8h_a097b8152f901ce8d8537f70b7108d9d4}{H\+A\+S\+H\+I\+S\+Z\+E\+RO}(r)~(!(r).bits \&\& !(r).step)
+\item 
+\#define \hyperlink{geohash_8h_aa0025397de7ebbc5b0ee9bf2c1c64221}{R\+A\+N\+G\+E\+I\+S\+Z\+E\+RO}(r)~(!(r).max \&\& !(r).\hyperlink{pqsort_8c_ac6afabdc09a49a433ee19d8a9486056d}{min})
+\item 
+\#define \hyperlink{geohash_8h_ad32ba49c768239fda251cd53af812b21}{R\+A\+N\+G\+E\+P\+I\+S\+Z\+E\+RO}(r)~(r == N\+U\+LL $\vert$$\vert$ \hyperlink{geohash_8h_aa0025397de7ebbc5b0ee9bf2c1c64221}{R\+A\+N\+G\+E\+I\+S\+Z\+E\+RO}($\ast$r))
+\item 
+\#define \hyperlink{geohash_8h_a4c2e31e393c541a34939f7b4ae1d23d3}{G\+E\+O\+\_\+\+S\+T\+E\+P\+\_\+\+M\+AX}~26 /$\ast$ 26$\ast$2 = 52 bits. $\ast$/
+\item 
+\#define \hyperlink{geohash_8h_a7da01a8f44929d11f00b2966c834a9b9}{G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+IN}~-\/85.\+05112878
+\item 
+\#define \hyperlink{geohash_8h_a831d966c99458d47620ea66a4c6768ab}{G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+AX}~85.\+05112878
+\item 
+\#define \hyperlink{geohash_8h_abf32454c8db6da7cf595d5ac092bb313}{G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+IN}~-\/180
+\item 
+\#define \hyperlink{geohash_8h_a86a07918583c89467cf3e459adf513f5}{G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+AX}~180
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{geohash_8h_afe54febf5f641279715c8d1c65abd279}{Geo\+Direction} \{ \newline
+\hyperlink{geohash_8h_afe54febf5f641279715c8d1c65abd279ac3dd570b32d880635680ac8b57ae86a0}{G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+TH} = 0, 
+\hyperlink{geohash_8h_afe54febf5f641279715c8d1c65abd279a2b42811ab6cfc32c02e6259a51af6329}{G\+E\+O\+H\+A\+S\+H\+\_\+\+E\+A\+ST}, 
+\hyperlink{geohash_8h_afe54febf5f641279715c8d1c65abd279ae9440576a704d3d20b6bc74c015cfeed}{G\+E\+O\+H\+A\+S\+H\+\_\+\+W\+E\+ST}, 
+\hyperlink{geohash_8h_afe54febf5f641279715c8d1c65abd279a0e42582119ec990da5b93c28f7934616}{G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+TH}, 
+\newline
+\hyperlink{geohash_8h_afe54febf5f641279715c8d1c65abd279abca4441a24f3f3497babb4acd4afa1cc}{G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+T\+H\+\_\+\+W\+E\+ST}, 
+\hyperlink{geohash_8h_afe54febf5f641279715c8d1c65abd279a358e858cc47ed22928759bf433140347}{G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+T\+H\+\_\+\+E\+A\+ST}, 
+\hyperlink{geohash_8h_afe54febf5f641279715c8d1c65abd279a7665c4fdbb8e7915c64e52df9a7584ef}{G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+T\+\_\+\+W\+E\+ST}, 
+\hyperlink{geohash_8h_afe54febf5f641279715c8d1c65abd279ab3fb4eeb8addcc068b5e643695d383bc}{G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+T\+\_\+\+E\+A\+ST}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{geohash_8h_a9bf036d7070a97ccd845af7b2fe9209d}{geohash\+Get\+Coord\+Range} (\hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$long\+\_\+range, \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$lat\+\_\+range)
+\item 
+int \hyperlink{geohash_8h_ac2ea1a7c7690dda982ac2c078853ffec}{geohash\+Encode} (const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$long\+\_\+range, const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$lat\+\_\+range, double longitude, double latitude, uint8\+\_\+t step, \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$hash)
+\item 
+int \hyperlink{geohash_8h_a0ad2a287d742a780d3c21dd47d100eab}{geohash\+Encode\+Type} (double longitude, double latitude, uint8\+\_\+t step, \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$hash)
+\item 
+int \hyperlink{geohash_8h_a12dfaa93c6549b235593e25e9dd49229}{geohash\+Encode\+W\+G\+S84} (double longitude, double latitude, uint8\+\_\+t step, \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$hash)
+\item 
+int \hyperlink{geohash_8h_a9d0c66bc0446324364f9710b0792a332}{geohash\+Decode} (const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} long\+\_\+range, const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} lat\+\_\+range, const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash, \hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$area)
+\item 
+int \hyperlink{geohash_8h_a53580aec664d93f1bdbf95b406c05d2d}{geohash\+Decode\+Type} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash, \hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$area)
+\item 
+int \hyperlink{geohash_8h_a7da59855eb0522c9e5fba1e20d8bdf40}{geohash\+Decode\+W\+G\+S84} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash, \hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$area)
+\item 
+int \hyperlink{geohash_8h_a899189c910bf3bd8dbb4d5e286ac6d68}{geohash\+Decode\+Area\+To\+Long\+Lat} (const \hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$area, double $\ast$xy)
+\item 
+int \hyperlink{geohash_8h_a8ebdc161599f7724724ac75ee42d81f3}{geohash\+Decode\+To\+Long\+Lat\+Type} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash, double $\ast$xy)
+\item 
+int \hyperlink{geohash_8h_a5a00967d72b44e212021e16b6054cb95}{geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash, double $\ast$xy)
+\item 
+int \hyperlink{geohash_8h_a4438fe89f8d86f79660f48fadc3d330e}{geohash\+Decode\+To\+Long\+Lat\+Mercator} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash, double $\ast$xy)
+\item 
+void \hyperlink{geohash_8h_a4fb9cba01031ddac9332d8f5ffd14a45}{geohash\+Neighbors} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$hash, \hyperlink{struct_geo_hash_neighbors}{Geo\+Hash\+Neighbors} $\ast$neighbors)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{geohash_8h_a831d966c99458d47620ea66a4c6768ab}\label{geohash_8h_a831d966c99458d47620ea66a4c6768ab}} 
+\index{geohash.\+h@{geohash.\+h}!G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+AX@{G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+AX}}
+\index{G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+AX@{G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+AX}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+AX}{GEO\_LAT\_MAX}}
+{\footnotesize\ttfamily \#define G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+AX~85.\+05112878}
+
+
+
+Definition at line 51 of file geohash.\+h.
+
+\mbox{\Hypertarget{geohash_8h_a7da01a8f44929d11f00b2966c834a9b9}\label{geohash_8h_a7da01a8f44929d11f00b2966c834a9b9}} 
+\index{geohash.\+h@{geohash.\+h}!G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+IN@{G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+IN}}
+\index{G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+IN@{G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+IN}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+IN}{GEO\_LAT\_MIN}}
+{\footnotesize\ttfamily \#define G\+E\+O\+\_\+\+L\+A\+T\+\_\+\+M\+IN~-\/85.\+05112878}
+
+
+
+Definition at line 50 of file geohash.\+h.
+
+\mbox{\Hypertarget{geohash_8h_a86a07918583c89467cf3e459adf513f5}\label{geohash_8h_a86a07918583c89467cf3e459adf513f5}} 
+\index{geohash.\+h@{geohash.\+h}!G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+AX@{G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+AX}}
+\index{G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+AX@{G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+AX}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+AX}{GEO\_LONG\_MAX}}
+{\footnotesize\ttfamily \#define G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+AX~180}
+
+
+
+Definition at line 53 of file geohash.\+h.
+
+\mbox{\Hypertarget{geohash_8h_abf32454c8db6da7cf595d5ac092bb313}\label{geohash_8h_abf32454c8db6da7cf595d5ac092bb313}} 
+\index{geohash.\+h@{geohash.\+h}!G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+IN@{G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+IN}}
+\index{G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+IN@{G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+IN}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+IN}{GEO\_LONG\_MIN}}
+{\footnotesize\ttfamily \#define G\+E\+O\+\_\+\+L\+O\+N\+G\+\_\+\+M\+IN~-\/180}
+
+
+
+Definition at line 52 of file geohash.\+h.
+
+\mbox{\Hypertarget{geohash_8h_a4c2e31e393c541a34939f7b4ae1d23d3}\label{geohash_8h_a4c2e31e393c541a34939f7b4ae1d23d3}} 
+\index{geohash.\+h@{geohash.\+h}!G\+E\+O\+\_\+\+S\+T\+E\+P\+\_\+\+M\+AX@{G\+E\+O\+\_\+\+S\+T\+E\+P\+\_\+\+M\+AX}}
+\index{G\+E\+O\+\_\+\+S\+T\+E\+P\+\_\+\+M\+AX@{G\+E\+O\+\_\+\+S\+T\+E\+P\+\_\+\+M\+AX}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{G\+E\+O\+\_\+\+S\+T\+E\+P\+\_\+\+M\+AX}{GEO\_STEP\_MAX}}
+{\footnotesize\ttfamily \#define G\+E\+O\+\_\+\+S\+T\+E\+P\+\_\+\+M\+AX~26 /$\ast$ 26$\ast$2 = 52 bits. $\ast$/}
+
+
+
+Definition at line 47 of file geohash.\+h.
+
+\mbox{\Hypertarget{geohash_8h_a097b8152f901ce8d8537f70b7108d9d4}\label{geohash_8h_a097b8152f901ce8d8537f70b7108d9d4}} 
+\index{geohash.\+h@{geohash.\+h}!H\+A\+S\+H\+I\+S\+Z\+E\+RO@{H\+A\+S\+H\+I\+S\+Z\+E\+RO}}
+\index{H\+A\+S\+H\+I\+S\+Z\+E\+RO@{H\+A\+S\+H\+I\+S\+Z\+E\+RO}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{H\+A\+S\+H\+I\+S\+Z\+E\+RO}{HASHISZERO}}
+{\footnotesize\ttfamily \#define H\+A\+S\+H\+I\+S\+Z\+E\+RO(\begin{DoxyParamCaption}\item[{}]{r }\end{DoxyParamCaption})~(!(r).bits \&\& !(r).step)}
+
+
+
+Definition at line 43 of file geohash.\+h.
+
+\mbox{\Hypertarget{geohash_8h_aa0025397de7ebbc5b0ee9bf2c1c64221}\label{geohash_8h_aa0025397de7ebbc5b0ee9bf2c1c64221}} 
+\index{geohash.\+h@{geohash.\+h}!R\+A\+N\+G\+E\+I\+S\+Z\+E\+RO@{R\+A\+N\+G\+E\+I\+S\+Z\+E\+RO}}
+\index{R\+A\+N\+G\+E\+I\+S\+Z\+E\+RO@{R\+A\+N\+G\+E\+I\+S\+Z\+E\+RO}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{R\+A\+N\+G\+E\+I\+S\+Z\+E\+RO}{RANGEISZERO}}
+{\footnotesize\ttfamily \#define R\+A\+N\+G\+E\+I\+S\+Z\+E\+RO(\begin{DoxyParamCaption}\item[{}]{r }\end{DoxyParamCaption})~(!(r).max \&\& !(r).\hyperlink{pqsort_8c_ac6afabdc09a49a433ee19d8a9486056d}{min})}
+
+
+
+Definition at line 44 of file geohash.\+h.
+
+\mbox{\Hypertarget{geohash_8h_ad32ba49c768239fda251cd53af812b21}\label{geohash_8h_ad32ba49c768239fda251cd53af812b21}} 
+\index{geohash.\+h@{geohash.\+h}!R\+A\+N\+G\+E\+P\+I\+S\+Z\+E\+RO@{R\+A\+N\+G\+E\+P\+I\+S\+Z\+E\+RO}}
+\index{R\+A\+N\+G\+E\+P\+I\+S\+Z\+E\+RO@{R\+A\+N\+G\+E\+P\+I\+S\+Z\+E\+RO}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{R\+A\+N\+G\+E\+P\+I\+S\+Z\+E\+RO}{RANGEPISZERO}}
+{\footnotesize\ttfamily \#define R\+A\+N\+G\+E\+P\+I\+S\+Z\+E\+RO(\begin{DoxyParamCaption}\item[{}]{r }\end{DoxyParamCaption})~(r == N\+U\+LL $\vert$$\vert$ \hyperlink{geohash_8h_aa0025397de7ebbc5b0ee9bf2c1c64221}{R\+A\+N\+G\+E\+I\+S\+Z\+E\+RO}($\ast$r))}
+
+
+
+Definition at line 45 of file geohash.\+h.
+
+
+
+\subsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{geohash_8h_afe54febf5f641279715c8d1c65abd279}\label{geohash_8h_afe54febf5f641279715c8d1c65abd279}} 
+\index{geohash.\+h@{geohash.\+h}!Geo\+Direction@{Geo\+Direction}}
+\index{Geo\+Direction@{Geo\+Direction}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{Geo\+Direction}{GeoDirection}}
+{\footnotesize\ttfamily enum \hyperlink{geohash_8h_afe54febf5f641279715c8d1c65abd279}{Geo\+Direction}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+TH@{G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+TH}!geohash.\+h@{geohash.\+h}}\index{geohash.\+h@{geohash.\+h}!G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+TH@{G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+TH}}}\mbox{\Hypertarget{geohash_8h_afe54febf5f641279715c8d1c65abd279ac3dd570b32d880635680ac8b57ae86a0}\label{geohash_8h_afe54febf5f641279715c8d1c65abd279ac3dd570b32d880635680ac8b57ae86a0}} 
+G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+TH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{G\+E\+O\+H\+A\+S\+H\+\_\+\+E\+A\+ST@{G\+E\+O\+H\+A\+S\+H\+\_\+\+E\+A\+ST}!geohash.\+h@{geohash.\+h}}\index{geohash.\+h@{geohash.\+h}!G\+E\+O\+H\+A\+S\+H\+\_\+\+E\+A\+ST@{G\+E\+O\+H\+A\+S\+H\+\_\+\+E\+A\+ST}}}\mbox{\Hypertarget{geohash_8h_afe54febf5f641279715c8d1c65abd279a2b42811ab6cfc32c02e6259a51af6329}\label{geohash_8h_afe54febf5f641279715c8d1c65abd279a2b42811ab6cfc32c02e6259a51af6329}} 
+G\+E\+O\+H\+A\+S\+H\+\_\+\+E\+A\+ST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{G\+E\+O\+H\+A\+S\+H\+\_\+\+W\+E\+ST@{G\+E\+O\+H\+A\+S\+H\+\_\+\+W\+E\+ST}!geohash.\+h@{geohash.\+h}}\index{geohash.\+h@{geohash.\+h}!G\+E\+O\+H\+A\+S\+H\+\_\+\+W\+E\+ST@{G\+E\+O\+H\+A\+S\+H\+\_\+\+W\+E\+ST}}}\mbox{\Hypertarget{geohash_8h_afe54febf5f641279715c8d1c65abd279ae9440576a704d3d20b6bc74c015cfeed}\label{geohash_8h_afe54febf5f641279715c8d1c65abd279ae9440576a704d3d20b6bc74c015cfeed}} 
+G\+E\+O\+H\+A\+S\+H\+\_\+\+W\+E\+ST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+TH@{G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+TH}!geohash.\+h@{geohash.\+h}}\index{geohash.\+h@{geohash.\+h}!G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+TH@{G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+TH}}}\mbox{\Hypertarget{geohash_8h_afe54febf5f641279715c8d1c65abd279a0e42582119ec990da5b93c28f7934616}\label{geohash_8h_afe54febf5f641279715c8d1c65abd279a0e42582119ec990da5b93c28f7934616}} 
+G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+TH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+T\+H\+\_\+\+W\+E\+ST@{G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+T\+H\+\_\+\+W\+E\+ST}!geohash.\+h@{geohash.\+h}}\index{geohash.\+h@{geohash.\+h}!G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+T\+H\+\_\+\+W\+E\+ST@{G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+T\+H\+\_\+\+W\+E\+ST}}}\mbox{\Hypertarget{geohash_8h_afe54febf5f641279715c8d1c65abd279abca4441a24f3f3497babb4acd4afa1cc}\label{geohash_8h_afe54febf5f641279715c8d1c65abd279abca4441a24f3f3497babb4acd4afa1cc}} 
+G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+T\+H\+\_\+\+W\+E\+ST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+T\+H\+\_\+\+E\+A\+ST@{G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+T\+H\+\_\+\+E\+A\+ST}!geohash.\+h@{geohash.\+h}}\index{geohash.\+h@{geohash.\+h}!G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+T\+H\+\_\+\+E\+A\+ST@{G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+T\+H\+\_\+\+E\+A\+ST}}}\mbox{\Hypertarget{geohash_8h_afe54febf5f641279715c8d1c65abd279a358e858cc47ed22928759bf433140347}\label{geohash_8h_afe54febf5f641279715c8d1c65abd279a358e858cc47ed22928759bf433140347}} 
+G\+E\+O\+H\+A\+S\+H\+\_\+\+S\+O\+U\+T\+H\+\_\+\+E\+A\+ST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+T\+\_\+\+W\+E\+ST@{G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+T\+\_\+\+W\+E\+ST}!geohash.\+h@{geohash.\+h}}\index{geohash.\+h@{geohash.\+h}!G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+T\+\_\+\+W\+E\+ST@{G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+T\+\_\+\+W\+E\+ST}}}\mbox{\Hypertarget{geohash_8h_afe54febf5f641279715c8d1c65abd279a7665c4fdbb8e7915c64e52df9a7584ef}\label{geohash_8h_afe54febf5f641279715c8d1c65abd279a7665c4fdbb8e7915c64e52df9a7584ef}} 
+G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+T\+\_\+\+W\+E\+ST&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+T\+\_\+\+E\+A\+ST@{G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+T\+\_\+\+E\+A\+ST}!geohash.\+h@{geohash.\+h}}\index{geohash.\+h@{geohash.\+h}!G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+T\+\_\+\+E\+A\+ST@{G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+T\+\_\+\+E\+A\+ST}}}\mbox{\Hypertarget{geohash_8h_afe54febf5f641279715c8d1c65abd279ab3fb4eeb8addcc068b5e643695d383bc}\label{geohash_8h_afe54febf5f641279715c8d1c65abd279ab3fb4eeb8addcc068b5e643695d383bc}} 
+G\+E\+O\+H\+A\+S\+H\+\_\+\+N\+O\+R\+T\+\_\+\+E\+A\+ST&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 55 of file geohash.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{geohash_8h_a9d0c66bc0446324364f9710b0792a332}\label{geohash_8h_a9d0c66bc0446324364f9710b0792a332}} 
+\index{geohash.\+h@{geohash.\+h}!geohash\+Decode@{geohash\+Decode}}
+\index{geohash\+Decode@{geohash\+Decode}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Decode()}{geohashDecode()}}
+{\footnotesize\ttfamily int geohash\+Decode (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range}}]{long\+\_\+range,  }\item[{const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range}}]{lat\+\_\+range,  }\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash,  }\item[{\hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$}]{area }\end{DoxyParamCaption})}
+
+
+
+Definition at line 164 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8h_a899189c910bf3bd8dbb4d5e286ac6d68}\label{geohash_8h_a899189c910bf3bd8dbb4d5e286ac6d68}} 
+\index{geohash.\+h@{geohash.\+h}!geohash\+Decode\+Area\+To\+Long\+Lat@{geohash\+Decode\+Area\+To\+Long\+Lat}}
+\index{geohash\+Decode\+Area\+To\+Long\+Lat@{geohash\+Decode\+Area\+To\+Long\+Lat}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Decode\+Area\+To\+Long\+Lat()}{geohashDecodeAreaToLongLat()}}
+{\footnotesize\ttfamily int geohash\+Decode\+Area\+To\+Long\+Lat (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$}]{area,  }\item[{double $\ast$}]{xy }\end{DoxyParamCaption})}
+
+
+
+Definition at line 206 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8h_a4438fe89f8d86f79660f48fadc3d330e}\label{geohash_8h_a4438fe89f8d86f79660f48fadc3d330e}} 
+\index{geohash.\+h@{geohash.\+h}!geohash\+Decode\+To\+Long\+Lat\+Mercator@{geohash\+Decode\+To\+Long\+Lat\+Mercator}}
+\index{geohash\+Decode\+To\+Long\+Lat\+Mercator@{geohash\+Decode\+To\+Long\+Lat\+Mercator}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Decode\+To\+Long\+Lat\+Mercator()}{geohashDecodeToLongLatMercator()}}
+{\footnotesize\ttfamily int geohash\+Decode\+To\+Long\+Lat\+Mercator (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash,  }\item[{double $\ast$}]{xy }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{geohash_8h_a8ebdc161599f7724724ac75ee42d81f3}\label{geohash_8h_a8ebdc161599f7724724ac75ee42d81f3}} 
+\index{geohash.\+h@{geohash.\+h}!geohash\+Decode\+To\+Long\+Lat\+Type@{geohash\+Decode\+To\+Long\+Lat\+Type}}
+\index{geohash\+Decode\+To\+Long\+Lat\+Type@{geohash\+Decode\+To\+Long\+Lat\+Type}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Decode\+To\+Long\+Lat\+Type()}{geohashDecodeToLongLatType()}}
+{\footnotesize\ttfamily int geohash\+Decode\+To\+Long\+Lat\+Type (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash,  }\item[{double $\ast$}]{xy }\end{DoxyParamCaption})}
+
+
+
+Definition at line 213 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8h_a5a00967d72b44e212021e16b6054cb95}\label{geohash_8h_a5a00967d72b44e212021e16b6054cb95}} 
+\index{geohash.\+h@{geohash.\+h}!geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84@{geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84}}
+\index{geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84@{geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84()}{geohashDecodeToLongLatWGS84()}}
+{\footnotesize\ttfamily int geohash\+Decode\+To\+Long\+Lat\+W\+G\+S84 (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash,  }\item[{double $\ast$}]{xy }\end{DoxyParamCaption})}
+
+
+
+Definition at line 220 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8h_a53580aec664d93f1bdbf95b406c05d2d}\label{geohash_8h_a53580aec664d93f1bdbf95b406c05d2d}} 
+\index{geohash.\+h@{geohash.\+h}!geohash\+Decode\+Type@{geohash\+Decode\+Type}}
+\index{geohash\+Decode\+Type@{geohash\+Decode\+Type}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Decode\+Type()}{geohashDecodeType()}}
+{\footnotesize\ttfamily int geohash\+Decode\+Type (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash,  }\item[{\hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$}]{area }\end{DoxyParamCaption})}
+
+
+
+Definition at line 196 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8h_a7da59855eb0522c9e5fba1e20d8bdf40}\label{geohash_8h_a7da59855eb0522c9e5fba1e20d8bdf40}} 
+\index{geohash.\+h@{geohash.\+h}!geohash\+Decode\+W\+G\+S84@{geohash\+Decode\+W\+G\+S84}}
+\index{geohash\+Decode\+W\+G\+S84@{geohash\+Decode\+W\+G\+S84}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Decode\+W\+G\+S84()}{geohashDecodeWGS84()}}
+{\footnotesize\ttfamily int geohash\+Decode\+W\+G\+S84 (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash,  }\item[{\hyperlink{struct_geo_hash_area}{Geo\+Hash\+Area} $\ast$}]{area }\end{DoxyParamCaption})}
+
+
+
+Definition at line 202 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8h_ac2ea1a7c7690dda982ac2c078853ffec}\label{geohash_8h_ac2ea1a7c7690dda982ac2c078853ffec}} 
+\index{geohash.\+h@{geohash.\+h}!geohash\+Encode@{geohash\+Encode}}
+\index{geohash\+Encode@{geohash\+Encode}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Encode()}{geohashEncode()}}
+{\footnotesize\ttfamily int geohash\+Encode (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$}]{long\+\_\+range,  }\item[{const \hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$}]{lat\+\_\+range,  }\item[{double}]{longitude,  }\item[{double}]{latitude,  }\item[{uint8\+\_\+t}]{step,  }\item[{\hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$}]{hash }\end{DoxyParamCaption})}
+
+
+
+Definition at line 121 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8h_a0ad2a287d742a780d3c21dd47d100eab}\label{geohash_8h_a0ad2a287d742a780d3c21dd47d100eab}} 
+\index{geohash.\+h@{geohash.\+h}!geohash\+Encode\+Type@{geohash\+Encode\+Type}}
+\index{geohash\+Encode\+Type@{geohash\+Encode\+Type}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Encode\+Type()}{geohashEncodeType()}}
+{\footnotesize\ttfamily int geohash\+Encode\+Type (\begin{DoxyParamCaption}\item[{double}]{longitude,  }\item[{double}]{latitude,  }\item[{uint8\+\_\+t}]{step,  }\item[{\hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$}]{hash }\end{DoxyParamCaption})}
+
+
+
+Definition at line 153 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8h_a12dfaa93c6549b235593e25e9dd49229}\label{geohash_8h_a12dfaa93c6549b235593e25e9dd49229}} 
+\index{geohash.\+h@{geohash.\+h}!geohash\+Encode\+W\+G\+S84@{geohash\+Encode\+W\+G\+S84}}
+\index{geohash\+Encode\+W\+G\+S84@{geohash\+Encode\+W\+G\+S84}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Encode\+W\+G\+S84()}{geohashEncodeWGS84()}}
+{\footnotesize\ttfamily int geohash\+Encode\+W\+G\+S84 (\begin{DoxyParamCaption}\item[{double}]{longitude,  }\item[{double}]{latitude,  }\item[{uint8\+\_\+t}]{step,  }\item[{\hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$}]{hash }\end{DoxyParamCaption})}
+
+
+
+Definition at line 159 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8h_a9bf036d7070a97ccd845af7b2fe9209d}\label{geohash_8h_a9bf036d7070a97ccd845af7b2fe9209d}} 
+\index{geohash.\+h@{geohash.\+h}!geohash\+Get\+Coord\+Range@{geohash\+Get\+Coord\+Range}}
+\index{geohash\+Get\+Coord\+Range@{geohash\+Get\+Coord\+Range}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Get\+Coord\+Range()}{geohashGetCoordRange()}}
+{\footnotesize\ttfamily void geohash\+Get\+Coord\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$}]{long\+\_\+range,  }\item[{\hyperlink{struct_geo_hash_range}{Geo\+Hash\+Range} $\ast$}]{lat\+\_\+range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 112 of file geohash.\+c.
+
+\mbox{\Hypertarget{geohash_8h_a4fb9cba01031ddac9332d8f5ffd14a45}\label{geohash_8h_a4fb9cba01031ddac9332d8f5ffd14a45}} 
+\index{geohash.\+h@{geohash.\+h}!geohash\+Neighbors@{geohash\+Neighbors}}
+\index{geohash\+Neighbors@{geohash\+Neighbors}!geohash.\+h@{geohash.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Neighbors()}{geohashNeighbors()}}
+{\footnotesize\ttfamily void geohash\+Neighbors (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$}]{hash,  }\item[{\hyperlink{struct_geo_hash_neighbors}{Geo\+Hash\+Neighbors} $\ast$}]{neighbors }\end{DoxyParamCaption})}
+
+
+
+Definition at line 262 of file geohash.\+c.
+

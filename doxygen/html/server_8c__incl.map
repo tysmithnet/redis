@@ -1,0 +1,22 @@
+<map id="src/server.c" name="src/server.c">
+<area shape="rect" id="node2" href="$server_8h.html" title="server.h" alt="" coords="1222,80,1291,107"/>
+<area shape="rect" id="node30" href="$latency_8h.html" title="latency.h" alt="" coords="2298,155,2373,181"/>
+<area shape="rect" id="node31" href="$cluster_8h.html" title="cluster.h" alt="" coords="2379,80,2451,107"/>
+<area shape="rect" id="node32" href="$slowlog_8h.html" title="slowlog.h" alt="" coords="2475,80,2553,107"/>
+<area shape="rect" id="node33" href="$bio_8h.html" title="bio.h" alt="" coords="2577,80,2627,107"/>
+<area shape="rect" id="node34" href="$atomicvar_8h.html" title="atomicvar.h" alt="" coords="2106,80,2197,107"/>
+<area shape="rect" id="node50" href="$asciilogo_8h.html" title="asciilogo.h" alt="" coords="4185,80,4269,107"/>
+<area shape="rect" id="node3" href="$fmacros_8h.html" title="fmacros.h" alt="" coords="962,155,1042,181"/>
+<area shape="rect" id="node4" href="$config_8h.html" title="config.h" alt="" coords="1067,155,1135,181"/>
+<area shape="rect" id="node5" href="$solarisfixes_8h.html" title="solarisfixes.h" alt="" coords="1159,155,1258,181"/>
+<area shape="rect" id="node6" href="$rio_8h.html" title="rio.h" alt="" coords="1283,155,1329,181"/>
+<area shape="rect" id="node8" href="$sds_8h.html" title="sds.h" alt="" coords="1279,229,1333,256"/>
+<area shape="rect" id="node22" href="$ae_8h.html" title="ae.h" alt="" coords="1405,155,1452,181"/>
+<area shape="rect" id="node23" href="$dict_8h.html" title="dict.h" alt="" coords="328,155,383,181"/>
+<area shape="rect" id="node24" href="$adlist_8h.html" title="adlist.h" alt="" coords="407,155,471,181"/>
+<area shape="rect" id="node25" href="$zmalloc_8h.html" title="zmalloc.h" alt="" coords="496,155,575,181"/>
+<area shape="rect" id="node26" href="$anet_8h.html" title="anet.h" alt="" coords="599,155,658,181"/>
+<area shape="rect" id="node27" href="$ziplist_8h.html" title="ziplist.h" alt="" coords="682,155,749,181"/>
+<area shape="rect" id="node28" href="$intset_8h.html" title="intset.h" alt="" coords="773,155,839,181"/>
+<area shape="rect" id="node29" href="$version_8h.html" title="version.h" alt="" coords="863,155,938,181"/>
+</map>

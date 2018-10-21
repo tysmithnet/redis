@@ -1,0 +1,870 @@
+\hypertarget{ziplist_8c}{}\section{src/ziplist.c File Reference}
+\label{ziplist_8c}\index{src/ziplist.\+c@{src/ziplist.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}zmalloc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}util.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ziplist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}endianconv.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}redisassert.\+h\char`\"{}}\newline
+Include dependency graph for ziplist.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ziplist_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structzlentry}{zlentry}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ziplist_8c_a31a8f9d5b5bad75318741cfca5de5ea8}{Z\+I\+P\+\_\+\+E\+ND}~255         /$\ast$ Special \char`\"{}end of ziplist\char`\"{} entry. $\ast$/
+\item 
+\#define \hyperlink{ziplist_8c_a71ab0a14d45281783972841212042df8}{Z\+I\+P\+\_\+\+B\+I\+G\+\_\+\+P\+R\+E\+V\+L\+EN}
+\item 
+\#define \hyperlink{ziplist_8c_a8e8a0c4c5531ab6885734f42c1fb4398}{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}~0xc0
+\item 
+\#define \hyperlink{ziplist_8c_a331cc9d9df06684f3fcc040248ee2707}{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}~0x30
+\item 
+\#define \hyperlink{ziplist_8c_aa60ad99f14e9fc441ba912c694f2e9ae}{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+06B}~(0 $<$$<$ 6)
+\item 
+\#define \hyperlink{ziplist_8c_a755263ebd8d5ac7daf2cc479e3cde7a0}{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+14B}~(1 $<$$<$ 6)
+\item 
+\#define \hyperlink{ziplist_8c_a40174f4ec7db11cdaaab4d6387e0a79e}{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+32B}~(2 $<$$<$ 6)
+\item 
+\#define \hyperlink{ziplist_8c_a57e9bc0aacf9f30d8b76566e40c31a6b}{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+16B}~(0xc0 $\vert$ 0$<$$<$4)
+\item 
+\#define \hyperlink{ziplist_8c_addebc046cc76d482d22d7b4bf90a0649}{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+32B}~(0xc0 $\vert$ 1$<$$<$4)
+\item 
+\#define \hyperlink{ziplist_8c_a1f551b3ab3a4d79190f367e59d6dab0a}{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+64B}~(0xc0 $\vert$ 2$<$$<$4)
+\item 
+\#define \hyperlink{ziplist_8c_a74a906bccde7afa94f1068634a637152}{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+24B}~(0xc0 $\vert$ 3$<$$<$4)
+\item 
+\#define \hyperlink{ziplist_8c_a0c6338e8866d85135cfc7c340b2c213c}{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+8B}~0xfe
+\item 
+\#define \hyperlink{ziplist_8c_a7f67361d1c0359f801c75c65b9a2b07e}{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+A\+SK}
+\item 
+\#define \hyperlink{ziplist_8c_af5120069edca0811f31d130674a0de47}{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+IN}~0xf1    /$\ast$ 11110001 $\ast$/
+\item 
+\#define \hyperlink{ziplist_8c_a69ea30cd75038067a13d2151a1c741ad}{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+AX}~0xfd    /$\ast$ 11111101 $\ast$/
+\item 
+\#define \hyperlink{ziplist_8c_a4ade7f65b05984f1f21a8223e70c9fac}{I\+N\+T24\+\_\+\+M\+AX}~0x7fffff
+\item 
+\#define \hyperlink{ziplist_8c_a6e56f9eebea6721ecf9e59d3a5190617}{I\+N\+T24\+\_\+\+M\+IN}~(-\/\hyperlink{ziplist_8c_a4ade7f65b05984f1f21a8223e70c9fac}{I\+N\+T24\+\_\+\+M\+AX} -\/ 1)
+\item 
+\#define \hyperlink{ziplist_8c_a2cb79e478d5bda74592c92230cfd6761}{Z\+I\+P\+\_\+\+I\+S\+\_\+\+S\+TR}(enc)~(((enc) \& \hyperlink{ziplist_8c_a8e8a0c4c5531ab6885734f42c1fb4398}{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}) $<$ \hyperlink{ziplist_8c_a8e8a0c4c5531ab6885734f42c1fb4398}{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK})
+\item 
+\#define \hyperlink{ziplist_8c_a28b9c7884758bc2d52f204903a4bb642}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+B\+Y\+T\+ES}(zl)~($\ast$((uint32\+\_\+t$\ast$)(zl)))
+\item 
+\#define \hyperlink{ziplist_8c_adf2235d74c81861c85fb5d2ffa209397}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+I\+L\+\_\+\+O\+F\+F\+S\+ET}(zl)~($\ast$((uint32\+\_\+t$\ast$)((zl)+sizeof(uint32\+\_\+t))))
+\item 
+\#define \hyperlink{ziplist_8c_a6d779e84aca736e354768fcf87393b98}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+L\+E\+N\+G\+TH}(zl)~($\ast$((uint16\+\_\+t$\ast$)((zl)+sizeof(uint32\+\_\+t)$\ast$2)))
+\item 
+\#define \hyperlink{ziplist_8c_a3b8ef40d77ce00bcad424d0c07e2de95}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}~(sizeof(uint32\+\_\+t)$\ast$2+sizeof(uint16\+\_\+t))
+\item 
+\#define \hyperlink{ziplist_8c_ab15031d20f1d4b1a8b6bc843752958ee}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+D\+\_\+\+S\+I\+ZE}~(sizeof(uint8\+\_\+t))
+\item 
+\#define \hyperlink{ziplist_8c_a4f6c9857a0ae335f2c4b214b63b5a6c8}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+H\+E\+AD}(zl)~((zl)+\hyperlink{ziplist_8c_a3b8ef40d77ce00bcad424d0c07e2de95}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE})
+\item 
+\#define \hyperlink{ziplist_8c_a13a02cab4315ab94186102584601273e}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+T\+A\+IL}(zl)~((zl)+\hyperlink{endianconv_8h_a4e85d9ae58a3b1e6ceaabfd4689002c7}{intrev32ifbe}(\hyperlink{ziplist_8c_adf2235d74c81861c85fb5d2ffa209397}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+I\+L\+\_\+\+O\+F\+F\+S\+ET}(zl)))
+\item 
+\#define \hyperlink{ziplist_8c_a6e98a67acf629dd869bb532a1d339ccd}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+ND}(zl)~((zl)+\hyperlink{endianconv_8h_a4e85d9ae58a3b1e6ceaabfd4689002c7}{intrev32ifbe}(\hyperlink{ziplist_8c_a28b9c7884758bc2d52f204903a4bb642}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+B\+Y\+T\+ES}(zl))-\/1)
+\item 
+\#define \hyperlink{ziplist_8c_a929244a46d13b9b5e1007136d3922daf}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+I\+N\+C\+R\+\_\+\+L\+E\+N\+G\+TH}(zl,  incr)
+\item 
+\#define \hyperlink{ziplist_8c_a6e6a9632a27a67965ebf58cab958782c}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+Z\+E\+RO}(zle)
+\item 
+\#define \hyperlink{ziplist_8c_aec82eca55c364327e705c74e6e636585}{Z\+I\+P\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+N\+C\+O\+D\+I\+NG}(ptr,  encoding)
+\item 
+\#define \hyperlink{ziplist_8c_acdddca374b430c930d4b2d08f5de7a62}{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+L\+E\+N\+G\+TH}(ptr,  encoding,  lensize,  len)
+\item 
+\#define \hyperlink{ziplist_8c_a0bae94c4c67cbd6a27ea3e2f17fb0210}{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+E\+N\+S\+I\+ZE}(ptr,  prevlensize)
+\item 
+\#define \hyperlink{ziplist_8c_a3e5b2bc4707dc1097db2726494cc3728}{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+EN}(ptr,  prevlensize,  prevlen)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structzlentry}{zlentry} \hyperlink{ziplist_8c_af9ad88f4de14f56a37132d005a7711a9}{zlentry}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \hyperlink{ziplist_8c_a14104b5b52eb74c02425de07be688ae1}{zip\+Int\+Size} (unsigned char encoding)
+\item 
+unsigned int \hyperlink{ziplist_8c_af6a64f66386fa810f8390189d4d4bc84}{zip\+Store\+Entry\+Encoding} (unsigned char $\ast$p, unsigned char encoding, unsigned int rawlen)
+\item 
+int \hyperlink{ziplist_8c_a44539f5b3841dd0b0692c7bf9372d805}{zip\+Store\+Prev\+Entry\+Length\+Large} (unsigned char $\ast$p, unsigned int len)
+\item 
+unsigned int \hyperlink{ziplist_8c_a3e6284647b6fd491e7298adda9fefab0}{zip\+Store\+Prev\+Entry\+Length} (unsigned char $\ast$p, unsigned int len)
+\item 
+int \hyperlink{ziplist_8c_a791f970f4641646e20cd85021bdad6be}{zip\+Prev\+Len\+Byte\+Diff} (unsigned char $\ast$p, unsigned int len)
+\item 
+unsigned int \hyperlink{ziplist_8c_a5b107de78782c3d92a468508948f70d0}{zip\+Raw\+Entry\+Length} (unsigned char $\ast$p)
+\item 
+int \hyperlink{ziplist_8c_ae6a264e59da543abb4aa259626b5451d}{zip\+Try\+Encoding} (unsigned char $\ast$entry, unsigned int entrylen, long long $\ast$v, unsigned char $\ast$encoding)
+\item 
+void \hyperlink{ziplist_8c_a4b15d17cd0f3c38c8b791704e7b51fcb}{zip\+Save\+Integer} (unsigned char $\ast$p, int64\+\_\+t value, unsigned char encoding)
+\item 
+int64\+\_\+t \hyperlink{ziplist_8c_a1ecdda4c9ae14cf5f0bf125ca4566c0e}{zip\+Load\+Integer} (unsigned char $\ast$p, unsigned char encoding)
+\item 
+void \hyperlink{ziplist_8c_a2ec5bd634dcd9002899f24818aded22d}{zip\+Entry} (unsigned char $\ast$p, \hyperlink{structzlentry}{zlentry} $\ast$e)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_a732833b234259c9c9b3d0dfd859f4f97}{ziplist\+New} (void)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_acebfc609c69fe557bb04fac296ec24d0}{ziplist\+Resize} (unsigned char $\ast$zl, unsigned int len)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_aff3d4089f5d9771a1f9ded6c68879ded}{\+\_\+\+\_\+ziplist\+Cascade\+Update} (unsigned char $\ast$zl, unsigned char $\ast$p)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_afccb6de8361b817696e33641ba0f4e00}{\+\_\+\+\_\+ziplist\+Delete} (unsigned char $\ast$zl, unsigned char $\ast$p, unsigned int num)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_a8d4f160c1cfc8e4f95793c9e8e213141}{\+\_\+\+\_\+ziplist\+Insert} (unsigned char $\ast$zl, unsigned char $\ast$p, unsigned char $\ast$s, unsigned int slen)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_a84a9763198018301981a19548e3ab94c}{ziplist\+Merge} (unsigned char $\ast$$\ast$first, unsigned char $\ast$$\ast$second)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_ab2ab85194d6dd69a873a28f4563a25df}{ziplist\+Push} (unsigned char $\ast$zl, unsigned char $\ast$s, unsigned int slen, int where)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_af8b793301d127340cc7fc69dffc80119}{ziplist\+Index} (unsigned char $\ast$zl, int index)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_ac1e3c4fab3b468974b4273d0d5ba2419}{ziplist\+Next} (unsigned char $\ast$zl, unsigned char $\ast$p)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_a3d9171df1d8c7591a361fbd041544b87}{ziplist\+Prev} (unsigned char $\ast$zl, unsigned char $\ast$p)
+\item 
+unsigned int \hyperlink{ziplist_8c_a7c08bc766a336ff2154e99ce7e262ec5}{ziplist\+Get} (unsigned char $\ast$p, unsigned char $\ast$$\ast$sstr, unsigned int $\ast$slen, long long $\ast$sval)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_a38dc0687ab5698f731d8468ab3c734fa}{ziplist\+Insert} (unsigned char $\ast$zl, unsigned char $\ast$p, unsigned char $\ast$s, unsigned int slen)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_a53b766532c392b04c684006148c1ae48}{ziplist\+Delete} (unsigned char $\ast$zl, unsigned char $\ast$$\ast$p)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_a2fc707b39124cbbc1da6659f116087f8}{ziplist\+Delete\+Range} (unsigned char $\ast$zl, int index, unsigned int num)
+\item 
+unsigned int \hyperlink{ziplist_8c_a5660156b021de5736129bdb6201fcf03}{ziplist\+Compare} (unsigned char $\ast$p, unsigned char $\ast$sstr, unsigned int slen)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8c_a05ef69116b8380403158019862b2780a}{ziplist\+Find} (unsigned char $\ast$p, unsigned char $\ast$vstr, unsigned int vlen, unsigned int skip)
+\item 
+unsigned int \hyperlink{ziplist_8c_a947d260bf3a548b4ab8f19068258f4db}{ziplist\+Len} (unsigned char $\ast$zl)
+\item 
+size\+\_\+t \hyperlink{ziplist_8c_a2fc699da80e3b5dfe10057ecfbdb3fa1}{ziplist\+Blob\+Len} (unsigned char $\ast$zl)
+\item 
+void \hyperlink{ziplist_8c_af3382f6d66d8e9c49b6fd8b1cf089d20}{ziplist\+Repr} (unsigned char $\ast$zl)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{ziplist_8c_a4ade7f65b05984f1f21a8223e70c9fac}\label{ziplist_8c_a4ade7f65b05984f1f21a8223e70c9fac}} 
+\index{ziplist.\+c@{ziplist.\+c}!I\+N\+T24\+\_\+\+M\+AX@{I\+N\+T24\+\_\+\+M\+AX}}
+\index{I\+N\+T24\+\_\+\+M\+AX@{I\+N\+T24\+\_\+\+M\+AX}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{I\+N\+T24\+\_\+\+M\+AX}{INT24\_MAX}}
+{\footnotesize\ttfamily \#define I\+N\+T24\+\_\+\+M\+AX~0x7fffff}
+
+
+
+Definition at line 220 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a6e56f9eebea6721ecf9e59d3a5190617}\label{ziplist_8c_a6e56f9eebea6721ecf9e59d3a5190617}} 
+\index{ziplist.\+c@{ziplist.\+c}!I\+N\+T24\+\_\+\+M\+IN@{I\+N\+T24\+\_\+\+M\+IN}}
+\index{I\+N\+T24\+\_\+\+M\+IN@{I\+N\+T24\+\_\+\+M\+IN}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{I\+N\+T24\+\_\+\+M\+IN}{INT24\_MIN}}
+{\footnotesize\ttfamily \#define I\+N\+T24\+\_\+\+M\+IN~(-\/\hyperlink{ziplist_8c_a4ade7f65b05984f1f21a8223e70c9fac}{I\+N\+T24\+\_\+\+M\+AX} -\/ 1)}
+
+
+
+Definition at line 221 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a71ab0a14d45281783972841212042df8}\label{ziplist_8c_a71ab0a14d45281783972841212042df8}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+B\+I\+G\+\_\+\+P\+R\+E\+V\+L\+EN@{Z\+I\+P\+\_\+\+B\+I\+G\+\_\+\+P\+R\+E\+V\+L\+EN}}
+\index{Z\+I\+P\+\_\+\+B\+I\+G\+\_\+\+P\+R\+E\+V\+L\+EN@{Z\+I\+P\+\_\+\+B\+I\+G\+\_\+\+P\+R\+E\+V\+L\+EN}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+B\+I\+G\+\_\+\+P\+R\+E\+V\+L\+EN}{ZIP\_BIG\_PREVLEN}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+B\+I\+G\+\_\+\+P\+R\+E\+V\+L\+EN}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+254 \textcolor{comment}{/* Max number of bytes of the previous entry, for}
+\textcolor{comment}{                               the "prevlen" field prefixing each entry, to be}
+\textcolor{comment}{                               represented with just a single byte. Otherwise}
+\textcolor{comment}{                               it is represented as FF AA BB CC DD, where}
+\textcolor{comment}{                               AA BB CC DD are a 4 bytes unsigned integer}
+\textcolor{comment}{                               representing the previous entry len. */}
+\end{DoxyCode}
+
+
+Definition at line 194 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_acdddca374b430c930d4b2d08f5de7a62}\label{ziplist_8c_acdddca374b430c930d4b2d08f5de7a62}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+L\+E\+N\+G\+TH@{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+L\+E\+N\+G\+TH}}
+\index{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+L\+E\+N\+G\+TH@{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+L\+E\+N\+G\+TH}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+L\+E\+N\+G\+TH}{ZIP\_DECODE\_LENGTH}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+L\+E\+N\+G\+TH(\begin{DoxyParamCaption}\item[{}]{ptr,  }\item[{}]{encoding,  }\item[{}]{lensize,  }\item[{}]{len }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                    \(\backslash\)
+    ZIP\_ENTRY\_ENCODING((ptr), (encoding));                                     \(\backslash\)
+    if ((encoding) < \hyperlink{ziplist_8c_a8e8a0c4c5531ab6885734f42c1fb4398}{ZIP\_STR\_MASK}) \{                                           \(\backslash\)
+        if ((encoding) == \hyperlink{ziplist_8c_aa60ad99f14e9fc441ba912c694f2e9ae}{ZIP\_STR\_06B}) \{                                       \(\backslash\)
+            (lensize) = 1;                                                     \(\backslash\)
+            (len) = (ptr)[0] & 0x3f;                                           \(\backslash\)
+        \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((encoding) == \hyperlink{ziplist_8c_a755263ebd8d5ac7daf2cc479e3cde7a0}{ZIP\_STR\_14B}) \{                                \(\backslash\)
+            (lensize) = 2;                                                     \(\backslash\)
+            (len) = (((ptr)[0] & 0x3f) << 8) | (ptr)[1];                       \(\backslash\)
+        \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((encoding) == \hyperlink{ziplist_8c_a40174f4ec7db11cdaaab4d6387e0a79e}{ZIP\_STR\_32B}) \{                                \(\backslash\)
+            (lensize) = 5;                                                     \(\backslash\)
+            (len) = ((ptr)[1] << 24) |                                         \(\backslash\)
+                    ((ptr)[2] << 16) |                                         \(\backslash\)
+                    ((ptr)[3] <<  8) |                                         \(\backslash\)
+                    ((ptr)[4]);                                                \(\backslash\)
+        \} \textcolor{keywordflow}{else} \{                                                               \(\backslash\)
+            panic(\textcolor{stringliteral}{"Invalid string encoding 0x%02X"}, (encoding));               \(\backslash\)
+        \}                                                                      \(\backslash\)
+    \} \textcolor{keywordflow}{else} \{                                                                   \(\backslash\)
+        (lensize) = 1;                                                         \(\backslash\)
+        (len) = \hyperlink{ziplist_8c_a14104b5b52eb74c02425de07be688ae1}{zipIntSize}(encoding);                                          \(\backslash\)
+    \}                                                                          \(\backslash\)
+\} \textcolor{keywordflow}{while}(0);
+\end{DoxyCode}
+
+
+Definition at line 371 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a3e5b2bc4707dc1097db2726494cc3728}\label{ziplist_8c_a3e5b2bc4707dc1097db2726494cc3728}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+EN@{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+EN}}
+\index{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+EN@{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+EN}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+EN}{ZIP\_DECODE\_PREVLEN}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+EN(\begin{DoxyParamCaption}\item[{}]{ptr,  }\item[{}]{prevlensize,  }\item[{}]{prevlen }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                     \(\backslash\)
+    ZIP\_DECODE\_PREVLENSIZE(ptr, prevlensize);                                  \(\backslash\)
+    if ((prevlensize) == 1) \{                                                  \(\backslash\)
+        (prevlen) = (ptr)[0];                                                  \(\backslash\)
+    \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((prevlensize) == 5) \{                                           \(\backslash\)
+        assert(\textcolor{keyword}{sizeof}((prevlen)) == 4);                                    \(\backslash\)
+        memcpy(&(prevlen), ((\textcolor{keywordtype}{char}*)(ptr)) + 1, 4);                             \(\backslash\)
+        memrev32ifbe(&prevlen);                                                \(\backslash\)
+    \}                                                                          \(\backslash\)
+\} \textcolor{keywordflow}{while}(0);
+\end{DoxyCode}
+
+
+Definition at line 438 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a0bae94c4c67cbd6a27ea3e2f17fb0210}\label{ziplist_8c_a0bae94c4c67cbd6a27ea3e2f17fb0210}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+E\+N\+S\+I\+ZE@{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+E\+N\+S\+I\+ZE}}
+\index{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+E\+N\+S\+I\+ZE@{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+E\+N\+S\+I\+ZE}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+E\+N\+S\+I\+ZE}{ZIP\_DECODE\_PREVLENSIZE}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+D\+E\+C\+O\+D\+E\+\_\+\+P\+R\+E\+V\+L\+E\+N\+S\+I\+ZE(\begin{DoxyParamCaption}\item[{}]{ptr,  }\item[{}]{prevlensize }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                          \(\backslash\)
+    if ((ptr)[0] < \hyperlink{ziplist_8c_a71ab0a14d45281783972841212042df8}{ZIP\_BIG\_PREVLEN}) \{                                          \(\backslash\)
+        (prevlensize) = 1;                                                     \(\backslash\)
+    \} \textcolor{keywordflow}{else} \{                                                                   \(\backslash\)
+        (prevlensize) = 5;                                                     \(\backslash\)
+    \}                                                                          \(\backslash\)
+\} \textcolor{keywordflow}{while}(0);
+\end{DoxyCode}
+
+
+Definition at line 423 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a31a8f9d5b5bad75318741cfca5de5ea8}\label{ziplist_8c_a31a8f9d5b5bad75318741cfca5de5ea8}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+E\+ND@{Z\+I\+P\+\_\+\+E\+ND}}
+\index{Z\+I\+P\+\_\+\+E\+ND@{Z\+I\+P\+\_\+\+E\+ND}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+E\+ND}{ZIP\_END}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+E\+ND~255         /$\ast$ Special \char`\"{}end of ziplist\char`\"{} entry. $\ast$/}
+
+
+
+Definition at line 193 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_aec82eca55c364327e705c74e6e636585}\label{ziplist_8c_aec82eca55c364327e705c74e6e636585}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+N\+C\+O\+D\+I\+NG@{Z\+I\+P\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+N\+C\+O\+D\+I\+NG}}
+\index{Z\+I\+P\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+N\+C\+O\+D\+I\+NG@{Z\+I\+P\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+N\+C\+O\+D\+I\+NG}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+N\+C\+O\+D\+I\+NG}{ZIP\_ENTRY\_ENCODING}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+N\+C\+O\+D\+I\+NG(\begin{DoxyParamCaption}\item[{}]{ptr,  }\item[{}]{encoding }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{  \(\backslash\)
+    (encoding) = (ptr[0]); \(\backslash\)
+    if ((encoding) < \hyperlink{ziplist_8c_a8e8a0c4c5531ab6885734f42c1fb4398}{ZIP\_STR\_MASK}) (encoding) &= \hyperlink{ziplist_8c_a8e8a0c4c5531ab6885734f42c1fb4398}{ZIP\_STR\_MASK}; \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 300 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a57e9bc0aacf9f30d8b76566e40c31a6b}\label{ziplist_8c_a57e9bc0aacf9f30d8b76566e40c31a6b}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+I\+N\+T\+\_\+16B@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+16B}}
+\index{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+16B@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+16B}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+16B}{ZIP\_INT\_16B}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+I\+N\+T\+\_\+16B~(0xc0 $\vert$ 0$<$$<$4)}
+
+
+
+Definition at line 207 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a74a906bccde7afa94f1068634a637152}\label{ziplist_8c_a74a906bccde7afa94f1068634a637152}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+I\+N\+T\+\_\+24B@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+24B}}
+\index{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+24B@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+24B}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+24B}{ZIP\_INT\_24B}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+I\+N\+T\+\_\+24B~(0xc0 $\vert$ 3$<$$<$4)}
+
+
+
+Definition at line 210 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_addebc046cc76d482d22d7b4bf90a0649}\label{ziplist_8c_addebc046cc76d482d22d7b4bf90a0649}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+I\+N\+T\+\_\+32B@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+32B}}
+\index{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+32B@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+32B}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+32B}{ZIP\_INT\_32B}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+I\+N\+T\+\_\+32B~(0xc0 $\vert$ 1$<$$<$4)}
+
+
+
+Definition at line 208 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a1f551b3ab3a4d79190f367e59d6dab0a}\label{ziplist_8c_a1f551b3ab3a4d79190f367e59d6dab0a}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+I\+N\+T\+\_\+64B@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+64B}}
+\index{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+64B@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+64B}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+64B}{ZIP\_INT\_64B}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+I\+N\+T\+\_\+64B~(0xc0 $\vert$ 2$<$$<$4)}
+
+
+
+Definition at line 209 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a0c6338e8866d85135cfc7c340b2c213c}\label{ziplist_8c_a0c6338e8866d85135cfc7c340b2c213c}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+I\+N\+T\+\_\+8B@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+8B}}
+\index{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+8B@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+8B}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+8B}{ZIP\_INT\_8B}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+I\+N\+T\+\_\+8B~0xfe}
+
+
+
+Definition at line 211 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a7f67361d1c0359f801c75c65b9a2b07e}\label{ziplist_8c_a7f67361d1c0359f801c75c65b9a2b07e}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+A\+SK@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+A\+SK}}
+\index{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+A\+SK@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+A\+SK}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+A\+SK}{ZIP\_INT\_IMM\_MASK}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+A\+SK}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+0x0f   \textcolor{comment}{/* Mask to extract the 4 bits value. To add}
+\textcolor{comment}{                                   one is needed to reconstruct the value. */}
+\end{DoxyCode}
+
+
+Definition at line 215 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a69ea30cd75038067a13d2151a1c741ad}\label{ziplist_8c_a69ea30cd75038067a13d2151a1c741ad}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+AX@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+AX}}
+\index{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+AX@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+AX}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+AX}{ZIP\_INT\_IMM\_MAX}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+AX~0xfd    /$\ast$ 11111101 $\ast$/}
+
+
+
+Definition at line 218 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_af5120069edca0811f31d130674a0de47}\label{ziplist_8c_af5120069edca0811f31d130674a0de47}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+IN@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+IN}}
+\index{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+IN@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+IN}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+IN}{ZIP\_INT\_IMM\_MIN}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+I\+M\+M\+\_\+\+M\+IN~0xf1    /$\ast$ 11110001 $\ast$/}
+
+
+
+Definition at line 217 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a331cc9d9df06684f3fcc040248ee2707}\label{ziplist_8c_a331cc9d9df06684f3fcc040248ee2707}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}}
+\index{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK@{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}{ZIP\_INT\_MASK}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK~0x30}
+
+
+
+Definition at line 203 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a2cb79e478d5bda74592c92230cfd6761}\label{ziplist_8c_a2cb79e478d5bda74592c92230cfd6761}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+I\+S\+\_\+\+S\+TR@{Z\+I\+P\+\_\+\+I\+S\+\_\+\+S\+TR}}
+\index{Z\+I\+P\+\_\+\+I\+S\+\_\+\+S\+TR@{Z\+I\+P\+\_\+\+I\+S\+\_\+\+S\+TR}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+I\+S\+\_\+\+S\+TR}{ZIP\_IS\_STR}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+I\+S\+\_\+\+S\+TR(\begin{DoxyParamCaption}\item[{}]{enc }\end{DoxyParamCaption})~(((enc) \& \hyperlink{ziplist_8c_a8e8a0c4c5531ab6885734f42c1fb4398}{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}) $<$ \hyperlink{ziplist_8c_a8e8a0c4c5531ab6885734f42c1fb4398}{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK})}
+
+
+
+Definition at line 225 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_aa60ad99f14e9fc441ba912c694f2e9ae}\label{ziplist_8c_aa60ad99f14e9fc441ba912c694f2e9ae}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+S\+T\+R\+\_\+06B@{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+06B}}
+\index{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+06B@{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+06B}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+06B}{ZIP\_STR\_06B}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+S\+T\+R\+\_\+06B~(0 $<$$<$ 6)}
+
+
+
+Definition at line 204 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a755263ebd8d5ac7daf2cc479e3cde7a0}\label{ziplist_8c_a755263ebd8d5ac7daf2cc479e3cde7a0}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+S\+T\+R\+\_\+14B@{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+14B}}
+\index{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+14B@{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+14B}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+14B}{ZIP\_STR\_14B}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+S\+T\+R\+\_\+14B~(1 $<$$<$ 6)}
+
+
+
+Definition at line 205 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a40174f4ec7db11cdaaab4d6387e0a79e}\label{ziplist_8c_a40174f4ec7db11cdaaab4d6387e0a79e}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+S\+T\+R\+\_\+32B@{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+32B}}
+\index{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+32B@{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+32B}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+32B}{ZIP\_STR\_32B}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+S\+T\+R\+\_\+32B~(2 $<$$<$ 6)}
+
+
+
+Definition at line 206 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a8e8a0c4c5531ab6885734f42c1fb4398}\label{ziplist_8c_a8e8a0c4c5531ab6885734f42c1fb4398}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK@{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}}
+\index{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK@{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}{ZIP\_STR\_MASK}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK~0xc0}
+
+
+
+Definition at line 202 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a28b9c7884758bc2d52f204903a4bb642}\label{ziplist_8c_a28b9c7884758bc2d52f204903a4bb642}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+L\+I\+S\+T\+\_\+\+B\+Y\+T\+ES@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+B\+Y\+T\+ES}}
+\index{Z\+I\+P\+L\+I\+S\+T\+\_\+\+B\+Y\+T\+ES@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+B\+Y\+T\+ES}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+L\+I\+S\+T\+\_\+\+B\+Y\+T\+ES}{ZIPLIST\_BYTES}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+L\+I\+S\+T\+\_\+\+B\+Y\+T\+ES(\begin{DoxyParamCaption}\item[{}]{zl }\end{DoxyParamCaption})~($\ast$((uint32\+\_\+t$\ast$)(zl)))}
+
+
+
+Definition at line 230 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_ab15031d20f1d4b1a8b6bc843752958ee}\label{ziplist_8c_ab15031d20f1d4b1a8b6bc843752958ee}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+D\+\_\+\+S\+I\+ZE@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+D\+\_\+\+S\+I\+ZE}}
+\index{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+D\+\_\+\+S\+I\+ZE@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+D\+\_\+\+S\+I\+ZE}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+D\+\_\+\+S\+I\+ZE}{ZIPLIST\_END\_SIZE}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+D\+\_\+\+S\+I\+ZE~(sizeof(uint8\+\_\+t))}
+
+
+
+Definition at line 245 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a6e98a67acf629dd869bb532a1d339ccd}\label{ziplist_8c_a6e98a67acf629dd869bb532a1d339ccd}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+ND@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+ND}}
+\index{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+ND@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+ND}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+ND}{ZIPLIST\_ENTRY\_END}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+E\+ND(\begin{DoxyParamCaption}\item[{}]{zl }\end{DoxyParamCaption})~((zl)+\hyperlink{endianconv_8h_a4e85d9ae58a3b1e6ceaabfd4689002c7}{intrev32ifbe}(\hyperlink{ziplist_8c_a28b9c7884758bc2d52f204903a4bb642}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+B\+Y\+T\+ES}(zl))-\/1)}
+
+
+
+Definition at line 256 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a4f6c9857a0ae335f2c4b214b63b5a6c8}\label{ziplist_8c_a4f6c9857a0ae335f2c4b214b63b5a6c8}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+H\+E\+AD@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+H\+E\+AD}}
+\index{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+H\+E\+AD@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+H\+E\+AD}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+H\+E\+AD}{ZIPLIST\_ENTRY\_HEAD}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+H\+E\+AD(\begin{DoxyParamCaption}\item[{}]{zl }\end{DoxyParamCaption})~((zl)+\hyperlink{ziplist_8c_a3b8ef40d77ce00bcad424d0c07e2de95}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE})}
+
+
+
+Definition at line 248 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a13a02cab4315ab94186102584601273e}\label{ziplist_8c_a13a02cab4315ab94186102584601273e}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+T\+A\+IL@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+T\+A\+IL}}
+\index{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+T\+A\+IL@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+T\+A\+IL}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+T\+A\+IL}{ZIPLIST\_ENTRY\_TAIL}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+T\+A\+IL(\begin{DoxyParamCaption}\item[{}]{zl }\end{DoxyParamCaption})~((zl)+\hyperlink{endianconv_8h_a4e85d9ae58a3b1e6ceaabfd4689002c7}{intrev32ifbe}(\hyperlink{ziplist_8c_adf2235d74c81861c85fb5d2ffa209397}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+I\+L\+\_\+\+O\+F\+F\+S\+ET}(zl)))}
+
+
+
+Definition at line 252 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a6e6a9632a27a67965ebf58cab958782c}\label{ziplist_8c_a6e6a9632a27a67965ebf58cab958782c}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+Z\+E\+RO@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+Z\+E\+RO}}
+\index{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+Z\+E\+RO@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+Z\+E\+RO}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+Z\+E\+RO}{ZIPLIST\_ENTRY\_ZERO}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+L\+I\+S\+T\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+Z\+E\+RO(\begin{DoxyParamCaption}\item[{}]{zle }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\{ \(\backslash\)
+    (zle)->prevrawlensize = (zle)->prevrawlen = 0; \(\backslash\)
+    (zle)->lensize = (zle)->len = (zle)->headersize = 0; \(\backslash\)
+    (zle)->encoding = 0; \(\backslash\)
+    (zle)->p = NULL; \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 291 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a3b8ef40d77ce00bcad424d0c07e2de95}\label{ziplist_8c_a3b8ef40d77ce00bcad424d0c07e2de95}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE}{ZIPLIST\_HEADER\_SIZE}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+I\+ZE~(sizeof(uint32\+\_\+t)$\ast$2+sizeof(uint16\+\_\+t))}
+
+
+
+Definition at line 242 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a929244a46d13b9b5e1007136d3922daf}\label{ziplist_8c_a929244a46d13b9b5e1007136d3922daf}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+L\+I\+S\+T\+\_\+\+I\+N\+C\+R\+\_\+\+L\+E\+N\+G\+TH@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+I\+N\+C\+R\+\_\+\+L\+E\+N\+G\+TH}}
+\index{Z\+I\+P\+L\+I\+S\+T\+\_\+\+I\+N\+C\+R\+\_\+\+L\+E\+N\+G\+TH@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+I\+N\+C\+R\+\_\+\+L\+E\+N\+G\+TH}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+L\+I\+S\+T\+\_\+\+I\+N\+C\+R\+\_\+\+L\+E\+N\+G\+TH}{ZIPLIST\_INCR\_LENGTH}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+L\+I\+S\+T\+\_\+\+I\+N\+C\+R\+\_\+\+L\+E\+N\+G\+TH(\begin{DoxyParamCaption}\item[{}]{zl,  }\item[{}]{incr }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\{ \(\backslash\)
+    if (\hyperlink{ziplist_8c_a6d779e84aca736e354768fcf87393b98}{ZIPLIST\_LENGTH}(zl) < UINT16\_MAX) \(\backslash\)
+        ZIPLIST\_LENGTH(zl) = \hyperlink{endianconv_8h_a47540b5867d4cb1e322e83eaf2b50b56}{intrev16ifbe}(\hyperlink{endianconv_8h_a47540b5867d4cb1e322e83eaf2b50b56}{intrev16ifbe}(
+      \hyperlink{ziplist_8c_a6d779e84aca736e354768fcf87393b98}{ZIPLIST\_LENGTH}(zl))+incr); \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 263 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a6d779e84aca736e354768fcf87393b98}\label{ziplist_8c_a6d779e84aca736e354768fcf87393b98}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+L\+I\+S\+T\+\_\+\+L\+E\+N\+G\+TH@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+L\+E\+N\+G\+TH}}
+\index{Z\+I\+P\+L\+I\+S\+T\+\_\+\+L\+E\+N\+G\+TH@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+L\+E\+N\+G\+TH}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+L\+I\+S\+T\+\_\+\+L\+E\+N\+G\+TH}{ZIPLIST\_LENGTH}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+L\+I\+S\+T\+\_\+\+L\+E\+N\+G\+TH(\begin{DoxyParamCaption}\item[{}]{zl }\end{DoxyParamCaption})~($\ast$((uint16\+\_\+t$\ast$)((zl)+sizeof(uint32\+\_\+t)$\ast$2)))}
+
+
+
+Definition at line 237 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_adf2235d74c81861c85fb5d2ffa209397}\label{ziplist_8c_adf2235d74c81861c85fb5d2ffa209397}} 
+\index{ziplist.\+c@{ziplist.\+c}!Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+I\+L\+\_\+\+O\+F\+F\+S\+ET@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+I\+L\+\_\+\+O\+F\+F\+S\+ET}}
+\index{Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+I\+L\+\_\+\+O\+F\+F\+S\+ET@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+I\+L\+\_\+\+O\+F\+F\+S\+ET}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+I\+L\+\_\+\+O\+F\+F\+S\+ET}{ZIPLIST\_TAIL\_OFFSET}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+I\+L\+\_\+\+O\+F\+F\+S\+ET(\begin{DoxyParamCaption}\item[{}]{zl }\end{DoxyParamCaption})~($\ast$((uint32\+\_\+t$\ast$)((zl)+sizeof(uint32\+\_\+t))))}
+
+
+
+Definition at line 233 of file ziplist.\+c.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{ziplist_8c_af9ad88f4de14f56a37132d005a7711a9}\label{ziplist_8c_af9ad88f4de14f56a37132d005a7711a9}} 
+\index{ziplist.\+c@{ziplist.\+c}!zlentry@{zlentry}}
+\index{zlentry@{zlentry}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{zlentry}{zlentry}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structzlentry}{zlentry}  \hyperlink{structzlentry}{zlentry}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{ziplist_8c_aff3d4089f5d9771a1f9ded6c68879ded}\label{ziplist_8c_aff3d4089f5d9771a1f9ded6c68879ded}} 
+\index{ziplist.\+c@{ziplist.\+c}!\+\_\+\+\_\+ziplist\+Cascade\+Update@{\+\_\+\+\_\+ziplist\+Cascade\+Update}}
+\index{\+\_\+\+\_\+ziplist\+Cascade\+Update@{\+\_\+\+\_\+ziplist\+Cascade\+Update}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+ziplist\+Cascade\+Update()}{\_\_ziplistCascadeUpdate()}}
+{\footnotesize\ttfamily unsigned char$\ast$ \+\_\+\+\_\+ziplist\+Cascade\+Update (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 616 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_afccb6de8361b817696e33641ba0f4e00}\label{ziplist_8c_afccb6de8361b817696e33641ba0f4e00}} 
+\index{ziplist.\+c@{ziplist.\+c}!\+\_\+\+\_\+ziplist\+Delete@{\+\_\+\+\_\+ziplist\+Delete}}
+\index{\+\_\+\+\_\+ziplist\+Delete@{\+\_\+\+\_\+ziplist\+Delete}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+ziplist\+Delete()}{\_\_ziplistDelete()}}
+{\footnotesize\ttfamily unsigned char$\ast$ \+\_\+\+\_\+ziplist\+Delete (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$}]{p,  }\item[{unsigned int}]{num }\end{DoxyParamCaption})}
+
+
+
+Definition at line 678 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a8d4f160c1cfc8e4f95793c9e8e213141}\label{ziplist_8c_a8d4f160c1cfc8e4f95793c9e8e213141}} 
+\index{ziplist.\+c@{ziplist.\+c}!\+\_\+\+\_\+ziplist\+Insert@{\+\_\+\+\_\+ziplist\+Insert}}
+\index{\+\_\+\+\_\+ziplist\+Insert@{\+\_\+\+\_\+ziplist\+Insert}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+ziplist\+Insert()}{\_\_ziplistInsert()}}
+{\footnotesize\ttfamily unsigned char$\ast$ \+\_\+\+\_\+ziplist\+Insert (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$}]{p,  }\item[{unsigned char $\ast$}]{s,  }\item[{unsigned int}]{slen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 743 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a2ec5bd634dcd9002899f24818aded22d}\label{ziplist_8c_a2ec5bd634dcd9002899f24818aded22d}} 
+\index{ziplist.\+c@{ziplist.\+c}!zip\+Entry@{zip\+Entry}}
+\index{zip\+Entry@{zip\+Entry}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{zip\+Entry()}{zipEntry()}}
+{\footnotesize\ttfamily void zip\+Entry (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{\hyperlink{structzlentry}{zlentry} $\ast$}]{e }\end{DoxyParamCaption})}
+
+
+
+Definition at line 569 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a14104b5b52eb74c02425de07be688ae1}\label{ziplist_8c_a14104b5b52eb74c02425de07be688ae1}} 
+\index{ziplist.\+c@{ziplist.\+c}!zip\+Int\+Size@{zip\+Int\+Size}}
+\index{zip\+Int\+Size@{zip\+Int\+Size}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{zip\+Int\+Size()}{zipIntSize()}}
+{\footnotesize\ttfamily unsigned int zip\+Int\+Size (\begin{DoxyParamCaption}\item[{unsigned char}]{encoding }\end{DoxyParamCaption})}
+
+
+
+Definition at line 306 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a2fc699da80e3b5dfe10057ecfbdb3fa1}\label{ziplist_8c_a2fc699da80e3b5dfe10057ecfbdb3fa1}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Blob\+Len@{ziplist\+Blob\+Len}}
+\index{ziplist\+Blob\+Len@{ziplist\+Blob\+Len}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Blob\+Len()}{ziplistBlobLen()}}
+{\footnotesize\ttfamily size\+\_\+t ziplist\+Blob\+Len (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1186 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a5660156b021de5736129bdb6201fcf03}\label{ziplist_8c_a5660156b021de5736129bdb6201fcf03}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Compare@{ziplist\+Compare}}
+\index{ziplist\+Compare@{ziplist\+Compare}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Compare()}{ziplistCompare()}}
+{\footnotesize\ttfamily unsigned int ziplist\+Compare (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{unsigned char $\ast$}]{sstr,  }\item[{unsigned int}]{slen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1081 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a53b766532c392b04c684006148c1ae48}\label{ziplist_8c_a53b766532c392b04c684006148c1ae48}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Delete@{ziplist\+Delete}}
+\index{ziplist\+Delete@{ziplist\+Delete}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Delete()}{ziplistDelete()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Delete (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$$\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1061 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a2fc707b39124cbbc1da6659f116087f8}\label{ziplist_8c_a2fc707b39124cbbc1da6659f116087f8}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Delete\+Range@{ziplist\+Delete\+Range}}
+\index{ziplist\+Delete\+Range@{ziplist\+Delete\+Range}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Delete\+Range()}{ziplistDeleteRange()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Delete\+Range (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{int}]{index,  }\item[{unsigned int}]{num }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1074 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a05ef69116b8380403158019862b2780a}\label{ziplist_8c_a05ef69116b8380403158019862b2780a}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Find@{ziplist\+Find}}
+\index{ziplist\+Find@{ziplist\+Find}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Find()}{ziplistFind()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Find (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{unsigned char $\ast$}]{vstr,  }\item[{unsigned int}]{vlen,  }\item[{unsigned int}]{skip }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1108 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a7c08bc766a336ff2154e99ce7e262ec5}\label{ziplist_8c_a7c08bc766a336ff2154e99ce7e262ec5}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Get@{ziplist\+Get}}
+\index{ziplist\+Get@{ziplist\+Get}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Get()}{ziplistGet()}}
+{\footnotesize\ttfamily unsigned int ziplist\+Get (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{unsigned char $\ast$$\ast$}]{sstr,  }\item[{unsigned int $\ast$}]{slen,  }\item[{long long $\ast$}]{sval }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1034 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_af8b793301d127340cc7fc69dffc80119}\label{ziplist_8c_af8b793301d127340cc7fc69dffc80119}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Index@{ziplist\+Index}}
+\index{ziplist\+Index@{ziplist\+Index}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Index()}{ziplistIndex()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Index (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+Definition at line 965 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a38dc0687ab5698f731d8468ab3c734fa}\label{ziplist_8c_a38dc0687ab5698f731d8468ab3c734fa}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Insert@{ziplist\+Insert}}
+\index{ziplist\+Insert@{ziplist\+Insert}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Insert()}{ziplistInsert()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Insert (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$}]{p,  }\item[{unsigned char $\ast$}]{s,  }\item[{unsigned int}]{slen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1054 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a947d260bf3a548b4ab8f19068258f4db}\label{ziplist_8c_a947d260bf3a548b4ab8f19068258f4db}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Len@{ziplist\+Len}}
+\index{ziplist\+Len@{ziplist\+Len}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Len()}{ziplistLen()}}
+{\footnotesize\ttfamily unsigned int ziplist\+Len (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1168 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a84a9763198018301981a19548e3ab94c}\label{ziplist_8c_a84a9763198018301981a19548e3ab94c}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Merge@{ziplist\+Merge}}
+\index{ziplist\+Merge@{ziplist\+Merge}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Merge()}{ziplistMerge()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Merge (\begin{DoxyParamCaption}\item[{unsigned char $\ast$$\ast$}]{first,  }\item[{unsigned char $\ast$$\ast$}]{second }\end{DoxyParamCaption})}
+
+
+
+Definition at line 856 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a732833b234259c9c9b3d0dfd859f4f97}\label{ziplist_8c_a732833b234259c9c9b3d0dfd859f4f97}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+New@{ziplist\+New}}
+\index{ziplist\+New@{ziplist\+New}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+New()}{ziplistNew()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+New (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 578 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_ac1e3c4fab3b468974b4273d0d5ba2419}\label{ziplist_8c_ac1e3c4fab3b468974b4273d0d5ba2419}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Next@{ziplist\+Next}}
+\index{ziplist\+Next@{ziplist\+Next}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Next()}{ziplistNext()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Next (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 993 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a3d9171df1d8c7591a361fbd041544b87}\label{ziplist_8c_a3d9171df1d8c7591a361fbd041544b87}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Prev@{ziplist\+Prev}}
+\index{ziplist\+Prev@{ziplist\+Prev}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Prev()}{ziplistPrev()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Prev (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1012 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_ab2ab85194d6dd69a873a28f4563a25df}\label{ziplist_8c_ab2ab85194d6dd69a873a28f4563a25df}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Push@{ziplist\+Push}}
+\index{ziplist\+Push@{ziplist\+Push}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Push()}{ziplistPush()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Push (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$}]{s,  }\item[{unsigned int}]{slen,  }\item[{int}]{where }\end{DoxyParamCaption})}
+
+
+
+Definition at line 956 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_af3382f6d66d8e9c49b6fd8b1cf089d20}\label{ziplist_8c_af3382f6d66d8e9c49b6fd8b1cf089d20}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Repr@{ziplist\+Repr}}
+\index{ziplist\+Repr@{ziplist\+Repr}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Repr()}{ziplistRepr()}}
+{\footnotesize\ttfamily void ziplist\+Repr (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1190 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_acebfc609c69fe557bb04fac296ec24d0}\label{ziplist_8c_acebfc609c69fe557bb04fac296ec24d0}} 
+\index{ziplist.\+c@{ziplist.\+c}!ziplist\+Resize@{ziplist\+Resize}}
+\index{ziplist\+Resize@{ziplist\+Resize}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Resize()}{ziplistResize()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Resize (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned int}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 589 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a1ecdda4c9ae14cf5f0bf125ca4566c0e}\label{ziplist_8c_a1ecdda4c9ae14cf5f0bf125ca4566c0e}} 
+\index{ziplist.\+c@{ziplist.\+c}!zip\+Load\+Integer@{zip\+Load\+Integer}}
+\index{zip\+Load\+Integer@{zip\+Load\+Integer}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{zip\+Load\+Integer()}{zipLoadInteger()}}
+{\footnotesize\ttfamily int64\+\_\+t zip\+Load\+Integer (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{unsigned char}]{encoding }\end{DoxyParamCaption})}
+
+
+
+Definition at line 537 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a791f970f4641646e20cd85021bdad6be}\label{ziplist_8c_a791f970f4641646e20cd85021bdad6be}} 
+\index{ziplist.\+c@{ziplist.\+c}!zip\+Prev\+Len\+Byte\+Diff@{zip\+Prev\+Len\+Byte\+Diff}}
+\index{zip\+Prev\+Len\+Byte\+Diff@{zip\+Prev\+Len\+Byte\+Diff}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{zip\+Prev\+Len\+Byte\+Diff()}{zipPrevLenByteDiff()}}
+{\footnotesize\ttfamily int zip\+Prev\+Len\+Byte\+Diff (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{unsigned int}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 464 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a5b107de78782c3d92a468508948f70d0}\label{ziplist_8c_a5b107de78782c3d92a468508948f70d0}} 
+\index{ziplist.\+c@{ziplist.\+c}!zip\+Raw\+Entry\+Length@{zip\+Raw\+Entry\+Length}}
+\index{zip\+Raw\+Entry\+Length@{zip\+Raw\+Entry\+Length}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{zip\+Raw\+Entry\+Length()}{zipRawEntryLength()}}
+{\footnotesize\ttfamily unsigned int zip\+Raw\+Entry\+Length (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 471 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a4b15d17cd0f3c38c8b791704e7b51fcb}\label{ziplist_8c_a4b15d17cd0f3c38c8b791704e7b51fcb}} 
+\index{ziplist.\+c@{ziplist.\+c}!zip\+Save\+Integer@{zip\+Save\+Integer}}
+\index{zip\+Save\+Integer@{zip\+Save\+Integer}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{zip\+Save\+Integer()}{zipSaveInteger()}}
+{\footnotesize\ttfamily void zip\+Save\+Integer (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{int64\+\_\+t}]{value,  }\item[{unsigned char}]{encoding }\end{DoxyParamCaption})}
+
+
+
+Definition at line 507 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_af6a64f66386fa810f8390189d4d4bc84}\label{ziplist_8c_af6a64f66386fa810f8390189d4d4bc84}} 
+\index{ziplist.\+c@{ziplist.\+c}!zip\+Store\+Entry\+Encoding@{zip\+Store\+Entry\+Encoding}}
+\index{zip\+Store\+Entry\+Encoding@{zip\+Store\+Entry\+Encoding}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{zip\+Store\+Entry\+Encoding()}{zipStoreEntryEncoding()}}
+{\footnotesize\ttfamily unsigned int zip\+Store\+Entry\+Encoding (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{unsigned char}]{encoding,  }\item[{unsigned int}]{rawlen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 332 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a3e6284647b6fd491e7298adda9fefab0}\label{ziplist_8c_a3e6284647b6fd491e7298adda9fefab0}} 
+\index{ziplist.\+c@{ziplist.\+c}!zip\+Store\+Prev\+Entry\+Length@{zip\+Store\+Prev\+Entry\+Length}}
+\index{zip\+Store\+Prev\+Entry\+Length@{zip\+Store\+Prev\+Entry\+Length}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{zip\+Store\+Prev\+Entry\+Length()}{zipStorePrevEntryLength()}}
+{\footnotesize\ttfamily unsigned int zip\+Store\+Prev\+Entry\+Length (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{unsigned int}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 408 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_a44539f5b3841dd0b0692c7bf9372d805}\label{ziplist_8c_a44539f5b3841dd0b0692c7bf9372d805}} 
+\index{ziplist.\+c@{ziplist.\+c}!zip\+Store\+Prev\+Entry\+Length\+Large@{zip\+Store\+Prev\+Entry\+Length\+Large}}
+\index{zip\+Store\+Prev\+Entry\+Length\+Large@{zip\+Store\+Prev\+Entry\+Length\+Large}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{zip\+Store\+Prev\+Entry\+Length\+Large()}{zipStorePrevEntryLengthLarge()}}
+{\footnotesize\ttfamily int zip\+Store\+Prev\+Entry\+Length\+Large (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{unsigned int}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 397 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8c_ae6a264e59da543abb4aa259626b5451d}\label{ziplist_8c_ae6a264e59da543abb4aa259626b5451d}} 
+\index{ziplist.\+c@{ziplist.\+c}!zip\+Try\+Encoding@{zip\+Try\+Encoding}}
+\index{zip\+Try\+Encoding@{zip\+Try\+Encoding}!ziplist.\+c@{ziplist.\+c}}
+\subsubsection{\texorpdfstring{zip\+Try\+Encoding()}{zipTryEncoding()}}
+{\footnotesize\ttfamily int zip\+Try\+Encoding (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{entry,  }\item[{unsigned int}]{entrylen,  }\item[{long long $\ast$}]{v,  }\item[{unsigned char $\ast$}]{encoding }\end{DoxyParamCaption})}
+
+
+
+Definition at line 480 of file ziplist.\+c.
+

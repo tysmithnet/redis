@@ -1,0 +1,223 @@
+\hypertarget{adlist_8c}{}\section{src/adlist.c File Reference}
+\label{adlist_8c}\index{src/adlist.\+c@{src/adlist.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}adlist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}zmalloc.\+h\char`\"{}}\newline
+Include dependency graph for adlist.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{adlist_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{adlist_8c_ad0882c8ad68f6f8edc1c032b55e289e6}{list\+Create} (void)
+\item 
+void \hyperlink{adlist_8c_aec9a75879e9b715f3cea7e47898cc2c8}{list\+Empty} (\hyperlink{structlist}{list} $\ast$\hyperlink{structlist}{list})
+\item 
+void \hyperlink{adlist_8c_a2113a59d0a138217a944af5cafee6d46}{list\+Release} (\hyperlink{structlist}{list} $\ast$\hyperlink{structlist}{list})
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{adlist_8c_acf7acb82fb68881f9265aa7563a2d4e0}{list\+Add\+Node\+Head} (\hyperlink{structlist}{list} $\ast$\hyperlink{structlist}{list}, void $\ast$value)
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{adlist_8c_aa759866ec59eca7e24746233740453fe}{list\+Add\+Node\+Tail} (\hyperlink{structlist}{list} $\ast$\hyperlink{structlist}{list}, void $\ast$value)
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{adlist_8c_ab18b496cc81146306d4058a8b3ccc356}{list\+Insert\+Node} (\hyperlink{structlist}{list} $\ast$\hyperlink{structlist}{list}, \hyperlink{structlist_node}{list\+Node} $\ast$old\+\_\+node, void $\ast$value, int after)
+\item 
+void \hyperlink{adlist_8c_a3b5563fd29d36ee353bfb2b9ad12568b}{list\+Del\+Node} (\hyperlink{structlist}{list} $\ast$\hyperlink{structlist}{list}, \hyperlink{structlist_node}{list\+Node} $\ast$node)
+\item 
+\hyperlink{structlist_iter}{list\+Iter} $\ast$ \hyperlink{adlist_8c_a6fceeff966948a49d51ed7b1d86095d9}{list\+Get\+Iterator} (\hyperlink{structlist}{list} $\ast$\hyperlink{structlist}{list}, int direction)
+\item 
+void \hyperlink{adlist_8c_ac83b18c826ebd7e499c9ee046bf99f4a}{list\+Release\+Iterator} (\hyperlink{structlist_iter}{list\+Iter} $\ast$iter)
+\item 
+void \hyperlink{adlist_8c_ae35a3ee8d5580afa77f9f5430837d8a4}{list\+Rewind} (\hyperlink{structlist}{list} $\ast$\hyperlink{structlist}{list}, \hyperlink{structlist_iter}{list\+Iter} $\ast$li)
+\item 
+void \hyperlink{adlist_8c_ad75981cf1b3d3053f9fd19cdb33e5286}{list\+Rewind\+Tail} (\hyperlink{structlist}{list} $\ast$\hyperlink{structlist}{list}, \hyperlink{structlist_iter}{list\+Iter} $\ast$li)
+\item 
+\hyperlink{structlist_node}{list\+Node} $\ast$ \hyperlink{adlist_8c_a722ffca86d8746e6c68a146359683dfa}{list\+Next} (\hyperlink{structlist_iter}{list\+Iter} $\ast$iter)
+\item 
+\hyperlink{structlist}{list} $\ast$ \hyperlink{adlist_8c_afb268372b1102a2780b8d08d9e4bd3e8}{list\+Dup} (\hyperlink{structlist}{list} $\ast$orig)
+\item 
+\hyperlink{structlist_node}{list\+Node} $\ast$ \hyperlink{adlist_8c_a60cc4fe64c58b975b1e96458570302cc}{list\+Search\+Key} (\hyperlink{structlist}{list} $\ast$\hyperlink{structlist}{list}, void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+\hyperlink{structlist_node}{list\+Node} $\ast$ \hyperlink{adlist_8c_ae09b29c4902e0f0b4eb9c837ec2a523c}{list\+Index} (\hyperlink{structlist}{list} $\ast$\hyperlink{structlist}{list}, long index)
+\item 
+void \hyperlink{adlist_8c_ad0572eafe5ee0ebe76023a8434a9ea8c}{list\+Rotate} (\hyperlink{structlist}{list} $\ast$\hyperlink{structlist}{list})
+\item 
+void \hyperlink{adlist_8c_ad494fea79842a716c5534ae148fdc812}{list\+Join} (\hyperlink{structlist}{list} $\ast$l, \hyperlink{structlist}{list} $\ast$o)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{adlist_8c_acf7acb82fb68881f9265aa7563a2d4e0}\label{adlist_8c_acf7acb82fb68881f9265aa7563a2d4e0}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Add\+Node\+Head@{list\+Add\+Node\+Head}}
+\index{list\+Add\+Node\+Head@{list\+Add\+Node\+Head}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Add\+Node\+Head()}{listAddNodeHead()}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ list\+Add\+Node\+Head (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{list,  }\item[{void $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 88 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_aa759866ec59eca7e24746233740453fe}\label{adlist_8c_aa759866ec59eca7e24746233740453fe}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Add\+Node\+Tail@{list\+Add\+Node\+Tail}}
+\index{list\+Add\+Node\+Tail@{list\+Add\+Node\+Tail}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Add\+Node\+Tail()}{listAddNodeTail()}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ list\+Add\+Node\+Tail (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{list,  }\item[{void $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 114 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_ad0882c8ad68f6f8edc1c032b55e289e6}\label{adlist_8c_ad0882c8ad68f6f8edc1c032b55e289e6}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Create@{list\+Create}}
+\index{list\+Create@{list\+Create}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Create()}{listCreate()}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ list\+Create (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 41 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_a3b5563fd29d36ee353bfb2b9ad12568b}\label{adlist_8c_a3b5563fd29d36ee353bfb2b9ad12568b}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Del\+Node@{list\+Del\+Node}}
+\index{list\+Del\+Node@{list\+Del\+Node}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Del\+Node()}{listDelNode()}}
+{\footnotesize\ttfamily void list\+Del\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{list,  }\item[{\hyperlink{structlist_node}{list\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 167 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_afb268372b1102a2780b8d08d9e4bd3e8}\label{adlist_8c_afb268372b1102a2780b8d08d9e4bd3e8}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Dup@{list\+Dup}}
+\index{list\+Dup@{list\+Dup}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Dup()}{listDup()}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ list\+Dup (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{orig }\end{DoxyParamCaption})}
+
+
+
+Definition at line 250 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_aec9a75879e9b715f3cea7e47898cc2c8}\label{adlist_8c_aec9a75879e9b715f3cea7e47898cc2c8}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Empty@{list\+Empty}}
+\index{list\+Empty@{list\+Empty}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Empty()}{listEmpty()}}
+{\footnotesize\ttfamily void list\+Empty (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{list }\end{DoxyParamCaption})}
+
+
+
+Definition at line 56 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_a6fceeff966948a49d51ed7b1d86095d9}\label{adlist_8c_a6fceeff966948a49d51ed7b1d86095d9}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Get\+Iterator@{list\+Get\+Iterator}}
+\index{list\+Get\+Iterator@{list\+Get\+Iterator}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Get\+Iterator()}{listGetIterator()}}
+{\footnotesize\ttfamily \hyperlink{structlist_iter}{list\+Iter}$\ast$ list\+Get\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{list,  }\item[{int}]{direction }\end{DoxyParamCaption})}
+
+
+
+Definition at line 186 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_ae09b29c4902e0f0b4eb9c837ec2a523c}\label{adlist_8c_ae09b29c4902e0f0b4eb9c837ec2a523c}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Index@{list\+Index}}
+\index{list\+Index@{list\+Index}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Index()}{listIndex()}}
+{\footnotesize\ttfamily \hyperlink{structlist_node}{list\+Node}$\ast$ list\+Index (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{list,  }\item[{long}]{index }\end{DoxyParamCaption})}
+
+
+
+Definition at line 315 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_ab18b496cc81146306d4058a8b3ccc356}\label{adlist_8c_ab18b496cc81146306d4058a8b3ccc356}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Insert\+Node@{list\+Insert\+Node}}
+\index{list\+Insert\+Node@{list\+Insert\+Node}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Insert\+Node()}{listInsertNode()}}
+{\footnotesize\ttfamily \hyperlink{structlist}{list}$\ast$ list\+Insert\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{list,  }\item[{\hyperlink{structlist_node}{list\+Node} $\ast$}]{old\+\_\+node,  }\item[{void $\ast$}]{value,  }\item[{int}]{after }\end{DoxyParamCaption})}
+
+
+
+Definition at line 134 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_ad494fea79842a716c5534ae148fdc812}\label{adlist_8c_ad494fea79842a716c5534ae148fdc812}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Join@{list\+Join}}
+\index{list\+Join@{list\+Join}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Join()}{listJoin()}}
+{\footnotesize\ttfamily void list\+Join (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{l,  }\item[{\hyperlink{structlist}{list} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 347 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_a722ffca86d8746e6c68a146359683dfa}\label{adlist_8c_a722ffca86d8746e6c68a146359683dfa}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Next@{list\+Next}}
+\index{list\+Next@{list\+Next}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Next()}{listNext()}}
+{\footnotesize\ttfamily \hyperlink{structlist_node}{list\+Node}$\ast$ list\+Next (\begin{DoxyParamCaption}\item[{\hyperlink{structlist_iter}{list\+Iter} $\ast$}]{iter }\end{DoxyParamCaption})}
+
+
+
+Definition at line 229 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_a2113a59d0a138217a944af5cafee6d46}\label{adlist_8c_a2113a59d0a138217a944af5cafee6d46}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Release@{list\+Release}}
+\index{list\+Release@{list\+Release}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Release()}{listRelease()}}
+{\footnotesize\ttfamily void list\+Release (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{list }\end{DoxyParamCaption})}
+
+
+
+Definition at line 76 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_ac83b18c826ebd7e499c9ee046bf99f4a}\label{adlist_8c_ac83b18c826ebd7e499c9ee046bf99f4a}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Release\+Iterator@{list\+Release\+Iterator}}
+\index{list\+Release\+Iterator@{list\+Release\+Iterator}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Release\+Iterator()}{listReleaseIterator()}}
+{\footnotesize\ttfamily void list\+Release\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{structlist_iter}{list\+Iter} $\ast$}]{iter }\end{DoxyParamCaption})}
+
+
+
+Definition at line 200 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_ae35a3ee8d5580afa77f9f5430837d8a4}\label{adlist_8c_ae35a3ee8d5580afa77f9f5430837d8a4}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Rewind@{list\+Rewind}}
+\index{list\+Rewind@{list\+Rewind}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Rewind()}{listRewind()}}
+{\footnotesize\ttfamily void list\+Rewind (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{list,  }\item[{\hyperlink{structlist_iter}{list\+Iter} $\ast$}]{li }\end{DoxyParamCaption})}
+
+
+
+Definition at line 205 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_ad75981cf1b3d3053f9fd19cdb33e5286}\label{adlist_8c_ad75981cf1b3d3053f9fd19cdb33e5286}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Rewind\+Tail@{list\+Rewind\+Tail}}
+\index{list\+Rewind\+Tail@{list\+Rewind\+Tail}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Rewind\+Tail()}{listRewindTail()}}
+{\footnotesize\ttfamily void list\+Rewind\+Tail (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{list,  }\item[{\hyperlink{structlist_iter}{list\+Iter} $\ast$}]{li }\end{DoxyParamCaption})}
+
+
+
+Definition at line 210 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_ad0572eafe5ee0ebe76023a8434a9ea8c}\label{adlist_8c_ad0572eafe5ee0ebe76023a8434a9ea8c}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Rotate@{list\+Rotate}}
+\index{list\+Rotate@{list\+Rotate}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Rotate()}{listRotate()}}
+{\footnotesize\ttfamily void list\+Rotate (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{list }\end{DoxyParamCaption})}
+
+
+
+Definition at line 330 of file adlist.\+c.
+
+\mbox{\Hypertarget{adlist_8c_a60cc4fe64c58b975b1e96458570302cc}\label{adlist_8c_a60cc4fe64c58b975b1e96458570302cc}} 
+\index{adlist.\+c@{adlist.\+c}!list\+Search\+Key@{list\+Search\+Key}}
+\index{list\+Search\+Key@{list\+Search\+Key}!adlist.\+c@{adlist.\+c}}
+\subsubsection{\texorpdfstring{list\+Search\+Key()}{listSearchKey()}}
+{\footnotesize\ttfamily \hyperlink{structlist_node}{list\+Node}$\ast$ list\+Search\+Key (\begin{DoxyParamCaption}\item[{\hyperlink{structlist}{list} $\ast$}]{list,  }\item[{void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 290 of file adlist.\+c.
+

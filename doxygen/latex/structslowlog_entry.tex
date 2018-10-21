@@ -1,0 +1,118 @@
+\hypertarget{structslowlog_entry}{}\section{slowlog\+Entry Struct Reference}
+\label{structslowlog_entry}\index{slowlog\+Entry@{slowlog\+Entry}}
+
+
+{\ttfamily \#include $<$slowlog.\+h$>$}
+
+
+
+Collaboration diagram for slowlog\+Entry\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=153pt]{structslowlog_entry__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$ \hyperlink{structslowlog_entry_a5c75dd3cb8eb8a3f5be7d4fdf48a9ef9}{argv}
+\item 
+int \hyperlink{structslowlog_entry_ad1447518f4372828b8435ae82e48499e}{argc}
+\item 
+long long \hyperlink{structslowlog_entry_ab87bfb64728d3251718dbf51ef534b60}{id}
+\item 
+long long \hyperlink{structslowlog_entry_a09a525985f9f5a8746da229206f0e1db}{duration}
+\item 
+time\+\_\+t \hyperlink{structslowlog_entry_ab842bdb7d02be824fb48613032b4ff36}{time}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{structslowlog_entry_a8075cc6220751389639cec9aec6d9195}{cname}
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{structslowlog_entry_a1c0771287014c17317f1d2536fea4427}{peerid}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 34 of file slowlog.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structslowlog_entry_ad1447518f4372828b8435ae82e48499e}\label{structslowlog_entry_ad1447518f4372828b8435ae82e48499e}} 
+\index{slowlog\+Entry@{slowlog\+Entry}!argc@{argc}}
+\index{argc@{argc}!slowlog\+Entry@{slowlog\+Entry}}
+\subsubsection{\texorpdfstring{argc}{argc}}
+{\footnotesize\ttfamily int argc}
+
+
+
+Definition at line 36 of file slowlog.\+h.
+
+\mbox{\Hypertarget{structslowlog_entry_a5c75dd3cb8eb8a3f5be7d4fdf48a9ef9}\label{structslowlog_entry_a5c75dd3cb8eb8a3f5be7d4fdf48a9ef9}} 
+\index{slowlog\+Entry@{slowlog\+Entry}!argv@{argv}}
+\index{argv@{argv}!slowlog\+Entry@{slowlog\+Entry}}
+\subsubsection{\texorpdfstring{argv}{argv}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$$\ast$ argv}
+
+
+
+Definition at line 35 of file slowlog.\+h.
+
+\mbox{\Hypertarget{structslowlog_entry_a8075cc6220751389639cec9aec6d9195}\label{structslowlog_entry_a8075cc6220751389639cec9aec6d9195}} 
+\index{slowlog\+Entry@{slowlog\+Entry}!cname@{cname}}
+\index{cname@{cname}!slowlog\+Entry@{slowlog\+Entry}}
+\subsubsection{\texorpdfstring{cname}{cname}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} cname}
+
+
+
+Definition at line 40 of file slowlog.\+h.
+
+\mbox{\Hypertarget{structslowlog_entry_a09a525985f9f5a8746da229206f0e1db}\label{structslowlog_entry_a09a525985f9f5a8746da229206f0e1db}} 
+\index{slowlog\+Entry@{slowlog\+Entry}!duration@{duration}}
+\index{duration@{duration}!slowlog\+Entry@{slowlog\+Entry}}
+\subsubsection{\texorpdfstring{duration}{duration}}
+{\footnotesize\ttfamily long long duration}
+
+
+
+Definition at line 38 of file slowlog.\+h.
+
+\mbox{\Hypertarget{structslowlog_entry_ab87bfb64728d3251718dbf51ef534b60}\label{structslowlog_entry_ab87bfb64728d3251718dbf51ef534b60}} 
+\index{slowlog\+Entry@{slowlog\+Entry}!id@{id}}
+\index{id@{id}!slowlog\+Entry@{slowlog\+Entry}}
+\subsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily long long id}
+
+
+
+Definition at line 37 of file slowlog.\+h.
+
+\mbox{\Hypertarget{structslowlog_entry_a1c0771287014c17317f1d2536fea4427}\label{structslowlog_entry_a1c0771287014c17317f1d2536fea4427}} 
+\index{slowlog\+Entry@{slowlog\+Entry}!peerid@{peerid}}
+\index{peerid@{peerid}!slowlog\+Entry@{slowlog\+Entry}}
+\subsubsection{\texorpdfstring{peerid}{peerid}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} peerid}
+
+
+
+Definition at line 41 of file slowlog.\+h.
+
+\mbox{\Hypertarget{structslowlog_entry_ab842bdb7d02be824fb48613032b4ff36}\label{structslowlog_entry_ab842bdb7d02be824fb48613032b4ff36}} 
+\index{slowlog\+Entry@{slowlog\+Entry}!time@{time}}
+\index{time@{time}!slowlog\+Entry@{slowlog\+Entry}}
+\subsubsection{\texorpdfstring{time}{time}}
+{\footnotesize\ttfamily time\+\_\+t time}
+
+
+
+Definition at line 39 of file slowlog.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{slowlog_8h}{slowlog.\+h}\end{DoxyCompactItemize}

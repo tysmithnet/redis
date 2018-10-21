@@ -1,0 +1,588 @@
+\hypertarget{rax_8c}{}\section{src/rax.c File Reference}
+\label{rax_8c}\index{src/rax.\+c@{src/rax.\+c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}rax.\+h\char`\"{}}\newline
+Include dependency graph for rax.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rax_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{rax_8c_a3c6108bfd29d6a41df090d6ca32a7c0e}{R\+A\+X\+\_\+\+M\+A\+L\+L\+O\+C\+\_\+\+I\+N\+C\+L\+U\+DE}~\char`\"{}rax\+\_\+malloc.\+h\char`\"{}
+\item 
+\#define \hyperlink{rax_8c_a10b215c81aa397dbc44adfb3e436befb}{debugf}(...)
+\item 
+\#define \hyperlink{rax_8c_a622b73fbdc398cdbfa8cc1fb87283cb4}{debugnode}(msg,  n)
+\item 
+\#define \hyperlink{rax_8c_af2cea498a4b7c6b468725d0d79cafc44}{rax\+Padding}(nodesize)~((sizeof(void$\ast$)-\/((nodesize+4) \% sizeof(void$\ast$))) \& (sizeof(void$\ast$)-\/1))
+\item 
+\#define \hyperlink{rax_8c_a2c5310b0d00672508a8f935a7109f4ce}{rax\+Node\+Last\+Child\+Ptr}(n)
+\item 
+\#define \hyperlink{rax_8c_aa94163a0d02b30219ef18e5a3ea06ca6}{rax\+Node\+First\+Child\+Ptr}(n)
+\item 
+\#define \hyperlink{rax_8c_a93300b0f45c900ba0bdb80f3f7a83f5e}{rax\+Node\+Current\+Length}(n)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{rax_8c_ac81764cd6449090ca0c2d5dae4d25f29}{rax\+Debug\+Show\+Node} (const char $\ast$msg, \hyperlink{structrax_node}{rax\+Node} $\ast$n)
+\item 
+void \hyperlink{rax_8c_a66fce0fea036572ae996038d25c1923f}{rax\+Set\+Debug\+Msg} (int onoff)
+\item 
+\hyperlink{structrax_node}{rax\+Node} $\ast$ \hyperlink{rax_8c_a6a73eee550e3fdf52c26bce50bc8dd0e}{rax\+New\+Node} (size\+\_\+t children, int datafield)
+\item 
+\hyperlink{structrax}{rax} $\ast$ \hyperlink{rax_8c_a56b1e46d8b342fed1d696f59c6dff08d}{rax\+New} (void)
+\item 
+\hyperlink{structrax_node}{rax\+Node} $\ast$ \hyperlink{rax_8c_acd2606ba01a75273c3cb20e12fc94b58}{rax\+Realloc\+For\+Data} (\hyperlink{structrax_node}{rax\+Node} $\ast$n, void $\ast$data)
+\item 
+void \hyperlink{rax_8c_a41e54e8a332bd407957d594c949d1a6e}{rax\+Set\+Data} (\hyperlink{structrax_node}{rax\+Node} $\ast$n, void $\ast$data)
+\item 
+void $\ast$ \hyperlink{rax_8c_a7ef84ed20f4b88b4460158a0a25cf4bc}{rax\+Get\+Data} (\hyperlink{structrax_node}{rax\+Node} $\ast$n)
+\item 
+\hyperlink{structrax_node}{rax\+Node} $\ast$ \hyperlink{rax_8c_a4251f63ae63da6bbf6f0988882adbcf6}{rax\+Add\+Child} (\hyperlink{structrax_node}{rax\+Node} $\ast$n, unsigned char c, \hyperlink{structrax_node}{rax\+Node} $\ast$$\ast$childptr, \hyperlink{structrax_node}{rax\+Node} $\ast$$\ast$$\ast$parentlink)
+\item 
+\hyperlink{structrax_node}{rax\+Node} $\ast$ \hyperlink{rax_8c_aa116f0c1090a763a165535e3974ea530}{rax\+Compress\+Node} (\hyperlink{structrax_node}{rax\+Node} $\ast$n, unsigned char $\ast$s, size\+\_\+t len, \hyperlink{structrax_node}{rax\+Node} $\ast$$\ast$child)
+\item 
+int \hyperlink{rax_8c_a028cbb528c87c1254b8ac63b3545b42b}{rax\+Generic\+Insert} (\hyperlink{structrax}{rax} $\ast$\hyperlink{structrax}{rax}, unsigned char $\ast$s, size\+\_\+t len, void $\ast$data, void $\ast$$\ast$old, int overwrite)
+\item 
+int \hyperlink{rax_8c_a6278503171aa6fb725cf2265b807ee9f}{rax\+Insert} (\hyperlink{structrax}{rax} $\ast$\hyperlink{structrax}{rax}, unsigned char $\ast$s, size\+\_\+t len, void $\ast$data, void $\ast$$\ast$old)
+\item 
+int \hyperlink{rax_8c_acee19bfcbf236d1c87822919c0339213}{rax\+Try\+Insert} (\hyperlink{structrax}{rax} $\ast$\hyperlink{structrax}{rax}, unsigned char $\ast$s, size\+\_\+t len, void $\ast$data, void $\ast$$\ast$old)
+\item 
+void $\ast$ \hyperlink{rax_8c_a415d51e648ef5dcdab2e908f5385e482}{rax\+Find} (\hyperlink{structrax}{rax} $\ast$\hyperlink{structrax}{rax}, unsigned char $\ast$s, size\+\_\+t len)
+\item 
+\hyperlink{structrax_node}{rax\+Node} $\ast$$\ast$ \hyperlink{rax_8c_ac829f8984ae2f10156eb2ddf4e0d375e}{rax\+Find\+Parent\+Link} (\hyperlink{structrax_node}{rax\+Node} $\ast$parent, \hyperlink{structrax_node}{rax\+Node} $\ast$child)
+\item 
+\hyperlink{structrax_node}{rax\+Node} $\ast$ \hyperlink{rax_8c_a40950014b22a69a58599cf9e0331ccd9}{rax\+Remove\+Child} (\hyperlink{structrax_node}{rax\+Node} $\ast$parent, \hyperlink{structrax_node}{rax\+Node} $\ast$child)
+\item 
+int \hyperlink{rax_8c_afb4eec91d937f03c799a87a2084dd934}{rax\+Remove} (\hyperlink{structrax}{rax} $\ast$\hyperlink{structrax}{rax}, unsigned char $\ast$s, size\+\_\+t len, void $\ast$$\ast$old)
+\item 
+void \hyperlink{rax_8c_a5efc611859add28a80155be43310ae1d}{rax\+Recursive\+Free} (\hyperlink{structrax}{rax} $\ast$\hyperlink{structrax}{rax}, \hyperlink{structrax_node}{rax\+Node} $\ast$n, void($\ast$free\+\_\+callback)(void $\ast$))
+\item 
+void \hyperlink{rax_8c_a54994b7aeade76dec98d71ecb5d6d8a6}{rax\+Free\+With\+Callback} (\hyperlink{structrax}{rax} $\ast$\hyperlink{structrax}{rax}, void($\ast$free\+\_\+callback)(void $\ast$))
+\item 
+void \hyperlink{rax_8c_a70a86ca87050f366a863ac9324318551}{rax\+Free} (\hyperlink{structrax}{rax} $\ast$\hyperlink{structrax}{rax})
+\item 
+void \hyperlink{rax_8c_a89bfe37114c7be78b37f5f669c7e690e}{rax\+Start} (\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$it, \hyperlink{structrax}{rax} $\ast$rt)
+\item 
+int \hyperlink{rax_8c_a24878b76ef3ac11def06fd3b219f77d4}{rax\+Iterator\+Add\+Chars} (\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$it, unsigned char $\ast$s, size\+\_\+t len)
+\item 
+void \hyperlink{rax_8c_a44650eda3a0c082ddf807a766940b36d}{rax\+Iterator\+Del\+Chars} (\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$it, size\+\_\+t count)
+\item 
+int \hyperlink{rax_8c_ad23d935d0df15700e2f563731c56270a}{rax\+Iterator\+Next\+Step} (\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$it, int noup)
+\item 
+int \hyperlink{rax_8c_a5671cec5ea611a1b9489489d534dce3b}{rax\+Seek\+Greatest} (\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$it)
+\item 
+int \hyperlink{rax_8c_a0aa950bf62ef87e01c32fb1a1b9f7843}{rax\+Iterator\+Prev\+Step} (\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$it, int noup)
+\item 
+int \hyperlink{rax_8c_a4ad909fa19602d916b8781ad11444803}{rax\+Seek} (\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$it, const char $\ast$op, unsigned char $\ast$ele, size\+\_\+t len)
+\item 
+int \hyperlink{rax_8c_abafdb51bd58d96e97618cfefc83f3737}{rax\+Next} (\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$it)
+\item 
+int \hyperlink{rax_8c_a0d5417be2ea691a2730666f605c53425}{rax\+Prev} (\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$it)
+\item 
+int \hyperlink{rax_8c_a31f732940ec5305c80d2a8561d7a83fa}{rax\+Random\+Walk} (\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$it, size\+\_\+t steps)
+\item 
+int \hyperlink{rax_8c_aee1205480d2d3abedfa93e681f463ae0}{rax\+Compare} (\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$iter, const char $\ast$op, unsigned char $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, size\+\_\+t key\+\_\+len)
+\item 
+void \hyperlink{rax_8c_afd5c0fce25aea0c4003bbb65b9108520}{rax\+Stop} (\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$it)
+\item 
+int \hyperlink{rax_8c_a6a7574f98f34f3a8fcf1a6fd50849513}{rax\+E\+OF} (\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$it)
+\item 
+uint64\+\_\+t \hyperlink{rax_8c_ac44bf6b27f6af45dd9b3b7308161322c}{rax\+Size} (\hyperlink{structrax}{rax} $\ast$\hyperlink{structrax}{rax})
+\item 
+void \hyperlink{rax_8c_a354c619b2a8fe495d57570a47f4aca00}{rax\+Recursive\+Show} (int level, int lpad, \hyperlink{structrax_node}{rax\+Node} $\ast$n)
+\item 
+void \hyperlink{rax_8c_afcf31ae2fd5dba8d9199fd8311cb67f8}{rax\+Show} (\hyperlink{structrax}{rax} $\ast$\hyperlink{structrax}{rax})
+\item 
+unsigned long \hyperlink{rax_8c_a959b6a214698a118dfe076cacb5a6fcc}{rax\+Touch} (\hyperlink{structrax_node}{rax\+Node} $\ast$n)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{rax_8c_ab8d8b42e10eb17aed3ce34fb1a49c44e}{rax\+Not\+Found} = (void$\ast$)\char`\"{}rax-\/not-\/found-\/pointer\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{rax_8c_a10b215c81aa397dbc44adfb3e436befb}\label{rax_8c_a10b215c81aa397dbc44adfb3e436befb}} 
+\index{rax.\+c@{rax.\+c}!debugf@{debugf}}
+\index{debugf@{debugf}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{debugf}{debugf}}
+{\footnotesize\ttfamily \#define debugf(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 69 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a622b73fbdc398cdbfa8cc1fb87283cb4}\label{rax_8c_a622b73fbdc398cdbfa8cc1fb87283cb4}} 
+\index{rax.\+c@{rax.\+c}!debugnode@{debugnode}}
+\index{debugnode@{debugnode}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{debugnode}{debugnode}}
+{\footnotesize\ttfamily \#define debugnode(\begin{DoxyParamCaption}\item[{}]{msg,  }\item[{}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 70 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a3c6108bfd29d6a41df090d6ca32a7c0e}\label{rax_8c_a3c6108bfd29d6a41df090d6ca32a7c0e}} 
+\index{rax.\+c@{rax.\+c}!R\+A\+X\+\_\+\+M\+A\+L\+L\+O\+C\+\_\+\+I\+N\+C\+L\+U\+DE@{R\+A\+X\+\_\+\+M\+A\+L\+L\+O\+C\+\_\+\+I\+N\+C\+L\+U\+DE}}
+\index{R\+A\+X\+\_\+\+M\+A\+L\+L\+O\+C\+\_\+\+I\+N\+C\+L\+U\+DE@{R\+A\+X\+\_\+\+M\+A\+L\+L\+O\+C\+\_\+\+I\+N\+C\+L\+U\+DE}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{R\+A\+X\+\_\+\+M\+A\+L\+L\+O\+C\+\_\+\+I\+N\+C\+L\+U\+DE}{RAX\_MALLOC\_INCLUDE}}
+{\footnotesize\ttfamily \#define R\+A\+X\+\_\+\+M\+A\+L\+L\+O\+C\+\_\+\+I\+N\+C\+L\+U\+DE~\char`\"{}rax\+\_\+malloc.\+h\char`\"{}}
+
+
+
+Definition at line 40 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a93300b0f45c900ba0bdb80f3f7a83f5e}\label{rax_8c_a93300b0f45c900ba0bdb80f3f7a83f5e}} 
+\index{rax.\+c@{rax.\+c}!rax\+Node\+Current\+Length@{rax\+Node\+Current\+Length}}
+\index{rax\+Node\+Current\+Length@{rax\+Node\+Current\+Length}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Node\+Current\+Length}{raxNodeCurrentLength}}
+{\footnotesize\ttfamily \#define rax\+Node\+Current\+Length(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+( \(\backslash\)
+    sizeof(\hyperlink{structrax_node}{raxNode})+(n)->size+ \(\backslash\)
+    \hyperlink{rax_8c_af2cea498a4b7c6b468725d0d79cafc44}{raxPadding}((n)->size)+ \(\backslash\)
+    ((n)->iscompr ? \textcolor{keyword}{sizeof}(\hyperlink{structrax_node}{raxNode}*) : \textcolor{keyword}{sizeof}(\hyperlink{structrax_node}{raxNode}*)*(n)->size)+ \(\backslash\)
+    (((n)->iskey && !(n)->isnull)*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{void}*)) \(\backslash\)
+)
+\end{DoxyCode}
+
+
+Definition at line 175 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_aa94163a0d02b30219ef18e5a3ea06ca6}\label{rax_8c_aa94163a0d02b30219ef18e5a3ea06ca6}} 
+\index{rax.\+c@{rax.\+c}!rax\+Node\+First\+Child\+Ptr@{rax\+Node\+First\+Child\+Ptr}}
+\index{rax\+Node\+First\+Child\+Ptr@{rax\+Node\+First\+Child\+Ptr}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Node\+First\+Child\+Ptr}{raxNodeFirstChildPtr}}
+{\footnotesize\ttfamily \#define rax\+Node\+First\+Child\+Ptr(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{structrax_node}{raxNode}**) ( \(\backslash\)
+    (n)->data + \(\backslash\)
+    (n)->size + \(\backslash\)
+    \hyperlink{rax_8c_af2cea498a4b7c6b468725d0d79cafc44}{raxPadding}((n)->size)))
+\end{DoxyCode}
+
+
+Definition at line 167 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a2c5310b0d00672508a8f935a7109f4ce}\label{rax_8c_a2c5310b0d00672508a8f935a7109f4ce}} 
+\index{rax.\+c@{rax.\+c}!rax\+Node\+Last\+Child\+Ptr@{rax\+Node\+Last\+Child\+Ptr}}
+\index{rax\+Node\+Last\+Child\+Ptr@{rax\+Node\+Last\+Child\+Ptr}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Node\+Last\+Child\+Ptr}{raxNodeLastChildPtr}}
+{\footnotesize\ttfamily \#define rax\+Node\+Last\+Child\+Ptr(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{structrax_node}{raxNode}**) ( \(\backslash\)
+    ((\textcolor{keywordtype}{char}*)(n)) + \(\backslash\)
+    raxNodeCurrentLength(n) - \(\backslash\)
+    sizeof(\hyperlink{structrax_node}{raxNode}*) - \(\backslash\)
+    (((n)->iskey && !(n)->isnull) ? \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{void}*) : 0) \(\backslash\)
+))
+\end{DoxyCode}
+
+
+Definition at line 159 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_af2cea498a4b7c6b468725d0d79cafc44}\label{rax_8c_af2cea498a4b7c6b468725d0d79cafc44}} 
+\index{rax.\+c@{rax.\+c}!rax\+Padding@{rax\+Padding}}
+\index{rax\+Padding@{rax\+Padding}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Padding}{raxPadding}}
+{\footnotesize\ttfamily \#define rax\+Padding(\begin{DoxyParamCaption}\item[{}]{nodesize }\end{DoxyParamCaption})~((sizeof(void$\ast$)-\/((nodesize+4) \% sizeof(void$\ast$))) \& (sizeof(void$\ast$)-\/1))}
+
+
+
+Definition at line 155 of file rax.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{rax_8c_a4251f63ae63da6bbf6f0988882adbcf6}\label{rax_8c_a4251f63ae63da6bbf6f0988882adbcf6}} 
+\index{rax.\+c@{rax.\+c}!rax\+Add\+Child@{rax\+Add\+Child}}
+\index{rax\+Add\+Child@{rax\+Add\+Child}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Add\+Child()}{raxAddChild()}}
+{\footnotesize\ttfamily \hyperlink{structrax_node}{rax\+Node}$\ast$ rax\+Add\+Child (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$}]{n,  }\item[{unsigned char}]{c,  }\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$$\ast$}]{childptr,  }\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$$\ast$$\ast$}]{parentlink }\end{DoxyParamCaption})}
+
+
+
+Definition at line 254 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_aee1205480d2d3abedfa93e681f463ae0}\label{rax_8c_aee1205480d2d3abedfa93e681f463ae0}} 
+\index{rax.\+c@{rax.\+c}!rax\+Compare@{rax\+Compare}}
+\index{rax\+Compare@{rax\+Compare}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Compare()}{raxCompare()}}
+{\footnotesize\ttfamily int rax\+Compare (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$}]{iter,  }\item[{const char $\ast$}]{op,  }\item[{unsigned char $\ast$}]{key,  }\item[{size\+\_\+t}]{key\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1774 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_aa116f0c1090a763a165535e3974ea530}\label{rax_8c_aa116f0c1090a763a165535e3974ea530}} 
+\index{rax.\+c@{rax.\+c}!rax\+Compress\+Node@{rax\+Compress\+Node}}
+\index{rax\+Compress\+Node@{rax\+Compress\+Node}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Compress\+Node()}{raxCompressNode()}}
+{\footnotesize\ttfamily \hyperlink{structrax_node}{rax\+Node}$\ast$ rax\+Compress\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$}]{n,  }\item[{unsigned char $\ast$}]{s,  }\item[{size\+\_\+t}]{len,  }\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$$\ast$}]{child }\end{DoxyParamCaption})}
+
+
+
+Definition at line 395 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_ac81764cd6449090ca0c2d5dae4d25f29}\label{rax_8c_ac81764cd6449090ca0c2d5dae4d25f29}} 
+\index{rax.\+c@{rax.\+c}!rax\+Debug\+Show\+Node@{rax\+Debug\+Show\+Node}}
+\index{rax\+Debug\+Show\+Node@{rax\+Debug\+Show\+Node}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Debug\+Show\+Node()}{raxDebugShowNode()}}
+{\footnotesize\ttfamily void rax\+Debug\+Show\+Node (\begin{DoxyParamCaption}\item[{const char $\ast$}]{msg,  }\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1888 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a6a7574f98f34f3a8fcf1a6fd50849513}\label{rax_8c_a6a7574f98f34f3a8fcf1a6fd50849513}} 
+\index{rax.\+c@{rax.\+c}!rax\+E\+OF@{rax\+E\+OF}}
+\index{rax\+E\+OF@{rax\+E\+OF}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+E\+O\+F()}{raxEOF()}}
+{\footnotesize\ttfamily int rax\+E\+OF (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$}]{it }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1811 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a415d51e648ef5dcdab2e908f5385e482}\label{rax_8c_a415d51e648ef5dcdab2e908f5385e482}} 
+\index{rax.\+c@{rax.\+c}!rax\+Find@{rax\+Find}}
+\index{rax\+Find@{rax\+Find}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Find()}{raxFind()}}
+{\footnotesize\ttfamily void$\ast$ rax\+Find (\begin{DoxyParamCaption}\item[{\hyperlink{structrax}{rax} $\ast$}]{rax,  }\item[{unsigned char $\ast$}]{s,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 916 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_ac829f8984ae2f10156eb2ddf4e0d375e}\label{rax_8c_ac829f8984ae2f10156eb2ddf4e0d375e}} 
+\index{rax.\+c@{rax.\+c}!rax\+Find\+Parent\+Link@{rax\+Find\+Parent\+Link}}
+\index{rax\+Find\+Parent\+Link@{rax\+Find\+Parent\+Link}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Find\+Parent\+Link()}{raxFindParentLink()}}
+{\footnotesize\ttfamily \hyperlink{structrax_node}{rax\+Node}$\ast$$\ast$ rax\+Find\+Parent\+Link (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$}]{parent,  }\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$}]{child }\end{DoxyParamCaption})}
+
+
+
+Definition at line 932 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a70a86ca87050f366a863ac9324318551}\label{rax_8c_a70a86ca87050f366a863ac9324318551}} 
+\index{rax.\+c@{rax.\+c}!rax\+Free@{rax\+Free}}
+\index{rax\+Free@{rax\+Free}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Free()}{raxFree()}}
+{\footnotesize\ttfamily void rax\+Free (\begin{DoxyParamCaption}\item[{\hyperlink{structrax}{rax} $\ast$}]{rax }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1247 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a54994b7aeade76dec98d71ecb5d6d8a6}\label{rax_8c_a54994b7aeade76dec98d71ecb5d6d8a6}} 
+\index{rax.\+c@{rax.\+c}!rax\+Free\+With\+Callback@{rax\+Free\+With\+Callback}}
+\index{rax\+Free\+With\+Callback@{rax\+Free\+With\+Callback}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Free\+With\+Callback()}{raxFreeWithCallback()}}
+{\footnotesize\ttfamily void rax\+Free\+With\+Callback (\begin{DoxyParamCaption}\item[{\hyperlink{structrax}{rax} $\ast$}]{rax,  }\item[{void($\ast$)(void $\ast$)}]{free\+\_\+callback }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1240 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a028cbb528c87c1254b8ac63b3545b42b}\label{rax_8c_a028cbb528c87c1254b8ac63b3545b42b}} 
+\index{rax.\+c@{rax.\+c}!rax\+Generic\+Insert@{rax\+Generic\+Insert}}
+\index{rax\+Generic\+Insert@{rax\+Generic\+Insert}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Generic\+Insert()}{raxGenericInsert()}}
+{\footnotesize\ttfamily int rax\+Generic\+Insert (\begin{DoxyParamCaption}\item[{\hyperlink{structrax}{rax} $\ast$}]{rax,  }\item[{unsigned char $\ast$}]{s,  }\item[{size\+\_\+t}]{len,  }\item[{void $\ast$}]{data,  }\item[{void $\ast$$\ast$}]{old,  }\item[{int}]{overwrite }\end{DoxyParamCaption})}
+
+
+
+Definition at line 507 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a7ef84ed20f4b88b4460158a0a25cf4bc}\label{rax_8c_a7ef84ed20f4b88b4460158a0a25cf4bc}} 
+\index{rax.\+c@{rax.\+c}!rax\+Get\+Data@{rax\+Get\+Data}}
+\index{rax\+Get\+Data@{rax\+Get\+Data}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Get\+Data()}{raxGetData()}}
+{\footnotesize\ttfamily void$\ast$ rax\+Get\+Data (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 237 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a6278503171aa6fb725cf2265b807ee9f}\label{rax_8c_a6278503171aa6fb725cf2265b807ee9f}} 
+\index{rax.\+c@{rax.\+c}!rax\+Insert@{rax\+Insert}}
+\index{rax\+Insert@{rax\+Insert}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Insert()}{raxInsert()}}
+{\footnotesize\ttfamily int rax\+Insert (\begin{DoxyParamCaption}\item[{\hyperlink{structrax}{rax} $\ast$}]{rax,  }\item[{unsigned char $\ast$}]{s,  }\item[{size\+\_\+t}]{len,  }\item[{void $\ast$}]{data,  }\item[{void $\ast$$\ast$}]{old }\end{DoxyParamCaption})}
+
+
+
+Definition at line 902 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a24878b76ef3ac11def06fd3b219f77d4}\label{rax_8c_a24878b76ef3ac11def06fd3b219f77d4}} 
+\index{rax.\+c@{rax.\+c}!rax\+Iterator\+Add\+Chars@{rax\+Iterator\+Add\+Chars}}
+\index{rax\+Iterator\+Add\+Chars@{rax\+Iterator\+Add\+Chars}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Iterator\+Add\+Chars()}{raxIteratorAddChars()}}
+{\footnotesize\ttfamily int rax\+Iterator\+Add\+Chars (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$}]{it,  }\item[{unsigned char $\ast$}]{s,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1270 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a44650eda3a0c082ddf807a766940b36d}\label{rax_8c_a44650eda3a0c082ddf807a766940b36d}} 
+\index{rax.\+c@{rax.\+c}!rax\+Iterator\+Del\+Chars@{rax\+Iterator\+Del\+Chars}}
+\index{rax\+Iterator\+Del\+Chars@{rax\+Iterator\+Del\+Chars}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Iterator\+Del\+Chars()}{raxIteratorDelChars()}}
+{\footnotesize\ttfamily void rax\+Iterator\+Del\+Chars (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$}]{it,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1293 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_ad23d935d0df15700e2f563731c56270a}\label{rax_8c_ad23d935d0df15700e2f563731c56270a}} 
+\index{rax.\+c@{rax.\+c}!rax\+Iterator\+Next\+Step@{rax\+Iterator\+Next\+Step}}
+\index{rax\+Iterator\+Next\+Step@{rax\+Iterator\+Next\+Step}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Iterator\+Next\+Step()}{raxIteratorNextStep()}}
+{\footnotesize\ttfamily int rax\+Iterator\+Next\+Step (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$}]{it,  }\item[{int}]{noup }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1311 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a0aa950bf62ef87e01c32fb1a1b9f7843}\label{rax_8c_a0aa950bf62ef87e01c32fb1a1b9f7843}} 
+\index{rax.\+c@{rax.\+c}!rax\+Iterator\+Prev\+Step@{rax\+Iterator\+Prev\+Step}}
+\index{rax\+Iterator\+Prev\+Step@{rax\+Iterator\+Prev\+Step}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Iterator\+Prev\+Step()}{raxIteratorPrevStep()}}
+{\footnotesize\ttfamily int rax\+Iterator\+Prev\+Step (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$}]{it,  }\item[{int}]{noup }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1431 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a56b1e46d8b342fed1d696f59c6dff08d}\label{rax_8c_a56b1e46d8b342fed1d696f59c6dff08d}} 
+\index{rax.\+c@{rax.\+c}!rax\+New@{rax\+New}}
+\index{rax\+New@{rax\+New}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+New()}{raxNew()}}
+{\footnotesize\ttfamily \hyperlink{structrax}{rax}$\ast$ rax\+New (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 201 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a6a73eee550e3fdf52c26bce50bc8dd0e}\label{rax_8c_a6a73eee550e3fdf52c26bce50bc8dd0e}} 
+\index{rax.\+c@{rax.\+c}!rax\+New\+Node@{rax\+New\+Node}}
+\index{rax\+New\+Node@{rax\+New\+Node}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+New\+Node()}{raxNewNode()}}
+{\footnotesize\ttfamily \hyperlink{structrax_node}{rax\+Node}$\ast$ rax\+New\+Node (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{children,  }\item[{int}]{datafield }\end{DoxyParamCaption})}
+
+
+
+Definition at line 186 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_abafdb51bd58d96e97618cfefc83f3737}\label{rax_8c_abafdb51bd58d96e97618cfefc83f3737}} 
+\index{rax.\+c@{rax.\+c}!rax\+Next@{rax\+Next}}
+\index{rax\+Next@{rax\+Next}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Next()}{raxNext()}}
+{\footnotesize\ttfamily int rax\+Next (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$}]{it }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1693 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a0d5417be2ea691a2730666f605c53425}\label{rax_8c_a0d5417be2ea691a2730666f605c53425}} 
+\index{rax.\+c@{rax.\+c}!rax\+Prev@{rax\+Prev}}
+\index{rax\+Prev@{rax\+Prev}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Prev()}{raxPrev()}}
+{\footnotesize\ttfamily int rax\+Prev (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$}]{it }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1708 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a31f732940ec5305c80d2a8561d7a83fa}\label{rax_8c_a31f732940ec5305c80d2a8561d7a83fa}} 
+\index{rax.\+c@{rax.\+c}!rax\+Random\+Walk@{rax\+Random\+Walk}}
+\index{rax\+Random\+Walk@{rax\+Random\+Walk}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Random\+Walk()}{raxRandomWalk()}}
+{\footnotesize\ttfamily int rax\+Random\+Walk (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$}]{it,  }\item[{size\+\_\+t}]{steps }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1732 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_acd2606ba01a75273c3cb20e12fc94b58}\label{rax_8c_acd2606ba01a75273c3cb20e12fc94b58}} 
+\index{rax.\+c@{rax.\+c}!rax\+Realloc\+For\+Data@{rax\+Realloc\+For\+Data}}
+\index{rax\+Realloc\+For\+Data@{rax\+Realloc\+For\+Data}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Realloc\+For\+Data()}{raxReallocForData()}}
+{\footnotesize\ttfamily \hyperlink{structrax_node}{rax\+Node}$\ast$ rax\+Realloc\+For\+Data (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$}]{n,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+Definition at line 217 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a5efc611859add28a80155be43310ae1d}\label{rax_8c_a5efc611859add28a80155be43310ae1d}} 
+\index{rax.\+c@{rax.\+c}!rax\+Recursive\+Free@{rax\+Recursive\+Free}}
+\index{rax\+Recursive\+Free@{rax\+Recursive\+Free}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Recursive\+Free()}{raxRecursiveFree()}}
+{\footnotesize\ttfamily void rax\+Recursive\+Free (\begin{DoxyParamCaption}\item[{\hyperlink{structrax}{rax} $\ast$}]{rax,  }\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$}]{n,  }\item[{void($\ast$)(void $\ast$)}]{free\+\_\+callback }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1221 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a354c619b2a8fe495d57570a47f4aca00}\label{rax_8c_a354c619b2a8fe495d57570a47f4aca00}} 
+\index{rax.\+c@{rax.\+c}!rax\+Recursive\+Show@{rax\+Recursive\+Show}}
+\index{rax\+Recursive\+Show@{rax\+Recursive\+Show}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Recursive\+Show()}{raxRecursiveShow()}}
+{\footnotesize\ttfamily void rax\+Recursive\+Show (\begin{DoxyParamCaption}\item[{int}]{level,  }\item[{int}]{lpad,  }\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1848 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_afb4eec91d937f03c799a87a2084dd934}\label{rax_8c_afb4eec91d937f03c799a87a2084dd934}} 
+\index{rax.\+c@{rax.\+c}!rax\+Remove@{rax\+Remove}}
+\index{rax\+Remove@{rax\+Remove}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Remove()}{raxRemove()}}
+{\footnotesize\ttfamily int rax\+Remove (\begin{DoxyParamCaption}\item[{\hyperlink{structrax}{rax} $\ast$}]{rax,  }\item[{unsigned char $\ast$}]{s,  }\item[{size\+\_\+t}]{len,  }\item[{void $\ast$$\ast$}]{old }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1020 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a40950014b22a69a58599cf9e0331ccd9}\label{rax_8c_a40950014b22a69a58599cf9e0331ccd9}} 
+\index{rax.\+c@{rax.\+c}!rax\+Remove\+Child@{rax\+Remove\+Child}}
+\index{rax\+Remove\+Child@{rax\+Remove\+Child}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Remove\+Child()}{raxRemoveChild()}}
+{\footnotesize\ttfamily \hyperlink{structrax_node}{rax\+Node}$\ast$ rax\+Remove\+Child (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$}]{parent,  }\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$}]{child }\end{DoxyParamCaption})}
+
+
+
+Definition at line 947 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a4ad909fa19602d916b8781ad11444803}\label{rax_8c_a4ad909fa19602d916b8781ad11444803}} 
+\index{rax.\+c@{rax.\+c}!rax\+Seek@{rax\+Seek}}
+\index{rax\+Seek@{rax\+Seek}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Seek()}{raxSeek()}}
+{\footnotesize\ttfamily int rax\+Seek (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$}]{it,  }\item[{const char $\ast$}]{op,  }\item[{unsigned char $\ast$}]{ele,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1508 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a5671cec5ea611a1b9489489d534dce3b}\label{rax_8c_a5671cec5ea611a1b9489489d534dce3b}} 
+\index{rax.\+c@{rax.\+c}!rax\+Seek\+Greatest@{rax\+Seek\+Greatest}}
+\index{rax\+Seek\+Greatest@{rax\+Seek\+Greatest}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Seek\+Greatest()}{raxSeekGreatest()}}
+{\footnotesize\ttfamily int rax\+Seek\+Greatest (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$}]{it }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1412 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a41e54e8a332bd407957d594c949d1a6e}\label{rax_8c_a41e54e8a332bd407957d594c949d1a6e}} 
+\index{rax.\+c@{rax.\+c}!rax\+Set\+Data@{rax\+Set\+Data}}
+\index{rax\+Set\+Data@{rax\+Set\+Data}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Set\+Data()}{raxSetData()}}
+{\footnotesize\ttfamily void rax\+Set\+Data (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$}]{n,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+Definition at line 224 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a66fce0fea036572ae996038d25c1923f}\label{rax_8c_a66fce0fea036572ae996038d25c1923f}} 
+\index{rax.\+c@{rax.\+c}!rax\+Set\+Debug\+Msg@{rax\+Set\+Debug\+Msg}}
+\index{rax\+Set\+Debug\+Msg@{rax\+Set\+Debug\+Msg}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Set\+Debug\+Msg()}{raxSetDebugMsg()}}
+{\footnotesize\ttfamily void rax\+Set\+Debug\+Msg (\begin{DoxyParamCaption}\item[{int}]{onoff }\end{DoxyParamCaption})}
+
+
+
+Definition at line 79 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_afcf31ae2fd5dba8d9199fd8311cb67f8}\label{rax_8c_afcf31ae2fd5dba8d9199fd8311cb67f8}} 
+\index{rax.\+c@{rax.\+c}!rax\+Show@{rax\+Show}}
+\index{rax\+Show@{rax\+Show}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Show()}{raxShow()}}
+{\footnotesize\ttfamily void rax\+Show (\begin{DoxyParamCaption}\item[{\hyperlink{structrax}{rax} $\ast$}]{rax }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1882 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_ac44bf6b27f6af45dd9b3b7308161322c}\label{rax_8c_ac44bf6b27f6af45dd9b3b7308161322c}} 
+\index{rax.\+c@{rax.\+c}!rax\+Size@{rax\+Size}}
+\index{rax\+Size@{rax\+Size}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Size()}{raxSize()}}
+{\footnotesize\ttfamily uint64\+\_\+t rax\+Size (\begin{DoxyParamCaption}\item[{\hyperlink{structrax}{rax} $\ast$}]{rax }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1816 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a89bfe37114c7be78b37f5f669c7e690e}\label{rax_8c_a89bfe37114c7be78b37f5f669c7e690e}} 
+\index{rax.\+c@{rax.\+c}!rax\+Start@{rax\+Start}}
+\index{rax\+Start@{rax\+Start}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Start()}{raxStart()}}
+{\footnotesize\ttfamily void rax\+Start (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$}]{it,  }\item[{\hyperlink{structrax}{rax} $\ast$}]{rt }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1256 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_afd5c0fce25aea0c4003bbb65b9108520}\label{rax_8c_afd5c0fce25aea0c4003bbb65b9108520}} 
+\index{rax.\+c@{rax.\+c}!rax\+Stop@{rax\+Stop}}
+\index{rax\+Stop@{rax\+Stop}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Stop()}{raxStop()}}
+{\footnotesize\ttfamily void rax\+Stop (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_iterator}{rax\+Iterator} $\ast$}]{it }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1802 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_a959b6a214698a118dfe076cacb5a6fcc}\label{rax_8c_a959b6a214698a118dfe076cacb5a6fcc}} 
+\index{rax.\+c@{rax.\+c}!rax\+Touch@{rax\+Touch}}
+\index{rax\+Touch@{rax\+Touch}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Touch()}{raxTouch()}}
+{\footnotesize\ttfamily unsigned long rax\+Touch (\begin{DoxyParamCaption}\item[{\hyperlink{structrax_node}{rax\+Node} $\ast$}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1921 of file rax.\+c.
+
+\mbox{\Hypertarget{rax_8c_acee19bfcbf236d1c87822919c0339213}\label{rax_8c_acee19bfcbf236d1c87822919c0339213}} 
+\index{rax.\+c@{rax.\+c}!rax\+Try\+Insert@{rax\+Try\+Insert}}
+\index{rax\+Try\+Insert@{rax\+Try\+Insert}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Try\+Insert()}{raxTryInsert()}}
+{\footnotesize\ttfamily int rax\+Try\+Insert (\begin{DoxyParamCaption}\item[{\hyperlink{structrax}{rax} $\ast$}]{rax,  }\item[{unsigned char $\ast$}]{s,  }\item[{size\+\_\+t}]{len,  }\item[{void $\ast$}]{data,  }\item[{void $\ast$$\ast$}]{old }\end{DoxyParamCaption})}
+
+
+
+Definition at line 909 of file rax.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{rax_8c_ab8d8b42e10eb17aed3ce34fb1a49c44e}\label{rax_8c_ab8d8b42e10eb17aed3ce34fb1a49c44e}} 
+\index{rax.\+c@{rax.\+c}!rax\+Not\+Found@{rax\+Not\+Found}}
+\index{rax\+Not\+Found@{rax\+Not\+Found}!rax.\+c@{rax.\+c}}
+\subsubsection{\texorpdfstring{rax\+Not\+Found}{raxNotFound}}
+{\footnotesize\ttfamily void$\ast$ rax\+Not\+Found = (void$\ast$)\char`\"{}rax-\/not-\/found-\/pointer\char`\"{}}
+
+
+
+Definition at line 48 of file rax.\+c.
+

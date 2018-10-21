@@ -1,0 +1,198 @@
+\hypertarget{evict_8c}{}\section{src/evict.c File Reference}
+\label{evict_8c}\index{src/evict.\+c@{src/evict.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}bio.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}atomicvar.\+h\char`\"{}}\newline
+Include dependency graph for evict.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{evict_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structeviction_pool_entry}{eviction\+Pool\+Entry}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{evict_8c_a459751f47982906b9beb736ea3519e97}{E\+V\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}~16
+\item 
+\#define \hyperlink{evict_8c_acfb2106a0b0fb572e25c170d78ab1729}{E\+V\+P\+O\+O\+L\+\_\+\+C\+A\+C\+H\+E\+D\+\_\+\+S\+D\+S\+\_\+\+S\+I\+ZE}~255
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \hyperlink{evict_8c_ac541840357c3d2acaf8b83b1d85fad02}{get\+L\+R\+U\+Clock} (void)
+\item 
+unsigned int \hyperlink{evict_8c_ae9e90615ee90c071a3fcade8ec7c72b3}{L\+R\+U\+\_\+\+C\+L\+O\+CK} (void)
+\item 
+unsigned long long \hyperlink{evict_8c_a88b01fac0bdcdbf799459a4046b18067}{estimate\+Object\+Idle\+Time} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{evict_8c_a30986a11358949941022bb52ca7e56cd}{eviction\+Pool\+Alloc} (void)
+\item 
+void \hyperlink{evict_8c_ae8374d9849f68d08eaa1127ecec954a3}{eviction\+Pool\+Populate} (int dbid, \hyperlink{structdict}{dict} $\ast$sampledict, \hyperlink{structdict}{dict} $\ast$keydict, struct \hyperlink{structeviction_pool_entry}{eviction\+Pool\+Entry} $\ast$pool)
+\item 
+unsigned long \hyperlink{evict_8c_a4b537077f1fe662170675678d354d93c}{L\+F\+U\+Get\+Time\+In\+Minutes} (void)
+\item 
+unsigned long \hyperlink{evict_8c_ad8342e234ce1b21978049b4d1692e545}{L\+F\+U\+Time\+Elapsed} (unsigned long ldt)
+\item 
+uint8\+\_\+t \hyperlink{evict_8c_ab5676b79effd583e88d988dc725c984e}{L\+F\+U\+Log\+Incr} (uint8\+\_\+t counter)
+\item 
+unsigned long \hyperlink{evict_8c_a9f342de41fcca27af0539524ab2cf97d}{L\+F\+U\+Decr\+And\+Return} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+size\+\_\+t \hyperlink{evict_8c_a8b0e1c4c2c1ccf81e6deb77ae8b974b9}{free\+Memory\+Get\+Not\+Counted\+Memory} (void)
+\item 
+int \hyperlink{evict_8c_a73abe826554dee0f497ebfcd1b24cdc7}{get\+Maxmemory\+State} (size\+\_\+t $\ast$total, size\+\_\+t $\ast$logical, size\+\_\+t $\ast$tofree, float $\ast$level)
+\item 
+int \hyperlink{evict_8c_a1b2dc1c43909a5f4f192343765ed8183}{free\+Memory\+If\+Needed} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{evict_8c_acfb2106a0b0fb572e25c170d78ab1729}\label{evict_8c_acfb2106a0b0fb572e25c170d78ab1729}} 
+\index{evict.\+c@{evict.\+c}!E\+V\+P\+O\+O\+L\+\_\+\+C\+A\+C\+H\+E\+D\+\_\+\+S\+D\+S\+\_\+\+S\+I\+ZE@{E\+V\+P\+O\+O\+L\+\_\+\+C\+A\+C\+H\+E\+D\+\_\+\+S\+D\+S\+\_\+\+S\+I\+ZE}}
+\index{E\+V\+P\+O\+O\+L\+\_\+\+C\+A\+C\+H\+E\+D\+\_\+\+S\+D\+S\+\_\+\+S\+I\+ZE@{E\+V\+P\+O\+O\+L\+\_\+\+C\+A\+C\+H\+E\+D\+\_\+\+S\+D\+S\+\_\+\+S\+I\+ZE}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{E\+V\+P\+O\+O\+L\+\_\+\+C\+A\+C\+H\+E\+D\+\_\+\+S\+D\+S\+\_\+\+S\+I\+ZE}{EVPOOL\_CACHED\_SDS\_SIZE}}
+{\footnotesize\ttfamily \#define E\+V\+P\+O\+O\+L\+\_\+\+C\+A\+C\+H\+E\+D\+\_\+\+S\+D\+S\+\_\+\+S\+I\+ZE~255}
+
+
+
+Definition at line 53 of file evict.\+c.
+
+\mbox{\Hypertarget{evict_8c_a459751f47982906b9beb736ea3519e97}\label{evict_8c_a459751f47982906b9beb736ea3519e97}} 
+\index{evict.\+c@{evict.\+c}!E\+V\+P\+O\+O\+L\+\_\+\+S\+I\+ZE@{E\+V\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}}
+\index{E\+V\+P\+O\+O\+L\+\_\+\+S\+I\+ZE@{E\+V\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{E\+V\+P\+O\+O\+L\+\_\+\+S\+I\+ZE}{EVPOOL\_SIZE}}
+{\footnotesize\ttfamily \#define E\+V\+P\+O\+O\+L\+\_\+\+S\+I\+ZE~16}
+
+
+
+Definition at line 52 of file evict.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{evict_8c_a88b01fac0bdcdbf799459a4046b18067}\label{evict_8c_a88b01fac0bdcdbf799459a4046b18067}} 
+\index{evict.\+c@{evict.\+c}!estimate\+Object\+Idle\+Time@{estimate\+Object\+Idle\+Time}}
+\index{estimate\+Object\+Idle\+Time@{estimate\+Object\+Idle\+Time}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{estimate\+Object\+Idle\+Time()}{estimateObjectIdleTime()}}
+{\footnotesize\ttfamily unsigned long long estimate\+Object\+Idle\+Time (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 90 of file evict.\+c.
+
+\mbox{\Hypertarget{evict_8c_a30986a11358949941022bb52ca7e56cd}\label{evict_8c_a30986a11358949941022bb52ca7e56cd}} 
+\index{evict.\+c@{evict.\+c}!eviction\+Pool\+Alloc@{eviction\+Pool\+Alloc}}
+\index{eviction\+Pool\+Alloc@{eviction\+Pool\+Alloc}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{eviction\+Pool\+Alloc()}{evictionPoolAlloc()}}
+{\footnotesize\ttfamily void eviction\+Pool\+Alloc (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 139 of file evict.\+c.
+
+\mbox{\Hypertarget{evict_8c_ae8374d9849f68d08eaa1127ecec954a3}\label{evict_8c_ae8374d9849f68d08eaa1127ecec954a3}} 
+\index{evict.\+c@{evict.\+c}!eviction\+Pool\+Populate@{eviction\+Pool\+Populate}}
+\index{eviction\+Pool\+Populate@{eviction\+Pool\+Populate}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{eviction\+Pool\+Populate()}{evictionPoolPopulate()}}
+{\footnotesize\ttfamily void eviction\+Pool\+Populate (\begin{DoxyParamCaption}\item[{int}]{dbid,  }\item[{\hyperlink{structdict}{dict} $\ast$}]{sampledict,  }\item[{\hyperlink{structdict}{dict} $\ast$}]{keydict,  }\item[{struct \hyperlink{structeviction_pool_entry}{eviction\+Pool\+Entry} $\ast$}]{pool }\end{DoxyParamCaption})}
+
+
+
+Definition at line 162 of file evict.\+c.
+
+\mbox{\Hypertarget{evict_8c_a8b0e1c4c2c1ccf81e6deb77ae8b974b9}\label{evict_8c_a8b0e1c4c2c1ccf81e6deb77ae8b974b9}} 
+\index{evict.\+c@{evict.\+c}!free\+Memory\+Get\+Not\+Counted\+Memory@{free\+Memory\+Get\+Not\+Counted\+Memory}}
+\index{free\+Memory\+Get\+Not\+Counted\+Memory@{free\+Memory\+Get\+Not\+Counted\+Memory}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{free\+Memory\+Get\+Not\+Counted\+Memory()}{freeMemoryGetNotCountedMemory()}}
+{\footnotesize\ttfamily size\+\_\+t free\+Memory\+Get\+Not\+Counted\+Memory (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 352 of file evict.\+c.
+
+\mbox{\Hypertarget{evict_8c_a1b2dc1c43909a5f4f192343765ed8183}\label{evict_8c_a1b2dc1c43909a5f4f192343765ed8183}} 
+\index{evict.\+c@{evict.\+c}!free\+Memory\+If\+Needed@{free\+Memory\+If\+Needed}}
+\index{free\+Memory\+If\+Needed@{free\+Memory\+If\+Needed}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{free\+Memory\+If\+Needed()}{freeMemoryIfNeeded()}}
+{\footnotesize\ttfamily int free\+Memory\+If\+Needed (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 446 of file evict.\+c.
+
+\mbox{\Hypertarget{evict_8c_ac541840357c3d2acaf8b83b1d85fad02}\label{evict_8c_ac541840357c3d2acaf8b83b1d85fad02}} 
+\index{evict.\+c@{evict.\+c}!get\+L\+R\+U\+Clock@{get\+L\+R\+U\+Clock}}
+\index{get\+L\+R\+U\+Clock@{get\+L\+R\+U\+Clock}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{get\+L\+R\+U\+Clock()}{getLRUClock()}}
+{\footnotesize\ttfamily unsigned int get\+L\+R\+U\+Clock (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 70 of file evict.\+c.
+
+\mbox{\Hypertarget{evict_8c_a73abe826554dee0f497ebfcd1b24cdc7}\label{evict_8c_a73abe826554dee0f497ebfcd1b24cdc7}} 
+\index{evict.\+c@{evict.\+c}!get\+Maxmemory\+State@{get\+Maxmemory\+State}}
+\index{get\+Maxmemory\+State@{get\+Maxmemory\+State}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{get\+Maxmemory\+State()}{getMaxmemoryState()}}
+{\footnotesize\ttfamily int get\+Maxmemory\+State (\begin{DoxyParamCaption}\item[{size\+\_\+t $\ast$}]{total,  }\item[{size\+\_\+t $\ast$}]{logical,  }\item[{size\+\_\+t $\ast$}]{tofree,  }\item[{float $\ast$}]{level }\end{DoxyParamCaption})}
+
+
+
+Definition at line 396 of file evict.\+c.
+
+\mbox{\Hypertarget{evict_8c_a9f342de41fcca27af0539524ab2cf97d}\label{evict_8c_a9f342de41fcca27af0539524ab2cf97d}} 
+\index{evict.\+c@{evict.\+c}!L\+F\+U\+Decr\+And\+Return@{L\+F\+U\+Decr\+And\+Return}}
+\index{L\+F\+U\+Decr\+And\+Return@{L\+F\+U\+Decr\+And\+Return}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{L\+F\+U\+Decr\+And\+Return()}{LFUDecrAndReturn()}}
+{\footnotesize\ttfamily unsigned long L\+F\+U\+Decr\+And\+Return (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 335 of file evict.\+c.
+
+\mbox{\Hypertarget{evict_8c_a4b537077f1fe662170675678d354d93c}\label{evict_8c_a4b537077f1fe662170675678d354d93c}} 
+\index{evict.\+c@{evict.\+c}!L\+F\+U\+Get\+Time\+In\+Minutes@{L\+F\+U\+Get\+Time\+In\+Minutes}}
+\index{L\+F\+U\+Get\+Time\+In\+Minutes@{L\+F\+U\+Get\+Time\+In\+Minutes}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{L\+F\+U\+Get\+Time\+In\+Minutes()}{LFUGetTimeInMinutes()}}
+{\footnotesize\ttfamily unsigned long L\+F\+U\+Get\+Time\+In\+Minutes (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 299 of file evict.\+c.
+
+\mbox{\Hypertarget{evict_8c_ab5676b79effd583e88d988dc725c984e}\label{evict_8c_ab5676b79effd583e88d988dc725c984e}} 
+\index{evict.\+c@{evict.\+c}!L\+F\+U\+Log\+Incr@{L\+F\+U\+Log\+Incr}}
+\index{L\+F\+U\+Log\+Incr@{L\+F\+U\+Log\+Incr}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{L\+F\+U\+Log\+Incr()}{LFULogIncr()}}
+{\footnotesize\ttfamily uint8\+\_\+t L\+F\+U\+Log\+Incr (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{counter }\end{DoxyParamCaption})}
+
+
+
+Definition at line 315 of file evict.\+c.
+
+\mbox{\Hypertarget{evict_8c_ad8342e234ce1b21978049b4d1692e545}\label{evict_8c_ad8342e234ce1b21978049b4d1692e545}} 
+\index{evict.\+c@{evict.\+c}!L\+F\+U\+Time\+Elapsed@{L\+F\+U\+Time\+Elapsed}}
+\index{L\+F\+U\+Time\+Elapsed@{L\+F\+U\+Time\+Elapsed}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{L\+F\+U\+Time\+Elapsed()}{LFUTimeElapsed()}}
+{\footnotesize\ttfamily unsigned long L\+F\+U\+Time\+Elapsed (\begin{DoxyParamCaption}\item[{unsigned long}]{ldt }\end{DoxyParamCaption})}
+
+
+
+Definition at line 307 of file evict.\+c.
+
+\mbox{\Hypertarget{evict_8c_ae9e90615ee90c071a3fcade8ec7c72b3}\label{evict_8c_ae9e90615ee90c071a3fcade8ec7c72b3}} 
+\index{evict.\+c@{evict.\+c}!L\+R\+U\+\_\+\+C\+L\+O\+CK@{L\+R\+U\+\_\+\+C\+L\+O\+CK}}
+\index{L\+R\+U\+\_\+\+C\+L\+O\+CK@{L\+R\+U\+\_\+\+C\+L\+O\+CK}!evict.\+c@{evict.\+c}}
+\subsubsection{\texorpdfstring{L\+R\+U\+\_\+\+C\+L\+O\+C\+K()}{LRU\_CLOCK()}}
+{\footnotesize\ttfamily unsigned int L\+R\+U\+\_\+\+C\+L\+O\+CK (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 78 of file evict.\+c.
+

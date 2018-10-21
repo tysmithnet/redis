@@ -1,0 +1,346 @@
+\hypertarget{structcluster_state}{}\section{cluster\+State Struct Reference}
+\label{structcluster_state}\index{cluster\+State@{cluster\+State}}
+
+
+{\ttfamily \#include $<$cluster.\+h$>$}
+
+
+
+Collaboration diagram for cluster\+State\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structcluster_state__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structcluster_node}{cluster\+Node} $\ast$ \hyperlink{structcluster_state_aff69bee08a3a0a58166a9f85acf12d56}{myself}
+\item 
+uint64\+\_\+t \hyperlink{structcluster_state_a97f41589e815c407f015841f5a3d816f}{current\+Epoch}
+\item 
+int \hyperlink{structcluster_state_a89f234133d3efe315836311cbf21c64b}{state}
+\item 
+int \hyperlink{structcluster_state_a439227feff9d7f55384e8780cfc2eb82}{size}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structcluster_state_a6e18e71a503d78c25fa93a49e05bf6f4}{nodes}
+\item 
+\hyperlink{structdict}{dict} $\ast$ \hyperlink{structcluster_state_a0dec12e8b1bd71942304f8073656d023}{nodes\+\_\+black\+\_\+list}
+\item 
+\hyperlink{structcluster_node}{cluster\+Node} $\ast$ \hyperlink{structcluster_state_a95946e1c3598728041d63dfdb7b179df}{migrating\+\_\+slots\+\_\+to} \mbox{[}\hyperlink{cluster_8h_aa3e2cb951eebb16725ecc3f5beefd9fd}{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}\mbox{]}
+\item 
+\hyperlink{structcluster_node}{cluster\+Node} $\ast$ \hyperlink{structcluster_state_a1268626116ae576c7bb7dcdd60f43ccf}{importing\+\_\+slots\+\_\+from} \mbox{[}\hyperlink{cluster_8h_aa3e2cb951eebb16725ecc3f5beefd9fd}{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}\mbox{]}
+\item 
+\hyperlink{structcluster_node}{cluster\+Node} $\ast$ \hyperlink{structcluster_state_a1eb411c5aaa32d0d3c2ac0c5e9dde892}{slots} \mbox{[}\hyperlink{cluster_8h_aa3e2cb951eebb16725ecc3f5beefd9fd}{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}\mbox{]}
+\item 
+uint64\+\_\+t \hyperlink{structcluster_state_acd00e4aea7a23f7498525dc50671c66f}{slots\+\_\+keys\+\_\+count} \mbox{[}\hyperlink{cluster_8h_aa3e2cb951eebb16725ecc3f5beefd9fd}{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}\mbox{]}
+\item 
+\hyperlink{structrax}{rax} $\ast$ \hyperlink{structcluster_state_a2dd4e8e6e414888eee838a96e2573ae8}{slots\+\_\+to\+\_\+keys}
+\item 
+\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} \hyperlink{structcluster_state_a6acb8999815edbd474cb3fc1e31681e6}{failover\+\_\+auth\+\_\+time}
+\item 
+int \hyperlink{structcluster_state_ae1b94f8bc49656245d7f3ed2a0582022}{failover\+\_\+auth\+\_\+count}
+\item 
+int \hyperlink{structcluster_state_adb3806b1c3d64d9cf5bbf5ceacf15dc0}{failover\+\_\+auth\+\_\+sent}
+\item 
+int \hyperlink{structcluster_state_a52dbd3d525c7f1e426d32f045893dd2e}{failover\+\_\+auth\+\_\+rank}
+\item 
+uint64\+\_\+t \hyperlink{structcluster_state_a516e3fdf8f127f6c29e318bcacbe2f3b}{failover\+\_\+auth\+\_\+epoch}
+\item 
+int \hyperlink{structcluster_state_a39e7055565db885db62edd0b431617ee}{cant\+\_\+failover\+\_\+reason}
+\item 
+\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} \hyperlink{structcluster_state_a0c7b84fff1f0fe55132e97977fca4d9b}{mf\+\_\+end}
+\item 
+\hyperlink{structcluster_node}{cluster\+Node} $\ast$ \hyperlink{structcluster_state_a2e05a27830b3ab7c4abc4322c9972959}{mf\+\_\+slave}
+\item 
+long long \hyperlink{structcluster_state_a74633edfa88dbbd2ba5bd94e8d24bda8}{mf\+\_\+master\+\_\+offset}
+\item 
+int \hyperlink{structcluster_state_a2f5224c461c3af2a0833ae28c0ffa606}{mf\+\_\+can\+\_\+start}
+\item 
+uint64\+\_\+t \hyperlink{structcluster_state_ad9df5e1c1e5db0bb0334f30de0b4a815}{last\+Vote\+Epoch}
+\item 
+int \hyperlink{structcluster_state_ad1fa0188f945aac48dec9eb49c943a72}{todo\+\_\+before\+\_\+sleep}
+\item 
+long long \hyperlink{structcluster_state_a8b47b0756931e1e5dc07cda92de394e2}{stats\+\_\+bus\+\_\+messages\+\_\+sent} \mbox{[}\hyperlink{cluster_8h_a6222c464c1f2125f42271d2abd63853e}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT}\mbox{]}
+\item 
+long long \hyperlink{structcluster_state_ad3dc0c6e15b6bd97620150b94d2f6c44}{stats\+\_\+bus\+\_\+messages\+\_\+received} \mbox{[}\hyperlink{cluster_8h_a6222c464c1f2125f42271d2abd63853e}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT}\mbox{]}
+\item 
+long long \hyperlink{structcluster_state_a278d5ed382c852a1e40e985d642306e6}{stats\+\_\+pfail\+\_\+nodes}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 143 of file cluster.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structcluster_state_a39e7055565db885db62edd0b431617ee}\label{structcluster_state_a39e7055565db885db62edd0b431617ee}} 
+\index{cluster\+State@{cluster\+State}!cant\+\_\+failover\+\_\+reason@{cant\+\_\+failover\+\_\+reason}}
+\index{cant\+\_\+failover\+\_\+reason@{cant\+\_\+failover\+\_\+reason}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{cant\+\_\+failover\+\_\+reason}{cant\_failover\_reason}}
+{\footnotesize\ttfamily int cant\+\_\+failover\+\_\+reason}
+
+
+
+Definition at line 161 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a97f41589e815c407f015841f5a3d816f}\label{structcluster_state_a97f41589e815c407f015841f5a3d816f}} 
+\index{cluster\+State@{cluster\+State}!current\+Epoch@{current\+Epoch}}
+\index{current\+Epoch@{current\+Epoch}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{current\+Epoch}{currentEpoch}}
+{\footnotesize\ttfamily uint64\+\_\+t current\+Epoch}
+
+
+
+Definition at line 145 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_ae1b94f8bc49656245d7f3ed2a0582022}\label{structcluster_state_ae1b94f8bc49656245d7f3ed2a0582022}} 
+\index{cluster\+State@{cluster\+State}!failover\+\_\+auth\+\_\+count@{failover\+\_\+auth\+\_\+count}}
+\index{failover\+\_\+auth\+\_\+count@{failover\+\_\+auth\+\_\+count}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{failover\+\_\+auth\+\_\+count}{failover\_auth\_count}}
+{\footnotesize\ttfamily int failover\+\_\+auth\+\_\+count}
+
+
+
+Definition at line 157 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a516e3fdf8f127f6c29e318bcacbe2f3b}\label{structcluster_state_a516e3fdf8f127f6c29e318bcacbe2f3b}} 
+\index{cluster\+State@{cluster\+State}!failover\+\_\+auth\+\_\+epoch@{failover\+\_\+auth\+\_\+epoch}}
+\index{failover\+\_\+auth\+\_\+epoch@{failover\+\_\+auth\+\_\+epoch}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{failover\+\_\+auth\+\_\+epoch}{failover\_auth\_epoch}}
+{\footnotesize\ttfamily uint64\+\_\+t failover\+\_\+auth\+\_\+epoch}
+
+
+
+Definition at line 160 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a52dbd3d525c7f1e426d32f045893dd2e}\label{structcluster_state_a52dbd3d525c7f1e426d32f045893dd2e}} 
+\index{cluster\+State@{cluster\+State}!failover\+\_\+auth\+\_\+rank@{failover\+\_\+auth\+\_\+rank}}
+\index{failover\+\_\+auth\+\_\+rank@{failover\+\_\+auth\+\_\+rank}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{failover\+\_\+auth\+\_\+rank}{failover\_auth\_rank}}
+{\footnotesize\ttfamily int failover\+\_\+auth\+\_\+rank}
+
+
+
+Definition at line 159 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_adb3806b1c3d64d9cf5bbf5ceacf15dc0}\label{structcluster_state_adb3806b1c3d64d9cf5bbf5ceacf15dc0}} 
+\index{cluster\+State@{cluster\+State}!failover\+\_\+auth\+\_\+sent@{failover\+\_\+auth\+\_\+sent}}
+\index{failover\+\_\+auth\+\_\+sent@{failover\+\_\+auth\+\_\+sent}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{failover\+\_\+auth\+\_\+sent}{failover\_auth\_sent}}
+{\footnotesize\ttfamily int failover\+\_\+auth\+\_\+sent}
+
+
+
+Definition at line 158 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a6acb8999815edbd474cb3fc1e31681e6}\label{structcluster_state_a6acb8999815edbd474cb3fc1e31681e6}} 
+\index{cluster\+State@{cluster\+State}!failover\+\_\+auth\+\_\+time@{failover\+\_\+auth\+\_\+time}}
+\index{failover\+\_\+auth\+\_\+time@{failover\+\_\+auth\+\_\+time}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{failover\+\_\+auth\+\_\+time}{failover\_auth\_time}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} failover\+\_\+auth\+\_\+time}
+
+
+
+Definition at line 156 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a1268626116ae576c7bb7dcdd60f43ccf}\label{structcluster_state_a1268626116ae576c7bb7dcdd60f43ccf}} 
+\index{cluster\+State@{cluster\+State}!importing\+\_\+slots\+\_\+from@{importing\+\_\+slots\+\_\+from}}
+\index{importing\+\_\+slots\+\_\+from@{importing\+\_\+slots\+\_\+from}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{importing\+\_\+slots\+\_\+from}{importing\_slots\_from}}
+{\footnotesize\ttfamily \hyperlink{structcluster_node}{cluster\+Node}$\ast$ importing\+\_\+slots\+\_\+from\mbox{[}\hyperlink{cluster_8h_aa3e2cb951eebb16725ecc3f5beefd9fd}{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}\mbox{]}}
+
+
+
+Definition at line 151 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_ad9df5e1c1e5db0bb0334f30de0b4a815}\label{structcluster_state_ad9df5e1c1e5db0bb0334f30de0b4a815}} 
+\index{cluster\+State@{cluster\+State}!last\+Vote\+Epoch@{last\+Vote\+Epoch}}
+\index{last\+Vote\+Epoch@{last\+Vote\+Epoch}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{last\+Vote\+Epoch}{lastVoteEpoch}}
+{\footnotesize\ttfamily uint64\+\_\+t last\+Vote\+Epoch}
+
+
+
+Definition at line 174 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a2f5224c461c3af2a0833ae28c0ffa606}\label{structcluster_state_a2f5224c461c3af2a0833ae28c0ffa606}} 
+\index{cluster\+State@{cluster\+State}!mf\+\_\+can\+\_\+start@{mf\+\_\+can\+\_\+start}}
+\index{mf\+\_\+can\+\_\+start@{mf\+\_\+can\+\_\+start}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{mf\+\_\+can\+\_\+start}{mf\_can\_start}}
+{\footnotesize\ttfamily int mf\+\_\+can\+\_\+start}
+
+
+
+Definition at line 171 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a0c7b84fff1f0fe55132e97977fca4d9b}\label{structcluster_state_a0c7b84fff1f0fe55132e97977fca4d9b}} 
+\index{cluster\+State@{cluster\+State}!mf\+\_\+end@{mf\+\_\+end}}
+\index{mf\+\_\+end@{mf\+\_\+end}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{mf\+\_\+end}{mf\_end}}
+{\footnotesize\ttfamily \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} mf\+\_\+end}
+
+
+
+Definition at line 164 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a74633edfa88dbbd2ba5bd94e8d24bda8}\label{structcluster_state_a74633edfa88dbbd2ba5bd94e8d24bda8}} 
+\index{cluster\+State@{cluster\+State}!mf\+\_\+master\+\_\+offset@{mf\+\_\+master\+\_\+offset}}
+\index{mf\+\_\+master\+\_\+offset@{mf\+\_\+master\+\_\+offset}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{mf\+\_\+master\+\_\+offset}{mf\_master\_offset}}
+{\footnotesize\ttfamily long long mf\+\_\+master\+\_\+offset}
+
+
+
+Definition at line 169 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a2e05a27830b3ab7c4abc4322c9972959}\label{structcluster_state_a2e05a27830b3ab7c4abc4322c9972959}} 
+\index{cluster\+State@{cluster\+State}!mf\+\_\+slave@{mf\+\_\+slave}}
+\index{mf\+\_\+slave@{mf\+\_\+slave}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{mf\+\_\+slave}{mf\_slave}}
+{\footnotesize\ttfamily \hyperlink{structcluster_node}{cluster\+Node}$\ast$ mf\+\_\+slave}
+
+
+
+Definition at line 167 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a95946e1c3598728041d63dfdb7b179df}\label{structcluster_state_a95946e1c3598728041d63dfdb7b179df}} 
+\index{cluster\+State@{cluster\+State}!migrating\+\_\+slots\+\_\+to@{migrating\+\_\+slots\+\_\+to}}
+\index{migrating\+\_\+slots\+\_\+to@{migrating\+\_\+slots\+\_\+to}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{migrating\+\_\+slots\+\_\+to}{migrating\_slots\_to}}
+{\footnotesize\ttfamily \hyperlink{structcluster_node}{cluster\+Node}$\ast$ migrating\+\_\+slots\+\_\+to\mbox{[}\hyperlink{cluster_8h_aa3e2cb951eebb16725ecc3f5beefd9fd}{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}\mbox{]}}
+
+
+
+Definition at line 150 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_aff69bee08a3a0a58166a9f85acf12d56}\label{structcluster_state_aff69bee08a3a0a58166a9f85acf12d56}} 
+\index{cluster\+State@{cluster\+State}!myself@{myself}}
+\index{myself@{myself}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{myself}{myself}}
+{\footnotesize\ttfamily \hyperlink{structcluster_node}{cluster\+Node}$\ast$ myself}
+
+
+
+Definition at line 144 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a6e18e71a503d78c25fa93a49e05bf6f4}\label{structcluster_state_a6e18e71a503d78c25fa93a49e05bf6f4}} 
+\index{cluster\+State@{cluster\+State}!nodes@{nodes}}
+\index{nodes@{nodes}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{nodes}{nodes}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ nodes}
+
+
+
+Definition at line 148 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a0dec12e8b1bd71942304f8073656d023}\label{structcluster_state_a0dec12e8b1bd71942304f8073656d023}} 
+\index{cluster\+State@{cluster\+State}!nodes\+\_\+black\+\_\+list@{nodes\+\_\+black\+\_\+list}}
+\index{nodes\+\_\+black\+\_\+list@{nodes\+\_\+black\+\_\+list}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{nodes\+\_\+black\+\_\+list}{nodes\_black\_list}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ nodes\+\_\+black\+\_\+list}
+
+
+
+Definition at line 149 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a439227feff9d7f55384e8780cfc2eb82}\label{structcluster_state_a439227feff9d7f55384e8780cfc2eb82}} 
+\index{cluster\+State@{cluster\+State}!size@{size}}
+\index{size@{size}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily int size}
+
+
+
+Definition at line 147 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a1eb411c5aaa32d0d3c2ac0c5e9dde892}\label{structcluster_state_a1eb411c5aaa32d0d3c2ac0c5e9dde892}} 
+\index{cluster\+State@{cluster\+State}!slots@{slots}}
+\index{slots@{slots}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{slots}{slots}}
+{\footnotesize\ttfamily \hyperlink{structcluster_node}{cluster\+Node}$\ast$ slots\mbox{[}\hyperlink{cluster_8h_aa3e2cb951eebb16725ecc3f5beefd9fd}{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}\mbox{]}}
+
+
+
+Definition at line 152 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_acd00e4aea7a23f7498525dc50671c66f}\label{structcluster_state_acd00e4aea7a23f7498525dc50671c66f}} 
+\index{cluster\+State@{cluster\+State}!slots\+\_\+keys\+\_\+count@{slots\+\_\+keys\+\_\+count}}
+\index{slots\+\_\+keys\+\_\+count@{slots\+\_\+keys\+\_\+count}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{slots\+\_\+keys\+\_\+count}{slots\_keys\_count}}
+{\footnotesize\ttfamily uint64\+\_\+t slots\+\_\+keys\+\_\+count\mbox{[}\hyperlink{cluster_8h_aa3e2cb951eebb16725ecc3f5beefd9fd}{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}\mbox{]}}
+
+
+
+Definition at line 153 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a2dd4e8e6e414888eee838a96e2573ae8}\label{structcluster_state_a2dd4e8e6e414888eee838a96e2573ae8}} 
+\index{cluster\+State@{cluster\+State}!slots\+\_\+to\+\_\+keys@{slots\+\_\+to\+\_\+keys}}
+\index{slots\+\_\+to\+\_\+keys@{slots\+\_\+to\+\_\+keys}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{slots\+\_\+to\+\_\+keys}{slots\_to\_keys}}
+{\footnotesize\ttfamily \hyperlink{structrax}{rax}$\ast$ slots\+\_\+to\+\_\+keys}
+
+
+
+Definition at line 154 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a89f234133d3efe315836311cbf21c64b}\label{structcluster_state_a89f234133d3efe315836311cbf21c64b}} 
+\index{cluster\+State@{cluster\+State}!state@{state}}
+\index{state@{state}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily int state}
+
+
+
+Definition at line 146 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_ad3dc0c6e15b6bd97620150b94d2f6c44}\label{structcluster_state_ad3dc0c6e15b6bd97620150b94d2f6c44}} 
+\index{cluster\+State@{cluster\+State}!stats\+\_\+bus\+\_\+messages\+\_\+received@{stats\+\_\+bus\+\_\+messages\+\_\+received}}
+\index{stats\+\_\+bus\+\_\+messages\+\_\+received@{stats\+\_\+bus\+\_\+messages\+\_\+received}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{stats\+\_\+bus\+\_\+messages\+\_\+received}{stats\_bus\_messages\_received}}
+{\footnotesize\ttfamily long long stats\+\_\+bus\+\_\+messages\+\_\+received\mbox{[}\hyperlink{cluster_8h_a6222c464c1f2125f42271d2abd63853e}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT}\mbox{]}}
+
+
+
+Definition at line 178 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a8b47b0756931e1e5dc07cda92de394e2}\label{structcluster_state_a8b47b0756931e1e5dc07cda92de394e2}} 
+\index{cluster\+State@{cluster\+State}!stats\+\_\+bus\+\_\+messages\+\_\+sent@{stats\+\_\+bus\+\_\+messages\+\_\+sent}}
+\index{stats\+\_\+bus\+\_\+messages\+\_\+sent@{stats\+\_\+bus\+\_\+messages\+\_\+sent}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{stats\+\_\+bus\+\_\+messages\+\_\+sent}{stats\_bus\_messages\_sent}}
+{\footnotesize\ttfamily long long stats\+\_\+bus\+\_\+messages\+\_\+sent\mbox{[}\hyperlink{cluster_8h_a6222c464c1f2125f42271d2abd63853e}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT}\mbox{]}}
+
+
+
+Definition at line 177 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_a278d5ed382c852a1e40e985d642306e6}\label{structcluster_state_a278d5ed382c852a1e40e985d642306e6}} 
+\index{cluster\+State@{cluster\+State}!stats\+\_\+pfail\+\_\+nodes@{stats\+\_\+pfail\+\_\+nodes}}
+\index{stats\+\_\+pfail\+\_\+nodes@{stats\+\_\+pfail\+\_\+nodes}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{stats\+\_\+pfail\+\_\+nodes}{stats\_pfail\_nodes}}
+{\footnotesize\ttfamily long long stats\+\_\+pfail\+\_\+nodes}
+
+
+
+Definition at line 179 of file cluster.\+h.
+
+\mbox{\Hypertarget{structcluster_state_ad1fa0188f945aac48dec9eb49c943a72}\label{structcluster_state_ad1fa0188f945aac48dec9eb49c943a72}} 
+\index{cluster\+State@{cluster\+State}!todo\+\_\+before\+\_\+sleep@{todo\+\_\+before\+\_\+sleep}}
+\index{todo\+\_\+before\+\_\+sleep@{todo\+\_\+before\+\_\+sleep}!cluster\+State@{cluster\+State}}
+\subsubsection{\texorpdfstring{todo\+\_\+before\+\_\+sleep}{todo\_before\_sleep}}
+{\footnotesize\ttfamily int todo\+\_\+before\+\_\+sleep}
+
+
+
+Definition at line 175 of file cluster.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{cluster_8h}{cluster.\+h}\end{DoxyCompactItemize}

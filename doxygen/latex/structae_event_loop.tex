@@ -1,0 +1,166 @@
+\hypertarget{structae_event_loop}{}\section{ae\+Event\+Loop Struct Reference}
+\label{structae_event_loop}\index{ae\+Event\+Loop@{ae\+Event\+Loop}}
+
+
+{\ttfamily \#include $<$ae.\+h$>$}
+
+
+
+Collaboration diagram for ae\+Event\+Loop\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structae_event_loop__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{structae_event_loop_a7a13a361801dcc59ce4946736fa26726}{maxfd}
+\item 
+int \hyperlink{structae_event_loop_afcc4d6ce64e647b5ff70e04393e854cd}{setsize}
+\item 
+long long \hyperlink{structae_event_loop_a16573cf248b2aeb7ecacfc992ae774d4}{time\+Event\+Next\+Id}
+\item 
+time\+\_\+t \hyperlink{structae_event_loop_a9a8ce27fc2a03316649058e288233cf8}{last\+Time}
+\item 
+\hyperlink{structae_file_event}{ae\+File\+Event} $\ast$ \hyperlink{structae_event_loop_af7bb19dd3fc37f35b9b655455679ce56}{events}
+\item 
+\hyperlink{structae_fired_event}{ae\+Fired\+Event} $\ast$ \hyperlink{structae_event_loop_a3116c9bc1c9065f5ea86c4aee38ca2e2}{fired}
+\item 
+\hyperlink{structae_time_event}{ae\+Time\+Event} $\ast$ \hyperlink{structae_event_loop_aa46c6a447db443855daf5b08923bed36}{time\+Event\+Head}
+\item 
+int \hyperlink{structae_event_loop_a6c0af9f2e97842405fb15ed952ef2976}{stop}
+\item 
+void $\ast$ \hyperlink{structae_event_loop_a6c38ead7bed5299f416045c1940ee5b1}{apidata}
+\item 
+\hyperlink{ae_8h_a9b418f26d4997ba2d303dd247ae45718}{ae\+Before\+Sleep\+Proc} $\ast$ \hyperlink{structae_event_loop_a237a195466baef2c9cc26255774fd7cb}{beforesleep}
+\item 
+\hyperlink{ae_8h_a9b418f26d4997ba2d303dd247ae45718}{ae\+Before\+Sleep\+Proc} $\ast$ \hyperlink{structae_event_loop_a7a22ce87f685955512b3a0c049d5763c}{aftersleep}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 97 of file ae.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structae_event_loop_a7a22ce87f685955512b3a0c049d5763c}\label{structae_event_loop_a7a22ce87f685955512b3a0c049d5763c}} 
+\index{ae\+Event\+Loop@{ae\+Event\+Loop}!aftersleep@{aftersleep}}
+\index{aftersleep@{aftersleep}!ae\+Event\+Loop@{ae\+Event\+Loop}}
+\subsubsection{\texorpdfstring{aftersleep}{aftersleep}}
+{\footnotesize\ttfamily \hyperlink{ae_8h_a9b418f26d4997ba2d303dd247ae45718}{ae\+Before\+Sleep\+Proc}$\ast$ aftersleep}
+
+
+
+Definition at line 108 of file ae.\+h.
+
+\mbox{\Hypertarget{structae_event_loop_a6c38ead7bed5299f416045c1940ee5b1}\label{structae_event_loop_a6c38ead7bed5299f416045c1940ee5b1}} 
+\index{ae\+Event\+Loop@{ae\+Event\+Loop}!apidata@{apidata}}
+\index{apidata@{apidata}!ae\+Event\+Loop@{ae\+Event\+Loop}}
+\subsubsection{\texorpdfstring{apidata}{apidata}}
+{\footnotesize\ttfamily void$\ast$ apidata}
+
+
+
+Definition at line 106 of file ae.\+h.
+
+\mbox{\Hypertarget{structae_event_loop_a237a195466baef2c9cc26255774fd7cb}\label{structae_event_loop_a237a195466baef2c9cc26255774fd7cb}} 
+\index{ae\+Event\+Loop@{ae\+Event\+Loop}!beforesleep@{beforesleep}}
+\index{beforesleep@{beforesleep}!ae\+Event\+Loop@{ae\+Event\+Loop}}
+\subsubsection{\texorpdfstring{beforesleep}{beforesleep}}
+{\footnotesize\ttfamily \hyperlink{ae_8h_a9b418f26d4997ba2d303dd247ae45718}{ae\+Before\+Sleep\+Proc}$\ast$ beforesleep}
+
+
+
+Definition at line 107 of file ae.\+h.
+
+\mbox{\Hypertarget{structae_event_loop_af7bb19dd3fc37f35b9b655455679ce56}\label{structae_event_loop_af7bb19dd3fc37f35b9b655455679ce56}} 
+\index{ae\+Event\+Loop@{ae\+Event\+Loop}!events@{events}}
+\index{events@{events}!ae\+Event\+Loop@{ae\+Event\+Loop}}
+\subsubsection{\texorpdfstring{events}{events}}
+{\footnotesize\ttfamily \hyperlink{structae_file_event}{ae\+File\+Event}$\ast$ events}
+
+
+
+Definition at line 102 of file ae.\+h.
+
+\mbox{\Hypertarget{structae_event_loop_a3116c9bc1c9065f5ea86c4aee38ca2e2}\label{structae_event_loop_a3116c9bc1c9065f5ea86c4aee38ca2e2}} 
+\index{ae\+Event\+Loop@{ae\+Event\+Loop}!fired@{fired}}
+\index{fired@{fired}!ae\+Event\+Loop@{ae\+Event\+Loop}}
+\subsubsection{\texorpdfstring{fired}{fired}}
+{\footnotesize\ttfamily \hyperlink{structae_fired_event}{ae\+Fired\+Event}$\ast$ fired}
+
+
+
+Definition at line 103 of file ae.\+h.
+
+\mbox{\Hypertarget{structae_event_loop_a9a8ce27fc2a03316649058e288233cf8}\label{structae_event_loop_a9a8ce27fc2a03316649058e288233cf8}} 
+\index{ae\+Event\+Loop@{ae\+Event\+Loop}!last\+Time@{last\+Time}}
+\index{last\+Time@{last\+Time}!ae\+Event\+Loop@{ae\+Event\+Loop}}
+\subsubsection{\texorpdfstring{last\+Time}{lastTime}}
+{\footnotesize\ttfamily time\+\_\+t last\+Time}
+
+
+
+Definition at line 101 of file ae.\+h.
+
+\mbox{\Hypertarget{structae_event_loop_a7a13a361801dcc59ce4946736fa26726}\label{structae_event_loop_a7a13a361801dcc59ce4946736fa26726}} 
+\index{ae\+Event\+Loop@{ae\+Event\+Loop}!maxfd@{maxfd}}
+\index{maxfd@{maxfd}!ae\+Event\+Loop@{ae\+Event\+Loop}}
+\subsubsection{\texorpdfstring{maxfd}{maxfd}}
+{\footnotesize\ttfamily int maxfd}
+
+
+
+Definition at line 98 of file ae.\+h.
+
+\mbox{\Hypertarget{structae_event_loop_afcc4d6ce64e647b5ff70e04393e854cd}\label{structae_event_loop_afcc4d6ce64e647b5ff70e04393e854cd}} 
+\index{ae\+Event\+Loop@{ae\+Event\+Loop}!setsize@{setsize}}
+\index{setsize@{setsize}!ae\+Event\+Loop@{ae\+Event\+Loop}}
+\subsubsection{\texorpdfstring{setsize}{setsize}}
+{\footnotesize\ttfamily int setsize}
+
+
+
+Definition at line 99 of file ae.\+h.
+
+\mbox{\Hypertarget{structae_event_loop_a6c0af9f2e97842405fb15ed952ef2976}\label{structae_event_loop_a6c0af9f2e97842405fb15ed952ef2976}} 
+\index{ae\+Event\+Loop@{ae\+Event\+Loop}!stop@{stop}}
+\index{stop@{stop}!ae\+Event\+Loop@{ae\+Event\+Loop}}
+\subsubsection{\texorpdfstring{stop}{stop}}
+{\footnotesize\ttfamily int stop}
+
+
+
+Definition at line 105 of file ae.\+h.
+
+\mbox{\Hypertarget{structae_event_loop_aa46c6a447db443855daf5b08923bed36}\label{structae_event_loop_aa46c6a447db443855daf5b08923bed36}} 
+\index{ae\+Event\+Loop@{ae\+Event\+Loop}!time\+Event\+Head@{time\+Event\+Head}}
+\index{time\+Event\+Head@{time\+Event\+Head}!ae\+Event\+Loop@{ae\+Event\+Loop}}
+\subsubsection{\texorpdfstring{time\+Event\+Head}{timeEventHead}}
+{\footnotesize\ttfamily \hyperlink{structae_time_event}{ae\+Time\+Event}$\ast$ time\+Event\+Head}
+
+
+
+Definition at line 104 of file ae.\+h.
+
+\mbox{\Hypertarget{structae_event_loop_a16573cf248b2aeb7ecacfc992ae774d4}\label{structae_event_loop_a16573cf248b2aeb7ecacfc992ae774d4}} 
+\index{ae\+Event\+Loop@{ae\+Event\+Loop}!time\+Event\+Next\+Id@{time\+Event\+Next\+Id}}
+\index{time\+Event\+Next\+Id@{time\+Event\+Next\+Id}!ae\+Event\+Loop@{ae\+Event\+Loop}}
+\subsubsection{\texorpdfstring{time\+Event\+Next\+Id}{timeEventNextId}}
+{\footnotesize\ttfamily long long time\+Event\+Next\+Id}
+
+
+
+Definition at line 100 of file ae.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{ae_8h}{ae.\+h}\end{DoxyCompactItemize}

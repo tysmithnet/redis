@@ -1,0 +1,1434 @@
+\hypertarget{t__zset_8c}{}\section{src/t\+\_\+zset.c File Reference}
+\label{t__zset_8c}\index{src/t\+\_\+zset.\+c@{src/t\+\_\+zset.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for t\+\_\+zset.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{t__zset_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structzsetopsrc}{zsetopsrc}
+\item 
+struct \hyperlink{structzsetopval}{zsetopval}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{t__zset_8c_a5efcb596b1e5f49647431b38c2c5dde3}{Z\+R\+A\+N\+G\+E\+\_\+\+R\+A\+NK}~0
+\item 
+\#define \hyperlink{t__zset_8c_a0ca38ddc10a38a3b5f6b50e2b25fc4ce}{Z\+R\+A\+N\+G\+E\+\_\+\+S\+C\+O\+RE}~1
+\item 
+\#define \hyperlink{t__zset_8c_a74c64b6c3895c27dc16c15a3c4c590af}{Z\+R\+A\+N\+G\+E\+\_\+\+L\+EX}~2
+\item 
+\#define \hyperlink{t__zset_8c_acbe2b593dce5dd6c6d7219e6be208e5f}{O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+S\+DS}~1
+\item 
+\#define \hyperlink{t__zset_8c_a9999cca84f897ad3930ec05f5fbd4c6a}{O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+LL}~2
+\item 
+\#define \hyperlink{t__zset_8c_ad167719b3971be74b94f0233de011e67}{O\+P\+V\+A\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+LL}~4
+\item 
+\#define \hyperlink{t__zset_8c_a68af64a03a67d45bee92a8713f640ce8}{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+S\+UM}~1
+\item 
+\#define \hyperlink{t__zset_8c_a2da62788a46c712881bbcf613a98b3a9}{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+IN}~2
+\item 
+\#define \hyperlink{t__zset_8c_a53a2a589750e7720bfc8feb9c1c4ec51}{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+AX}~3
+\item 
+\#define \hyperlink{t__zset_8c_aa7b6784dc42b54c2c1bc9108a6523098}{zunion\+Inter\+Dict\+Value}(\+\_\+e)~(\hyperlink{dict_8h_ae8d2cc391873b2bea2b87c4f80f43120}{dict\+Get\+Val}(\+\_\+e) == N\+U\+LL ? 1.\+0 \+: $\ast$(double$\ast$)\hyperlink{dict_8h_ae8d2cc391873b2bea2b87c4f80f43120}{dict\+Get\+Val}(\+\_\+e))
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef union \+\_\+iterset \hyperlink{t__zset_8c_ab1cd3142f3f2d1f6d17e51a8a4b7b6e2}{iterset}
+\item 
+typedef union \+\_\+iterzset \hyperlink{t__zset_8c_ad323da1e35223e04d590967a42c9eb87}{iterzset}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{t__zset_8c_ac72adcb1a70080c0aeda1414e03e1fcc}{zsl\+Lex\+Value\+Gte\+Min} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} value, \hyperlink{structzlexrangespec}{zlexrangespec} $\ast$spec)
+\item 
+int \hyperlink{t__zset_8c_a40d522cb1e5977c9f0d7e9c0ddc22770}{zsl\+Lex\+Value\+Lte\+Max} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} value, \hyperlink{structzlexrangespec}{zlexrangespec} $\ast$spec)
+\item 
+\hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$ \hyperlink{t__zset_8c_a05c9c3449e02386e9b7dd6d6d957c507}{zsl\+Create\+Node} (int level, double score, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ele)
+\item 
+\hyperlink{structzskiplist}{zskiplist} $\ast$ \hyperlink{t__zset_8c_ad139d741d814f1bf2927845ea6509e04}{zsl\+Create} (void)
+\item 
+void \hyperlink{t__zset_8c_a8b650f45c9cd737d06bf8256ad4aea46}{zsl\+Free\+Node} (\hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$node)
+\item 
+void \hyperlink{t__zset_8c_aa1a892baaa2587c7787c2e9bcf34abfd}{zsl\+Free} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl)
+\item 
+int \hyperlink{t__zset_8c_a2b0dce740d7ca4d2b47f9a60455ef570}{zsl\+Random\+Level} (void)
+\item 
+\hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$ \hyperlink{t__zset_8c_a1d278df79c63fe5d1a2f572854d409cc}{zsl\+Insert} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, double score, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ele)
+\item 
+void \hyperlink{t__zset_8c_aab2b76253b227f526d0221ca1806ccd6}{zsl\+Delete\+Node} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, \hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$x, \hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$$\ast$update)
+\item 
+int \hyperlink{t__zset_8c_a7bb39e17842d1159ce69ffb74d6d1aa1}{zsl\+Delete} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, double score, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ele, \hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$$\ast$node)
+\item 
+\hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$ \hyperlink{t__zset_8c_a4ff3c5a4c288fffc511e77cee1d86bf6}{zsl\+Update\+Score} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, double curscore, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ele, double newscore)
+\item 
+int \hyperlink{t__zset_8c_a34edfda2a0a9e5426067c95cb73c0e4b}{zsl\+Value\+Gte\+Min} (double value, \hyperlink{structzrangespec}{zrangespec} $\ast$spec)
+\item 
+int \hyperlink{t__zset_8c_a31c8f94d76b0d67646935a486a0d69d1}{zsl\+Value\+Lte\+Max} (double value, \hyperlink{structzrangespec}{zrangespec} $\ast$spec)
+\item 
+int \hyperlink{t__zset_8c_a32711d40d33d4bfe9311d05a36999cdc}{zsl\+Is\+In\+Range} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, \hyperlink{structzrangespec}{zrangespec} $\ast$range)
+\item 
+\hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$ \hyperlink{t__zset_8c_a7f036576355c4f235d55d74effb34e8e}{zsl\+First\+In\+Range} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, \hyperlink{structzrangespec}{zrangespec} $\ast$range)
+\item 
+\hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$ \hyperlink{t__zset_8c_adac6d015ed5e48a2cfd3d9b45438d387}{zsl\+Last\+In\+Range} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, \hyperlink{structzrangespec}{zrangespec} $\ast$range)
+\item 
+unsigned long \hyperlink{t__zset_8c_ade3ba9eae4346fbb3e1b1172ebe948bb}{zsl\+Delete\+Range\+By\+Score} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, \hyperlink{structzrangespec}{zrangespec} $\ast$range, \hyperlink{structdict}{dict} $\ast$\hyperlink{structdict}{dict})
+\item 
+unsigned long \hyperlink{t__zset_8c_a2c475152e8b5a0ffa8275b7b8ff0053c}{zsl\+Delete\+Range\+By\+Lex} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, \hyperlink{structzlexrangespec}{zlexrangespec} $\ast$range, \hyperlink{structdict}{dict} $\ast$\hyperlink{structdict}{dict})
+\item 
+unsigned long \hyperlink{t__zset_8c_ac9ffebab2027f5b2eb6955f143154ce2}{zsl\+Delete\+Range\+By\+Rank} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, unsigned int start, unsigned int end, \hyperlink{structdict}{dict} $\ast$\hyperlink{structdict}{dict})
+\item 
+unsigned long \hyperlink{t__zset_8c_a7e83d7adeb8c6600ff0c407c3ab7b972}{zsl\+Get\+Rank} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, double score, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ele)
+\item 
+\hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$ \hyperlink{t__zset_8c_a67c85e0f65f1651318e282284a6d9935}{zsl\+Get\+Element\+By\+Rank} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, unsigned long rank)
+\item 
+int \hyperlink{t__zset_8c_ada90afadf5f7fc8d95006ac748b0cc1e}{zsl\+Parse\+Lex\+Range\+Item} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$item, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$dest, int $\ast$ex)
+\item 
+void \hyperlink{t__zset_8c_ae5d0206d0b41d50c4837ef1c312c42bd}{zsl\+Free\+Lex\+Range} (\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$spec)
+\item 
+int \hyperlink{t__zset_8c_a4cb06799fecaa508907869d89bb6468c}{zsl\+Parse\+Lex\+Range} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{pqsort_8c_ac6afabdc09a49a433ee19d8a9486056d}{min}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$max, \hyperlink{structzlexrangespec}{zlexrangespec} $\ast$spec)
+\item 
+int \hyperlink{t__zset_8c_a92ba0afa697f388d94cb40225f436037}{sdscmplex} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} a, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} b)
+\item 
+int \hyperlink{t__zset_8c_a2bedb7bc47b6dafd9cdf49ce6205cc89}{zsl\+Is\+In\+Lex\+Range} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, \hyperlink{structzlexrangespec}{zlexrangespec} $\ast$range)
+\item 
+\hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$ \hyperlink{t__zset_8c_a57b883c524f621f35d05814f434c37ce}{zsl\+First\+In\+Lex\+Range} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, \hyperlink{structzlexrangespec}{zlexrangespec} $\ast$range)
+\item 
+\hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$ \hyperlink{t__zset_8c_aa79cba672267b3b567a5fbaca8d90b41}{zsl\+Last\+In\+Lex\+Range} (\hyperlink{structzskiplist}{zskiplist} $\ast$zsl, \hyperlink{structzlexrangespec}{zlexrangespec} $\ast$range)
+\item 
+double \hyperlink{t__zset_8c_a690eb96813e1d970d0e5b4af3790e98c}{zzl\+Get\+Score} (unsigned char $\ast$sptr)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{t__zset_8c_a870adb809d355e42753e36b7e9fa36f5}{ziplist\+Get\+Object} (unsigned char $\ast$sptr)
+\item 
+int \hyperlink{t__zset_8c_a93c00c81d9ecf7bb17405b8786cc750e}{zzl\+Compare\+Elements} (unsigned char $\ast$eptr, unsigned char $\ast$cstr, unsigned int clen)
+\item 
+unsigned int \hyperlink{t__zset_8c_a84a2183a2cdf98394466e9b2a72b1b92}{zzl\+Length} (unsigned char $\ast$zl)
+\item 
+void \hyperlink{t__zset_8c_ae6dc3f90138ae422fd814aa7c8e26d1a}{zzl\+Next} (unsigned char $\ast$zl, unsigned char $\ast$$\ast$eptr, unsigned char $\ast$$\ast$sptr)
+\item 
+void \hyperlink{t__zset_8c_a66816809d072dcc19743da8d55800c27}{zzl\+Prev} (unsigned char $\ast$zl, unsigned char $\ast$$\ast$eptr, unsigned char $\ast$$\ast$sptr)
+\item 
+int \hyperlink{t__zset_8c_a74a95e2dfff814241f4cd7edfdbf901c}{zzl\+Is\+In\+Range} (unsigned char $\ast$zl, \hyperlink{structzrangespec}{zrangespec} $\ast$range)
+\item 
+unsigned char $\ast$ \hyperlink{t__zset_8c_a105ce2a4f97e1caf928bf2cebef6e811}{zzl\+First\+In\+Range} (unsigned char $\ast$zl, \hyperlink{structzrangespec}{zrangespec} $\ast$range)
+\item 
+unsigned char $\ast$ \hyperlink{t__zset_8c_a84f775329ff9c1846ee91694fa787998}{zzl\+Last\+In\+Range} (unsigned char $\ast$zl, \hyperlink{structzrangespec}{zrangespec} $\ast$range)
+\item 
+int \hyperlink{t__zset_8c_a8c3b867d7d7e00e939be218fc658a55c}{zzl\+Lex\+Value\+Gte\+Min} (unsigned char $\ast$p, \hyperlink{structzlexrangespec}{zlexrangespec} $\ast$spec)
+\item 
+int \hyperlink{t__zset_8c_a9150c85631bf2fdd607f9b2d8530f2d8}{zzl\+Lex\+Value\+Lte\+Max} (unsigned char $\ast$p, \hyperlink{structzlexrangespec}{zlexrangespec} $\ast$spec)
+\item 
+int \hyperlink{t__zset_8c_a17f0de97897eea904853e0a8db738266}{zzl\+Is\+In\+Lex\+Range} (unsigned char $\ast$zl, \hyperlink{structzlexrangespec}{zlexrangespec} $\ast$range)
+\item 
+unsigned char $\ast$ \hyperlink{t__zset_8c_a416ca44822ad9106cee37f5d22a28b02}{zzl\+First\+In\+Lex\+Range} (unsigned char $\ast$zl, \hyperlink{structzlexrangespec}{zlexrangespec} $\ast$range)
+\item 
+unsigned char $\ast$ \hyperlink{t__zset_8c_a1c6f9216431b2a4751a5e5b8a24db53b}{zzl\+Last\+In\+Lex\+Range} (unsigned char $\ast$zl, \hyperlink{structzlexrangespec}{zlexrangespec} $\ast$range)
+\item 
+unsigned char $\ast$ \hyperlink{t__zset_8c_aebe3fa567049c3883792090d686f9afc}{zzl\+Find} (unsigned char $\ast$zl, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ele, double $\ast$score)
+\item 
+unsigned char $\ast$ \hyperlink{t__zset_8c_ac137412bede475624202db02189dc8ea}{zzl\+Delete} (unsigned char $\ast$zl, unsigned char $\ast$eptr)
+\item 
+unsigned char $\ast$ \hyperlink{t__zset_8c_a9f0b6846595ac87d875b8685f4b918fe}{zzl\+Insert\+At} (unsigned char $\ast$zl, unsigned char $\ast$eptr, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ele, double score)
+\item 
+unsigned char $\ast$ \hyperlink{t__zset_8c_ae267db21a47c4f69782447466ab669a8}{zzl\+Insert} (unsigned char $\ast$zl, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ele, double score)
+\item 
+unsigned char $\ast$ \hyperlink{t__zset_8c_a06d8b4a4274a6eeded8ae333d387ca8f}{zzl\+Delete\+Range\+By\+Score} (unsigned char $\ast$zl, \hyperlink{structzrangespec}{zrangespec} $\ast$range, unsigned long $\ast$deleted)
+\item 
+unsigned char $\ast$ \hyperlink{t__zset_8c_a623f5540090d0e519ece2734515d2f2a}{zzl\+Delete\+Range\+By\+Lex} (unsigned char $\ast$zl, \hyperlink{structzlexrangespec}{zlexrangespec} $\ast$range, unsigned long $\ast$deleted)
+\item 
+unsigned char $\ast$ \hyperlink{t__zset_8c_a41c1945612b1e16915f62cec60152b78}{zzl\+Delete\+Range\+By\+Rank} (unsigned char $\ast$zl, unsigned int start, unsigned int end, unsigned long $\ast$deleted)
+\item 
+unsigned long \hyperlink{t__zset_8c_aa2c238509acc53da1a030835c33f3986}{zset\+Length} (const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$zobj)
+\item 
+void \hyperlink{t__zset_8c_a944912e13a38932f5f20178d4835bb45}{zset\+Convert} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$zobj, int encoding)
+\item 
+void \hyperlink{t__zset_8c_a2809df6539384a131dcd39924e395f8c}{zset\+Convert\+To\+Ziplist\+If\+Needed} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$zobj, size\+\_\+t maxelelen)
+\item 
+int \hyperlink{t__zset_8c_a551f95b34f27b35772de185ddb4e97c0}{zset\+Score} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$zobj, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} member, double $\ast$score)
+\item 
+int \hyperlink{t__zset_8c_a6dab1cded009099386b5e06849246355}{zset\+Add} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$zobj, double score, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ele, int $\ast$flags, double $\ast$newscore)
+\item 
+int \hyperlink{t__zset_8c_a177b804251da3e87fea745c6ac3b88ea}{zset\+Del} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$zobj, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ele)
+\item 
+long \hyperlink{t__zset_8c_ac4f2349baf018dba8cd4efe67e5d9374}{zset\+Rank} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$zobj, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ele, int reverse)
+\item 
+void \hyperlink{t__zset_8c_af6f38e2e67897bf79dd6c7e242c517dd}{zadd\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int flags)
+\item 
+void \hyperlink{t__zset_8c_a77b2d655d5c957841a27588a991a6d0c}{zadd\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a9a55797eec6ecb31c031b629ceb36b50}{zincrby\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a8ec453137b40be876e779a605a0c5177}{zrem\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_ad2fee749b8acdc867beb6b9d7c8a6861}{zremrange\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int rangetype)
+\item 
+void \hyperlink{t__zset_8c_a91104f8c8859946e5d00fafbcf1aa300}{zremrangebyrank\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_ab3c6c64d2957b6ca82b754949c302060}{zremrangebyscore\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a21661a6f516b424b56400fabb5ed3600}{zremrangebylex\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a8b0db8dbfb41cbc892631e077bac1e94}{zui\+Init\+Iterator} (\hyperlink{structzsetopsrc}{zsetopsrc} $\ast$op)
+\item 
+void \hyperlink{t__zset_8c_a5b8927136a3a043e2f66691dd685a316}{zui\+Clear\+Iterator} (\hyperlink{structzsetopsrc}{zsetopsrc} $\ast$op)
+\item 
+unsigned long \hyperlink{t__zset_8c_a1fb81fc1375df448d417a745da12ea0f}{zui\+Length} (\hyperlink{structzsetopsrc}{zsetopsrc} $\ast$op)
+\item 
+int \hyperlink{t__zset_8c_ac73c496b8b76517aeb9b6cd7f64a18f9}{zui\+Next} (\hyperlink{structzsetopsrc}{zsetopsrc} $\ast$op, \hyperlink{structzsetopval}{zsetopval} $\ast$val)
+\item 
+int \hyperlink{t__zset_8c_a9cef43273242c3ce4c30989d38aea62e}{zui\+Long\+Long\+From\+Value} (\hyperlink{structzsetopval}{zsetopval} $\ast$val)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{t__zset_8c_ad5b27f284b02c698ee7df0ccae12c993}{zui\+Sds\+From\+Value} (\hyperlink{structzsetopval}{zsetopval} $\ast$val)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{t__zset_8c_af522ecddb29ff4a725a650a9c8111fb8}{zui\+New\+Sds\+From\+Value} (\hyperlink{structzsetopval}{zsetopval} $\ast$val)
+\item 
+int \hyperlink{t__zset_8c_af70cb8cb2cdfbfa8d2a11bc8ef754eb7}{zui\+Buffer\+From\+Value} (\hyperlink{structzsetopval}{zsetopval} $\ast$val)
+\item 
+int \hyperlink{t__zset_8c_a56475644dd2d16f0d481351fa548665a}{zui\+Find} (\hyperlink{structzsetopsrc}{zsetopsrc} $\ast$op, \hyperlink{structzsetopval}{zsetopval} $\ast$val, double $\ast$score)
+\item 
+int \hyperlink{t__zset_8c_ac67384629c716dc4b5a2907875d55a9b}{zui\+Compare\+By\+Cardinality} (const void $\ast$s1, const void $\ast$s2)
+\item 
+uint64\+\_\+t \hyperlink{t__zset_8c_abf11672cc702adce676d41c162b20345}{dict\+Sds\+Hash} (const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+int \hyperlink{t__zset_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}{dict\+Sds\+Key\+Compare} (void $\ast$privdata, const void $\ast$key1, const void $\ast$key2)
+\item 
+void \hyperlink{t__zset_8c_ac6ec749396b546c568da05c48dd150a6}{zunion\+Inter\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$dstkey, int op)
+\item 
+void \hyperlink{t__zset_8c_aeea566aab7e8f14c691429404c4452f6}{zunionstore\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a6700d1c92ae982f7b80c74e743312a0f}{zinterstore\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_ac11a0a3ba24bd8692f47b6f67b640549}{zrange\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int reverse)
+\item 
+void \hyperlink{t__zset_8c_a2a2565f607ffdd4c544e7acae798073e}{zrange\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_aed33d49831b424cda07b7859d156c854}{zrevrange\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a2724c1dc4362a806061e09a83578fa47}{generic\+Zrangebyscore\+Command} (\hyperlink{structclient}{client} $\ast$c, int reverse)
+\item 
+void \hyperlink{t__zset_8c_a473aaa83d89c486a3f5431be9aaef783}{zrangebyscore\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a14964fe6b734762bcc05bfc8cdc7204c}{zrevrangebyscore\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a49cf2ef5d30cb3b0e51cc801342c11d3}{zcount\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a2ba95c8ef6fe16363dde79a7c31ab363}{zlexcount\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a369dc6625d7eccfb201ad2adc46ddedc}{generic\+Zrangebylex\+Command} (\hyperlink{structclient}{client} $\ast$c, int reverse)
+\item 
+void \hyperlink{t__zset_8c_ab94955184c30533b403ddc9fb9f1a7b2}{zrangebylex\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a27fb450e6e9e5d6a20c74ad87aefd2b7}{zrevrangebylex\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a80bd8dd11b207cae4f5e77f2cd77f467}{zcard\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_ac6a3926cde6ff160a3fd378af151fa3a}{zscore\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_ad08f95238bfcaf74251467b4f508c925}{zrank\+Generic\+Command} (\hyperlink{structclient}{client} $\ast$c, int reverse)
+\item 
+void \hyperlink{t__zset_8c_a32ce16d3d8626f18d6799b328923dfc9}{zrank\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a6ba1a78f4a4238c9f31b103562690e80}{zrevrank\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_ada6ec2e62675456c34d699bd6f2f7a5d}{zscan\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a02ae7687e14854687fed0a8138f9a970}{generic\+Zpop\+Command} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$keyv, int keyc, int where, int emitkey, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$countarg)
+\item 
+void \hyperlink{t__zset_8c_ae914a718cc003a40862eeb3b4301ed57}{zpopmin\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a9d1d54e41ab48c620621b01e07f8459c}{zpopmax\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_aa9ffcc54934267346e80499337d0a86f}{blocking\+Generic\+Zpop\+Command} (\hyperlink{structclient}{client} $\ast$c, int where)
+\item 
+void \hyperlink{t__zset_8c_a51d6f5ebca3a951559c2f96900981238}{bzpopmin\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__zset_8c_a33f4fa5acb60b7b09f8e977eb97c8d90}{bzpopmax\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{t__zset_8c_a4b9feeac4278a752b1bb9779017cbbe6}{set\+Accumulator\+Dict\+Type}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{t__zset_8c_a9999cca84f897ad3930ec05f5fbd4c6a}\label{t__zset_8c_a9999cca84f897ad3930ec05f5fbd4c6a}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+LL@{O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+LL}}
+\index{O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+LL@{O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+LL}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+LL}{OPVAL\_DIRTY\_LL}}
+{\footnotesize\ttfamily \#define O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+LL~2}
+
+
+
+Definition at line 1850 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_acbe2b593dce5dd6c6d7219e6be208e5f}\label{t__zset_8c_acbe2b593dce5dd6c6d7219e6be208e5f}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+S\+DS@{O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+S\+DS}}
+\index{O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+S\+DS@{O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+S\+DS}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+S\+DS}{OPVAL\_DIRTY\_SDS}}
+{\footnotesize\ttfamily \#define O\+P\+V\+A\+L\+\_\+\+D\+I\+R\+T\+Y\+\_\+\+S\+DS~1}
+
+
+
+Definition at line 1849 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ad167719b3971be74b94f0233de011e67}\label{t__zset_8c_ad167719b3971be74b94f0233de011e67}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!O\+P\+V\+A\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+LL@{O\+P\+V\+A\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+LL}}
+\index{O\+P\+V\+A\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+LL@{O\+P\+V\+A\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+LL}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{O\+P\+V\+A\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+LL}{OPVAL\_VALID\_LL}}
+{\footnotesize\ttfamily \#define O\+P\+V\+A\+L\+\_\+\+V\+A\+L\+I\+D\+\_\+\+LL~4}
+
+
+
+Definition at line 1851 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a53a2a589750e7720bfc8feb9c1c4ec51}\label{t__zset_8c_a53a2a589750e7720bfc8feb9c1c4ec51}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+AX@{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+AX}}
+\index{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+AX@{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+AX}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+AX}{REDIS\_AGGR\_MAX}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+AX~3}
+
+
+
+Definition at line 2146 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a2da62788a46c712881bbcf613a98b3a9}\label{t__zset_8c_a2da62788a46c712881bbcf613a98b3a9}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+IN@{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+IN}}
+\index{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+IN@{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+IN}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+IN}{REDIS\_AGGR\_MIN}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+M\+IN~2}
+
+
+
+Definition at line 2145 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a68af64a03a67d45bee92a8713f640ce8}\label{t__zset_8c_a68af64a03a67d45bee92a8713f640ce8}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+S\+UM@{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+S\+UM}}
+\index{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+S\+UM@{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+S\+UM}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+S\+UM}{REDIS\_AGGR\_SUM}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+A\+G\+G\+R\+\_\+\+S\+UM~1}
+
+
+
+Definition at line 2144 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a74c64b6c3895c27dc16c15a3c4c590af}\label{t__zset_8c_a74c64b6c3895c27dc16c15a3c4c590af}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!Z\+R\+A\+N\+G\+E\+\_\+\+L\+EX@{Z\+R\+A\+N\+G\+E\+\_\+\+L\+EX}}
+\index{Z\+R\+A\+N\+G\+E\+\_\+\+L\+EX@{Z\+R\+A\+N\+G\+E\+\_\+\+L\+EX}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{Z\+R\+A\+N\+G\+E\+\_\+\+L\+EX}{ZRANGE\_LEX}}
+{\footnotesize\ttfamily \#define Z\+R\+A\+N\+G\+E\+\_\+\+L\+EX~2}
+
+
+
+Definition at line 1695 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a5efcb596b1e5f49647431b38c2c5dde3}\label{t__zset_8c_a5efcb596b1e5f49647431b38c2c5dde3}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!Z\+R\+A\+N\+G\+E\+\_\+\+R\+A\+NK@{Z\+R\+A\+N\+G\+E\+\_\+\+R\+A\+NK}}
+\index{Z\+R\+A\+N\+G\+E\+\_\+\+R\+A\+NK@{Z\+R\+A\+N\+G\+E\+\_\+\+R\+A\+NK}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{Z\+R\+A\+N\+G\+E\+\_\+\+R\+A\+NK}{ZRANGE\_RANK}}
+{\footnotesize\ttfamily \#define Z\+R\+A\+N\+G\+E\+\_\+\+R\+A\+NK~0}
+
+
+
+Definition at line 1693 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a0ca38ddc10a38a3b5f6b50e2b25fc4ce}\label{t__zset_8c_a0ca38ddc10a38a3b5f6b50e2b25fc4ce}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!Z\+R\+A\+N\+G\+E\+\_\+\+S\+C\+O\+RE@{Z\+R\+A\+N\+G\+E\+\_\+\+S\+C\+O\+RE}}
+\index{Z\+R\+A\+N\+G\+E\+\_\+\+S\+C\+O\+RE@{Z\+R\+A\+N\+G\+E\+\_\+\+S\+C\+O\+RE}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{Z\+R\+A\+N\+G\+E\+\_\+\+S\+C\+O\+RE}{ZRANGE\_SCORE}}
+{\footnotesize\ttfamily \#define Z\+R\+A\+N\+G\+E\+\_\+\+S\+C\+O\+RE~1}
+
+
+
+Definition at line 1694 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_aa7b6784dc42b54c2c1bc9108a6523098}\label{t__zset_8c_aa7b6784dc42b54c2c1bc9108a6523098}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zunion\+Inter\+Dict\+Value@{zunion\+Inter\+Dict\+Value}}
+\index{zunion\+Inter\+Dict\+Value@{zunion\+Inter\+Dict\+Value}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zunion\+Inter\+Dict\+Value}{zunionInterDictValue}}
+{\footnotesize\ttfamily \#define zunion\+Inter\+Dict\+Value(\begin{DoxyParamCaption}\item[{}]{\+\_\+e }\end{DoxyParamCaption})~(\hyperlink{dict_8h_ae8d2cc391873b2bea2b87c4f80f43120}{dict\+Get\+Val}(\+\_\+e) == N\+U\+LL ? 1.\+0 \+: $\ast$(double$\ast$)\hyperlink{dict_8h_ae8d2cc391873b2bea2b87c4f80f43120}{dict\+Get\+Val}(\+\_\+e))}
+
+
+
+Definition at line 2147 of file t\+\_\+zset.\+c.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{t__zset_8c_ab1cd3142f3f2d1f6d17e51a8a4b7b6e2}\label{t__zset_8c_ab1cd3142f3f2d1f6d17e51a8a4b7b6e2}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!iterset@{iterset}}
+\index{iterset@{iterset}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{iterset}{iterset}}
+{\footnotesize\ttfamily typedef union \+\_\+iterset \hyperlink{t__zset_8c_ab1cd3142f3f2d1f6d17e51a8a4b7b6e2}{iterset}}
+
+
+
+Definition at line 1864 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ad323da1e35223e04d590967a42c9eb87}\label{t__zset_8c_ad323da1e35223e04d590967a42c9eb87}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!iterzset@{iterzset}}
+\index{iterzset@{iterzset}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{iterzset}{iterzset}}
+{\footnotesize\ttfamily typedef union \+\_\+iterzset \hyperlink{t__zset_8c_ad323da1e35223e04d590967a42c9eb87}{iterzset}}
+
+
+
+Definition at line 1865 of file t\+\_\+zset.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{t__zset_8c_aa9ffcc54934267346e80499337d0a86f}\label{t__zset_8c_aa9ffcc54934267346e80499337d0a86f}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!blocking\+Generic\+Zpop\+Command@{blocking\+Generic\+Zpop\+Command}}
+\index{blocking\+Generic\+Zpop\+Command@{blocking\+Generic\+Zpop\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{blocking\+Generic\+Zpop\+Command()}{blockingGenericZpopCommand()}}
+{\footnotesize\ttfamily void blocking\+Generic\+Zpop\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{where }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3256 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a33f4fa5acb60b7b09f8e977eb97c8d90}\label{t__zset_8c_a33f4fa5acb60b7b09f8e977eb97c8d90}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!bzpopmax\+Command@{bzpopmax\+Command}}
+\index{bzpopmax\+Command@{bzpopmax\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{bzpopmax\+Command()}{bzpopmaxCommand()}}
+{\footnotesize\ttfamily void bzpopmax\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3301 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a51d6f5ebca3a951559c2f96900981238}\label{t__zset_8c_a51d6f5ebca3a951559c2f96900981238}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!bzpopmin\+Command@{bzpopmin\+Command}}
+\index{bzpopmin\+Command@{bzpopmin\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{bzpopmin\+Command()}{bzpopminCommand()}}
+{\footnotesize\ttfamily void bzpopmin\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3296 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_abf11672cc702adce676d41c162b20345}\label{t__zset_8c_abf11672cc702adce676d41c162b20345}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!dict\+Sds\+Hash@{dict\+Sds\+Hash}}
+\index{dict\+Sds\+Hash@{dict\+Sds\+Hash}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{dict\+Sds\+Hash()}{dictSdsHash()}}
+{\footnotesize\ttfamily uint64\+\_\+t dict\+Sds\+Hash (\begin{DoxyParamCaption}\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 520 of file server.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}\label{t__zset_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!dict\+Sds\+Key\+Compare@{dict\+Sds\+Key\+Compare}}
+\index{dict\+Sds\+Key\+Compare@{dict\+Sds\+Key\+Compare}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{dict\+Sds\+Key\+Compare()}{dictSdsKeyCompare()}}
+{\footnotesize\ttfamily int dict\+Sds\+Key\+Compare (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{const void $\ast$}]{key1,  }\item[{const void $\ast$}]{key2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 471 of file server.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a02ae7687e14854687fed0a8138f9a970}\label{t__zset_8c_a02ae7687e14854687fed0a8138f9a970}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!generic\+Zpop\+Command@{generic\+Zpop\+Command}}
+\index{generic\+Zpop\+Command@{generic\+Zpop\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{generic\+Zpop\+Command()}{genericZpopCommand()}}
+{\footnotesize\ttfamily void generic\+Zpop\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{keyv,  }\item[{int}]{keyc,  }\item[{int}]{where,  }\item[{int}]{emitkey,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{countarg }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3134 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a369dc6625d7eccfb201ad2adc46ddedc}\label{t__zset_8c_a369dc6625d7eccfb201ad2adc46ddedc}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!generic\+Zrangebylex\+Command@{generic\+Zrangebylex\+Command}}
+\index{generic\+Zrangebylex\+Command@{generic\+Zrangebylex\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{generic\+Zrangebylex\+Command()}{genericZrangebylexCommand()}}
+{\footnotesize\ttfamily void generic\+Zrangebylex\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{reverse }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2880 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a2724c1dc4362a806061e09a83578fa47}\label{t__zset_8c_a2724c1dc4362a806061e09a83578fa47}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!generic\+Zrangebyscore\+Command@{generic\+Zrangebyscore\+Command}}
+\index{generic\+Zrangebyscore\+Command@{generic\+Zrangebyscore\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{generic\+Zrangebyscore\+Command()}{genericZrangebyscoreCommand()}}
+{\footnotesize\ttfamily void generic\+Zrangebyscore\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{reverse }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2524 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a92ba0afa697f388d94cb40225f436037}\label{t__zset_8c_a92ba0afa697f388d94cb40225f436037}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!sdscmplex@{sdscmplex}}
+\index{sdscmplex@{sdscmplex}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{sdscmplex()}{sdscmplex()}}
+{\footnotesize\ttfamily int sdscmplex (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{a,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 631 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a77b2d655d5c957841a27588a991a6d0c}\label{t__zset_8c_a77b2d655d5c957841a27588a991a6d0c}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zadd\+Command@{zadd\+Command}}
+\index{zadd\+Command@{zadd\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zadd\+Command()}{zaddCommand()}}
+{\footnotesize\ttfamily void zadd\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1657 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_af6f38e2e67897bf79dd6c7e242c517dd}\label{t__zset_8c_af6f38e2e67897bf79dd6c7e242c517dd}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zadd\+Generic\+Command@{zadd\+Generic\+Command}}
+\index{zadd\+Generic\+Command@{zadd\+Generic\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zadd\+Generic\+Command()}{zaddGenericCommand()}}
+{\footnotesize\ttfamily void zadd\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1535 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a80bd8dd11b207cae4f5e77f2cd77f467}\label{t__zset_8c_a80bd8dd11b207cae4f5e77f2cd77f467}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zcard\+Command@{zcard\+Command}}
+\index{zcard\+Command@{zcard\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zcard\+Command()}{zcardCommand()}}
+{\footnotesize\ttfamily void zcard\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3064 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a49cf2ef5d30cb3b0e51cc801342c11d3}\label{t__zset_8c_a49cf2ef5d30cb3b0e51cc801342c11d3}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zcount\+Command@{zcount\+Command}}
+\index{zcount\+Command@{zcount\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zcount\+Command()}{zcountCommand()}}
+{\footnotesize\ttfamily void zcount\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2723 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a9a55797eec6ecb31c031b629ceb36b50}\label{t__zset_8c_a9a55797eec6ecb31c031b629ceb36b50}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zincrby\+Command@{zincrby\+Command}}
+\index{zincrby\+Command@{zincrby\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zincrby\+Command()}{zincrbyCommand()}}
+{\footnotesize\ttfamily void zincrby\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1661 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a6700d1c92ae982f7b80c74e743312a0f}\label{t__zset_8c_a6700d1c92ae982f7b80c74e743312a0f}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zinterstore\+Command@{zinterstore\+Command}}
+\index{zinterstore\+Command@{zinterstore\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zinterstore\+Command()}{zinterstoreCommand()}}
+{\footnotesize\ttfamily void zinterstore\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2409 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a870adb809d355e42753e36b7e9fa36f5}\label{t__zset_8c_a870adb809d355e42753e36b7e9fa36f5}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!ziplist\+Get\+Object@{ziplist\+Get\+Object}}
+\index{ziplist\+Get\+Object@{ziplist\+Get\+Object}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{ziplist\+Get\+Object()}{ziplistGetObject()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ziplist\+Get\+Object (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{sptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 745 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a2ba95c8ef6fe16363dde79a7c31ab363}\label{t__zset_8c_a2ba95c8ef6fe16363dde79a7c31ab363}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zlexcount\+Command@{zlexcount\+Command}}
+\index{zlexcount\+Command@{zlexcount\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zlexcount\+Command()}{zlexcountCommand()}}
+{\footnotesize\ttfamily void zlexcount\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2800 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a9d1d54e41ab48c620621b01e07f8459c}\label{t__zset_8c_a9d1d54e41ab48c620621b01e07f8459c}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zpopmax\+Command@{zpopmax\+Command}}
+\index{zpopmax\+Command@{zpopmax\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zpopmax\+Command()}{zpopmaxCommand()}}
+{\footnotesize\ttfamily void zpopmax\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3246 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ae914a718cc003a40862eeb3b4301ed57}\label{t__zset_8c_ae914a718cc003a40862eeb3b4301ed57}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zpopmin\+Command@{zpopmin\+Command}}
+\index{zpopmin\+Command@{zpopmin\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zpopmin\+Command()}{zpopminCommand()}}
+{\footnotesize\ttfamily void zpopmin\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3236 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ab94955184c30533b403ddc9fb9f1a7b2}\label{t__zset_8c_ab94955184c30533b403ddc9fb9f1a7b2}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zrangebylex\+Command@{zrangebylex\+Command}}
+\index{zrangebylex\+Command@{zrangebylex\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zrangebylex\+Command()}{zrangebylexCommand()}}
+{\footnotesize\ttfamily void zrangebylex\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3056 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a473aaa83d89c486a3f5431be9aaef783}\label{t__zset_8c_a473aaa83d89c486a3f5431be9aaef783}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zrangebyscore\+Command@{zrangebyscore\+Command}}
+\index{zrangebyscore\+Command@{zrangebyscore\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zrangebyscore\+Command()}{zrangebyscoreCommand()}}
+{\footnotesize\ttfamily void zrangebyscore\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2715 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a2a2565f607ffdd4c544e7acae798073e}\label{t__zset_8c_a2a2565f607ffdd4c544e7acae798073e}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zrange\+Command@{zrange\+Command}}
+\index{zrange\+Command@{zrange\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zrange\+Command()}{zrangeCommand()}}
+{\footnotesize\ttfamily void zrange\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2515 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ac11a0a3ba24bd8692f47b6f67b640549}\label{t__zset_8c_ac11a0a3ba24bd8692f47b6f67b640549}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zrange\+Generic\+Command@{zrange\+Generic\+Command}}
+\index{zrange\+Generic\+Command@{zrange\+Generic\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zrange\+Generic\+Command()}{zrangeGenericCommand()}}
+{\footnotesize\ttfamily void zrange\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{reverse }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2413 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a32ce16d3d8626f18d6799b328923dfc9}\label{t__zset_8c_a32ce16d3d8626f18d6799b328923dfc9}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zrank\+Command@{zrank\+Command}}
+\index{zrank\+Command@{zrank\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zrank\+Command()}{zrankCommand()}}
+{\footnotesize\ttfamily void zrank\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3107 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ad08f95238bfcaf74251467b4f508c925}\label{t__zset_8c_ad08f95238bfcaf74251467b4f508c925}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zrank\+Generic\+Command@{zrank\+Generic\+Command}}
+\index{zrank\+Generic\+Command@{zrank\+Generic\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zrank\+Generic\+Command()}{zrankGenericCommand()}}
+{\footnotesize\ttfamily void zrank\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{reverse }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3089 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a8ec453137b40be876e779a605a0c5177}\label{t__zset_8c_a8ec453137b40be876e779a605a0c5177}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zrem\+Command@{zrem\+Command}}
+\index{zrem\+Command@{zrem\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zrem\+Command()}{zremCommand()}}
+{\footnotesize\ttfamily void zrem\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1665 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a21661a6f516b424b56400fabb5ed3600}\label{t__zset_8c_a21661a6f516b424b56400fabb5ed3600}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zremrangebylex\+Command@{zremrangebylex\+Command}}
+\index{zremrangebylex\+Command@{zremrangebylex\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zremrangebylex\+Command()}{zremrangebylexCommand()}}
+{\footnotesize\ttfamily void zremrangebylex\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1804 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a91104f8c8859946e5d00fafbcf1aa300}\label{t__zset_8c_a91104f8c8859946e5d00fafbcf1aa300}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zremrangebyrank\+Command@{zremrangebyrank\+Command}}
+\index{zremrangebyrank\+Command@{zremrangebyrank\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zremrangebyrank\+Command()}{zremrangebyrankCommand()}}
+{\footnotesize\ttfamily void zremrangebyrank\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1796 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ab3c6c64d2957b6ca82b754949c302060}\label{t__zset_8c_ab3c6c64d2957b6ca82b754949c302060}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zremrangebyscore\+Command@{zremrangebyscore\+Command}}
+\index{zremrangebyscore\+Command@{zremrangebyscore\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zremrangebyscore\+Command()}{zremrangebyscoreCommand()}}
+{\footnotesize\ttfamily void zremrangebyscore\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1800 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ad2fee749b8acdc867beb6b9d7c8a6861}\label{t__zset_8c_ad2fee749b8acdc867beb6b9d7c8a6861}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zremrange\+Generic\+Command@{zremrange\+Generic\+Command}}
+\index{zremrange\+Generic\+Command@{zremrange\+Generic\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zremrange\+Generic\+Command()}{zremrangeGenericCommand()}}
+{\footnotesize\ttfamily void zremrange\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{rangetype }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1696 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a27fb450e6e9e5d6a20c74ad87aefd2b7}\label{t__zset_8c_a27fb450e6e9e5d6a20c74ad87aefd2b7}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zrevrangebylex\+Command@{zrevrangebylex\+Command}}
+\index{zrevrangebylex\+Command@{zrevrangebylex\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zrevrangebylex\+Command()}{zrevrangebylexCommand()}}
+{\footnotesize\ttfamily void zrevrangebylex\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3060 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a14964fe6b734762bcc05bfc8cdc7204c}\label{t__zset_8c_a14964fe6b734762bcc05bfc8cdc7204c}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zrevrangebyscore\+Command@{zrevrangebyscore\+Command}}
+\index{zrevrangebyscore\+Command@{zrevrangebyscore\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zrevrangebyscore\+Command()}{zrevrangebyscoreCommand()}}
+{\footnotesize\ttfamily void zrevrangebyscore\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2719 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_aed33d49831b424cda07b7859d156c854}\label{t__zset_8c_aed33d49831b424cda07b7859d156c854}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zrevrange\+Command@{zrevrange\+Command}}
+\index{zrevrange\+Command@{zrevrange\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zrevrange\+Command()}{zrevrangeCommand()}}
+{\footnotesize\ttfamily void zrevrange\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2519 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a6ba1a78f4a4238c9f31b103562690e80}\label{t__zset_8c_a6ba1a78f4a4238c9f31b103562690e80}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zrevrank\+Command@{zrevrank\+Command}}
+\index{zrevrank\+Command@{zrevrank\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zrevrank\+Command()}{zrevrankCommand()}}
+{\footnotesize\ttfamily void zrevrank\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3111 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ada6ec2e62675456c34d699bd6f2f7a5d}\label{t__zset_8c_ada6ec2e62675456c34d699bd6f2f7a5d}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zscan\+Command@{zscan\+Command}}
+\index{zscan\+Command@{zscan\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zscan\+Command()}{zscanCommand()}}
+{\footnotesize\ttfamily void zscan\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3115 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ac6a3926cde6ff160a3fd378af151fa3a}\label{t__zset_8c_ac6a3926cde6ff160a3fd378af151fa3a}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zscore\+Command@{zscore\+Command}}
+\index{zscore\+Command@{zscore\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zscore\+Command()}{zscoreCommand()}}
+{\footnotesize\ttfamily void zscore\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3074 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a6dab1cded009099386b5e06849246355}\label{t__zset_8c_a6dab1cded009099386b5e06849246355}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zset\+Add@{zset\+Add}}
+\index{zset\+Add@{zset\+Add}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zset\+Add()}{zsetAdd()}}
+{\footnotesize\ttfamily int zset\+Add (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{zobj,  }\item[{double}]{score,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{ele,  }\item[{int $\ast$}]{flags,  }\item[{double $\ast$}]{newscore }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1316 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a944912e13a38932f5f20178d4835bb45}\label{t__zset_8c_a944912e13a38932f5f20178d4835bb45}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zset\+Convert@{zset\+Convert}}
+\index{zset\+Convert@{zset\+Convert}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zset\+Convert()}{zsetConvert()}}
+{\footnotesize\ttfamily void zset\+Convert (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{zobj,  }\item[{int}]{encoding }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1170 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a2809df6539384a131dcd39924e395f8c}\label{t__zset_8c_a2809df6539384a131dcd39924e395f8c}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zset\+Convert\+To\+Ziplist\+If\+Needed@{zset\+Convert\+To\+Ziplist\+If\+Needed}}
+\index{zset\+Convert\+To\+Ziplist\+If\+Needed@{zset\+Convert\+To\+Ziplist\+If\+Needed}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zset\+Convert\+To\+Ziplist\+If\+Needed()}{zsetConvertToZiplistIfNeeded()}}
+{\footnotesize\ttfamily void zset\+Convert\+To\+Ziplist\+If\+Needed (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{zobj,  }\item[{size\+\_\+t}]{maxelelen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1244 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a177b804251da3e87fea745c6ac3b88ea}\label{t__zset_8c_a177b804251da3e87fea745c6ac3b88ea}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zset\+Del@{zset\+Del}}
+\index{zset\+Del@{zset\+Del}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zset\+Del()}{zsetDel()}}
+{\footnotesize\ttfamily int zset\+Del (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{zobj,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{ele }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1426 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_aa2c238509acc53da1a030835c33f3986}\label{t__zset_8c_aa2c238509acc53da1a030835c33f3986}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zset\+Length@{zset\+Length}}
+\index{zset\+Length@{zset\+Length}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zset\+Length()}{zsetLength()}}
+{\footnotesize\ttfamily unsigned long zset\+Length (\begin{DoxyParamCaption}\item[{const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{zobj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1158 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ac4f2349baf018dba8cd4efe67e5d9374}\label{t__zset_8c_ac4f2349baf018dba8cd4efe67e5d9374}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zset\+Rank@{zset\+Rank}}
+\index{zset\+Rank@{zset\+Rank}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zset\+Rank()}{zsetRank()}}
+{\footnotesize\ttfamily long zset\+Rank (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{zobj,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{ele,  }\item[{int}]{reverse }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1475 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a551f95b34f27b35772de185ddb4e97c0}\label{t__zset_8c_a551f95b34f27b35772de185ddb4e97c0}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zset\+Score@{zset\+Score}}
+\index{zset\+Score@{zset\+Score}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zset\+Score()}{zsetScore()}}
+{\footnotesize\ttfamily int zset\+Score (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{zobj,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{member,  }\item[{double $\ast$}]{score }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1257 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ad139d741d814f1bf2927845ea6509e04}\label{t__zset_8c_ad139d741d814f1bf2927845ea6509e04}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Create@{zsl\+Create}}
+\index{zsl\+Create@{zsl\+Create}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Create()}{zslCreate()}}
+{\footnotesize\ttfamily \hyperlink{structzskiplist}{zskiplist}$\ast$ zsl\+Create (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 80 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a05c9c3449e02386e9b7dd6d6d957c507}\label{t__zset_8c_a05c9c3449e02386e9b7dd6d6d957c507}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Create\+Node@{zsl\+Create\+Node}}
+\index{zsl\+Create\+Node@{zsl\+Create\+Node}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Create\+Node()}{zslCreateNode()}}
+{\footnotesize\ttfamily \hyperlink{structzskiplist_node}{zskiplist\+Node}$\ast$ zsl\+Create\+Node (\begin{DoxyParamCaption}\item[{int}]{level,  }\item[{double}]{score,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{ele }\end{DoxyParamCaption})}
+
+
+
+Definition at line 71 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a7bb39e17842d1159ce69ffb74d6d1aa1}\label{t__zset_8c_a7bb39e17842d1159ce69ffb74d6d1aa1}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Delete@{zsl\+Delete}}
+\index{zsl\+Delete@{zsl\+Delete}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Delete()}{zslDelete()}}
+{\footnotesize\ttfamily int zsl\+Delete (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{double}]{score,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{ele,  }\item[{\hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$$\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 218 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_aab2b76253b227f526d0221ca1806ccd6}\label{t__zset_8c_aab2b76253b227f526d0221ca1806ccd6}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Delete\+Node@{zsl\+Delete\+Node}}
+\index{zsl\+Delete\+Node@{zsl\+Delete\+Node}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Delete\+Node()}{zslDeleteNode()}}
+{\footnotesize\ttfamily void zsl\+Delete\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{\hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$}]{x,  }\item[{\hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$$\ast$}]{update }\end{DoxyParamCaption})}
+
+
+
+Definition at line 190 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a2c475152e8b5a0ffa8275b7b8ff0053c}\label{t__zset_8c_a2c475152e8b5a0ffa8275b7b8ff0053c}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Delete\+Range\+By\+Lex@{zsl\+Delete\+Range\+By\+Lex}}
+\index{zsl\+Delete\+Range\+By\+Lex@{zsl\+Delete\+Range\+By\+Lex}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Delete\+Range\+By\+Lex()}{zslDeleteRangeByLex()}}
+{\footnotesize\ttfamily unsigned long zsl\+Delete\+Range\+By\+Lex (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{range,  }\item[{\hyperlink{structdict}{dict} $\ast$}]{dict }\end{DoxyParamCaption})}
+
+
+
+Definition at line 413 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ac9ffebab2027f5b2eb6955f143154ce2}\label{t__zset_8c_ac9ffebab2027f5b2eb6955f143154ce2}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Delete\+Range\+By\+Rank@{zsl\+Delete\+Range\+By\+Rank}}
+\index{zsl\+Delete\+Range\+By\+Rank@{zsl\+Delete\+Range\+By\+Rank}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Delete\+Range\+By\+Rank()}{zslDeleteRangeByRank()}}
+{\footnotesize\ttfamily unsigned long zsl\+Delete\+Range\+By\+Rank (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{unsigned int}]{start,  }\item[{unsigned int}]{end,  }\item[{\hyperlink{structdict}{dict} $\ast$}]{dict }\end{DoxyParamCaption})}
+
+
+
+Definition at line 444 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ade3ba9eae4346fbb3e1b1172ebe948bb}\label{t__zset_8c_ade3ba9eae4346fbb3e1b1172ebe948bb}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Delete\+Range\+By\+Score@{zsl\+Delete\+Range\+By\+Score}}
+\index{zsl\+Delete\+Range\+By\+Score@{zsl\+Delete\+Range\+By\+Score}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Delete\+Range\+By\+Score()}{zslDeleteRangeByScore()}}
+{\footnotesize\ttfamily unsigned long zsl\+Delete\+Range\+By\+Score (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{\hyperlink{structzrangespec}{zrangespec} $\ast$}]{range,  }\item[{\hyperlink{structdict}{dict} $\ast$}]{dict }\end{DoxyParamCaption})}
+
+
+
+Definition at line 382 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a57b883c524f621f35d05814f434c37ce}\label{t__zset_8c_a57b883c524f621f35d05814f434c37ce}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+First\+In\+Lex\+Range@{zsl\+First\+In\+Lex\+Range}}
+\index{zsl\+First\+In\+Lex\+Range@{zsl\+First\+In\+Lex\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+First\+In\+Lex\+Range()}{zslFirstInLexRange()}}
+{\footnotesize\ttfamily \hyperlink{structzskiplist_node}{zskiplist\+Node}$\ast$ zsl\+First\+In\+Lex\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 670 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a7f036576355c4f235d55d74effb34e8e}\label{t__zset_8c_a7f036576355c4f235d55d74effb34e8e}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+First\+In\+Range@{zsl\+First\+In\+Range}}
+\index{zsl\+First\+In\+Range@{zsl\+First\+In\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+First\+In\+Range()}{zslFirstInRange()}}
+{\footnotesize\ttfamily \hyperlink{structzskiplist_node}{zskiplist\+Node}$\ast$ zsl\+First\+In\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{\hyperlink{structzrangespec}{zrangespec} $\ast$}]{range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 329 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_aa1a892baaa2587c7787c2e9bcf34abfd}\label{t__zset_8c_aa1a892baaa2587c7787c2e9bcf34abfd}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Free@{zsl\+Free}}
+\index{zsl\+Free@{zsl\+Free}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Free()}{zslFree()}}
+{\footnotesize\ttfamily void zsl\+Free (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl }\end{DoxyParamCaption})}
+
+
+
+Definition at line 106 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ae5d0206d0b41d50c4837ef1c312c42bd}\label{t__zset_8c_ae5d0206d0b41d50c4837ef1c312c42bd}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Free\+Lex\+Range@{zsl\+Free\+Lex\+Range}}
+\index{zsl\+Free\+Lex\+Range@{zsl\+Free\+Lex\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Free\+Lex\+Range()}{zslFreeLexRange()}}
+{\footnotesize\ttfamily void zsl\+Free\+Lex\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{spec }\end{DoxyParamCaption})}
+
+
+
+Definition at line 600 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a8b650f45c9cd737d06bf8256ad4aea46}\label{t__zset_8c_a8b650f45c9cd737d06bf8256ad4aea46}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Free\+Node@{zsl\+Free\+Node}}
+\index{zsl\+Free\+Node@{zsl\+Free\+Node}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Free\+Node()}{zslFreeNode()}}
+{\footnotesize\ttfamily void zsl\+Free\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist_node}{zskiplist\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 100 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a67c85e0f65f1651318e282284a6d9935}\label{t__zset_8c_a67c85e0f65f1651318e282284a6d9935}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Get\+Element\+By\+Rank@{zsl\+Get\+Element\+By\+Rank}}
+\index{zsl\+Get\+Element\+By\+Rank@{zsl\+Get\+Element\+By\+Rank}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Get\+Element\+By\+Rank()}{zslGetElementByRank()}}
+{\footnotesize\ttfamily \hyperlink{structzskiplist_node}{zskiplist\+Node}$\ast$ zsl\+Get\+Element\+By\+Rank (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{unsigned long}]{rank }\end{DoxyParamCaption})}
+
+
+
+Definition at line 500 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a7e83d7adeb8c6600ff0c407c3ab7b972}\label{t__zset_8c_a7e83d7adeb8c6600ff0c407c3ab7b972}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Get\+Rank@{zsl\+Get\+Rank}}
+\index{zsl\+Get\+Rank@{zsl\+Get\+Rank}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Get\+Rank()}{zslGetRank()}}
+{\footnotesize\ttfamily unsigned long zsl\+Get\+Rank (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{double}]{score,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{ele }\end{DoxyParamCaption})}
+
+
+
+Definition at line 476 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a1d278df79c63fe5d1a2f572854d409cc}\label{t__zset_8c_a1d278df79c63fe5d1a2f572854d409cc}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Insert@{zsl\+Insert}}
+\index{zsl\+Insert@{zsl\+Insert}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Insert()}{zslInsert()}}
+{\footnotesize\ttfamily \hyperlink{structzskiplist_node}{zskiplist\+Node}$\ast$ zsl\+Insert (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{double}]{score,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{ele }\end{DoxyParamCaption})}
+
+
+
+Definition at line 132 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a2bedb7bc47b6dafd9cdf49ce6205cc89}\label{t__zset_8c_a2bedb7bc47b6dafd9cdf49ce6205cc89}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Is\+In\+Lex\+Range@{zsl\+Is\+In\+Lex\+Range}}
+\index{zsl\+Is\+In\+Lex\+Range@{zsl\+Is\+In\+Lex\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Is\+In\+Lex\+Range()}{zslIsInLexRange()}}
+{\footnotesize\ttfamily int zsl\+Is\+In\+Lex\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 651 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a32711d40d33d4bfe9311d05a36999cdc}\label{t__zset_8c_a32711d40d33d4bfe9311d05a36999cdc}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Is\+In\+Range@{zsl\+Is\+In\+Range}}
+\index{zsl\+Is\+In\+Range@{zsl\+Is\+In\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Is\+In\+Range()}{zslIsInRange()}}
+{\footnotesize\ttfamily int zsl\+Is\+In\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{\hyperlink{structzrangespec}{zrangespec} $\ast$}]{range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 311 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_aa79cba672267b3b567a5fbaca8d90b41}\label{t__zset_8c_aa79cba672267b3b567a5fbaca8d90b41}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Last\+In\+Lex\+Range@{zsl\+Last\+In\+Lex\+Range}}
+\index{zsl\+Last\+In\+Lex\+Range@{zsl\+Last\+In\+Lex\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Last\+In\+Lex\+Range()}{zslLastInLexRange()}}
+{\footnotesize\ttfamily \hyperlink{structzskiplist_node}{zskiplist\+Node}$\ast$ zsl\+Last\+In\+Lex\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 696 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_adac6d015ed5e48a2cfd3d9b45438d387}\label{t__zset_8c_adac6d015ed5e48a2cfd3d9b45438d387}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Last\+In\+Range@{zsl\+Last\+In\+Range}}
+\index{zsl\+Last\+In\+Range@{zsl\+Last\+In\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Last\+In\+Range()}{zslLastInRange()}}
+{\footnotesize\ttfamily \hyperlink{structzskiplist_node}{zskiplist\+Node}$\ast$ zsl\+Last\+In\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{\hyperlink{structzrangespec}{zrangespec} $\ast$}]{range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 355 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ac72adcb1a70080c0aeda1414e03e1fcc}\label{t__zset_8c_ac72adcb1a70080c0aeda1414e03e1fcc}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Lex\+Value\+Gte\+Min@{zsl\+Lex\+Value\+Gte\+Min}}
+\index{zsl\+Lex\+Value\+Gte\+Min@{zsl\+Lex\+Value\+Gte\+Min}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Lex\+Value\+Gte\+Min()}{zslLexValueGteMin()}}
+{\footnotesize\ttfamily int zsl\+Lex\+Value\+Gte\+Min (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{value,  }\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{spec }\end{DoxyParamCaption})}
+
+
+
+Definition at line 638 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a40d522cb1e5977c9f0d7e9c0ddc22770}\label{t__zset_8c_a40d522cb1e5977c9f0d7e9c0ddc22770}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Lex\+Value\+Lte\+Max@{zsl\+Lex\+Value\+Lte\+Max}}
+\index{zsl\+Lex\+Value\+Lte\+Max@{zsl\+Lex\+Value\+Lte\+Max}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Lex\+Value\+Lte\+Max()}{zslLexValueLteMax()}}
+{\footnotesize\ttfamily int zsl\+Lex\+Value\+Lte\+Max (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{value,  }\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{spec }\end{DoxyParamCaption})}
+
+
+
+Definition at line 644 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a4cb06799fecaa508907869d89bb6468c}\label{t__zset_8c_a4cb06799fecaa508907869d89bb6468c}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Parse\+Lex\+Range@{zsl\+Parse\+Lex\+Range}}
+\index{zsl\+Parse\+Lex\+Range@{zsl\+Parse\+Lex\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Parse\+Lex\+Range()}{zslParseLexRange()}}
+{\footnotesize\ttfamily int zsl\+Parse\+Lex\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{min,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{max,  }\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{spec }\end{DoxyParamCaption})}
+
+
+
+Definition at line 612 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ada90afadf5f7fc8d95006ac748b0cc1e}\label{t__zset_8c_ada90afadf5f7fc8d95006ac748b0cc1e}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Parse\+Lex\+Range\+Item@{zsl\+Parse\+Lex\+Range\+Item}}
+\index{zsl\+Parse\+Lex\+Range\+Item@{zsl\+Parse\+Lex\+Range\+Item}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Parse\+Lex\+Range\+Item()}{zslParseLexRangeItem()}}
+{\footnotesize\ttfamily int zsl\+Parse\+Lex\+Range\+Item (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{item,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{dest,  }\item[{int $\ast$}]{ex }\end{DoxyParamCaption})}
+
+
+
+Definition at line 571 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a2b0dce740d7ca4d2b47f9a60455ef570}\label{t__zset_8c_a2b0dce740d7ca4d2b47f9a60455ef570}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Random\+Level@{zsl\+Random\+Level}}
+\index{zsl\+Random\+Level@{zsl\+Random\+Level}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Random\+Level()}{zslRandomLevel()}}
+{\footnotesize\ttfamily int zsl\+Random\+Level (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 122 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a4ff3c5a4c288fffc511e77cee1d86bf6}\label{t__zset_8c_a4ff3c5a4c288fffc511e77cee1d86bf6}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Update\+Score@{zsl\+Update\+Score}}
+\index{zsl\+Update\+Score@{zsl\+Update\+Score}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Update\+Score()}{zslUpdateScore()}}
+{\footnotesize\ttfamily \hyperlink{structzskiplist_node}{zskiplist\+Node}$\ast$ zsl\+Update\+Score (\begin{DoxyParamCaption}\item[{\hyperlink{structzskiplist}{zskiplist} $\ast$}]{zsl,  }\item[{double}]{curscore,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{ele,  }\item[{double}]{newscore }\end{DoxyParamCaption})}
+
+
+
+Definition at line 258 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a34edfda2a0a9e5426067c95cb73c0e4b}\label{t__zset_8c_a34edfda2a0a9e5426067c95cb73c0e4b}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Value\+Gte\+Min@{zsl\+Value\+Gte\+Min}}
+\index{zsl\+Value\+Gte\+Min@{zsl\+Value\+Gte\+Min}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Value\+Gte\+Min()}{zslValueGteMin()}}
+{\footnotesize\ttfamily int zsl\+Value\+Gte\+Min (\begin{DoxyParamCaption}\item[{double}]{value,  }\item[{\hyperlink{structzrangespec}{zrangespec} $\ast$}]{spec }\end{DoxyParamCaption})}
+
+
+
+Definition at line 302 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a31c8f94d76b0d67646935a486a0d69d1}\label{t__zset_8c_a31c8f94d76b0d67646935a486a0d69d1}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zsl\+Value\+Lte\+Max@{zsl\+Value\+Lte\+Max}}
+\index{zsl\+Value\+Lte\+Max@{zsl\+Value\+Lte\+Max}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zsl\+Value\+Lte\+Max()}{zslValueLteMax()}}
+{\footnotesize\ttfamily int zsl\+Value\+Lte\+Max (\begin{DoxyParamCaption}\item[{double}]{value,  }\item[{\hyperlink{structzrangespec}{zrangespec} $\ast$}]{spec }\end{DoxyParamCaption})}
+
+
+
+Definition at line 306 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_af70cb8cb2cdfbfa8d2a11bc8ef754eb7}\label{t__zset_8c_af70cb8cb2cdfbfa8d2a11bc8ef754eb7}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zui\+Buffer\+From\+Value@{zui\+Buffer\+From\+Value}}
+\index{zui\+Buffer\+From\+Value@{zui\+Buffer\+From\+Value}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zui\+Buffer\+From\+Value()}{zuiBufferFromValue()}}
+{\footnotesize\ttfamily int zui\+Buffer\+From\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{structzsetopval}{zsetopval} $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2068 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a5b8927136a3a043e2f66691dd685a316}\label{t__zset_8c_a5b8927136a3a043e2f66691dd685a316}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zui\+Clear\+Iterator@{zui\+Clear\+Iterator}}
+\index{zui\+Clear\+Iterator@{zui\+Clear\+Iterator}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zui\+Clear\+Iterator()}{zuiClearIterator()}}
+{\footnotesize\ttfamily void zui\+Clear\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{structzsetopsrc}{zsetopsrc} $\ast$}]{op }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1903 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ac67384629c716dc4b5a2907875d55a9b}\label{t__zset_8c_ac67384629c716dc4b5a2907875d55a9b}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zui\+Compare\+By\+Cardinality@{zui\+Compare\+By\+Cardinality}}
+\index{zui\+Compare\+By\+Cardinality@{zui\+Compare\+By\+Cardinality}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zui\+Compare\+By\+Cardinality()}{zuiCompareByCardinality()}}
+{\footnotesize\ttfamily int zui\+Compare\+By\+Cardinality (\begin{DoxyParamCaption}\item[{const void $\ast$}]{s1,  }\item[{const void $\ast$}]{s2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2136 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a56475644dd2d16f0d481351fa548665a}\label{t__zset_8c_a56475644dd2d16f0d481351fa548665a}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zui\+Find@{zui\+Find}}
+\index{zui\+Find@{zui\+Find}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zui\+Find()}{zuiFind()}}
+{\footnotesize\ttfamily int zui\+Find (\begin{DoxyParamCaption}\item[{\hyperlink{structzsetopsrc}{zsetopsrc} $\ast$}]{op,  }\item[{\hyperlink{structzsetopval}{zsetopval} $\ast$}]{val,  }\item[{double $\ast$}]{score }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2083 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a8b0db8dbfb41cbc892631e077bac1e94}\label{t__zset_8c_a8b0db8dbfb41cbc892631e077bac1e94}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zui\+Init\+Iterator@{zui\+Init\+Iterator}}
+\index{zui\+Init\+Iterator@{zui\+Init\+Iterator}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zui\+Init\+Iterator()}{zuiInitIterator()}}
+{\footnotesize\ttfamily void zui\+Init\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{structzsetopsrc}{zsetopsrc} $\ast$}]{op }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1867 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a1fb81fc1375df448d417a745da12ea0f}\label{t__zset_8c_a1fb81fc1375df448d417a745da12ea0f}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zui\+Length@{zui\+Length}}
+\index{zui\+Length@{zui\+Length}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zui\+Length()}{zuiLength()}}
+{\footnotesize\ttfamily unsigned long zui\+Length (\begin{DoxyParamCaption}\item[{\hyperlink{structzsetopsrc}{zsetopsrc} $\ast$}]{op }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1930 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a9cef43273242c3ce4c30989d38aea62e}\label{t__zset_8c_a9cef43273242c3ce4c30989d38aea62e}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zui\+Long\+Long\+From\+Value@{zui\+Long\+Long\+From\+Value}}
+\index{zui\+Long\+Long\+From\+Value@{zui\+Long\+Long\+From\+Value}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zui\+Long\+Long\+From\+Value()}{zuiLongLongFromValue()}}
+{\footnotesize\ttfamily int zui\+Long\+Long\+From\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{structzsetopval}{zsetopval} $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2020 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_af522ecddb29ff4a725a650a9c8111fb8}\label{t__zset_8c_af522ecddb29ff4a725a650a9c8111fb8}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zui\+New\+Sds\+From\+Value@{zui\+New\+Sds\+From\+Value}}
+\index{zui\+New\+Sds\+From\+Value@{zui\+New\+Sds\+From\+Value}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zui\+New\+Sds\+From\+Value()}{zuiNewSdsFromValue()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} zui\+New\+Sds\+From\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{structzsetopval}{zsetopval} $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2052 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ac73c496b8b76517aeb9b6cd7f64a18f9}\label{t__zset_8c_ac73c496b8b76517aeb9b6cd7f64a18f9}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zui\+Next@{zui\+Next}}
+\index{zui\+Next@{zui\+Next}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zui\+Next()}{zuiNext()}}
+{\footnotesize\ttfamily int zui\+Next (\begin{DoxyParamCaption}\item[{\hyperlink{structzsetopsrc}{zsetopsrc} $\ast$}]{op,  }\item[{\hyperlink{structzsetopval}{zsetopval} $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1960 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ad5b27f284b02c698ee7df0ccae12c993}\label{t__zset_8c_ad5b27f284b02c698ee7df0ccae12c993}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zui\+Sds\+From\+Value@{zui\+Sds\+From\+Value}}
+\index{zui\+Sds\+From\+Value@{zui\+Sds\+From\+Value}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zui\+Sds\+From\+Value()}{zuiSdsFromValue()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} zui\+Sds\+From\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{structzsetopval}{zsetopval} $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2038 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ac6ec749396b546c568da05c48dd150a6}\label{t__zset_8c_ac6ec749396b546c568da05c48dd150a6}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zunion\+Inter\+Generic\+Command@{zunion\+Inter\+Generic\+Command}}
+\index{zunion\+Inter\+Generic\+Command@{zunion\+Inter\+Generic\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zunion\+Inter\+Generic\+Command()}{zunionInterGenericCommand()}}
+{\footnotesize\ttfamily void zunion\+Inter\+Generic\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{dstkey,  }\item[{int}]{op }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2178 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_aeea566aab7e8f14c691429404c4452f6}\label{t__zset_8c_aeea566aab7e8f14c691429404c4452f6}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zunionstore\+Command@{zunionstore\+Command}}
+\index{zunionstore\+Command@{zunionstore\+Command}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zunionstore\+Command()}{zunionstoreCommand()}}
+{\footnotesize\ttfamily void zunionstore\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2405 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a93c00c81d9ecf7bb17405b8786cc750e}\label{t__zset_8c_a93c00c81d9ecf7bb17405b8786cc750e}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Compare\+Elements@{zzl\+Compare\+Elements}}
+\index{zzl\+Compare\+Elements@{zzl\+Compare\+Elements}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Compare\+Elements()}{zzlCompareElements()}}
+{\footnotesize\ttfamily int zzl\+Compare\+Elements (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{eptr,  }\item[{unsigned char $\ast$}]{cstr,  }\item[{unsigned int}]{clen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 761 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ac137412bede475624202db02189dc8ea}\label{t__zset_8c_ac137412bede475624202db02189dc8ea}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Delete@{zzl\+Delete}}
+\index{zzl\+Delete@{zzl\+Delete}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Delete()}{zzlDelete()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zzl\+Delete (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$}]{eptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1022 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a623f5540090d0e519ece2734515d2f2a}\label{t__zset_8c_a623f5540090d0e519ece2734515d2f2a}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Delete\+Range\+By\+Lex@{zzl\+Delete\+Range\+By\+Lex}}
+\index{zzl\+Delete\+Range\+By\+Lex@{zzl\+Delete\+Range\+By\+Lex}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Delete\+Range\+By\+Lex()}{zzlDeleteRangeByLex()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zzl\+Delete\+Range\+By\+Lex (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{range,  }\item[{unsigned long $\ast$}]{deleted }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1118 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a41c1945612b1e16915f62cec60152b78}\label{t__zset_8c_a41c1945612b1e16915f62cec60152b78}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Delete\+Range\+By\+Rank@{zzl\+Delete\+Range\+By\+Rank}}
+\index{zzl\+Delete\+Range\+By\+Rank@{zzl\+Delete\+Range\+By\+Rank}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Delete\+Range\+By\+Rank()}{zzlDeleteRangeByRank()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zzl\+Delete\+Range\+By\+Rank (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned int}]{start,  }\item[{unsigned int}]{end,  }\item[{unsigned long $\ast$}]{deleted }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1147 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a06d8b4a4274a6eeded8ae333d387ca8f}\label{t__zset_8c_a06d8b4a4274a6eeded8ae333d387ca8f}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Delete\+Range\+By\+Score@{zzl\+Delete\+Range\+By\+Score}}
+\index{zzl\+Delete\+Range\+By\+Score@{zzl\+Delete\+Range\+By\+Score}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Delete\+Range\+By\+Score()}{zzlDeleteRangeByScore()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zzl\+Delete\+Range\+By\+Score (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{\hyperlink{structzrangespec}{zrangespec} $\ast$}]{range,  }\item[{unsigned long $\ast$}]{deleted }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1089 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_aebe3fa567049c3883792090d686f9afc}\label{t__zset_8c_aebe3fa567049c3883792090d686f9afc}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Find@{zzl\+Find}}
+\index{zzl\+Find@{zzl\+Find}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Find()}{zzlFind()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zzl\+Find (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{ele,  }\item[{double $\ast$}]{score }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1001 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a416ca44822ad9106cee37f5d22a28b02}\label{t__zset_8c_a416ca44822ad9106cee37f5d22a28b02}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+First\+In\+Lex\+Range@{zzl\+First\+In\+Lex\+Range}}
+\index{zzl\+First\+In\+Lex\+Range@{zzl\+First\+In\+Lex\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+First\+In\+Lex\+Range()}{zzlFirstInLexRange()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zzl\+First\+In\+Lex\+Range (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 950 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a105ce2a4f97e1caf928bf2cebef6e811}\label{t__zset_8c_a105ce2a4f97e1caf928bf2cebef6e811}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+First\+In\+Range@{zzl\+First\+In\+Range}}
+\index{zzl\+First\+In\+Range@{zzl\+First\+In\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+First\+In\+Range()}{zzlFirstInRange()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zzl\+First\+In\+Range (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{\hyperlink{structzrangespec}{zrangespec} $\ast$}]{range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 851 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a690eb96813e1d970d0e5b4af3790e98c}\label{t__zset_8c_a690eb96813e1d970d0e5b4af3790e98c}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Get\+Score@{zzl\+Get\+Score}}
+\index{zzl\+Get\+Score@{zzl\+Get\+Score}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Get\+Score()}{zzlGetScore()}}
+{\footnotesize\ttfamily double zzl\+Get\+Score (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{sptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 723 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ae267db21a47c4f69782447466ab669a8}\label{t__zset_8c_ae267db21a47c4f69782447466ab669a8}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Insert@{zzl\+Insert}}
+\index{zzl\+Insert@{zzl\+Insert}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Insert()}{zzlInsert()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zzl\+Insert (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{ele,  }\item[{double}]{score }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1056 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a9f0b6846595ac87d875b8685f4b918fe}\label{t__zset_8c_a9f0b6846595ac87d875b8685f4b918fe}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Insert\+At@{zzl\+Insert\+At}}
+\index{zzl\+Insert\+At@{zzl\+Insert\+At}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Insert\+At()}{zzlInsertAt()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zzl\+Insert\+At (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$}]{eptr,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{ele,  }\item[{double}]{score }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1031 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a17f0de97897eea904853e0a8db738266}\label{t__zset_8c_a17f0de97897eea904853e0a8db738266}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Is\+In\+Lex\+Range@{zzl\+Is\+In\+Lex\+Range}}
+\index{zzl\+Is\+In\+Lex\+Range@{zzl\+Is\+In\+Lex\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Is\+In\+Lex\+Range()}{zzlIsInLexRange()}}
+{\footnotesize\ttfamily int zzl\+Is\+In\+Lex\+Range (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 926 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a74a95e2dfff814241f4cd7edfdbf901c}\label{t__zset_8c_a74a95e2dfff814241f4cd7edfdbf901c}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Is\+In\+Range@{zzl\+Is\+In\+Range}}
+\index{zzl\+Is\+In\+Range@{zzl\+Is\+In\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Is\+In\+Range()}{zzlIsInRange()}}
+{\footnotesize\ttfamily int zzl\+Is\+In\+Range (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{\hyperlink{structzrangespec}{zrangespec} $\ast$}]{range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 825 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a1c6f9216431b2a4751a5e5b8a24db53b}\label{t__zset_8c_a1c6f9216431b2a4751a5e5b8a24db53b}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Last\+In\+Lex\+Range@{zzl\+Last\+In\+Lex\+Range}}
+\index{zzl\+Last\+In\+Lex\+Range@{zzl\+Last\+In\+Lex\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Last\+In\+Lex\+Range()}{zzlLastInLexRange()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zzl\+Last\+In\+Lex\+Range (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 975 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a84f775329ff9c1846ee91694fa787998}\label{t__zset_8c_a84f775329ff9c1846ee91694fa787998}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Last\+In\+Range@{zzl\+Last\+In\+Range}}
+\index{zzl\+Last\+In\+Range@{zzl\+Last\+In\+Range}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Last\+In\+Range()}{zzlLastInRange()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zzl\+Last\+In\+Range (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{\hyperlink{structzrangespec}{zrangespec} $\ast$}]{range }\end{DoxyParamCaption})}
+
+
+
+Definition at line 879 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a84a2183a2cdf98394466e9b2a72b1b92}\label{t__zset_8c_a84a2183a2cdf98394466e9b2a72b1b92}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Length@{zzl\+Length}}
+\index{zzl\+Length@{zzl\+Length}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Length()}{zzlLength()}}
+{\footnotesize\ttfamily unsigned int zzl\+Length (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl }\end{DoxyParamCaption})}
+
+
+
+Definition at line 781 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a8c3b867d7d7e00e939be218fc658a55c}\label{t__zset_8c_a8c3b867d7d7e00e939be218fc658a55c}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Lex\+Value\+Gte\+Min@{zzl\+Lex\+Value\+Gte\+Min}}
+\index{zzl\+Lex\+Value\+Gte\+Min@{zzl\+Lex\+Value\+Gte\+Min}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Lex\+Value\+Gte\+Min()}{zzlLexValueGteMin()}}
+{\footnotesize\ttfamily int zzl\+Lex\+Value\+Gte\+Min (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{spec }\end{DoxyParamCaption})}
+
+
+
+Definition at line 910 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a9150c85631bf2fdd607f9b2d8530f2d8}\label{t__zset_8c_a9150c85631bf2fdd607f9b2d8530f2d8}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Lex\+Value\+Lte\+Max@{zzl\+Lex\+Value\+Lte\+Max}}
+\index{zzl\+Lex\+Value\+Lte\+Max@{zzl\+Lex\+Value\+Lte\+Max}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Lex\+Value\+Lte\+Max()}{zzlLexValueLteMax()}}
+{\footnotesize\ttfamily int zzl\+Lex\+Value\+Lte\+Max (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{\hyperlink{structzlexrangespec}{zlexrangespec} $\ast$}]{spec }\end{DoxyParamCaption})}
+
+
+
+Definition at line 917 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_ae6dc3f90138ae422fd814aa7c8e26d1a}\label{t__zset_8c_ae6dc3f90138ae422fd814aa7c8e26d1a}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Next@{zzl\+Next}}
+\index{zzl\+Next@{zzl\+Next}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Next()}{zzlNext()}}
+{\footnotesize\ttfamily void zzl\+Next (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$$\ast$}]{eptr,  }\item[{unsigned char $\ast$$\ast$}]{sptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 787 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{t__zset_8c_a66816809d072dcc19743da8d55800c27}\label{t__zset_8c_a66816809d072dcc19743da8d55800c27}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!zzl\+Prev@{zzl\+Prev}}
+\index{zzl\+Prev@{zzl\+Prev}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{zzl\+Prev()}{zzlPrev()}}
+{\footnotesize\ttfamily void zzl\+Prev (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$$\ast$}]{eptr,  }\item[{unsigned char $\ast$$\ast$}]{sptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 806 of file t\+\_\+zset.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{t__zset_8c_a4b9feeac4278a752b1bb9779017cbbe6}\label{t__zset_8c_a4b9feeac4278a752b1bb9779017cbbe6}} 
+\index{t\+\_\+zset.\+c@{t\+\_\+zset.\+c}!set\+Accumulator\+Dict\+Type@{set\+Accumulator\+Dict\+Type}}
+\index{set\+Accumulator\+Dict\+Type@{set\+Accumulator\+Dict\+Type}!t\+\_\+zset.\+c@{t\+\_\+zset.\+c}}
+\subsubsection{\texorpdfstring{set\+Accumulator\+Dict\+Type}{setAccumulatorDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} set\+Accumulator\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{t__zset_8c_abf11672cc702adce676d41c162b20345}{dictSdsHash},               
+    NULL,                      
+    NULL,                      
+    \hyperlink{t__zset_8c_aea8cebd9dfbf66ea44e4a8c66b95b9bc}{dictSdsKeyCompare},         
+    NULL,                      
+    NULL                       
+\}
+\end{DoxyCode}
+
+
+Definition at line 2169 of file t\+\_\+zset.\+c.
+

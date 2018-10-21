@@ -1,0 +1,156 @@
+\hypertarget{structredis_command}{}\section{redis\+Command Struct Reference}
+\label{structredis_command}\index{redis\+Command@{redis\+Command}}
+
+
+{\ttfamily \#include $<$server.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{structredis_command_a5ac083a645d964373f022d03df4849c8}{name}
+\item 
+\hyperlink{server_8h_a1b31bc58ae4df59cf0b0506c925d342e}{redis\+Command\+Proc} $\ast$ \hyperlink{structredis_command_a90feddf92dfbfdf42f3a4165c996f6f0}{proc}
+\item 
+int \hyperlink{structredis_command_a2e1dc7313b72e22a19179823661deb69}{arity}
+\item 
+char $\ast$ \hyperlink{structredis_command_abb4214e4b2dadd9f73384b61c6f13bee}{sflags}
+\item 
+int \hyperlink{structredis_command_ac8bf36fe0577cba66bccda3a6f7e80a4}{flags}
+\item 
+\hyperlink{server_8h_a90922bb810ab1c2d91ef0f2b47012bd8}{redis\+Get\+Keys\+Proc} $\ast$ \hyperlink{structredis_command_a871d4aede11ef92c86b3c64c2a5477c0}{getkeys\+\_\+proc}
+\item 
+int \hyperlink{structredis_command_aeb16776f95a4f73f9c6768fbbec9a038}{firstkey}
+\item 
+int \hyperlink{structredis_command_a908850c7f5d5cd51f3287973a5c385a5}{lastkey}
+\item 
+int \hyperlink{structredis_command_ac9fe07eb07b7322aa691ae2fca8f0875}{keystep}
+\item 
+long long \hyperlink{structredis_command_a89a6c4af7ebda470a83c3b01d01dcb14}{microseconds}
+\item 
+long long \hyperlink{structredis_command_af326e6907d82b48a7952eb2d099ac2f4}{calls}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 1290 of file server.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structredis_command_a2e1dc7313b72e22a19179823661deb69}\label{structredis_command_a2e1dc7313b72e22a19179823661deb69}} 
+\index{redis\+Command@{redis\+Command}!arity@{arity}}
+\index{arity@{arity}!redis\+Command@{redis\+Command}}
+\subsubsection{\texorpdfstring{arity}{arity}}
+{\footnotesize\ttfamily int arity}
+
+
+
+Definition at line 1293 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_command_af326e6907d82b48a7952eb2d099ac2f4}\label{structredis_command_af326e6907d82b48a7952eb2d099ac2f4}} 
+\index{redis\+Command@{redis\+Command}!calls@{calls}}
+\index{calls@{calls}!redis\+Command@{redis\+Command}}
+\subsubsection{\texorpdfstring{calls}{calls}}
+{\footnotesize\ttfamily long long calls}
+
+
+
+Definition at line 1303 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_command_aeb16776f95a4f73f9c6768fbbec9a038}\label{structredis_command_aeb16776f95a4f73f9c6768fbbec9a038}} 
+\index{redis\+Command@{redis\+Command}!firstkey@{firstkey}}
+\index{firstkey@{firstkey}!redis\+Command@{redis\+Command}}
+\subsubsection{\texorpdfstring{firstkey}{firstkey}}
+{\footnotesize\ttfamily int firstkey}
+
+
+
+Definition at line 1300 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_command_ac8bf36fe0577cba66bccda3a6f7e80a4}\label{structredis_command_ac8bf36fe0577cba66bccda3a6f7e80a4}} 
+\index{redis\+Command@{redis\+Command}!flags@{flags}}
+\index{flags@{flags}!redis\+Command@{redis\+Command}}
+\subsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily int flags}
+
+
+
+Definition at line 1295 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_command_a871d4aede11ef92c86b3c64c2a5477c0}\label{structredis_command_a871d4aede11ef92c86b3c64c2a5477c0}} 
+\index{redis\+Command@{redis\+Command}!getkeys\+\_\+proc@{getkeys\+\_\+proc}}
+\index{getkeys\+\_\+proc@{getkeys\+\_\+proc}!redis\+Command@{redis\+Command}}
+\subsubsection{\texorpdfstring{getkeys\+\_\+proc}{getkeys\_proc}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a90922bb810ab1c2d91ef0f2b47012bd8}{redis\+Get\+Keys\+Proc}$\ast$ getkeys\+\_\+proc}
+
+
+
+Definition at line 1298 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_command_ac9fe07eb07b7322aa691ae2fca8f0875}\label{structredis_command_ac9fe07eb07b7322aa691ae2fca8f0875}} 
+\index{redis\+Command@{redis\+Command}!keystep@{keystep}}
+\index{keystep@{keystep}!redis\+Command@{redis\+Command}}
+\subsubsection{\texorpdfstring{keystep}{keystep}}
+{\footnotesize\ttfamily int keystep}
+
+
+
+Definition at line 1302 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_command_a908850c7f5d5cd51f3287973a5c385a5}\label{structredis_command_a908850c7f5d5cd51f3287973a5c385a5}} 
+\index{redis\+Command@{redis\+Command}!lastkey@{lastkey}}
+\index{lastkey@{lastkey}!redis\+Command@{redis\+Command}}
+\subsubsection{\texorpdfstring{lastkey}{lastkey}}
+{\footnotesize\ttfamily int lastkey}
+
+
+
+Definition at line 1301 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_command_a89a6c4af7ebda470a83c3b01d01dcb14}\label{structredis_command_a89a6c4af7ebda470a83c3b01d01dcb14}} 
+\index{redis\+Command@{redis\+Command}!microseconds@{microseconds}}
+\index{microseconds@{microseconds}!redis\+Command@{redis\+Command}}
+\subsubsection{\texorpdfstring{microseconds}{microseconds}}
+{\footnotesize\ttfamily long long microseconds}
+
+
+
+Definition at line 1303 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_command_a5ac083a645d964373f022d03df4849c8}\label{structredis_command_a5ac083a645d964373f022d03df4849c8}} 
+\index{redis\+Command@{redis\+Command}!name@{name}}
+\index{name@{name}!redis\+Command@{redis\+Command}}
+\subsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily char$\ast$ name}
+
+
+
+Definition at line 1291 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_command_a90feddf92dfbfdf42f3a4165c996f6f0}\label{structredis_command_a90feddf92dfbfdf42f3a4165c996f6f0}} 
+\index{redis\+Command@{redis\+Command}!proc@{proc}}
+\index{proc@{proc}!redis\+Command@{redis\+Command}}
+\subsubsection{\texorpdfstring{proc}{proc}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a1b31bc58ae4df59cf0b0506c925d342e}{redis\+Command\+Proc}$\ast$ proc}
+
+
+
+Definition at line 1292 of file server.\+h.
+
+\mbox{\Hypertarget{structredis_command_abb4214e4b2dadd9f73384b61c6f13bee}\label{structredis_command_abb4214e4b2dadd9f73384b61c6f13bee}} 
+\index{redis\+Command@{redis\+Command}!sflags@{sflags}}
+\index{sflags@{sflags}!redis\+Command@{redis\+Command}}
+\subsubsection{\texorpdfstring{sflags}{sflags}}
+{\footnotesize\ttfamily char$\ast$ sflags}
+
+
+
+Definition at line 1294 of file server.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{server_8h}{server.\+h}\end{DoxyCompactItemize}

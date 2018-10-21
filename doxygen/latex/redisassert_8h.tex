@@ -1,0 +1,75 @@
+\hypertarget{redisassert_8h}{}\section{src/redisassert.h File Reference}
+\label{redisassert_8h}\index{src/redisassert.\+h@{src/redisassert.\+h}}
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+Include dependency graph for redisassert.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=169pt]{redisassert_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{redisassert_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{redisassert_8h_a993abaa2c168852c1592879472938781}{assert}(\+\_\+e)~((\+\_\+e)?(void)0 \+: (\hyperlink{server_8h_ace38bb59b1a740e3b0db1cf149956c67}{\+\_\+server\+Assert}(\#\+\_\+e,\+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+,\+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+),\+\_\+exit(1)))
+\item 
+\#define \hyperlink{redisassert_8h_a1445e207e36c97ff84c54b47288cea19}{panic}(...)~\hyperlink{server_8h_adcb0288f10e48c6583a3eae341a3f268}{\+\_\+server\+Panic}(\+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+,\+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+,\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+),\+\_\+exit(1)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{redisassert_8h_afac9255798ac8c0e95fcc7a5ada02cc2}{\+\_\+server\+Assert} (char $\ast$estr, char $\ast$file, int line)
+\item 
+void \hyperlink{redisassert_8h_adcb0288f10e48c6583a3eae341a3f268}{\+\_\+server\+Panic} (const char $\ast$file, int line, const char $\ast$msg,...)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{redisassert_8h_a993abaa2c168852c1592879472938781}\label{redisassert_8h_a993abaa2c168852c1592879472938781}} 
+\index{redisassert.\+h@{redisassert.\+h}!assert@{assert}}
+\index{assert@{assert}!redisassert.\+h@{redisassert.\+h}}
+\subsubsection{\texorpdfstring{assert}{assert}}
+{\footnotesize\ttfamily \#define assert(\begin{DoxyParamCaption}\item[{}]{\+\_\+e }\end{DoxyParamCaption})~((\+\_\+e)?(void)0 \+: (\hyperlink{server_8h_ace38bb59b1a740e3b0db1cf149956c67}{\+\_\+server\+Assert}(\#\+\_\+e,\+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+,\+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+),\+\_\+exit(1)))}
+
+
+
+Definition at line 43 of file redisassert.\+h.
+
+\mbox{\Hypertarget{redisassert_8h_a1445e207e36c97ff84c54b47288cea19}\label{redisassert_8h_a1445e207e36c97ff84c54b47288cea19}} 
+\index{redisassert.\+h@{redisassert.\+h}!panic@{panic}}
+\index{panic@{panic}!redisassert.\+h@{redisassert.\+h}}
+\subsubsection{\texorpdfstring{panic}{panic}}
+{\footnotesize\ttfamily \#define panic(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\hyperlink{server_8h_adcb0288f10e48c6583a3eae341a3f268}{\+\_\+server\+Panic}(\+\_\+\+\_\+\+F\+I\+L\+E\+\_\+\+\_\+,\+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+,\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+),\+\_\+exit(1)}
+
+
+
+Definition at line 44 of file redisassert.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{redisassert_8h_afac9255798ac8c0e95fcc7a5ada02cc2}\label{redisassert_8h_afac9255798ac8c0e95fcc7a5ada02cc2}} 
+\index{redisassert.\+h@{redisassert.\+h}!\+\_\+server\+Assert@{\+\_\+server\+Assert}}
+\index{\+\_\+server\+Assert@{\+\_\+server\+Assert}!redisassert.\+h@{redisassert.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+server\+Assert()}{\_serverAssert()}}
+{\footnotesize\ttfamily void \+\_\+server\+Assert (\begin{DoxyParamCaption}\item[{char $\ast$}]{estr,  }\item[{char $\ast$}]{file,  }\item[{int}]{line }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{redisassert_8h_adcb0288f10e48c6583a3eae341a3f268}\label{redisassert_8h_adcb0288f10e48c6583a3eae341a3f268}} 
+\index{redisassert.\+h@{redisassert.\+h}!\+\_\+server\+Panic@{\+\_\+server\+Panic}}
+\index{\+\_\+server\+Panic@{\+\_\+server\+Panic}!redisassert.\+h@{redisassert.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+server\+Panic()}{\_serverPanic()}}
+{\footnotesize\ttfamily void \+\_\+server\+Panic (\begin{DoxyParamCaption}\item[{const char $\ast$}]{file,  }\item[{int}]{line,  }\item[{const char $\ast$}]{msg,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 675 of file debug.\+c.
+

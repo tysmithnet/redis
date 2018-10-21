@@ -1,0 +1,182 @@
+\hypertarget{zipmap_8c}{}\section{src/zipmap.c File Reference}
+\label{zipmap_8c}\index{src/zipmap.\+c@{src/zipmap.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}zmalloc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}endianconv.\+h\char`\"{}}\newline
+Include dependency graph for zipmap.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{zipmap_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{zipmap_8c_a1173592dbfaa84c6b2419d0a699c97f5}{Z\+I\+P\+M\+A\+P\+\_\+\+B\+I\+G\+L\+EN}~254
+\item 
+\#define \hyperlink{zipmap_8c_a7074100d2ecc0c8971936a4edc208782}{Z\+I\+P\+M\+A\+P\+\_\+\+E\+ND}~255
+\item 
+\#define \hyperlink{zipmap_8c_a6c9247ef956b971a52b9d265083e6990}{Z\+I\+P\+M\+A\+P\+\_\+\+V\+A\+L\+U\+E\+\_\+\+M\+A\+X\+\_\+\+F\+R\+EE}~4
+\item 
+\#define \hyperlink{zipmap_8c_a3e2d7a4d7208d88fc1b254a2da9bec13}{Z\+I\+P\+M\+A\+P\+\_\+\+L\+E\+N\+\_\+\+B\+Y\+T\+ES}(\+\_\+l)~(((\+\_\+l) $<$ \hyperlink{zipmap_8c_a1173592dbfaa84c6b2419d0a699c97f5}{Z\+I\+P\+M\+A\+P\+\_\+\+B\+I\+G\+L\+EN}) ? 1 \+: sizeof(unsigned int)+1)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char $\ast$ \hyperlink{zipmap_8c_a0f02c640950a9e5f23fa1e91a7dc52f9}{zipmap\+New} (void)
+\item 
+unsigned char $\ast$ \hyperlink{zipmap_8c_a84d510cf846f588a92b0b00436661301}{zipmap\+Set} (unsigned char $\ast$zm, unsigned char $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, unsigned int klen, unsigned char $\ast$val, unsigned int vlen, int $\ast$update)
+\item 
+unsigned char $\ast$ \hyperlink{zipmap_8c_a5e23702f38a1febc92f162a9d887556e}{zipmap\+Del} (unsigned char $\ast$zm, unsigned char $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, unsigned int klen, int $\ast$deleted)
+\item 
+unsigned char $\ast$ \hyperlink{zipmap_8c_a6697d12cf72fcae0fe14a24c6967d211}{zipmap\+Rewind} (unsigned char $\ast$zm)
+\item 
+unsigned char $\ast$ \hyperlink{zipmap_8c_acb732a23bbd89468a8f2f447cc0473a9}{zipmap\+Next} (unsigned char $\ast$zm, unsigned char $\ast$$\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, unsigned int $\ast$klen, unsigned char $\ast$$\ast$value, unsigned int $\ast$vlen)
+\item 
+int \hyperlink{zipmap_8c_adbd43e1ed8d9be4202ddf3a0298323f7}{zipmap\+Get} (unsigned char $\ast$zm, unsigned char $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, unsigned int klen, unsigned char $\ast$$\ast$value, unsigned int $\ast$vlen)
+\item 
+int \hyperlink{zipmap_8c_ab97d66fb0d38116ba86bd70ee43f592a}{zipmap\+Exists} (unsigned char $\ast$zm, unsigned char $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, unsigned int klen)
+\item 
+unsigned int \hyperlink{zipmap_8c_a7d0a66d9761802e81c26b06c361d51cd}{zipmap\+Len} (unsigned char $\ast$zm)
+\item 
+size\+\_\+t \hyperlink{zipmap_8c_acead5bfd100c8d5a5eb1c41fd62ddaeb}{zipmap\+Blob\+Len} (unsigned char $\ast$zm)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{zipmap_8c_a1173592dbfaa84c6b2419d0a699c97f5}\label{zipmap_8c_a1173592dbfaa84c6b2419d0a699c97f5}} 
+\index{zipmap.\+c@{zipmap.\+c}!Z\+I\+P\+M\+A\+P\+\_\+\+B\+I\+G\+L\+EN@{Z\+I\+P\+M\+A\+P\+\_\+\+B\+I\+G\+L\+EN}}
+\index{Z\+I\+P\+M\+A\+P\+\_\+\+B\+I\+G\+L\+EN@{Z\+I\+P\+M\+A\+P\+\_\+\+B\+I\+G\+L\+EN}!zipmap.\+c@{zipmap.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+M\+A\+P\+\_\+\+B\+I\+G\+L\+EN}{ZIPMAP\_BIGLEN}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+M\+A\+P\+\_\+\+B\+I\+G\+L\+EN~254}
+
+
+
+Definition at line 83 of file zipmap.\+c.
+
+\mbox{\Hypertarget{zipmap_8c_a7074100d2ecc0c8971936a4edc208782}\label{zipmap_8c_a7074100d2ecc0c8971936a4edc208782}} 
+\index{zipmap.\+c@{zipmap.\+c}!Z\+I\+P\+M\+A\+P\+\_\+\+E\+ND@{Z\+I\+P\+M\+A\+P\+\_\+\+E\+ND}}
+\index{Z\+I\+P\+M\+A\+P\+\_\+\+E\+ND@{Z\+I\+P\+M\+A\+P\+\_\+\+E\+ND}!zipmap.\+c@{zipmap.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+M\+A\+P\+\_\+\+E\+ND}{ZIPMAP\_END}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+M\+A\+P\+\_\+\+E\+ND~255}
+
+
+
+Definition at line 84 of file zipmap.\+c.
+
+\mbox{\Hypertarget{zipmap_8c_a3e2d7a4d7208d88fc1b254a2da9bec13}\label{zipmap_8c_a3e2d7a4d7208d88fc1b254a2da9bec13}} 
+\index{zipmap.\+c@{zipmap.\+c}!Z\+I\+P\+M\+A\+P\+\_\+\+L\+E\+N\+\_\+\+B\+Y\+T\+ES@{Z\+I\+P\+M\+A\+P\+\_\+\+L\+E\+N\+\_\+\+B\+Y\+T\+ES}}
+\index{Z\+I\+P\+M\+A\+P\+\_\+\+L\+E\+N\+\_\+\+B\+Y\+T\+ES@{Z\+I\+P\+M\+A\+P\+\_\+\+L\+E\+N\+\_\+\+B\+Y\+T\+ES}!zipmap.\+c@{zipmap.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+M\+A\+P\+\_\+\+L\+E\+N\+\_\+\+B\+Y\+T\+ES}{ZIPMAP\_LEN\_BYTES}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+M\+A\+P\+\_\+\+L\+E\+N\+\_\+\+B\+Y\+T\+ES(\begin{DoxyParamCaption}\item[{}]{\+\_\+l }\end{DoxyParamCaption})~(((\+\_\+l) $<$ \hyperlink{zipmap_8c_a1173592dbfaa84c6b2419d0a699c97f5}{Z\+I\+P\+M\+A\+P\+\_\+\+B\+I\+G\+L\+EN}) ? 1 \+: sizeof(unsigned int)+1)}
+
+
+
+Definition at line 93 of file zipmap.\+c.
+
+\mbox{\Hypertarget{zipmap_8c_a6c9247ef956b971a52b9d265083e6990}\label{zipmap_8c_a6c9247ef956b971a52b9d265083e6990}} 
+\index{zipmap.\+c@{zipmap.\+c}!Z\+I\+P\+M\+A\+P\+\_\+\+V\+A\+L\+U\+E\+\_\+\+M\+A\+X\+\_\+\+F\+R\+EE@{Z\+I\+P\+M\+A\+P\+\_\+\+V\+A\+L\+U\+E\+\_\+\+M\+A\+X\+\_\+\+F\+R\+EE}}
+\index{Z\+I\+P\+M\+A\+P\+\_\+\+V\+A\+L\+U\+E\+\_\+\+M\+A\+X\+\_\+\+F\+R\+EE@{Z\+I\+P\+M\+A\+P\+\_\+\+V\+A\+L\+U\+E\+\_\+\+M\+A\+X\+\_\+\+F\+R\+EE}!zipmap.\+c@{zipmap.\+c}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+M\+A\+P\+\_\+\+V\+A\+L\+U\+E\+\_\+\+M\+A\+X\+\_\+\+F\+R\+EE}{ZIPMAP\_VALUE\_MAX\_FREE}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+M\+A\+P\+\_\+\+V\+A\+L\+U\+E\+\_\+\+M\+A\+X\+\_\+\+F\+R\+EE~4}
+
+
+
+Definition at line 88 of file zipmap.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{zipmap_8c_acead5bfd100c8d5a5eb1c41fd62ddaeb}\label{zipmap_8c_acead5bfd100c8d5a5eb1c41fd62ddaeb}} 
+\index{zipmap.\+c@{zipmap.\+c}!zipmap\+Blob\+Len@{zipmap\+Blob\+Len}}
+\index{zipmap\+Blob\+Len@{zipmap\+Blob\+Len}!zipmap.\+c@{zipmap.\+c}}
+\subsubsection{\texorpdfstring{zipmap\+Blob\+Len()}{zipmapBlobLen()}}
+{\footnotesize\ttfamily size\+\_\+t zipmap\+Blob\+Len (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zm }\end{DoxyParamCaption})}
+
+
+
+Definition at line 367 of file zipmap.\+c.
+
+\mbox{\Hypertarget{zipmap_8c_a5e23702f38a1febc92f162a9d887556e}\label{zipmap_8c_a5e23702f38a1febc92f162a9d887556e}} 
+\index{zipmap.\+c@{zipmap.\+c}!zipmap\+Del@{zipmap\+Del}}
+\index{zipmap\+Del@{zipmap\+Del}!zipmap.\+c@{zipmap.\+c}}
+\subsubsection{\texorpdfstring{zipmap\+Del()}{zipmapDel()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zipmap\+Del (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zm,  }\item[{unsigned char $\ast$}]{key,  }\item[{unsigned int}]{klen,  }\item[{int $\ast$}]{deleted }\end{DoxyParamCaption})}
+
+
+
+Definition at line 281 of file zipmap.\+c.
+
+\mbox{\Hypertarget{zipmap_8c_ab97d66fb0d38116ba86bd70ee43f592a}\label{zipmap_8c_ab97d66fb0d38116ba86bd70ee43f592a}} 
+\index{zipmap.\+c@{zipmap.\+c}!zipmap\+Exists@{zipmap\+Exists}}
+\index{zipmap\+Exists@{zipmap\+Exists}!zipmap.\+c@{zipmap.\+c}}
+\subsubsection{\texorpdfstring{zipmap\+Exists()}{zipmapExists()}}
+{\footnotesize\ttfamily int zipmap\+Exists (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zm,  }\item[{unsigned char $\ast$}]{key,  }\item[{unsigned int}]{klen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 345 of file zipmap.\+c.
+
+\mbox{\Hypertarget{zipmap_8c_adbd43e1ed8d9be4202ddf3a0298323f7}\label{zipmap_8c_adbd43e1ed8d9be4202ddf3a0298323f7}} 
+\index{zipmap.\+c@{zipmap.\+c}!zipmap\+Get@{zipmap\+Get}}
+\index{zipmap\+Get@{zipmap\+Get}!zipmap.\+c@{zipmap.\+c}}
+\subsubsection{\texorpdfstring{zipmap\+Get()}{zipmapGet()}}
+{\footnotesize\ttfamily int zipmap\+Get (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zm,  }\item[{unsigned char $\ast$}]{key,  }\item[{unsigned int}]{klen,  }\item[{unsigned char $\ast$$\ast$}]{value,  }\item[{unsigned int $\ast$}]{vlen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 334 of file zipmap.\+c.
+
+\mbox{\Hypertarget{zipmap_8c_a7d0a66d9761802e81c26b06c361d51cd}\label{zipmap_8c_a7d0a66d9761802e81c26b06c361d51cd}} 
+\index{zipmap.\+c@{zipmap.\+c}!zipmap\+Len@{zipmap\+Len}}
+\index{zipmap\+Len@{zipmap\+Len}!zipmap.\+c@{zipmap.\+c}}
+\subsubsection{\texorpdfstring{zipmap\+Len()}{zipmapLen()}}
+{\footnotesize\ttfamily unsigned int zipmap\+Len (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zm }\end{DoxyParamCaption})}
+
+
+
+Definition at line 350 of file zipmap.\+c.
+
+\mbox{\Hypertarget{zipmap_8c_a0f02c640950a9e5f23fa1e91a7dc52f9}\label{zipmap_8c_a0f02c640950a9e5f23fa1e91a7dc52f9}} 
+\index{zipmap.\+c@{zipmap.\+c}!zipmap\+New@{zipmap\+New}}
+\index{zipmap\+New@{zipmap\+New}!zipmap.\+c@{zipmap.\+c}}
+\subsubsection{\texorpdfstring{zipmap\+New()}{zipmapNew()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zipmap\+New (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 96 of file zipmap.\+c.
+
+\mbox{\Hypertarget{zipmap_8c_acb732a23bbd89468a8f2f447cc0473a9}\label{zipmap_8c_acb732a23bbd89468a8f2f447cc0473a9}} 
+\index{zipmap.\+c@{zipmap.\+c}!zipmap\+Next@{zipmap\+Next}}
+\index{zipmap\+Next@{zipmap\+Next}!zipmap.\+c@{zipmap.\+c}}
+\subsubsection{\texorpdfstring{zipmap\+Next()}{zipmapNext()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zipmap\+Next (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zm,  }\item[{unsigned char $\ast$$\ast$}]{key,  }\item[{unsigned int $\ast$}]{klen,  }\item[{unsigned char $\ast$$\ast$}]{value,  }\item[{unsigned int $\ast$}]{vlen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 315 of file zipmap.\+c.
+
+\mbox{\Hypertarget{zipmap_8c_a6697d12cf72fcae0fe14a24c6967d211}\label{zipmap_8c_a6697d12cf72fcae0fe14a24c6967d211}} 
+\index{zipmap.\+c@{zipmap.\+c}!zipmap\+Rewind@{zipmap\+Rewind}}
+\index{zipmap\+Rewind@{zipmap\+Rewind}!zipmap.\+c@{zipmap.\+c}}
+\subsubsection{\texorpdfstring{zipmap\+Rewind()}{zipmapRewind()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zipmap\+Rewind (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zm }\end{DoxyParamCaption})}
+
+
+
+Definition at line 300 of file zipmap.\+c.
+
+\mbox{\Hypertarget{zipmap_8c_a84d510cf846f588a92b0b00436661301}\label{zipmap_8c_a84d510cf846f588a92b0b00436661301}} 
+\index{zipmap.\+c@{zipmap.\+c}!zipmap\+Set@{zipmap\+Set}}
+\index{zipmap\+Set@{zipmap\+Set}!zipmap.\+c@{zipmap.\+c}}
+\subsubsection{\texorpdfstring{zipmap\+Set()}{zipmapSet()}}
+{\footnotesize\ttfamily unsigned char$\ast$ zipmap\+Set (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zm,  }\item[{unsigned char $\ast$}]{key,  }\item[{unsigned int}]{klen,  }\item[{unsigned char $\ast$}]{val,  }\item[{unsigned int}]{vlen,  }\item[{int $\ast$}]{update }\end{DoxyParamCaption})}
+
+
+
+Definition at line 211 of file zipmap.\+c.
+

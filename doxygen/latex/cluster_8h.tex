@@ -1,0 +1,978 @@
+\hypertarget{cluster_8h}{}\section{src/cluster.h File Reference}
+\label{cluster_8h}\index{src/cluster.\+h@{src/cluster.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cluster_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structcluster_link}{cluster\+Link}
+\item 
+struct \hyperlink{structcluster_node_fail_report}{cluster\+Node\+Fail\+Report}
+\item 
+struct \hyperlink{structcluster_node}{cluster\+Node}
+\item 
+struct \hyperlink{structcluster_state}{cluster\+State}
+\item 
+struct \hyperlink{structcluster_msg_data_gossip}{cluster\+Msg\+Data\+Gossip}
+\item 
+struct \hyperlink{structcluster_msg_data_fail}{cluster\+Msg\+Data\+Fail}
+\item 
+struct \hyperlink{structcluster_msg_data_publish}{cluster\+Msg\+Data\+Publish}
+\item 
+struct \hyperlink{structcluster_msg_data_update}{cluster\+Msg\+Data\+Update}
+\item 
+struct \hyperlink{structcluster_msg_module}{cluster\+Msg\+Module}
+\item 
+union \hyperlink{unioncluster_msg_data}{cluster\+Msg\+Data}
+\item 
+struct \hyperlink{structcluster_msg}{cluster\+Msg}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{cluster_8h_aa3e2cb951eebb16725ecc3f5beefd9fd}{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}~16384
+\item 
+\#define \hyperlink{cluster_8h_adbda03922c45cac3cfc98a5c34a9d2d2}{C\+L\+U\+S\+T\+E\+R\+\_\+\+OK}~0          /$\ast$ Everything looks ok $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a4a46e6d5b85c594d08283dc6da2a32bf}{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+IL}~1        /$\ast$ The cluster can\textquotesingle{}t work $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_ace7a882972eff7149675252938643b6e}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+A\+M\+E\+L\+EN}~40    /$\ast$ sha1 hex length $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_ac619a9ae48ab1431daa590fb5e75cea8}{C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+O\+R\+T\+\_\+\+I\+N\+CR}~10000 /$\ast$ Cluster port = baseport + P\+O\+R\+T\+\_\+\+I\+N\+CR $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_acb94b0516dcfb9814e13dfe97f3ad6b1}{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+N\+O\+D\+E\+\_\+\+T\+I\+M\+E\+O\+UT}~15000
+\item 
+\#define \hyperlink{cluster_8h_a44b183827017eca27648d5991fc50b13}{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+V\+A\+L\+I\+D\+I\+TY}~10 /$\ast$ Slave max data age factor. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_aa27e3466414a1464e6f2721b8872827d}{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+\_\+\+F\+U\+L\+L\+\_\+\+C\+O\+V\+E\+R\+A\+GE}~1
+\item 
+\#define \hyperlink{cluster_8h_a71480cf46082d44207e3a4740314fc31}{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER}~0 /$\ast$ Failover by default. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a6679b8ca82e8f5b657759a896fa9c1ac}{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+R\+E\+P\+O\+R\+T\+\_\+\+V\+A\+L\+I\+D\+I\+T\+Y\+\_\+\+M\+U\+LT}~2 /$\ast$ Fail report validity. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a91dcc2950ab29bc6fa0706069bd64e35}{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+M\+U\+LT}~2 /$\ast$ Undo fail if master is back. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_af2a141390c38fe0a6aea573bdc69f6b6}{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+A\+DD}~10 /$\ast$ Some additional time. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a12856ec9e9997c6e8395792d01c99685}{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+E\+L\+AY}~5 /$\ast$ Seconds $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a1895138f4125c5dce77e8fe28c9bd8d1}{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+B\+A\+R\+R\+I\+ER}~1
+\item 
+\#define \hyperlink{cluster_8h_a869ee97118edc95fc7ba2abe472ef79e}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+T\+I\+M\+E\+O\+UT}~5000 /$\ast$ Milliseconds to do a manual failover. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a9f6f9533e776a70a1269f7f3225738d5}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+P\+A\+U\+S\+E\+\_\+\+M\+U\+LT}~2 /$\ast$ Master pause manual failover mult. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a6379f60d426f37f755440776cb9cc88e}{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+A\+V\+E\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+D\+E\+L\+AY}~5000 /$\ast$ Delay for slave migration. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a5cca5ce77d018a377acdcecf0b443373}{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+N\+O\+NE}~0          /$\ast$ Node can serve the request. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_afbca3b8aad0bd8d1f013d81af78672af}{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+C\+R\+O\+S\+S\+\_\+\+S\+L\+OT}~1    /$\ast$ -\/C\+R\+O\+S\+S\+S\+L\+OT request. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a55ae67727361b72bce02b01dd58511f2}{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+U\+N\+S\+T\+A\+B\+LE}~2      /$\ast$ -\/T\+R\+Y\+A\+G\+A\+IN redirection required $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_ae93f7d31db8c46cdf4c6a7e2f15fd00b}{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+A\+SK}~3           /$\ast$ -\/A\+SK redirection required. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a26a42bb5d79b437e3a8329d66d7fce81}{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+M\+O\+V\+ED}~4         /$\ast$ -\/M\+O\+V\+ED redirection required. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a62aea13c6a6bad14d00664033b3cae1a}{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+S\+T\+A\+TE}~5    /$\ast$ -\/C\+L\+U\+S\+T\+E\+R\+D\+O\+WN, global state. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_ac77f67383a97866c21a56f66bada419b}{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+U\+N\+B\+O\+U\+ND}~6  /$\ast$ -\/C\+L\+U\+S\+T\+E\+R\+D\+O\+WN, unbound slot. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a5dcea846e31b55b73244aa2e496a31bf}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+A\+S\+T\+ER}~1     /$\ast$ The node is a master $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a34b7bfd1f810397be68c3b5d13d4d134}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+S\+L\+A\+VE}~2      /$\ast$ The node is a slave $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a5306c1ae8988b8be0a1a02bd9162dfa1}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+P\+F\+A\+IL}~4      /$\ast$ Failure? Need acknowledge $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_ad211e85c7baf8a5a59acd747e4e9005a}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+F\+A\+IL}~8       /$\ast$ The node is believed to be malfunctioning $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_afee946c4e74c08465e9b4ead5e3659e6}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+Y\+S\+E\+LF}~16    /$\ast$ This node is \hyperlink{cluster_8c_aff69bee08a3a0a58166a9f85acf12d56}{myself} $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a60571342a067f1e5772a04b36feff6a6}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+H\+A\+N\+D\+S\+H\+A\+KE}~32 /$\ast$ We have still to exchange the first ping $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a2bbed8bf0615871a01ca8b7f691b56d8}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+A\+D\+DR}~64  /$\ast$ We don\textquotesingle{}t know the address of this node $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_ad992a5c70af8bc805aae5405106ff9f7}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+E\+ET}~128     /$\ast$ Send a M\+E\+ET message to this node $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a1d5a62356ed9f5986613c2315a358119}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+TO}~256 /$\ast$ Master elegible for replica migration. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a5b12a5512136f19440456d7dd51c7fb0}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+F\+A\+I\+L\+O\+V\+ER}~512 /$\ast$ Slave will not try to failver. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_ac8300cbcbca7ec5ef6a3afde258204e6}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+U\+L\+L\+\_\+\+N\+A\+ME}~\char`\"{}\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\char`\"{}
+\item 
+\#define \hyperlink{cluster_8h_a2d8e84269474d8750565fb3fb67aa436}{node\+Is\+Master}(n)~((n)-\/$>$flags \& \hyperlink{cluster_8h_a5dcea846e31b55b73244aa2e496a31bf}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+A\+S\+T\+ER})
+\item 
+\#define \hyperlink{cluster_8h_a3c99881f6892130c902b42b1f84a0e11}{node\+Is\+Slave}(n)~((n)-\/$>$flags \& \hyperlink{cluster_8h_a34b7bfd1f810397be68c3b5d13d4d134}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+S\+L\+A\+VE})
+\item 
+\#define \hyperlink{cluster_8h_a70f1a5bb82f54ce5d17b13de42176790}{node\+In\+Handshake}(n)~((n)-\/$>$flags \& \hyperlink{cluster_8h_a60571342a067f1e5772a04b36feff6a6}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+H\+A\+N\+D\+S\+H\+A\+KE})
+\item 
+\#define \hyperlink{cluster_8h_ad1197dcefeb1bdf0cf163aacd971fbff}{node\+Has\+Addr}(n)~(!((n)-\/$>$flags \& \hyperlink{cluster_8h_a2bbed8bf0615871a01ca8b7f691b56d8}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+A\+D\+DR}))
+\item 
+\#define \hyperlink{cluster_8h_ae3876d4736e235409a8fbfb97e48cf29}{node\+Without\+Addr}(n)~((n)-\/$>$flags \& \hyperlink{cluster_8h_a2bbed8bf0615871a01ca8b7f691b56d8}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+A\+D\+DR})
+\item 
+\#define \hyperlink{cluster_8h_ac0ab1cbdbc2a49b30c98d73640476e32}{node\+Timed\+Out}(n)~((n)-\/$>$flags \& \hyperlink{cluster_8h_a5306c1ae8988b8be0a1a02bd9162dfa1}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+P\+F\+A\+IL})
+\item 
+\#define \hyperlink{cluster_8h_a6a31c614ff4f5ac8ebaa630b0a921c3d}{node\+Failed}(n)~((n)-\/$>$flags \& \hyperlink{cluster_8h_ad211e85c7baf8a5a59acd747e4e9005a}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+F\+A\+IL})
+\item 
+\#define \hyperlink{cluster_8h_a7a66b2f635e6dd5cd71fc26f980c79f4}{node\+Cant\+Failover}(n)~((n)-\/$>$flags \& \hyperlink{cluster_8h_a5b12a5512136f19440456d7dd51c7fb0}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+F\+A\+I\+L\+O\+V\+ER})
+\item 
+\#define \hyperlink{cluster_8h_a9a55c4c18a5113bc3c8272f62a983c96}{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+N\+O\+NE}~0
+\item 
+\#define \hyperlink{cluster_8h_a0ad102e4aecc3451096624e2201f4285}{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+A\+T\+A\+\_\+\+A\+GE}~1
+\item 
+\#define \hyperlink{cluster_8h_a40e58ef928e66a27912835d7e6a1c97a}{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+D\+E\+L\+AY}~2
+\item 
+\#define \hyperlink{cluster_8h_af0085657cacf54e82c477680571f7509}{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+E\+X\+P\+I\+R\+ED}~3
+\item 
+\#define \hyperlink{cluster_8h_abaf73be169ccef9db0795134adfd4847}{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+V\+O\+T\+ES}~4
+\item 
+\#define \hyperlink{cluster_8h_aacc3855ff190c34f59896bb99655dcf8}{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+R\+E\+L\+O\+G\+\_\+\+P\+E\+R\+I\+OD}~(60$\ast$5) /$\ast$ seconds. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_afb969dfe84cf59e2340ed10cbf334a47}{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER}~(1$<$$<$0)
+\item 
+\#define \hyperlink{cluster_8h_abea0d393cba342261e4a7e6fb745f388}{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+S\+T\+A\+TE}~(1$<$$<$1)
+\item 
+\#define \hyperlink{cluster_8h_a0ae5ff08fbae3c655012b4de8bfc327d}{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+S\+A\+V\+E\+\_\+\+C\+O\+N\+F\+IG}~(1$<$$<$2)
+\item 
+\#define \hyperlink{cluster_8h_accc9a00230cd04789db2398bb3ab715a}{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+F\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+F\+IG}~(1$<$$<$3)
+\item 
+\#define \hyperlink{cluster_8h_aeb8a936505e22f64e5039523a3c96d4c}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+I\+NG}~0          /$\ast$ Ping $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a33e9439f462f28177a31dfc74de0c16b}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+O\+NG}~1          /$\ast$ Pong (reply to Ping) $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_aaf264f57ae1869c57093fd9fbc6fc5bc}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+ET}~2          /$\ast$ Meet \char`\"{}let\textquotesingle{}s join\char`\"{} message $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_af5d51e3ad9965074b2124aabe1895d59}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+IL}~3          /$\ast$ Mark node xxx as failing $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a874fecfd3ff886c2c697f5649ebee5ee}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+U\+B\+L\+I\+SH}~4       /$\ast$ Pub/Sub Publish propagation $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a739009308ed4cb5b19630a5f872408d2}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+R\+E\+Q\+U\+E\+ST}~5 /$\ast$ May I failover? $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_ae0db3a998d7da521c5359bdd8708f5f6}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+A\+CK}~6     /$\ast$ Yes, you have my vote $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a51dc58bb78128fcae1751d654130ec0f}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+U\+P\+D\+A\+TE}~7        /$\ast$ Another node slots configuration $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_aa875273b4b11ae73d3cd3a8aea4ddcba}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+F\+S\+T\+A\+RT}~8       /$\ast$ Pause clients for manual failover $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_aec8150b576caa8d3016edb28b34bf914}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+O\+D\+U\+LE}~9        /$\ast$ Module cluster A\+PI message. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a6222c464c1f2125f42271d2abd63853e}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT}~10        /$\ast$ Total number of message types. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_afc2490fcb8306e719f18de95b3694d75}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+NE}~0
+\item 
+\#define \hyperlink{cluster_8h_a4002f93ce1ea260fcde1f56afdad2fbb}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER}~(1$<$$<$1)
+\item 
+\#define \hyperlink{cluster_8h_a77af93341e6982f09e2377a82399b0a9}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+R\+E\+D\+I\+R\+E\+C\+T\+I\+ON}~(1$<$$<$2)
+\item 
+\#define \hyperlink{cluster_8h_ad93688d5eca033b109b1a00bfb03cebe}{C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+R\+O\+T\+O\+\_\+\+V\+ER}~1 /$\ast$ Cluster bus protocol version. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a92c33a8bb7f8a960845347ca63c4659e}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+M\+I\+N\+\_\+\+L\+EN}~(sizeof(\hyperlink{structcluster_msg}{cluster\+Msg})-\/sizeof(union \hyperlink{unioncluster_msg_data}{cluster\+Msg\+Data}))
+\item 
+\#define \hyperlink{cluster_8h_aa7da3a662e6241de4f004fa1a4519cf2}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+P\+A\+U\+S\+ED}~(1$<$$<$0) /$\ast$ Master paused for manual failover. $\ast$/
+\item 
+\#define \hyperlink{cluster_8h_a28600533c792367de5ec4fe2e8434376}{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+F\+O\+R\+C\+E\+A\+CK}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structcluster_link}{cluster\+Link} \hyperlink{cluster_8h_a0e0b34b64e30c4fc80763d72de3de44c}{cluster\+Link}
+\item 
+typedef struct \hyperlink{structcluster_node_fail_report}{cluster\+Node\+Fail\+Report} \hyperlink{cluster_8h_aafb4d2f79bab521401cccad5f43072e9}{cluster\+Node\+Fail\+Report}
+\item 
+typedef struct \hyperlink{structcluster_node}{cluster\+Node} \hyperlink{cluster_8h_a3c70951d47fdc85a480b1bf2907368e2}{cluster\+Node}
+\item 
+typedef struct \hyperlink{structcluster_state}{cluster\+State} \hyperlink{cluster_8h_a2cf63ed933931dccd111fcb8c9579a6b}{cluster\+State}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structcluster_node}{cluster\+Node} $\ast$ \hyperlink{cluster_8h_a3422edc12b6acffffa0abc5b0e8971af}{get\+Node\+By\+Query} (\hyperlink{structclient}{client} $\ast$c, struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, int $\ast$hashslot, int $\ast$ask)
+\item 
+int \hyperlink{cluster_8h_a4b2e8f1c74deb908a4af55f7fc20f161}{cluster\+Redirect\+Blocked\+Client\+If\+Needed} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{cluster_8h_a173a8e877d27a3850ad4072489e7a44b}{cluster\+Redirect\+Client} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{structcluster_node}{cluster\+Node} $\ast$n, int hashslot, int error\+\_\+code)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{cluster_8h_a0ad102e4aecc3451096624e2201f4285}\label{cluster_8h_a0ad102e4aecc3451096624e2201f4285}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+A\+T\+A\+\_\+\+A\+GE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+A\+T\+A\+\_\+\+A\+GE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+A\+T\+A\+\_\+\+A\+GE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+A\+T\+A\+\_\+\+A\+GE}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+A\+T\+A\+\_\+\+A\+GE}{CLUSTER\_CANT\_FAILOVER\_DATA\_AGE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+A\+T\+A\+\_\+\+A\+GE~1}
+
+
+
+Definition at line 73 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_af0085657cacf54e82c477680571f7509}\label{cluster_8h_af0085657cacf54e82c477680571f7509}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+E\+X\+P\+I\+R\+ED@{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+E\+X\+P\+I\+R\+ED}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+E\+X\+P\+I\+R\+ED@{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+E\+X\+P\+I\+R\+ED}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+E\+X\+P\+I\+R\+ED}{CLUSTER\_CANT\_FAILOVER\_EXPIRED}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+E\+X\+P\+I\+R\+ED~3}
+
+
+
+Definition at line 75 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a9a55c4c18a5113bc3c8272f62a983c96}\label{cluster_8h_a9a55c4c18a5113bc3c8272f62a983c96}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+N\+O\+NE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+N\+O\+NE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+N\+O\+NE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+N\+O\+NE}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+N\+O\+NE}{CLUSTER\_CANT\_FAILOVER\_NONE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+N\+O\+NE~0}
+
+
+
+Definition at line 72 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_aacc3855ff190c34f59896bb99655dcf8}\label{cluster_8h_aacc3855ff190c34f59896bb99655dcf8}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+R\+E\+L\+O\+G\+\_\+\+P\+E\+R\+I\+OD@{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+R\+E\+L\+O\+G\+\_\+\+P\+E\+R\+I\+OD}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+R\+E\+L\+O\+G\+\_\+\+P\+E\+R\+I\+OD@{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+R\+E\+L\+O\+G\+\_\+\+P\+E\+R\+I\+OD}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+R\+E\+L\+O\+G\+\_\+\+P\+E\+R\+I\+OD}{CLUSTER\_CANT\_FAILOVER\_RELOG\_PERIOD}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+R\+E\+L\+O\+G\+\_\+\+P\+E\+R\+I\+OD~(60$\ast$5) /$\ast$ seconds. $\ast$/}
+
+
+
+Definition at line 77 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a40e58ef928e66a27912835d7e6a1c97a}\label{cluster_8h_a40e58ef928e66a27912835d7e6a1c97a}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+D\+E\+L\+AY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+D\+E\+L\+AY}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+D\+E\+L\+AY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+D\+E\+L\+AY}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+D\+E\+L\+AY}{CLUSTER\_CANT\_FAILOVER\_WAITING\_DELAY}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+D\+E\+L\+AY~2}
+
+
+
+Definition at line 74 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_abaf73be169ccef9db0795134adfd4847}\label{cluster_8h_abaf73be169ccef9db0795134adfd4847}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+V\+O\+T\+ES@{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+V\+O\+T\+ES}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+V\+O\+T\+ES@{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+V\+O\+T\+ES}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+V\+O\+T\+ES}{CLUSTER\_CANT\_FAILOVER\_WAITING\_VOTES}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+C\+A\+N\+T\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+W\+A\+I\+T\+I\+N\+G\+\_\+\+V\+O\+T\+ES~4}
+
+
+
+Definition at line 76 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a1895138f4125c5dce77e8fe28c9bd8d1}\label{cluster_8h_a1895138f4125c5dce77e8fe28c9bd8d1}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+B\+A\+R\+R\+I\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+B\+A\+R\+R\+I\+ER}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+B\+A\+R\+R\+I\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+B\+A\+R\+R\+I\+ER}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+B\+A\+R\+R\+I\+ER}{CLUSTER\_DEFAULT\_MIGRATION\_BARRIER}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+B\+A\+R\+R\+I\+ER~1}
+
+
+
+Definition at line 24 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_acb94b0516dcfb9814e13dfe97f3ad6b1}\label{cluster_8h_acb94b0516dcfb9814e13dfe97f3ad6b1}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+N\+O\+D\+E\+\_\+\+T\+I\+M\+E\+O\+UT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+N\+O\+D\+E\+\_\+\+T\+I\+M\+E\+O\+UT}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+N\+O\+D\+E\+\_\+\+T\+I\+M\+E\+O\+UT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+N\+O\+D\+E\+\_\+\+T\+I\+M\+E\+O\+UT}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+N\+O\+D\+E\+\_\+\+T\+I\+M\+E\+O\+UT}{CLUSTER\_DEFAULT\_NODE\_TIMEOUT}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+N\+O\+D\+E\+\_\+\+T\+I\+M\+E\+O\+UT~15000}
+
+
+
+Definition at line 16 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_aa27e3466414a1464e6f2721b8872827d}\label{cluster_8h_aa27e3466414a1464e6f2721b8872827d}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+\_\+\+F\+U\+L\+L\+\_\+\+C\+O\+V\+E\+R\+A\+GE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+\_\+\+F\+U\+L\+L\+\_\+\+C\+O\+V\+E\+R\+A\+GE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+\_\+\+F\+U\+L\+L\+\_\+\+C\+O\+V\+E\+R\+A\+GE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+\_\+\+F\+U\+L\+L\+\_\+\+C\+O\+V\+E\+R\+A\+GE}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+\_\+\+F\+U\+L\+L\+\_\+\+C\+O\+V\+E\+R\+A\+GE}{CLUSTER\_DEFAULT\_REQUIRE\_FULL\_COVERAGE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+R\+E\+Q\+U\+I\+R\+E\+\_\+\+F\+U\+L\+L\+\_\+\+C\+O\+V\+E\+R\+A\+GE~1}
+
+
+
+Definition at line 18 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a71480cf46082d44207e3a4740314fc31}\label{cluster_8h_a71480cf46082d44207e3a4740314fc31}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER}{CLUSTER\_DEFAULT\_SLAVE\_NO\_FAILOVER}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER~0 /$\ast$ Failover by default. $\ast$/}
+
+
+
+Definition at line 19 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a44b183827017eca27648d5991fc50b13}\label{cluster_8h_a44b183827017eca27648d5991fc50b13}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+V\+A\+L\+I\+D\+I\+TY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+V\+A\+L\+I\+D\+I\+TY}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+V\+A\+L\+I\+D\+I\+TY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+V\+A\+L\+I\+D\+I\+TY}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+V\+A\+L\+I\+D\+I\+TY}{CLUSTER\_DEFAULT\_SLAVE\_VALIDITY}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+L\+A\+V\+E\+\_\+\+V\+A\+L\+I\+D\+I\+TY~10 /$\ast$ Slave max data age factor. $\ast$/}
+
+
+
+Definition at line 17 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a4a46e6d5b85c594d08283dc6da2a32bf}\label{cluster_8h_a4a46e6d5b85c594d08283dc6da2a32bf}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+IL@{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+IL}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+IL@{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+IL}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+IL}{CLUSTER\_FAIL}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+IL~1        /$\ast$ The cluster can\textquotesingle{}t work $\ast$/}
+
+
+
+Definition at line 10 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a6679b8ca82e8f5b657759a896fa9c1ac}\label{cluster_8h_a6679b8ca82e8f5b657759a896fa9c1ac}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+R\+E\+P\+O\+R\+T\+\_\+\+V\+A\+L\+I\+D\+I\+T\+Y\+\_\+\+M\+U\+LT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+R\+E\+P\+O\+R\+T\+\_\+\+V\+A\+L\+I\+D\+I\+T\+Y\+\_\+\+M\+U\+LT}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+R\+E\+P\+O\+R\+T\+\_\+\+V\+A\+L\+I\+D\+I\+T\+Y\+\_\+\+M\+U\+LT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+R\+E\+P\+O\+R\+T\+\_\+\+V\+A\+L\+I\+D\+I\+T\+Y\+\_\+\+M\+U\+LT}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+R\+E\+P\+O\+R\+T\+\_\+\+V\+A\+L\+I\+D\+I\+T\+Y\+\_\+\+M\+U\+LT}{CLUSTER\_FAIL\_REPORT\_VALIDITY\_MULT}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+R\+E\+P\+O\+R\+T\+\_\+\+V\+A\+L\+I\+D\+I\+T\+Y\+\_\+\+M\+U\+LT~2 /$\ast$ Fail report validity. $\ast$/}
+
+
+
+Definition at line 20 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_af2a141390c38fe0a6aea573bdc69f6b6}\label{cluster_8h_af2a141390c38fe0a6aea573bdc69f6b6}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+A\+DD@{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+A\+DD}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+A\+DD@{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+A\+DD}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+A\+DD}{CLUSTER\_FAIL\_UNDO\_TIME\_ADD}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+A\+DD~10 /$\ast$ Some additional time. $\ast$/}
+
+
+
+Definition at line 22 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a91dcc2950ab29bc6fa0706069bd64e35}\label{cluster_8h_a91dcc2950ab29bc6fa0706069bd64e35}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+M\+U\+LT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+M\+U\+LT}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+M\+U\+LT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+M\+U\+LT}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+M\+U\+LT}{CLUSTER\_FAIL\_UNDO\_TIME\_MULT}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+\_\+\+U\+N\+D\+O\+\_\+\+T\+I\+M\+E\+\_\+\+M\+U\+LT~2 /$\ast$ Undo fail if master is back. $\ast$/}
+
+
+
+Definition at line 21 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a12856ec9e9997c6e8395792d01c99685}\label{cluster_8h_a12856ec9e9997c6e8395792d01c99685}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+E\+L\+AY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+E\+L\+AY}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+E\+L\+AY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+E\+L\+AY}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+E\+L\+AY}{CLUSTER\_FAILOVER\_DELAY}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+D\+E\+L\+AY~5 /$\ast$ Seconds $\ast$/}
+
+
+
+Definition at line 23 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a9f6f9533e776a70a1269f7f3225738d5}\label{cluster_8h_a9f6f9533e776a70a1269f7f3225738d5}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+P\+A\+U\+S\+E\+\_\+\+M\+U\+LT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+P\+A\+U\+S\+E\+\_\+\+M\+U\+LT}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+P\+A\+U\+S\+E\+\_\+\+M\+U\+LT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+P\+A\+U\+S\+E\+\_\+\+M\+U\+LT}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+P\+A\+U\+S\+E\+\_\+\+M\+U\+LT}{CLUSTER\_MF\_PAUSE\_MULT}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+P\+A\+U\+S\+E\+\_\+\+M\+U\+LT~2 /$\ast$ Master pause manual failover mult. $\ast$/}
+
+
+
+Definition at line 26 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a869ee97118edc95fc7ba2abe472ef79e}\label{cluster_8h_a869ee97118edc95fc7ba2abe472ef79e}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+T\+I\+M\+E\+O\+UT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+T\+I\+M\+E\+O\+UT}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+T\+I\+M\+E\+O\+UT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+T\+I\+M\+E\+O\+UT}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+T\+I\+M\+E\+O\+UT}{CLUSTER\_MF\_TIMEOUT}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+F\+\_\+\+T\+I\+M\+E\+O\+UT~5000 /$\ast$ Milliseconds to do a manual failover. $\ast$/}
+
+
+
+Definition at line 25 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a4002f93ce1ea260fcde1f56afdad2fbb}\label{cluster_8h_a4002f93ce1ea260fcde1f56afdad2fbb}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER}{CLUSTER\_MODULE\_FLAG\_NO\_FAILOVER}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+F\+A\+I\+L\+O\+V\+ER~(1$<$$<$1)}
+
+
+
+Definition at line 107 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a77af93341e6982f09e2377a82399b0a9}\label{cluster_8h_a77af93341e6982f09e2377a82399b0a9}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+R\+E\+D\+I\+R\+E\+C\+T\+I\+ON@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+R\+E\+D\+I\+R\+E\+C\+T\+I\+ON}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+R\+E\+D\+I\+R\+E\+C\+T\+I\+ON@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+R\+E\+D\+I\+R\+E\+C\+T\+I\+ON}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+R\+E\+D\+I\+R\+E\+C\+T\+I\+ON}{CLUSTER\_MODULE\_FLAG\_NO\_REDIRECTION}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+\_\+\+R\+E\+D\+I\+R\+E\+C\+T\+I\+ON~(1$<$$<$2)}
+
+
+
+Definition at line 108 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_afc2490fcb8306e719f18de95b3694d75}\label{cluster_8h_afc2490fcb8306e719f18de95b3694d75}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+NE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+NE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+NE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+NE}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+NE}{CLUSTER\_MODULE\_FLAG\_NONE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+O\+D\+U\+L\+E\+\_\+\+F\+L\+A\+G\+\_\+\+N\+O\+NE~0}
+
+
+
+Definition at line 106 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_ace7a882972eff7149675252938643b6e}\label{cluster_8h_ace7a882972eff7149675252938643b6e}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+A\+M\+E\+L\+EN@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+A\+M\+E\+L\+EN}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+A\+M\+E\+L\+EN@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+A\+M\+E\+L\+EN}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+A\+M\+E\+L\+EN}{CLUSTER\_NAMELEN}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+A\+M\+E\+L\+EN~40    /$\ast$ sha1 hex length $\ast$/}
+
+
+
+Definition at line 11 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_ad211e85c7baf8a5a59acd747e4e9005a}\label{cluster_8h_ad211e85c7baf8a5a59acd747e4e9005a}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+F\+A\+IL@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+F\+A\+IL}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+F\+A\+IL@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+F\+A\+IL}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+F\+A\+IL}{CLUSTER\_NODE\_FAIL}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+F\+A\+IL~8       /$\ast$ The node is believed to be malfunctioning $\ast$/}
+
+
+
+Definition at line 53 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a60571342a067f1e5772a04b36feff6a6}\label{cluster_8h_a60571342a067f1e5772a04b36feff6a6}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+H\+A\+N\+D\+S\+H\+A\+KE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+H\+A\+N\+D\+S\+H\+A\+KE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+H\+A\+N\+D\+S\+H\+A\+KE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+H\+A\+N\+D\+S\+H\+A\+KE}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+H\+A\+N\+D\+S\+H\+A\+KE}{CLUSTER\_NODE\_HANDSHAKE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+H\+A\+N\+D\+S\+H\+A\+KE~32 /$\ast$ We have still to exchange the first ping $\ast$/}
+
+
+
+Definition at line 55 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a5dcea846e31b55b73244aa2e496a31bf}\label{cluster_8h_a5dcea846e31b55b73244aa2e496a31bf}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+A\+S\+T\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+A\+S\+T\+ER}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+A\+S\+T\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+A\+S\+T\+ER}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+A\+S\+T\+ER}{CLUSTER\_NODE\_MASTER}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+A\+S\+T\+ER~1     /$\ast$ The node is a master $\ast$/}
+
+
+
+Definition at line 50 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_ad992a5c70af8bc805aae5405106ff9f7}\label{cluster_8h_ad992a5c70af8bc805aae5405106ff9f7}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+E\+ET@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+E\+ET}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+E\+ET@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+E\+ET}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+E\+ET}{CLUSTER\_NODE\_MEET}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+E\+ET~128     /$\ast$ Send a M\+E\+ET message to this node $\ast$/}
+
+
+
+Definition at line 57 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a1d5a62356ed9f5986613c2315a358119}\label{cluster_8h_a1d5a62356ed9f5986613c2315a358119}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+TO@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+TO}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+TO@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+TO}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+TO}{CLUSTER\_NODE\_MIGRATE\_TO}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+I\+G\+R\+A\+T\+E\+\_\+\+TO~256 /$\ast$ Master elegible for replica migration. $\ast$/}
+
+
+
+Definition at line 58 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_afee946c4e74c08465e9b4ead5e3659e6}\label{cluster_8h_afee946c4e74c08465e9b4ead5e3659e6}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+Y\+S\+E\+LF@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+Y\+S\+E\+LF}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+Y\+S\+E\+LF@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+Y\+S\+E\+LF}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+Y\+S\+E\+LF}{CLUSTER\_NODE\_MYSELF}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+Y\+S\+E\+LF~16    /$\ast$ This node is \hyperlink{cluster_8c_aff69bee08a3a0a58166a9f85acf12d56}{myself} $\ast$/}
+
+
+
+Definition at line 54 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a2bbed8bf0615871a01ca8b7f691b56d8}\label{cluster_8h_a2bbed8bf0615871a01ca8b7f691b56d8}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+A\+D\+DR@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+A\+D\+DR}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+A\+D\+DR@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+A\+D\+DR}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+A\+D\+DR}{CLUSTER\_NODE\_NOADDR}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+A\+D\+DR~64  /$\ast$ We don\textquotesingle{}t know the address of this node $\ast$/}
+
+
+
+Definition at line 56 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a5b12a5512136f19440456d7dd51c7fb0}\label{cluster_8h_a5b12a5512136f19440456d7dd51c7fb0}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+F\+A\+I\+L\+O\+V\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+F\+A\+I\+L\+O\+V\+ER}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+F\+A\+I\+L\+O\+V\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+F\+A\+I\+L\+O\+V\+ER}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+F\+A\+I\+L\+O\+V\+ER}{CLUSTER\_NODE\_NOFAILOVER}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+F\+A\+I\+L\+O\+V\+ER~512 /$\ast$ Slave will not try to failver. $\ast$/}
+
+
+
+Definition at line 59 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_ac8300cbcbca7ec5ef6a3afde258204e6}\label{cluster_8h_ac8300cbcbca7ec5ef6a3afde258204e6}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+U\+L\+L\+\_\+\+N\+A\+ME@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+U\+L\+L\+\_\+\+N\+A\+ME}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+U\+L\+L\+\_\+\+N\+A\+ME@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+U\+L\+L\+\_\+\+N\+A\+ME}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+U\+L\+L\+\_\+\+N\+A\+ME}{CLUSTER\_NODE\_NULL\_NAME}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+U\+L\+L\+\_\+\+N\+A\+ME~\char`\"{}\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\textbackslash{}000\char`\"{}}
+
+
+
+Definition at line 60 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a5306c1ae8988b8be0a1a02bd9162dfa1}\label{cluster_8h_a5306c1ae8988b8be0a1a02bd9162dfa1}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+P\+F\+A\+IL@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+P\+F\+A\+IL}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+P\+F\+A\+IL@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+P\+F\+A\+IL}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+P\+F\+A\+IL}{CLUSTER\_NODE\_PFAIL}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+P\+F\+A\+IL~4      /$\ast$ Failure? Need acknowledge $\ast$/}
+
+
+
+Definition at line 52 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a34b7bfd1f810397be68c3b5d13d4d134}\label{cluster_8h_a34b7bfd1f810397be68c3b5d13d4d134}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+S\+L\+A\+VE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+S\+L\+A\+VE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+S\+L\+A\+VE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+S\+L\+A\+VE}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+S\+L\+A\+VE}{CLUSTER\_NODE\_SLAVE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+S\+L\+A\+VE~2      /$\ast$ The node is a slave $\ast$/}
+
+
+
+Definition at line 51 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_adbda03922c45cac3cfc98a5c34a9d2d2}\label{cluster_8h_adbda03922c45cac3cfc98a5c34a9d2d2}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+OK@{C\+L\+U\+S\+T\+E\+R\+\_\+\+OK}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+OK@{C\+L\+U\+S\+T\+E\+R\+\_\+\+OK}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+OK}{CLUSTER\_OK}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+OK~0          /$\ast$ Everything looks ok $\ast$/}
+
+
+
+Definition at line 9 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_ac619a9ae48ab1431daa590fb5e75cea8}\label{cluster_8h_ac619a9ae48ab1431daa590fb5e75cea8}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+O\+R\+T\+\_\+\+I\+N\+CR@{C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+O\+R\+T\+\_\+\+I\+N\+CR}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+O\+R\+T\+\_\+\+I\+N\+CR@{C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+O\+R\+T\+\_\+\+I\+N\+CR}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+O\+R\+T\+\_\+\+I\+N\+CR}{CLUSTER\_PORT\_INCR}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+O\+R\+T\+\_\+\+I\+N\+CR~10000 /$\ast$ Cluster port = baseport + P\+O\+R\+T\+\_\+\+I\+N\+CR $\ast$/}
+
+
+
+Definition at line 12 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_ad93688d5eca033b109b1a00bfb03cebe}\label{cluster_8h_ad93688d5eca033b109b1a00bfb03cebe}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+R\+O\+T\+O\+\_\+\+V\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+R\+O\+T\+O\+\_\+\+V\+ER}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+R\+O\+T\+O\+\_\+\+V\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+R\+O\+T\+O\+\_\+\+V\+ER}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+R\+O\+T\+O\+\_\+\+V\+ER}{CLUSTER\_PROTO\_VER}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+P\+R\+O\+T\+O\+\_\+\+V\+ER~1 /$\ast$ Cluster bus protocol version. $\ast$/}
+
+
+
+Definition at line 250 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_ae93f7d31db8c46cdf4c6a7e2f15fd00b}\label{cluster_8h_ae93f7d31db8c46cdf4c6a7e2f15fd00b}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+A\+SK@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+A\+SK}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+A\+SK@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+A\+SK}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+A\+SK}{CLUSTER\_REDIR\_ASK}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+A\+SK~3           /$\ast$ -\/A\+SK redirection required. $\ast$/}
+
+
+
+Definition at line 33 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_afbca3b8aad0bd8d1f013d81af78672af}\label{cluster_8h_afbca3b8aad0bd8d1f013d81af78672af}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+C\+R\+O\+S\+S\+\_\+\+S\+L\+OT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+C\+R\+O\+S\+S\+\_\+\+S\+L\+OT}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+C\+R\+O\+S\+S\+\_\+\+S\+L\+OT@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+C\+R\+O\+S\+S\+\_\+\+S\+L\+OT}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+C\+R\+O\+S\+S\+\_\+\+S\+L\+OT}{CLUSTER\_REDIR\_CROSS\_SLOT}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+C\+R\+O\+S\+S\+\_\+\+S\+L\+OT~1    /$\ast$ -\/C\+R\+O\+S\+S\+S\+L\+OT request. $\ast$/}
+
+
+
+Definition at line 31 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a62aea13c6a6bad14d00664033b3cae1a}\label{cluster_8h_a62aea13c6a6bad14d00664033b3cae1a}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+S\+T\+A\+TE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+S\+T\+A\+TE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+S\+T\+A\+TE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+S\+T\+A\+TE}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+S\+T\+A\+TE}{CLUSTER\_REDIR\_DOWN\_STATE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+S\+T\+A\+TE~5    /$\ast$ -\/C\+L\+U\+S\+T\+E\+R\+D\+O\+WN, global state. $\ast$/}
+
+
+
+Definition at line 35 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_ac77f67383a97866c21a56f66bada419b}\label{cluster_8h_ac77f67383a97866c21a56f66bada419b}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+U\+N\+B\+O\+U\+ND@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+U\+N\+B\+O\+U\+ND}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+U\+N\+B\+O\+U\+ND@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+U\+N\+B\+O\+U\+ND}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+U\+N\+B\+O\+U\+ND}{CLUSTER\_REDIR\_DOWN\_UNBOUND}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+D\+O\+W\+N\+\_\+\+U\+N\+B\+O\+U\+ND~6  /$\ast$ -\/C\+L\+U\+S\+T\+E\+R\+D\+O\+WN, unbound slot. $\ast$/}
+
+
+
+Definition at line 36 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a26a42bb5d79b437e3a8329d66d7fce81}\label{cluster_8h_a26a42bb5d79b437e3a8329d66d7fce81}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+M\+O\+V\+ED@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+M\+O\+V\+ED}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+M\+O\+V\+ED@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+M\+O\+V\+ED}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+M\+O\+V\+ED}{CLUSTER\_REDIR\_MOVED}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+M\+O\+V\+ED~4         /$\ast$ -\/M\+O\+V\+ED redirection required. $\ast$/}
+
+
+
+Definition at line 34 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a5cca5ce77d018a377acdcecf0b443373}\label{cluster_8h_a5cca5ce77d018a377acdcecf0b443373}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+N\+O\+NE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+N\+O\+NE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+N\+O\+NE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+N\+O\+NE}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+N\+O\+NE}{CLUSTER\_REDIR\_NONE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+N\+O\+NE~0          /$\ast$ Node can serve the request. $\ast$/}
+
+
+
+Definition at line 30 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a55ae67727361b72bce02b01dd58511f2}\label{cluster_8h_a55ae67727361b72bce02b01dd58511f2}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+U\+N\+S\+T\+A\+B\+LE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+U\+N\+S\+T\+A\+B\+LE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+U\+N\+S\+T\+A\+B\+LE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+U\+N\+S\+T\+A\+B\+LE}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+U\+N\+S\+T\+A\+B\+LE}{CLUSTER\_REDIR\_UNSTABLE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+R\+E\+D\+I\+R\+\_\+\+U\+N\+S\+T\+A\+B\+LE~2      /$\ast$ -\/T\+R\+Y\+A\+G\+A\+IN redirection required $\ast$/}
+
+
+
+Definition at line 32 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a6379f60d426f37f755440776cb9cc88e}\label{cluster_8h_a6379f60d426f37f755440776cb9cc88e}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+A\+V\+E\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+D\+E\+L\+AY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+A\+V\+E\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+D\+E\+L\+AY}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+A\+V\+E\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+D\+E\+L\+AY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+A\+V\+E\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+D\+E\+L\+AY}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+A\+V\+E\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+D\+E\+L\+AY}{CLUSTER\_SLAVE\_MIGRATION\_DELAY}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+A\+V\+E\+\_\+\+M\+I\+G\+R\+A\+T\+I\+O\+N\+\_\+\+D\+E\+L\+AY~5000 /$\ast$ Delay for slave migration. $\ast$/}
+
+
+
+Definition at line 27 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_aa3e2cb951eebb16725ecc3f5beefd9fd}\label{cluster_8h_aa3e2cb951eebb16725ecc3f5beefd9fd}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS@{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS@{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS}{CLUSTER\_SLOTS}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+L\+O\+TS~16384}
+
+
+
+Definition at line 8 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_accc9a00230cd04789db2398bb3ab715a}\label{cluster_8h_accc9a00230cd04789db2398bb3ab715a}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+F\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+F\+IG@{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+F\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+F\+IG}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+F\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+F\+IG@{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+F\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+F\+IG}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+F\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+F\+IG}{CLUSTER\_TODO\_FSYNC\_CONFIG}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+F\+S\+Y\+N\+C\+\_\+\+C\+O\+N\+F\+IG~(1$<$$<$3)}
+
+
+
+Definition at line 83 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_afb969dfe84cf59e2340ed10cbf334a47}\label{cluster_8h_afb969dfe84cf59e2340ed10cbf334a47}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER@{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER}{CLUSTER\_TODO\_HANDLE\_FAILOVER}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+H\+A\+N\+D\+L\+E\+\_\+\+F\+A\+I\+L\+O\+V\+ER~(1$<$$<$0)}
+
+
+
+Definition at line 80 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a0ae5ff08fbae3c655012b4de8bfc327d}\label{cluster_8h_a0ae5ff08fbae3c655012b4de8bfc327d}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+S\+A\+V\+E\+\_\+\+C\+O\+N\+F\+IG@{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+S\+A\+V\+E\+\_\+\+C\+O\+N\+F\+IG}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+S\+A\+V\+E\+\_\+\+C\+O\+N\+F\+IG@{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+S\+A\+V\+E\+\_\+\+C\+O\+N\+F\+IG}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+S\+A\+V\+E\+\_\+\+C\+O\+N\+F\+IG}{CLUSTER\_TODO\_SAVE\_CONFIG}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+S\+A\+V\+E\+\_\+\+C\+O\+N\+F\+IG~(1$<$$<$2)}
+
+
+
+Definition at line 82 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_abea0d393cba342261e4a7e6fb745f388}\label{cluster_8h_abea0d393cba342261e4a7e6fb745f388}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+S\+T\+A\+TE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+S\+T\+A\+TE}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+S\+T\+A\+TE@{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+S\+T\+A\+TE}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+S\+T\+A\+TE}{CLUSTER\_TODO\_UPDATE\_STATE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+D\+O\+\_\+\+U\+P\+D\+A\+T\+E\+\_\+\+S\+T\+A\+TE~(1$<$$<$1)}
+
+
+
+Definition at line 81 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a28600533c792367de5ec4fe2e8434376}\label{cluster_8h_a28600533c792367de5ec4fe2e8434376}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+F\+O\+R\+C\+E\+A\+CK@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+F\+O\+R\+C\+E\+A\+CK}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+F\+O\+R\+C\+E\+A\+CK@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+F\+O\+R\+C\+E\+A\+CK}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+F\+O\+R\+C\+E\+A\+CK}{CLUSTERMSG\_FLAG0\_FORCEACK}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+F\+O\+R\+C\+E\+A\+CK}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(1<<1) \textcolor{comment}{/* Give ACK to AUTH\_REQUEST even if}
+\textcolor{comment}{                                            master is up. */}
+\end{DoxyCode}
+
+
+Definition at line 282 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_aa7da3a662e6241de4f004fa1a4519cf2}\label{cluster_8h_aa7da3a662e6241de4f004fa1a4519cf2}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+P\+A\+U\+S\+ED@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+P\+A\+U\+S\+ED}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+P\+A\+U\+S\+ED@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+P\+A\+U\+S\+ED}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+P\+A\+U\+S\+ED}{CLUSTERMSG\_FLAG0\_PAUSED}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+F\+L\+A\+G0\+\_\+\+P\+A\+U\+S\+ED~(1$<$$<$0) /$\ast$ Master paused for manual failover. $\ast$/}
+
+
+
+Definition at line 281 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a92c33a8bb7f8a960845347ca63c4659e}\label{cluster_8h_a92c33a8bb7f8a960845347ca63c4659e}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+M\+I\+N\+\_\+\+L\+EN@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+M\+I\+N\+\_\+\+L\+EN}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+M\+I\+N\+\_\+\+L\+EN@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+M\+I\+N\+\_\+\+L\+EN}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+M\+I\+N\+\_\+\+L\+EN}{CLUSTERMSG\_MIN\_LEN}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+M\+I\+N\+\_\+\+L\+EN~(sizeof(\hyperlink{structcluster_msg}{cluster\+Msg})-\/sizeof(union \hyperlink{unioncluster_msg_data}{cluster\+Msg\+Data}))}
+
+
+
+Definition at line 277 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a6222c464c1f2125f42271d2abd63853e}\label{cluster_8h_a6222c464c1f2125f42271d2abd63853e}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT}{CLUSTERMSG\_TYPE\_COUNT}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+U\+NT~10        /$\ast$ Total number of message types. $\ast$/}
+
+
+
+Definition at line 101 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_af5d51e3ad9965074b2124aabe1895d59}\label{cluster_8h_af5d51e3ad9965074b2124aabe1895d59}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+IL@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+IL}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+IL@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+IL}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+IL}{CLUSTERMSG\_TYPE\_FAIL}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+IL~3          /$\ast$ Mark node xxx as failing $\ast$/}
+
+
+
+Definition at line 94 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_ae0db3a998d7da521c5359bdd8708f5f6}\label{cluster_8h_ae0db3a998d7da521c5359bdd8708f5f6}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+A\+CK@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+A\+CK}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+A\+CK@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+A\+CK}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+A\+CK}{CLUSTERMSG\_TYPE\_FAILOVER\_AUTH\_ACK}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+A\+CK~6     /$\ast$ Yes, you have my vote $\ast$/}
+
+
+
+Definition at line 97 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a739009308ed4cb5b19630a5f872408d2}\label{cluster_8h_a739009308ed4cb5b19630a5f872408d2}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+R\+E\+Q\+U\+E\+ST@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+R\+E\+Q\+U\+E\+ST}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+R\+E\+Q\+U\+E\+ST@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+R\+E\+Q\+U\+E\+ST}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+R\+E\+Q\+U\+E\+ST}{CLUSTERMSG\_TYPE\_FAILOVER\_AUTH\_REQUEST}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+F\+A\+I\+L\+O\+V\+E\+R\+\_\+\+A\+U\+T\+H\+\_\+\+R\+E\+Q\+U\+E\+ST~5 /$\ast$ May I failover? $\ast$/}
+
+
+
+Definition at line 96 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_aaf264f57ae1869c57093fd9fbc6fc5bc}\label{cluster_8h_aaf264f57ae1869c57093fd9fbc6fc5bc}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+ET@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+ET}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+ET@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+ET}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+ET}{CLUSTERMSG\_TYPE\_MEET}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+ET~2          /$\ast$ Meet \char`\"{}let\textquotesingle{}s join\char`\"{} message $\ast$/}
+
+
+
+Definition at line 93 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_aa875273b4b11ae73d3cd3a8aea4ddcba}\label{cluster_8h_aa875273b4b11ae73d3cd3a8aea4ddcba}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+F\+S\+T\+A\+RT@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+F\+S\+T\+A\+RT}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+F\+S\+T\+A\+RT@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+F\+S\+T\+A\+RT}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+F\+S\+T\+A\+RT}{CLUSTERMSG\_TYPE\_MFSTART}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+F\+S\+T\+A\+RT~8       /$\ast$ Pause clients for manual failover $\ast$/}
+
+
+
+Definition at line 99 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_aec8150b576caa8d3016edb28b34bf914}\label{cluster_8h_aec8150b576caa8d3016edb28b34bf914}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+O\+D\+U\+LE@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+O\+D\+U\+LE}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+O\+D\+U\+LE@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+O\+D\+U\+LE}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+O\+D\+U\+LE}{CLUSTERMSG\_TYPE\_MODULE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+O\+D\+U\+LE~9        /$\ast$ Module cluster A\+PI message. $\ast$/}
+
+
+
+Definition at line 100 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_aeb8a936505e22f64e5039523a3c96d4c}\label{cluster_8h_aeb8a936505e22f64e5039523a3c96d4c}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+I\+NG@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+I\+NG}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+I\+NG@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+I\+NG}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+I\+NG}{CLUSTERMSG\_TYPE\_PING}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+I\+NG~0          /$\ast$ Ping $\ast$/}
+
+
+
+Definition at line 91 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a33e9439f462f28177a31dfc74de0c16b}\label{cluster_8h_a33e9439f462f28177a31dfc74de0c16b}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+O\+NG@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+O\+NG}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+O\+NG@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+O\+NG}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+O\+NG}{CLUSTERMSG\_TYPE\_PONG}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+O\+NG~1          /$\ast$ Pong (reply to Ping) $\ast$/}
+
+
+
+Definition at line 92 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a874fecfd3ff886c2c697f5649ebee5ee}\label{cluster_8h_a874fecfd3ff886c2c697f5649ebee5ee}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+U\+B\+L\+I\+SH@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+U\+B\+L\+I\+SH}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+U\+B\+L\+I\+SH@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+U\+B\+L\+I\+SH}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+U\+B\+L\+I\+SH}{CLUSTERMSG\_TYPE\_PUBLISH}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+P\+U\+B\+L\+I\+SH~4       /$\ast$ Pub/Sub Publish propagation $\ast$/}
+
+
+
+Definition at line 95 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a51dc58bb78128fcae1751d654130ec0f}\label{cluster_8h_a51dc58bb78128fcae1751d654130ec0f}} 
+\index{cluster.\+h@{cluster.\+h}!C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+U\+P\+D\+A\+TE@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+U\+P\+D\+A\+TE}}
+\index{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+U\+P\+D\+A\+TE@{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+U\+P\+D\+A\+TE}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+U\+P\+D\+A\+TE}{CLUSTERMSG\_TYPE\_UPDATE}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+M\+S\+G\+\_\+\+T\+Y\+P\+E\+\_\+\+U\+P\+D\+A\+TE~7        /$\ast$ Another node slots configuration $\ast$/}
+
+
+
+Definition at line 98 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a7a66b2f635e6dd5cd71fc26f980c79f4}\label{cluster_8h_a7a66b2f635e6dd5cd71fc26f980c79f4}} 
+\index{cluster.\+h@{cluster.\+h}!node\+Cant\+Failover@{node\+Cant\+Failover}}
+\index{node\+Cant\+Failover@{node\+Cant\+Failover}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{node\+Cant\+Failover}{nodeCantFailover}}
+{\footnotesize\ttfamily \#define node\+Cant\+Failover(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})~((n)-\/$>$flags \& \hyperlink{cluster_8h_a5b12a5512136f19440456d7dd51c7fb0}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+F\+A\+I\+L\+O\+V\+ER})}
+
+
+
+Definition at line 69 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a6a31c614ff4f5ac8ebaa630b0a921c3d}\label{cluster_8h_a6a31c614ff4f5ac8ebaa630b0a921c3d}} 
+\index{cluster.\+h@{cluster.\+h}!node\+Failed@{node\+Failed}}
+\index{node\+Failed@{node\+Failed}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{node\+Failed}{nodeFailed}}
+{\footnotesize\ttfamily \#define node\+Failed(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})~((n)-\/$>$flags \& \hyperlink{cluster_8h_ad211e85c7baf8a5a59acd747e4e9005a}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+F\+A\+IL})}
+
+
+
+Definition at line 68 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_ad1197dcefeb1bdf0cf163aacd971fbff}\label{cluster_8h_ad1197dcefeb1bdf0cf163aacd971fbff}} 
+\index{cluster.\+h@{cluster.\+h}!node\+Has\+Addr@{node\+Has\+Addr}}
+\index{node\+Has\+Addr@{node\+Has\+Addr}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{node\+Has\+Addr}{nodeHasAddr}}
+{\footnotesize\ttfamily \#define node\+Has\+Addr(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})~(!((n)-\/$>$flags \& \hyperlink{cluster_8h_a2bbed8bf0615871a01ca8b7f691b56d8}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+A\+D\+DR}))}
+
+
+
+Definition at line 65 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a70f1a5bb82f54ce5d17b13de42176790}\label{cluster_8h_a70f1a5bb82f54ce5d17b13de42176790}} 
+\index{cluster.\+h@{cluster.\+h}!node\+In\+Handshake@{node\+In\+Handshake}}
+\index{node\+In\+Handshake@{node\+In\+Handshake}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{node\+In\+Handshake}{nodeInHandshake}}
+{\footnotesize\ttfamily \#define node\+In\+Handshake(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})~((n)-\/$>$flags \& \hyperlink{cluster_8h_a60571342a067f1e5772a04b36feff6a6}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+H\+A\+N\+D\+S\+H\+A\+KE})}
+
+
+
+Definition at line 64 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a2d8e84269474d8750565fb3fb67aa436}\label{cluster_8h_a2d8e84269474d8750565fb3fb67aa436}} 
+\index{cluster.\+h@{cluster.\+h}!node\+Is\+Master@{node\+Is\+Master}}
+\index{node\+Is\+Master@{node\+Is\+Master}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{node\+Is\+Master}{nodeIsMaster}}
+{\footnotesize\ttfamily \#define node\+Is\+Master(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})~((n)-\/$>$flags \& \hyperlink{cluster_8h_a5dcea846e31b55b73244aa2e496a31bf}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+M\+A\+S\+T\+ER})}
+
+
+
+Definition at line 62 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_a3c99881f6892130c902b42b1f84a0e11}\label{cluster_8h_a3c99881f6892130c902b42b1f84a0e11}} 
+\index{cluster.\+h@{cluster.\+h}!node\+Is\+Slave@{node\+Is\+Slave}}
+\index{node\+Is\+Slave@{node\+Is\+Slave}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{node\+Is\+Slave}{nodeIsSlave}}
+{\footnotesize\ttfamily \#define node\+Is\+Slave(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})~((n)-\/$>$flags \& \hyperlink{cluster_8h_a34b7bfd1f810397be68c3b5d13d4d134}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+S\+L\+A\+VE})}
+
+
+
+Definition at line 63 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_ac0ab1cbdbc2a49b30c98d73640476e32}\label{cluster_8h_ac0ab1cbdbc2a49b30c98d73640476e32}} 
+\index{cluster.\+h@{cluster.\+h}!node\+Timed\+Out@{node\+Timed\+Out}}
+\index{node\+Timed\+Out@{node\+Timed\+Out}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{node\+Timed\+Out}{nodeTimedOut}}
+{\footnotesize\ttfamily \#define node\+Timed\+Out(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})~((n)-\/$>$flags \& \hyperlink{cluster_8h_a5306c1ae8988b8be0a1a02bd9162dfa1}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+P\+F\+A\+IL})}
+
+
+
+Definition at line 67 of file cluster.\+h.
+
+\mbox{\Hypertarget{cluster_8h_ae3876d4736e235409a8fbfb97e48cf29}\label{cluster_8h_ae3876d4736e235409a8fbfb97e48cf29}} 
+\index{cluster.\+h@{cluster.\+h}!node\+Without\+Addr@{node\+Without\+Addr}}
+\index{node\+Without\+Addr@{node\+Without\+Addr}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{node\+Without\+Addr}{nodeWithoutAddr}}
+{\footnotesize\ttfamily \#define node\+Without\+Addr(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})~((n)-\/$>$flags \& \hyperlink{cluster_8h_a2bbed8bf0615871a01ca8b7f691b56d8}{C\+L\+U\+S\+T\+E\+R\+\_\+\+N\+O\+D\+E\+\_\+\+N\+O\+A\+D\+DR})}
+
+
+
+Definition at line 66 of file cluster.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{cluster_8h_a0e0b34b64e30c4fc80763d72de3de44c}\label{cluster_8h_a0e0b34b64e30c4fc80763d72de3de44c}} 
+\index{cluster.\+h@{cluster.\+h}!cluster\+Link@{cluster\+Link}}
+\index{cluster\+Link@{cluster\+Link}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{cluster\+Link}{clusterLink}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structcluster_link}{cluster\+Link}  \hyperlink{structcluster_link}{cluster\+Link}}
+
+\mbox{\Hypertarget{cluster_8h_a3c70951d47fdc85a480b1bf2907368e2}\label{cluster_8h_a3c70951d47fdc85a480b1bf2907368e2}} 
+\index{cluster.\+h@{cluster.\+h}!cluster\+Node@{cluster\+Node}}
+\index{cluster\+Node@{cluster\+Node}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{cluster\+Node}{clusterNode}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structcluster_node}{cluster\+Node}  \hyperlink{structcluster_node}{cluster\+Node}}
+
+\mbox{\Hypertarget{cluster_8h_aafb4d2f79bab521401cccad5f43072e9}\label{cluster_8h_aafb4d2f79bab521401cccad5f43072e9}} 
+\index{cluster.\+h@{cluster.\+h}!cluster\+Node\+Fail\+Report@{cluster\+Node\+Fail\+Report}}
+\index{cluster\+Node\+Fail\+Report@{cluster\+Node\+Fail\+Report}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{cluster\+Node\+Fail\+Report}{clusterNodeFailReport}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structcluster_node_fail_report}{cluster\+Node\+Fail\+Report}  \hyperlink{structcluster_node_fail_report}{cluster\+Node\+Fail\+Report}}
+
+\mbox{\Hypertarget{cluster_8h_a2cf63ed933931dccd111fcb8c9579a6b}\label{cluster_8h_a2cf63ed933931dccd111fcb8c9579a6b}} 
+\index{cluster.\+h@{cluster.\+h}!cluster\+State@{cluster\+State}}
+\index{cluster\+State@{cluster\+State}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{cluster\+State}{clusterState}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structcluster_state}{cluster\+State}  \hyperlink{structcluster_state}{cluster\+State}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{cluster_8h_a4b2e8f1c74deb908a4af55f7fc20f161}\label{cluster_8h_a4b2e8f1c74deb908a4af55f7fc20f161}} 
+\index{cluster.\+h@{cluster.\+h}!cluster\+Redirect\+Blocked\+Client\+If\+Needed@{cluster\+Redirect\+Blocked\+Client\+If\+Needed}}
+\index{cluster\+Redirect\+Blocked\+Client\+If\+Needed@{cluster\+Redirect\+Blocked\+Client\+If\+Needed}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{cluster\+Redirect\+Blocked\+Client\+If\+Needed()}{clusterRedirectBlockedClientIfNeeded()}}
+{\footnotesize\ttfamily int cluster\+Redirect\+Blocked\+Client\+If\+Needed (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5657 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8h_a173a8e877d27a3850ad4072489e7a44b}\label{cluster_8h_a173a8e877d27a3850ad4072489e7a44b}} 
+\index{cluster.\+h@{cluster.\+h}!cluster\+Redirect\+Client@{cluster\+Redirect\+Client}}
+\index{cluster\+Redirect\+Client@{cluster\+Redirect\+Client}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{cluster\+Redirect\+Client()}{clusterRedirectClient()}}
+{\footnotesize\ttfamily void cluster\+Redirect\+Client (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{n,  }\item[{int}]{hashslot,  }\item[{int}]{error\+\_\+code }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5622 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8h_a3422edc12b6acffffa0abc5b0e8971af}\label{cluster_8h_a3422edc12b6acffffa0abc5b0e8971af}} 
+\index{cluster.\+h@{cluster.\+h}!get\+Node\+By\+Query@{get\+Node\+By\+Query}}
+\index{get\+Node\+By\+Query@{get\+Node\+By\+Query}!cluster.\+h@{cluster.\+h}}
+\subsubsection{\texorpdfstring{get\+Node\+By\+Query()}{getNodeByQuery()}}
+{\footnotesize\ttfamily \hyperlink{structcluster_node}{cluster\+Node}$\ast$ get\+Node\+By\+Query (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int $\ast$}]{hashslot,  }\item[{int $\ast$}]{ask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5443 of file cluster.\+c.
+

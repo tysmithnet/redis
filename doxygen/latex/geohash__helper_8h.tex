@@ -1,0 +1,214 @@
+\hypertarget{geohash__helper_8h}{}\section{src/geohash\+\_\+helper.h File Reference}
+\label{geohash__helper_8h}\index{src/geohash\+\_\+helper.\+h@{src/geohash\+\_\+helper.\+h}}
+{\ttfamily \#include \char`\"{}geohash.\+h\char`\"{}}\newline
+Include dependency graph for geohash\+\_\+helper.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{geohash__helper_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{geohash__helper_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_geo_hash_radius}{Geo\+Hash\+Radius}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{geohash__helper_8h_a0ac998d4746216b3a6730185529fe567}{G\+Z\+E\+RO}(s)~s.\+bits = s.\+step = 0;
+\item 
+\#define \hyperlink{geohash__helper_8h_ae64fc881b7aea1529d548ecda1f353e7}{G\+I\+S\+Z\+E\+RO}(s)~(!s.\+bits \&\& !s.\+step)
+\item 
+\#define \hyperlink{geohash__helper_8h_a85062f3699f1a9ebd35e4cb51595ee2f}{G\+I\+S\+N\+O\+T\+Z\+E\+RO}(s)~(s.\+bits $\vert$$\vert$ s.\+step)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef uint64\+\_\+t \hyperlink{geohash__helper_8h_a3f9f7f7e1532501bd39bc64e3def333a}{Geo\+Hash\+Fix52\+Bits}
+\item 
+typedef uint64\+\_\+t \hyperlink{geohash__helper_8h_a1aed9886721adc8f4cc6f5baf6aecf3f}{Geo\+Hash\+Var\+Bits}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{geohash__helper_8h_ae304f2296fd8425d7df2183fb0510c8f}{Geo\+Hash\+Bits\+Comparator} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$a, const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$b)
+\item 
+uint8\+\_\+t \hyperlink{geohash__helper_8h_a99e639b3ecbdcd2f6d85d7f0d5bf41af}{geohash\+Estimate\+Steps\+By\+Radius} (double range\+\_\+meters, double lat)
+\item 
+int \hyperlink{geohash__helper_8h_aab5b423e1fd75fbba31bd62acbd6c576}{geohash\+Bounding\+Box} (double longitude, double latitude, double radius\+\_\+meters, double $\ast$bounds)
+\item 
+\hyperlink{struct_geo_hash_radius}{Geo\+Hash\+Radius} \hyperlink{geohash__helper_8h_aba4e7e152c8b78bce9ee13ced8e09989}{geohash\+Get\+Areas\+By\+Radius} (double longitude, double latitude, double radius\+\_\+meters)
+\item 
+\hyperlink{struct_geo_hash_radius}{Geo\+Hash\+Radius} \hyperlink{geohash__helper_8h_aa786f4b3ef9bd190a6c9d3f15b7e07a3}{geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84} (double longitude, double latitude, double radius\+\_\+meters)
+\item 
+\hyperlink{struct_geo_hash_radius}{Geo\+Hash\+Radius} \hyperlink{geohash__helper_8h_ab883210d7202bf39f65f628d08018bca}{geohash\+Get\+Areas\+By\+Radius\+Mercator} (double longitude, double latitude, double radius\+\_\+meters)
+\item 
+\hyperlink{geohash__helper_8h_a3f9f7f7e1532501bd39bc64e3def333a}{Geo\+Hash\+Fix52\+Bits} \hyperlink{geohash__helper_8h_a28d482398092c27e7f4d299c86bdcabe}{geohash\+Align52\+Bits} (const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} hash)
+\item 
+double \hyperlink{geohash__helper_8h_a065523c9d54ab5f334b59241e5eaa502}{geohash\+Get\+Distance} (double lon1d, double lat1d, double lon2d, double lat2d)
+\item 
+int \hyperlink{geohash__helper_8h_a6eab38834cee78cee8fc60919de0a54e}{geohash\+Get\+Distance\+If\+In\+Radius} (double x1, double y1, double x2, double y2, double radius, double $\ast$distance)
+\item 
+int \hyperlink{geohash__helper_8h_afa8056fec384f91245e4c34dc9567e19}{geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84} (double x1, double y1, double x2, double y2, double radius, double $\ast$distance)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{geohash__helper_8h_a85062f3699f1a9ebd35e4cb51595ee2f}\label{geohash__helper_8h_a85062f3699f1a9ebd35e4cb51595ee2f}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!G\+I\+S\+N\+O\+T\+Z\+E\+RO@{G\+I\+S\+N\+O\+T\+Z\+E\+RO}}
+\index{G\+I\+S\+N\+O\+T\+Z\+E\+RO@{G\+I\+S\+N\+O\+T\+Z\+E\+RO}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{G\+I\+S\+N\+O\+T\+Z\+E\+RO}{GISNOTZERO}}
+{\footnotesize\ttfamily \#define G\+I\+S\+N\+O\+T\+Z\+E\+RO(\begin{DoxyParamCaption}\item[{}]{s }\end{DoxyParamCaption})~(s.\+bits $\vert$$\vert$ s.\+step)}
+
+
+
+Definition at line 39 of file geohash\+\_\+helper.\+h.
+
+\mbox{\Hypertarget{geohash__helper_8h_ae64fc881b7aea1529d548ecda1f353e7}\label{geohash__helper_8h_ae64fc881b7aea1529d548ecda1f353e7}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!G\+I\+S\+Z\+E\+RO@{G\+I\+S\+Z\+E\+RO}}
+\index{G\+I\+S\+Z\+E\+RO@{G\+I\+S\+Z\+E\+RO}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{G\+I\+S\+Z\+E\+RO}{GISZERO}}
+{\footnotesize\ttfamily \#define G\+I\+S\+Z\+E\+RO(\begin{DoxyParamCaption}\item[{}]{s }\end{DoxyParamCaption})~(!s.\+bits \&\& !s.\+step)}
+
+
+
+Definition at line 38 of file geohash\+\_\+helper.\+h.
+
+\mbox{\Hypertarget{geohash__helper_8h_a0ac998d4746216b3a6730185529fe567}\label{geohash__helper_8h_a0ac998d4746216b3a6730185529fe567}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!G\+Z\+E\+RO@{G\+Z\+E\+RO}}
+\index{G\+Z\+E\+RO@{G\+Z\+E\+RO}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{G\+Z\+E\+RO}{GZERO}}
+{\footnotesize\ttfamily \#define G\+Z\+E\+RO(\begin{DoxyParamCaption}\item[{}]{s }\end{DoxyParamCaption})~s.\+bits = s.\+step = 0;}
+
+
+
+Definition at line 37 of file geohash\+\_\+helper.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{geohash__helper_8h_a3f9f7f7e1532501bd39bc64e3def333a}\label{geohash__helper_8h_a3f9f7f7e1532501bd39bc64e3def333a}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!Geo\+Hash\+Fix52\+Bits@{Geo\+Hash\+Fix52\+Bits}}
+\index{Geo\+Hash\+Fix52\+Bits@{Geo\+Hash\+Fix52\+Bits}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{Geo\+Hash\+Fix52\+Bits}{GeoHashFix52Bits}}
+{\footnotesize\ttfamily typedef uint64\+\_\+t \hyperlink{geohash__helper_8h_a3f9f7f7e1532501bd39bc64e3def333a}{Geo\+Hash\+Fix52\+Bits}}
+
+
+
+Definition at line 41 of file geohash\+\_\+helper.\+h.
+
+\mbox{\Hypertarget{geohash__helper_8h_a1aed9886721adc8f4cc6f5baf6aecf3f}\label{geohash__helper_8h_a1aed9886721adc8f4cc6f5baf6aecf3f}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!Geo\+Hash\+Var\+Bits@{Geo\+Hash\+Var\+Bits}}
+\index{Geo\+Hash\+Var\+Bits@{Geo\+Hash\+Var\+Bits}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{Geo\+Hash\+Var\+Bits}{GeoHashVarBits}}
+{\footnotesize\ttfamily typedef uint64\+\_\+t \hyperlink{geohash__helper_8h_a1aed9886721adc8f4cc6f5baf6aecf3f}{Geo\+Hash\+Var\+Bits}}
+
+
+
+Definition at line 42 of file geohash\+\_\+helper.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{geohash__helper_8h_a28d482398092c27e7f4d299c86bdcabe}\label{geohash__helper_8h_a28d482398092c27e7f4d299c86bdcabe}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!geohash\+Align52\+Bits@{geohash\+Align52\+Bits}}
+\index{geohash\+Align52\+Bits@{geohash\+Align52\+Bits}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Align52\+Bits()}{geohashAlign52Bits()}}
+{\footnotesize\ttfamily \hyperlink{geohash__helper_8h_a3f9f7f7e1532501bd39bc64e3def333a}{Geo\+Hash\+Fix52\+Bits} geohash\+Align52\+Bits (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits}}]{hash }\end{DoxyParamCaption})}
+
+
+
+Definition at line 204 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8h_ae304f2296fd8425d7df2183fb0510c8f}\label{geohash__helper_8h_ae304f2296fd8425d7df2183fb0510c8f}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!Geo\+Hash\+Bits\+Comparator@{Geo\+Hash\+Bits\+Comparator}}
+\index{Geo\+Hash\+Bits\+Comparator@{Geo\+Hash\+Bits\+Comparator}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{Geo\+Hash\+Bits\+Comparator()}{GeoHashBitsComparator()}}
+{\footnotesize\ttfamily int Geo\+Hash\+Bits\+Comparator (\begin{DoxyParamCaption}\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$}]{a,  }\item[{const \hyperlink{struct_geo_hash_bits}{Geo\+Hash\+Bits} $\ast$}]{b }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{geohash__helper_8h_aab5b423e1fd75fbba31bd62acbd6c576}\label{geohash__helper_8h_aab5b423e1fd75fbba31bd62acbd6c576}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!geohash\+Bounding\+Box@{geohash\+Bounding\+Box}}
+\index{geohash\+Bounding\+Box@{geohash\+Bounding\+Box}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Bounding\+Box()}{geohashBoundingBox()}}
+{\footnotesize\ttfamily int geohash\+Bounding\+Box (\begin{DoxyParamCaption}\item[{double}]{longitude,  }\item[{double}]{latitude,  }\item[{double}]{radius\+\_\+meters,  }\item[{double $\ast$}]{bounds }\end{DoxyParamCaption})}
+
+
+
+Definition at line 103 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8h_a99e639b3ecbdcd2f6d85d7f0d5bf41af}\label{geohash__helper_8h_a99e639b3ecbdcd2f6d85d7f0d5bf41af}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!geohash\+Estimate\+Steps\+By\+Radius@{geohash\+Estimate\+Steps\+By\+Radius}}
+\index{geohash\+Estimate\+Steps\+By\+Radius@{geohash\+Estimate\+Steps\+By\+Radius}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Estimate\+Steps\+By\+Radius()}{geohashEstimateStepsByRadius()}}
+{\footnotesize\ttfamily uint8\+\_\+t geohash\+Estimate\+Steps\+By\+Radius (\begin{DoxyParamCaption}\item[{double}]{range\+\_\+meters,  }\item[{double}]{lat }\end{DoxyParamCaption})}
+
+
+
+Definition at line 62 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8h_aba4e7e152c8b78bce9ee13ced8e09989}\label{geohash__helper_8h_aba4e7e152c8b78bce9ee13ced8e09989}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!geohash\+Get\+Areas\+By\+Radius@{geohash\+Get\+Areas\+By\+Radius}}
+\index{geohash\+Get\+Areas\+By\+Radius@{geohash\+Get\+Areas\+By\+Radius}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Get\+Areas\+By\+Radius()}{geohashGetAreasByRadius()}}
+{\footnotesize\ttfamily \hyperlink{struct_geo_hash_radius}{Geo\+Hash\+Radius} geohash\+Get\+Areas\+By\+Radius (\begin{DoxyParamCaption}\item[{double}]{longitude,  }\item[{double}]{latitude,  }\item[{double}]{radius\+\_\+meters }\end{DoxyParamCaption})}
+
+
+
+Definition at line 116 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8h_ab883210d7202bf39f65f628d08018bca}\label{geohash__helper_8h_ab883210d7202bf39f65f628d08018bca}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!geohash\+Get\+Areas\+By\+Radius\+Mercator@{geohash\+Get\+Areas\+By\+Radius\+Mercator}}
+\index{geohash\+Get\+Areas\+By\+Radius\+Mercator@{geohash\+Get\+Areas\+By\+Radius\+Mercator}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Get\+Areas\+By\+Radius\+Mercator()}{geohashGetAreasByRadiusMercator()}}
+{\footnotesize\ttfamily \hyperlink{struct_geo_hash_radius}{Geo\+Hash\+Radius} geohash\+Get\+Areas\+By\+Radius\+Mercator (\begin{DoxyParamCaption}\item[{double}]{longitude,  }\item[{double}]{latitude,  }\item[{double}]{radius\+\_\+meters }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{geohash__helper_8h_aa786f4b3ef9bd190a6c9d3f15b7e07a3}\label{geohash__helper_8h_aa786f4b3ef9bd190a6c9d3f15b7e07a3}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84@{geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84}}
+\index{geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84@{geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84()}{geohashGetAreasByRadiusWGS84()}}
+{\footnotesize\ttfamily \hyperlink{struct_geo_hash_radius}{Geo\+Hash\+Radius} geohash\+Get\+Areas\+By\+Radius\+W\+G\+S84 (\begin{DoxyParamCaption}\item[{double}]{longitude,  }\item[{double}]{latitude,  }\item[{double}]{radius\+\_\+meters }\end{DoxyParamCaption})}
+
+
+
+Definition at line 199 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8h_a065523c9d54ab5f334b59241e5eaa502}\label{geohash__helper_8h_a065523c9d54ab5f334b59241e5eaa502}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!geohash\+Get\+Distance@{geohash\+Get\+Distance}}
+\index{geohash\+Get\+Distance@{geohash\+Get\+Distance}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Get\+Distance()}{geohashGetDistance()}}
+{\footnotesize\ttfamily double geohash\+Get\+Distance (\begin{DoxyParamCaption}\item[{double}]{lon1d,  }\item[{double}]{lat1d,  }\item[{double}]{lon2d,  }\item[{double}]{lat2d }\end{DoxyParamCaption})}
+
+
+
+Definition at line 211 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8h_a6eab38834cee78cee8fc60919de0a54e}\label{geohash__helper_8h_a6eab38834cee78cee8fc60919de0a54e}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!geohash\+Get\+Distance\+If\+In\+Radius@{geohash\+Get\+Distance\+If\+In\+Radius}}
+\index{geohash\+Get\+Distance\+If\+In\+Radius@{geohash\+Get\+Distance\+If\+In\+Radius}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Get\+Distance\+If\+In\+Radius()}{geohashGetDistanceIfInRadius()}}
+{\footnotesize\ttfamily int geohash\+Get\+Distance\+If\+In\+Radius (\begin{DoxyParamCaption}\item[{double}]{x1,  }\item[{double}]{y1,  }\item[{double}]{x2,  }\item[{double}]{y2,  }\item[{double}]{radius,  }\item[{double $\ast$}]{distance }\end{DoxyParamCaption})}
+
+
+
+Definition at line 223 of file geohash\+\_\+helper.\+c.
+
+\mbox{\Hypertarget{geohash__helper_8h_afa8056fec384f91245e4c34dc9567e19}\label{geohash__helper_8h_afa8056fec384f91245e4c34dc9567e19}} 
+\index{geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}!geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84@{geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84}}
+\index{geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84@{geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84}!geohash\+\_\+helper.\+h@{geohash\+\_\+helper.\+h}}
+\subsubsection{\texorpdfstring{geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84()}{geohashGetDistanceIfInRadiusWGS84()}}
+{\footnotesize\ttfamily int geohash\+Get\+Distance\+If\+In\+Radius\+W\+G\+S84 (\begin{DoxyParamCaption}\item[{double}]{x1,  }\item[{double}]{y1,  }\item[{double}]{x2,  }\item[{double}]{y2,  }\item[{double}]{radius,  }\item[{double $\ast$}]{distance }\end{DoxyParamCaption})}
+
+
+
+Definition at line 231 of file geohash\+\_\+helper.\+c.
+

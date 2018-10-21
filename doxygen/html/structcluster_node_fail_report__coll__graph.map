@@ -1,0 +1,6 @@
+<map id="clusterNodeFailReport" name="clusterNodeFailReport">
+<area shape="rect" id="node2" href="$structcluster_node.html" title="clusterNode" alt="" coords="114,203,206,229"/>
+<area shape="rect" id="node3" href="$structcluster_link.html" title="clusterLink" alt="" coords="181,293,267,320"/>
+<area shape="rect" id="node4" href="$structlist.html" title="list" alt="" coords="141,112,179,139"/>
+<area shape="rect" id="node5" href="$structlist_node.html" title="listNode" alt="" coords="125,7,195,33"/>
+</map>

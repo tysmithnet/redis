@@ -1,0 +1,160 @@
+\hypertarget{intset_8c}{}\section{src/intset.c File Reference}
+\label{intset_8c}\index{src/intset.\+c@{src/intset.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}intset.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}zmalloc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}endianconv.\+h\char`\"{}}\newline
+Include dependency graph for intset.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{intset_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{intset_8c_a60abb5e9fff1225d1f540718895eae90}{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T16}~(sizeof(int16\+\_\+t))
+\item 
+\#define \hyperlink{intset_8c_aa1aa222f55313754dadfb15b2a328f6b}{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T32}~(sizeof(int32\+\_\+t))
+\item 
+\#define \hyperlink{intset_8c_a813ff1fc109e585be5fef8f605101064}{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T64}~(sizeof(int64\+\_\+t))
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structintset}{intset} $\ast$ \hyperlink{intset_8c_a5f05ce0b2c1427fdc978b8a530d450eb}{intset\+New} (void)
+\item 
+\hyperlink{structintset}{intset} $\ast$ \hyperlink{intset_8c_a6e19437d47a12818f90e63841bc054b2}{intset\+Add} (\hyperlink{structintset}{intset} $\ast$is, int64\+\_\+t value, uint8\+\_\+t $\ast$success)
+\item 
+\hyperlink{structintset}{intset} $\ast$ \hyperlink{intset_8c_a3d7fba4993817010370e7a59895c926e}{intset\+Remove} (\hyperlink{structintset}{intset} $\ast$is, int64\+\_\+t value, int $\ast$success)
+\item 
+uint8\+\_\+t \hyperlink{intset_8c_afd623415cd43dfcc4c2c58773c7bc1d0}{intset\+Find} (\hyperlink{structintset}{intset} $\ast$is, int64\+\_\+t value)
+\item 
+int64\+\_\+t \hyperlink{intset_8c_a5721726e8f4f2753220d3e1f14bd37d1}{intset\+Random} (\hyperlink{structintset}{intset} $\ast$is)
+\item 
+uint8\+\_\+t \hyperlink{intset_8c_af2a8451b3b34b083fb6b90601471160e}{intset\+Get} (\hyperlink{structintset}{intset} $\ast$is, uint32\+\_\+t pos, int64\+\_\+t $\ast$value)
+\item 
+uint32\+\_\+t \hyperlink{intset_8c_a33b34567cf363c48039f1992e9a2244e}{intset\+Len} (const \hyperlink{structintset}{intset} $\ast$is)
+\item 
+size\+\_\+t \hyperlink{intset_8c_ac24250f4d432fe424bc320fb12e5600a}{intset\+Blob\+Len} (\hyperlink{structintset}{intset} $\ast$is)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{intset_8c_a60abb5e9fff1225d1f540718895eae90}\label{intset_8c_a60abb5e9fff1225d1f540718895eae90}} 
+\index{intset.\+c@{intset.\+c}!I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T16@{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T16}}
+\index{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T16@{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T16}!intset.\+c@{intset.\+c}}
+\subsubsection{\texorpdfstring{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T16}{INTSET\_ENC\_INT16}}
+{\footnotesize\ttfamily \#define I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T16~(sizeof(int16\+\_\+t))}
+
+
+
+Definition at line 40 of file intset.\+c.
+
+\mbox{\Hypertarget{intset_8c_aa1aa222f55313754dadfb15b2a328f6b}\label{intset_8c_aa1aa222f55313754dadfb15b2a328f6b}} 
+\index{intset.\+c@{intset.\+c}!I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T32@{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T32}}
+\index{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T32@{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T32}!intset.\+c@{intset.\+c}}
+\subsubsection{\texorpdfstring{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T32}{INTSET\_ENC\_INT32}}
+{\footnotesize\ttfamily \#define I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T32~(sizeof(int32\+\_\+t))}
+
+
+
+Definition at line 41 of file intset.\+c.
+
+\mbox{\Hypertarget{intset_8c_a813ff1fc109e585be5fef8f605101064}\label{intset_8c_a813ff1fc109e585be5fef8f605101064}} 
+\index{intset.\+c@{intset.\+c}!I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T64@{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T64}}
+\index{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T64@{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T64}!intset.\+c@{intset.\+c}}
+\subsubsection{\texorpdfstring{I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T64}{INTSET\_ENC\_INT64}}
+{\footnotesize\ttfamily \#define I\+N\+T\+S\+E\+T\+\_\+\+E\+N\+C\+\_\+\+I\+N\+T64~(sizeof(int64\+\_\+t))}
+
+
+
+Definition at line 42 of file intset.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{intset_8c_a6e19437d47a12818f90e63841bc054b2}\label{intset_8c_a6e19437d47a12818f90e63841bc054b2}} 
+\index{intset.\+c@{intset.\+c}!intset\+Add@{intset\+Add}}
+\index{intset\+Add@{intset\+Add}!intset.\+c@{intset.\+c}}
+\subsubsection{\texorpdfstring{intset\+Add()}{intsetAdd()}}
+{\footnotesize\ttfamily \hyperlink{structintset}{intset}$\ast$ intset\+Add (\begin{DoxyParamCaption}\item[{\hyperlink{structintset}{intset} $\ast$}]{is,  }\item[{int64\+\_\+t}]{value,  }\item[{uint8\+\_\+t $\ast$}]{success }\end{DoxyParamCaption})}
+
+
+
+Definition at line 204 of file intset.\+c.
+
+\mbox{\Hypertarget{intset_8c_ac24250f4d432fe424bc320fb12e5600a}\label{intset_8c_ac24250f4d432fe424bc320fb12e5600a}} 
+\index{intset.\+c@{intset.\+c}!intset\+Blob\+Len@{intset\+Blob\+Len}}
+\index{intset\+Blob\+Len@{intset\+Blob\+Len}!intset.\+c@{intset.\+c}}
+\subsubsection{\texorpdfstring{intset\+Blob\+Len()}{intsetBlobLen()}}
+{\footnotesize\ttfamily size\+\_\+t intset\+Blob\+Len (\begin{DoxyParamCaption}\item[{\hyperlink{structintset}{intset} $\ast$}]{is }\end{DoxyParamCaption})}
+
+
+
+Definition at line 280 of file intset.\+c.
+
+\mbox{\Hypertarget{intset_8c_afd623415cd43dfcc4c2c58773c7bc1d0}\label{intset_8c_afd623415cd43dfcc4c2c58773c7bc1d0}} 
+\index{intset.\+c@{intset.\+c}!intset\+Find@{intset\+Find}}
+\index{intset\+Find@{intset\+Find}!intset.\+c@{intset.\+c}}
+\subsubsection{\texorpdfstring{intset\+Find()}{intsetFind()}}
+{\footnotesize\ttfamily uint8\+\_\+t intset\+Find (\begin{DoxyParamCaption}\item[{\hyperlink{structintset}{intset} $\ast$}]{is,  }\item[{int64\+\_\+t}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 254 of file intset.\+c.
+
+\mbox{\Hypertarget{intset_8c_af2a8451b3b34b083fb6b90601471160e}\label{intset_8c_af2a8451b3b34b083fb6b90601471160e}} 
+\index{intset.\+c@{intset.\+c}!intset\+Get@{intset\+Get}}
+\index{intset\+Get@{intset\+Get}!intset.\+c@{intset.\+c}}
+\subsubsection{\texorpdfstring{intset\+Get()}{intsetGet()}}
+{\footnotesize\ttfamily uint8\+\_\+t intset\+Get (\begin{DoxyParamCaption}\item[{\hyperlink{structintset}{intset} $\ast$}]{is,  }\item[{uint32\+\_\+t}]{pos,  }\item[{int64\+\_\+t $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 266 of file intset.\+c.
+
+\mbox{\Hypertarget{intset_8c_a33b34567cf363c48039f1992e9a2244e}\label{intset_8c_a33b34567cf363c48039f1992e9a2244e}} 
+\index{intset.\+c@{intset.\+c}!intset\+Len@{intset\+Len}}
+\index{intset\+Len@{intset\+Len}!intset.\+c@{intset.\+c}}
+\subsubsection{\texorpdfstring{intset\+Len()}{intsetLen()}}
+{\footnotesize\ttfamily uint32\+\_\+t intset\+Len (\begin{DoxyParamCaption}\item[{const \hyperlink{structintset}{intset} $\ast$}]{is }\end{DoxyParamCaption})}
+
+
+
+Definition at line 275 of file intset.\+c.
+
+\mbox{\Hypertarget{intset_8c_a5f05ce0b2c1427fdc978b8a530d450eb}\label{intset_8c_a5f05ce0b2c1427fdc978b8a530d450eb}} 
+\index{intset.\+c@{intset.\+c}!intset\+New@{intset\+New}}
+\index{intset\+New@{intset\+New}!intset.\+c@{intset.\+c}}
+\subsubsection{\texorpdfstring{intset\+New()}{intsetNew()}}
+{\footnotesize\ttfamily \hyperlink{structintset}{intset}$\ast$ intset\+New (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 97 of file intset.\+c.
+
+\mbox{\Hypertarget{intset_8c_a5721726e8f4f2753220d3e1f14bd37d1}\label{intset_8c_a5721726e8f4f2753220d3e1f14bd37d1}} 
+\index{intset.\+c@{intset.\+c}!intset\+Random@{intset\+Random}}
+\index{intset\+Random@{intset\+Random}!intset.\+c@{intset.\+c}}
+\subsubsection{\texorpdfstring{intset\+Random()}{intsetRandom()}}
+{\footnotesize\ttfamily int64\+\_\+t intset\+Random (\begin{DoxyParamCaption}\item[{\hyperlink{structintset}{intset} $\ast$}]{is }\end{DoxyParamCaption})}
+
+
+
+Definition at line 260 of file intset.\+c.
+
+\mbox{\Hypertarget{intset_8c_a3d7fba4993817010370e7a59895c926e}\label{intset_8c_a3d7fba4993817010370e7a59895c926e}} 
+\index{intset.\+c@{intset.\+c}!intset\+Remove@{intset\+Remove}}
+\index{intset\+Remove@{intset\+Remove}!intset.\+c@{intset.\+c}}
+\subsubsection{\texorpdfstring{intset\+Remove()}{intsetRemove()}}
+{\footnotesize\ttfamily \hyperlink{structintset}{intset}$\ast$ intset\+Remove (\begin{DoxyParamCaption}\item[{\hyperlink{structintset}{intset} $\ast$}]{is,  }\item[{int64\+\_\+t}]{value,  }\item[{int $\ast$}]{success }\end{DoxyParamCaption})}
+
+
+
+Definition at line 234 of file intset.\+c.
+

@@ -1,0 +1,8 @@
+<map id="sentinelRedisInstance" name="sentinelRedisInstance">
+<area shape="rect" id="node2" href="$structsentinel_addr.html" title="sentinelAddr" alt="" coords="5,184,100,211"/>
+<area shape="rect" id="node3" href="$structinstance_link.html" title="instanceLink" alt="" coords="124,184,219,211"/>
+<area shape="rect" id="node4" href="$structdict.html" title="dict" alt="" coords="243,184,286,211"/>
+<area shape="rect" id="node5" href="$structdictht.html" title="dictht" alt="" coords="183,95,237,121"/>
+<area shape="rect" id="node6" href="$structdict_entry.html" title="dictEntry" alt="" coords="173,5,247,32"/>
+<area shape="rect" id="node7" href="$structdict_type.html" title="dictType" alt="" coords="262,95,334,121"/>
+</map>

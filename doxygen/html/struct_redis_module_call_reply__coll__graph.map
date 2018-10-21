@@ -1,0 +1,20 @@
+<map id="RedisModuleCallReply" name="RedisModuleCallReply">
+<area shape="rect" id="node2" href="$struct_redis_module_ctx.html" title="RedisModuleCtx" alt="" coords="265,564,383,591"/>
+<area shape="rect" id="node3" href="$struct_redis_module_blocked_client.html" title="RedisModuleBlockedClient" alt="" coords="419,684,597,711"/>
+<area shape="rect" id="node4" href="$struct_redis_module.html" title="RedisModule" alt="" coords="403,473,501,500"/>
+<area shape="rect" id="node5" href="$structlist.html" title="list" alt="" coords="297,210,335,237"/>
+<area shape="rect" id="node7" href="$structclient.html" title="client" alt="" coords="615,473,668,500"/>
+<area shape="rect" id="node8" href="$structredis_db.html" title="redisDb" alt="" coords="415,375,481,402"/>
+<area shape="rect" id="node6" href="$structlist_node.html" title="listNode" alt="" coords="362,96,433,123"/>
+<area shape="rect" id="node9" href="$structdict.html" title="dict" alt="" coords="665,210,708,237"/>
+<area shape="rect" id="node14" href="$structblocking_state.html" title="blockingState" alt="" coords="591,375,692,402"/>
+<area shape="rect" id="node10" href="$structdictht.html" title="dictht" alt="" coords="590,96,645,123"/>
+<area shape="rect" id="node11" href="$structdict_entry.html" title="dictEntry" alt="" coords="580,5,655,32"/>
+<area shape="rect" id="node12" href="$structdict_type.html" title="dictType" alt="" coords="669,96,741,123"/>
+<area shape="rect" id="node13" href="$structredis_object.html" title="redisObject" alt="" coords="864,96,952,123"/>
+<area shape="rect" id="node17" href="$structmulti_cmd.html" title="multiCmd" alt="" coords="946,210,1025,237"/>
+<area shape="rect" id="node15" href="$structredis_command.html" title="redisCommand" alt="" coords="1001,96,1111,123"/>
+<area shape="rect" id="node16" href="$structmulti_state.html" title="multiState" alt="" coords="946,375,1027,402"/>
+<area shape="rect" id="node18" href="$struct_redis_module_pool_alloc_block.html" title="RedisModulePoolAllocBlock" alt="" coords="5,473,192,500"/>
+<area shape="rect" id="node19" href="$struct_auto_mem_entry.html" title="AutoMemEntry" alt="" coords="269,473,379,500"/>
+</map>

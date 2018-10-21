@@ -1,0 +1,220 @@
+\hypertarget{latency_8c}{}\section{src/latency.c File Reference}
+\label{latency_8c}\index{src/latency.\+c@{src/latency.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+Include dependency graph for latency.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{latency_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{latency_8c_a3acc869332e75f8b926c821d6cc97c8e}{L\+A\+T\+E\+N\+C\+Y\+\_\+\+G\+R\+A\+P\+H\+\_\+\+C\+O\+LS}~80
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{latency_8c_a8c71275dbd81b2a11a0cf656ab2dba05}{dict\+String\+Key\+Compare} (void $\ast$privdata, const void $\ast$key1, const void $\ast$key2)
+\item 
+uint64\+\_\+t \hyperlink{latency_8c_abe07d44d28cb7496db4cd208f0efeaa8}{dict\+String\+Hash} (const void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+void \hyperlink{latency_8c_a88e671bb22d29c9970e6b33a7b4312dd}{dict\+Vanilla\+Free} (void $\ast$privdata, void $\ast$val)
+\item 
+int \hyperlink{latency_8c_af6005ad541819aaab66451ac46cda190}{T\+H\+P\+Get\+Anon\+Huge\+Pages\+Size} (void)
+\item 
+void \hyperlink{latency_8c_a7f4b4d18fb9666b1ecd84b944ca3cc8f}{latency\+Monitor\+Init} (void)
+\item 
+void \hyperlink{latency_8c_a03f7f5f5c6ab0c742958472f56151f8d}{latency\+Add\+Sample} (char $\ast$event, \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} latency)
+\item 
+int \hyperlink{latency_8c_acf10450c91bba08bc5665a3aeae0d342}{latency\+Reset\+Event} (char $\ast$event\+\_\+to\+\_\+reset)
+\item 
+void \hyperlink{latency_8c_a627d3178e6a85111ee34119b32a988cf}{analyze\+Latency\+For\+Event} (char $\ast$event, struct \hyperlink{structlatency_stats}{latency\+Stats} $\ast$ls)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{latency_8c_a666e2843bb7421a6273356a2301cb654}{create\+Latency\+Report} (void)
+\item 
+void \hyperlink{latency_8c_aba967cb865a1cb1e7ab0df6f117f9529}{latency\+Command\+Reply\+With\+Samples} (\hyperlink{structclient}{client} $\ast$c, struct \hyperlink{structlatency_time_series}{latency\+Time\+Series} $\ast$ts)
+\item 
+void \hyperlink{latency_8c_aa52966877434b223b609707a628db988}{latency\+Command\+Reply\+With\+Latest\+Events} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{latency_8c_aa26178a0098d6131a380cc829b1adfbf}{latency\+Command\+Gen\+Sparkeline} (char $\ast$event, struct \hyperlink{structlatency_time_series}{latency\+Time\+Series} $\ast$ts)
+\item 
+void \hyperlink{latency_8c_ac43a2991bfa54144ae06a30e6ebb1690}{latency\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structdict_type}{dict\+Type} \hyperlink{latency_8c_a4c8b74f9b933dc4559bd523f2bc1555a}{latency\+Time\+Series\+Dict\+Type}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{latency_8c_a3acc869332e75f8b926c821d6cc97c8e}\label{latency_8c_a3acc869332e75f8b926c821d6cc97c8e}} 
+\index{latency.\+c@{latency.\+c}!L\+A\+T\+E\+N\+C\+Y\+\_\+\+G\+R\+A\+P\+H\+\_\+\+C\+O\+LS@{L\+A\+T\+E\+N\+C\+Y\+\_\+\+G\+R\+A\+P\+H\+\_\+\+C\+O\+LS}}
+\index{L\+A\+T\+E\+N\+C\+Y\+\_\+\+G\+R\+A\+P\+H\+\_\+\+C\+O\+LS@{L\+A\+T\+E\+N\+C\+Y\+\_\+\+G\+R\+A\+P\+H\+\_\+\+C\+O\+LS}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{L\+A\+T\+E\+N\+C\+Y\+\_\+\+G\+R\+A\+P\+H\+\_\+\+C\+O\+LS}{LATENCY\_GRAPH\_COLS}}
+{\footnotesize\ttfamily \#define L\+A\+T\+E\+N\+C\+Y\+\_\+\+G\+R\+A\+P\+H\+\_\+\+C\+O\+LS~80}
+
+
+
+Definition at line 516 of file latency.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{latency_8c_a627d3178e6a85111ee34119b32a988cf}\label{latency_8c_a627d3178e6a85111ee34119b32a988cf}} 
+\index{latency.\+c@{latency.\+c}!analyze\+Latency\+For\+Event@{analyze\+Latency\+For\+Event}}
+\index{analyze\+Latency\+For\+Event@{analyze\+Latency\+For\+Event}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{analyze\+Latency\+For\+Event()}{analyzeLatencyForEvent()}}
+{\footnotesize\ttfamily void analyze\+Latency\+For\+Event (\begin{DoxyParamCaption}\item[{char $\ast$}]{event,  }\item[{struct \hyperlink{structlatency_stats}{latency\+Stats} $\ast$}]{ls }\end{DoxyParamCaption})}
+
+
+
+Definition at line 160 of file latency.\+c.
+
+\mbox{\Hypertarget{latency_8c_a666e2843bb7421a6273356a2301cb654}\label{latency_8c_a666e2843bb7421a6273356a2301cb654}} 
+\index{latency.\+c@{latency.\+c}!create\+Latency\+Report@{create\+Latency\+Report}}
+\index{create\+Latency\+Report@{create\+Latency\+Report}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{create\+Latency\+Report()}{createLatencyReport()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} create\+Latency\+Report (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 217 of file latency.\+c.
+
+\mbox{\Hypertarget{latency_8c_abe07d44d28cb7496db4cd208f0efeaa8}\label{latency_8c_abe07d44d28cb7496db4cd208f0efeaa8}} 
+\index{latency.\+c@{latency.\+c}!dict\+String\+Hash@{dict\+String\+Hash}}
+\index{dict\+String\+Hash@{dict\+String\+Hash}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{dict\+String\+Hash()}{dictStringHash()}}
+{\footnotesize\ttfamily uint64\+\_\+t dict\+String\+Hash (\begin{DoxyParamCaption}\item[{const void $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 44 of file latency.\+c.
+
+\mbox{\Hypertarget{latency_8c_a8c71275dbd81b2a11a0cf656ab2dba05}\label{latency_8c_a8c71275dbd81b2a11a0cf656ab2dba05}} 
+\index{latency.\+c@{latency.\+c}!dict\+String\+Key\+Compare@{dict\+String\+Key\+Compare}}
+\index{dict\+String\+Key\+Compare@{dict\+String\+Key\+Compare}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{dict\+String\+Key\+Compare()}{dictStringKeyCompare()}}
+{\footnotesize\ttfamily int dict\+String\+Key\+Compare (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{const void $\ast$}]{key1,  }\item[{const void $\ast$}]{key2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 39 of file latency.\+c.
+
+\mbox{\Hypertarget{latency_8c_a88e671bb22d29c9970e6b33a7b4312dd}\label{latency_8c_a88e671bb22d29c9970e6b33a7b4312dd}} 
+\index{latency.\+c@{latency.\+c}!dict\+Vanilla\+Free@{dict\+Vanilla\+Free}}
+\index{dict\+Vanilla\+Free@{dict\+Vanilla\+Free}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{dict\+Vanilla\+Free()}{dictVanillaFree()}}
+{\footnotesize\ttfamily void dict\+Vanilla\+Free (\begin{DoxyParamCaption}\item[{void $\ast$}]{privdata,  }\item[{void $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 459 of file server.\+c.
+
+\mbox{\Hypertarget{latency_8c_a03f7f5f5c6ab0c742958472f56151f8d}\label{latency_8c_a03f7f5f5c6ab0c742958472f56151f8d}} 
+\index{latency.\+c@{latency.\+c}!latency\+Add\+Sample@{latency\+Add\+Sample}}
+\index{latency\+Add\+Sample@{latency\+Add\+Sample}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{latency\+Add\+Sample()}{latencyAddSample()}}
+{\footnotesize\ttfamily void latency\+Add\+Sample (\begin{DoxyParamCaption}\item[{char $\ast$}]{event,  }\item[{\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t}}]{latency }\end{DoxyParamCaption})}
+
+
+
+Definition at line 98 of file latency.\+c.
+
+\mbox{\Hypertarget{latency_8c_ac43a2991bfa54144ae06a30e6ebb1690}\label{latency_8c_ac43a2991bfa54144ae06a30e6ebb1690}} 
+\index{latency.\+c@{latency.\+c}!latency\+Command@{latency\+Command}}
+\index{latency\+Command@{latency\+Command}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{latency\+Command()}{latencyCommand()}}
+{\footnotesize\ttfamily void latency\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 569 of file latency.\+c.
+
+\mbox{\Hypertarget{latency_8c_aa26178a0098d6131a380cc829b1adfbf}\label{latency_8c_aa26178a0098d6131a380cc829b1adfbf}} 
+\index{latency.\+c@{latency.\+c}!latency\+Command\+Gen\+Sparkeline@{latency\+Command\+Gen\+Sparkeline}}
+\index{latency\+Command\+Gen\+Sparkeline@{latency\+Command\+Gen\+Sparkeline}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{latency\+Command\+Gen\+Sparkeline()}{latencyCommandGenSparkeline()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} latency\+Command\+Gen\+Sparkeline (\begin{DoxyParamCaption}\item[{char $\ast$}]{event,  }\item[{struct \hyperlink{structlatency_time_series}{latency\+Time\+Series} $\ast$}]{ts }\end{DoxyParamCaption})}
+
+
+
+Definition at line 517 of file latency.\+c.
+
+\mbox{\Hypertarget{latency_8c_aa52966877434b223b609707a628db988}\label{latency_8c_aa52966877434b223b609707a628db988}} 
+\index{latency.\+c@{latency.\+c}!latency\+Command\+Reply\+With\+Latest\+Events@{latency\+Command\+Reply\+With\+Latest\+Events}}
+\index{latency\+Command\+Reply\+With\+Latest\+Events@{latency\+Command\+Reply\+With\+Latest\+Events}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{latency\+Command\+Reply\+With\+Latest\+Events()}{latencyCommandReplyWithLatestEvents()}}
+{\footnotesize\ttfamily void latency\+Command\+Reply\+With\+Latest\+Events (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 496 of file latency.\+c.
+
+\mbox{\Hypertarget{latency_8c_aba967cb865a1cb1e7ab0df6f117f9529}\label{latency_8c_aba967cb865a1cb1e7ab0df6f117f9529}} 
+\index{latency.\+c@{latency.\+c}!latency\+Command\+Reply\+With\+Samples@{latency\+Command\+Reply\+With\+Samples}}
+\index{latency\+Command\+Reply\+With\+Samples@{latency\+Command\+Reply\+With\+Samples}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{latency\+Command\+Reply\+With\+Samples()}{latencyCommandReplyWithSamples()}}
+{\footnotesize\ttfamily void latency\+Command\+Reply\+With\+Samples (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{struct \hyperlink{structlatency_time_series}{latency\+Time\+Series} $\ast$}]{ts }\end{DoxyParamCaption})}
+
+
+
+Definition at line 478 of file latency.\+c.
+
+\mbox{\Hypertarget{latency_8c_a7f4b4d18fb9666b1ecd84b944ca3cc8f}\label{latency_8c_a7f4b4d18fb9666b1ecd84b944ca3cc8f}} 
+\index{latency.\+c@{latency.\+c}!latency\+Monitor\+Init@{latency\+Monitor\+Init}}
+\index{latency\+Monitor\+Init@{latency\+Monitor\+Init}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{latency\+Monitor\+Init()}{latencyMonitorInit()}}
+{\footnotesize\ttfamily void latency\+Monitor\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 90 of file latency.\+c.
+
+\mbox{\Hypertarget{latency_8c_acf10450c91bba08bc5665a3aeae0d342}\label{latency_8c_acf10450c91bba08bc5665a3aeae0d342}} 
+\index{latency.\+c@{latency.\+c}!latency\+Reset\+Event@{latency\+Reset\+Event}}
+\index{latency\+Reset\+Event@{latency\+Reset\+Event}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{latency\+Reset\+Event()}{latencyResetEvent()}}
+{\footnotesize\ttfamily int latency\+Reset\+Event (\begin{DoxyParamCaption}\item[{char $\ast$}]{event\+\_\+to\+\_\+reset }\end{DoxyParamCaption})}
+
+
+
+Definition at line 135 of file latency.\+c.
+
+\mbox{\Hypertarget{latency_8c_af6005ad541819aaab66451ac46cda190}\label{latency_8c_af6005ad541819aaab66451ac46cda190}} 
+\index{latency.\+c@{latency.\+c}!T\+H\+P\+Get\+Anon\+Huge\+Pages\+Size@{T\+H\+P\+Get\+Anon\+Huge\+Pages\+Size}}
+\index{T\+H\+P\+Get\+Anon\+Huge\+Pages\+Size@{T\+H\+P\+Get\+Anon\+Huge\+Pages\+Size}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{T\+H\+P\+Get\+Anon\+Huge\+Pages\+Size()}{THPGetAnonHugePagesSize()}}
+{\footnotesize\ttfamily int T\+H\+P\+Get\+Anon\+Huge\+Pages\+Size (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 81 of file latency.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{latency_8c_a4c8b74f9b933dc4559bd523f2bc1555a}\label{latency_8c_a4c8b74f9b933dc4559bd523f2bc1555a}} 
+\index{latency.\+c@{latency.\+c}!latency\+Time\+Series\+Dict\+Type@{latency\+Time\+Series\+Dict\+Type}}
+\index{latency\+Time\+Series\+Dict\+Type@{latency\+Time\+Series\+Dict\+Type}!latency.\+c@{latency.\+c}}
+\subsubsection{\texorpdfstring{latency\+Time\+Series\+Dict\+Type}{latencyTimeSeriesDictType}}
+{\footnotesize\ttfamily \hyperlink{structdict_type}{dict\+Type} latency\+Time\+Series\+Dict\+Type}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{latency_8c_abe07d44d28cb7496db4cd208f0efeaa8}{dictStringHash},             
+    NULL,                       
+    NULL,                       
+    \hyperlink{latency_8c_a8c71275dbd81b2a11a0cf656ab2dba05}{dictStringKeyCompare},       
+    \hyperlink{latency_8c_a88e671bb22d29c9970e6b33a7b4312dd}{dictVanillaFree},            
+    dictVanillaFree             
+\}
+\end{DoxyCode}
+
+
+Definition at line 50 of file latency.\+c.
+

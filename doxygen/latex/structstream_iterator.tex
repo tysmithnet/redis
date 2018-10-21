@@ -1,0 +1,214 @@
+\hypertarget{structstream_iterator}{}\section{stream\+Iterator Struct Reference}
+\label{structstream_iterator}\index{stream\+Iterator@{stream\+Iterator}}
+
+
+{\ttfamily \#include $<$stream.\+h$>$}
+
+
+
+Collaboration diagram for stream\+Iterator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structstream_iterator__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structstream}{stream} $\ast$ \hyperlink{structstream_iterator_a2717a95048d12a63e9f346c876452cf5}{stream}
+\item 
+\hyperlink{structstream_i_d}{stream\+ID} \hyperlink{structstream_iterator_a22bc2bf87d69fa36f03f104dd4dc0ebd}{master\+\_\+id}
+\item 
+uint64\+\_\+t \hyperlink{structstream_iterator_a13c51379164df153b027ad5166a6cb1e}{master\+\_\+fields\+\_\+count}
+\item 
+unsigned char $\ast$ \hyperlink{structstream_iterator_a4830a00322f1940e11609c9fdcb64d56}{master\+\_\+fields\+\_\+start}
+\item 
+unsigned char $\ast$ \hyperlink{structstream_iterator_ad1a075c336637fc52e14b2d050bfb7e1}{master\+\_\+fields\+\_\+ptr}
+\item 
+int \hyperlink{structstream_iterator_a299478227bd853e88571fda299a4a278}{entry\+\_\+flags}
+\item 
+int \hyperlink{structstream_iterator_a20fe2570b7d9af1bccf81b5883bc932f}{rev}
+\item 
+uint64\+\_\+t \hyperlink{structstream_iterator_a957f81e750ff00c09ebdaeee08852842}{start\+\_\+key} \mbox{[}2\mbox{]}
+\item 
+uint64\+\_\+t \hyperlink{structstream_iterator_aabbe3cb630a9fb198624e92e8392ed64}{end\+\_\+key} \mbox{[}2\mbox{]}
+\item 
+\hyperlink{structrax_iterator}{rax\+Iterator} \hyperlink{structstream_iterator_abe7bb9f1992cb1fb3c1ecb28c13772a4}{ri}
+\item 
+unsigned char $\ast$ \hyperlink{structstream_iterator_a638eda6d25f4765df61c9dc78c909c28}{lp}
+\item 
+unsigned char $\ast$ \hyperlink{structstream_iterator_a00edb0a3b43d71d7cf4613a1e0cedacf}{lp\+\_\+ele}
+\item 
+unsigned char $\ast$ \hyperlink{structstream_iterator_aea0d250de80a4bd00be3132a1c5ae4d2}{lp\+\_\+flags}
+\item 
+unsigned char \hyperlink{structstream_iterator_a596933be22929d7953baa08f3c2cd307}{field\+\_\+buf} \mbox{[}\hyperlink{listpack_8h_ab31e5c173b595ae4e703b72eb435a6e9}{L\+P\+\_\+\+I\+N\+T\+B\+U\+F\+\_\+\+S\+I\+ZE}\mbox{]}
+\item 
+unsigned char \hyperlink{structstream_iterator_ad74997f09403d328cf170892bd5c3a2f}{value\+\_\+buf} \mbox{[}\hyperlink{listpack_8h_ab31e5c173b595ae4e703b72eb435a6e9}{L\+P\+\_\+\+I\+N\+T\+B\+U\+F\+\_\+\+S\+I\+ZE}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 29 of file stream.\+h.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structstream_iterator_aabbe3cb630a9fb198624e92e8392ed64}\label{structstream_iterator_aabbe3cb630a9fb198624e92e8392ed64}} 
+\index{stream\+Iterator@{stream\+Iterator}!end\+\_\+key@{end\+\_\+key}}
+\index{end\+\_\+key@{end\+\_\+key}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{end\+\_\+key}{end\_key}}
+{\footnotesize\ttfamily uint64\+\_\+t end\+\_\+key\mbox{[}2\mbox{]}}
+
+
+
+Definition at line 38 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_a299478227bd853e88571fda299a4a278}\label{structstream_iterator_a299478227bd853e88571fda299a4a278}} 
+\index{stream\+Iterator@{stream\+Iterator}!entry\+\_\+flags@{entry\+\_\+flags}}
+\index{entry\+\_\+flags@{entry\+\_\+flags}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{entry\+\_\+flags}{entry\_flags}}
+{\footnotesize\ttfamily int entry\+\_\+flags}
+
+
+
+Definition at line 35 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_a596933be22929d7953baa08f3c2cd307}\label{structstream_iterator_a596933be22929d7953baa08f3c2cd307}} 
+\index{stream\+Iterator@{stream\+Iterator}!field\+\_\+buf@{field\+\_\+buf}}
+\index{field\+\_\+buf@{field\+\_\+buf}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{field\+\_\+buf}{field\_buf}}
+{\footnotesize\ttfamily unsigned char field\+\_\+buf\mbox{[}\hyperlink{listpack_8h_ab31e5c173b595ae4e703b72eb435a6e9}{L\+P\+\_\+\+I\+N\+T\+B\+U\+F\+\_\+\+S\+I\+ZE}\mbox{]}}
+
+
+
+Definition at line 46 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_a638eda6d25f4765df61c9dc78c909c28}\label{structstream_iterator_a638eda6d25f4765df61c9dc78c909c28}} 
+\index{stream\+Iterator@{stream\+Iterator}!lp@{lp}}
+\index{lp@{lp}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{lp}{lp}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp}
+
+
+
+Definition at line 40 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_a00edb0a3b43d71d7cf4613a1e0cedacf}\label{structstream_iterator_a00edb0a3b43d71d7cf4613a1e0cedacf}} 
+\index{stream\+Iterator@{stream\+Iterator}!lp\+\_\+ele@{lp\+\_\+ele}}
+\index{lp\+\_\+ele@{lp\+\_\+ele}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{lp\+\_\+ele}{lp\_ele}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+\_\+ele}
+
+
+
+Definition at line 41 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_aea0d250de80a4bd00be3132a1c5ae4d2}\label{structstream_iterator_aea0d250de80a4bd00be3132a1c5ae4d2}} 
+\index{stream\+Iterator@{stream\+Iterator}!lp\+\_\+flags@{lp\+\_\+flags}}
+\index{lp\+\_\+flags@{lp\+\_\+flags}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{lp\+\_\+flags}{lp\_flags}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+\_\+flags}
+
+
+
+Definition at line 42 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_a13c51379164df153b027ad5166a6cb1e}\label{structstream_iterator_a13c51379164df153b027ad5166a6cb1e}} 
+\index{stream\+Iterator@{stream\+Iterator}!master\+\_\+fields\+\_\+count@{master\+\_\+fields\+\_\+count}}
+\index{master\+\_\+fields\+\_\+count@{master\+\_\+fields\+\_\+count}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{master\+\_\+fields\+\_\+count}{master\_fields\_count}}
+{\footnotesize\ttfamily uint64\+\_\+t master\+\_\+fields\+\_\+count}
+
+
+
+Definition at line 32 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_ad1a075c336637fc52e14b2d050bfb7e1}\label{structstream_iterator_ad1a075c336637fc52e14b2d050bfb7e1}} 
+\index{stream\+Iterator@{stream\+Iterator}!master\+\_\+fields\+\_\+ptr@{master\+\_\+fields\+\_\+ptr}}
+\index{master\+\_\+fields\+\_\+ptr@{master\+\_\+fields\+\_\+ptr}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{master\+\_\+fields\+\_\+ptr}{master\_fields\_ptr}}
+{\footnotesize\ttfamily unsigned char$\ast$ master\+\_\+fields\+\_\+ptr}
+
+
+
+Definition at line 34 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_a4830a00322f1940e11609c9fdcb64d56}\label{structstream_iterator_a4830a00322f1940e11609c9fdcb64d56}} 
+\index{stream\+Iterator@{stream\+Iterator}!master\+\_\+fields\+\_\+start@{master\+\_\+fields\+\_\+start}}
+\index{master\+\_\+fields\+\_\+start@{master\+\_\+fields\+\_\+start}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{master\+\_\+fields\+\_\+start}{master\_fields\_start}}
+{\footnotesize\ttfamily unsigned char$\ast$ master\+\_\+fields\+\_\+start}
+
+
+
+Definition at line 33 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_a22bc2bf87d69fa36f03f104dd4dc0ebd}\label{structstream_iterator_a22bc2bf87d69fa36f03f104dd4dc0ebd}} 
+\index{stream\+Iterator@{stream\+Iterator}!master\+\_\+id@{master\+\_\+id}}
+\index{master\+\_\+id@{master\+\_\+id}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{master\+\_\+id}{master\_id}}
+{\footnotesize\ttfamily \hyperlink{structstream_i_d}{stream\+ID} master\+\_\+id}
+
+
+
+Definition at line 31 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_a20fe2570b7d9af1bccf81b5883bc932f}\label{structstream_iterator_a20fe2570b7d9af1bccf81b5883bc932f}} 
+\index{stream\+Iterator@{stream\+Iterator}!rev@{rev}}
+\index{rev@{rev}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{rev}{rev}}
+{\footnotesize\ttfamily int rev}
+
+
+
+Definition at line 36 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_abe7bb9f1992cb1fb3c1ecb28c13772a4}\label{structstream_iterator_abe7bb9f1992cb1fb3c1ecb28c13772a4}} 
+\index{stream\+Iterator@{stream\+Iterator}!ri@{ri}}
+\index{ri@{ri}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{ri}{ri}}
+{\footnotesize\ttfamily \hyperlink{structrax_iterator}{rax\+Iterator} ri}
+
+
+
+Definition at line 39 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_a957f81e750ff00c09ebdaeee08852842}\label{structstream_iterator_a957f81e750ff00c09ebdaeee08852842}} 
+\index{stream\+Iterator@{stream\+Iterator}!start\+\_\+key@{start\+\_\+key}}
+\index{start\+\_\+key@{start\+\_\+key}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{start\+\_\+key}{start\_key}}
+{\footnotesize\ttfamily uint64\+\_\+t start\+\_\+key\mbox{[}2\mbox{]}}
+
+
+
+Definition at line 37 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_a2717a95048d12a63e9f346c876452cf5}\label{structstream_iterator_a2717a95048d12a63e9f346c876452cf5}} 
+\index{stream\+Iterator@{stream\+Iterator}!stream@{stream}}
+\index{stream@{stream}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{stream}{stream}}
+{\footnotesize\ttfamily \hyperlink{structstream}{stream}$\ast$ \hyperlink{structstream}{stream}}
+
+
+
+Definition at line 30 of file stream.\+h.
+
+\mbox{\Hypertarget{structstream_iterator_ad74997f09403d328cf170892bd5c3a2f}\label{structstream_iterator_ad74997f09403d328cf170892bd5c3a2f}} 
+\index{stream\+Iterator@{stream\+Iterator}!value\+\_\+buf@{value\+\_\+buf}}
+\index{value\+\_\+buf@{value\+\_\+buf}!stream\+Iterator@{stream\+Iterator}}
+\subsubsection{\texorpdfstring{value\+\_\+buf}{value\_buf}}
+{\footnotesize\ttfamily unsigned char value\+\_\+buf\mbox{[}\hyperlink{listpack_8h_ab31e5c173b595ae4e703b72eb435a6e9}{L\+P\+\_\+\+I\+N\+T\+B\+U\+F\+\_\+\+S\+I\+ZE}\mbox{]}}
+
+
+
+Definition at line 47 of file stream.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{stream_8h}{stream.\+h}\end{DoxyCompactItemize}

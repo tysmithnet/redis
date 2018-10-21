@@ -1,0 +1,963 @@
+\hypertarget{networking_8c}{}\section{src/networking.c File Reference}
+\label{networking_8c}\index{src/networking.\+c@{src/networking.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}atomicvar.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$sys/uio.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+Include dependency graph for networking.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{networking_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{networking_8c_a49d737d8dce68303493f75ea5512ca16}{M\+A\+X\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL}~1000
+\item 
+\#define \hyperlink{networking_8c_a2731718953e1ee7483e585b664ae8cb7}{P\+R\+O\+T\+O\+\_\+\+D\+U\+M\+P\+\_\+\+L\+EN}~128
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \hyperlink{networking_8c_a774d738883e0b621147923b2b4d44282}{sds\+Zmalloc\+Size} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s)
+\item 
+size\+\_\+t \hyperlink{networking_8c_a4e62f89781311c81210b93ce316d2e96}{get\+String\+Object\+Sds\+Used\+Memory} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void $\ast$ \hyperlink{networking_8c_a2ff744f56af5a61bf1b6b2803271bb30}{dup\+Client\+Reply\+Value} (void $\ast$o)
+\item 
+void \hyperlink{networking_8c_ad16073ee2dedbb773f8b8775f665263c}{free\+Client\+Reply\+Value} (void $\ast$o)
+\item 
+int \hyperlink{networking_8c_a22055858ad37dbb7948d008194ffcba8}{list\+Match\+Objects} (void $\ast$a, void $\ast$b)
+\item 
+void \hyperlink{networking_8c_aabb7b4bbbd67cad5d57bf8cf681cef5a}{link\+Client} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+\hyperlink{structclient}{client} $\ast$ \hyperlink{networking_8c_a123a94e2190db4b82ffb3cd037c226b4}{create\+Client} (int fd)
+\item 
+void \hyperlink{networking_8c_a08ec446f2bfe4fd48751f0d1889718b1}{client\+Install\+Write\+Handler} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{networking_8c_aa03a44e933d9eb0d6901d84ade733861}{prepare\+Client\+To\+Write} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{networking_8c_a82e3d58cdfd27cb92c2ed19aba5c6501}{\+\_\+add\+Reply\+To\+Buffer} (\hyperlink{structclient}{client} $\ast$c, const char $\ast$s, size\+\_\+t len)
+\item 
+void \hyperlink{networking_8c_a33090fde6d360a1b58908e5091acd505}{\+\_\+add\+Reply\+String\+To\+List} (\hyperlink{structclient}{client} $\ast$c, const char $\ast$s, size\+\_\+t len)
+\item 
+void \hyperlink{networking_8c_ac47c2cfd2a6d524fcbfefa9a18e3a9a3}{add\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$obj)
+\item 
+void \hyperlink{networking_8c_a9da76a225d7993a0a3f3ede650478508}{add\+Reply\+Sds} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s)
+\item 
+void \hyperlink{networking_8c_aec723c61da41388e56a93abd18c1b423}{add\+Reply\+String} (\hyperlink{structclient}{client} $\ast$c, const char $\ast$s, size\+\_\+t len)
+\item 
+void \hyperlink{networking_8c_a05d3f369c030106dc82e91b38e8e9715}{add\+Reply\+Error\+Length} (\hyperlink{structclient}{client} $\ast$c, const char $\ast$s, size\+\_\+t len)
+\item 
+void \hyperlink{networking_8c_a0ea8df2930509a88eb4e98348b85a51d}{add\+Reply\+Error} (\hyperlink{structclient}{client} $\ast$c, const char $\ast$err)
+\item 
+void \hyperlink{networking_8c_aff850095b7516e77667d7a8396c17e9a}{add\+Reply\+Error\+Format} (\hyperlink{structclient}{client} $\ast$c, const char $\ast$fmt,...)
+\item 
+void \hyperlink{networking_8c_aa3c200aa0edca4a19ac18309f36d75f3}{add\+Reply\+Status\+Length} (\hyperlink{structclient}{client} $\ast$c, const char $\ast$s, size\+\_\+t len)
+\item 
+void \hyperlink{networking_8c_a11a0fdd832018a4dc969f71a44afe407}{add\+Reply\+Status} (\hyperlink{structclient}{client} $\ast$c, const char $\ast$status)
+\item 
+void \hyperlink{networking_8c_ac9cc1029b1d1cf014dd54aa4a355fb2a}{add\+Reply\+Status\+Format} (\hyperlink{structclient}{client} $\ast$c, const char $\ast$fmt,...)
+\item 
+void $\ast$ \hyperlink{networking_8c_a8e3606ae521f6d1786660767dfe6b903}{add\+Deferred\+Multi\+Bulk\+Length} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_a196bf9c2087770b40bfd9f4000544a67}{set\+Deferred\+Multi\+Bulk\+Length} (\hyperlink{structclient}{client} $\ast$c, void $\ast$node, long length)
+\item 
+void \hyperlink{networking_8c_a22f3761ad780e2f1a0d7bcd213f34eb1}{add\+Reply\+Double} (\hyperlink{structclient}{client} $\ast$c, double d)
+\item 
+void \hyperlink{networking_8c_a02eebf416114bfe5e8b8a3aa46ad14ee}{add\+Reply\+Human\+Long\+Double} (\hyperlink{structclient}{client} $\ast$c, long double d)
+\item 
+void \hyperlink{networking_8c_a10c96d876cccc167d90568faf0b2e760}{add\+Reply\+Long\+Long\+With\+Prefix} (\hyperlink{structclient}{client} $\ast$c, long long ll, char prefix)
+\item 
+void \hyperlink{networking_8c_a77d66bf68cf67c87521b97d59bd2fb84}{add\+Reply\+Long\+Long} (\hyperlink{structclient}{client} $\ast$c, long long ll)
+\item 
+void \hyperlink{networking_8c_abe873add36c720d962820c00176f7490}{add\+Reply\+Multi\+Bulk\+Len} (\hyperlink{structclient}{client} $\ast$c, long length)
+\item 
+void \hyperlink{networking_8c_ad45b2976b7b216cfd02836351f282d86}{add\+Reply\+Bulk\+Len} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$obj)
+\item 
+void \hyperlink{networking_8c_aef8354683c0ba556a8a8d6a909059950}{add\+Reply\+Bulk} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$obj)
+\item 
+void \hyperlink{networking_8c_a90fadee8eeb3d0332e0a77fef134ebee}{add\+Reply\+Bulk\+C\+Buffer} (\hyperlink{structclient}{client} $\ast$c, const void $\ast$p, size\+\_\+t len)
+\item 
+void \hyperlink{networking_8c_aa9a8085743464110cd10338fa89d22cd}{add\+Reply\+Bulk\+Sds} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s)
+\item 
+void \hyperlink{networking_8c_acebfaa11c5c3aa617fcc3679a58e6f17}{add\+Reply\+Bulk\+C\+String} (\hyperlink{structclient}{client} $\ast$c, const char $\ast$s)
+\item 
+void \hyperlink{networking_8c_a581521b1a7fce1f3bc7f4794bcb58eab}{add\+Reply\+Bulk\+Long\+Long} (\hyperlink{structclient}{client} $\ast$c, long long ll)
+\item 
+void \hyperlink{networking_8c_a1212877b63a97d8b0e209e441d998704}{add\+Reply\+Help} (\hyperlink{structclient}{client} $\ast$c, const char $\ast$$\ast$help)
+\item 
+void \hyperlink{networking_8c_a366061d66aea3d3d043f1a49af18ffcc}{add\+Reply\+Subcommand\+Syntax\+Error} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_a8ca2ebb2f8ce37e883d62ccdececc8ea}{copy\+Client\+Output\+Buffer} (\hyperlink{structclient}{client} $\ast$dst, \hyperlink{structclient}{client} $\ast$src)
+\item 
+int \hyperlink{networking_8c_a1d4d813c6422cbf1a4600bdd987a2736}{client\+Has\+Pending\+Replies} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_a6e45692aca887ad07ad4e9351b862314}{accept\+Tcp\+Handler} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$el, int fd, void $\ast$privdata, int mask)
+\item 
+void \hyperlink{networking_8c_ae258914c132880db02b3ea87b9fcb2e1}{accept\+Unix\+Handler} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$el, int fd, void $\ast$privdata, int mask)
+\item 
+void \hyperlink{networking_8c_af20e65ff003af335d8945a4313dd5e40}{disconnect\+Slaves} (void)
+\item 
+void \hyperlink{networking_8c_ae6f93c321c10ba76b70463ad60d89d03}{unlink\+Client} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_a34d1a0858eea45e7d588959840490a7d}{free\+Client} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_a99b59167ca0aea45406601f12415fa55}{free\+Client\+Async} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_ae560b28a9d6ceb5ead039461970f59b8}{free\+Clients\+In\+Async\+Free\+Queue} (void)
+\item 
+\hyperlink{structclient}{client} $\ast$ \hyperlink{networking_8c_a89dae2283914d2e5f1a51ceba489a5fa}{lookup\+Client\+By\+ID} (uint64\+\_\+t id)
+\item 
+int \hyperlink{networking_8c_a3ae8edffd264be4a95e776f6c6d508ac}{write\+To\+Client} (int fd, \hyperlink{structclient}{client} $\ast$c, int handler\+\_\+installed)
+\item 
+void \hyperlink{networking_8c_aa9fbfbda8767841a18ff991b57e27922}{send\+Reply\+To\+Client} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$el, int fd, void $\ast$privdata, int mask)
+\item 
+int \hyperlink{networking_8c_a5b7a1863aa26723ce29afe1ad44b12c1}{handle\+Clients\+With\+Pending\+Writes} (void)
+\item 
+void \hyperlink{networking_8c_a791e326f4e1bc592fea58271013b0f68}{reset\+Client} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_a7cfeccb0b9d589ca84ba285218d6a8a3}{protect\+Client} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_aaaf6694ecbf9f18c52e24ea46de09575}{unprotect\+Client} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{networking_8c_a7da7f79f3f26fcf0565b5ebaf7641831}{process\+Inline\+Buffer} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{networking_8c_a5d03027091797ef833e290f62ad1ea14}{process\+Multibulk\+Buffer} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_a68ce7bbf08821d5018170a6c55149fc2}{process\+Input\+Buffer} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_aa388b55a56bfc8c147d7bb2f1abbedd9}{process\+Input\+Buffer\+And\+Replicate} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_ab42c9214acce2e963c1210490812854c}{read\+Query\+From\+Client} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$el, int fd, void $\ast$privdata, int mask)
+\item 
+void \hyperlink{networking_8c_a0a89c29497a12163c887bdf02e2684ab}{get\+Clients\+Max\+Buffers} (unsigned long $\ast$longest\+\_\+output\+\_\+list, unsigned long $\ast$biggest\+\_\+input\+\_\+buffer)
+\item 
+void \hyperlink{networking_8c_a681f1b6ece0d2444ebd5504853fe146f}{gen\+Client\+Peer\+Id} (\hyperlink{structclient}{client} $\ast$\hyperlink{structclient}{client}, char $\ast$peerid, size\+\_\+t peerid\+\_\+len)
+\item 
+char $\ast$ \hyperlink{networking_8c_af386334541b99359f4aeae7ddb4e3993}{get\+Client\+Peer\+Id} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{networking_8c_ae9340959179a1f2c7f70cfcaa47ef9d2}{cat\+Client\+Info\+String} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, \hyperlink{structclient}{client} $\ast$\hyperlink{structclient}{client})
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{networking_8c_ac8f5f6a887f46b4288dad61ca0ceb270}{get\+All\+Clients\+Info\+String} (int type)
+\item 
+void \hyperlink{networking_8c_ad3c3c6d763b64355f5098a511d7b7ae4}{client\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_adc0c436432b3be7679bed96bd8e9472e}{security\+Warning\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_ad2db6c496b8784af19b8685ec9ff6f2d}{rewrite\+Client\+Command\+Vector} (\hyperlink{structclient}{client} $\ast$c, int argc,...)
+\item 
+void \hyperlink{networking_8c_a8de0005bfc3ab71ed1d5c80833f9eb7f}{replace\+Client\+Command\+Vector} (\hyperlink{structclient}{client} $\ast$c, int argc, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv)
+\item 
+void \hyperlink{networking_8c_a3a4ef50bd5377775bc6cfc6ca54894a3}{rewrite\+Client\+Command\+Argument} (\hyperlink{structclient}{client} $\ast$c, int i, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$newval)
+\item 
+unsigned long \hyperlink{networking_8c_ada74196bbcb069635697ca0d3183e183}{get\+Client\+Output\+Buffer\+Memory\+Usage} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{networking_8c_a476ca077992af873a19db7c8fbb6845f}{get\+Client\+Type} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+int \hyperlink{networking_8c_abb76283846832639c926cec4f57edcd4}{get\+Client\+Type\+By\+Name} (char $\ast$name)
+\item 
+char $\ast$ \hyperlink{networking_8c_ac1e5fd65e5daba7ad8ffddda6ae102c5}{get\+Client\+Type\+Name} (int class)
+\item 
+int \hyperlink{networking_8c_aed8040b779ff798d04dfdd27d37e3bcc}{check\+Client\+Output\+Buffer\+Limits} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_a8867b7e4aa91acac73d9e12ae41d5c65}{async\+Close\+Client\+On\+Output\+Buffer\+Limit\+Reached} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{networking_8c_ab4f02ccd74d72cbd5aa3f5cd42bea2c1}{flush\+Slaves\+Output\+Buffers} (void)
+\item 
+void \hyperlink{networking_8c_aab17dc7f37ff6f1f40d2c50ca3fbc52a}{pause\+Clients} (\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} end)
+\item 
+int \hyperlink{networking_8c_ad30dc7b4a28c489b672535b1a47c7612}{clients\+Are\+Paused} (void)
+\item 
+int \hyperlink{networking_8c_a0166ef7d74e0ba505a1d47b5f389b79a}{process\+Events\+While\+Blocked} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{networking_8c_a49d737d8dce68303493f75ea5512ca16}\label{networking_8c_a49d737d8dce68303493f75ea5512ca16}} 
+\index{networking.\+c@{networking.\+c}!M\+A\+X\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL@{M\+A\+X\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL}}
+\index{M\+A\+X\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL@{M\+A\+X\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL}{MAX\_ACCEPTS\_PER\_CALL}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL~1000}
+
+
+
+Definition at line 655 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a2731718953e1ee7483e585b664ae8cb7}\label{networking_8c_a2731718953e1ee7483e585b664ae8cb7}} 
+\index{networking.\+c@{networking.\+c}!P\+R\+O\+T\+O\+\_\+\+D\+U\+M\+P\+\_\+\+L\+EN@{P\+R\+O\+T\+O\+\_\+\+D\+U\+M\+P\+\_\+\+L\+EN}}
+\index{P\+R\+O\+T\+O\+\_\+\+D\+U\+M\+P\+\_\+\+L\+EN@{P\+R\+O\+T\+O\+\_\+\+D\+U\+M\+P\+\_\+\+L\+EN}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{P\+R\+O\+T\+O\+\_\+\+D\+U\+M\+P\+\_\+\+L\+EN}{PROTO\_DUMP\_LEN}}
+{\footnotesize\ttfamily \#define P\+R\+O\+T\+O\+\_\+\+D\+U\+M\+P\+\_\+\+L\+EN~128}
+
+
+
+Definition at line 1228 of file networking.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{networking_8c_a33090fde6d360a1b58908e5091acd505}\label{networking_8c_a33090fde6d360a1b58908e5091acd505}} 
+\index{networking.\+c@{networking.\+c}!\+\_\+add\+Reply\+String\+To\+List@{\+\_\+add\+Reply\+String\+To\+List}}
+\index{\+\_\+add\+Reply\+String\+To\+List@{\+\_\+add\+Reply\+String\+To\+List}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+add\+Reply\+String\+To\+List()}{\_addReplyStringToList()}}
+{\footnotesize\ttfamily void \+\_\+add\+Reply\+String\+To\+List (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{const char $\ast$}]{s,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 255 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a82e3d58cdfd27cb92c2ed19aba5c6501}\label{networking_8c_a82e3d58cdfd27cb92c2ed19aba5c6501}} 
+\index{networking.\+c@{networking.\+c}!\+\_\+add\+Reply\+To\+Buffer@{\+\_\+add\+Reply\+To\+Buffer}}
+\index{\+\_\+add\+Reply\+To\+Buffer@{\+\_\+add\+Reply\+To\+Buffer}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+add\+Reply\+To\+Buffer()}{\_addReplyToBuffer()}}
+{\footnotesize\ttfamily int \+\_\+add\+Reply\+To\+Buffer (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{const char $\ast$}]{s,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 238 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a6e45692aca887ad07ad4e9351b862314}\label{networking_8c_a6e45692aca887ad07ad4e9351b862314}} 
+\index{networking.\+c@{networking.\+c}!accept\+Tcp\+Handler@{accept\+Tcp\+Handler}}
+\index{accept\+Tcp\+Handler@{accept\+Tcp\+Handler}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{accept\+Tcp\+Handler()}{acceptTcpHandler()}}
+{\footnotesize\ttfamily void accept\+Tcp\+Handler (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{el,  }\item[{int}]{fd,  }\item[{void $\ast$}]{privdata,  }\item[{int}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 726 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ae258914c132880db02b3ea87b9fcb2e1}\label{networking_8c_ae258914c132880db02b3ea87b9fcb2e1}} 
+\index{networking.\+c@{networking.\+c}!accept\+Unix\+Handler@{accept\+Unix\+Handler}}
+\index{accept\+Unix\+Handler@{accept\+Unix\+Handler}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{accept\+Unix\+Handler()}{acceptUnixHandler()}}
+{\footnotesize\ttfamily void accept\+Unix\+Handler (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{el,  }\item[{int}]{fd,  }\item[{void $\ast$}]{privdata,  }\item[{int}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 746 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a8e3606ae521f6d1786660767dfe6b903}\label{networking_8c_a8e3606ae521f6d1786660767dfe6b903}} 
+\index{networking.\+c@{networking.\+c}!add\+Deferred\+Multi\+Bulk\+Length@{add\+Deferred\+Multi\+Bulk\+Length}}
+\index{add\+Deferred\+Multi\+Bulk\+Length@{add\+Deferred\+Multi\+Bulk\+Length}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Deferred\+Multi\+Bulk\+Length()}{addDeferredMultiBulkLength()}}
+{\footnotesize\ttfamily void$\ast$ add\+Deferred\+Multi\+Bulk\+Length (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 425 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ac47c2cfd2a6d524fcbfefa9a18e3a9a3}\label{networking_8c_ac47c2cfd2a6d524fcbfefa9a18e3a9a3}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply@{add\+Reply}}
+\index{add\+Reply@{add\+Reply}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply()}{addReply()}}
+{\footnotesize\ttfamily void add\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 297 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_aef8354683c0ba556a8a8d6a909059950}\label{networking_8c_aef8354683c0ba556a8a8d6a909059950}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Bulk@{add\+Reply\+Bulk}}
+\index{add\+Reply\+Bulk@{add\+Reply\+Bulk}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Bulk()}{addReplyBulk()}}
+{\footnotesize\ttfamily void add\+Reply\+Bulk (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 567 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a90fadee8eeb3d0332e0a77fef134ebee}\label{networking_8c_a90fadee8eeb3d0332e0a77fef134ebee}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Bulk\+C\+Buffer@{add\+Reply\+Bulk\+C\+Buffer}}
+\index{add\+Reply\+Bulk\+C\+Buffer@{add\+Reply\+Bulk\+C\+Buffer}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Bulk\+C\+Buffer()}{addReplyBulkCBuffer()}}
+{\footnotesize\ttfamily void add\+Reply\+Bulk\+C\+Buffer (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{const void $\ast$}]{p,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 574 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_acebfaa11c5c3aa617fcc3679a58e6f17}\label{networking_8c_acebfaa11c5c3aa617fcc3679a58e6f17}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Bulk\+C\+String@{add\+Reply\+Bulk\+C\+String}}
+\index{add\+Reply\+Bulk\+C\+String@{add\+Reply\+Bulk\+C\+String}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Bulk\+C\+String()}{addReplyBulkCString()}}
+{\footnotesize\ttfamily void add\+Reply\+Bulk\+C\+String (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{const char $\ast$}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 588 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ad45b2976b7b216cfd02836351f282d86}\label{networking_8c_ad45b2976b7b216cfd02836351f282d86}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Bulk\+Len@{add\+Reply\+Bulk\+Len}}
+\index{add\+Reply\+Bulk\+Len@{add\+Reply\+Bulk\+Len}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Bulk\+Len()}{addReplyBulkLen()}}
+{\footnotesize\ttfamily void add\+Reply\+Bulk\+Len (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 541 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a581521b1a7fce1f3bc7f4794bcb58eab}\label{networking_8c_a581521b1a7fce1f3bc7f4794bcb58eab}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Bulk\+Long\+Long@{add\+Reply\+Bulk\+Long\+Long}}
+\index{add\+Reply\+Bulk\+Long\+Long@{add\+Reply\+Bulk\+Long\+Long}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Bulk\+Long\+Long()}{addReplyBulkLongLong()}}
+{\footnotesize\ttfamily void add\+Reply\+Bulk\+Long\+Long (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{long long}]{ll }\end{DoxyParamCaption})}
+
+
+
+Definition at line 597 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_aa9a8085743464110cd10338fa89d22cd}\label{networking_8c_aa9a8085743464110cd10338fa89d22cd}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Bulk\+Sds@{add\+Reply\+Bulk\+Sds}}
+\index{add\+Reply\+Bulk\+Sds@{add\+Reply\+Bulk\+Sds}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Bulk\+Sds()}{addReplyBulkSds()}}
+{\footnotesize\ttfamily void add\+Reply\+Bulk\+Sds (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 581 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a22f3761ad780e2f1a0d7bcd213f34eb1}\label{networking_8c_a22f3761ad780e2f1a0d7bcd213f34eb1}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Double@{add\+Reply\+Double}}
+\index{add\+Reply\+Double@{add\+Reply\+Double}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Double()}{addReplyDouble()}}
+{\footnotesize\ttfamily void add\+Reply\+Double (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{double}]{d }\end{DoxyParamCaption})}
+
+
+
+Definition at line 477 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a0ea8df2930509a88eb4e98348b85a51d}\label{networking_8c_a0ea8df2930509a88eb4e98348b85a51d}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Error@{add\+Reply\+Error}}
+\index{add\+Reply\+Error@{add\+Reply\+Error}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Error()}{addReplyError()}}
+{\footnotesize\ttfamily void add\+Reply\+Error (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{const char $\ast$}]{err }\end{DoxyParamCaption})}
+
+
+
+Definition at line 384 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_aff850095b7516e77667d7a8396c17e9a}\label{networking_8c_aff850095b7516e77667d7a8396c17e9a}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Error\+Format@{add\+Reply\+Error\+Format}}
+\index{add\+Reply\+Error\+Format@{add\+Reply\+Error\+Format}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Error\+Format()}{addReplyErrorFormat()}}
+{\footnotesize\ttfamily void add\+Reply\+Error\+Format (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 388 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a05d3f369c030106dc82e91b38e8e9715}\label{networking_8c_a05d3f369c030106dc82e91b38e8e9715}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Error\+Length@{add\+Reply\+Error\+Length}}
+\index{add\+Reply\+Error\+Length@{add\+Reply\+Error\+Length}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Error\+Length()}{addReplyErrorLength()}}
+{\footnotesize\ttfamily void add\+Reply\+Error\+Length (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{const char $\ast$}]{s,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 351 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a1212877b63a97d8b0e209e441d998704}\label{networking_8c_a1212877b63a97d8b0e209e441d998704}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Help@{add\+Reply\+Help}}
+\index{add\+Reply\+Help@{add\+Reply\+Help}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Help()}{addReplyHelp()}}
+{\footnotesize\ttfamily void add\+Reply\+Help (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{const char $\ast$$\ast$}]{help }\end{DoxyParamCaption})}
+
+
+
+Definition at line 609 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a02eebf416114bfe5e8b8a3aa46ad14ee}\label{networking_8c_a02eebf416114bfe5e8b8a3aa46ad14ee}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Human\+Long\+Double@{add\+Reply\+Human\+Long\+Double}}
+\index{add\+Reply\+Human\+Long\+Double@{add\+Reply\+Human\+Long\+Double}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Human\+Long\+Double()}{addReplyHumanLongDouble()}}
+{\footnotesize\ttfamily void add\+Reply\+Human\+Long\+Double (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{long double}]{d }\end{DoxyParamCaption})}
+
+
+
+Definition at line 494 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a77d66bf68cf67c87521b97d59bd2fb84}\label{networking_8c_a77d66bf68cf67c87521b97d59bd2fb84}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Long\+Long@{add\+Reply\+Long\+Long}}
+\index{add\+Reply\+Long\+Long@{add\+Reply\+Long\+Long}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Long\+Long()}{addReplyLongLong()}}
+{\footnotesize\ttfamily void add\+Reply\+Long\+Long (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{long long}]{ll }\end{DoxyParamCaption})}
+
+
+
+Definition at line 524 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a10c96d876cccc167d90568faf0b2e760}\label{networking_8c_a10c96d876cccc167d90568faf0b2e760}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Long\+Long\+With\+Prefix@{add\+Reply\+Long\+Long\+With\+Prefix}}
+\index{add\+Reply\+Long\+Long\+With\+Prefix@{add\+Reply\+Long\+Long\+With\+Prefix}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Long\+Long\+With\+Prefix()}{addReplyLongLongWithPrefix()}}
+{\footnotesize\ttfamily void add\+Reply\+Long\+Long\+With\+Prefix (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{long long}]{ll,  }\item[{char}]{prefix }\end{DoxyParamCaption})}
+
+
+
+Definition at line 502 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_abe873add36c720d962820c00176f7490}\label{networking_8c_abe873add36c720d962820c00176f7490}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Multi\+Bulk\+Len@{add\+Reply\+Multi\+Bulk\+Len}}
+\index{add\+Reply\+Multi\+Bulk\+Len@{add\+Reply\+Multi\+Bulk\+Len}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Multi\+Bulk\+Len()}{addReplyMultiBulkLen()}}
+{\footnotesize\ttfamily void add\+Reply\+Multi\+Bulk\+Len (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{long}]{length }\end{DoxyParamCaption})}
+
+
+
+Definition at line 533 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a9da76a225d7993a0a3f3ede650478508}\label{networking_8c_a9da76a225d7993a0a3f3ede650478508}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Sds@{add\+Reply\+Sds}}
+\index{add\+Reply\+Sds@{add\+Reply\+Sds}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Sds()}{addReplySds()}}
+{\footnotesize\ttfamily void add\+Reply\+Sds (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 318 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a11a0fdd832018a4dc969f71a44afe407}\label{networking_8c_a11a0fdd832018a4dc969f71a44afe407}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Status@{add\+Reply\+Status}}
+\index{add\+Reply\+Status@{add\+Reply\+Status}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Status()}{addReplyStatus()}}
+{\footnotesize\ttfamily void add\+Reply\+Status (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{const char $\ast$}]{status }\end{DoxyParamCaption})}
+
+
+
+Definition at line 410 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ac9cc1029b1d1cf014dd54aa4a355fb2a}\label{networking_8c_ac9cc1029b1d1cf014dd54aa4a355fb2a}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Status\+Format@{add\+Reply\+Status\+Format}}
+\index{add\+Reply\+Status\+Format@{add\+Reply\+Status\+Format}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Status\+Format()}{addReplyStatusFormat()}}
+{\footnotesize\ttfamily void add\+Reply\+Status\+Format (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 414 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_aa3c200aa0edca4a19ac18309f36d75f3}\label{networking_8c_aa3c200aa0edca4a19ac18309f36d75f3}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Status\+Length@{add\+Reply\+Status\+Length}}
+\index{add\+Reply\+Status\+Length@{add\+Reply\+Status\+Length}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Status\+Length()}{addReplyStatusLength()}}
+{\footnotesize\ttfamily void add\+Reply\+Status\+Length (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{const char $\ast$}]{s,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 404 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_aec723c61da41388e56a93abd18c1b423}\label{networking_8c_aec723c61da41388e56a93abd18c1b423}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+String@{add\+Reply\+String}}
+\index{add\+Reply\+String@{add\+Reply\+String}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+String()}{addReplyString()}}
+{\footnotesize\ttfamily void add\+Reply\+String (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{const char $\ast$}]{s,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 337 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a366061d66aea3d3d043f1a49af18ffcc}\label{networking_8c_a366061d66aea3d3d043f1a49af18ffcc}} 
+\index{networking.\+c@{networking.\+c}!add\+Reply\+Subcommand\+Syntax\+Error@{add\+Reply\+Subcommand\+Syntax\+Error}}
+\index{add\+Reply\+Subcommand\+Syntax\+Error@{add\+Reply\+Subcommand\+Syntax\+Error}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{add\+Reply\+Subcommand\+Syntax\+Error()}{addReplySubcommandSyntaxError()}}
+{\footnotesize\ttfamily void add\+Reply\+Subcommand\+Syntax\+Error (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 628 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a8867b7e4aa91acac73d9e12ae41d5c65}\label{networking_8c_a8867b7e4aa91acac73d9e12ae41d5c65}} 
+\index{networking.\+c@{networking.\+c}!async\+Close\+Client\+On\+Output\+Buffer\+Limit\+Reached@{async\+Close\+Client\+On\+Output\+Buffer\+Limit\+Reached}}
+\index{async\+Close\+Client\+On\+Output\+Buffer\+Limit\+Reached@{async\+Close\+Client\+On\+Output\+Buffer\+Limit\+Reached}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{async\+Close\+Client\+On\+Output\+Buffer\+Limit\+Reached()}{asyncCloseClientOnOutputBufferLimitReached()}}
+{\footnotesize\ttfamily void async\+Close\+Client\+On\+Output\+Buffer\+Limit\+Reached (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2111 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ae9340959179a1f2c7f70cfcaa47ef9d2}\label{networking_8c_ae9340959179a1f2c7f70cfcaa47ef9d2}} 
+\index{networking.\+c@{networking.\+c}!cat\+Client\+Info\+String@{cat\+Client\+Info\+String}}
+\index{cat\+Client\+Info\+String@{cat\+Client\+Info\+String}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{cat\+Client\+Info\+String()}{catClientInfoString()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} cat\+Client\+Info\+String (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{\hyperlink{structclient}{client} $\ast$}]{client }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1628 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_aed8040b779ff798d04dfdd27d37e3bcc}\label{networking_8c_aed8040b779ff798d04dfdd27d37e3bcc}} 
+\index{networking.\+c@{networking.\+c}!check\+Client\+Output\+Buffer\+Limits@{check\+Client\+Output\+Buffer\+Limits}}
+\index{check\+Client\+Output\+Buffer\+Limits@{check\+Client\+Output\+Buffer\+Limits}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{check\+Client\+Output\+Buffer\+Limits()}{checkClientOutputBufferLimits()}}
+{\footnotesize\ttfamily int check\+Client\+Output\+Buffer\+Limits (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2066 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ad3c3c6d763b64355f5098a511d7b7ae4}\label{networking_8c_ad3c3c6d763b64355f5098a511d7b7ae4}} 
+\index{networking.\+c@{networking.\+c}!client\+Command@{client\+Command}}
+\index{client\+Command@{client\+Command}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{client\+Command()}{clientCommand()}}
+{\footnotesize\ttfamily void client\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1695 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a1d4d813c6422cbf1a4600bdd987a2736}\label{networking_8c_a1d4d813c6422cbf1a4600bdd987a2736}} 
+\index{networking.\+c@{networking.\+c}!client\+Has\+Pending\+Replies@{client\+Has\+Pending\+Replies}}
+\index{client\+Has\+Pending\+Replies@{client\+Has\+Pending\+Replies}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{client\+Has\+Pending\+Replies()}{clientHasPendingReplies()}}
+{\footnotesize\ttfamily int client\+Has\+Pending\+Replies (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 651 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a08ec446f2bfe4fd48751f0d1889718b1}\label{networking_8c_a08ec446f2bfe4fd48751f0d1889718b1}} 
+\index{networking.\+c@{networking.\+c}!client\+Install\+Write\+Handler@{client\+Install\+Write\+Handler}}
+\index{client\+Install\+Write\+Handler@{client\+Install\+Write\+Handler}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{client\+Install\+Write\+Handler()}{clientInstallWriteHandler()}}
+{\footnotesize\ttfamily void client\+Install\+Write\+Handler (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 170 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ad30dc7b4a28c489b672535b1a47c7612}\label{networking_8c_ad30dc7b4a28c489b672535b1a47c7612}} 
+\index{networking.\+c@{networking.\+c}!clients\+Are\+Paused@{clients\+Are\+Paused}}
+\index{clients\+Are\+Paused@{clients\+Are\+Paused}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{clients\+Are\+Paused()}{clientsArePaused()}}
+{\footnotesize\ttfamily int clients\+Are\+Paused (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2177 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a8ca2ebb2f8ce37e883d62ccdececc8ea}\label{networking_8c_a8ca2ebb2f8ce37e883d62ccdececc8ea}} 
+\index{networking.\+c@{networking.\+c}!copy\+Client\+Output\+Buffer@{copy\+Client\+Output\+Buffer}}
+\index{copy\+Client\+Output\+Buffer@{copy\+Client\+Output\+Buffer}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{copy\+Client\+Output\+Buffer()}{copyClientOutputBuffer()}}
+{\footnotesize\ttfamily void copy\+Client\+Output\+Buffer (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{dst,  }\item[{\hyperlink{structclient}{client} $\ast$}]{src }\end{DoxyParamCaption})}
+
+
+
+Definition at line 640 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a123a94e2190db4b82ffb3cd037c226b4}\label{networking_8c_a123a94e2190db4b82ffb3cd037c226b4}} 
+\index{networking.\+c@{networking.\+c}!create\+Client@{create\+Client}}
+\index{create\+Client@{create\+Client}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{create\+Client()}{createClient()}}
+{\footnotesize\ttfamily \hyperlink{structclient}{client}$\ast$ create\+Client (\begin{DoxyParamCaption}\item[{int}]{fd }\end{DoxyParamCaption})}
+
+
+
+Definition at line 85 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_af20e65ff003af335d8945a4313dd5e40}\label{networking_8c_af20e65ff003af335d8945a4313dd5e40}} 
+\index{networking.\+c@{networking.\+c}!disconnect\+Slaves@{disconnect\+Slaves}}
+\index{disconnect\+Slaves@{disconnect\+Slaves}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{disconnect\+Slaves()}{disconnectSlaves()}}
+{\footnotesize\ttfamily void disconnect\+Slaves (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 776 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a2ff744f56af5a61bf1b6b2803271bb30}\label{networking_8c_a2ff744f56af5a61bf1b6b2803271bb30}} 
+\index{networking.\+c@{networking.\+c}!dup\+Client\+Reply\+Value@{dup\+Client\+Reply\+Value}}
+\index{dup\+Client\+Reply\+Value@{dup\+Client\+Reply\+Value}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{dup\+Client\+Reply\+Value()}{dupClientReplyValue()}}
+{\footnotesize\ttfamily void$\ast$ dup\+Client\+Reply\+Value (\begin{DoxyParamCaption}\item[{void $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 58 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ab4f02ccd74d72cbd5aa3f5cd42bea2c1}\label{networking_8c_ab4f02ccd74d72cbd5aa3f5cd42bea2c1}} 
+\index{networking.\+c@{networking.\+c}!flush\+Slaves\+Output\+Buffers@{flush\+Slaves\+Output\+Buffers}}
+\index{flush\+Slaves\+Output\+Buffers@{flush\+Slaves\+Output\+Buffers}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{flush\+Slaves\+Output\+Buffers()}{flushSlavesOutputBuffers()}}
+{\footnotesize\ttfamily void flush\+Slaves\+Output\+Buffers (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2127 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a34d1a0858eea45e7d588959840490a7d}\label{networking_8c_a34d1a0858eea45e7d588959840490a7d}} 
+\index{networking.\+c@{networking.\+c}!free\+Client@{free\+Client}}
+\index{free\+Client@{free\+Client}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{free\+Client()}{freeClient()}}
+{\footnotesize\ttfamily void free\+Client (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 829 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a99b59167ca0aea45406601f12415fa55}\label{networking_8c_a99b59167ca0aea45406601f12415fa55}} 
+\index{networking.\+c@{networking.\+c}!free\+Client\+Async@{free\+Client\+Async}}
+\index{free\+Client\+Async@{free\+Client\+Async}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{free\+Client\+Async()}{freeClientAsync()}}
+{\footnotesize\ttfamily void free\+Client\+Async (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 933 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ad16073ee2dedbb773f8b8775f665263c}\label{networking_8c_ad16073ee2dedbb773f8b8775f665263c}} 
+\index{networking.\+c@{networking.\+c}!free\+Client\+Reply\+Value@{free\+Client\+Reply\+Value}}
+\index{free\+Client\+Reply\+Value@{free\+Client\+Reply\+Value}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{free\+Client\+Reply\+Value()}{freeClientReplyValue()}}
+{\footnotesize\ttfamily void free\+Client\+Reply\+Value (\begin{DoxyParamCaption}\item[{void $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 65 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ae560b28a9d6ceb5ead039461970f59b8}\label{networking_8c_ae560b28a9d6ceb5ead039461970f59b8}} 
+\index{networking.\+c@{networking.\+c}!free\+Clients\+In\+Async\+Free\+Queue@{free\+Clients\+In\+Async\+Free\+Queue}}
+\index{free\+Clients\+In\+Async\+Free\+Queue@{free\+Clients\+In\+Async\+Free\+Queue}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{free\+Clients\+In\+Async\+Free\+Queue()}{freeClientsInAsyncFreeQueue()}}
+{\footnotesize\ttfamily void free\+Clients\+In\+Async\+Free\+Queue (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 939 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a681f1b6ece0d2444ebd5504853fe146f}\label{networking_8c_a681f1b6ece0d2444ebd5504853fe146f}} 
+\index{networking.\+c@{networking.\+c}!gen\+Client\+Peer\+Id@{gen\+Client\+Peer\+Id}}
+\index{gen\+Client\+Peer\+Id@{gen\+Client\+Peer\+Id}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{gen\+Client\+Peer\+Id()}{genClientPeerId()}}
+{\footnotesize\ttfamily void gen\+Client\+Peer\+Id (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{client,  }\item[{char $\ast$}]{peerid,  }\item[{size\+\_\+t}]{peerid\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1601 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ac8f5f6a887f46b4288dad61ca0ceb270}\label{networking_8c_ac8f5f6a887f46b4288dad61ca0ceb270}} 
+\index{networking.\+c@{networking.\+c}!get\+All\+Clients\+Info\+String@{get\+All\+Clients\+Info\+String}}
+\index{get\+All\+Clients\+Info\+String@{get\+All\+Clients\+Info\+String}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{get\+All\+Clients\+Info\+String()}{getAllClientsInfoString()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} get\+All\+Clients\+Info\+String (\begin{DoxyParamCaption}\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1679 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ada74196bbcb069635697ca0d3183e183}\label{networking_8c_ada74196bbcb069635697ca0d3183e183}} 
+\index{networking.\+c@{networking.\+c}!get\+Client\+Output\+Buffer\+Memory\+Usage@{get\+Client\+Output\+Buffer\+Memory\+Usage}}
+\index{get\+Client\+Output\+Buffer\+Memory\+Usage@{get\+Client\+Output\+Buffer\+Memory\+Usage}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{get\+Client\+Output\+Buffer\+Memory\+Usage()}{getClientOutputBufferMemoryUsage()}}
+{\footnotesize\ttfamily unsigned long get\+Client\+Output\+Buffer\+Memory\+Usage (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2019 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_af386334541b99359f4aeae7ddb4e3993}\label{networking_8c_af386334541b99359f4aeae7ddb4e3993}} 
+\index{networking.\+c@{networking.\+c}!get\+Client\+Peer\+Id@{get\+Client\+Peer\+Id}}
+\index{get\+Client\+Peer\+Id@{get\+Client\+Peer\+Id}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{get\+Client\+Peer\+Id()}{getClientPeerId()}}
+{\footnotesize\ttfamily char$\ast$ get\+Client\+Peer\+Id (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1616 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a0a89c29497a12163c887bdf02e2684ab}\label{networking_8c_a0a89c29497a12163c887bdf02e2684ab}} 
+\index{networking.\+c@{networking.\+c}!get\+Clients\+Max\+Buffers@{get\+Clients\+Max\+Buffers}}
+\index{get\+Clients\+Max\+Buffers@{get\+Clients\+Max\+Buffers}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{get\+Clients\+Max\+Buffers()}{getClientsMaxBuffers()}}
+{\footnotesize\ttfamily void get\+Clients\+Max\+Buffers (\begin{DoxyParamCaption}\item[{unsigned long $\ast$}]{longest\+\_\+output\+\_\+list,  }\item[{unsigned long $\ast$}]{biggest\+\_\+input\+\_\+buffer }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1572 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a476ca077992af873a19db7c8fbb6845f}\label{networking_8c_a476ca077992af873a19db7c8fbb6845f}} 
+\index{networking.\+c@{networking.\+c}!get\+Client\+Type@{get\+Client\+Type}}
+\index{get\+Client\+Type@{get\+Client\+Type}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{get\+Client\+Type()}{getClientType()}}
+{\footnotesize\ttfamily int get\+Client\+Type (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2033 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_abb76283846832639c926cec4f57edcd4}\label{networking_8c_abb76283846832639c926cec4f57edcd4}} 
+\index{networking.\+c@{networking.\+c}!get\+Client\+Type\+By\+Name@{get\+Client\+Type\+By\+Name}}
+\index{get\+Client\+Type\+By\+Name@{get\+Client\+Type\+By\+Name}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{get\+Client\+Type\+By\+Name()}{getClientTypeByName()}}
+{\footnotesize\ttfamily int get\+Client\+Type\+By\+Name (\begin{DoxyParamCaption}\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2041 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ac1e5fd65e5daba7ad8ffddda6ae102c5}\label{networking_8c_ac1e5fd65e5daba7ad8ffddda6ae102c5}} 
+\index{networking.\+c@{networking.\+c}!get\+Client\+Type\+Name@{get\+Client\+Type\+Name}}
+\index{get\+Client\+Type\+Name@{get\+Client\+Type\+Name}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{get\+Client\+Type\+Name()}{getClientTypeName()}}
+{\footnotesize\ttfamily char$\ast$ get\+Client\+Type\+Name (\begin{DoxyParamCaption}\item[{int}]{class }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2050 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a4e62f89781311c81210b93ce316d2e96}\label{networking_8c_a4e62f89781311c81210b93ce316d2e96}} 
+\index{networking.\+c@{networking.\+c}!get\+String\+Object\+Sds\+Used\+Memory@{get\+String\+Object\+Sds\+Used\+Memory}}
+\index{get\+String\+Object\+Sds\+Used\+Memory@{get\+String\+Object\+Sds\+Used\+Memory}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{get\+String\+Object\+Sds\+Used\+Memory()}{getStringObjectSdsUsedMemory()}}
+{\footnotesize\ttfamily size\+\_\+t get\+String\+Object\+Sds\+Used\+Memory (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 48 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a5b7a1863aa26723ce29afe1ad44b12c1}\label{networking_8c_a5b7a1863aa26723ce29afe1ad44b12c1}} 
+\index{networking.\+c@{networking.\+c}!handle\+Clients\+With\+Pending\+Writes@{handle\+Clients\+With\+Pending\+Writes}}
+\index{handle\+Clients\+With\+Pending\+Writes@{handle\+Clients\+With\+Pending\+Writes}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{handle\+Clients\+With\+Pending\+Writes()}{handleClientsWithPendingWrites()}}
+{\footnotesize\ttfamily int handle\+Clients\+With\+Pending\+Writes (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1064 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_aabb7b4bbbd67cad5d57bf8cf681cef5a}\label{networking_8c_aabb7b4bbbd67cad5d57bf8cf681cef5a}} 
+\index{networking.\+c@{networking.\+c}!link\+Client@{link\+Client}}
+\index{link\+Client@{link\+Client}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{link\+Client()}{linkClient()}}
+{\footnotesize\ttfamily void link\+Client (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 75 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a22055858ad37dbb7948d008194ffcba8}\label{networking_8c_a22055858ad37dbb7948d008194ffcba8}} 
+\index{networking.\+c@{networking.\+c}!list\+Match\+Objects@{list\+Match\+Objects}}
+\index{list\+Match\+Objects@{list\+Match\+Objects}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{list\+Match\+Objects()}{listMatchObjects()}}
+{\footnotesize\ttfamily int list\+Match\+Objects (\begin{DoxyParamCaption}\item[{void $\ast$}]{a,  }\item[{void $\ast$}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 69 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a89dae2283914d2e5f1a51ceba489a5fa}\label{networking_8c_a89dae2283914d2e5f1a51ceba489a5fa}} 
+\index{networking.\+c@{networking.\+c}!lookup\+Client\+By\+ID@{lookup\+Client\+By\+ID}}
+\index{lookup\+Client\+By\+ID@{lookup\+Client\+By\+ID}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{lookup\+Client\+By\+I\+D()}{lookupClientByID()}}
+{\footnotesize\ttfamily \hyperlink{structclient}{client}$\ast$ lookup\+Client\+By\+ID (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Definition at line 953 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_aab17dc7f37ff6f1f40d2c50ca3fbc52a}\label{networking_8c_aab17dc7f37ff6f1f40d2c50ca3fbc52a}} 
+\index{networking.\+c@{networking.\+c}!pause\+Clients@{pause\+Clients}}
+\index{pause\+Clients@{pause\+Clients}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{pause\+Clients()}{pauseClients()}}
+{\footnotesize\ttfamily void pause\+Clients (\begin{DoxyParamCaption}\item[{\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t}}]{end }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2169 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_aa03a44e933d9eb0d6901d84ade733861}\label{networking_8c_aa03a44e933d9eb0d6901d84ade733861}} 
+\index{networking.\+c@{networking.\+c}!prepare\+Client\+To\+Write@{prepare\+Client\+To\+Write}}
+\index{prepare\+Client\+To\+Write@{prepare\+Client\+To\+Write}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{prepare\+Client\+To\+Write()}{prepareClientToWrite()}}
+{\footnotesize\ttfamily int prepare\+Client\+To\+Write (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 211 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a0166ef7d74e0ba505a1d47b5f389b79a}\label{networking_8c_a0166ef7d74e0ba505a1d47b5f389b79a}} 
+\index{networking.\+c@{networking.\+c}!process\+Events\+While\+Blocked@{process\+Events\+While\+Blocked}}
+\index{process\+Events\+While\+Blocked@{process\+Events\+While\+Blocked}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{process\+Events\+While\+Blocked()}{processEventsWhileBlocked()}}
+{\footnotesize\ttfamily int process\+Events\+While\+Blocked (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2214 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a7da7f79f3f26fcf0565b5ebaf7641831}\label{networking_8c_a7da7f79f3f26fcf0565b5ebaf7641831}} 
+\index{networking.\+c@{networking.\+c}!process\+Inline\+Buffer@{process\+Inline\+Buffer}}
+\index{process\+Inline\+Buffer@{process\+Inline\+Buffer}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{process\+Inline\+Buffer()}{processInlineBuffer()}}
+{\footnotesize\ttfamily int process\+Inline\+Buffer (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1165 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a68ce7bbf08821d5018170a6c55149fc2}\label{networking_8c_a68ce7bbf08821d5018170a6c55149fc2}} 
+\index{networking.\+c@{networking.\+c}!process\+Input\+Buffer@{process\+Input\+Buffer}}
+\index{process\+Input\+Buffer@{process\+Input\+Buffer}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{process\+Input\+Buffer()}{processInputBuffer()}}
+{\footnotesize\ttfamily void process\+Input\+Buffer (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1406 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_aa388b55a56bfc8c147d7bb2f1abbedd9}\label{networking_8c_aa388b55a56bfc8c147d7bb2f1abbedd9}} 
+\index{networking.\+c@{networking.\+c}!process\+Input\+Buffer\+And\+Replicate@{process\+Input\+Buffer\+And\+Replicate}}
+\index{process\+Input\+Buffer\+And\+Replicate@{process\+Input\+Buffer\+And\+Replicate}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{process\+Input\+Buffer\+And\+Replicate()}{processInputBufferAndReplicate()}}
+{\footnotesize\ttfamily void process\+Input\+Buffer\+And\+Replicate (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1485 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a5d03027091797ef833e290f62ad1ea14}\label{networking_8c_a5d03027091797ef833e290f62ad1ea14}} 
+\index{networking.\+c@{networking.\+c}!process\+Multibulk\+Buffer@{process\+Multibulk\+Buffer}}
+\index{process\+Multibulk\+Buffer@{process\+Multibulk\+Buffer}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{process\+Multibulk\+Buffer()}{processMultibulkBuffer()}}
+{\footnotesize\ttfamily int process\+Multibulk\+Buffer (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1267 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a7cfeccb0b9d589ca84ba285218d6a8a3}\label{networking_8c_a7cfeccb0b9d589ca84ba285218d6a8a3}} 
+\index{networking.\+c@{networking.\+c}!protect\+Client@{protect\+Client}}
+\index{protect\+Client@{protect\+Client}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{protect\+Client()}{protectClient()}}
+{\footnotesize\ttfamily void protect\+Client (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1143 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ab42c9214acce2e963c1210490812854c}\label{networking_8c_ab42c9214acce2e963c1210490812854c}} 
+\index{networking.\+c@{networking.\+c}!read\+Query\+From\+Client@{read\+Query\+From\+Client}}
+\index{read\+Query\+From\+Client@{read\+Query\+From\+Client}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{read\+Query\+From\+Client()}{readQueryFromClient()}}
+{\footnotesize\ttfamily void read\+Query\+From\+Client (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{el,  }\item[{int}]{fd,  }\item[{void $\ast$}]{privdata,  }\item[{int}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1500 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a8de0005bfc3ab71ed1d5c80833f9eb7f}\label{networking_8c_a8de0005bfc3ab71ed1d5c80833f9eb7f}} 
+\index{networking.\+c@{networking.\+c}!replace\+Client\+Command\+Vector@{replace\+Client\+Command\+Vector}}
+\index{replace\+Client\+Command\+Vector@{replace\+Client\+Command\+Vector}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{replace\+Client\+Command\+Vector()}{replaceClientCommandVector()}}
+{\footnotesize\ttfamily void replace\+Client\+Command\+Vector (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{argc,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1966 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a791e326f4e1bc592fea58271013b0f68}\label{networking_8c_a791e326f4e1bc592fea58271013b0f68}} 
+\index{networking.\+c@{networking.\+c}!reset\+Client@{reset\+Client}}
+\index{reset\+Client@{reset\+Client}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{reset\+Client()}{resetClient()}}
+{\footnotesize\ttfamily void reset\+Client (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1107 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a3a4ef50bd5377775bc6cfc6ca54894a3}\label{networking_8c_a3a4ef50bd5377775bc6cfc6ca54894a3}} 
+\index{networking.\+c@{networking.\+c}!rewrite\+Client\+Command\+Argument@{rewrite\+Client\+Command\+Argument}}
+\index{rewrite\+Client\+Command\+Argument@{rewrite\+Client\+Command\+Argument}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{rewrite\+Client\+Command\+Argument()}{rewriteClientCommandArgument()}}
+{\footnotesize\ttfamily void rewrite\+Client\+Command\+Argument (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{i,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{newval }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1986 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ad2db6c496b8784af19b8685ec9ff6f2d}\label{networking_8c_ad2db6c496b8784af19b8685ec9ff6f2d}} 
+\index{networking.\+c@{networking.\+c}!rewrite\+Client\+Command\+Vector@{rewrite\+Client\+Command\+Vector}}
+\index{rewrite\+Client\+Command\+Vector@{rewrite\+Client\+Command\+Vector}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{rewrite\+Client\+Command\+Vector()}{rewriteClientCommandVector()}}
+{\footnotesize\ttfamily void rewrite\+Client\+Command\+Vector (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{argc,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1938 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a774d738883e0b621147923b2b4d44282}\label{networking_8c_a774d738883e0b621147923b2b4d44282}} 
+\index{networking.\+c@{networking.\+c}!sds\+Zmalloc\+Size@{sds\+Zmalloc\+Size}}
+\index{sds\+Zmalloc\+Size@{sds\+Zmalloc\+Size}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{sds\+Zmalloc\+Size()}{sdsZmallocSize()}}
+{\footnotesize\ttfamily size\+\_\+t sds\+Zmalloc\+Size (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 41 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_adc0c436432b3be7679bed96bd8e9472e}\label{networking_8c_adc0c436432b3be7679bed96bd8e9472e}} 
+\index{networking.\+c@{networking.\+c}!security\+Warning\+Command@{security\+Warning\+Command}}
+\index{security\+Warning\+Command@{security\+Warning\+Command}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{security\+Warning\+Command()}{securityWarningCommand()}}
+{\footnotesize\ttfamily void security\+Warning\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1924 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_aa9fbfbda8767841a18ff991b57e27922}\label{networking_8c_aa9fbfbda8767841a18ff991b57e27922}} 
+\index{networking.\+c@{networking.\+c}!send\+Reply\+To\+Client@{send\+Reply\+To\+Client}}
+\index{send\+Reply\+To\+Client@{send\+Reply\+To\+Client}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{send\+Reply\+To\+Client()}{sendReplyToClient()}}
+{\footnotesize\ttfamily void send\+Reply\+To\+Client (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{el,  }\item[{int}]{fd,  }\item[{void $\ast$}]{privdata,  }\item[{int}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1054 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a196bf9c2087770b40bfd9f4000544a67}\label{networking_8c_a196bf9c2087770b40bfd9f4000544a67}} 
+\index{networking.\+c@{networking.\+c}!set\+Deferred\+Multi\+Bulk\+Length@{set\+Deferred\+Multi\+Bulk\+Length}}
+\index{set\+Deferred\+Multi\+Bulk\+Length@{set\+Deferred\+Multi\+Bulk\+Length}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{set\+Deferred\+Multi\+Bulk\+Length()}{setDeferredMultiBulkLength()}}
+{\footnotesize\ttfamily void set\+Deferred\+Multi\+Bulk\+Length (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{void $\ast$}]{node,  }\item[{long}]{length }\end{DoxyParamCaption})}
+
+
+
+Definition at line 435 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_ae6f93c321c10ba76b70463ad60d89d03}\label{networking_8c_ae6f93c321c10ba76b70463ad60d89d03}} 
+\index{networking.\+c@{networking.\+c}!unlink\+Client@{unlink\+Client}}
+\index{unlink\+Client@{unlink\+Client}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{unlink\+Client()}{unlinkClient()}}
+{\footnotesize\ttfamily void unlink\+Client (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 786 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_aaaf6694ecbf9f18c52e24ea46de09575}\label{networking_8c_aaaf6694ecbf9f18c52e24ea46de09575}} 
+\index{networking.\+c@{networking.\+c}!unprotect\+Client@{unprotect\+Client}}
+\index{unprotect\+Client@{unprotect\+Client}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{unprotect\+Client()}{unprotectClient()}}
+{\footnotesize\ttfamily void unprotect\+Client (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1150 of file networking.\+c.
+
+\mbox{\Hypertarget{networking_8c_a3ae8edffd264be4a95e776f6c6d508ac}\label{networking_8c_a3ae8edffd264be4a95e776f6c6d508ac}} 
+\index{networking.\+c@{networking.\+c}!write\+To\+Client@{write\+To\+Client}}
+\index{write\+To\+Client@{write\+To\+Client}!networking.\+c@{networking.\+c}}
+\subsubsection{\texorpdfstring{write\+To\+Client()}{writeToClient()}}
+{\footnotesize\ttfamily int write\+To\+Client (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{handler\+\_\+installed }\end{DoxyParamCaption})}
+
+
+
+Definition at line 961 of file networking.\+c.
+

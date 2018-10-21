@@ -1,0 +1,261 @@
+\hypertarget{stream_8h}{}\section{src/stream.h File Reference}
+\label{stream_8h}\index{src/stream.\+h@{src/stream.\+h}}
+{\ttfamily \#include \char`\"{}rax.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}listpack.\+h\char`\"{}}\newline
+Include dependency graph for stream.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{stream_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{stream_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structstream_i_d}{stream\+ID}
+\item 
+struct \hyperlink{structstream}{stream}
+\item 
+struct \hyperlink{structstream_iterator}{stream\+Iterator}
+\item 
+struct \hyperlink{structstream_c_g}{stream\+CG}
+\item 
+struct \hyperlink{structstream_consumer}{stream\+Consumer}
+\item 
+struct \hyperlink{structstream_n_a_c_k}{stream\+N\+A\+CK}
+\item 
+struct \hyperlink{structsream_prop_info}{sream\+Prop\+Info}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structstream_i_d}{stream\+ID} \hyperlink{stream_8h_ad7e8b00284de80524315e851a3027ac2}{stream\+ID}
+\item 
+typedef struct \hyperlink{structstream}{stream} \hyperlink{stream_8h_a8bfde49888a12a7b8dbdf717e24d5e88}{stream}
+\item 
+typedef struct \hyperlink{structstream_iterator}{stream\+Iterator} \hyperlink{stream_8h_aafa7d93429703ca8e1a602e4f9a21d04}{stream\+Iterator}
+\item 
+typedef struct \hyperlink{structstream_c_g}{stream\+CG} \hyperlink{stream_8h_a71c81c08ec74c149cca0aa240fc271c2}{stream\+CG}
+\item 
+typedef struct \hyperlink{structstream_consumer}{stream\+Consumer} \hyperlink{stream_8h_ab48a62c1c873602929e3b5af930a792b}{stream\+Consumer}
+\item 
+typedef struct \hyperlink{structstream_n_a_c_k}{stream\+N\+A\+CK} \hyperlink{stream_8h_ae56cb2569f04ff411da836b3e13b486d}{stream\+N\+A\+CK}
+\item 
+typedef struct \hyperlink{structsream_prop_info}{sream\+Prop\+Info} \hyperlink{stream_8h_ad94888bac7182424d6a3633f71c20e16}{stream\+Prop\+Info}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structstream}{stream} $\ast$ \hyperlink{stream_8h_a7feb7e95b8c6a01a8359be263f921eb9}{stream\+New} (void)
+\item 
+void \hyperlink{stream_8h_a7273f6aa620d8e38a087bf59dd070547}{free\+Stream} (\hyperlink{structstream}{stream} $\ast$s)
+\item 
+size\+\_\+t \hyperlink{stream_8h_a22e50a22a0f4c43d1e38e5398b28c44c}{stream\+Reply\+With\+Range} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{structstream}{stream} $\ast$s, \hyperlink{structstream_i_d}{stream\+ID} $\ast$start, \hyperlink{structstream_i_d}{stream\+ID} $\ast$end, size\+\_\+t count, int rev, \hyperlink{structstream_c_g}{stream\+CG} $\ast$group, \hyperlink{structstream_consumer}{stream\+Consumer} $\ast$consumer, int flags, \hyperlink{stream_8h_ad94888bac7182424d6a3633f71c20e16}{stream\+Prop\+Info} $\ast$spi)
+\item 
+void \hyperlink{stream_8h_a07d247061b320b91264415dd21a0ce88}{stream\+Iterator\+Start} (\hyperlink{structstream_iterator}{stream\+Iterator} $\ast$si, \hyperlink{structstream}{stream} $\ast$s, \hyperlink{structstream_i_d}{stream\+ID} $\ast$start, \hyperlink{structstream_i_d}{stream\+ID} $\ast$end, int rev)
+\item 
+int \hyperlink{stream_8h_a313d96847bd09656939a6c880d3d1dd0}{stream\+Iterator\+Get\+ID} (\hyperlink{structstream_iterator}{stream\+Iterator} $\ast$si, \hyperlink{structstream_i_d}{stream\+ID} $\ast$id, int64\+\_\+t $\ast$numfields)
+\item 
+void \hyperlink{stream_8h_ad5cdf798782e2f9f9506adba35656432}{stream\+Iterator\+Get\+Field} (\hyperlink{structstream_iterator}{stream\+Iterator} $\ast$si, unsigned char $\ast$$\ast$fieldptr, unsigned char $\ast$$\ast$valueptr, int64\+\_\+t $\ast$fieldlen, int64\+\_\+t $\ast$valuelen)
+\item 
+void \hyperlink{stream_8h_a83bc71714824119393f458a035362d58}{stream\+Iterator\+Stop} (\hyperlink{structstream_iterator}{stream\+Iterator} $\ast$si)
+\item 
+\hyperlink{structstream_c_g}{stream\+CG} $\ast$ \hyperlink{stream_8h_aa3f84fcdacc6ee87cf327a31ac99f0b1}{stream\+Lookup\+CG} (\hyperlink{structstream}{stream} $\ast$s, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} groupname)
+\item 
+\hyperlink{structstream_consumer}{stream\+Consumer} $\ast$ \hyperlink{stream_8h_a2cd82a99e3804268ae03deb7feee5e75}{stream\+Lookup\+Consumer} (\hyperlink{structstream_c_g}{stream\+CG} $\ast$cg, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} name, int create)
+\item 
+\hyperlink{structstream_c_g}{stream\+CG} $\ast$ \hyperlink{stream_8h_a16fe3ea8e908d159029e15f3cabf5b8b}{stream\+Create\+CG} (\hyperlink{structstream}{stream} $\ast$s, char $\ast$name, size\+\_\+t namelen, \hyperlink{structstream_i_d}{stream\+ID} $\ast$id)
+\item 
+\hyperlink{structstream_n_a_c_k}{stream\+N\+A\+CK} $\ast$ \hyperlink{stream_8h_ae7d7b012d80f2e0737b87a09103afda2}{stream\+Create\+N\+A\+CK} (\hyperlink{structstream_consumer}{stream\+Consumer} $\ast$consumer)
+\item 
+void \hyperlink{stream_8h_a9da975816af87205c5842b5eade3d49f}{stream\+Decode\+ID} (void $\ast$buf, \hyperlink{structstream_i_d}{stream\+ID} $\ast$id)
+\item 
+int \hyperlink{stream_8h_a90a8f3c0faad6ed6c2cb9f9756007129}{stream\+Compare\+ID} (\hyperlink{structstream_i_d}{stream\+ID} $\ast$a, \hyperlink{structstream_i_d}{stream\+ID} $\ast$b)
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{stream_8h_a8bfde49888a12a7b8dbdf717e24d5e88}\label{stream_8h_a8bfde49888a12a7b8dbdf717e24d5e88}} 
+\index{stream.\+h@{stream.\+h}!stream@{stream}}
+\index{stream@{stream}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream}{stream}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structstream}{stream}  \hyperlink{structstream}{stream}}
+
+\mbox{\Hypertarget{stream_8h_a71c81c08ec74c149cca0aa240fc271c2}\label{stream_8h_a71c81c08ec74c149cca0aa240fc271c2}} 
+\index{stream.\+h@{stream.\+h}!stream\+CG@{stream\+CG}}
+\index{stream\+CG@{stream\+CG}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+CG}{streamCG}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structstream_c_g}{stream\+CG}  \hyperlink{structstream_c_g}{stream\+CG}}
+
+\mbox{\Hypertarget{stream_8h_ab48a62c1c873602929e3b5af930a792b}\label{stream_8h_ab48a62c1c873602929e3b5af930a792b}} 
+\index{stream.\+h@{stream.\+h}!stream\+Consumer@{stream\+Consumer}}
+\index{stream\+Consumer@{stream\+Consumer}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Consumer}{streamConsumer}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structstream_consumer}{stream\+Consumer}  \hyperlink{structstream_consumer}{stream\+Consumer}}
+
+\mbox{\Hypertarget{stream_8h_ad7e8b00284de80524315e851a3027ac2}\label{stream_8h_ad7e8b00284de80524315e851a3027ac2}} 
+\index{stream.\+h@{stream.\+h}!stream\+ID@{stream\+ID}}
+\index{stream\+ID@{stream\+ID}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+ID}{streamID}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structstream_i_d}{stream\+ID}  \hyperlink{structstream_i_d}{stream\+ID}}
+
+\mbox{\Hypertarget{stream_8h_aafa7d93429703ca8e1a602e4f9a21d04}\label{stream_8h_aafa7d93429703ca8e1a602e4f9a21d04}} 
+\index{stream.\+h@{stream.\+h}!stream\+Iterator@{stream\+Iterator}}
+\index{stream\+Iterator@{stream\+Iterator}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Iterator}{streamIterator}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structstream_iterator}{stream\+Iterator}  \hyperlink{structstream_iterator}{stream\+Iterator}}
+
+\mbox{\Hypertarget{stream_8h_ae56cb2569f04ff411da836b3e13b486d}\label{stream_8h_ae56cb2569f04ff411da836b3e13b486d}} 
+\index{stream.\+h@{stream.\+h}!stream\+N\+A\+CK@{stream\+N\+A\+CK}}
+\index{stream\+N\+A\+CK@{stream\+N\+A\+CK}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+N\+A\+CK}{streamNACK}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structstream_n_a_c_k}{stream\+N\+A\+CK}  \hyperlink{structstream_n_a_c_k}{stream\+N\+A\+CK}}
+
+\mbox{\Hypertarget{stream_8h_ad94888bac7182424d6a3633f71c20e16}\label{stream_8h_ad94888bac7182424d6a3633f71c20e16}} 
+\index{stream.\+h@{stream.\+h}!stream\+Prop\+Info@{stream\+Prop\+Info}}
+\index{stream\+Prop\+Info@{stream\+Prop\+Info}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Prop\+Info}{streamPropInfo}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structsream_prop_info}{sream\+Prop\+Info}  \hyperlink{stream_8h_ad94888bac7182424d6a3633f71c20e16}{stream\+Prop\+Info}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{stream_8h_a7273f6aa620d8e38a087bf59dd070547}\label{stream_8h_a7273f6aa620d8e38a087bf59dd070547}} 
+\index{stream.\+h@{stream.\+h}!free\+Stream@{free\+Stream}}
+\index{free\+Stream@{free\+Stream}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{free\+Stream()}{freeStream()}}
+{\footnotesize\ttfamily void free\+Stream (\begin{DoxyParamCaption}\item[{\hyperlink{structstream}{stream} $\ast$}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 63 of file t\+\_\+stream.\+c.
+
+\mbox{\Hypertarget{stream_8h_a90a8f3c0faad6ed6c2cb9f9756007129}\label{stream_8h_a90a8f3c0faad6ed6c2cb9f9756007129}} 
+\index{stream.\+h@{stream.\+h}!stream\+Compare\+ID@{stream\+Compare\+ID}}
+\index{stream\+Compare\+ID@{stream\+Compare\+ID}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Compare\+I\+D()}{streamCompareID()}}
+{\footnotesize\ttfamily int stream\+Compare\+ID (\begin{DoxyParamCaption}\item[{\hyperlink{structstream_i_d}{stream\+ID} $\ast$}]{a,  }\item[{\hyperlink{structstream_i_d}{stream\+ID} $\ast$}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 153 of file t\+\_\+stream.\+c.
+
+\mbox{\Hypertarget{stream_8h_a16fe3ea8e908d159029e15f3cabf5b8b}\label{stream_8h_a16fe3ea8e908d159029e15f3cabf5b8b}} 
+\index{stream.\+h@{stream.\+h}!stream\+Create\+CG@{stream\+Create\+CG}}
+\index{stream\+Create\+CG@{stream\+Create\+CG}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Create\+C\+G()}{streamCreateCG()}}
+{\footnotesize\ttfamily \hyperlink{structstream_c_g}{stream\+CG}$\ast$ stream\+Create\+CG (\begin{DoxyParamCaption}\item[{\hyperlink{structstream}{stream} $\ast$}]{s,  }\item[{char $\ast$}]{name,  }\item[{size\+\_\+t}]{namelen,  }\item[{\hyperlink{structstream_i_d}{stream\+ID} $\ast$}]{id }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1607 of file t\+\_\+stream.\+c.
+
+\mbox{\Hypertarget{stream_8h_ae7d7b012d80f2e0737b87a09103afda2}\label{stream_8h_ae7d7b012d80f2e0737b87a09103afda2}} 
+\index{stream.\+h@{stream.\+h}!stream\+Create\+N\+A\+CK@{stream\+Create\+N\+A\+CK}}
+\index{stream\+Create\+N\+A\+CK@{stream\+Create\+N\+A\+CK}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Create\+N\+A\+C\+K()}{streamCreateNACK()}}
+{\footnotesize\ttfamily \hyperlink{structstream_n_a_c_k}{stream\+N\+A\+CK}$\ast$ stream\+Create\+N\+A\+CK (\begin{DoxyParamCaption}\item[{\hyperlink{structstream_consumer}{stream\+Consumer} $\ast$}]{consumer }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1578 of file t\+\_\+stream.\+c.
+
+\mbox{\Hypertarget{stream_8h_a9da975816af87205c5842b5eade3d49f}\label{stream_8h_a9da975816af87205c5842b5eade3d49f}} 
+\index{stream.\+h@{stream.\+h}!stream\+Decode\+ID@{stream\+Decode\+ID}}
+\index{stream\+Decode\+ID@{stream\+Decode\+ID}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Decode\+I\+D()}{streamDecodeID()}}
+{\footnotesize\ttfamily void stream\+Decode\+ID (\begin{DoxyParamCaption}\item[{void $\ast$}]{buf,  }\item[{\hyperlink{structstream_i_d}{stream\+ID} $\ast$}]{id }\end{DoxyParamCaption})}
+
+
+
+Definition at line 145 of file t\+\_\+stream.\+c.
+
+\mbox{\Hypertarget{stream_8h_ad5cdf798782e2f9f9506adba35656432}\label{stream_8h_ad5cdf798782e2f9f9506adba35656432}} 
+\index{stream.\+h@{stream.\+h}!stream\+Iterator\+Get\+Field@{stream\+Iterator\+Get\+Field}}
+\index{stream\+Iterator\+Get\+Field@{stream\+Iterator\+Get\+Field}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Iterator\+Get\+Field()}{streamIteratorGetField()}}
+{\footnotesize\ttfamily void stream\+Iterator\+Get\+Field (\begin{DoxyParamCaption}\item[{\hyperlink{structstream_iterator}{stream\+Iterator} $\ast$}]{si,  }\item[{unsigned char $\ast$$\ast$}]{fieldptr,  }\item[{unsigned char $\ast$$\ast$}]{valueptr,  }\item[{int64\+\_\+t $\ast$}]{fieldlen,  }\item[{int64\+\_\+t $\ast$}]{valuelen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 678 of file t\+\_\+stream.\+c.
+
+\mbox{\Hypertarget{stream_8h_a313d96847bd09656939a6c880d3d1dd0}\label{stream_8h_a313d96847bd09656939a6c880d3d1dd0}} 
+\index{stream.\+h@{stream.\+h}!stream\+Iterator\+Get\+ID@{stream\+Iterator\+Get\+ID}}
+\index{stream\+Iterator\+Get\+ID@{stream\+Iterator\+Get\+ID}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Iterator\+Get\+I\+D()}{streamIteratorGetID()}}
+{\footnotesize\ttfamily int stream\+Iterator\+Get\+ID (\begin{DoxyParamCaption}\item[{\hyperlink{structstream_iterator}{stream\+Iterator} $\ast$}]{si,  }\item[{\hyperlink{structstream_i_d}{stream\+ID} $\ast$}]{id,  }\item[{int64\+\_\+t $\ast$}]{numfields }\end{DoxyParamCaption})}
+
+
+
+Definition at line 533 of file t\+\_\+stream.\+c.
+
+\mbox{\Hypertarget{stream_8h_a07d247061b320b91264415dd21a0ce88}\label{stream_8h_a07d247061b320b91264415dd21a0ce88}} 
+\index{stream.\+h@{stream.\+h}!stream\+Iterator\+Start@{stream\+Iterator\+Start}}
+\index{stream\+Iterator\+Start@{stream\+Iterator\+Start}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Iterator\+Start()}{streamIteratorStart()}}
+{\footnotesize\ttfamily void stream\+Iterator\+Start (\begin{DoxyParamCaption}\item[{\hyperlink{structstream_iterator}{stream\+Iterator} $\ast$}]{si,  }\item[{\hyperlink{structstream}{stream} $\ast$}]{s,  }\item[{\hyperlink{structstream_i_d}{stream\+ID} $\ast$}]{start,  }\item[{\hyperlink{structstream_i_d}{stream\+ID} $\ast$}]{end,  }\item[{int}]{rev }\end{DoxyParamCaption})}
+
+
+
+Definition at line 488 of file t\+\_\+stream.\+c.
+
+\mbox{\Hypertarget{stream_8h_a83bc71714824119393f458a035362d58}\label{stream_8h_a83bc71714824119393f458a035362d58}} 
+\index{stream.\+h@{stream.\+h}!stream\+Iterator\+Stop@{stream\+Iterator\+Stop}}
+\index{stream\+Iterator\+Stop@{stream\+Iterator\+Stop}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Iterator\+Stop()}{streamIteratorStop()}}
+{\footnotesize\ttfamily void stream\+Iterator\+Stop (\begin{DoxyParamCaption}\item[{\hyperlink{structstream_iterator}{stream\+Iterator} $\ast$}]{si }\end{DoxyParamCaption})}
+
+
+
+Definition at line 756 of file t\+\_\+stream.\+c.
+
+\mbox{\Hypertarget{stream_8h_aa3f84fcdacc6ee87cf327a31ac99f0b1}\label{stream_8h_aa3f84fcdacc6ee87cf327a31ac99f0b1}} 
+\index{stream.\+h@{stream.\+h}!stream\+Lookup\+CG@{stream\+Lookup\+CG}}
+\index{stream\+Lookup\+CG@{stream\+Lookup\+CG}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Lookup\+C\+G()}{streamLookupCG()}}
+{\footnotesize\ttfamily \hyperlink{structstream_c_g}{stream\+CG}$\ast$ stream\+Lookup\+CG (\begin{DoxyParamCaption}\item[{\hyperlink{structstream}{stream} $\ast$}]{s,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{groupname }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1629 of file t\+\_\+stream.\+c.
+
+\mbox{\Hypertarget{stream_8h_a2cd82a99e3804268ae03deb7feee5e75}\label{stream_8h_a2cd82a99e3804268ae03deb7feee5e75}} 
+\index{stream.\+h@{stream.\+h}!stream\+Lookup\+Consumer@{stream\+Lookup\+Consumer}}
+\index{stream\+Lookup\+Consumer@{stream\+Lookup\+Consumer}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Lookup\+Consumer()}{streamLookupConsumer()}}
+{\footnotesize\ttfamily \hyperlink{structstream_consumer}{stream\+Consumer}$\ast$ stream\+Lookup\+Consumer (\begin{DoxyParamCaption}\item[{\hyperlink{structstream_c_g}{stream\+CG} $\ast$}]{cg,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{name,  }\item[{int}]{create }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1640 of file t\+\_\+stream.\+c.
+
+\mbox{\Hypertarget{stream_8h_a7feb7e95b8c6a01a8359be263f921eb9}\label{stream_8h_a7feb7e95b8c6a01a8359be263f921eb9}} 
+\index{stream.\+h@{stream.\+h}!stream\+New@{stream\+New}}
+\index{stream\+New@{stream\+New}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+New()}{streamNew()}}
+{\footnotesize\ttfamily \hyperlink{structstream}{stream}$\ast$ stream\+New (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 52 of file t\+\_\+stream.\+c.
+
+\mbox{\Hypertarget{stream_8h_a22e50a22a0f4c43d1e38e5398b28c44c}\label{stream_8h_a22e50a22a0f4c43d1e38e5398b28c44c}} 
+\index{stream.\+h@{stream.\+h}!stream\+Reply\+With\+Range@{stream\+Reply\+With\+Range}}
+\index{stream\+Reply\+With\+Range@{stream\+Reply\+With\+Range}!stream.\+h@{stream.\+h}}
+\subsubsection{\texorpdfstring{stream\+Reply\+With\+Range()}{streamReplyWithRange()}}
+{\footnotesize\ttfamily size\+\_\+t stream\+Reply\+With\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{structstream}{stream} $\ast$}]{s,  }\item[{\hyperlink{structstream_i_d}{stream\+ID} $\ast$}]{start,  }\item[{\hyperlink{structstream_i_d}{stream\+ID} $\ast$}]{end,  }\item[{size\+\_\+t}]{count,  }\item[{int}]{rev,  }\item[{\hyperlink{structstream_c_g}{stream\+CG} $\ast$}]{group,  }\item[{\hyperlink{structstream_consumer}{stream\+Consumer} $\ast$}]{consumer,  }\item[{int}]{flags,  }\item[{\hyperlink{stream_8h_ad94888bac7182424d6a3633f71c20e16}{stream\+Prop\+Info} $\ast$}]{spi }\end{DoxyParamCaption})}
+
+
+
+Definition at line 893 of file t\+\_\+stream.\+c.
+

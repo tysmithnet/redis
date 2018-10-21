@@ -1,0 +1,125 @@
+\hypertarget{sparkline_8h}{}\section{src/sparkline.h File Reference}
+\label{sparkline_8h}\index{src/sparkline.\+h@{src/sparkline.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sparkline_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsample}{sample}
+\item 
+struct \hyperlink{structsequence}{sequence}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{sparkline_8h_a047cbc47ac95afe50e45a85b9f7449c6}{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS}~0
+\item 
+\#define \hyperlink{sparkline_8h_af6a091d13a723f2ac2a848be4235a6cd}{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+F\+I\+LL}~1      /$\ast$ Fill the area under the curve. $\ast$/
+\item 
+\#define \hyperlink{sparkline_8h_a7b27f202623ced94e764ea1448080a25}{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+L\+O\+G\+\_\+\+S\+C\+A\+LE}~2 /$\ast$ Use logarithmic scale. $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structsequence}{sequence} $\ast$ \hyperlink{sparkline_8h_a7653d2a49f0810e40f8e32dd50554316}{create\+Sparkline\+Sequence} (void)
+\item 
+void \hyperlink{sparkline_8h_a9a0217ff91495b58076d52226bacbf06}{sparkline\+Sequence\+Add\+Sample} (struct \hyperlink{structsequence}{sequence} $\ast$seq, double value, char $\ast$label)
+\item 
+void \hyperlink{sparkline_8h_a739407133ccbf172afda954ee6a7d8bc}{free\+Sparkline\+Sequence} (struct \hyperlink{structsequence}{sequence} $\ast$seq)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sparkline_8h_a33ef56504c6c825e4e00117c5f21f049}{sparkline\+Render\+Range} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} output, struct \hyperlink{structsequence}{sequence} $\ast$seq, int rows, int offset, int len, int flags)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sparkline_8h_a4bf30024f3bf7c30185bbf83826af6da}{sparkline\+Render} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} output, struct \hyperlink{structsequence}{sequence} $\ast$seq, int columns, int rows, int flags)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{sparkline_8h_af6a091d13a723f2ac2a848be4235a6cd}\label{sparkline_8h_af6a091d13a723f2ac2a848be4235a6cd}} 
+\index{sparkline.\+h@{sparkline.\+h}!S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+F\+I\+LL@{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+F\+I\+LL}}
+\index{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+F\+I\+LL@{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+F\+I\+LL}!sparkline.\+h@{sparkline.\+h}}
+\subsubsection{\texorpdfstring{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+F\+I\+LL}{SPARKLINE\_FILL}}
+{\footnotesize\ttfamily \#define S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+F\+I\+LL~1      /$\ast$ Fill the area under the curve. $\ast$/}
+
+
+
+Definition at line 47 of file sparkline.\+h.
+
+\mbox{\Hypertarget{sparkline_8h_a7b27f202623ced94e764ea1448080a25}\label{sparkline_8h_a7b27f202623ced94e764ea1448080a25}} 
+\index{sparkline.\+h@{sparkline.\+h}!S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+L\+O\+G\+\_\+\+S\+C\+A\+LE@{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+L\+O\+G\+\_\+\+S\+C\+A\+LE}}
+\index{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+L\+O\+G\+\_\+\+S\+C\+A\+LE@{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+L\+O\+G\+\_\+\+S\+C\+A\+LE}!sparkline.\+h@{sparkline.\+h}}
+\subsubsection{\texorpdfstring{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+L\+O\+G\+\_\+\+S\+C\+A\+LE}{SPARKLINE\_LOG\_SCALE}}
+{\footnotesize\ttfamily \#define S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+L\+O\+G\+\_\+\+S\+C\+A\+LE~2 /$\ast$ Use logarithmic scale. $\ast$/}
+
+
+
+Definition at line 48 of file sparkline.\+h.
+
+\mbox{\Hypertarget{sparkline_8h_a047cbc47ac95afe50e45a85b9f7449c6}\label{sparkline_8h_a047cbc47ac95afe50e45a85b9f7449c6}} 
+\index{sparkline.\+h@{sparkline.\+h}!S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS@{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS}}
+\index{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS@{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS}!sparkline.\+h@{sparkline.\+h}}
+\subsubsection{\texorpdfstring{S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS}{SPARKLINE\_NO\_FLAGS}}
+{\footnotesize\ttfamily \#define S\+P\+A\+R\+K\+L\+I\+N\+E\+\_\+\+N\+O\+\_\+\+F\+L\+A\+GS~0}
+
+
+
+Definition at line 46 of file sparkline.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{sparkline_8h_a7653d2a49f0810e40f8e32dd50554316}\label{sparkline_8h_a7653d2a49f0810e40f8e32dd50554316}} 
+\index{sparkline.\+h@{sparkline.\+h}!create\+Sparkline\+Sequence@{create\+Sparkline\+Sequence}}
+\index{create\+Sparkline\+Sequence@{create\+Sparkline\+Sequence}!sparkline.\+h@{sparkline.\+h}}
+\subsubsection{\texorpdfstring{create\+Sparkline\+Sequence()}{createSparklineSequence()}}
+{\footnotesize\ttfamily struct \hyperlink{structsequence}{sequence}$\ast$ create\+Sparkline\+Sequence (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 57 of file sparkline.\+c.
+
+\mbox{\Hypertarget{sparkline_8h_a739407133ccbf172afda954ee6a7d8bc}\label{sparkline_8h_a739407133ccbf172afda954ee6a7d8bc}} 
+\index{sparkline.\+h@{sparkline.\+h}!free\+Sparkline\+Sequence@{free\+Sparkline\+Sequence}}
+\index{free\+Sparkline\+Sequence@{free\+Sparkline\+Sequence}!sparkline.\+h@{sparkline.\+h}}
+\subsubsection{\texorpdfstring{free\+Sparkline\+Sequence()}{freeSparklineSequence()}}
+{\footnotesize\ttfamily void free\+Sparkline\+Sequence (\begin{DoxyParamCaption}\item[{struct \hyperlink{structsequence}{sequence} $\ast$}]{seq }\end{DoxyParamCaption})}
+
+
+
+Definition at line 81 of file sparkline.\+c.
+
+\mbox{\Hypertarget{sparkline_8h_a4bf30024f3bf7c30185bbf83826af6da}\label{sparkline_8h_a4bf30024f3bf7c30185bbf83826af6da}} 
+\index{sparkline.\+h@{sparkline.\+h}!sparkline\+Render@{sparkline\+Render}}
+\index{sparkline\+Render@{sparkline\+Render}!sparkline.\+h@{sparkline.\+h}}
+\subsubsection{\texorpdfstring{sparkline\+Render()}{sparklineRender()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sparkline\+Render (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{output,  }\item[{struct \hyperlink{structsequence}{sequence} $\ast$}]{seq,  }\item[{int}]{columns,  }\item[{int}]{rows,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 165 of file sparkline.\+c.
+
+\mbox{\Hypertarget{sparkline_8h_a33ef56504c6c825e4e00117c5f21f049}\label{sparkline_8h_a33ef56504c6c825e4e00117c5f21f049}} 
+\index{sparkline.\+h@{sparkline.\+h}!sparkline\+Render\+Range@{sparkline\+Render\+Range}}
+\index{sparkline\+Render\+Range@{sparkline\+Render\+Range}!sparkline.\+h@{sparkline.\+h}}
+\subsubsection{\texorpdfstring{sparkline\+Render\+Range()}{sparklineRenderRange()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sparkline\+Render\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{output,  }\item[{struct \hyperlink{structsequence}{sequence} $\ast$}]{seq,  }\item[{int}]{rows,  }\item[{int}]{offset,  }\item[{int}]{len,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 97 of file sparkline.\+c.
+
+\mbox{\Hypertarget{sparkline_8h_a9a0217ff91495b58076d52226bacbf06}\label{sparkline_8h_a9a0217ff91495b58076d52226bacbf06}} 
+\index{sparkline.\+h@{sparkline.\+h}!sparkline\+Sequence\+Add\+Sample@{sparkline\+Sequence\+Add\+Sample}}
+\index{sparkline\+Sequence\+Add\+Sample@{sparkline\+Sequence\+Add\+Sample}!sparkline.\+h@{sparkline.\+h}}
+\subsubsection{\texorpdfstring{sparkline\+Sequence\+Add\+Sample()}{sparklineSequenceAddSample()}}
+{\footnotesize\ttfamily void sparkline\+Sequence\+Add\+Sample (\begin{DoxyParamCaption}\item[{struct \hyperlink{structsequence}{sequence} $\ast$}]{seq,  }\item[{double}]{value,  }\item[{char $\ast$}]{label }\end{DoxyParamCaption})}
+
+
+
+Definition at line 65 of file sparkline.\+c.
+

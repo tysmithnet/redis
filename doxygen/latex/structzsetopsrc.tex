@@ -1,0 +1,248 @@
+\hypertarget{structzsetopsrc}{}\section{zsetopsrc Struct Reference}
+\label{structzsetopsrc}\index{zsetopsrc@{zsetopsrc}}
+
+
+Collaboration diagram for zsetopsrc\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structzsetopsrc__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{structzsetopsrc_a8bd087874443f3e41cf5f728d8490693}{subject}
+\item 
+int \hyperlink{structzsetopsrc_ac765329451135abec74c45e1897abf26}{type}
+\item 
+int \hyperlink{structzsetopsrc_ad1b45f33065aae3c757f56a692b25741}{encoding}
+\item 
+double \hyperlink{structzsetopsrc_a99108733d00274978a4979dc072bd513}{weight}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>union {\bfseries \_iterset} \{\\
+\>\>struct \{\\
+\>\>\>\hyperlink{structintset}{intset} $\ast$ \hyperlink{structzsetopsrc_ac4d4f9a0415679602254219d56c0bd08}{is}\\
+\>\>\>int \hyperlink{structzsetopsrc_aa5b6e783cf10163187df5705f0d82d47}{ii}\\
+\>\>\} \hyperlink{structzsetopsrc_a71dffe01ae0ae6b648de3cba547ce618}{is}\\
+\>\>struct \{\\
+\>\>\>\hyperlink{structdict}{dict} $\ast$ \hyperlink{structzsetopsrc_aad961c2f260766ff3627bf363fef3551}{dict}\\
+\>\>\>\hyperlink{structdict_iterator}{dictIterator} $\ast$ \hyperlink{structzsetopsrc_a30e26ff2250d4d8b49241087d755342a}{di}\\
+\>\>\>\hyperlink{structdict_entry}{dictEntry} $\ast$ \hyperlink{structzsetopsrc_ad42c838fd43654444c8d4492319e1949}{de}\\
+\>\>\} \hyperlink{structzsetopsrc_a7d5e82c5e0e4e3a3efa3e85e6f17c712}{ht}\\
+\>\} \hyperlink{structzsetopsrc_a139212a862c05a31a4c3abc578bee0c2}{set}\\
+\>union {\bfseries \_iterzset} \{\\
+\>\>struct \{\\
+\>\>\>unsigned char $\ast$ \hyperlink{structzsetopsrc_a1ae48f85ded0fe46acd8864ac807f6b8}{zl}\\
+\>\>\>unsigned char $\ast$ \hyperlink{structzsetopsrc_ab803ff63f701b36124754066cd4906a3}{eptr}\\
+\>\>\>unsigned char $\ast$ \hyperlink{structzsetopsrc_a6d94cfd968493648b308d82dbbba29ad}{sptr}\\
+\>\>\} \hyperlink{structzsetopsrc_a1e59c58aa883d968f1b76dda5007f997}{zl}\\
+\>\>struct \{\\
+\>\>\>\hyperlink{structzset}{zset} $\ast$ \hyperlink{structzsetopsrc_acfaaf23971feb28907603a957a249d76}{zs}\\
+\>\>\>\hyperlink{structzskiplist_node}{zskiplistNode} $\ast$ \hyperlink{structzsetopsrc_aa0621020c7ab4834a7085ba6403923f3}{node}\\
+\>\>\} \hyperlink{structzsetopsrc_a990a7be8e5af7e6ce7367fb6f6ccb00e}{sl}\\
+\>\} \hyperlink{structzsetopsrc_a70d92d92e5ed083a01384708f2e5c6eb}{zset}\\
+\} \hyperlink{structzsetopsrc_a8a89af2cb6f746c6a9df3b35d078af7c}{iter}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 1808 of file t\+\_\+zset.\+c.
+
+
+
+\subsection{Field Documentation}
+\mbox{\Hypertarget{structzsetopsrc_ad42c838fd43654444c8d4492319e1949}\label{structzsetopsrc_ad42c838fd43654444c8d4492319e1949}} 
+\index{zsetopsrc@{zsetopsrc}!de@{de}}
+\index{de@{de}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{de}{de}}
+{\footnotesize\ttfamily \hyperlink{structdict_entry}{dict\+Entry}$\ast$ de}
+
+
+
+Definition at line 1824 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_a30e26ff2250d4d8b49241087d755342a}\label{structzsetopsrc_a30e26ff2250d4d8b49241087d755342a}} 
+\index{zsetopsrc@{zsetopsrc}!di@{di}}
+\index{di@{di}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{di}{di}}
+{\footnotesize\ttfamily \hyperlink{structdict_iterator}{dict\+Iterator}$\ast$ di}
+
+
+
+Definition at line 1823 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_aad961c2f260766ff3627bf363fef3551}\label{structzsetopsrc_aad961c2f260766ff3627bf363fef3551}} 
+\index{zsetopsrc@{zsetopsrc}!dict@{dict}}
+\index{dict@{dict}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{dict}{dict}}
+{\footnotesize\ttfamily \hyperlink{structdict}{dict}$\ast$ \hyperlink{structdict}{dict}}
+
+
+
+Definition at line 1822 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_ad1b45f33065aae3c757f56a692b25741}\label{structzsetopsrc_ad1b45f33065aae3c757f56a692b25741}} 
+\index{zsetopsrc@{zsetopsrc}!encoding@{encoding}}
+\index{encoding@{encoding}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{encoding}{encoding}}
+{\footnotesize\ttfamily int encoding}
+
+
+
+Definition at line 1811 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_ab803ff63f701b36124754066cd4906a3}\label{structzsetopsrc_ab803ff63f701b36124754066cd4906a3}} 
+\index{zsetopsrc@{zsetopsrc}!eptr@{eptr}}
+\index{eptr@{eptr}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{eptr}{eptr}}
+{\footnotesize\ttfamily unsigned char$\ast$ eptr}
+
+
+
+Definition at line 1832 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_a7d5e82c5e0e4e3a3efa3e85e6f17c712}\label{structzsetopsrc_a7d5e82c5e0e4e3a3efa3e85e6f17c712}} 
+\index{zsetopsrc@{zsetopsrc}!ht@{ht}}
+\index{ht@{ht}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{ht}{ht}}
+{\footnotesize\ttfamily struct \{ ... \}   ht}
+
+\mbox{\Hypertarget{structzsetopsrc_aa5b6e783cf10163187df5705f0d82d47}\label{structzsetopsrc_aa5b6e783cf10163187df5705f0d82d47}} 
+\index{zsetopsrc@{zsetopsrc}!ii@{ii}}
+\index{ii@{ii}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{ii}{ii}}
+{\footnotesize\ttfamily int ii}
+
+
+
+Definition at line 1819 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_ac4d4f9a0415679602254219d56c0bd08}\label{structzsetopsrc_ac4d4f9a0415679602254219d56c0bd08}} 
+\index{zsetopsrc@{zsetopsrc}!is@{is}}
+\index{is@{is}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{is}{is}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \hyperlink{structintset}{intset}$\ast$ is}
+
+
+
+Definition at line 1818 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_a71dffe01ae0ae6b648de3cba547ce618}\label{structzsetopsrc_a71dffe01ae0ae6b648de3cba547ce618}} 
+\index{zsetopsrc@{zsetopsrc}!is@{is}}
+\index{is@{is}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{is}{is}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily struct \{ ... \}   is}
+
+\mbox{\Hypertarget{structzsetopsrc_a8a89af2cb6f746c6a9df3b35d078af7c}\label{structzsetopsrc_a8a89af2cb6f746c6a9df3b35d078af7c}} 
+\index{zsetopsrc@{zsetopsrc}!iter@{iter}}
+\index{iter@{iter}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{iter}{iter}}
+{\footnotesize\ttfamily union \{ ... \}   iter}
+
+\mbox{\Hypertarget{structzsetopsrc_aa0621020c7ab4834a7085ba6403923f3}\label{structzsetopsrc_aa0621020c7ab4834a7085ba6403923f3}} 
+\index{zsetopsrc@{zsetopsrc}!node@{node}}
+\index{node@{node}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{node}{node}}
+{\footnotesize\ttfamily \hyperlink{structzskiplist_node}{zskiplist\+Node}$\ast$ node}
+
+
+
+Definition at line 1836 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_a139212a862c05a31a4c3abc578bee0c2}\label{structzsetopsrc_a139212a862c05a31a4c3abc578bee0c2}} 
+\index{zsetopsrc@{zsetopsrc}!set@{set}}
+\index{set@{set}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{set}{set}}
+{\footnotesize\ttfamily union \{ ... \} \+::\+\_\+iterset  set}
+
+\mbox{\Hypertarget{structzsetopsrc_a990a7be8e5af7e6ce7367fb6f6ccb00e}\label{structzsetopsrc_a990a7be8e5af7e6ce7367fb6f6ccb00e}} 
+\index{zsetopsrc@{zsetopsrc}!sl@{sl}}
+\index{sl@{sl}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{sl}{sl}}
+{\footnotesize\ttfamily struct \{ ... \}   sl}
+
+\mbox{\Hypertarget{structzsetopsrc_a6d94cfd968493648b308d82dbbba29ad}\label{structzsetopsrc_a6d94cfd968493648b308d82dbbba29ad}} 
+\index{zsetopsrc@{zsetopsrc}!sptr@{sptr}}
+\index{sptr@{sptr}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{sptr}{sptr}}
+{\footnotesize\ttfamily unsigned char $\ast$ sptr}
+
+
+
+Definition at line 1832 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_a8bd087874443f3e41cf5f728d8490693}\label{structzsetopsrc_a8bd087874443f3e41cf5f728d8490693}} 
+\index{zsetopsrc@{zsetopsrc}!subject@{subject}}
+\index{subject@{subject}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{subject}{subject}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ subject}
+
+
+
+Definition at line 1809 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_ac765329451135abec74c45e1897abf26}\label{structzsetopsrc_ac765329451135abec74c45e1897abf26}} 
+\index{zsetopsrc@{zsetopsrc}!type@{type}}
+\index{type@{type}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily int type}
+
+
+
+Definition at line 1810 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_a99108733d00274978a4979dc072bd513}\label{structzsetopsrc_a99108733d00274978a4979dc072bd513}} 
+\index{zsetopsrc@{zsetopsrc}!weight@{weight}}
+\index{weight@{weight}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{weight}{weight}}
+{\footnotesize\ttfamily double weight}
+
+
+
+Definition at line 1812 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_a1ae48f85ded0fe46acd8864ac807f6b8}\label{structzsetopsrc_a1ae48f85ded0fe46acd8864ac807f6b8}} 
+\index{zsetopsrc@{zsetopsrc}!zl@{zl}}
+\index{zl@{zl}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{zl}{zl}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily unsigned char$\ast$ zl}
+
+
+
+Definition at line 1831 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_a1e59c58aa883d968f1b76dda5007f997}\label{structzsetopsrc_a1e59c58aa883d968f1b76dda5007f997}} 
+\index{zsetopsrc@{zsetopsrc}!zl@{zl}}
+\index{zl@{zl}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{zl}{zl}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily struct \{ ... \}   zl}
+
+\mbox{\Hypertarget{structzsetopsrc_acfaaf23971feb28907603a957a249d76}\label{structzsetopsrc_acfaaf23971feb28907603a957a249d76}} 
+\index{zsetopsrc@{zsetopsrc}!zs@{zs}}
+\index{zs@{zs}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{zs}{zs}}
+{\footnotesize\ttfamily \hyperlink{structzset}{zset}$\ast$ zs}
+
+
+
+Definition at line 1835 of file t\+\_\+zset.\+c.
+
+\mbox{\Hypertarget{structzsetopsrc_a70d92d92e5ed083a01384708f2e5c6eb}\label{structzsetopsrc_a70d92d92e5ed083a01384708f2e5c6eb}} 
+\index{zsetopsrc@{zsetopsrc}!zset@{zset}}
+\index{zset@{zset}!zsetopsrc@{zsetopsrc}}
+\subsubsection{\texorpdfstring{zset}{zset}}
+{\footnotesize\ttfamily union \{ ... \} \+::\+\_\+iterzset  \hyperlink{structzset}{zset}}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\hyperlink{t__zset_8c}{t\+\_\+zset.\+c}\end{DoxyCompactItemize}

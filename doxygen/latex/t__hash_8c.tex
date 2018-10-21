@@ -1,0 +1,480 @@
+\hypertarget{t__hash_8c}{}\section{src/t\+\_\+hash.c File Reference}
+\label{t__hash_8c}\index{src/t\+\_\+hash.\+c@{src/t\+\_\+hash.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for t\+\_\+hash.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{t__hash_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{t__hash_8c_a9c13f8e0e439bfde94687cb01ab81b4b}{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+F\+I\+E\+LD}~(1$<$$<$0)
+\item 
+\#define \hyperlink{t__hash_8c_a6835ddf42816b819b74a677170d6f304}{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+V\+A\+L\+UE}~(1$<$$<$1)
+\item 
+\#define \hyperlink{t__hash_8c_ad182dd9d0a3945ad3fb4045e559b612e}{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+C\+O\+PY}~0
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{t__hash_8c_acb7e1f73559637e75daa39993caec557}{hash\+Type\+Try\+Conversion} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int start, int end)
+\item 
+int \hyperlink{t__hash_8c_a2a5cb9e37a1ed81d18647811998c81dd}{hash\+Type\+Get\+From\+Ziplist} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} field, unsigned char $\ast$$\ast$vstr, unsigned int $\ast$vlen, long long $\ast$vll)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{t__hash_8c_ae40ae897190bc45d6c0dba0c7df34204}{hash\+Type\+Get\+From\+Hash\+Table} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} field)
+\item 
+int \hyperlink{t__hash_8c_a4d06a75d7839e142812aafafa9389475}{hash\+Type\+Get\+Value} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} field, unsigned char $\ast$$\ast$vstr, unsigned int $\ast$vlen, long long $\ast$vll)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{t__hash_8c_ad663b93a864d64ac5bb51d3e527bdcea}{hash\+Type\+Get\+Value\+Object} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} field)
+\item 
+size\+\_\+t \hyperlink{t__hash_8c_a2b146a29e9ad6019bab8d6590905b561}{hash\+Type\+Get\+Value\+Length} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} field)
+\item 
+int \hyperlink{t__hash_8c_aff09222c8f3e24eb48010b4612567138}{hash\+Type\+Exists} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} field)
+\item 
+int \hyperlink{t__hash_8c_a030ac5dcac71e78db04a9e2c8736d961}{hash\+Type\+Set} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} field, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} value, int flags)
+\item 
+int \hyperlink{t__hash_8c_aad5f7ade80b51146a626ef5082d51145}{hash\+Type\+Delete} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} field)
+\item 
+unsigned long \hyperlink{t__hash_8c_a7f225e83772a440c7308a248849a7876}{hash\+Type\+Length} (const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+\hyperlink{structhash_type_iterator}{hash\+Type\+Iterator} $\ast$ \hyperlink{t__hash_8c_a8fa3db85b4dd4dd98533b0db16a71afa}{hash\+Type\+Init\+Iterator} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$subject)
+\item 
+void \hyperlink{t__hash_8c_aaabe35ea77e9cbba7d3612a5e9c02db0}{hash\+Type\+Release\+Iterator} (\hyperlink{structhash_type_iterator}{hash\+Type\+Iterator} $\ast$hi)
+\item 
+int \hyperlink{t__hash_8c_ad9fc406f9f63462e1280d73be113dda8}{hash\+Type\+Next} (\hyperlink{structhash_type_iterator}{hash\+Type\+Iterator} $\ast$hi)
+\item 
+void \hyperlink{t__hash_8c_aa40a41d3284bc006b2f144c7ecc90d0f}{hash\+Type\+Current\+From\+Ziplist} (\hyperlink{structhash_type_iterator}{hash\+Type\+Iterator} $\ast$hi, int what, unsigned char $\ast$$\ast$vstr, unsigned int $\ast$vlen, long long $\ast$vll)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{t__hash_8c_aa9f4bb0c3d426cbe3b26fbbe8ba6a50d}{hash\+Type\+Current\+From\+Hash\+Table} (\hyperlink{structhash_type_iterator}{hash\+Type\+Iterator} $\ast$hi, int what)
+\item 
+void \hyperlink{t__hash_8c_ad4c124e808e9d6c2dcfc607900559b39}{hash\+Type\+Current\+Object} (\hyperlink{structhash_type_iterator}{hash\+Type\+Iterator} $\ast$hi, int what, unsigned char $\ast$$\ast$vstr, unsigned int $\ast$vlen, long long $\ast$vll)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{t__hash_8c_a933810be00b0a43883adc52fa034cd3e}{hash\+Type\+Current\+Object\+New\+Sds} (\hyperlink{structhash_type_iterator}{hash\+Type\+Iterator} $\ast$hi, int what)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{t__hash_8c_a9bc0bb87d7b8d177e130c7f0306414a2}{hash\+Type\+Lookup\+Write\+Or\+Create} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\item 
+void \hyperlink{t__hash_8c_a046210ab829bc208f2ca1b5704dbe3c0}{hash\+Type\+Convert\+Ziplist} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, int enc)
+\item 
+void \hyperlink{t__hash_8c_a190120fa32883118e8199dabbb5e1f83}{hash\+Type\+Convert} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, int enc)
+\item 
+void \hyperlink{t__hash_8c_aedd7251bdcd9ca336153d90aa7a01b0b}{hsetnx\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__hash_8c_a8f47603665c339a8ba7c6831119235f7}{hset\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__hash_8c_a65f143a5917f723c20d209d56f2f909c}{hincrby\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__hash_8c_a9aa38ab80a6a76dcb9edc0c24332d65b}{hincrbyfloat\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__hash_8c_a189bf86d6a43bf93596b169db47b5528}{hget\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__hash_8c_a521a4712dde25cca82bef5a42a48e7dd}{hmget\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__hash_8c_a3d9bb3651349ff303085988d23117fd1}{hdel\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__hash_8c_aa58c7aa9d28d027fbcecca9fc4443e40}{hlen\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__hash_8c_af807f6a1ed93f11b51bf3d834b859b0a}{hstrlen\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__hash_8c_aa23e2262e9a54149a1fad5127cf9d729}{generic\+Hgetall\+Command} (\hyperlink{structclient}{client} $\ast$c, int flags)
+\item 
+void \hyperlink{t__hash_8c_ac3639325926480a4762281da684484a8}{hkeys\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__hash_8c_ab430d96c57f42f9856a1db7400eaadcb}{hvals\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__hash_8c_a7d57bb74515d8874cf4f25a7b4c85a30}{hgetall\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__hash_8c_a0a62e324503ec3accad9680554df26d0}{hexists\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{t__hash_8c_a6ac9f9314c1788f7cc8549ea40d4efb1}{hscan\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{t__hash_8c_ad182dd9d0a3945ad3fb4045e559b612e}\label{t__hash_8c_ad182dd9d0a3945ad3fb4045e559b612e}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+C\+O\+PY@{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+C\+O\+PY}}
+\index{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+C\+O\+PY@{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+C\+O\+PY}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+C\+O\+PY}{HASH\_SET\_COPY}}
+{\footnotesize\ttfamily \#define H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+C\+O\+PY~0}
+
+
+
+Definition at line 201 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a9c13f8e0e439bfde94687cb01ab81b4b}\label{t__hash_8c_a9c13f8e0e439bfde94687cb01ab81b4b}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+F\+I\+E\+LD@{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+F\+I\+E\+LD}}
+\index{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+F\+I\+E\+LD@{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+F\+I\+E\+LD}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+F\+I\+E\+LD}{HASH\_SET\_TAKE\_FIELD}}
+{\footnotesize\ttfamily \#define H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+F\+I\+E\+LD~(1$<$$<$0)}
+
+
+
+Definition at line 199 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a6835ddf42816b819b74a677170d6f304}\label{t__hash_8c_a6835ddf42816b819b74a677170d6f304}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+V\+A\+L\+UE@{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+V\+A\+L\+UE}}
+\index{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+V\+A\+L\+UE@{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+V\+A\+L\+UE}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+V\+A\+L\+UE}{HASH\_SET\_TAKE\_VALUE}}
+{\footnotesize\ttfamily \#define H\+A\+S\+H\+\_\+\+S\+E\+T\+\_\+\+T\+A\+K\+E\+\_\+\+V\+A\+L\+UE~(1$<$$<$1)}
+
+
+
+Definition at line 200 of file t\+\_\+hash.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{t__hash_8c_aa23e2262e9a54149a1fad5127cf9d729}\label{t__hash_8c_aa23e2262e9a54149a1fad5127cf9d729}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!generic\+Hgetall\+Command@{generic\+Hgetall\+Command}}
+\index{generic\+Hgetall\+Command@{generic\+Hgetall\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{generic\+Hgetall\+Command()}{genericHgetallCommand()}}
+{\footnotesize\ttfamily void generic\+Hgetall\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 766 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a190120fa32883118e8199dabbb5e1f83}\label{t__hash_8c_a190120fa32883118e8199dabbb5e1f83}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Convert@{hash\+Type\+Convert}}
+\index{hash\+Type\+Convert@{hash\+Type\+Convert}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Convert()}{hashTypeConvert()}}
+{\footnotesize\ttfamily void hash\+Type\+Convert (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{int}]{enc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 500 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a046210ab829bc208f2ca1b5704dbe3c0}\label{t__hash_8c_a046210ab829bc208f2ca1b5704dbe3c0}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Convert\+Ziplist@{hash\+Type\+Convert\+Ziplist}}
+\index{hash\+Type\+Convert\+Ziplist@{hash\+Type\+Convert\+Ziplist}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Convert\+Ziplist()}{hashTypeConvertZiplist()}}
+{\footnotesize\ttfamily void hash\+Type\+Convert\+Ziplist (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{int}]{enc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 465 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_aa9f4bb0c3d426cbe3b26fbbe8ba6a50d}\label{t__hash_8c_aa9f4bb0c3d426cbe3b26fbbe8ba6a50d}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Current\+From\+Hash\+Table@{hash\+Type\+Current\+From\+Hash\+Table}}
+\index{hash\+Type\+Current\+From\+Hash\+Table@{hash\+Type\+Current\+From\+Hash\+Table}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Current\+From\+Hash\+Table()}{hashTypeCurrentFromHashTable()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} hash\+Type\+Current\+From\+Hash\+Table (\begin{DoxyParamCaption}\item[{\hyperlink{structhash_type_iterator}{hash\+Type\+Iterator} $\ast$}]{hi,  }\item[{int}]{what }\end{DoxyParamCaption})}
+
+
+
+Definition at line 406 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_aa40a41d3284bc006b2f144c7ecc90d0f}\label{t__hash_8c_aa40a41d3284bc006b2f144c7ecc90d0f}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Current\+From\+Ziplist@{hash\+Type\+Current\+From\+Ziplist}}
+\index{hash\+Type\+Current\+From\+Ziplist@{hash\+Type\+Current\+From\+Ziplist}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Current\+From\+Ziplist()}{hashTypeCurrentFromZiplist()}}
+{\footnotesize\ttfamily void hash\+Type\+Current\+From\+Ziplist (\begin{DoxyParamCaption}\item[{\hyperlink{structhash_type_iterator}{hash\+Type\+Iterator} $\ast$}]{hi,  }\item[{int}]{what,  }\item[{unsigned char $\ast$$\ast$}]{vstr,  }\item[{unsigned int $\ast$}]{vlen,  }\item[{long long $\ast$}]{vll }\end{DoxyParamCaption})}
+
+
+
+Definition at line 385 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_ad4c124e808e9d6c2dcfc607900559b39}\label{t__hash_8c_ad4c124e808e9d6c2dcfc607900559b39}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Current\+Object@{hash\+Type\+Current\+Object}}
+\index{hash\+Type\+Current\+Object@{hash\+Type\+Current\+Object}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Current\+Object()}{hashTypeCurrentObject()}}
+{\footnotesize\ttfamily void hash\+Type\+Current\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{structhash_type_iterator}{hash\+Type\+Iterator} $\ast$}]{hi,  }\item[{int}]{what,  }\item[{unsigned char $\ast$$\ast$}]{vstr,  }\item[{unsigned int $\ast$}]{vlen,  }\item[{long long $\ast$}]{vll }\end{DoxyParamCaption})}
+
+
+
+Definition at line 426 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a933810be00b0a43883adc52fa034cd3e}\label{t__hash_8c_a933810be00b0a43883adc52fa034cd3e}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Current\+Object\+New\+Sds@{hash\+Type\+Current\+Object\+New\+Sds}}
+\index{hash\+Type\+Current\+Object\+New\+Sds@{hash\+Type\+Current\+Object\+New\+Sds}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Current\+Object\+New\+Sds()}{hashTypeCurrentObjectNewSds()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} hash\+Type\+Current\+Object\+New\+Sds (\begin{DoxyParamCaption}\item[{\hyperlink{structhash_type_iterator}{hash\+Type\+Iterator} $\ast$}]{hi,  }\item[{int}]{what }\end{DoxyParamCaption})}
+
+
+
+Definition at line 441 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_aad5f7ade80b51146a626ef5082d51145}\label{t__hash_8c_aad5f7ade80b51146a626ef5082d51145}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Delete@{hash\+Type\+Delete}}
+\index{hash\+Type\+Delete@{hash\+Type\+Delete}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Delete()}{hashTypeDelete()}}
+{\footnotesize\ttfamily int hash\+Type\+Delete (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{field }\end{DoxyParamCaption})}
+
+
+
+Definition at line 279 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_aff09222c8f3e24eb48010b4612567138}\label{t__hash_8c_aff09222c8f3e24eb48010b4612567138}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Exists@{hash\+Type\+Exists}}
+\index{hash\+Type\+Exists@{hash\+Type\+Exists}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Exists()}{hashTypeExists()}}
+{\footnotesize\ttfamily int hash\+Type\+Exists (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{field }\end{DoxyParamCaption})}
+
+
+
+Definition at line 166 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_ae40ae897190bc45d6c0dba0c7df34204}\label{t__hash_8c_ae40ae897190bc45d6c0dba0c7df34204}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Get\+From\+Hash\+Table@{hash\+Type\+Get\+From\+Hash\+Table}}
+\index{hash\+Type\+Get\+From\+Hash\+Table@{hash\+Type\+Get\+From\+Hash\+Table}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Get\+From\+Hash\+Table()}{hashTypeGetFromHashTable()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} hash\+Type\+Get\+From\+Hash\+Table (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{field }\end{DoxyParamCaption})}
+
+
+
+Definition at line 90 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a2a5cb9e37a1ed81d18647811998c81dd}\label{t__hash_8c_a2a5cb9e37a1ed81d18647811998c81dd}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Get\+From\+Ziplist@{hash\+Type\+Get\+From\+Ziplist}}
+\index{hash\+Type\+Get\+From\+Ziplist@{hash\+Type\+Get\+From\+Ziplist}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Get\+From\+Ziplist()}{hashTypeGetFromZiplist()}}
+{\footnotesize\ttfamily int hash\+Type\+Get\+From\+Ziplist (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{field,  }\item[{unsigned char $\ast$$\ast$}]{vstr,  }\item[{unsigned int $\ast$}]{vlen,  }\item[{long long $\ast$}]{vll }\end{DoxyParamCaption})}
+
+
+
+Definition at line 57 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a4d06a75d7839e142812aafafa9389475}\label{t__hash_8c_a4d06a75d7839e142812aafafa9389475}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Get\+Value@{hash\+Type\+Get\+Value}}
+\index{hash\+Type\+Get\+Value@{hash\+Type\+Get\+Value}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Get\+Value()}{hashTypeGetValue()}}
+{\footnotesize\ttfamily int hash\+Type\+Get\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{field,  }\item[{unsigned char $\ast$$\ast$}]{vstr,  }\item[{unsigned int $\ast$}]{vlen,  }\item[{long long $\ast$}]{vll }\end{DoxyParamCaption})}
+
+
+
+Definition at line 109 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a2b146a29e9ad6019bab8d6590905b561}\label{t__hash_8c_a2b146a29e9ad6019bab8d6590905b561}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Get\+Value\+Length@{hash\+Type\+Get\+Value\+Length}}
+\index{hash\+Type\+Get\+Value\+Length@{hash\+Type\+Get\+Value\+Length}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Get\+Value\+Length()}{hashTypeGetValueLength()}}
+{\footnotesize\ttfamily size\+\_\+t hash\+Type\+Get\+Value\+Length (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{field }\end{DoxyParamCaption})}
+
+
+
+Definition at line 144 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_ad663b93a864d64ac5bb51d3e527bdcea}\label{t__hash_8c_ad663b93a864d64ac5bb51d3e527bdcea}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Get\+Value\+Object@{hash\+Type\+Get\+Value\+Object}}
+\index{hash\+Type\+Get\+Value\+Object@{hash\+Type\+Get\+Value\+Object}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Get\+Value\+Object()}{hashTypeGetValueObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ hash\+Type\+Get\+Value\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{field }\end{DoxyParamCaption})}
+
+
+
+Definition at line 131 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a8fa3db85b4dd4dd98533b0db16a71afa}\label{t__hash_8c_a8fa3db85b4dd4dd98533b0db16a71afa}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Init\+Iterator@{hash\+Type\+Init\+Iterator}}
+\index{hash\+Type\+Init\+Iterator@{hash\+Type\+Init\+Iterator}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Init\+Iterator()}{hashTypeInitIterator()}}
+{\footnotesize\ttfamily \hyperlink{structhash_type_iterator}{hash\+Type\+Iterator}$\ast$ hash\+Type\+Init\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{subject }\end{DoxyParamCaption})}
+
+
+
+Definition at line 324 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a7f225e83772a440c7308a248849a7876}\label{t__hash_8c_a7f225e83772a440c7308a248849a7876}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Length@{hash\+Type\+Length}}
+\index{hash\+Type\+Length@{hash\+Type\+Length}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Length()}{hashTypeLength()}}
+{\footnotesize\ttfamily unsigned long hash\+Type\+Length (\begin{DoxyParamCaption}\item[{const \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 311 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a9bc0bb87d7b8d177e130c7f0306414a2}\label{t__hash_8c_a9bc0bb87d7b8d177e130c7f0306414a2}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Lookup\+Write\+Or\+Create@{hash\+Type\+Lookup\+Write\+Or\+Create}}
+\index{hash\+Type\+Lookup\+Write\+Or\+Create@{hash\+Type\+Lookup\+Write\+Or\+Create}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Lookup\+Write\+Or\+Create()}{hashTypeLookupWriteOrCreate()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ hash\+Type\+Lookup\+Write\+Or\+Create (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 451 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_ad9fc406f9f63462e1280d73be113dda8}\label{t__hash_8c_ad9fc406f9f63462e1280d73be113dda8}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Next@{hash\+Type\+Next}}
+\index{hash\+Type\+Next@{hash\+Type\+Next}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Next()}{hashTypeNext()}}
+{\footnotesize\ttfamily int hash\+Type\+Next (\begin{DoxyParamCaption}\item[{\hyperlink{structhash_type_iterator}{hash\+Type\+Iterator} $\ast$}]{hi }\end{DoxyParamCaption})}
+
+
+
+Definition at line 348 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_aaabe35ea77e9cbba7d3612a5e9c02db0}\label{t__hash_8c_aaabe35ea77e9cbba7d3612a5e9c02db0}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Release\+Iterator@{hash\+Type\+Release\+Iterator}}
+\index{hash\+Type\+Release\+Iterator@{hash\+Type\+Release\+Iterator}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Release\+Iterator()}{hashTypeReleaseIterator()}}
+{\footnotesize\ttfamily void hash\+Type\+Release\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{structhash_type_iterator}{hash\+Type\+Iterator} $\ast$}]{hi }\end{DoxyParamCaption})}
+
+
+
+Definition at line 340 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a030ac5dcac71e78db04a9e2c8736d961}\label{t__hash_8c_a030ac5dcac71e78db04a9e2c8736d961}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Set@{hash\+Type\+Set}}
+\index{hash\+Type\+Set@{hash\+Type\+Set}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Set()}{hashTypeSet()}}
+{\footnotesize\ttfamily int hash\+Type\+Set (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{field,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{value,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 202 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_acb7e1f73559637e75daa39993caec557}\label{t__hash_8c_acb7e1f73559637e75daa39993caec557}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hash\+Type\+Try\+Conversion@{hash\+Type\+Try\+Conversion}}
+\index{hash\+Type\+Try\+Conversion@{hash\+Type\+Try\+Conversion}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hash\+Type\+Try\+Conversion()}{hashTypeTryConversion()}}
+{\footnotesize\ttfamily void hash\+Type\+Try\+Conversion (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{start,  }\item[{int}]{end }\end{DoxyParamCaption})}
+
+
+
+Definition at line 40 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a3d9bb3651349ff303085988d23117fd1}\label{t__hash_8c_a3d9bb3651349ff303085988d23117fd1}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hdel\+Command@{hdel\+Command}}
+\index{hdel\+Command@{hdel\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hdel\+Command()}{hdelCommand()}}
+{\footnotesize\ttfamily void hdel\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 702 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a0a62e324503ec3accad9680554df26d0}\label{t__hash_8c_a0a62e324503ec3accad9680554df26d0}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hexists\+Command@{hexists\+Command}}
+\index{hexists\+Command@{hexists\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hexists\+Command()}{hexistsCommand()}}
+{\footnotesize\ttfamily void hexists\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 809 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a7d57bb74515d8874cf4f25a7b4c85a30}\label{t__hash_8c_a7d57bb74515d8874cf4f25a7b4c85a30}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hgetall\+Command@{hgetall\+Command}}
+\index{hgetall\+Command@{hgetall\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hgetall\+Command()}{hgetallCommand()}}
+{\footnotesize\ttfamily void hgetall\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 805 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a189bf86d6a43bf93596b169db47b5528}\label{t__hash_8c_a189bf86d6a43bf93596b169db47b5528}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hget\+Command@{hget\+Command}}
+\index{hget\+Command@{hget\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hget\+Command()}{hgetCommand()}}
+{\footnotesize\ttfamily void hget\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 675 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a65f143a5917f723c20d209d56f2f909c}\label{t__hash_8c_a65f143a5917f723c20d209d56f2f909c}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hincrby\+Command@{hincrby\+Command}}
+\index{hincrby\+Command@{hincrby\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hincrby\+Command()}{hincrbyCommand()}}
+{\footnotesize\ttfamily void hincrby\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 559 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a9aa38ab80a6a76dcb9edc0c24332d65b}\label{t__hash_8c_a9aa38ab80a6a76dcb9edc0c24332d65b}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hincrbyfloat\+Command@{hincrbyfloat\+Command}}
+\index{hincrbyfloat\+Command@{hincrbyfloat\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hincrbyfloat\+Command()}{hincrbyfloatCommand()}}
+{\footnotesize\ttfamily void hincrbyfloat\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 594 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_ac3639325926480a4762281da684484a8}\label{t__hash_8c_ac3639325926480a4762281da684484a8}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hkeys\+Command@{hkeys\+Command}}
+\index{hkeys\+Command@{hkeys\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hkeys\+Command()}{hkeysCommand()}}
+{\footnotesize\ttfamily void hkeys\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 797 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_aa58c7aa9d28d027fbcecca9fc4443e40}\label{t__hash_8c_aa58c7aa9d28d027fbcecca9fc4443e40}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hlen\+Command@{hlen\+Command}}
+\index{hlen\+Command@{hlen\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hlen\+Command()}{hlenCommand()}}
+{\footnotesize\ttfamily void hlen\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 730 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a521a4712dde25cca82bef5a42a48e7dd}\label{t__hash_8c_a521a4712dde25cca82bef5a42a48e7dd}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hmget\+Command@{hmget\+Command}}
+\index{hmget\+Command@{hmget\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hmget\+Command()}{hmgetCommand()}}
+{\footnotesize\ttfamily void hmget\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 684 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a6ac9f9314c1788f7cc8549ea40d4efb1}\label{t__hash_8c_a6ac9f9314c1788f7cc8549ea40d4efb1}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hscan\+Command@{hscan\+Command}}
+\index{hscan\+Command@{hscan\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hscan\+Command()}{hscanCommand()}}
+{\footnotesize\ttfamily void hscan\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 817 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_a8f47603665c339a8ba7c6831119235f7}\label{t__hash_8c_a8f47603665c339a8ba7c6831119235f7}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hset\+Command@{hset\+Command}}
+\index{hset\+Command@{hset\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hset\+Command()}{hsetCommand()}}
+{\footnotesize\ttfamily void hset\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 530 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_aedd7251bdcd9ca336153d90aa7a01b0b}\label{t__hash_8c_aedd7251bdcd9ca336153d90aa7a01b0b}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hsetnx\+Command@{hsetnx\+Command}}
+\index{hsetnx\+Command@{hsetnx\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hsetnx\+Command()}{hsetnxCommand()}}
+{\footnotesize\ttfamily void hsetnx\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 514 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_af807f6a1ed93f11b51bf3d834b859b0a}\label{t__hash_8c_af807f6a1ed93f11b51bf3d834b859b0a}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hstrlen\+Command@{hstrlen\+Command}}
+\index{hstrlen\+Command@{hstrlen\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hstrlen\+Command()}{hstrlenCommand()}}
+{\footnotesize\ttfamily void hstrlen\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 739 of file t\+\_\+hash.\+c.
+
+\mbox{\Hypertarget{t__hash_8c_ab430d96c57f42f9856a1db7400eaadcb}\label{t__hash_8c_ab430d96c57f42f9856a1db7400eaadcb}} 
+\index{t\+\_\+hash.\+c@{t\+\_\+hash.\+c}!hvals\+Command@{hvals\+Command}}
+\index{hvals\+Command@{hvals\+Command}!t\+\_\+hash.\+c@{t\+\_\+hash.\+c}}
+\subsubsection{\texorpdfstring{hvals\+Command()}{hvalsCommand()}}
+{\footnotesize\ttfamily void hvals\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 801 of file t\+\_\+hash.\+c.
+

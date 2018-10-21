@@ -1,0 +1,161 @@
+\hypertarget{blocked_8c}{}\section{src/blocked.c File Reference}
+\label{blocked_8c}\index{src/blocked.\+c@{src/blocked.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+Include dependency graph for blocked.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{blocked_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{blocked_8c_acee54087c0a6ead910e3563d56662e51}{serve\+Client\+Blocked\+On\+List} (\hyperlink{structclient}{client} $\ast$receiver, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$dstkey, \hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$value, int where)
+\item 
+int \hyperlink{blocked_8c_a8b1f52ac0a3c609f6a1fe56f74eca105}{get\+Timeout\+From\+Object\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$object, \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} $\ast$timeout, int unit)
+\item 
+void \hyperlink{blocked_8c_a74de4408ab9d5852571bb77e787a6f43}{block\+Client} (\hyperlink{structclient}{client} $\ast$c, int btype)
+\item 
+void \hyperlink{blocked_8c_a1d7d6a801531d229b34b082122c82d83}{process\+Unblocked\+Clients} (void)
+\item 
+void \hyperlink{blocked_8c_a14ba33762f354b0446d931d0c2cb5115}{queue\+Client\+For\+Reprocessing} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{blocked_8c_aa898365761ea14b64094f6c41bfac1cc}{unblock\+Client} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{blocked_8c_a013c052c4f60c072698f634122d2a663}{reply\+To\+Blocked\+Client\+Timed\+Out} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{blocked_8c_afcc84ef13fcfaaad019d877a335a957d}{disconnect\+All\+Blocked\+Clients} (void)
+\item 
+void \hyperlink{blocked_8c_a0a72a8d4066dc960cc7807ce1e57cb3d}{handle\+Clients\+Blocked\+On\+Keys} (void)
+\item 
+void \hyperlink{blocked_8c_a21803722976af0a4f308985e182db234}{block\+For\+Keys} (\hyperlink{structclient}{client} $\ast$c, int btype, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$\hyperlink{redis-check-rdb_8c_a1f3b6698ca8496c05e0c9c0d56cb36ac}{keys}, int numkeys, \hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} timeout, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$target, \hyperlink{structstream_i_d}{stream\+ID} $\ast$ids)
+\item 
+void \hyperlink{blocked_8c_a2dea35e2103a0b7e5fc0a7bb7c114dbc}{unblock\+Client\+Waiting\+Data} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{blocked_8c_a3682196014dceeaf539a825a73d57235}{signal\+Key\+As\+Ready} (\hyperlink{structredis_db}{redis\+Db} $\ast$db, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{blocked_8c_a74de4408ab9d5852571bb77e787a6f43}\label{blocked_8c_a74de4408ab9d5852571bb77e787a6f43}} 
+\index{blocked.\+c@{blocked.\+c}!block\+Client@{block\+Client}}
+\index{block\+Client@{block\+Client}!blocked.\+c@{blocked.\+c}}
+\subsubsection{\texorpdfstring{block\+Client()}{blockClient()}}
+{\footnotesize\ttfamily void block\+Client (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{btype }\end{DoxyParamCaption})}
+
+
+
+Definition at line 102 of file blocked.\+c.
+
+\mbox{\Hypertarget{blocked_8c_a21803722976af0a4f308985e182db234}\label{blocked_8c_a21803722976af0a4f308985e182db234}} 
+\index{blocked.\+c@{blocked.\+c}!block\+For\+Keys@{block\+For\+Keys}}
+\index{block\+For\+Keys@{block\+For\+Keys}!blocked.\+c@{blocked.\+c}}
+\subsubsection{\texorpdfstring{block\+For\+Keys()}{blockForKeys()}}
+{\footnotesize\ttfamily void block\+For\+Keys (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{int}]{btype,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{keys,  }\item[{int}]{numkeys,  }\item[{\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t}}]{timeout,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{target,  }\item[{\hyperlink{structstream_i_d}{stream\+ID} $\ast$}]{ids }\end{DoxyParamCaption})}
+
+
+
+Definition at line 497 of file blocked.\+c.
+
+\mbox{\Hypertarget{blocked_8c_afcc84ef13fcfaaad019d877a335a957d}\label{blocked_8c_afcc84ef13fcfaaad019d877a335a957d}} 
+\index{blocked.\+c@{blocked.\+c}!disconnect\+All\+Blocked\+Clients@{disconnect\+All\+Blocked\+Clients}}
+\index{disconnect\+All\+Blocked\+Clients@{disconnect\+All\+Blocked\+Clients}!blocked.\+c@{blocked.\+c}}
+\subsubsection{\texorpdfstring{disconnect\+All\+Blocked\+Clients()}{disconnectAllBlockedClients()}}
+{\footnotesize\ttfamily void disconnect\+All\+Blocked\+Clients (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 207 of file blocked.\+c.
+
+\mbox{\Hypertarget{blocked_8c_a8b1f52ac0a3c609f6a1fe56f74eca105}\label{blocked_8c_a8b1f52ac0a3c609f6a1fe56f74eca105}} 
+\index{blocked.\+c@{blocked.\+c}!get\+Timeout\+From\+Object\+Or\+Reply@{get\+Timeout\+From\+Object\+Or\+Reply}}
+\index{get\+Timeout\+From\+Object\+Or\+Reply@{get\+Timeout\+From\+Object\+Or\+Reply}!blocked.\+c@{blocked.\+c}}
+\subsubsection{\texorpdfstring{get\+Timeout\+From\+Object\+Or\+Reply()}{getTimeoutFromObjectOrReply()}}
+{\footnotesize\ttfamily int get\+Timeout\+From\+Object\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{object,  }\item[{\hyperlink{redismodule_8h_a652ae61e2475bc8957454534544968fc}{mstime\+\_\+t} $\ast$}]{timeout,  }\item[{int}]{unit }\end{DoxyParamCaption})}
+
+
+
+Definition at line 78 of file blocked.\+c.
+
+\mbox{\Hypertarget{blocked_8c_a0a72a8d4066dc960cc7807ce1e57cb3d}\label{blocked_8c_a0a72a8d4066dc960cc7807ce1e57cb3d}} 
+\index{blocked.\+c@{blocked.\+c}!handle\+Clients\+Blocked\+On\+Keys@{handle\+Clients\+Blocked\+On\+Keys}}
+\index{handle\+Clients\+Blocked\+On\+Keys@{handle\+Clients\+Blocked\+On\+Keys}!blocked.\+c@{blocked.\+c}}
+\subsubsection{\texorpdfstring{handle\+Clients\+Blocked\+On\+Keys()}{handleClientsBlockedOnKeys()}}
+{\footnotesize\ttfamily void handle\+Clients\+Blocked\+On\+Keys (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 246 of file blocked.\+c.
+
+\mbox{\Hypertarget{blocked_8c_a1d7d6a801531d229b34b082122c82d83}\label{blocked_8c_a1d7d6a801531d229b34b082122c82d83}} 
+\index{blocked.\+c@{blocked.\+c}!process\+Unblocked\+Clients@{process\+Unblocked\+Clients}}
+\index{process\+Unblocked\+Clients@{process\+Unblocked\+Clients}!blocked.\+c@{blocked.\+c}}
+\subsubsection{\texorpdfstring{process\+Unblocked\+Clients()}{processUnblockedClients()}}
+{\footnotesize\ttfamily void process\+Unblocked\+Clients (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 112 of file blocked.\+c.
+
+\mbox{\Hypertarget{blocked_8c_a14ba33762f354b0446d931d0c2cb5115}\label{blocked_8c_a14ba33762f354b0446d931d0c2cb5115}} 
+\index{blocked.\+c@{blocked.\+c}!queue\+Client\+For\+Reprocessing@{queue\+Client\+For\+Reprocessing}}
+\index{queue\+Client\+For\+Reprocessing@{queue\+Client\+For\+Reprocessing}!blocked.\+c@{blocked.\+c}}
+\subsubsection{\texorpdfstring{queue\+Client\+For\+Reprocessing()}{queueClientForReprocessing()}}
+{\footnotesize\ttfamily void queue\+Client\+For\+Reprocessing (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 151 of file blocked.\+c.
+
+\mbox{\Hypertarget{blocked_8c_a013c052c4f60c072698f634122d2a663}\label{blocked_8c_a013c052c4f60c072698f634122d2a663}} 
+\index{blocked.\+c@{blocked.\+c}!reply\+To\+Blocked\+Client\+Timed\+Out@{reply\+To\+Blocked\+Client\+Timed\+Out}}
+\index{reply\+To\+Blocked\+Client\+Timed\+Out@{reply\+To\+Blocked\+Client\+Timed\+Out}!blocked.\+c@{blocked.\+c}}
+\subsubsection{\texorpdfstring{reply\+To\+Blocked\+Client\+Timed\+Out()}{replyToBlockedClientTimedOut()}}
+{\footnotesize\ttfamily void reply\+To\+Blocked\+Client\+Timed\+Out (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 186 of file blocked.\+c.
+
+\mbox{\Hypertarget{blocked_8c_acee54087c0a6ead910e3563d56662e51}\label{blocked_8c_acee54087c0a6ead910e3563d56662e51}} 
+\index{blocked.\+c@{blocked.\+c}!serve\+Client\+Blocked\+On\+List@{serve\+Client\+Blocked\+On\+List}}
+\index{serve\+Client\+Blocked\+On\+List@{serve\+Client\+Blocked\+On\+List}!blocked.\+c@{blocked.\+c}}
+\subsubsection{\texorpdfstring{serve\+Client\+Blocked\+On\+List()}{serveClientBlockedOnList()}}
+{\footnotesize\ttfamily int serve\+Client\+Blocked\+On\+List (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{receiver,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{dstkey,  }\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{value,  }\item[{int}]{where }\end{DoxyParamCaption})}
+
+
+
+Definition at line 628 of file t\+\_\+list.\+c.
+
+\mbox{\Hypertarget{blocked_8c_a3682196014dceeaf539a825a73d57235}\label{blocked_8c_a3682196014dceeaf539a825a73d57235}} 
+\index{blocked.\+c@{blocked.\+c}!signal\+Key\+As\+Ready@{signal\+Key\+As\+Ready}}
+\index{signal\+Key\+As\+Ready@{signal\+Key\+As\+Ready}!blocked.\+c@{blocked.\+c}}
+\subsubsection{\texorpdfstring{signal\+Key\+As\+Ready()}{signalKeyAsReady()}}
+{\footnotesize\ttfamily void signal\+Key\+As\+Ready (\begin{DoxyParamCaption}\item[{\hyperlink{structredis_db}{redis\+Db} $\ast$}]{db,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key }\end{DoxyParamCaption})}
+
+
+
+Definition at line 585 of file blocked.\+c.
+
+\mbox{\Hypertarget{blocked_8c_aa898365761ea14b64094f6c41bfac1cc}\label{blocked_8c_aa898365761ea14b64094f6c41bfac1cc}} 
+\index{blocked.\+c@{blocked.\+c}!unblock\+Client@{unblock\+Client}}
+\index{unblock\+Client@{unblock\+Client}!blocked.\+c@{blocked.\+c}}
+\subsubsection{\texorpdfstring{unblock\+Client()}{unblockClient()}}
+{\footnotesize\ttfamily void unblock\+Client (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 162 of file blocked.\+c.
+
+\mbox{\Hypertarget{blocked_8c_a2dea35e2103a0b7e5fc0a7bb7c114dbc}\label{blocked_8c_a2dea35e2103a0b7e5fc0a7bb7c114dbc}} 
+\index{blocked.\+c@{blocked.\+c}!unblock\+Client\+Waiting\+Data@{unblock\+Client\+Waiting\+Data}}
+\index{unblock\+Client\+Waiting\+Data@{unblock\+Client\+Waiting\+Data}!blocked.\+c@{blocked.\+c}}
+\subsubsection{\texorpdfstring{unblock\+Client\+Waiting\+Data()}{unblockClientWaitingData()}}
+{\footnotesize\ttfamily void unblock\+Client\+Waiting\+Data (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 543 of file blocked.\+c.
+

@@ -1,0 +1,657 @@
+\hypertarget{sds_8h}{}\section{src/sds.h File Reference}
+\label{sds_8h}\index{src/sds.\+h@{src/sds.\+h}}
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for sds.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{sds_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{sds_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{sds_8h_a49abc7d19cee5062aa831429592cea71}{S\+D\+S\+\_\+\+M\+A\+X\+\_\+\+P\+R\+E\+A\+L\+L\+OC}~(1024$\ast$1024)
+\item 
+\#define \hyperlink{sds_8h_a3b7b67f1efa75f6b78ae18ea853b1a91}{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5}~0
+\item 
+\#define \hyperlink{sds_8h_a504136356f04bfa2fd616dd4c8fdd71c}{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+8}~1
+\item 
+\#define \hyperlink{sds_8h_aa54044bf70a30824caeb1bab3615bff2}{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+16}~2
+\item 
+\#define \hyperlink{sds_8h_a0ad2103bbdaa2fe5511ce3279cb42293}{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+32}~3
+\item 
+\#define \hyperlink{sds_8h_ad03c6e0fdab3a871e10cce347e8bb4e6}{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+64}~4
+\item 
+\#define \hyperlink{sds_8h_a07564783f389fdd7772a8f61d55d9ddf}{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+A\+SK}~7
+\item 
+\#define \hyperlink{sds_8h_aab3be62faa5a2354242a1c1036450a40}{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+I\+TS}~3
+\item 
+\#define \hyperlink{sds_8h_a79b76920d1d9bc010926b7af167de89b}{S\+D\+S\+\_\+\+H\+D\+R\+\_\+\+V\+AR}(T,  s)~struct sdshdr\#\#T $\ast$sh = (void$\ast$)((s)-\/(sizeof(struct sdshdr\#\#T)));
+\item 
+\#define \hyperlink{sds_8h_a0f1b0d97d094e8505c1d46f95c6cbc30}{S\+D\+S\+\_\+\+H\+DR}(T,  s)~((struct sdshdr\#\#T $\ast$)((s)-\/(sizeof(struct sdshdr\#\#T))))
+\item 
+\#define \hyperlink{sds_8h_a387aebc42becc7d798cd1a33533da2de}{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5\+\_\+\+L\+EN}(f)~((f)$>$$>$\hyperlink{sds_8h_aab3be62faa5a2354242a1c1036450a40}{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+I\+TS})
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef char $\ast$ \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{sds_8h_a3035f731f1a279bf177adf637a1d57f5}{\+\_\+\+\_\+attribute\+\_\+\+\_\+} ((\+\_\+\+\_\+packed\+\_\+\+\_\+)) sdshdr5
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a151062948f5ba54c50936e5d5317c417}{sdsnewlen} (const void $\ast$init, size\+\_\+t initlen)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a8924a4a105d0f6dc359685357ceaef57}{sdsnew} (const char $\ast$init)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_af0bb695d269439f719caca4129989090}{sdsempty} (void)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_aca959454d47e5dffd63491d89c641727}{sdsdup} (const \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s)
+\item 
+void \hyperlink{sds_8h_a4d9266a6b2d5a98f0df0ac62f51324fd}{sdsfree} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_aef95397fda4261acb30ac8ea48226d60}{sdsgrowzero} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, size\+\_\+t len)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a62bbce6b08cb419dbe8dcd64b3bc0d84}{sdscatlen} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, const void $\ast$t, size\+\_\+t len)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a9153a5245ad08630651c7f4f212b5c6f}{sdscat} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, const char $\ast$t)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a4803b83381a1471759d53472159d1de8}{sdscatsds} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, const \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} t)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_af31706c1b3187cd87f38b49509bcda2e}{sdscpylen} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, const char $\ast$t, size\+\_\+t len)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a29d0a9e0fefe18dd5a0f8009f133ed53}{sdscpy} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, const char $\ast$t)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a0175deb487bb775b3dc38340ec913749}{sdscatvprintf} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, const char $\ast$fmt, va\+\_\+list ap)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a2f541b6443d075056a706b5b666066af}{sdscatprintf} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, const char $\ast$fmt,...)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_aab3da77d17f746ff57ea14c3587d2feb}{sdscatfmt} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, char const $\ast$fmt,...)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a8b0d8fb63dae9f132579929d85445ae5}{sdstrim} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, const char $\ast$cset)
+\item 
+void \hyperlink{sds_8h_a433fd2a7ee7db02113e65a925b82306c}{sdsrange} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, ssize\+\_\+t start, ssize\+\_\+t end)
+\item 
+void \hyperlink{sds_8h_a1c1b61edd55ea4438163693e13b428f9}{sdsupdatelen} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s)
+\item 
+void \hyperlink{sds_8h_ad5ab7c0e72a1c0f64e24569e4dc16ba2}{sdsclear} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s)
+\item 
+int \hyperlink{sds_8h_acc263c47b3818ed0d8e163dccd603565}{sdscmp} (const \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s1, const \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s2)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$ \hyperlink{sds_8h_ae1d12ea29749c69e6a235b9f49f22e13}{sdssplitlen} (const char $\ast$s, ssize\+\_\+t len, const char $\ast$sep, int seplen, int $\ast$count)
+\item 
+void \hyperlink{sds_8h_aa62a698a4cf344cef301e9215cd2d240}{sdsfreesplitres} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$tokens, int count)
+\item 
+void \hyperlink{sds_8h_aee619b17d76e11751656f5fa34e85e48}{sdstolower} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s)
+\item 
+void \hyperlink{sds_8h_a4c04fc5d6e25e72818f5a0a7e4628a53}{sdstoupper} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a500e60fc7a55cfcc571348ed422ba1de}{sdsfromlonglong} (long long value)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a4e7207cc9002b072f67a0766fedbc7fb}{sdscatrepr} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, const char $\ast$p, size\+\_\+t len)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$ \hyperlink{sds_8h_a24e75a0a4e230489ebb465f9ee02a234}{sdssplitargs} (const char $\ast$line, int $\ast$argc)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_aeb6b0da01a10cfdd43ad669b803923a8}{sdsmapchars} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, const char $\ast$from, const char $\ast$to, size\+\_\+t setlen)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_aeb759847a019e56c4e105f7ecd3c9e83}{sdsjoin} (char $\ast$$\ast$argv, int argc, char $\ast$sep)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a11383a6b5034c6fe16eb9965ddda885b}{sdsjoinsds} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$argv, int argc, const char $\ast$sep, size\+\_\+t seplen)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a03de32454721f716d5604d954e1c4629}{sds\+Make\+Room\+For} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, size\+\_\+t addlen)
+\item 
+void \hyperlink{sds_8h_a9842538348fa194f787b33953a3fed37}{sds\+Incr\+Len} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s, ssize\+\_\+t incr)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{sds_8h_a12cf0d8aca38e55eef468cc0265ef473}{sds\+Remove\+Free\+Space} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s)
+\item 
+size\+\_\+t \hyperlink{sds_8h_a8633545cba735b390afad7bf8b5a9833}{sds\+Alloc\+Size} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s)
+\item 
+void $\ast$ \hyperlink{sds_8h_a0b68b6e197372900ab78b86ff82714d2}{sds\+Alloc\+Ptr} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s)
+\item 
+void $\ast$ \hyperlink{sds_8h_a056aba8fe99acc5d1040dcfec18f762f}{sds\+\_\+malloc} (size\+\_\+t size)
+\item 
+void $\ast$ \hyperlink{sds_8h_a41fa74aaccc1e9a3087ef888627d34e0}{sds\+\_\+realloc} (void $\ast$ptr, size\+\_\+t size)
+\item 
+void \hyperlink{sds_8h_a4f6d137bfd64100dda8ff78092e2e338}{sds\+\_\+free} (void $\ast$ptr)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{sds_8h_a784d6789da0c845fdecf1c4caf49f9f7}{S\+D\+S\+\_\+\+N\+O\+I\+N\+IT}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{sds_8h_a0f1b0d97d094e8505c1d46f95c6cbc30}\label{sds_8h_a0f1b0d97d094e8505c1d46f95c6cbc30}} 
+\index{sds.\+h@{sds.\+h}!S\+D\+S\+\_\+\+H\+DR@{S\+D\+S\+\_\+\+H\+DR}}
+\index{S\+D\+S\+\_\+\+H\+DR@{S\+D\+S\+\_\+\+H\+DR}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{S\+D\+S\+\_\+\+H\+DR}{SDS\_HDR}}
+{\footnotesize\ttfamily \#define S\+D\+S\+\_\+\+H\+DR(\begin{DoxyParamCaption}\item[{}]{T,  }\item[{}]{s }\end{DoxyParamCaption})~((struct sdshdr\#\#T $\ast$)((s)-\/(sizeof(struct sdshdr\#\#T))))}
+
+
+
+Definition at line 84 of file sds.\+h.
+
+\mbox{\Hypertarget{sds_8h_a79b76920d1d9bc010926b7af167de89b}\label{sds_8h_a79b76920d1d9bc010926b7af167de89b}} 
+\index{sds.\+h@{sds.\+h}!S\+D\+S\+\_\+\+H\+D\+R\+\_\+\+V\+AR@{S\+D\+S\+\_\+\+H\+D\+R\+\_\+\+V\+AR}}
+\index{S\+D\+S\+\_\+\+H\+D\+R\+\_\+\+V\+AR@{S\+D\+S\+\_\+\+H\+D\+R\+\_\+\+V\+AR}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{S\+D\+S\+\_\+\+H\+D\+R\+\_\+\+V\+AR}{SDS\_HDR\_VAR}}
+{\footnotesize\ttfamily \#define S\+D\+S\+\_\+\+H\+D\+R\+\_\+\+V\+AR(\begin{DoxyParamCaption}\item[{}]{T,  }\item[{}]{s }\end{DoxyParamCaption})~struct sdshdr\#\#T $\ast$sh = (void$\ast$)((s)-\/(sizeof(struct sdshdr\#\#T)));}
+
+
+
+Definition at line 83 of file sds.\+h.
+
+\mbox{\Hypertarget{sds_8h_a49abc7d19cee5062aa831429592cea71}\label{sds_8h_a49abc7d19cee5062aa831429592cea71}} 
+\index{sds.\+h@{sds.\+h}!S\+D\+S\+\_\+\+M\+A\+X\+\_\+\+P\+R\+E\+A\+L\+L\+OC@{S\+D\+S\+\_\+\+M\+A\+X\+\_\+\+P\+R\+E\+A\+L\+L\+OC}}
+\index{S\+D\+S\+\_\+\+M\+A\+X\+\_\+\+P\+R\+E\+A\+L\+L\+OC@{S\+D\+S\+\_\+\+M\+A\+X\+\_\+\+P\+R\+E\+A\+L\+L\+OC}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{S\+D\+S\+\_\+\+M\+A\+X\+\_\+\+P\+R\+E\+A\+L\+L\+OC}{SDS\_MAX\_PREALLOC}}
+{\footnotesize\ttfamily \#define S\+D\+S\+\_\+\+M\+A\+X\+\_\+\+P\+R\+E\+A\+L\+L\+OC~(1024$\ast$1024)}
+
+
+
+Definition at line 36 of file sds.\+h.
+
+\mbox{\Hypertarget{sds_8h_aa54044bf70a30824caeb1bab3615bff2}\label{sds_8h_aa54044bf70a30824caeb1bab3615bff2}} 
+\index{sds.\+h@{sds.\+h}!S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+16@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+16}}
+\index{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+16@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+16}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+16}{SDS\_TYPE\_16}}
+{\footnotesize\ttfamily \#define S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+16~2}
+
+
+
+Definition at line 78 of file sds.\+h.
+
+\mbox{\Hypertarget{sds_8h_a0ad2103bbdaa2fe5511ce3279cb42293}\label{sds_8h_a0ad2103bbdaa2fe5511ce3279cb42293}} 
+\index{sds.\+h@{sds.\+h}!S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+32@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+32}}
+\index{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+32@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+32}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+32}{SDS\_TYPE\_32}}
+{\footnotesize\ttfamily \#define S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+32~3}
+
+
+
+Definition at line 79 of file sds.\+h.
+
+\mbox{\Hypertarget{sds_8h_a3b7b67f1efa75f6b78ae18ea853b1a91}\label{sds_8h_a3b7b67f1efa75f6b78ae18ea853b1a91}} 
+\index{sds.\+h@{sds.\+h}!S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5}}
+\index{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5}{SDS\_TYPE\_5}}
+{\footnotesize\ttfamily \#define S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5~0}
+
+
+
+Definition at line 76 of file sds.\+h.
+
+\mbox{\Hypertarget{sds_8h_a387aebc42becc7d798cd1a33533da2de}\label{sds_8h_a387aebc42becc7d798cd1a33533da2de}} 
+\index{sds.\+h@{sds.\+h}!S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5\+\_\+\+L\+EN@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5\+\_\+\+L\+EN}}
+\index{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5\+\_\+\+L\+EN@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5\+\_\+\+L\+EN}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5\+\_\+\+L\+EN}{SDS\_TYPE\_5\_LEN}}
+{\footnotesize\ttfamily \#define S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+5\+\_\+\+L\+EN(\begin{DoxyParamCaption}\item[{}]{f }\end{DoxyParamCaption})~((f)$>$$>$\hyperlink{sds_8h_aab3be62faa5a2354242a1c1036450a40}{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+I\+TS})}
+
+
+
+Definition at line 85 of file sds.\+h.
+
+\mbox{\Hypertarget{sds_8h_ad03c6e0fdab3a871e10cce347e8bb4e6}\label{sds_8h_ad03c6e0fdab3a871e10cce347e8bb4e6}} 
+\index{sds.\+h@{sds.\+h}!S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+64@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+64}}
+\index{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+64@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+64}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+64}{SDS\_TYPE\_64}}
+{\footnotesize\ttfamily \#define S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+64~4}
+
+
+
+Definition at line 80 of file sds.\+h.
+
+\mbox{\Hypertarget{sds_8h_a504136356f04bfa2fd616dd4c8fdd71c}\label{sds_8h_a504136356f04bfa2fd616dd4c8fdd71c}} 
+\index{sds.\+h@{sds.\+h}!S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+8@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+8}}
+\index{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+8@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+8}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+8}{SDS\_TYPE\_8}}
+{\footnotesize\ttfamily \#define S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+8~1}
+
+
+
+Definition at line 77 of file sds.\+h.
+
+\mbox{\Hypertarget{sds_8h_aab3be62faa5a2354242a1c1036450a40}\label{sds_8h_aab3be62faa5a2354242a1c1036450a40}} 
+\index{sds.\+h@{sds.\+h}!S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+I\+TS@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+I\+TS}}
+\index{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+I\+TS@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+I\+TS}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+I\+TS}{SDS\_TYPE\_BITS}}
+{\footnotesize\ttfamily \#define S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+I\+TS~3}
+
+
+
+Definition at line 82 of file sds.\+h.
+
+\mbox{\Hypertarget{sds_8h_a07564783f389fdd7772a8f61d55d9ddf}\label{sds_8h_a07564783f389fdd7772a8f61d55d9ddf}} 
+\index{sds.\+h@{sds.\+h}!S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+A\+SK@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+A\+SK}}
+\index{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+A\+SK@{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+A\+SK}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+A\+SK}{SDS\_TYPE\_MASK}}
+{\footnotesize\ttfamily \#define S\+D\+S\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+A\+SK~7}
+
+
+
+Definition at line 81 of file sds.\+h.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{sds_8h_ad69abac3df4532879db9642c95f5ef6f}\label{sds_8h_ad69abac3df4532879db9642c95f5ef6f}} 
+\index{sds.\+h@{sds.\+h}!sds@{sds}}
+\index{sds@{sds}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sds}{sds}}
+{\footnotesize\ttfamily typedef char$\ast$ \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}
+
+
+
+Definition at line 43 of file sds.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{sds_8h_a3035f731f1a279bf177adf637a1d57f5}\label{sds_8h_a3035f731f1a279bf177adf637a1d57f5}} 
+\index{sds.\+h@{sds.\+h}!\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+attribute\+\_\+\+\_\+@{\+\_\+\+\_\+attribute\+\_\+\+\_\+}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+attribute\+\_\+\+\_\+()}{\_\_attribute\_\_()}}
+{\footnotesize\ttfamily struct \+\_\+\+\_\+attribute\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{(\+\_\+\+\_\+packed\+\_\+\+\_\+)}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 47 of file sds.\+h.
+
+\mbox{\Hypertarget{sds_8h_a4f6d137bfd64100dda8ff78092e2e338}\label{sds_8h_a4f6d137bfd64100dda8ff78092e2e338}} 
+\index{sds.\+h@{sds.\+h}!sds\+\_\+free@{sds\+\_\+free}}
+\index{sds\+\_\+free@{sds\+\_\+free}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sds\+\_\+free()}{sds\_free()}}
+{\footnotesize\ttfamily void sds\+\_\+free (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1116 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a056aba8fe99acc5d1040dcfec18f762f}\label{sds_8h_a056aba8fe99acc5d1040dcfec18f762f}} 
+\index{sds.\+h@{sds.\+h}!sds\+\_\+malloc@{sds\+\_\+malloc}}
+\index{sds\+\_\+malloc@{sds\+\_\+malloc}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sds\+\_\+malloc()}{sds\_malloc()}}
+{\footnotesize\ttfamily void$\ast$ sds\+\_\+malloc (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1114 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a41fa74aaccc1e9a3087ef888627d34e0}\label{sds_8h_a41fa74aaccc1e9a3087ef888627d34e0}} 
+\index{sds.\+h@{sds.\+h}!sds\+\_\+realloc@{sds\+\_\+realloc}}
+\index{sds\+\_\+realloc@{sds\+\_\+realloc}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sds\+\_\+realloc()}{sds\_realloc()}}
+{\footnotesize\ttfamily void$\ast$ sds\+\_\+realloc (\begin{DoxyParamCaption}\item[{void $\ast$}]{ptr,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1115 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a0b68b6e197372900ab78b86ff82714d2}\label{sds_8h_a0b68b6e197372900ab78b86ff82714d2}} 
+\index{sds.\+h@{sds.\+h}!sds\+Alloc\+Ptr@{sds\+Alloc\+Ptr}}
+\index{sds\+Alloc\+Ptr@{sds\+Alloc\+Ptr}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sds\+Alloc\+Ptr()}{sdsAllocPtr()}}
+{\footnotesize\ttfamily void$\ast$ sds\+Alloc\+Ptr (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 302 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a8633545cba735b390afad7bf8b5a9833}\label{sds_8h_a8633545cba735b390afad7bf8b5a9833}} 
+\index{sds.\+h@{sds.\+h}!sds\+Alloc\+Size@{sds\+Alloc\+Size}}
+\index{sds\+Alloc\+Size@{sds\+Alloc\+Size}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sds\+Alloc\+Size()}{sdsAllocSize()}}
+{\footnotesize\ttfamily size\+\_\+t sds\+Alloc\+Size (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 295 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a9153a5245ad08630651c7f4f212b5c6f}\label{sds_8h_a9153a5245ad08630651c7f4f212b5c6f}} 
+\index{sds.\+h@{sds.\+h}!sdscat@{sdscat}}
+\index{sdscat@{sdscat}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdscat()}{sdscat()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdscat (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{const char $\ast$}]{t }\end{DoxyParamCaption})}
+
+
+
+Definition at line 408 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_aab3da77d17f746ff57ea14c3587d2feb}\label{sds_8h_aab3da77d17f746ff57ea14c3587d2feb}} 
+\index{sds.\+h@{sds.\+h}!sdscatfmt@{sdscatfmt}}
+\index{sdscatfmt@{sdscatfmt}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdscatfmt()}{sdscatfmt()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdscatfmt (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{char const $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 596 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a62bbce6b08cb419dbe8dcd64b3bc0d84}\label{sds_8h_a62bbce6b08cb419dbe8dcd64b3bc0d84}} 
+\index{sds.\+h@{sds.\+h}!sdscatlen@{sdscatlen}}
+\index{sdscatlen@{sdscatlen}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdscatlen()}{sdscatlen()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdscatlen (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{const void $\ast$}]{t,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 393 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a2f541b6443d075056a706b5b666066af}\label{sds_8h_a2f541b6443d075056a706b5b666066af}} 
+\index{sds.\+h@{sds.\+h}!sdscatprintf@{sdscatprintf}}
+\index{sdscatprintf@{sdscatprintf}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdscatprintf()}{sdscatprintf()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdscatprintf (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 571 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a4e7207cc9002b072f67a0766fedbc7fb}\label{sds_8h_a4e7207cc9002b072f67a0766fedbc7fb}} 
+\index{sds.\+h@{sds.\+h}!sdscatrepr@{sdscatrepr}}
+\index{sdscatrepr@{sdscatrepr}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdscatrepr()}{sdscatrepr()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdscatrepr (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{const char $\ast$}]{p,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 876 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a4803b83381a1471759d53472159d1de8}\label{sds_8h_a4803b83381a1471759d53472159d1de8}} 
+\index{sds.\+h@{sds.\+h}!sdscatsds@{sdscatsds}}
+\index{sdscatsds@{sdscatsds}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdscatsds()}{sdscatsds()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdscatsds (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{const \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{t }\end{DoxyParamCaption})}
+
+
+
+Definition at line 416 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a0175deb487bb775b3dc38340ec913749}\label{sds_8h_a0175deb487bb775b3dc38340ec913749}} 
+\index{sds.\+h@{sds.\+h}!sdscatvprintf@{sdscatvprintf}}
+\index{sdscatvprintf@{sdscatvprintf}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdscatvprintf()}{sdscatvprintf()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdscatvprintf (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{const char $\ast$}]{fmt,  }\item[{va\+\_\+list}]{ap }\end{DoxyParamCaption})}
+
+
+
+Definition at line 518 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_ad5ab7c0e72a1c0f64e24569e4dc16ba2}\label{sds_8h_ad5ab7c0e72a1c0f64e24569e4dc16ba2}} 
+\index{sds.\+h@{sds.\+h}!sdsclear@{sdsclear}}
+\index{sdsclear@{sdsclear}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsclear()}{sdsclear()}}
+{\footnotesize\ttfamily void sdsclear (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 193 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_acc263c47b3818ed0d8e163dccd603565}\label{sds_8h_acc263c47b3818ed0d8e163dccd603565}} 
+\index{sds.\+h@{sds.\+h}!sdscmp@{sdscmp}}
+\index{sdscmp@{sdscmp}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdscmp()}{sdscmp()}}
+{\footnotesize\ttfamily int sdscmp (\begin{DoxyParamCaption}\item[{const \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s1,  }\item[{const \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s2 }\end{DoxyParamCaption})}
+
+
+
+Definition at line 784 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a29d0a9e0fefe18dd5a0f8009f133ed53}\label{sds_8h_a29d0a9e0fefe18dd5a0f8009f133ed53}} 
+\index{sds.\+h@{sds.\+h}!sdscpy@{sdscpy}}
+\index{sdscpy@{sdscpy}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdscpy()}{sdscpy()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdscpy (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{const char $\ast$}]{t }\end{DoxyParamCaption})}
+
+
+
+Definition at line 435 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_af31706c1b3187cd87f38b49509bcda2e}\label{sds_8h_af31706c1b3187cd87f38b49509bcda2e}} 
+\index{sds.\+h@{sds.\+h}!sdscpylen@{sdscpylen}}
+\index{sdscpylen@{sdscpylen}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdscpylen()}{sdscpylen()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdscpylen (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{const char $\ast$}]{t,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 422 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_aca959454d47e5dffd63491d89c641727}\label{sds_8h_aca959454d47e5dffd63491d89c641727}} 
+\index{sds.\+h@{sds.\+h}!sdsdup@{sdsdup}}
+\index{sdsdup@{sdsdup}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsdup()}{sdsdup()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdsdup (\begin{DoxyParamCaption}\item[{const \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 160 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_af0bb695d269439f719caca4129989090}\label{sds_8h_af0bb695d269439f719caca4129989090}} 
+\index{sds.\+h@{sds.\+h}!sdsempty@{sdsempty}}
+\index{sdsempty@{sdsempty}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsempty()}{sdsempty()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdsempty (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 149 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a4d9266a6b2d5a98f0df0ac62f51324fd}\label{sds_8h_a4d9266a6b2d5a98f0df0ac62f51324fd}} 
+\index{sds.\+h@{sds.\+h}!sdsfree@{sdsfree}}
+\index{sdsfree@{sdsfree}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsfree()}{sdsfree()}}
+{\footnotesize\ttfamily void sdsfree (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 165 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_aa62a698a4cf344cef301e9215cd2d240}\label{sds_8h_aa62a698a4cf344cef301e9215cd2d240}} 
+\index{sds.\+h@{sds.\+h}!sdsfreesplitres@{sdsfreesplitres}}
+\index{sdsfreesplitres@{sdsfreesplitres}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsfreesplitres()}{sdsfreesplitres()}}
+{\footnotesize\ttfamily void sdsfreesplitres (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{tokens,  }\item[{int}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 863 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a500e60fc7a55cfcc571348ed422ba1de}\label{sds_8h_a500e60fc7a55cfcc571348ed422ba1de}} 
+\index{sds.\+h@{sds.\+h}!sdsfromlonglong@{sdsfromlonglong}}
+\index{sdsfromlonglong@{sdsfromlonglong}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsfromlonglong()}{sdsfromlonglong()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdsfromlonglong (\begin{DoxyParamCaption}\item[{long long}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 510 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_aef95397fda4261acb30ac8ea48226d60}\label{sds_8h_aef95397fda4261acb30ac8ea48226d60}} 
+\index{sds.\+h@{sds.\+h}!sdsgrowzero@{sdsgrowzero}}
+\index{sdsgrowzero@{sdsgrowzero}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsgrowzero()}{sdsgrowzero()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdsgrowzero (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 375 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a9842538348fa194f787b33953a3fed37}\label{sds_8h_a9842538348fa194f787b33953a3fed37}} 
+\index{sds.\+h@{sds.\+h}!sds\+Incr\+Len@{sds\+Incr\+Len}}
+\index{sds\+Incr\+Len@{sds\+Incr\+Len}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sds\+Incr\+Len()}{sdsIncrLen()}}
+{\footnotesize\ttfamily void sds\+Incr\+Len (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{ssize\+\_\+t}]{incr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 329 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_aeb759847a019e56c4e105f7ecd3c9e83}\label{sds_8h_aeb759847a019e56c4e105f7ecd3c9e83}} 
+\index{sds.\+h@{sds.\+h}!sdsjoin@{sdsjoin}}
+\index{sdsjoin@{sdsjoin}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsjoin()}{sdsjoin()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdsjoin (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{char $\ast$}]{sep }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1086 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a11383a6b5034c6fe16eb9965ddda885b}\label{sds_8h_a11383a6b5034c6fe16eb9965ddda885b}} 
+\index{sds.\+h@{sds.\+h}!sdsjoinsds@{sdsjoinsds}}
+\index{sdsjoinsds@{sdsjoinsds}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsjoinsds()}{sdsjoinsds()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdsjoinsds (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} $\ast$}]{argv,  }\item[{int}]{argc,  }\item[{const char $\ast$}]{sep,  }\item[{size\+\_\+t}]{seplen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1098 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a03de32454721f716d5604d954e1c4629}\label{sds_8h_a03de32454721f716d5604d954e1c4629}} 
+\index{sds.\+h@{sds.\+h}!sds\+Make\+Room\+For@{sds\+Make\+Room\+For}}
+\index{sds\+Make\+Room\+For@{sds\+Make\+Room\+For}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sds\+Make\+Room\+For()}{sdsMakeRoomFor()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sds\+Make\+Room\+For (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{size\+\_\+t}]{addlen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 204 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_aeb6b0da01a10cfdd43ad669b803923a8}\label{sds_8h_aeb6b0da01a10cfdd43ad669b803923a8}} 
+\index{sds.\+h@{sds.\+h}!sdsmapchars@{sdsmapchars}}
+\index{sdsmapchars@{sdsmapchars}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsmapchars()}{sdsmapchars()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdsmapchars (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{const char $\ast$}]{from,  }\item[{const char $\ast$}]{to,  }\item[{size\+\_\+t}]{setlen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1070 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a8924a4a105d0f6dc359685357ceaef57}\label{sds_8h_a8924a4a105d0f6dc359685357ceaef57}} 
+\index{sds.\+h@{sds.\+h}!sdsnew@{sdsnew}}
+\index{sdsnew@{sdsnew}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsnew()}{sdsnew()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdsnew (\begin{DoxyParamCaption}\item[{const char $\ast$}]{init }\end{DoxyParamCaption})}
+
+
+
+Definition at line 154 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a151062948f5ba54c50936e5d5317c417}\label{sds_8h_a151062948f5ba54c50936e5d5317c417}} 
+\index{sds.\+h@{sds.\+h}!sdsnewlen@{sdsnewlen}}
+\index{sdsnewlen@{sdsnewlen}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsnewlen()}{sdsnewlen()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdsnewlen (\begin{DoxyParamCaption}\item[{const void $\ast$}]{init,  }\item[{size\+\_\+t}]{initlen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 89 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a433fd2a7ee7db02113e65a925b82306c}\label{sds_8h_a433fd2a7ee7db02113e65a925b82306c}} 
+\index{sds.\+h@{sds.\+h}!sdsrange@{sdsrange}}
+\index{sdsrange@{sdsrange}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsrange()}{sdsrange()}}
+{\footnotesize\ttfamily void sdsrange (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{ssize\+\_\+t}]{start,  }\item[{ssize\+\_\+t}]{end }\end{DoxyParamCaption})}
+
+
+
+Definition at line 731 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a12cf0d8aca38e55eef468cc0265ef473}\label{sds_8h_a12cf0d8aca38e55eef468cc0265ef473}} 
+\index{sds.\+h@{sds.\+h}!sds\+Remove\+Free\+Space@{sds\+Remove\+Free\+Space}}
+\index{sds\+Remove\+Free\+Space@{sds\+Remove\+Free\+Space}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sds\+Remove\+Free\+Space()}{sdsRemoveFreeSpace()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sds\+Remove\+Free\+Space (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 255 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a24e75a0a4e230489ebb465f9ee02a234}\label{sds_8h_a24e75a0a4e230489ebb465f9ee02a234}} 
+\index{sds.\+h@{sds.\+h}!sdssplitargs@{sdssplitargs}}
+\index{sdssplitargs@{sdssplitargs}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdssplitargs()}{sdssplitargs()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}$\ast$ sdssplitargs (\begin{DoxyParamCaption}\item[{const char $\ast$}]{line,  }\item[{int $\ast$}]{argc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 951 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_ae1d12ea29749c69e6a235b9f49f22e13}\label{sds_8h_ae1d12ea29749c69e6a235b9f49f22e13}} 
+\index{sds.\+h@{sds.\+h}!sdssplitlen@{sdssplitlen}}
+\index{sdssplitlen@{sdssplitlen}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdssplitlen()}{sdssplitlen()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}$\ast$ sdssplitlen (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s,  }\item[{ssize\+\_\+t}]{len,  }\item[{const char $\ast$}]{sep,  }\item[{int}]{seplen,  }\item[{int $\ast$}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 812 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_aee619b17d76e11751656f5fa34e85e48}\label{sds_8h_aee619b17d76e11751656f5fa34e85e48}} 
+\index{sds.\+h@{sds.\+h}!sdstolower@{sdstolower}}
+\index{sdstolower@{sdstolower}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdstolower()}{sdstolower()}}
+{\footnotesize\ttfamily void sdstolower (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 760 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a4c04fc5d6e25e72818f5a0a7e4628a53}\label{sds_8h_a4c04fc5d6e25e72818f5a0a7e4628a53}} 
+\index{sds.\+h@{sds.\+h}!sdstoupper@{sdstoupper}}
+\index{sdstoupper@{sdstoupper}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdstoupper()}{sdstoupper()}}
+{\footnotesize\ttfamily void sdstoupper (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 767 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a8b0d8fb63dae9f132579929d85445ae5}\label{sds_8h_a8b0d8fb63dae9f132579929d85445ae5}} 
+\index{sds.\+h@{sds.\+h}!sdstrim@{sdstrim}}
+\index{sdstrim@{sdstrim}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdstrim()}{sdstrim()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} sdstrim (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s,  }\item[{const char $\ast$}]{cset }\end{DoxyParamCaption})}
+
+
+
+Definition at line 700 of file sds.\+c.
+
+\mbox{\Hypertarget{sds_8h_a1c1b61edd55ea4438163693e13b428f9}\label{sds_8h_a1c1b61edd55ea4438163693e13b428f9}} 
+\index{sds.\+h@{sds.\+h}!sdsupdatelen@{sdsupdatelen}}
+\index{sdsupdatelen@{sdsupdatelen}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{sdsupdatelen()}{sdsupdatelen()}}
+{\footnotesize\ttfamily void sdsupdatelen (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 184 of file sds.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{sds_8h_a784d6789da0c845fdecf1c4caf49f9f7}\label{sds_8h_a784d6789da0c845fdecf1c4caf49f9f7}} 
+\index{sds.\+h@{sds.\+h}!S\+D\+S\+\_\+\+N\+O\+I\+N\+IT@{S\+D\+S\+\_\+\+N\+O\+I\+N\+IT}}
+\index{S\+D\+S\+\_\+\+N\+O\+I\+N\+IT@{S\+D\+S\+\_\+\+N\+O\+I\+N\+IT}!sds.\+h@{sds.\+h}}
+\subsubsection{\texorpdfstring{S\+D\+S\+\_\+\+N\+O\+I\+N\+IT}{SDS\_NOINIT}}
+{\footnotesize\ttfamily const char$\ast$ S\+D\+S\+\_\+\+N\+O\+I\+N\+IT}
+
+
+
+Definition at line 37 of file sds.\+h.
+

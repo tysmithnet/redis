@@ -1,0 +1,182 @@
+\hypertarget{rio_8h}{}\section{src/rio.h File Reference}
+\label{rio_8h}\index{src/rio.\+h@{src/rio.\+h}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}sds.\+h\char`\"{}}\newline
+Include dependency graph for rio.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{rio_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rio_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct__rio}{\+\_\+rio}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{struct__rio}{\+\_\+rio} \hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{rio_8h_ae073093f16037fe954c201ea363d41a5}{rio\+Init\+With\+File} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, F\+I\+LE $\ast$fp)
+\item 
+void \hyperlink{rio_8h_a7b28ca7931a1e8125a362f9e0cdcda75}{rio\+Init\+With\+Buffer} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} s)
+\item 
+void \hyperlink{rio_8h_a6413d776c4f5f0d627a1507383e8451d}{rio\+Init\+With\+Fdset} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, int $\ast$fds, int numfds)
+\item 
+void \hyperlink{rio_8h_aff41e1fd2f7f452d767d6f4a8462204b}{rio\+Free\+Fdset} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r)
+\item 
+size\+\_\+t \hyperlink{rio_8h_a1049e48c5b4eb15bc78242b49a60276f}{rio\+Write\+Bulk\+Count} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, char prefix, long count)
+\item 
+size\+\_\+t \hyperlink{rio_8h_adf939d34e0208e42d926d7cc08be12df}{rio\+Write\+Bulk\+String} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, const char $\ast$buf, size\+\_\+t len)
+\item 
+size\+\_\+t \hyperlink{rio_8h_a68be9bddfef279ba134adb08bfaa5c6c}{rio\+Write\+Bulk\+Long\+Long} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, long long l)
+\item 
+size\+\_\+t \hyperlink{rio_8h_a08c60d28f0adf8a9469f1bbdd14b2e8b}{rio\+Write\+Bulk\+Double} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, double d)
+\item 
+int \hyperlink{rio_8h_a5feccee95fe3e6dda981b2c0310a7224}{rio\+Write\+Bulk\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, struct \hyperlink{structredis_object}{redis\+Object} $\ast$obj)
+\item 
+void \hyperlink{rio_8h_a980f0c39b8586c134e506367d14e15c9}{rio\+Generic\+Update\+Checksum} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, const void $\ast$buf, size\+\_\+t len)
+\item 
+void \hyperlink{rio_8h_ac38183451d724aba7fbed17d5cc68ef4}{rio\+Set\+Auto\+Sync} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, off\+\_\+t bytes)
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}\label{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}} 
+\index{rio.\+h@{rio.\+h}!rio@{rio}}
+\index{rio@{rio}!rio.\+h@{rio.\+h}}
+\subsubsection{\texorpdfstring{rio}{rio}}
+{\footnotesize\ttfamily typedef struct \hyperlink{struct__rio}{\+\_\+rio} \hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio}}
+
+
+
+Definition at line 87 of file rio.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{rio_8h_aff41e1fd2f7f452d767d6f4a8462204b}\label{rio_8h_aff41e1fd2f7f452d767d6f4a8462204b}} 
+\index{rio.\+h@{rio.\+h}!rio\+Free\+Fdset@{rio\+Free\+Fdset}}
+\index{rio\+Free\+Fdset@{rio\+Free\+Fdset}!rio.\+h@{rio.\+h}}
+\subsubsection{\texorpdfstring{rio\+Free\+Fdset()}{rioFreeFdset()}}
+{\footnotesize\ttfamily void rio\+Free\+Fdset (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r }\end{DoxyParamCaption})}
+
+
+
+Definition at line 280 of file rio.\+c.
+
+\mbox{\Hypertarget{rio_8h_a980f0c39b8586c134e506367d14e15c9}\label{rio_8h_a980f0c39b8586c134e506367d14e15c9}} 
+\index{rio.\+h@{rio.\+h}!rio\+Generic\+Update\+Checksum@{rio\+Generic\+Update\+Checksum}}
+\index{rio\+Generic\+Update\+Checksum@{rio\+Generic\+Update\+Checksum}!rio.\+h@{rio.\+h}}
+\subsubsection{\texorpdfstring{rio\+Generic\+Update\+Checksum()}{rioGenericUpdateChecksum()}}
+{\footnotesize\ttfamily void rio\+Generic\+Update\+Checksum (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{const void $\ast$}]{buf,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 290 of file rio.\+c.
+
+\mbox{\Hypertarget{rio_8h_a7b28ca7931a1e8125a362f9e0cdcda75}\label{rio_8h_a7b28ca7931a1e8125a362f9e0cdcda75}} 
+\index{rio.\+h@{rio.\+h}!rio\+Init\+With\+Buffer@{rio\+Init\+With\+Buffer}}
+\index{rio\+Init\+With\+Buffer@{rio\+Init\+With\+Buffer}!rio.\+h@{rio.\+h}}
+\subsubsection{\texorpdfstring{rio\+Init\+With\+Buffer()}{rioInitWithBuffer()}}
+{\footnotesize\ttfamily void rio\+Init\+With\+Buffer (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{s }\end{DoxyParamCaption})}
+
+
+
+Definition at line 100 of file rio.\+c.
+
+\mbox{\Hypertarget{rio_8h_a6413d776c4f5f0d627a1507383e8451d}\label{rio_8h_a6413d776c4f5f0d627a1507383e8451d}} 
+\index{rio.\+h@{rio.\+h}!rio\+Init\+With\+Fdset@{rio\+Init\+With\+Fdset}}
+\index{rio\+Init\+With\+Fdset@{rio\+Init\+With\+Fdset}!rio.\+h@{rio.\+h}}
+\subsubsection{\texorpdfstring{rio\+Init\+With\+Fdset()}{rioInitWithFdset()}}
+{\footnotesize\ttfamily void rio\+Init\+With\+Fdset (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{int $\ast$}]{fds,  }\item[{int}]{numfds }\end{DoxyParamCaption})}
+
+
+
+Definition at line 266 of file rio.\+c.
+
+\mbox{\Hypertarget{rio_8h_ae073093f16037fe954c201ea363d41a5}\label{rio_8h_ae073093f16037fe954c201ea363d41a5}} 
+\index{rio.\+h@{rio.\+h}!rio\+Init\+With\+File@{rio\+Init\+With\+File}}
+\index{rio\+Init\+With\+File@{rio\+Init\+With\+File}!rio.\+h@{rio.\+h}}
+\subsubsection{\texorpdfstring{rio\+Init\+With\+File()}{rioInitWithFile()}}
+{\footnotesize\ttfamily void rio\+Init\+With\+File (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{F\+I\+LE $\ast$}]{fp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 153 of file rio.\+c.
+
+\mbox{\Hypertarget{rio_8h_ac38183451d724aba7fbed17d5cc68ef4}\label{rio_8h_ac38183451d724aba7fbed17d5cc68ef4}} 
+\index{rio.\+h@{rio.\+h}!rio\+Set\+Auto\+Sync@{rio\+Set\+Auto\+Sync}}
+\index{rio\+Set\+Auto\+Sync@{rio\+Set\+Auto\+Sync}!rio.\+h@{rio.\+h}}
+\subsubsection{\texorpdfstring{rio\+Set\+Auto\+Sync()}{rioSetAutoSync()}}
+{\footnotesize\ttfamily void rio\+Set\+Auto\+Sync (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{off\+\_\+t}]{bytes }\end{DoxyParamCaption})}
+
+
+
+Definition at line 302 of file rio.\+c.
+
+\mbox{\Hypertarget{rio_8h_a1049e48c5b4eb15bc78242b49a60276f}\label{rio_8h_a1049e48c5b4eb15bc78242b49a60276f}} 
+\index{rio.\+h@{rio.\+h}!rio\+Write\+Bulk\+Count@{rio\+Write\+Bulk\+Count}}
+\index{rio\+Write\+Bulk\+Count@{rio\+Write\+Bulk\+Count}!rio.\+h@{rio.\+h}}
+\subsubsection{\texorpdfstring{rio\+Write\+Bulk\+Count()}{rioWriteBulkCount()}}
+{\footnotesize\ttfamily size\+\_\+t rio\+Write\+Bulk\+Count (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{char}]{prefix,  }\item[{long}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 313 of file rio.\+c.
+
+\mbox{\Hypertarget{rio_8h_a08c60d28f0adf8a9469f1bbdd14b2e8b}\label{rio_8h_a08c60d28f0adf8a9469f1bbdd14b2e8b}} 
+\index{rio.\+h@{rio.\+h}!rio\+Write\+Bulk\+Double@{rio\+Write\+Bulk\+Double}}
+\index{rio\+Write\+Bulk\+Double@{rio\+Write\+Bulk\+Double}!rio.\+h@{rio.\+h}}
+\subsubsection{\texorpdfstring{rio\+Write\+Bulk\+Double()}{rioWriteBulkDouble()}}
+{\footnotesize\ttfamily size\+\_\+t rio\+Write\+Bulk\+Double (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{double}]{d }\end{DoxyParamCaption})}
+
+
+
+Definition at line 345 of file rio.\+c.
+
+\mbox{\Hypertarget{rio_8h_a68be9bddfef279ba134adb08bfaa5c6c}\label{rio_8h_a68be9bddfef279ba134adb08bfaa5c6c}} 
+\index{rio.\+h@{rio.\+h}!rio\+Write\+Bulk\+Long\+Long@{rio\+Write\+Bulk\+Long\+Long}}
+\index{rio\+Write\+Bulk\+Long\+Long@{rio\+Write\+Bulk\+Long\+Long}!rio.\+h@{rio.\+h}}
+\subsubsection{\texorpdfstring{rio\+Write\+Bulk\+Long\+Long()}{rioWriteBulkLongLong()}}
+{\footnotesize\ttfamily size\+\_\+t rio\+Write\+Bulk\+Long\+Long (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{long long}]{l }\end{DoxyParamCaption})}
+
+
+
+Definition at line 336 of file rio.\+c.
+
+\mbox{\Hypertarget{rio_8h_a5feccee95fe3e6dda981b2c0310a7224}\label{rio_8h_a5feccee95fe3e6dda981b2c0310a7224}} 
+\index{rio.\+h@{rio.\+h}!rio\+Write\+Bulk\+Object@{rio\+Write\+Bulk\+Object}}
+\index{rio\+Write\+Bulk\+Object@{rio\+Write\+Bulk\+Object}!rio.\+h@{rio.\+h}}
+\subsubsection{\texorpdfstring{rio\+Write\+Bulk\+Object()}{rioWriteBulkObject()}}
+{\footnotesize\ttfamily int rio\+Write\+Bulk\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{struct \hyperlink{structredis_object}{redis\+Object} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 881 of file aof.\+c.
+
+\mbox{\Hypertarget{rio_8h_adf939d34e0208e42d926d7cc08be12df}\label{rio_8h_adf939d34e0208e42d926d7cc08be12df}} 
+\index{rio.\+h@{rio.\+h}!rio\+Write\+Bulk\+String@{rio\+Write\+Bulk\+String}}
+\index{rio\+Write\+Bulk\+String@{rio\+Write\+Bulk\+String}!rio.\+h@{rio.\+h}}
+\subsubsection{\texorpdfstring{rio\+Write\+Bulk\+String()}{rioWriteBulkString()}}
+{\footnotesize\ttfamily size\+\_\+t rio\+Write\+Bulk\+String (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{const char $\ast$}]{buf,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 326 of file rio.\+c.
+

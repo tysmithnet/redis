@@ -1,0 +1,809 @@
+\hypertarget{listpack_8c}{}\section{src/listpack.c File Reference}
+\label{listpack_8c}\index{src/listpack.\+c@{src/listpack.\+c}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$limits.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}listpack.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}listpack\+\_\+malloc.\+h\char`\"{}}\newline
+Include dependency graph for listpack.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{listpack_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{listpack_8c_aa3fb94110f69a73ee90b4e63d8524dba}{L\+P\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE}~6       /$\ast$ 32 bit total len + 16 bit number of elements. $\ast$/
+\item 
+\#define \hyperlink{listpack_8c_aabaec596aac6d7d8370b7d801638b022}{L\+P\+\_\+\+H\+D\+R\+\_\+\+N\+U\+M\+E\+L\+E\+\_\+\+U\+N\+K\+N\+O\+WN}~U\+I\+N\+T16\+\_\+\+M\+AX
+\item 
+\#define \hyperlink{listpack_8c_a915406ff900007462e93d6db78ecd503}{L\+P\+\_\+\+M\+A\+X\+\_\+\+I\+N\+T\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+L\+EN}~9
+\item 
+\#define \hyperlink{listpack_8c_a366cd2ebf1ab1f0266b6629d52e9a35d}{L\+P\+\_\+\+M\+A\+X\+\_\+\+B\+A\+C\+K\+L\+E\+N\+\_\+\+S\+I\+ZE}~5
+\item 
+\#define \hyperlink{listpack_8c_ae4106f557c8162a6efae9c50b3561fa8}{L\+P\+\_\+\+M\+A\+X\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+B\+A\+C\+K\+L\+EN}~34359738367\+U\+LL
+\item 
+\#define \hyperlink{listpack_8c_a6f31184b7647732d04b0518b59261b62}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+NT}~0
+\item 
+\#define \hyperlink{listpack_8c_acc1f8e726cc13c4d44351668652cea05}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+S\+T\+R\+I\+NG}~1
+\item 
+\#define \hyperlink{listpack_8c_ac949eb1675d053989cb72d263486d708}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT}~0
+\item 
+\#define \hyperlink{listpack_8c_aba3f3787e93f67472017620bfe1bbb9e}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+N\+T\+\_\+\+M\+A\+SK}~0x80
+\item 
+\#define \hyperlink{listpack_8c_a4a6f30f71e802fffc5e9ab4ebf340a85}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT}(byte)~(((byte)\&\hyperlink{listpack_8c_aba3f3787e93f67472017620bfe1bbb9e}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+N\+T\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_ac949eb1675d053989cb72d263486d708}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT})
+\item 
+\#define \hyperlink{listpack_8c_aa03a77428cf5dd11a741306d35f08d6f}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+TR}~0x80
+\item 
+\#define \hyperlink{listpack_8c_a0a64f1c1f90ecdcfc49ec3b738268601}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}~0x\+C0
+\item 
+\#define \hyperlink{listpack_8c_a6d358f2ea07af0f8624dcd6abc784503}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+6\+B\+I\+T\+\_\+\+S\+TR}(byte)~(((byte)\&\hyperlink{listpack_8c_a0a64f1c1f90ecdcfc49ec3b738268601}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_aa03a77428cf5dd11a741306d35f08d6f}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+TR})
+\item 
+\#define \hyperlink{listpack_8c_a9cfea84c38c5cf0d152f0e40fdd7c1fc}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+NT}~0x\+C0
+\item 
+\#define \hyperlink{listpack_8c_a0770ec079e38f29b013d6014e268ff1f}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}~0x\+E0
+\item 
+\#define \hyperlink{listpack_8c_a3b3582cd32282a865f4df2c8c7a2aa24}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+13\+B\+I\+T\+\_\+\+I\+NT}(byte)~(((byte)\&\hyperlink{listpack_8c_a0770ec079e38f29b013d6014e268ff1f}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_a9cfea84c38c5cf0d152f0e40fdd7c1fc}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+NT})
+\item 
+\#define \hyperlink{listpack_8c_acf85ac38dc36778e68c75963245a3959}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+TR}~0x\+E0
+\item 
+\#define \hyperlink{listpack_8c_a05220e3facf52ce6d8a3dcd337aec945}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}~0x\+F0
+\item 
+\#define \hyperlink{listpack_8c_a0bd78dfc25cc8b1956919beb5bf1dbcd}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+12\+B\+I\+T\+\_\+\+S\+TR}(byte)~(((byte)\&\hyperlink{listpack_8c_a05220e3facf52ce6d8a3dcd337aec945}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_acf85ac38dc36778e68c75963245a3959}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+TR})
+\item 
+\#define \hyperlink{listpack_8c_a4e888717b76a31a4ea334a03fea25047}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+NT}~0x\+F1
+\item 
+\#define \hyperlink{listpack_8c_acdb130b39e0800198f74fe031bddbfe2}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}~0x\+FF
+\item 
+\#define \hyperlink{listpack_8c_a95d38c05519efabc4ee56f4562e98750}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+16\+B\+I\+T\+\_\+\+I\+NT}(byte)~(((byte)\&\hyperlink{listpack_8c_acdb130b39e0800198f74fe031bddbfe2}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_a4e888717b76a31a4ea334a03fea25047}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+NT})
+\item 
+\#define \hyperlink{listpack_8c_a431020d4a3ee70b22b181b52fd231a77}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+NT}~0x\+F2
+\item 
+\#define \hyperlink{listpack_8c_abaa8acd1d2b43ceae41f6a7ffeeda368}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}~0x\+FF
+\item 
+\#define \hyperlink{listpack_8c_a3ab45d5e21a9cb0f43d9fd91d55fad34}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+24\+B\+I\+T\+\_\+\+I\+NT}(byte)~(((byte)\&\hyperlink{listpack_8c_abaa8acd1d2b43ceae41f6a7ffeeda368}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_a431020d4a3ee70b22b181b52fd231a77}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+NT})
+\item 
+\#define \hyperlink{listpack_8c_aaf5d2cb51cf79d9609347c1cf7985711}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+NT}~0x\+F3
+\item 
+\#define \hyperlink{listpack_8c_a91afb1463912e502f01583ece843b06d}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}~0x\+FF
+\item 
+\#define \hyperlink{listpack_8c_a20bcd55f1ab106b65268239685b5b4bf}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+I\+NT}(byte)~(((byte)\&\hyperlink{listpack_8c_a91afb1463912e502f01583ece843b06d}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_aaf5d2cb51cf79d9609347c1cf7985711}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+NT})
+\item 
+\#define \hyperlink{listpack_8c_af93eef022c1590a9a592384e54df54c4}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+NT}~0x\+F4
+\item 
+\#define \hyperlink{listpack_8c_a3a5c4cb907946391c28b8202369122b7}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}~0x\+FF
+\item 
+\#define \hyperlink{listpack_8c_a72330c9d476269713f068c215d605675}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+64\+B\+I\+T\+\_\+\+I\+NT}(byte)~(((byte)\&\hyperlink{listpack_8c_a3a5c4cb907946391c28b8202369122b7}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_af93eef022c1590a9a592384e54df54c4}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+NT})
+\item 
+\#define \hyperlink{listpack_8c_aaf0cf5a0bd10428f4797894e10a3e92b}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+TR}~0x\+F0
+\item 
+\#define \hyperlink{listpack_8c_a80e656069b508dbd635201bcceaff88f}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}~0x\+FF
+\item 
+\#define \hyperlink{listpack_8c_afb8bf77b7f72a33b662e74d855725ac9}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+S\+TR}(byte)~(((byte)\&\hyperlink{listpack_8c_a80e656069b508dbd635201bcceaff88f}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_aaf0cf5a0bd10428f4797894e10a3e92b}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+TR})
+\item 
+\#define \hyperlink{listpack_8c_aa11b422dc597c4352da2abf522692774}{L\+P\+\_\+\+E\+OF}~0x\+FF
+\item 
+\#define \hyperlink{listpack_8c_aa8f2d59ee3355ef504d3b9914e5bb71d}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN}(p)~((p)\mbox{[}0\mbox{]} \& 0x3\+F)
+\item 
+\#define \hyperlink{listpack_8c_aee98309526d5001f5a402405166e65d8}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN}(p)~((((p)\mbox{[}0\mbox{]} \& 0x\+F) $<$$<$ 8) $\vert$ (p)\mbox{[}1\mbox{]})
+\item 
+\#define \hyperlink{listpack_8c_a66a8fedf2589934bf597c7bea3f881ba}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN}(p)
+\item 
+\#define \hyperlink{listpack_8c_a18d79dc11f1002b8c367eab243912a36}{lp\+Get\+Total\+Bytes}(p)
+\item 
+\#define \hyperlink{listpack_8c_a6c5657a15231eb538939e10677c8ef1f}{lp\+Get\+Num\+Elements}(p)
+\item 
+\#define \hyperlink{listpack_8c_a08a4fb5c67c9c38aa657ba8773b7e1ab}{lp\+Set\+Total\+Bytes}(p,  v)
+\item 
+\#define \hyperlink{listpack_8c_abd63c5b3f66f6d270759fa5e3c319ce8}{lp\+Set\+Num\+Elements}(p,  v)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{listpack_8c_a37c18b4b1c84b7bf01c0c91ea2225057}{lp\+String\+To\+Int64} (const char $\ast$s, unsigned long slen, int64\+\_\+t $\ast$value)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8c_a99523d640443dcaea6031f4cf10672a5}{lp\+New} (void)
+\item 
+void \hyperlink{listpack_8c_aa03e7c2b9d9fbb112e169514dc2b6125}{lp\+Free} (unsigned char $\ast$lp)
+\item 
+int \hyperlink{listpack_8c_a0e8cbdf8b1b2f7cfef09e67abaa40be7}{lp\+Encode\+Get\+Type} (unsigned char $\ast$ele, uint32\+\_\+t size, unsigned char $\ast$intenc, uint64\+\_\+t $\ast$enclen)
+\item 
+unsigned long \hyperlink{listpack_8c_a40a0ba68a20fa3bf23d7bf85ada69fb6}{lp\+Encode\+Backlen} (unsigned char $\ast$buf, uint64\+\_\+t l)
+\item 
+uint64\+\_\+t \hyperlink{listpack_8c_a558668472f1bc87db1a054dadc2670c8}{lp\+Decode\+Backlen} (unsigned char $\ast$p)
+\item 
+void \hyperlink{listpack_8c_a04227c27357d512673a49980c23a5da0}{lp\+Encode\+String} (unsigned char $\ast$buf, unsigned char $\ast$s, uint32\+\_\+t len)
+\item 
+uint32\+\_\+t \hyperlink{listpack_8c_ad5a821190692c039f6aa98c15418c5f4}{lp\+Current\+Encoded\+Size} (unsigned char $\ast$p)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8c_a353dc1a2b68faa317d97103781c7eb25}{lp\+Skip} (unsigned char $\ast$p)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8c_ac8d441ace9db50ccb9e8a93e1bfa5630}{lp\+Next} (unsigned char $\ast$lp, unsigned char $\ast$p)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8c_a0bfa5487a1cb14ae54e3ba6d33251f27}{lp\+Prev} (unsigned char $\ast$lp, unsigned char $\ast$p)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8c_ad241a9bd2905ee3b0e82e02d01f4f372}{lp\+First} (unsigned char $\ast$lp)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8c_aa13b77ad8c7c6a22d9523f66731840f3}{lp\+Last} (unsigned char $\ast$lp)
+\item 
+uint32\+\_\+t \hyperlink{listpack_8c_ab45595f8f64080d09fc5bd9c1de138a2}{lp\+Length} (unsigned char $\ast$lp)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8c_a30f12fcf140c299b5f20a6a24bc18c6a}{lp\+Get} (unsigned char $\ast$p, int64\+\_\+t $\ast$count, unsigned char $\ast$intbuf)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8c_abf204a043216f2bb3593bdb073965558}{lp\+Insert} (unsigned char $\ast$lp, unsigned char $\ast$ele, uint32\+\_\+t size, unsigned char $\ast$p, int where, unsigned char $\ast$$\ast$newp)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8c_ac4a00a910f148ad1fe155d804a1820fe}{lp\+Append} (unsigned char $\ast$lp, unsigned char $\ast$ele, uint32\+\_\+t size)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8c_a55b9a6bc62e44a1d45f723a4f1250c8f}{lp\+Delete} (unsigned char $\ast$lp, unsigned char $\ast$p, unsigned char $\ast$$\ast$newp)
+\item 
+uint32\+\_\+t \hyperlink{listpack_8c_a087b2b4c2fcb972fb8c4b9466828d2e6}{lp\+Bytes} (unsigned char $\ast$lp)
+\item 
+unsigned char $\ast$ \hyperlink{listpack_8c_ac05c2d885bd03e1769b3aede9bd499f0}{lp\+Seek} (unsigned char $\ast$lp, long index)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{listpack_8c_acf85ac38dc36778e68c75963245a3959}\label{listpack_8c_acf85ac38dc36778e68c75963245a3959}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+TR@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+TR}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+TR@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+TR}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+TR}{LP\_ENCODING\_12BIT\_STR}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+TR~0x\+E0}
+
+
+
+Definition at line 65 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_aee98309526d5001f5a402405166e65d8}\label{listpack_8c_aee98309526d5001f5a402405166e65d8}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN}{LP\_ENCODING\_12BIT\_STR\_LEN}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~((((p)\mbox{[}0\mbox{]} \& 0x\+F) $<$$<$ 8) $\vert$ (p)\mbox{[}1\mbox{]})}
+
+
+
+Definition at line 92 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a05220e3facf52ce6d8a3dcd337aec945}\label{listpack_8c_a05220e3facf52ce6d8a3dcd337aec945}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}{LP\_ENCODING\_12BIT\_STR\_MASK}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK~0x\+F0}
+
+
+
+Definition at line 66 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a9cfea84c38c5cf0d152f0e40fdd7c1fc}\label{listpack_8c_a9cfea84c38c5cf0d152f0e40fdd7c1fc}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+NT}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+NT}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+NT}{LP\_ENCODING\_13BIT\_INT}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+NT~0x\+C0}
+
+
+
+Definition at line 61 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a0770ec079e38f29b013d6014e268ff1f}\label{listpack_8c_a0770ec079e38f29b013d6014e268ff1f}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}{LP\_ENCODING\_13BIT\_INT\_MASK}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK~0x\+E0}
+
+
+
+Definition at line 62 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a4e888717b76a31a4ea334a03fea25047}\label{listpack_8c_a4e888717b76a31a4ea334a03fea25047}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+NT}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+NT}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+NT}{LP\_ENCODING\_16BIT\_INT}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+NT~0x\+F1}
+
+
+
+Definition at line 69 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_acdb130b39e0800198f74fe031bddbfe2}\label{listpack_8c_acdb130b39e0800198f74fe031bddbfe2}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}{LP\_ENCODING\_16BIT\_INT\_MASK}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK~0x\+FF}
+
+
+
+Definition at line 70 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a431020d4a3ee70b22b181b52fd231a77}\label{listpack_8c_a431020d4a3ee70b22b181b52fd231a77}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+NT}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+NT}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+NT}{LP\_ENCODING\_24BIT\_INT}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+NT~0x\+F2}
+
+
+
+Definition at line 73 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_abaa8acd1d2b43ceae41f6a7ffeeda368}\label{listpack_8c_abaa8acd1d2b43ceae41f6a7ffeeda368}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}{LP\_ENCODING\_24BIT\_INT\_MASK}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK~0x\+FF}
+
+
+
+Definition at line 74 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_aaf5d2cb51cf79d9609347c1cf7985711}\label{listpack_8c_aaf5d2cb51cf79d9609347c1cf7985711}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+NT}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+NT}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+NT}{LP\_ENCODING\_32BIT\_INT}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+NT~0x\+F3}
+
+
+
+Definition at line 77 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a91afb1463912e502f01583ece843b06d}\label{listpack_8c_a91afb1463912e502f01583ece843b06d}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}{LP\_ENCODING\_32BIT\_INT\_MASK}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK~0x\+FF}
+
+
+
+Definition at line 78 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_aaf0cf5a0bd10428f4797894e10a3e92b}\label{listpack_8c_aaf0cf5a0bd10428f4797894e10a3e92b}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+TR@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+TR}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+TR@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+TR}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+TR}{LP\_ENCODING\_32BIT\_STR}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+TR~0x\+F0}
+
+
+
+Definition at line 85 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a66a8fedf2589934bf597c7bea3f881ba}\label{listpack_8c_a66a8fedf2589934bf597c7bea3f881ba}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN}{LP\_ENCODING\_32BIT\_STR\_LEN}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(((uint32\_t)(p)[1]<<0) | \(\backslash\)
+                                      ((uint32\_t)(p)[2]<<8) | \(\backslash\)
+                                      ((uint32\_t)(p)[3]<<16) | \(\backslash\)
+                                      ((uint32\_t)(p)[4]<<24))
+\end{DoxyCode}
+
+
+Definition at line 93 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a80e656069b508dbd635201bcceaff88f}\label{listpack_8c_a80e656069b508dbd635201bcceaff88f}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}{LP\_ENCODING\_32BIT\_STR\_MASK}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK~0x\+FF}
+
+
+
+Definition at line 86 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_af93eef022c1590a9a592384e54df54c4}\label{listpack_8c_af93eef022c1590a9a592384e54df54c4}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+NT}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+NT}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+NT}{LP\_ENCODING\_64BIT\_INT}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+NT~0x\+F4}
+
+
+
+Definition at line 81 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a3a5c4cb907946391c28b8202369122b7}\label{listpack_8c_a3a5c4cb907946391c28b8202369122b7}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK}{LP\_ENCODING\_64BIT\_INT\_MASK}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK~0x\+FF}
+
+
+
+Definition at line 82 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_aa03a77428cf5dd11a741306d35f08d6f}\label{listpack_8c_aa03a77428cf5dd11a741306d35f08d6f}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+TR@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+TR}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+TR@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+TR}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+TR}{LP\_ENCODING\_6BIT\_STR}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+TR~0x80}
+
+
+
+Definition at line 57 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_aa8f2d59ee3355ef504d3b9914e5bb71d}\label{listpack_8c_aa8f2d59ee3355ef504d3b9914e5bb71d}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN}{LP\_ENCODING\_6BIT\_STR\_LEN}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+L\+EN(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~((p)\mbox{[}0\mbox{]} \& 0x3\+F)}
+
+
+
+Definition at line 91 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a0a64f1c1f90ecdcfc49ec3b738268601}\label{listpack_8c_a0a64f1c1f90ecdcfc49ec3b738268601}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK}{LP\_ENCODING\_6BIT\_STR\_MASK}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK~0x\+C0}
+
+
+
+Definition at line 58 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_ac949eb1675d053989cb72d263486d708}\label{listpack_8c_ac949eb1675d053989cb72d263486d708}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT}{LP\_ENCODING\_7BIT\_UINT}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT~0}
+
+
+
+Definition at line 53 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_aba3f3787e93f67472017620bfe1bbb9e}\label{listpack_8c_aba3f3787e93f67472017620bfe1bbb9e}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+N\+T\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+N\+T\+\_\+\+M\+A\+SK}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+N\+T\+\_\+\+M\+A\+SK@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+N\+T\+\_\+\+M\+A\+SK}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+N\+T\+\_\+\+M\+A\+SK}{LP\_ENCODING\_7BIT\_UINT\_MASK}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+N\+T\+\_\+\+M\+A\+SK~0x80}
+
+
+
+Definition at line 54 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a6f31184b7647732d04b0518b59261b62}\label{listpack_8c_a6f31184b7647732d04b0518b59261b62}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+NT}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+NT}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+NT}{LP\_ENCODING\_INT}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+NT~0}
+
+
+
+Definition at line 50 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a0bd78dfc25cc8b1956919beb5bf1dbcd}\label{listpack_8c_a0bd78dfc25cc8b1956919beb5bf1dbcd}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+12\+B\+I\+T\+\_\+\+S\+TR@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+12\+B\+I\+T\+\_\+\+S\+TR}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+12\+B\+I\+T\+\_\+\+S\+TR@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+12\+B\+I\+T\+\_\+\+S\+TR}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+12\+B\+I\+T\+\_\+\+S\+TR}{LP\_ENCODING\_IS\_12BIT\_STR}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+12\+B\+I\+T\+\_\+\+S\+TR(\begin{DoxyParamCaption}\item[{}]{byte }\end{DoxyParamCaption})~(((byte)\&\hyperlink{listpack_8c_a05220e3facf52ce6d8a3dcd337aec945}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_acf85ac38dc36778e68c75963245a3959}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+12\+B\+I\+T\+\_\+\+S\+TR})}
+
+
+
+Definition at line 67 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a3b3582cd32282a865f4df2c8c7a2aa24}\label{listpack_8c_a3b3582cd32282a865f4df2c8c7a2aa24}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+13\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+13\+B\+I\+T\+\_\+\+I\+NT}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+13\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+13\+B\+I\+T\+\_\+\+I\+NT}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+13\+B\+I\+T\+\_\+\+I\+NT}{LP\_ENCODING\_IS\_13BIT\_INT}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+13\+B\+I\+T\+\_\+\+I\+NT(\begin{DoxyParamCaption}\item[{}]{byte }\end{DoxyParamCaption})~(((byte)\&\hyperlink{listpack_8c_a0770ec079e38f29b013d6014e268ff1f}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_a9cfea84c38c5cf0d152f0e40fdd7c1fc}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+13\+B\+I\+T\+\_\+\+I\+NT})}
+
+
+
+Definition at line 63 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a95d38c05519efabc4ee56f4562e98750}\label{listpack_8c_a95d38c05519efabc4ee56f4562e98750}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+16\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+16\+B\+I\+T\+\_\+\+I\+NT}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+16\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+16\+B\+I\+T\+\_\+\+I\+NT}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+16\+B\+I\+T\+\_\+\+I\+NT}{LP\_ENCODING\_IS\_16BIT\_INT}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+16\+B\+I\+T\+\_\+\+I\+NT(\begin{DoxyParamCaption}\item[{}]{byte }\end{DoxyParamCaption})~(((byte)\&\hyperlink{listpack_8c_acdb130b39e0800198f74fe031bddbfe2}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_a4e888717b76a31a4ea334a03fea25047}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+16\+B\+I\+T\+\_\+\+I\+NT})}
+
+
+
+Definition at line 71 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a3ab45d5e21a9cb0f43d9fd91d55fad34}\label{listpack_8c_a3ab45d5e21a9cb0f43d9fd91d55fad34}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+24\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+24\+B\+I\+T\+\_\+\+I\+NT}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+24\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+24\+B\+I\+T\+\_\+\+I\+NT}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+24\+B\+I\+T\+\_\+\+I\+NT}{LP\_ENCODING\_IS\_24BIT\_INT}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+24\+B\+I\+T\+\_\+\+I\+NT(\begin{DoxyParamCaption}\item[{}]{byte }\end{DoxyParamCaption})~(((byte)\&\hyperlink{listpack_8c_abaa8acd1d2b43ceae41f6a7ffeeda368}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_a431020d4a3ee70b22b181b52fd231a77}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+24\+B\+I\+T\+\_\+\+I\+NT})}
+
+
+
+Definition at line 75 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a20bcd55f1ab106b65268239685b5b4bf}\label{listpack_8c_a20bcd55f1ab106b65268239685b5b4bf}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+I\+NT}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+I\+NT}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+I\+NT}{LP\_ENCODING\_IS\_32BIT\_INT}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+I\+NT(\begin{DoxyParamCaption}\item[{}]{byte }\end{DoxyParamCaption})~(((byte)\&\hyperlink{listpack_8c_a91afb1463912e502f01583ece843b06d}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_aaf5d2cb51cf79d9609347c1cf7985711}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+I\+NT})}
+
+
+
+Definition at line 79 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_afb8bf77b7f72a33b662e74d855725ac9}\label{listpack_8c_afb8bf77b7f72a33b662e74d855725ac9}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+S\+TR@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+S\+TR}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+S\+TR@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+S\+TR}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+S\+TR}{LP\_ENCODING\_IS\_32BIT\_STR}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+32\+B\+I\+T\+\_\+\+S\+TR(\begin{DoxyParamCaption}\item[{}]{byte }\end{DoxyParamCaption})~(((byte)\&\hyperlink{listpack_8c_a80e656069b508dbd635201bcceaff88f}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_aaf0cf5a0bd10428f4797894e10a3e92b}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+32\+B\+I\+T\+\_\+\+S\+TR})}
+
+
+
+Definition at line 87 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a72330c9d476269713f068c215d605675}\label{listpack_8c_a72330c9d476269713f068c215d605675}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+64\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+64\+B\+I\+T\+\_\+\+I\+NT}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+64\+B\+I\+T\+\_\+\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+64\+B\+I\+T\+\_\+\+I\+NT}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+64\+B\+I\+T\+\_\+\+I\+NT}{LP\_ENCODING\_IS\_64BIT\_INT}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+64\+B\+I\+T\+\_\+\+I\+NT(\begin{DoxyParamCaption}\item[{}]{byte }\end{DoxyParamCaption})~(((byte)\&\hyperlink{listpack_8c_a3a5c4cb907946391c28b8202369122b7}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+N\+T\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_af93eef022c1590a9a592384e54df54c4}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+64\+B\+I\+T\+\_\+\+I\+NT})}
+
+
+
+Definition at line 83 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a6d358f2ea07af0f8624dcd6abc784503}\label{listpack_8c_a6d358f2ea07af0f8624dcd6abc784503}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+6\+B\+I\+T\+\_\+\+S\+TR@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+6\+B\+I\+T\+\_\+\+S\+TR}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+6\+B\+I\+T\+\_\+\+S\+TR@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+6\+B\+I\+T\+\_\+\+S\+TR}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+6\+B\+I\+T\+\_\+\+S\+TR}{LP\_ENCODING\_IS\_6BIT\_STR}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+6\+B\+I\+T\+\_\+\+S\+TR(\begin{DoxyParamCaption}\item[{}]{byte }\end{DoxyParamCaption})~(((byte)\&\hyperlink{listpack_8c_a0a64f1c1f90ecdcfc49ec3b738268601}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+T\+R\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_aa03a77428cf5dd11a741306d35f08d6f}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+6\+B\+I\+T\+\_\+\+S\+TR})}
+
+
+
+Definition at line 59 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a4a6f30f71e802fffc5e9ab4ebf340a85}\label{listpack_8c_a4a6f30f71e802fffc5e9ab4ebf340a85}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT}{LP\_ENCODING\_IS\_7BIT\_UINT}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+I\+S\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT(\begin{DoxyParamCaption}\item[{}]{byte }\end{DoxyParamCaption})~(((byte)\&\hyperlink{listpack_8c_aba3f3787e93f67472017620bfe1bbb9e}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+N\+T\+\_\+\+M\+A\+SK})==\hyperlink{listpack_8c_ac949eb1675d053989cb72d263486d708}{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+7\+B\+I\+T\+\_\+\+U\+I\+NT})}
+
+
+
+Definition at line 55 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_acc1f8e726cc13c4d44351668652cea05}\label{listpack_8c_acc1f8e726cc13c4d44351668652cea05}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+S\+T\+R\+I\+NG@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+S\+T\+R\+I\+NG}}
+\index{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+S\+T\+R\+I\+NG@{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+S\+T\+R\+I\+NG}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+S\+T\+R\+I\+NG}{LP\_ENCODING\_STRING}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+S\+T\+R\+I\+NG~1}
+
+
+
+Definition at line 51 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_aa11b422dc597c4352da2abf522692774}\label{listpack_8c_aa11b422dc597c4352da2abf522692774}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+E\+OF@{L\+P\+\_\+\+E\+OF}}
+\index{L\+P\+\_\+\+E\+OF@{L\+P\+\_\+\+E\+OF}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+E\+OF}{LP\_EOF}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+E\+OF~0x\+FF}
+
+
+
+Definition at line 89 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_aabaec596aac6d7d8370b7d801638b022}\label{listpack_8c_aabaec596aac6d7d8370b7d801638b022}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+H\+D\+R\+\_\+\+N\+U\+M\+E\+L\+E\+\_\+\+U\+N\+K\+N\+O\+WN@{L\+P\+\_\+\+H\+D\+R\+\_\+\+N\+U\+M\+E\+L\+E\+\_\+\+U\+N\+K\+N\+O\+WN}}
+\index{L\+P\+\_\+\+H\+D\+R\+\_\+\+N\+U\+M\+E\+L\+E\+\_\+\+U\+N\+K\+N\+O\+WN@{L\+P\+\_\+\+H\+D\+R\+\_\+\+N\+U\+M\+E\+L\+E\+\_\+\+U\+N\+K\+N\+O\+WN}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+H\+D\+R\+\_\+\+N\+U\+M\+E\+L\+E\+\_\+\+U\+N\+K\+N\+O\+WN}{LP\_HDR\_NUMELE\_UNKNOWN}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+H\+D\+R\+\_\+\+N\+U\+M\+E\+L\+E\+\_\+\+U\+N\+K\+N\+O\+WN~U\+I\+N\+T16\+\_\+\+M\+AX}
+
+
+
+Definition at line 46 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_aa3fb94110f69a73ee90b4e63d8524dba}\label{listpack_8c_aa3fb94110f69a73ee90b4e63d8524dba}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE@{L\+P\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE}}
+\index{L\+P\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE@{L\+P\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE}{LP\_HDR\_SIZE}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+H\+D\+R\+\_\+\+S\+I\+ZE~6       /$\ast$ 32 bit total len + 16 bit number of elements. $\ast$/}
+
+
+
+Definition at line 45 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a366cd2ebf1ab1f0266b6629d52e9a35d}\label{listpack_8c_a366cd2ebf1ab1f0266b6629d52e9a35d}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+M\+A\+X\+\_\+\+B\+A\+C\+K\+L\+E\+N\+\_\+\+S\+I\+ZE@{L\+P\+\_\+\+M\+A\+X\+\_\+\+B\+A\+C\+K\+L\+E\+N\+\_\+\+S\+I\+ZE}}
+\index{L\+P\+\_\+\+M\+A\+X\+\_\+\+B\+A\+C\+K\+L\+E\+N\+\_\+\+S\+I\+ZE@{L\+P\+\_\+\+M\+A\+X\+\_\+\+B\+A\+C\+K\+L\+E\+N\+\_\+\+S\+I\+ZE}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+M\+A\+X\+\_\+\+B\+A\+C\+K\+L\+E\+N\+\_\+\+S\+I\+ZE}{LP\_MAX\_BACKLEN\_SIZE}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+M\+A\+X\+\_\+\+B\+A\+C\+K\+L\+E\+N\+\_\+\+S\+I\+ZE~5}
+
+
+
+Definition at line 48 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_ae4106f557c8162a6efae9c50b3561fa8}\label{listpack_8c_ae4106f557c8162a6efae9c50b3561fa8}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+M\+A\+X\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+B\+A\+C\+K\+L\+EN@{L\+P\+\_\+\+M\+A\+X\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+B\+A\+C\+K\+L\+EN}}
+\index{L\+P\+\_\+\+M\+A\+X\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+B\+A\+C\+K\+L\+EN@{L\+P\+\_\+\+M\+A\+X\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+B\+A\+C\+K\+L\+EN}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+M\+A\+X\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+B\+A\+C\+K\+L\+EN}{LP\_MAX\_ENTRY\_BACKLEN}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+M\+A\+X\+\_\+\+E\+N\+T\+R\+Y\+\_\+\+B\+A\+C\+K\+L\+EN~34359738367\+U\+LL}
+
+
+
+Definition at line 49 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a915406ff900007462e93d6db78ecd503}\label{listpack_8c_a915406ff900007462e93d6db78ecd503}} 
+\index{listpack.\+c@{listpack.\+c}!L\+P\+\_\+\+M\+A\+X\+\_\+\+I\+N\+T\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+L\+EN@{L\+P\+\_\+\+M\+A\+X\+\_\+\+I\+N\+T\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+L\+EN}}
+\index{L\+P\+\_\+\+M\+A\+X\+\_\+\+I\+N\+T\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+L\+EN@{L\+P\+\_\+\+M\+A\+X\+\_\+\+I\+N\+T\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+L\+EN}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{L\+P\+\_\+\+M\+A\+X\+\_\+\+I\+N\+T\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+L\+EN}{LP\_MAX\_INT\_ENCODING\_LEN}}
+{\footnotesize\ttfamily \#define L\+P\+\_\+\+M\+A\+X\+\_\+\+I\+N\+T\+\_\+\+E\+N\+C\+O\+D\+I\+N\+G\+\_\+\+L\+EN~9}
+
+
+
+Definition at line 47 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a6c5657a15231eb538939e10677c8ef1f}\label{listpack_8c_a6c5657a15231eb538939e10677c8ef1f}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Get\+Num\+Elements@{lp\+Get\+Num\+Elements}}
+\index{lp\+Get\+Num\+Elements@{lp\+Get\+Num\+Elements}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Get\+Num\+Elements}{lpGetNumElements}}
+{\footnotesize\ttfamily \#define lp\+Get\+Num\+Elements(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(((uint32\_t)(p)[4]<<0) | \(\backslash\)
+                                      ((uint32\_t)(p)[5]<<8))
+\end{DoxyCode}
+
+
+Definition at line 103 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a18d79dc11f1002b8c367eab243912a36}\label{listpack_8c_a18d79dc11f1002b8c367eab243912a36}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Get\+Total\+Bytes@{lp\+Get\+Total\+Bytes}}
+\index{lp\+Get\+Total\+Bytes@{lp\+Get\+Total\+Bytes}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Get\+Total\+Bytes}{lpGetTotalBytes}}
+{\footnotesize\ttfamily \#define lp\+Get\+Total\+Bytes(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(((uint32\_t)(p)[0]<<0) | \(\backslash\)
+                                      ((uint32\_t)(p)[1]<<8) | \(\backslash\)
+                                      ((uint32\_t)(p)[2]<<16) | \(\backslash\)
+                                      ((uint32\_t)(p)[3]<<24))
+\end{DoxyCode}
+
+
+Definition at line 98 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_abd63c5b3f66f6d270759fa5e3c319ce8}\label{listpack_8c_abd63c5b3f66f6d270759fa5e3c319ce8}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Set\+Num\+Elements@{lp\+Set\+Num\+Elements}}
+\index{lp\+Set\+Num\+Elements@{lp\+Set\+Num\+Elements}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Set\+Num\+Elements}{lpSetNumElements}}
+{\footnotesize\ttfamily \#define lp\+Set\+Num\+Elements(\begin{DoxyParamCaption}\item[{}]{p,  }\item[{}]{v }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    (p)[4] = (v)&0xff; \(\backslash\)
+    (p)[5] = ((v)>>8)&0xff; \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 112 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a08a4fb5c67c9c38aa657ba8773b7e1ab}\label{listpack_8c_a08a4fb5c67c9c38aa657ba8773b7e1ab}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Set\+Total\+Bytes@{lp\+Set\+Total\+Bytes}}
+\index{lp\+Set\+Total\+Bytes@{lp\+Set\+Total\+Bytes}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Set\+Total\+Bytes}{lpSetTotalBytes}}
+{\footnotesize\ttfamily \#define lp\+Set\+Total\+Bytes(\begin{DoxyParamCaption}\item[{}]{p,  }\item[{}]{v }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+    (p)[0] = (v)&0xff; \(\backslash\)
+    (p)[1] = ((v)>>8)&0xff; \(\backslash\)
+    (p)[2] = ((v)>>16)&0xff; \(\backslash\)
+    (p)[3] = ((v)>>24)&0xff; \(\backslash\)
+\} \textcolor{keywordflow}{while}(0)
+\end{DoxyCode}
+
+
+Definition at line 105 of file listpack.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{listpack_8c_ac4a00a910f148ad1fe155d804a1820fe}\label{listpack_8c_ac4a00a910f148ad1fe155d804a1820fe}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Append@{lp\+Append}}
+\index{lp\+Append@{lp\+Append}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Append()}{lpAppend()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Append (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp,  }\item[{unsigned char $\ast$}]{ele,  }\item[{uint32\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 736 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a087b2b4c2fcb972fb8c4b9466828d2e6}\label{listpack_8c_a087b2b4c2fcb972fb8c4b9466828d2e6}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Bytes@{lp\+Bytes}}
+\index{lp\+Bytes@{lp\+Bytes}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Bytes()}{lpBytes()}}
+{\footnotesize\ttfamily uint32\+\_\+t lp\+Bytes (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 751 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_ad5a821190692c039f6aa98c15418c5f4}\label{listpack_8c_ad5a821190692c039f6aa98c15418c5f4}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Current\+Encoded\+Size@{lp\+Current\+Encoded\+Size}}
+\index{lp\+Current\+Encoded\+Size@{lp\+Current\+Encoded\+Size}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Current\+Encoded\+Size()}{lpCurrentEncodedSize()}}
+{\footnotesize\ttfamily uint32\+\_\+t lp\+Current\+Encoded\+Size (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 372 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a558668472f1bc87db1a054dadc2670c8}\label{listpack_8c_a558668472f1bc87db1a054dadc2670c8}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Decode\+Backlen@{lp\+Decode\+Backlen}}
+\index{lp\+Decode\+Backlen@{lp\+Decode\+Backlen}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Decode\+Backlen()}{lpDecodeBacklen()}}
+{\footnotesize\ttfamily uint64\+\_\+t lp\+Decode\+Backlen (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 335 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a55b9a6bc62e44a1d45f723a4f1250c8f}\label{listpack_8c_a55b9a6bc62e44a1d45f723a4f1250c8f}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Delete@{lp\+Delete}}
+\index{lp\+Delete@{lp\+Delete}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Delete()}{lpDelete()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Delete (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp,  }\item[{unsigned char $\ast$}]{p,  }\item[{unsigned char $\ast$$\ast$}]{newp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 746 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a40a0ba68a20fa3bf23d7bf85ada69fb6}\label{listpack_8c_a40a0ba68a20fa3bf23d7bf85ada69fb6}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Encode\+Backlen@{lp\+Encode\+Backlen}}
+\index{lp\+Encode\+Backlen@{lp\+Encode\+Backlen}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Encode\+Backlen()}{lpEncodeBacklen()}}
+{\footnotesize\ttfamily unsigned long lp\+Encode\+Backlen (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{buf,  }\item[{uint64\+\_\+t}]{l }\end{DoxyParamCaption})}
+
+
+
+Definition at line 296 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a0e8cbdf8b1b2f7cfef09e67abaa40be7}\label{listpack_8c_a0e8cbdf8b1b2f7cfef09e67abaa40be7}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Encode\+Get\+Type@{lp\+Encode\+Get\+Type}}
+\index{lp\+Encode\+Get\+Type@{lp\+Encode\+Get\+Type}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Encode\+Get\+Type()}{lpEncodeGetType()}}
+{\footnotesize\ttfamily int lp\+Encode\+Get\+Type (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{ele,  }\item[{uint32\+\_\+t}]{size,  }\item[{unsigned char $\ast$}]{intenc,  }\item[{uint64\+\_\+t $\ast$}]{enclen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 231 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a04227c27357d512673a49980c23a5da0}\label{listpack_8c_a04227c27357d512673a49980c23a5da0}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Encode\+String@{lp\+Encode\+String}}
+\index{lp\+Encode\+String@{lp\+Encode\+String}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Encode\+String()}{lpEncodeString()}}
+{\footnotesize\ttfamily void lp\+Encode\+String (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{buf,  }\item[{unsigned char $\ast$}]{s,  }\item[{uint32\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 352 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_ad241a9bd2905ee3b0e82e02d01f4f372}\label{listpack_8c_ad241a9bd2905ee3b0e82e02d01f4f372}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+First@{lp\+First}}
+\index{lp\+First@{lp\+First}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+First()}{lpFirst()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+First (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 420 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_aa03e7c2b9d9fbb112e169514dc2b6125}\label{listpack_8c_aa03e7c2b9d9fbb112e169514dc2b6125}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Free@{lp\+Free}}
+\index{lp\+Free@{lp\+Free}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Free()}{lpFree()}}
+{\footnotesize\ttfamily void lp\+Free (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 216 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a30f12fcf140c299b5f20a6a24bc18c6a}\label{listpack_8c_a30f12fcf140c299b5f20a6a24bc18c6a}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Get@{lp\+Get}}
+\index{lp\+Get@{lp\+Get}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Get()}{lpGet()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Get (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{int64\+\_\+t $\ast$}]{count,  }\item[{unsigned char $\ast$}]{intbuf }\end{DoxyParamCaption})}
+
+
+
+Definition at line 491 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_abf204a043216f2bb3593bdb073965558}\label{listpack_8c_abf204a043216f2bb3593bdb073965558}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Insert@{lp\+Insert}}
+\index{lp\+Insert@{lp\+Insert}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Insert()}{lpInsert()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Insert (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp,  }\item[{unsigned char $\ast$}]{ele,  }\item[{uint32\+\_\+t}]{size,  }\item[{unsigned char $\ast$}]{p,  }\item[{int}]{where,  }\item[{unsigned char $\ast$$\ast$}]{newp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 595 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_aa13b77ad8c7c6a22d9523f66731840f3}\label{listpack_8c_aa13b77ad8c7c6a22d9523f66731840f3}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Last@{lp\+Last}}
+\index{lp\+Last@{lp\+Last}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Last()}{lpLast()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Last (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 428 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_ab45595f8f64080d09fc5bd9c1de138a2}\label{listpack_8c_ab45595f8f64080d09fc5bd9c1de138a2}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Length@{lp\+Length}}
+\index{lp\+Length@{lp\+Length}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Length()}{lpLength()}}
+{\footnotesize\ttfamily uint32\+\_\+t lp\+Length (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 438 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a99523d640443dcaea6031f4cf10672a5}\label{listpack_8c_a99523d640443dcaea6031f4cf10672a5}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+New@{lp\+New}}
+\index{lp\+New@{lp\+New}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+New()}{lpNew()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+New (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 206 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_ac8d441ace9db50ccb9e8a93e1bfa5630}\label{listpack_8c_ac8d441ace9db50ccb9e8a93e1bfa5630}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Next@{lp\+Next}}
+\index{lp\+Next@{lp\+Next}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Next()}{lpNext()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Next (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp,  }\item[{unsigned char $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 400 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a0bfa5487a1cb14ae54e3ba6d33251f27}\label{listpack_8c_a0bfa5487a1cb14ae54e3ba6d33251f27}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Prev@{lp\+Prev}}
+\index{lp\+Prev@{lp\+Prev}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Prev()}{lpPrev()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Prev (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp,  }\item[{unsigned char $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 410 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_ac05c2d885bd03e1769b3aede9bd499f0}\label{listpack_8c_ac05c2d885bd03e1769b3aede9bd499f0}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Seek@{lp\+Seek}}
+\index{lp\+Seek@{lp\+Seek}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Seek()}{lpSeek()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Seek (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{lp,  }\item[{long}]{index }\end{DoxyParamCaption})}
+
+
+
+Definition at line 760 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a353dc1a2b68faa317d97103781c7eb25}\label{listpack_8c_a353dc1a2b68faa317d97103781c7eb25}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+Skip@{lp\+Skip}}
+\index{lp\+Skip@{lp\+Skip}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+Skip()}{lpSkip()}}
+{\footnotesize\ttfamily unsigned char$\ast$ lp\+Skip (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 390 of file listpack.\+c.
+
+\mbox{\Hypertarget{listpack_8c_a37c18b4b1c84b7bf01c0c91ea2225057}\label{listpack_8c_a37c18b4b1c84b7bf01c0c91ea2225057}} 
+\index{listpack.\+c@{listpack.\+c}!lp\+String\+To\+Int64@{lp\+String\+To\+Int64}}
+\index{lp\+String\+To\+Int64@{lp\+String\+To\+Int64}!listpack.\+c@{listpack.\+c}}
+\subsubsection{\texorpdfstring{lp\+String\+To\+Int64()}{lpStringToInt64()}}
+{\footnotesize\ttfamily int lp\+String\+To\+Int64 (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s,  }\item[{unsigned long}]{slen,  }\item[{int64\+\_\+t $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 141 of file listpack.\+c.
+

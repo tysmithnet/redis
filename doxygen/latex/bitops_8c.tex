@@ -1,0 +1,376 @@
+\hypertarget{bitops_8c}{}\section{src/bitops.c File Reference}
+\label{bitops_8c}\index{src/bitops.\+c@{src/bitops.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+Include dependency graph for bitops.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{bitops_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structbitfield_op}{bitfield\+Op}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{bitops_8c_a4ecdfa50fecb0c7c8f11f098d9b808e8}{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+W\+R\+AP}~0
+\item 
+\#define \hyperlink{bitops_8c_abe656810f7c24542b4451c96b960cae1}{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+S\+AT}~1
+\item 
+\#define \hyperlink{bitops_8c_a43973854211e7721d528708f55214302}{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+F\+A\+IL}~2 /$\ast$ Used by the B\+I\+T\+F\+I\+E\+LD command implementation. $\ast$/
+\item 
+\#define \hyperlink{bitops_8c_adb2b31ac9285af6d27408c81c4a1a637}{B\+I\+T\+O\+P\+\_\+\+A\+ND}~0
+\item 
+\#define \hyperlink{bitops_8c_a3877788c36f67d63804710ce8a80d100}{B\+I\+T\+O\+P\+\_\+\+OR}~1
+\item 
+\#define \hyperlink{bitops_8c_a29fde80dd21281f9ada69d9e65109d14}{B\+I\+T\+O\+P\+\_\+\+X\+OR}~2
+\item 
+\#define \hyperlink{bitops_8c_a4fa18b2ac29f1722d9db66461bed3288}{B\+I\+T\+O\+P\+\_\+\+N\+OT}~3
+\item 
+\#define \hyperlink{bitops_8c_abb0e64d988f71e146be3778564d90e5f}{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+G\+ET}~0
+\item 
+\#define \hyperlink{bitops_8c_a00d14d842300bc8ec501a5e1996c515f}{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+S\+ET}~1
+\item 
+\#define \hyperlink{bitops_8c_aa91cdbb6feffa6f3ef145e62f0fb7706}{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+I\+N\+C\+R\+BY}~2
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \hyperlink{bitops_8c_a78df2fade3b804c24852a20e2f51dba7}{redis\+Popcount} (void $\ast$s, long count)
+\item 
+long \hyperlink{bitops_8c_a32c02220d0b8b229e04d504a71dbfdd6}{redis\+Bitpos} (void $\ast$s, unsigned long count, int bit)
+\item 
+void \hyperlink{bitops_8c_a580753e99622e78374770f48d20dddc5}{set\+Unsigned\+Bitfield} (unsigned char $\ast$p, uint64\+\_\+t offset, uint64\+\_\+t bits, uint64\+\_\+t value)
+\item 
+void \hyperlink{bitops_8c_a8030f461412d683fc853d3bd17607166}{set\+Signed\+Bitfield} (unsigned char $\ast$p, uint64\+\_\+t offset, uint64\+\_\+t bits, int64\+\_\+t value)
+\item 
+uint64\+\_\+t \hyperlink{bitops_8c_a589968bcb7c987a27ae48fe529267d33}{get\+Unsigned\+Bitfield} (unsigned char $\ast$p, uint64\+\_\+t offset, uint64\+\_\+t bits)
+\item 
+int64\+\_\+t \hyperlink{bitops_8c_a901c9a86e9a42784f404cbc716244133}{get\+Signed\+Bitfield} (unsigned char $\ast$p, uint64\+\_\+t offset, uint64\+\_\+t bits)
+\item 
+int \hyperlink{bitops_8c_ab6753a17d83ce8328dc046228eeaf2c8}{check\+Unsigned\+Bitfield\+Overflow} (uint64\+\_\+t value, int64\+\_\+t incr, uint64\+\_\+t bits, int owtype, uint64\+\_\+t $\ast$limit)
+\item 
+int \hyperlink{bitops_8c_a377b0fe0fe72238ccd52b2973624ddd2}{check\+Signed\+Bitfield\+Overflow} (int64\+\_\+t value, int64\+\_\+t incr, uint64\+\_\+t bits, int owtype, int64\+\_\+t $\ast$limit)
+\item 
+void \hyperlink{bitops_8c_af55970269661cb87a63ecc339c617d31}{print\+Bits} (unsigned char $\ast$p, unsigned long count)
+\item 
+int \hyperlink{bitops_8c_aa32b135f9b8548b09209f3a55ff52850}{get\+Bit\+Offset\+From\+Argument} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, size\+\_\+t $\ast$offset, int hash, int bits)
+\item 
+int \hyperlink{bitops_8c_abd393c936a5a65d1e9b1aba99d4208da}{get\+Bitfield\+Type\+From\+Argument} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, int $\ast$sign, int $\ast$bits)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{bitops_8c_aab28b7f15dd3643445c4aac3f1248c46}{lookup\+String\+For\+Bit\+Command} (\hyperlink{structclient}{client} $\ast$c, size\+\_\+t maxbit)
+\item 
+unsigned char $\ast$ \hyperlink{bitops_8c_aa1601171f3b7adb9084d8f469ad64fc0}{get\+Object\+Read\+Only\+String} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o, long $\ast$len, char $\ast$llbuf)
+\item 
+void \hyperlink{bitops_8c_ae66b442041f4beefc834a1ab5e84adbb}{setbit\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{bitops_8c_a21071498ba2aeb06395aee8293e7e527}{getbit\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{bitops_8c_ac8ff2376b5058730e205cf6694eb3e1c}{bitop\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{bitops_8c_ab37b7a9613378a1894018aa36f38717e}{bitcount\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{bitops_8c_ab1ad23ed68457dde6acc8392449ddd23}{bitpos\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{bitops_8c_a0b0771537df6eefbc289d48ff7aac77a}{bitfield\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{bitops_8c_a43973854211e7721d528708f55214302}\label{bitops_8c_a43973854211e7721d528708f55214302}} 
+\index{bitops.\+c@{bitops.\+c}!B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+F\+A\+IL@{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+F\+A\+IL}}
+\index{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+F\+A\+IL@{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+F\+A\+IL}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+F\+A\+IL}{BFOVERFLOW\_FAIL}}
+{\footnotesize\ttfamily \#define B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+F\+A\+IL~2 /$\ast$ Used by the B\+I\+T\+F\+I\+E\+LD command implementation. $\ast$/}
+
+
+
+Definition at line 286 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_abe656810f7c24542b4451c96b960cae1}\label{bitops_8c_abe656810f7c24542b4451c96b960cae1}} 
+\index{bitops.\+c@{bitops.\+c}!B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+S\+AT@{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+S\+AT}}
+\index{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+S\+AT@{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+S\+AT}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+S\+AT}{BFOVERFLOW\_SAT}}
+{\footnotesize\ttfamily \#define B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+S\+AT~1}
+
+
+
+Definition at line 285 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a4ecdfa50fecb0c7c8f11f098d9b808e8}\label{bitops_8c_a4ecdfa50fecb0c7c8f11f098d9b808e8}} 
+\index{bitops.\+c@{bitops.\+c}!B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+W\+R\+AP@{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+W\+R\+AP}}
+\index{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+W\+R\+AP@{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+W\+R\+AP}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+W\+R\+AP}{BFOVERFLOW\_WRAP}}
+{\footnotesize\ttfamily \#define B\+F\+O\+V\+E\+R\+F\+L\+O\+W\+\_\+\+W\+R\+AP~0}
+
+
+
+Definition at line 284 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_abb0e64d988f71e146be3778564d90e5f}\label{bitops_8c_abb0e64d988f71e146be3778564d90e5f}} 
+\index{bitops.\+c@{bitops.\+c}!B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+G\+ET@{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+G\+ET}}
+\index{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+G\+ET@{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+G\+ET}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+G\+ET}{BITFIELDOP\_GET}}
+{\footnotesize\ttfamily \#define B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+G\+ET~0}
+
+
+
+Definition at line 400 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_aa91cdbb6feffa6f3ef145e62f0fb7706}\label{bitops_8c_aa91cdbb6feffa6f3ef145e62f0fb7706}} 
+\index{bitops.\+c@{bitops.\+c}!B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+I\+N\+C\+R\+BY@{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+I\+N\+C\+R\+BY}}
+\index{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+I\+N\+C\+R\+BY@{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+I\+N\+C\+R\+BY}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+I\+N\+C\+R\+BY}{BITFIELDOP\_INCRBY}}
+{\footnotesize\ttfamily \#define B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+I\+N\+C\+R\+BY~2}
+
+
+
+Definition at line 402 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a00d14d842300bc8ec501a5e1996c515f}\label{bitops_8c_a00d14d842300bc8ec501a5e1996c515f}} 
+\index{bitops.\+c@{bitops.\+c}!B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+S\+ET@{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+S\+ET}}
+\index{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+S\+ET@{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+S\+ET}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+S\+ET}{BITFIELDOP\_SET}}
+{\footnotesize\ttfamily \#define B\+I\+T\+F\+I\+E\+L\+D\+O\+P\+\_\+\+S\+ET~1}
+
+
+
+Definition at line 401 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_adb2b31ac9285af6d27408c81c4a1a637}\label{bitops_8c_adb2b31ac9285af6d27408c81c4a1a637}} 
+\index{bitops.\+c@{bitops.\+c}!B\+I\+T\+O\+P\+\_\+\+A\+ND@{B\+I\+T\+O\+P\+\_\+\+A\+ND}}
+\index{B\+I\+T\+O\+P\+\_\+\+A\+ND@{B\+I\+T\+O\+P\+\_\+\+A\+ND}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{B\+I\+T\+O\+P\+\_\+\+A\+ND}{BITOP\_AND}}
+{\footnotesize\ttfamily \#define B\+I\+T\+O\+P\+\_\+\+A\+ND~0}
+
+
+
+Definition at line 395 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a4fa18b2ac29f1722d9db66461bed3288}\label{bitops_8c_a4fa18b2ac29f1722d9db66461bed3288}} 
+\index{bitops.\+c@{bitops.\+c}!B\+I\+T\+O\+P\+\_\+\+N\+OT@{B\+I\+T\+O\+P\+\_\+\+N\+OT}}
+\index{B\+I\+T\+O\+P\+\_\+\+N\+OT@{B\+I\+T\+O\+P\+\_\+\+N\+OT}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{B\+I\+T\+O\+P\+\_\+\+N\+OT}{BITOP\_NOT}}
+{\footnotesize\ttfamily \#define B\+I\+T\+O\+P\+\_\+\+N\+OT~3}
+
+
+
+Definition at line 398 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a3877788c36f67d63804710ce8a80d100}\label{bitops_8c_a3877788c36f67d63804710ce8a80d100}} 
+\index{bitops.\+c@{bitops.\+c}!B\+I\+T\+O\+P\+\_\+\+OR@{B\+I\+T\+O\+P\+\_\+\+OR}}
+\index{B\+I\+T\+O\+P\+\_\+\+OR@{B\+I\+T\+O\+P\+\_\+\+OR}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{B\+I\+T\+O\+P\+\_\+\+OR}{BITOP\_OR}}
+{\footnotesize\ttfamily \#define B\+I\+T\+O\+P\+\_\+\+OR~1}
+
+
+
+Definition at line 396 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a29fde80dd21281f9ada69d9e65109d14}\label{bitops_8c_a29fde80dd21281f9ada69d9e65109d14}} 
+\index{bitops.\+c@{bitops.\+c}!B\+I\+T\+O\+P\+\_\+\+X\+OR@{B\+I\+T\+O\+P\+\_\+\+X\+OR}}
+\index{B\+I\+T\+O\+P\+\_\+\+X\+OR@{B\+I\+T\+O\+P\+\_\+\+X\+OR}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{B\+I\+T\+O\+P\+\_\+\+X\+OR}{BITOP\_XOR}}
+{\footnotesize\ttfamily \#define B\+I\+T\+O\+P\+\_\+\+X\+OR~2}
+
+
+
+Definition at line 397 of file bitops.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{bitops_8c_ab37b7a9613378a1894018aa36f38717e}\label{bitops_8c_ab37b7a9613378a1894018aa36f38717e}} 
+\index{bitops.\+c@{bitops.\+c}!bitcount\+Command@{bitcount\+Command}}
+\index{bitcount\+Command@{bitcount\+Command}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{bitcount\+Command()}{bitcountCommand()}}
+{\footnotesize\ttfamily void bitcount\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 769 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a0b0771537df6eefbc289d48ff7aac77a}\label{bitops_8c_a0b0771537df6eefbc289d48ff7aac77a}} 
+\index{bitops.\+c@{bitops.\+c}!bitfield\+Command@{bitfield\+Command}}
+\index{bitfield\+Command@{bitfield\+Command}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{bitfield\+Command()}{bitfieldCommand()}}
+{\footnotesize\ttfamily void bitfield\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 914 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_ac8ff2376b5058730e205cf6694eb3e1c}\label{bitops_8c_ac8ff2376b5058730e205cf6694eb3e1c}} 
+\index{bitops.\+c@{bitops.\+c}!bitop\+Command@{bitop\+Command}}
+\index{bitop\+Command@{bitop\+Command}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{bitop\+Command()}{bitopCommand()}}
+{\footnotesize\ttfamily void bitop\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 591 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_ab1ad23ed68457dde6acc8392449ddd23}\label{bitops_8c_ab1ad23ed68457dde6acc8392449ddd23}} 
+\index{bitops.\+c@{bitops.\+c}!bitpos\+Command@{bitpos\+Command}}
+\index{bitpos\+Command@{bitpos\+Command}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{bitpos\+Command()}{bitposCommand()}}
+{\footnotesize\ttfamily void bitpos\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 818 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a377b0fe0fe72238ccd52b2973624ddd2}\label{bitops_8c_a377b0fe0fe72238ccd52b2973624ddd2}} 
+\index{bitops.\+c@{bitops.\+c}!check\+Signed\+Bitfield\+Overflow@{check\+Signed\+Bitfield\+Overflow}}
+\index{check\+Signed\+Bitfield\+Overflow@{check\+Signed\+Bitfield\+Overflow}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{check\+Signed\+Bitfield\+Overflow()}{checkSignedBitfieldOverflow()}}
+{\footnotesize\ttfamily int check\+Signed\+Bitfield\+Overflow (\begin{DoxyParamCaption}\item[{int64\+\_\+t}]{value,  }\item[{int64\+\_\+t}]{incr,  }\item[{uint64\+\_\+t}]{bits,  }\item[{int}]{owtype,  }\item[{int64\+\_\+t $\ast$}]{limit }\end{DoxyParamCaption})}
+
+
+
+Definition at line 325 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_ab6753a17d83ce8328dc046228eeaf2c8}\label{bitops_8c_ab6753a17d83ce8328dc046228eeaf2c8}} 
+\index{bitops.\+c@{bitops.\+c}!check\+Unsigned\+Bitfield\+Overflow@{check\+Unsigned\+Bitfield\+Overflow}}
+\index{check\+Unsigned\+Bitfield\+Overflow@{check\+Unsigned\+Bitfield\+Overflow}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{check\+Unsigned\+Bitfield\+Overflow()}{checkUnsignedBitfieldOverflow()}}
+{\footnotesize\ttfamily int check\+Unsigned\+Bitfield\+Overflow (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{value,  }\item[{int64\+\_\+t}]{incr,  }\item[{uint64\+\_\+t}]{bits,  }\item[{int}]{owtype,  }\item[{uint64\+\_\+t $\ast$}]{limit }\end{DoxyParamCaption})}
+
+
+
+Definition at line 288 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a21071498ba2aeb06395aee8293e7e527}\label{bitops_8c_a21071498ba2aeb06395aee8293e7e527}} 
+\index{bitops.\+c@{bitops.\+c}!getbit\+Command@{getbit\+Command}}
+\index{getbit\+Command@{getbit\+Command}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{getbit\+Command()}{getbitCommand()}}
+{\footnotesize\ttfamily void getbit\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 564 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_abd393c936a5a65d1e9b1aba99d4208da}\label{bitops_8c_abd393c936a5a65d1e9b1aba99d4208da}} 
+\index{bitops.\+c@{bitops.\+c}!get\+Bitfield\+Type\+From\+Argument@{get\+Bitfield\+Type\+From\+Argument}}
+\index{get\+Bitfield\+Type\+From\+Argument@{get\+Bitfield\+Type\+From\+Argument}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{get\+Bitfield\+Type\+From\+Argument()}{getBitfieldTypeFromArgument()}}
+{\footnotesize\ttfamily int get\+Bitfield\+Type\+From\+Argument (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{int $\ast$}]{sign,  }\item[{int $\ast$}]{bits }\end{DoxyParamCaption})}
+
+
+
+Definition at line 447 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_aa32b135f9b8548b09209f3a55ff52850}\label{bitops_8c_aa32b135f9b8548b09209f3a55ff52850}} 
+\index{bitops.\+c@{bitops.\+c}!get\+Bit\+Offset\+From\+Argument@{get\+Bit\+Offset\+From\+Argument}}
+\index{get\+Bit\+Offset\+From\+Argument@{get\+Bit\+Offset\+From\+Argument}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{get\+Bit\+Offset\+From\+Argument()}{getBitOffsetFromArgument()}}
+{\footnotesize\ttfamily int get\+Bit\+Offset\+From\+Argument (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{size\+\_\+t $\ast$}]{offset,  }\item[{int}]{hash,  }\item[{int}]{bits }\end{DoxyParamCaption})}
+
+
+
+Definition at line 411 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_aa1601171f3b7adb9084d8f469ad64fc0}\label{bitops_8c_aa1601171f3b7adb9084d8f469ad64fc0}} 
+\index{bitops.\+c@{bitops.\+c}!get\+Object\+Read\+Only\+String@{get\+Object\+Read\+Only\+String}}
+\index{get\+Object\+Read\+Only\+String@{get\+Object\+Read\+Only\+String}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{get\+Object\+Read\+Only\+String()}{getObjectReadOnlyString()}}
+{\footnotesize\ttfamily unsigned char$\ast$ get\+Object\+Read\+Only\+String (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o,  }\item[{long $\ast$}]{len,  }\item[{char $\ast$}]{llbuf }\end{DoxyParamCaption})}
+
+
+
+Definition at line 506 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a901c9a86e9a42784f404cbc716244133}\label{bitops_8c_a901c9a86e9a42784f404cbc716244133}} 
+\index{bitops.\+c@{bitops.\+c}!get\+Signed\+Bitfield@{get\+Signed\+Bitfield}}
+\index{get\+Signed\+Bitfield@{get\+Signed\+Bitfield}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{get\+Signed\+Bitfield()}{getSignedBitfield()}}
+{\footnotesize\ttfamily int64\+\_\+t get\+Signed\+Bitfield (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{uint64\+\_\+t}]{offset,  }\item[{uint64\+\_\+t}]{bits }\end{DoxyParamCaption})}
+
+
+
+Definition at line 243 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a589968bcb7c987a27ae48fe529267d33}\label{bitops_8c_a589968bcb7c987a27ae48fe529267d33}} 
+\index{bitops.\+c@{bitops.\+c}!get\+Unsigned\+Bitfield@{get\+Unsigned\+Bitfield}}
+\index{get\+Unsigned\+Bitfield@{get\+Unsigned\+Bitfield}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{get\+Unsigned\+Bitfield()}{getUnsignedBitfield()}}
+{\footnotesize\ttfamily uint64\+\_\+t get\+Unsigned\+Bitfield (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{uint64\+\_\+t}]{offset,  }\item[{uint64\+\_\+t}]{bits }\end{DoxyParamCaption})}
+
+
+
+Definition at line 229 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_aab28b7f15dd3643445c4aac3f1248c46}\label{bitops_8c_aab28b7f15dd3643445c4aac3f1248c46}} 
+\index{bitops.\+c@{bitops.\+c}!lookup\+String\+For\+Bit\+Command@{lookup\+String\+For\+Bit\+Command}}
+\index{lookup\+String\+For\+Bit\+Command@{lookup\+String\+For\+Bit\+Command}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{lookup\+String\+For\+Bit\+Command()}{lookupStringForBitCommand()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ lookup\+String\+For\+Bit\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{size\+\_\+t}]{maxbit }\end{DoxyParamCaption})}
+
+
+
+Definition at line 478 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_af55970269661cb87a63ecc339c617d31}\label{bitops_8c_af55970269661cb87a63ecc339c617d31}} 
+\index{bitops.\+c@{bitops.\+c}!print\+Bits@{print\+Bits}}
+\index{print\+Bits@{print\+Bits}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{print\+Bits()}{printBits()}}
+{\footnotesize\ttfamily void print\+Bits (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{unsigned long}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 379 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a32c02220d0b8b229e04d504a71dbfdd6}\label{bitops_8c_a32c02220d0b8b229e04d504a71dbfdd6}} 
+\index{bitops.\+c@{bitops.\+c}!redis\+Bitpos@{redis\+Bitpos}}
+\index{redis\+Bitpos@{redis\+Bitpos}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{redis\+Bitpos()}{redisBitpos()}}
+{\footnotesize\ttfamily long redis\+Bitpos (\begin{DoxyParamCaption}\item[{void $\ast$}]{s,  }\item[{unsigned long}]{count,  }\item[{int}]{bit }\end{DoxyParamCaption})}
+
+
+
+Definition at line 101 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a78df2fade3b804c24852a20e2f51dba7}\label{bitops_8c_a78df2fade3b804c24852a20e2f51dba7}} 
+\index{bitops.\+c@{bitops.\+c}!redis\+Popcount@{redis\+Popcount}}
+\index{redis\+Popcount@{redis\+Popcount}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{redis\+Popcount()}{redisPopcount()}}
+{\footnotesize\ttfamily size\+\_\+t redis\+Popcount (\begin{DoxyParamCaption}\item[{void $\ast$}]{s,  }\item[{long}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 40 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_ae66b442041f4beefc834a1ab5e84adbb}\label{bitops_8c_ae66b442041f4beefc834a1ab5e84adbb}} 
+\index{bitops.\+c@{bitops.\+c}!setbit\+Command@{setbit\+Command}}
+\index{setbit\+Command@{setbit\+Command}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{setbit\+Command()}{setbitCommand()}}
+{\footnotesize\ttfamily void setbit\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 525 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a8030f461412d683fc853d3bd17607166}\label{bitops_8c_a8030f461412d683fc853d3bd17607166}} 
+\index{bitops.\+c@{bitops.\+c}!set\+Signed\+Bitfield@{set\+Signed\+Bitfield}}
+\index{set\+Signed\+Bitfield@{set\+Signed\+Bitfield}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{set\+Signed\+Bitfield()}{setSignedBitfield()}}
+{\footnotesize\ttfamily void set\+Signed\+Bitfield (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{uint64\+\_\+t}]{offset,  }\item[{uint64\+\_\+t}]{bits,  }\item[{int64\+\_\+t}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 224 of file bitops.\+c.
+
+\mbox{\Hypertarget{bitops_8c_a580753e99622e78374770f48d20dddc5}\label{bitops_8c_a580753e99622e78374770f48d20dddc5}} 
+\index{bitops.\+c@{bitops.\+c}!set\+Unsigned\+Bitfield@{set\+Unsigned\+Bitfield}}
+\index{set\+Unsigned\+Bitfield@{set\+Unsigned\+Bitfield}!bitops.\+c@{bitops.\+c}}
+\subsubsection{\texorpdfstring{set\+Unsigned\+Bitfield()}{setUnsignedBitfield()}}
+{\footnotesize\ttfamily void set\+Unsigned\+Bitfield (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{uint64\+\_\+t}]{offset,  }\item[{uint64\+\_\+t}]{bits,  }\item[{uint64\+\_\+t}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 209 of file bitops.\+c.
+

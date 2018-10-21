@@ -1,0 +1,109 @@
+\hypertarget{config_8h}{}\section{src/config.h File Reference}
+\label{config_8h}\index{src/config.\+h@{src/config.\+h}}
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+Include dependency graph for config.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{config_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{config_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{config_8h_a7fb7329d05a6b4d1b1e7a3fac44c0668}{redis\+\_\+fstat}~fstat
+\item 
+\#define \hyperlink{config_8h_ae18037d20ab1bc7c716ea0bcb506f7af}{redis\+\_\+stat}~stat
+\item 
+\#define \hyperlink{config_8h_a2772a97b4cc2a57992e8f3f8a6ef0ad7}{redis\+\_\+fsync}~fsync
+\item 
+\#define \hyperlink{config_8h_a05dc8943201853339c308c0762f023c1}{rdb\+\_\+fsync\+\_\+range}(fd,  off,  size)~fsync(fd)
+\item 
+\#define \hyperlink{config_8h_a8782a401fbf55261460863fc2f8df1ce}{L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN}~1234	/$\ast$ least-\/significant byte first (vax, pc) $\ast$/
+\item 
+\#define \hyperlink{config_8h_a23eb5e058a210efdde3d64e69679fafa}{B\+I\+G\+\_\+\+E\+N\+D\+I\+AN}~4321	/$\ast$ most-\/significant byte first (I\+BM, net) $\ast$/
+\item 
+\#define \hyperlink{config_8h_a2026615c7441e0b093ff7389f46f7654}{P\+D\+P\+\_\+\+E\+N\+D\+I\+AN}~3412	/$\ast$ L\+SB first in word, M\+SW first in long (pdp)$\ast$/
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{config_8h_a23eb5e058a210efdde3d64e69679fafa}\label{config_8h_a23eb5e058a210efdde3d64e69679fafa}} 
+\index{config.\+h@{config.\+h}!B\+I\+G\+\_\+\+E\+N\+D\+I\+AN@{B\+I\+G\+\_\+\+E\+N\+D\+I\+AN}}
+\index{B\+I\+G\+\_\+\+E\+N\+D\+I\+AN@{B\+I\+G\+\_\+\+E\+N\+D\+I\+AN}!config.\+h@{config.\+h}}
+\subsubsection{\texorpdfstring{B\+I\+G\+\_\+\+E\+N\+D\+I\+AN}{BIG\_ENDIAN}}
+{\footnotesize\ttfamily \#define B\+I\+G\+\_\+\+E\+N\+D\+I\+AN~4321	/$\ast$ most-\/significant byte first (I\+BM, net) $\ast$/}
+
+
+
+Definition at line 142 of file config.\+h.
+
+\mbox{\Hypertarget{config_8h_a8782a401fbf55261460863fc2f8df1ce}\label{config_8h_a8782a401fbf55261460863fc2f8df1ce}} 
+\index{config.\+h@{config.\+h}!L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN@{L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN}}
+\index{L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN@{L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN}!config.\+h@{config.\+h}}
+\subsubsection{\texorpdfstring{L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN}{LITTLE\_ENDIAN}}
+{\footnotesize\ttfamily \#define L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN~1234	/$\ast$ least-\/significant byte first (vax, pc) $\ast$/}
+
+
+
+Definition at line 141 of file config.\+h.
+
+\mbox{\Hypertarget{config_8h_a2026615c7441e0b093ff7389f46f7654}\label{config_8h_a2026615c7441e0b093ff7389f46f7654}} 
+\index{config.\+h@{config.\+h}!P\+D\+P\+\_\+\+E\+N\+D\+I\+AN@{P\+D\+P\+\_\+\+E\+N\+D\+I\+AN}}
+\index{P\+D\+P\+\_\+\+E\+N\+D\+I\+AN@{P\+D\+P\+\_\+\+E\+N\+D\+I\+AN}!config.\+h@{config.\+h}}
+\subsubsection{\texorpdfstring{P\+D\+P\+\_\+\+E\+N\+D\+I\+AN}{PDP\_ENDIAN}}
+{\footnotesize\ttfamily \#define P\+D\+P\+\_\+\+E\+N\+D\+I\+AN~3412	/$\ast$ L\+SB first in word, M\+SW first in long (pdp)$\ast$/}
+
+
+
+Definition at line 143 of file config.\+h.
+
+\mbox{\Hypertarget{config_8h_a05dc8943201853339c308c0762f023c1}\label{config_8h_a05dc8943201853339c308c0762f023c1}} 
+\index{config.\+h@{config.\+h}!rdb\+\_\+fsync\+\_\+range@{rdb\+\_\+fsync\+\_\+range}}
+\index{rdb\+\_\+fsync\+\_\+range@{rdb\+\_\+fsync\+\_\+range}!config.\+h@{config.\+h}}
+\subsubsection{\texorpdfstring{rdb\+\_\+fsync\+\_\+range}{rdb\_fsync\_range}}
+{\footnotesize\ttfamily \#define rdb\+\_\+fsync\+\_\+range(\begin{DoxyParamCaption}\item[{}]{fd,  }\item[{}]{off,  }\item[{}]{size }\end{DoxyParamCaption})~fsync(fd)}
+
+
+
+Definition at line 114 of file config.\+h.
+
+\mbox{\Hypertarget{config_8h_a7fb7329d05a6b4d1b1e7a3fac44c0668}\label{config_8h_a7fb7329d05a6b4d1b1e7a3fac44c0668}} 
+\index{config.\+h@{config.\+h}!redis\+\_\+fstat@{redis\+\_\+fstat}}
+\index{redis\+\_\+fstat@{redis\+\_\+fstat}!config.\+h@{config.\+h}}
+\subsubsection{\texorpdfstring{redis\+\_\+fstat}{redis\_fstat}}
+{\footnotesize\ttfamily \#define redis\+\_\+fstat~fstat}
+
+
+
+Definition at line 47 of file config.\+h.
+
+\mbox{\Hypertarget{config_8h_a2772a97b4cc2a57992e8f3f8a6ef0ad7}\label{config_8h_a2772a97b4cc2a57992e8f3f8a6ef0ad7}} 
+\index{config.\+h@{config.\+h}!redis\+\_\+fsync@{redis\+\_\+fsync}}
+\index{redis\+\_\+fsync@{redis\+\_\+fsync}!config.\+h@{config.\+h}}
+\subsubsection{\texorpdfstring{redis\+\_\+fsync}{redis\_fsync}}
+{\footnotesize\ttfamily \#define redis\+\_\+fsync~fsync}
+
+
+
+Definition at line 94 of file config.\+h.
+
+\mbox{\Hypertarget{config_8h_ae18037d20ab1bc7c716ea0bcb506f7af}\label{config_8h_ae18037d20ab1bc7c716ea0bcb506f7af}} 
+\index{config.\+h@{config.\+h}!redis\+\_\+stat@{redis\+\_\+stat}}
+\index{redis\+\_\+stat@{redis\+\_\+stat}!config.\+h@{config.\+h}}
+\subsubsection{\texorpdfstring{redis\+\_\+stat}{redis\_stat}}
+{\footnotesize\ttfamily \#define redis\+\_\+stat~stat}
+
+
+
+Definition at line 48 of file config.\+h.
+

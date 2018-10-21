@@ -1,0 +1,226 @@
+\hypertarget{ziplist_8h}{}\section{src/ziplist.h File Reference}
+\label{ziplist_8h}\index{src/ziplist.\+h@{src/ziplist.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ziplist_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ziplist_8h_a88d32e547c509220e1c50cd9306186ba}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+AD}~0
+\item 
+\#define \hyperlink{ziplist_8h_a25d058a2c2c0db0f131f84d23ede6ba2}{Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+IL}~1
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8h_a732833b234259c9c9b3d0dfd859f4f97}{ziplist\+New} (void)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8h_a84a9763198018301981a19548e3ab94c}{ziplist\+Merge} (unsigned char $\ast$$\ast$first, unsigned char $\ast$$\ast$second)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8h_ab2ab85194d6dd69a873a28f4563a25df}{ziplist\+Push} (unsigned char $\ast$zl, unsigned char $\ast$s, unsigned int slen, int where)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8h_af8b793301d127340cc7fc69dffc80119}{ziplist\+Index} (unsigned char $\ast$zl, int index)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8h_ac1e3c4fab3b468974b4273d0d5ba2419}{ziplist\+Next} (unsigned char $\ast$zl, unsigned char $\ast$p)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8h_a3d9171df1d8c7591a361fbd041544b87}{ziplist\+Prev} (unsigned char $\ast$zl, unsigned char $\ast$p)
+\item 
+unsigned int \hyperlink{ziplist_8h_a8f19657a963d8852972d0758bd4c50e7}{ziplist\+Get} (unsigned char $\ast$p, unsigned char $\ast$$\ast$sval, unsigned int $\ast$slen, long long $\ast$lval)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8h_a38dc0687ab5698f731d8468ab3c734fa}{ziplist\+Insert} (unsigned char $\ast$zl, unsigned char $\ast$p, unsigned char $\ast$s, unsigned int slen)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8h_a53b766532c392b04c684006148c1ae48}{ziplist\+Delete} (unsigned char $\ast$zl, unsigned char $\ast$$\ast$p)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8h_a2fc707b39124cbbc1da6659f116087f8}{ziplist\+Delete\+Range} (unsigned char $\ast$zl, int index, unsigned int num)
+\item 
+unsigned int \hyperlink{ziplist_8h_a287b2813e3456a11dddde75df8898f68}{ziplist\+Compare} (unsigned char $\ast$p, unsigned char $\ast$s, unsigned int slen)
+\item 
+unsigned char $\ast$ \hyperlink{ziplist_8h_a05ef69116b8380403158019862b2780a}{ziplist\+Find} (unsigned char $\ast$p, unsigned char $\ast$vstr, unsigned int vlen, unsigned int skip)
+\item 
+unsigned int \hyperlink{ziplist_8h_a947d260bf3a548b4ab8f19068258f4db}{ziplist\+Len} (unsigned char $\ast$zl)
+\item 
+size\+\_\+t \hyperlink{ziplist_8h_a2fc699da80e3b5dfe10057ecfbdb3fa1}{ziplist\+Blob\+Len} (unsigned char $\ast$zl)
+\item 
+void \hyperlink{ziplist_8h_af3382f6d66d8e9c49b6fd8b1cf089d20}{ziplist\+Repr} (unsigned char $\ast$zl)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{ziplist_8h_a88d32e547c509220e1c50cd9306186ba}\label{ziplist_8h_a88d32e547c509220e1c50cd9306186ba}} 
+\index{ziplist.\+h@{ziplist.\+h}!Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+AD}}
+\index{Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+AD@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+AD}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+AD}{ZIPLIST\_HEAD}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+L\+I\+S\+T\+\_\+\+H\+E\+AD~0}
+
+
+
+Definition at line 34 of file ziplist.\+h.
+
+\mbox{\Hypertarget{ziplist_8h_a25d058a2c2c0db0f131f84d23ede6ba2}\label{ziplist_8h_a25d058a2c2c0db0f131f84d23ede6ba2}} 
+\index{ziplist.\+h@{ziplist.\+h}!Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+IL@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+IL}}
+\index{Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+IL@{Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+IL}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+IL}{ZIPLIST\_TAIL}}
+{\footnotesize\ttfamily \#define Z\+I\+P\+L\+I\+S\+T\+\_\+\+T\+A\+IL~1}
+
+
+
+Definition at line 35 of file ziplist.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{ziplist_8h_a2fc699da80e3b5dfe10057ecfbdb3fa1}\label{ziplist_8h_a2fc699da80e3b5dfe10057ecfbdb3fa1}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Blob\+Len@{ziplist\+Blob\+Len}}
+\index{ziplist\+Blob\+Len@{ziplist\+Blob\+Len}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Blob\+Len()}{ziplistBlobLen()}}
+{\footnotesize\ttfamily size\+\_\+t ziplist\+Blob\+Len (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1186 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_a287b2813e3456a11dddde75df8898f68}\label{ziplist_8h_a287b2813e3456a11dddde75df8898f68}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Compare@{ziplist\+Compare}}
+\index{ziplist\+Compare@{ziplist\+Compare}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Compare()}{ziplistCompare()}}
+{\footnotesize\ttfamily unsigned int ziplist\+Compare (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{unsigned char $\ast$}]{s,  }\item[{unsigned int}]{slen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1081 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_a53b766532c392b04c684006148c1ae48}\label{ziplist_8h_a53b766532c392b04c684006148c1ae48}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Delete@{ziplist\+Delete}}
+\index{ziplist\+Delete@{ziplist\+Delete}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Delete()}{ziplistDelete()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Delete (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$$\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1061 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_a2fc707b39124cbbc1da6659f116087f8}\label{ziplist_8h_a2fc707b39124cbbc1da6659f116087f8}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Delete\+Range@{ziplist\+Delete\+Range}}
+\index{ziplist\+Delete\+Range@{ziplist\+Delete\+Range}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Delete\+Range()}{ziplistDeleteRange()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Delete\+Range (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{int}]{index,  }\item[{unsigned int}]{num }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1074 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_a05ef69116b8380403158019862b2780a}\label{ziplist_8h_a05ef69116b8380403158019862b2780a}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Find@{ziplist\+Find}}
+\index{ziplist\+Find@{ziplist\+Find}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Find()}{ziplistFind()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Find (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{unsigned char $\ast$}]{vstr,  }\item[{unsigned int}]{vlen,  }\item[{unsigned int}]{skip }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1108 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_a8f19657a963d8852972d0758bd4c50e7}\label{ziplist_8h_a8f19657a963d8852972d0758bd4c50e7}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Get@{ziplist\+Get}}
+\index{ziplist\+Get@{ziplist\+Get}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Get()}{ziplistGet()}}
+{\footnotesize\ttfamily unsigned int ziplist\+Get (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{unsigned char $\ast$$\ast$}]{sval,  }\item[{unsigned int $\ast$}]{slen,  }\item[{long long $\ast$}]{lval }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1034 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_af8b793301d127340cc7fc69dffc80119}\label{ziplist_8h_af8b793301d127340cc7fc69dffc80119}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Index@{ziplist\+Index}}
+\index{ziplist\+Index@{ziplist\+Index}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Index()}{ziplistIndex()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Index (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+Definition at line 965 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_a38dc0687ab5698f731d8468ab3c734fa}\label{ziplist_8h_a38dc0687ab5698f731d8468ab3c734fa}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Insert@{ziplist\+Insert}}
+\index{ziplist\+Insert@{ziplist\+Insert}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Insert()}{ziplistInsert()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Insert (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$}]{p,  }\item[{unsigned char $\ast$}]{s,  }\item[{unsigned int}]{slen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1054 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_a947d260bf3a548b4ab8f19068258f4db}\label{ziplist_8h_a947d260bf3a548b4ab8f19068258f4db}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Len@{ziplist\+Len}}
+\index{ziplist\+Len@{ziplist\+Len}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Len()}{ziplistLen()}}
+{\footnotesize\ttfamily unsigned int ziplist\+Len (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1168 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_a84a9763198018301981a19548e3ab94c}\label{ziplist_8h_a84a9763198018301981a19548e3ab94c}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Merge@{ziplist\+Merge}}
+\index{ziplist\+Merge@{ziplist\+Merge}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Merge()}{ziplistMerge()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Merge (\begin{DoxyParamCaption}\item[{unsigned char $\ast$$\ast$}]{first,  }\item[{unsigned char $\ast$$\ast$}]{second }\end{DoxyParamCaption})}
+
+
+
+Definition at line 856 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_a732833b234259c9c9b3d0dfd859f4f97}\label{ziplist_8h_a732833b234259c9c9b3d0dfd859f4f97}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+New@{ziplist\+New}}
+\index{ziplist\+New@{ziplist\+New}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+New()}{ziplistNew()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+New (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 578 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_ac1e3c4fab3b468974b4273d0d5ba2419}\label{ziplist_8h_ac1e3c4fab3b468974b4273d0d5ba2419}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Next@{ziplist\+Next}}
+\index{ziplist\+Next@{ziplist\+Next}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Next()}{ziplistNext()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Next (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 993 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_a3d9171df1d8c7591a361fbd041544b87}\label{ziplist_8h_a3d9171df1d8c7591a361fbd041544b87}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Prev@{ziplist\+Prev}}
+\index{ziplist\+Prev@{ziplist\+Prev}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Prev()}{ziplistPrev()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Prev (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1012 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_ab2ab85194d6dd69a873a28f4563a25df}\label{ziplist_8h_ab2ab85194d6dd69a873a28f4563a25df}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Push@{ziplist\+Push}}
+\index{ziplist\+Push@{ziplist\+Push}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Push()}{ziplistPush()}}
+{\footnotesize\ttfamily unsigned char$\ast$ ziplist\+Push (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl,  }\item[{unsigned char $\ast$}]{s,  }\item[{unsigned int}]{slen,  }\item[{int}]{where }\end{DoxyParamCaption})}
+
+
+
+Definition at line 956 of file ziplist.\+c.
+
+\mbox{\Hypertarget{ziplist_8h_af3382f6d66d8e9c49b6fd8b1cf089d20}\label{ziplist_8h_af3382f6d66d8e9c49b6fd8b1cf089d20}} 
+\index{ziplist.\+h@{ziplist.\+h}!ziplist\+Repr@{ziplist\+Repr}}
+\index{ziplist\+Repr@{ziplist\+Repr}!ziplist.\+h@{ziplist.\+h}}
+\subsubsection{\texorpdfstring{ziplist\+Repr()}{ziplistRepr()}}
+{\footnotesize\ttfamily void ziplist\+Repr (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{zl }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1190 of file ziplist.\+c.
+

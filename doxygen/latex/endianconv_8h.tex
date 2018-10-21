@@ -1,0 +1,200 @@
+\hypertarget{endianconv_8h}{}\section{src/endianconv.h File Reference}
+\label{endianconv_8h}\index{src/endianconv.\+h@{src/endianconv.\+h}}
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for endianconv.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{endianconv_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{endianconv_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{endianconv_8h_a49372891e83ab7a970f0d98dda1870d9}{memrev16ifbe}(p)~\hyperlink{endianconv_8h_ae74af63e9fd52747f3fa6ebf357b78aa}{memrev16}(p)
+\item 
+\#define \hyperlink{endianconv_8h_a771f3656eb7d11a1e7f7294b657d8978}{memrev32ifbe}(p)~\hyperlink{endianconv_8h_a24c210adb93545ad7414185483028dde}{memrev32}(p)
+\item 
+\#define \hyperlink{endianconv_8h_aa311b9f944c3b988f3601698a95890c1}{memrev64ifbe}(p)~\hyperlink{endianconv_8h_a896b043214a0c088a42cf893d78a284e}{memrev64}(p)
+\item 
+\#define \hyperlink{endianconv_8h_a47540b5867d4cb1e322e83eaf2b50b56}{intrev16ifbe}(v)~\hyperlink{endianconv_8h_a845c10d21c2dad74cb57842e4c4d5031}{intrev16}(v)
+\item 
+\#define \hyperlink{endianconv_8h_a4e85d9ae58a3b1e6ceaabfd4689002c7}{intrev32ifbe}(v)~\hyperlink{endianconv_8h_ab4ad9c941118e08bb7fce42d64b676d6}{intrev32}(v)
+\item 
+\#define \hyperlink{endianconv_8h_a498e7a59f06f48cb91292c5553a56905}{intrev64ifbe}(v)~\hyperlink{endianconv_8h_afbce6d835705393c1476756687f0e767}{intrev64}(v)
+\item 
+\#define \hyperlink{endianconv_8h_a41a6b64ba8dec362f605f615e528fcf3}{htonu64}(v)~\hyperlink{endianconv_8h_afbce6d835705393c1476756687f0e767}{intrev64}(v)
+\item 
+\#define \hyperlink{endianconv_8h_ab6e7416a2faac85cd6d50180e7348a1b}{ntohu64}(v)~\hyperlink{endianconv_8h_afbce6d835705393c1476756687f0e767}{intrev64}(v)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{endianconv_8h_ae74af63e9fd52747f3fa6ebf357b78aa}{memrev16} (void $\ast$p)
+\item 
+void \hyperlink{endianconv_8h_a24c210adb93545ad7414185483028dde}{memrev32} (void $\ast$p)
+\item 
+void \hyperlink{endianconv_8h_a896b043214a0c088a42cf893d78a284e}{memrev64} (void $\ast$p)
+\item 
+uint16\+\_\+t \hyperlink{endianconv_8h_a845c10d21c2dad74cb57842e4c4d5031}{intrev16} (uint16\+\_\+t v)
+\item 
+uint32\+\_\+t \hyperlink{endianconv_8h_ab4ad9c941118e08bb7fce42d64b676d6}{intrev32} (uint32\+\_\+t v)
+\item 
+uint64\+\_\+t \hyperlink{endianconv_8h_afbce6d835705393c1476756687f0e767}{intrev64} (uint64\+\_\+t v)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{endianconv_8h_a41a6b64ba8dec362f605f615e528fcf3}\label{endianconv_8h_a41a6b64ba8dec362f605f615e528fcf3}} 
+\index{endianconv.\+h@{endianconv.\+h}!htonu64@{htonu64}}
+\index{htonu64@{htonu64}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{htonu64}{htonu64}}
+{\footnotesize\ttfamily \#define htonu64(\begin{DoxyParamCaption}\item[{}]{v }\end{DoxyParamCaption})~\hyperlink{endianconv_8h_afbce6d835705393c1476756687f0e767}{intrev64}(v)}
+
+
+
+Definition at line 70 of file endianconv.\+h.
+
+\mbox{\Hypertarget{endianconv_8h_a47540b5867d4cb1e322e83eaf2b50b56}\label{endianconv_8h_a47540b5867d4cb1e322e83eaf2b50b56}} 
+\index{endianconv.\+h@{endianconv.\+h}!intrev16ifbe@{intrev16ifbe}}
+\index{intrev16ifbe@{intrev16ifbe}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{intrev16ifbe}{intrev16ifbe}}
+{\footnotesize\ttfamily \#define intrev16ifbe(\begin{DoxyParamCaption}\item[{}]{v }\end{DoxyParamCaption})~\hyperlink{endianconv_8h_a845c10d21c2dad74cb57842e4c4d5031}{intrev16}(v)}
+
+
+
+Definition at line 59 of file endianconv.\+h.
+
+\mbox{\Hypertarget{endianconv_8h_a4e85d9ae58a3b1e6ceaabfd4689002c7}\label{endianconv_8h_a4e85d9ae58a3b1e6ceaabfd4689002c7}} 
+\index{endianconv.\+h@{endianconv.\+h}!intrev32ifbe@{intrev32ifbe}}
+\index{intrev32ifbe@{intrev32ifbe}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{intrev32ifbe}{intrev32ifbe}}
+{\footnotesize\ttfamily \#define intrev32ifbe(\begin{DoxyParamCaption}\item[{}]{v }\end{DoxyParamCaption})~\hyperlink{endianconv_8h_ab4ad9c941118e08bb7fce42d64b676d6}{intrev32}(v)}
+
+
+
+Definition at line 60 of file endianconv.\+h.
+
+\mbox{\Hypertarget{endianconv_8h_a498e7a59f06f48cb91292c5553a56905}\label{endianconv_8h_a498e7a59f06f48cb91292c5553a56905}} 
+\index{endianconv.\+h@{endianconv.\+h}!intrev64ifbe@{intrev64ifbe}}
+\index{intrev64ifbe@{intrev64ifbe}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{intrev64ifbe}{intrev64ifbe}}
+{\footnotesize\ttfamily \#define intrev64ifbe(\begin{DoxyParamCaption}\item[{}]{v }\end{DoxyParamCaption})~\hyperlink{endianconv_8h_afbce6d835705393c1476756687f0e767}{intrev64}(v)}
+
+
+
+Definition at line 61 of file endianconv.\+h.
+
+\mbox{\Hypertarget{endianconv_8h_a49372891e83ab7a970f0d98dda1870d9}\label{endianconv_8h_a49372891e83ab7a970f0d98dda1870d9}} 
+\index{endianconv.\+h@{endianconv.\+h}!memrev16ifbe@{memrev16ifbe}}
+\index{memrev16ifbe@{memrev16ifbe}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{memrev16ifbe}{memrev16ifbe}}
+{\footnotesize\ttfamily \#define memrev16ifbe(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~\hyperlink{endianconv_8h_ae74af63e9fd52747f3fa6ebf357b78aa}{memrev16}(p)}
+
+
+
+Definition at line 56 of file endianconv.\+h.
+
+\mbox{\Hypertarget{endianconv_8h_a771f3656eb7d11a1e7f7294b657d8978}\label{endianconv_8h_a771f3656eb7d11a1e7f7294b657d8978}} 
+\index{endianconv.\+h@{endianconv.\+h}!memrev32ifbe@{memrev32ifbe}}
+\index{memrev32ifbe@{memrev32ifbe}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{memrev32ifbe}{memrev32ifbe}}
+{\footnotesize\ttfamily \#define memrev32ifbe(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~\hyperlink{endianconv_8h_a24c210adb93545ad7414185483028dde}{memrev32}(p)}
+
+
+
+Definition at line 57 of file endianconv.\+h.
+
+\mbox{\Hypertarget{endianconv_8h_aa311b9f944c3b988f3601698a95890c1}\label{endianconv_8h_aa311b9f944c3b988f3601698a95890c1}} 
+\index{endianconv.\+h@{endianconv.\+h}!memrev64ifbe@{memrev64ifbe}}
+\index{memrev64ifbe@{memrev64ifbe}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{memrev64ifbe}{memrev64ifbe}}
+{\footnotesize\ttfamily \#define memrev64ifbe(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~\hyperlink{endianconv_8h_a896b043214a0c088a42cf893d78a284e}{memrev64}(p)}
+
+
+
+Definition at line 58 of file endianconv.\+h.
+
+\mbox{\Hypertarget{endianconv_8h_ab6e7416a2faac85cd6d50180e7348a1b}\label{endianconv_8h_ab6e7416a2faac85cd6d50180e7348a1b}} 
+\index{endianconv.\+h@{endianconv.\+h}!ntohu64@{ntohu64}}
+\index{ntohu64@{ntohu64}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{ntohu64}{ntohu64}}
+{\footnotesize\ttfamily \#define ntohu64(\begin{DoxyParamCaption}\item[{}]{v }\end{DoxyParamCaption})~\hyperlink{endianconv_8h_afbce6d835705393c1476756687f0e767}{intrev64}(v)}
+
+
+
+Definition at line 71 of file endianconv.\+h.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{endianconv_8h_a845c10d21c2dad74cb57842e4c4d5031}\label{endianconv_8h_a845c10d21c2dad74cb57842e4c4d5031}} 
+\index{endianconv.\+h@{endianconv.\+h}!intrev16@{intrev16}}
+\index{intrev16@{intrev16}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{intrev16()}{intrev16()}}
+{\footnotesize\ttfamily uint16\+\_\+t intrev16 (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{v }\end{DoxyParamCaption})}
+
+
+
+Definition at line 89 of file endianconv.\+c.
+
+\mbox{\Hypertarget{endianconv_8h_ab4ad9c941118e08bb7fce42d64b676d6}\label{endianconv_8h_ab4ad9c941118e08bb7fce42d64b676d6}} 
+\index{endianconv.\+h@{endianconv.\+h}!intrev32@{intrev32}}
+\index{intrev32@{intrev32}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{intrev32()}{intrev32()}}
+{\footnotesize\ttfamily uint32\+\_\+t intrev32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{v }\end{DoxyParamCaption})}
+
+
+
+Definition at line 94 of file endianconv.\+c.
+
+\mbox{\Hypertarget{endianconv_8h_afbce6d835705393c1476756687f0e767}\label{endianconv_8h_afbce6d835705393c1476756687f0e767}} 
+\index{endianconv.\+h@{endianconv.\+h}!intrev64@{intrev64}}
+\index{intrev64@{intrev64}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{intrev64()}{intrev64()}}
+{\footnotesize\ttfamily uint64\+\_\+t intrev64 (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{v }\end{DoxyParamCaption})}
+
+
+
+Definition at line 99 of file endianconv.\+c.
+
+\mbox{\Hypertarget{endianconv_8h_ae74af63e9fd52747f3fa6ebf357b78aa}\label{endianconv_8h_ae74af63e9fd52747f3fa6ebf357b78aa}} 
+\index{endianconv.\+h@{endianconv.\+h}!memrev16@{memrev16}}
+\index{memrev16@{memrev16}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{memrev16()}{memrev16()}}
+{\footnotesize\ttfamily void memrev16 (\begin{DoxyParamCaption}\item[{void $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 49 of file endianconv.\+c.
+
+\mbox{\Hypertarget{endianconv_8h_a24c210adb93545ad7414185483028dde}\label{endianconv_8h_a24c210adb93545ad7414185483028dde}} 
+\index{endianconv.\+h@{endianconv.\+h}!memrev32@{memrev32}}
+\index{memrev32@{memrev32}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{memrev32()}{memrev32()}}
+{\footnotesize\ttfamily void memrev32 (\begin{DoxyParamCaption}\item[{void $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 59 of file endianconv.\+c.
+
+\mbox{\Hypertarget{endianconv_8h_a896b043214a0c088a42cf893d78a284e}\label{endianconv_8h_a896b043214a0c088a42cf893d78a284e}} 
+\index{endianconv.\+h@{endianconv.\+h}!memrev64@{memrev64}}
+\index{memrev64@{memrev64}!endianconv.\+h@{endianconv.\+h}}
+\subsubsection{\texorpdfstring{memrev64()}{memrev64()}}
+{\footnotesize\ttfamily void memrev64 (\begin{DoxyParamCaption}\item[{void $\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 72 of file endianconv.\+c.
+

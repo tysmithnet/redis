@@ -1,0 +1,876 @@
+\hypertarget{quicklist_8c}{}\section{src/quicklist.c File Reference}
+\label{quicklist_8c}\index{src/quicklist.\+c@{src/quicklist.\+c}}
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}quicklist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}zmalloc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ziplist.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}util.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lzf.\+h\char`\"{}}\newline
+Include dependency graph for quicklist.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{quicklist_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC}~static
+\item 
+\#define \hyperlink{quicklist_8c_ae95e4d31b16c0e50720b8310df428c0e}{S\+I\+Z\+E\+\_\+\+S\+A\+F\+E\+T\+Y\+\_\+\+L\+I\+M\+IT}~8192
+\item 
+\#define \hyperlink{quicklist_8c_a989cf7105ffb35b180ab70754f7afd85}{M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+B\+Y\+T\+ES}~48
+\item 
+\#define \hyperlink{quicklist_8c_a70ca98f16c31d31db1ff733799d31a41}{M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+M\+P\+R\+O\+VE}~8
+\item 
+\#define \hyperlink{quicklist_8c_a74021f021dcdfbb22891787b79c5529d}{D}(...)
+\item 
+\#define \hyperlink{quicklist_8c_abe57c7a46b2e8ec8e138de8cbe5e660a}{init\+Entry}(e)
+\item 
+\#define \hyperlink{quicklist_8c_a217a0bd562b98ae8c2ffce44935351e1}{likely}(x)~(x)
+\item 
+\#define \hyperlink{quicklist_8c_ac6c45889010c1bd68631771b64f18101}{unlikely}(x)~(x)
+\item 
+\#define \hyperlink{quicklist_8c_ad61a8b6ae21c3cf5c4a7d6e81b95b6d7}{C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+M\+AX}~(1 $<$$<$ 16)
+\item 
+\#define \hyperlink{quicklist_8c_a6872709e1a4dbf58b844c3fcd5c2f6ee}{F\+I\+L\+L\+\_\+\+M\+AX}~(1 $<$$<$ 15)
+\item 
+\#define \hyperlink{quicklist_8c_a8f91173182833dbe55fe0de444e3d7d7}{quicklist\+Compress\+Node}(\+\_\+node)
+\item 
+\#define \hyperlink{quicklist_8c_ad36c703b3140d19a69301890a903f890}{quicklist\+Decompress\+Node}(\+\_\+node)
+\item 
+\#define \hyperlink{quicklist_8c_a2f30e6f482d51059f06fa34df69734e1}{quicklist\+Decompress\+Node\+For\+Use}(\+\_\+node)
+\item 
+\#define \hyperlink{quicklist_8c_afb150d2af7dee66dc2d3303ea5663a6a}{quicklist\+Allows\+Compression}(\+\_\+ql)~((\+\_\+ql)-\/$>$compress != 0)
+\item 
+\#define \hyperlink{quicklist_8c_a4711a946d258d25f4bedace1458a2a1c}{quicklist\+Compress}(\+\_\+ql,  \+\_\+node)
+\item 
+\#define \hyperlink{quicklist_8c_a75672a682e90fe973934910f3ee866a3}{quicklist\+Recompress\+Only}(\+\_\+ql,  \+\_\+node)
+\item 
+\#define \hyperlink{quicklist_8c_ab77edec9f8d4ebc2917da86841a5f202}{size\+Meets\+Safety\+Limit}(sz)~((sz) $<$= \hyperlink{quicklist_8c_ae95e4d31b16c0e50720b8310df428c0e}{S\+I\+Z\+E\+\_\+\+S\+A\+F\+E\+T\+Y\+\_\+\+L\+I\+M\+IT})
+\item 
+\#define \hyperlink{quicklist_8c_a03a3947a9423d234923343702619c553}{quicklist\+Node\+Update\+Sz}(node)
+\item 
+\#define \hyperlink{quicklist_8c_a07248675edc895a03df4c9dddced0740}{quicklist\+Delete\+If\+Empty}(ql,  n)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structquicklist}{quicklist} $\ast$ \hyperlink{quicklist_8c_ab4a7a85e7a80ef6cf36534f9c765f058}{quicklist\+Create} (void)
+\item 
+void \hyperlink{quicklist_8c_a978a05621cd8c696e80704633a76096b}{quicklist\+Set\+Compress\+Depth} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, int compress)
+\item 
+void \hyperlink{quicklist_8c_ab92c68077e47c956a9a8ab32e2579947}{quicklist\+Set\+Fill} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, int fill)
+\item 
+void \hyperlink{quicklist_8c_aba1dc84e8d3aaefa49b9dcfeb6155e59}{quicklist\+Set\+Options} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, int fill, int depth)
+\item 
+\hyperlink{structquicklist}{quicklist} $\ast$ \hyperlink{quicklist_8c_ae51b8e363fbddf50057948ab9d114caa}{quicklist\+New} (int fill, int compress)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$ \hyperlink{quicklist_8c_a39a0b678e02bc7930f8cc8f25cfb6ac6}{quicklist\+Create\+Node} (void)
+\item 
+unsigned long \hyperlink{quicklist_8c_a89fd4343b8eecfaa5670a94e6f745ed7}{quicklist\+Count} (const \hyperlink{structquicklist}{quicklist} $\ast$ql)
+\item 
+void \hyperlink{quicklist_8c_a75c42e6e2bf61575be3806910d0afea2}{quicklist\+Release} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist})
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} int \hyperlink{quicklist_8c_ad838be869094694f4d3066ba00312c08}{\+\_\+\+\_\+quicklist\+Compress\+Node} (\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$node)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} int \hyperlink{quicklist_8c_ab78fa3003367e2f816ebc0e741393e8a}{\+\_\+\+\_\+quicklist\+Decompress\+Node} (\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$node)
+\item 
+size\+\_\+t \hyperlink{quicklist_8c_a93444cf8ecceea9fd5219fb61b1b06fa}{quicklist\+Get\+Lzf} (const \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$node, void $\ast$$\ast$data)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \hyperlink{quicklist_8c_affeb562622358a72129d2fd68d2b77b7}{\+\_\+\+\_\+quicklist\+Compress} (const \hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$node)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \hyperlink{quicklist_8c_a1b60796cf6d577798b7c743a8c8b6f2a}{\+\_\+\+\_\+quicklist\+Insert\+Node} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$old\+\_\+node, \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$new\+\_\+node, int after)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \hyperlink{quicklist_8c_a24bd4b06dc5c9f6db19559dab46f9642}{\+\_\+quicklist\+Insert\+Node\+Before} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$old\+\_\+node, \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$new\+\_\+node)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \hyperlink{quicklist_8c_aaffa303447f90900131a2fa7beafd87f}{\+\_\+quicklist\+Insert\+Node\+After} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$old\+\_\+node, \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$new\+\_\+node)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} int \hyperlink{quicklist_8c_a21b7b62749812e484e914f4570a1a9f9}{\+\_\+quicklist\+Node\+Size\+Meets\+Optimization\+Requirement} (const size\+\_\+t sz, const int fill)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} int \hyperlink{quicklist_8c_acaf1351523286d6a1712245e06d474eb}{\+\_\+quicklist\+Node\+Allow\+Insert} (const \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$node, const int fill, const size\+\_\+t sz)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} int \hyperlink{quicklist_8c_a13cf5b94ba610302f51ab766c0d58b57}{\+\_\+quicklist\+Node\+Allow\+Merge} (const \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$a, const \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$b, const int fill)
+\item 
+int \hyperlink{quicklist_8c_a8dd93cf7b4ad7c69ade4685a5cacdf70}{quicklist\+Push\+Head} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, void $\ast$value, size\+\_\+t sz)
+\item 
+int \hyperlink{quicklist_8c_aa730ab21d61270428107b786a635881e}{quicklist\+Push\+Tail} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, void $\ast$value, size\+\_\+t sz)
+\item 
+void \hyperlink{quicklist_8c_a5ec5ffc04fab2daf6ec1fcefea26f122}{quicklist\+Append\+Ziplist} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, unsigned char $\ast$zl)
+\item 
+\hyperlink{structquicklist}{quicklist} $\ast$ \hyperlink{quicklist_8c_a8912e1360c3d76fa7e40ede2928388bc}{quicklist\+Append\+Values\+From\+Ziplist} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, unsigned char $\ast$zl)
+\item 
+\hyperlink{structquicklist}{quicklist} $\ast$ \hyperlink{quicklist_8c_a7fb070263360361a41ad771390c37c87}{quicklist\+Create\+From\+Ziplist} (int fill, int compress, unsigned char $\ast$zl)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \hyperlink{quicklist_8c_a7be4a8b18e10992e36679837ef34188c}{\+\_\+\+\_\+quicklist\+Del\+Node} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$node)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} int \hyperlink{quicklist_8c_ac0a1210f1d806105483890b131f1be3d}{quicklist\+Del\+Index} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$node, unsigned char $\ast$$\ast$p)
+\item 
+void \hyperlink{quicklist_8c_a5ce5a498f3689c432797fc300a7f49d0}{quicklist\+Del\+Entry} (\hyperlink{structquicklist_iter}{quicklist\+Iter} $\ast$iter, \hyperlink{structquicklist_entry}{quicklist\+Entry} $\ast$entry)
+\item 
+int \hyperlink{quicklist_8c_aab0b717b51db00b676037b9ddf509e9e}{quicklist\+Replace\+At\+Index} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, long index, void $\ast$data, int sz)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$ \hyperlink{quicklist_8c_ad05ac73a3ebd9c56724a3afd2a58b415}{\+\_\+quicklist\+Ziplist\+Merge} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$a, \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$b)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \hyperlink{quicklist_8c_a5c2991a30cf5c5f4f4070bf736f6c9fa}{\+\_\+quicklist\+Merge\+Nodes} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$center)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$ \hyperlink{quicklist_8c_af606368c0a17fa96d9bcd0658d641f6b}{\+\_\+quicklist\+Split\+Node} (\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$node, int offset, int after)
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \hyperlink{quicklist_8c_a336f1057a031d2f2aad229c1d21810d9}{\+\_\+quicklist\+Insert} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, \hyperlink{structquicklist_entry}{quicklist\+Entry} $\ast$entry, void $\ast$value, const size\+\_\+t sz, int after)
+\item 
+void \hyperlink{quicklist_8c_a2202631a9ddab5ebc1e4d79ada20cf4a}{quicklist\+Insert\+Before} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, \hyperlink{structquicklist_entry}{quicklist\+Entry} $\ast$entry, void $\ast$value, const size\+\_\+t sz)
+\item 
+void \hyperlink{quicklist_8c_aa1d031804ea9c034e6d47c2bf70bd8be}{quicklist\+Insert\+After} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, \hyperlink{structquicklist_entry}{quicklist\+Entry} $\ast$entry, void $\ast$value, const size\+\_\+t sz)
+\item 
+int \hyperlink{quicklist_8c_a1affd656fde2e6d90efcbd4055be0516}{quicklist\+Del\+Range} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, const long start, const long count)
+\item 
+int \hyperlink{quicklist_8c_a2363c6a80bc380a2e52f2fa3a3610974}{quicklist\+Compare} (unsigned char $\ast$p1, unsigned char $\ast$p2, int p2\+\_\+len)
+\item 
+\hyperlink{structquicklist_iter}{quicklist\+Iter} $\ast$ \hyperlink{quicklist_8c_a905d915ccb297dc9c3f784c82e6e3de0}{quicklist\+Get\+Iterator} (const \hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, int direction)
+\item 
+\hyperlink{structquicklist_iter}{quicklist\+Iter} $\ast$ \hyperlink{quicklist_8c_a974884cf7beae8bc02d878b86392593e}{quicklist\+Get\+Iterator\+At\+Idx} (const \hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, const int direction, const long long idx)
+\item 
+void \hyperlink{quicklist_8c_a518b83659bfbb09c2a7b12eaaa6367fc}{quicklist\+Release\+Iterator} (\hyperlink{structquicklist_iter}{quicklist\+Iter} $\ast$iter)
+\item 
+int \hyperlink{quicklist_8c_afe865dddd6290e0ba65acb2f7ab58345}{quicklist\+Next} (\hyperlink{structquicklist_iter}{quicklist\+Iter} $\ast$iter, \hyperlink{structquicklist_entry}{quicklist\+Entry} $\ast$entry)
+\item 
+\hyperlink{structquicklist}{quicklist} $\ast$ \hyperlink{quicklist_8c_acb1f76780ea4375533516e5e3a7a42ac}{quicklist\+Dup} (\hyperlink{structquicklist}{quicklist} $\ast$orig)
+\item 
+int \hyperlink{quicklist_8c_af46c9fdf5f31023a696fe13edea26f8b}{quicklist\+Index} (const \hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, const long long idx, \hyperlink{structquicklist_entry}{quicklist\+Entry} $\ast$entry)
+\item 
+void \hyperlink{quicklist_8c_ad885ad8f7258107ce487524361358805}{quicklist\+Rotate} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist})
+\item 
+int \hyperlink{quicklist_8c_ae11fea8766912e472bd7b2adb4c2fade}{quicklist\+Pop\+Custom} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, int where, unsigned char $\ast$$\ast$data, unsigned int $\ast$sz, long long $\ast$sval, void $\ast$($\ast$saver)(unsigned char $\ast$data, unsigned int sz))
+\item 
+\hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void $\ast$ \hyperlink{quicklist_8c_a32c6ef371d8f139f0f2551bdf12ff3cc}{\+\_\+quicklist\+Saver} (unsigned char $\ast$data, unsigned int sz)
+\item 
+int \hyperlink{quicklist_8c_abde314a9e227be736e335d7538b3e171}{quicklist\+Pop} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, int where, unsigned char $\ast$$\ast$data, unsigned int $\ast$sz, long long $\ast$slong)
+\item 
+void \hyperlink{quicklist_8c_a1c1d7987071e6f6b3677c6b6f160687f}{quicklist\+Push} (\hyperlink{structquicklist}{quicklist} $\ast$\hyperlink{structquicklist}{quicklist}, void $\ast$value, const size\+\_\+t sz, int where)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{quicklist_8c_ad61a8b6ae21c3cf5c4a7d6e81b95b6d7}\label{quicklist_8c_ad61a8b6ae21c3cf5c4a7d6e81b95b6d7}} 
+\index{quicklist.\+c@{quicklist.\+c}!C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+M\+AX@{C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+M\+AX}}
+\index{C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+M\+AX@{C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+M\+AX}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+M\+AX}{COMPRESS\_MAX}}
+{\footnotesize\ttfamily \#define C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+M\+AX~(1 $<$$<$ 16)}
+
+
+
+Definition at line 106 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a74021f021dcdfbb22891787b79c5529d}\label{quicklist_8c_a74021f021dcdfbb22891787b79c5529d}} 
+\index{quicklist.\+c@{quicklist.\+c}!D@{D}}
+\index{D@{D}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{D}{D}}
+{\footnotesize\ttfamily \#define D(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 63 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a6872709e1a4dbf58b844c3fcd5c2f6ee}\label{quicklist_8c_a6872709e1a4dbf58b844c3fcd5c2f6ee}} 
+\index{quicklist.\+c@{quicklist.\+c}!F\+I\+L\+L\+\_\+\+M\+AX@{F\+I\+L\+L\+\_\+\+M\+AX}}
+\index{F\+I\+L\+L\+\_\+\+M\+AX@{F\+I\+L\+L\+\_\+\+M\+AX}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{F\+I\+L\+L\+\_\+\+M\+AX}{FILL\_MAX}}
+{\footnotesize\ttfamily \#define F\+I\+L\+L\+\_\+\+M\+AX~(1 $<$$<$ 15)}
+
+
+
+Definition at line 116 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_abe57c7a46b2e8ec8e138de8cbe5e660a}\label{quicklist_8c_abe57c7a46b2e8ec8e138de8cbe5e660a}} 
+\index{quicklist.\+c@{quicklist.\+c}!init\+Entry@{init\+Entry}}
+\index{init\+Entry@{init\+Entry}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{init\+Entry}{initEntry}}
+{\footnotesize\ttfamily \#define init\+Entry(\begin{DoxyParamCaption}\item[{}]{e }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                       \(\backslash\)
+        (e)->zi = (e)->value = NULL;                                           \(\backslash\)
+        (e)->longval = -123456789;                                             \(\backslash\)
+        (e)->\hyperlink{structquicklist}{quicklist} = NULL;                                                 \(\backslash\)
+        (e)->node = NULL;                                                      \(\backslash\)
+        (e)->offset = 123456789;                                               \(\backslash\)
+        (e)->sz = 0;                                                           \(\backslash\)
+    \} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Definition at line 74 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a217a0bd562b98ae8c2ffce44935351e1}\label{quicklist_8c_a217a0bd562b98ae8c2ffce44935351e1}} 
+\index{quicklist.\+c@{quicklist.\+c}!likely@{likely}}
+\index{likely@{likely}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{likely}{likely}}
+{\footnotesize\ttfamily \#define likely(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~(x)}
+
+
+
+Definition at line 88 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a989cf7105ffb35b180ab70754f7afd85}\label{quicklist_8c_a989cf7105ffb35b180ab70754f7afd85}} 
+\index{quicklist.\+c@{quicklist.\+c}!M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+B\+Y\+T\+ES@{M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+B\+Y\+T\+ES}}
+\index{M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+B\+Y\+T\+ES@{M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+B\+Y\+T\+ES}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+B\+Y\+T\+ES}{MIN\_COMPRESS\_BYTES}}
+{\footnotesize\ttfamily \#define M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+B\+Y\+T\+ES~48}
+
+
+
+Definition at line 54 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a70ca98f16c31d31db1ff733799d31a41}\label{quicklist_8c_a70ca98f16c31d31db1ff733799d31a41}} 
+\index{quicklist.\+c@{quicklist.\+c}!M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+M\+P\+R\+O\+VE@{M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+M\+P\+R\+O\+VE}}
+\index{M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+M\+P\+R\+O\+VE@{M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+M\+P\+R\+O\+VE}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+M\+P\+R\+O\+VE}{MIN\_COMPRESS\_IMPROVE}}
+{\footnotesize\ttfamily \#define M\+I\+N\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+M\+P\+R\+O\+VE~8}
+
+
+
+Definition at line 59 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_afb150d2af7dee66dc2d3303ea5663a6a}\label{quicklist_8c_afb150d2af7dee66dc2d3303ea5663a6a}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Allows\+Compression@{quicklist\+Allows\+Compression}}
+\index{quicklist\+Allows\+Compression@{quicklist\+Allows\+Compression}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Allows\+Compression}{quicklistAllowsCompression}}
+{\footnotesize\ttfamily \#define quicklist\+Allows\+Compression(\begin{DoxyParamCaption}\item[{}]{\+\_\+ql }\end{DoxyParamCaption})~((\+\_\+ql)-\/$>$compress != 0)}
+
+
+
+Definition at line 259 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a4711a946d258d25f4bedace1458a2a1c}\label{quicklist_8c_a4711a946d258d25f4bedace1458a2a1c}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Compress@{quicklist\+Compress}}
+\index{quicklist\+Compress@{quicklist\+Compress}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Compress}{quicklistCompress}}
+{\footnotesize\ttfamily \#define quicklist\+Compress(\begin{DoxyParamCaption}\item[{}]{\+\_\+ql,  }\item[{}]{\+\_\+node }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                       \(\backslash\)
+        if ((\_node)->recompress)                                               \(\backslash\)
+            quicklistCompressNode((\_node));                                    \hyperlink{quicklist_8c_affeb562622358a72129d2fd68d2b77b7}{\(\backslash\)}
+\hyperlink{quicklist_8c_affeb562622358a72129d2fd68d2b77b7}{        else                                                                   \(\backslash\)}
+\hyperlink{quicklist_8c_affeb562622358a72129d2fd68d2b77b7}{            \_\_quicklistCompress}((\_ql), (\_node));                            
+         \(\backslash\)
+    \} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Definition at line 333 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a8f91173182833dbe55fe0de444e3d7d7}\label{quicklist_8c_a8f91173182833dbe55fe0de444e3d7d7}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Compress\+Node@{quicklist\+Compress\+Node}}
+\index{quicklist\+Compress\+Node@{quicklist\+Compress\+Node}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Compress\+Node}{quicklistCompressNode}}
+{\footnotesize\ttfamily \#define quicklist\+Compress\+Node(\begin{DoxyParamCaption}\item[{}]{\+\_\+node }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                       \(\backslash\)
+        if ((\_node) && (\_node)->encoding == \hyperlink{quicklist_8h_a064c051a8fda9aa87dc3556b9cafc911}{QUICKLIST\_NODE\_ENCODING\_RAW}) \{     \(\backslash\)
+            \_\_quicklistCompressNode((\_node));                                  \(\backslash\)
+        \}                                                                      \(\backslash\)
+    \} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Definition at line 206 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_ad36c703b3140d19a69301890a903f890}\label{quicklist_8c_ad36c703b3140d19a69301890a903f890}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Decompress\+Node@{quicklist\+Decompress\+Node}}
+\index{quicklist\+Decompress\+Node@{quicklist\+Decompress\+Node}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Decompress\+Node}{quicklistDecompressNode}}
+{\footnotesize\ttfamily \#define quicklist\+Decompress\+Node(\begin{DoxyParamCaption}\item[{}]{\+\_\+node }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                       \(\backslash\)
+        if ((\_node) && (\_node)->encoding == \hyperlink{quicklist_8h_a6ce238912d4049e020b686def25c9566}{QUICKLIST\_NODE\_ENCODING\_LZF}) \{     \(\backslash\)
+            \_\_quicklistDecompressNode((\_node));                                \(\backslash\)
+        \}                                                                      \(\backslash\)
+    \} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Definition at line 234 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a2f30e6f482d51059f06fa34df69734e1}\label{quicklist_8c_a2f30e6f482d51059f06fa34df69734e1}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Decompress\+Node\+For\+Use@{quicklist\+Decompress\+Node\+For\+Use}}
+\index{quicklist\+Decompress\+Node\+For\+Use@{quicklist\+Decompress\+Node\+For\+Use}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Decompress\+Node\+For\+Use}{quicklistDecompressNodeForUse}}
+{\footnotesize\ttfamily \#define quicklist\+Decompress\+Node\+For\+Use(\begin{DoxyParamCaption}\item[{}]{\+\_\+node }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                       \(\backslash\)
+        if ((\_node) && (\_node)->encoding == \hyperlink{quicklist_8h_a6ce238912d4049e020b686def25c9566}{QUICKLIST\_NODE\_ENCODING\_LZF}) \{     \(\backslash\)
+            \_\_quicklistDecompressNode((\_node));                                \(\backslash\)
+            (\_node)->recompress = 1;                                           \(\backslash\)
+        \}                                                                      \(\backslash\)
+    \} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Definition at line 242 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a07248675edc895a03df4c9dddced0740}\label{quicklist_8c_a07248675edc895a03df4c9dddced0740}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Delete\+If\+Empty@{quicklist\+Delete\+If\+Empty}}
+\index{quicklist\+Delete\+If\+Empty@{quicklist\+Delete\+If\+Empty}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Delete\+If\+Empty}{quicklistDeleteIfEmpty}}
+{\footnotesize\ttfamily \#define quicklist\+Delete\+If\+Empty(\begin{DoxyParamCaption}\item[{}]{ql,  }\item[{}]{n }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                       \(\backslash\)
+        if ((n)->count == 0) \{                                                 \(\backslash\)
+            \_\_quicklistDelNode((ql), (n));                                     \(\backslash\)
+            (n) = NULL;                                                        \(\backslash\)
+        \}                                                                      \(\backslash\)
+    \} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Definition at line 571 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a03a3947a9423d234923343702619c553}\label{quicklist_8c_a03a3947a9423d234923343702619c553}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Node\+Update\+Sz@{quicklist\+Node\+Update\+Sz}}
+\index{quicklist\+Node\+Update\+Sz@{quicklist\+Node\+Update\+Sz}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Node\+Update\+Sz}{quicklistNodeUpdateSz}}
+{\footnotesize\ttfamily \#define quicklist\+Node\+Update\+Sz(\begin{DoxyParamCaption}\item[{}]{node }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                       \(\backslash\)
+        (node)->sz = \hyperlink{ziplist_8c_a2fc699da80e3b5dfe10057ecfbdb3fa1}{ziplistBlobLen}((node)->zl);                               \(\backslash\)
+    \} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Definition at line 471 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a75672a682e90fe973934910f3ee866a3}\label{quicklist_8c_a75672a682e90fe973934910f3ee866a3}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Recompress\+Only@{quicklist\+Recompress\+Only}}
+\index{quicklist\+Recompress\+Only@{quicklist\+Recompress\+Only}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Recompress\+Only}{quicklistRecompressOnly}}
+{\footnotesize\ttfamily \#define quicklist\+Recompress\+Only(\begin{DoxyParamCaption}\item[{}]{\+\_\+ql,  }\item[{}]{\+\_\+node }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{                                                                       \(\backslash\)
+        if ((\_node)->recompress)                                               \(\backslash\)
+            quicklistCompressNode((\_node));                                    \(\backslash\)
+    \} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+
+
+Definition at line 342 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a9c22c9c899458021930a552a4f94d317}\label{quicklist_8c_a9c22c9c899458021930a552a4f94d317}} 
+\index{quicklist.\+c@{quicklist.\+c}!R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC@{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC}}
+\index{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC@{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC}{REDIS\_STATIC}}
+{\footnotesize\ttfamily \#define R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC~static}
+
+
+
+Definition at line 43 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_ae95e4d31b16c0e50720b8310df428c0e}\label{quicklist_8c_ae95e4d31b16c0e50720b8310df428c0e}} 
+\index{quicklist.\+c@{quicklist.\+c}!S\+I\+Z\+E\+\_\+\+S\+A\+F\+E\+T\+Y\+\_\+\+L\+I\+M\+IT@{S\+I\+Z\+E\+\_\+\+S\+A\+F\+E\+T\+Y\+\_\+\+L\+I\+M\+IT}}
+\index{S\+I\+Z\+E\+\_\+\+S\+A\+F\+E\+T\+Y\+\_\+\+L\+I\+M\+IT@{S\+I\+Z\+E\+\_\+\+S\+A\+F\+E\+T\+Y\+\_\+\+L\+I\+M\+IT}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{S\+I\+Z\+E\+\_\+\+S\+A\+F\+E\+T\+Y\+\_\+\+L\+I\+M\+IT}{SIZE\_SAFETY\_LIMIT}}
+{\footnotesize\ttfamily \#define S\+I\+Z\+E\+\_\+\+S\+A\+F\+E\+T\+Y\+\_\+\+L\+I\+M\+IT~8192}
+
+
+
+Definition at line 51 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_ab77edec9f8d4ebc2917da86841a5f202}\label{quicklist_8c_ab77edec9f8d4ebc2917da86841a5f202}} 
+\index{quicklist.\+c@{quicklist.\+c}!size\+Meets\+Safety\+Limit@{size\+Meets\+Safety\+Limit}}
+\index{size\+Meets\+Safety\+Limit@{size\+Meets\+Safety\+Limit}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{size\+Meets\+Safety\+Limit}{sizeMeetsSafetyLimit}}
+{\footnotesize\ttfamily \#define size\+Meets\+Safety\+Limit(\begin{DoxyParamCaption}\item[{}]{sz }\end{DoxyParamCaption})~((sz) $<$= \hyperlink{quicklist_8c_ae95e4d31b16c0e50720b8310df428c0e}{S\+I\+Z\+E\+\_\+\+S\+A\+F\+E\+T\+Y\+\_\+\+L\+I\+M\+IT})}
+
+
+
+Definition at line 418 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_ac6c45889010c1bd68631771b64f18101}\label{quicklist_8c_ac6c45889010c1bd68631771b64f18101}} 
+\index{quicklist.\+c@{quicklist.\+c}!unlikely@{unlikely}}
+\index{unlikely@{unlikely}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{unlikely}{unlikely}}
+{\footnotesize\ttfamily \#define unlikely(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~(x)}
+
+
+
+Definition at line 89 of file quicklist.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{quicklist_8c_affeb562622358a72129d2fd68d2b77b7}\label{quicklist_8c_affeb562622358a72129d2fd68d2b77b7}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+\+\_\+quicklist\+Compress@{\+\_\+\+\_\+quicklist\+Compress}}
+\index{\+\_\+\+\_\+quicklist\+Compress@{\+\_\+\+\_\+quicklist\+Compress}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+quicklist\+Compress()}{\_\_quicklistCompress()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \+\_\+\+\_\+quicklist\+Compress (\begin{DoxyParamCaption}\item[{const \hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 265 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_ad838be869094694f4d3066ba00312c08}\label{quicklist_8c_ad838be869094694f4d3066ba00312c08}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+\+\_\+quicklist\+Compress\+Node@{\+\_\+\+\_\+quicklist\+Compress\+Node}}
+\index{\+\_\+\+\_\+quicklist\+Compress\+Node@{\+\_\+\+\_\+quicklist\+Compress\+Node}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+quicklist\+Compress\+Node()}{\_\_quicklistCompressNode()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} int \+\_\+\+\_\+quicklist\+Compress\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 178 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_ab78fa3003367e2f816ebc0e741393e8a}\label{quicklist_8c_ab78fa3003367e2f816ebc0e741393e8a}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+\+\_\+quicklist\+Decompress\+Node@{\+\_\+\+\_\+quicklist\+Decompress\+Node}}
+\index{\+\_\+\+\_\+quicklist\+Decompress\+Node@{\+\_\+\+\_\+quicklist\+Decompress\+Node}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+quicklist\+Decompress\+Node()}{\_\_quicklistDecompressNode()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} int \+\_\+\+\_\+quicklist\+Decompress\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 215 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a7be4a8b18e10992e36679837ef34188c}\label{quicklist_8c_a7be4a8b18e10992e36679837ef34188c}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+\+\_\+quicklist\+Del\+Node@{\+\_\+\+\_\+quicklist\+Del\+Node}}
+\index{\+\_\+\+\_\+quicklist\+Del\+Node@{\+\_\+\+\_\+quicklist\+Del\+Node}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+quicklist\+Del\+Node()}{\_\_quicklistDelNode()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \+\_\+\+\_\+quicklist\+Del\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 579 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a1b60796cf6d577798b7c743a8c8b6f2a}\label{quicklist_8c_a1b60796cf6d577798b7c743a8c8b6f2a}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+\+\_\+quicklist\+Insert\+Node@{\+\_\+\+\_\+quicklist\+Insert\+Node}}
+\index{\+\_\+\+\_\+quicklist\+Insert\+Node@{\+\_\+\+\_\+quicklist\+Insert\+Node}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+quicklist\+Insert\+Node()}{\_\_quicklistInsertNode()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \+\_\+\+\_\+quicklist\+Insert\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{old\+\_\+node,  }\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{new\+\_\+node,  }\item[{int}]{after }\end{DoxyParamCaption})}
+
+
+
+Definition at line 352 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a336f1057a031d2f2aad229c1d21810d9}\label{quicklist_8c_a336f1057a031d2f2aad229c1d21810d9}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+quicklist\+Insert@{\+\_\+quicklist\+Insert}}
+\index{\+\_\+quicklist\+Insert@{\+\_\+quicklist\+Insert}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+quicklist\+Insert()}{\_quicklistInsert()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \+\_\+quicklist\+Insert (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{\hyperlink{structquicklist_entry}{quicklist\+Entry} $\ast$}]{entry,  }\item[{void $\ast$}]{value,  }\item[{const size\+\_\+t}]{sz,  }\item[{int}]{after }\end{DoxyParamCaption})}
+
+
+
+Definition at line 832 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_aaffa303447f90900131a2fa7beafd87f}\label{quicklist_8c_aaffa303447f90900131a2fa7beafd87f}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+quicklist\+Insert\+Node\+After@{\+\_\+quicklist\+Insert\+Node\+After}}
+\index{\+\_\+quicklist\+Insert\+Node\+After@{\+\_\+quicklist\+Insert\+Node\+After}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+quicklist\+Insert\+Node\+After()}{\_quicklistInsertNodeAfter()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \+\_\+quicklist\+Insert\+Node\+After (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{old\+\_\+node,  }\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{new\+\_\+node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 394 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a24bd4b06dc5c9f6db19559dab46f9642}\label{quicklist_8c_a24bd4b06dc5c9f6db19559dab46f9642}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+quicklist\+Insert\+Node\+Before@{\+\_\+quicklist\+Insert\+Node\+Before}}
+\index{\+\_\+quicklist\+Insert\+Node\+Before@{\+\_\+quicklist\+Insert\+Node\+Before}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+quicklist\+Insert\+Node\+Before()}{\_quicklistInsertNodeBefore()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \+\_\+quicklist\+Insert\+Node\+Before (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{old\+\_\+node,  }\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{new\+\_\+node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 388 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a5c2991a30cf5c5f4f4070bf736f6c9fa}\label{quicklist_8c_a5c2991a30cf5c5f4f4070bf736f6c9fa}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+quicklist\+Merge\+Nodes@{\+\_\+quicklist\+Merge\+Nodes}}
+\index{\+\_\+quicklist\+Merge\+Nodes@{\+\_\+quicklist\+Merge\+Nodes}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+quicklist\+Merge\+Nodes()}{\_quicklistMergeNodes()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void \+\_\+quicklist\+Merge\+Nodes (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{center }\end{DoxyParamCaption})}
+
+
+
+Definition at line 733 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_acaf1351523286d6a1712245e06d474eb}\label{quicklist_8c_acaf1351523286d6a1712245e06d474eb}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+quicklist\+Node\+Allow\+Insert@{\+\_\+quicklist\+Node\+Allow\+Insert}}
+\index{\+\_\+quicklist\+Node\+Allow\+Insert@{\+\_\+quicklist\+Node\+Allow\+Insert}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+quicklist\+Node\+Allow\+Insert()}{\_quicklistNodeAllowInsert()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} int \+\_\+quicklist\+Node\+Allow\+Insert (\begin{DoxyParamCaption}\item[{const \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{node,  }\item[{const int}]{fill,  }\item[{const size\+\_\+t}]{sz }\end{DoxyParamCaption})}
+
+
+
+Definition at line 420 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a13cf5b94ba610302f51ab766c0d58b57}\label{quicklist_8c_a13cf5b94ba610302f51ab766c0d58b57}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+quicklist\+Node\+Allow\+Merge@{\+\_\+quicklist\+Node\+Allow\+Merge}}
+\index{\+\_\+quicklist\+Node\+Allow\+Merge@{\+\_\+quicklist\+Node\+Allow\+Merge}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+quicklist\+Node\+Allow\+Merge()}{\_quicklistNodeAllowMerge()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} int \+\_\+quicklist\+Node\+Allow\+Merge (\begin{DoxyParamCaption}\item[{const \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{a,  }\item[{const \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{b,  }\item[{const int}]{fill }\end{DoxyParamCaption})}
+
+
+
+Definition at line 452 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a21b7b62749812e484e914f4570a1a9f9}\label{quicklist_8c_a21b7b62749812e484e914f4570a1a9f9}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+quicklist\+Node\+Size\+Meets\+Optimization\+Requirement@{\+\_\+quicklist\+Node\+Size\+Meets\+Optimization\+Requirement}}
+\index{\+\_\+quicklist\+Node\+Size\+Meets\+Optimization\+Requirement@{\+\_\+quicklist\+Node\+Size\+Meets\+Optimization\+Requirement}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+quicklist\+Node\+Size\+Meets\+Optimization\+Requirement()}{\_quicklistNodeSizeMeetsOptimizationRequirement()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} int \+\_\+quicklist\+Node\+Size\+Meets\+Optimization\+Requirement (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{sz,  }\item[{const int}]{fill }\end{DoxyParamCaption})}
+
+
+
+Definition at line 401 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a32c6ef371d8f139f0f2551bdf12ff3cc}\label{quicklist_8c_a32c6ef371d8f139f0f2551bdf12ff3cc}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+quicklist\+Saver@{\+\_\+quicklist\+Saver}}
+\index{\+\_\+quicklist\+Saver@{\+\_\+quicklist\+Saver}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+quicklist\+Saver()}{\_quicklistSaver()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} void$\ast$ \+\_\+quicklist\+Saver (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{data,  }\item[{unsigned int}]{sz }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1372 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_af606368c0a17fa96d9bcd0658d641f6b}\label{quicklist_8c_af606368c0a17fa96d9bcd0658d641f6b}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+quicklist\+Split\+Node@{\+\_\+quicklist\+Split\+Node}}
+\index{\+\_\+quicklist\+Split\+Node@{\+\_\+quicklist\+Split\+Node}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+quicklist\+Split\+Node()}{\_quicklistSplitNode()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} \hyperlink{structquicklist_node}{quicklist\+Node}$\ast$ \+\_\+quicklist\+Split\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{node,  }\item[{int}]{offset,  }\item[{int}]{after }\end{DoxyParamCaption})}
+
+
+
+Definition at line 797 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_ad05ac73a3ebd9c56724a3afd2a58b415}\label{quicklist_8c_ad05ac73a3ebd9c56724a3afd2a58b415}} 
+\index{quicklist.\+c@{quicklist.\+c}!\+\_\+quicklist\+Ziplist\+Merge@{\+\_\+quicklist\+Ziplist\+Merge}}
+\index{\+\_\+quicklist\+Ziplist\+Merge@{\+\_\+quicklist\+Ziplist\+Merge}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{\+\_\+quicklist\+Ziplist\+Merge()}{\_quicklistZiplistMerge()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} \hyperlink{structquicklist_node}{quicklist\+Node}$\ast$ \+\_\+quicklist\+Ziplist\+Merge (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{a,  }\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{b }\end{DoxyParamCaption})}
+
+
+
+Definition at line 695 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a8912e1360c3d76fa7e40ede2928388bc}\label{quicklist_8c_a8912e1360c3d76fa7e40ede2928388bc}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Append\+Values\+From\+Ziplist@{quicklist\+Append\+Values\+From\+Ziplist}}
+\index{quicklist\+Append\+Values\+From\+Ziplist@{quicklist\+Append\+Values\+From\+Ziplist}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Append\+Values\+From\+Ziplist()}{quicklistAppendValuesFromZiplist()}}
+{\footnotesize\ttfamily \hyperlink{structquicklist}{quicklist}$\ast$ quicklist\+Append\+Values\+From\+Ziplist (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{unsigned char $\ast$}]{zl }\end{DoxyParamCaption})}
+
+
+
+Definition at line 542 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a5ec5ffc04fab2daf6ec1fcefea26f122}\label{quicklist_8c_a5ec5ffc04fab2daf6ec1fcefea26f122}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Append\+Ziplist@{quicklist\+Append\+Ziplist}}
+\index{quicklist\+Append\+Ziplist@{quicklist\+Append\+Ziplist}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Append\+Ziplist()}{quicklistAppendZiplist()}}
+{\footnotesize\ttfamily void quicklist\+Append\+Ziplist (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{unsigned char $\ast$}]{zl }\end{DoxyParamCaption})}
+
+
+
+Definition at line 525 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a2363c6a80bc380a2e52f2fa3a3610974}\label{quicklist_8c_a2363c6a80bc380a2e52f2fa3a3610974}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Compare@{quicklist\+Compare}}
+\index{quicklist\+Compare@{quicklist\+Compare}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Compare()}{quicklistCompare()}}
+{\footnotesize\ttfamily int quicklist\+Compare (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p1,  }\item[{unsigned char $\ast$}]{p2,  }\item[{int}]{p2\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1042 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a89fd4343b8eecfaa5670a94e6f745ed7}\label{quicklist_8c_a89fd4343b8eecfaa5670a94e6f745ed7}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Count@{quicklist\+Count}}
+\index{quicklist\+Count@{quicklist\+Count}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Count()}{quicklistCount()}}
+{\footnotesize\ttfamily unsigned long quicklist\+Count (\begin{DoxyParamCaption}\item[{const \hyperlink{structquicklist}{quicklist} $\ast$}]{ql }\end{DoxyParamCaption})}
+
+
+
+Definition at line 152 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_ab4a7a85e7a80ef6cf36534f9c765f058}\label{quicklist_8c_ab4a7a85e7a80ef6cf36534f9c765f058}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Create@{quicklist\+Create}}
+\index{quicklist\+Create@{quicklist\+Create}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Create()}{quicklistCreate()}}
+{\footnotesize\ttfamily \hyperlink{structquicklist}{quicklist}$\ast$ quicklist\+Create (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 94 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a7fb070263360361a41ad771390c37c87}\label{quicklist_8c_a7fb070263360361a41ad771390c37c87}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Create\+From\+Ziplist@{quicklist\+Create\+From\+Ziplist}}
+\index{quicklist\+Create\+From\+Ziplist@{quicklist\+Create\+From\+Ziplist}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Create\+From\+Ziplist()}{quicklistCreateFromZiplist()}}
+{\footnotesize\ttfamily \hyperlink{structquicklist}{quicklist}$\ast$ quicklist\+Create\+From\+Ziplist (\begin{DoxyParamCaption}\item[{int}]{fill,  }\item[{int}]{compress,  }\item[{unsigned char $\ast$}]{zl }\end{DoxyParamCaption})}
+
+
+
+Definition at line 566 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a39a0b678e02bc7930f8cc8f25cfb6ac6}\label{quicklist_8c_a39a0b678e02bc7930f8cc8f25cfb6ac6}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Create\+Node@{quicklist\+Create\+Node}}
+\index{quicklist\+Create\+Node@{quicklist\+Create\+Node}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Create\+Node()}{quicklistCreateNode()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} \hyperlink{structquicklist_node}{quicklist\+Node}$\ast$ quicklist\+Create\+Node (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 138 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a5ce5a498f3689c432797fc300a7f49d0}\label{quicklist_8c_a5ce5a498f3689c432797fc300a7f49d0}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Del\+Entry@{quicklist\+Del\+Entry}}
+\index{quicklist\+Del\+Entry@{quicklist\+Del\+Entry}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Del\+Entry()}{quicklistDelEntry()}}
+{\footnotesize\ttfamily void quicklist\+Del\+Entry (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist_iter}{quicklist\+Iter} $\ast$}]{iter,  }\item[{\hyperlink{structquicklist_entry}{quicklist\+Entry} $\ast$}]{entry }\end{DoxyParamCaption})}
+
+
+
+Definition at line 634 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_ac0a1210f1d806105483890b131f1be3d}\label{quicklist_8c_ac0a1210f1d806105483890b131f1be3d}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Del\+Index@{quicklist\+Del\+Index}}
+\index{quicklist\+Del\+Index@{quicklist\+Del\+Index}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Del\+Index()}{quicklistDelIndex()}}
+{\footnotesize\ttfamily \hyperlink{quicklist_8c_a9c22c9c899458021930a552a4f94d317}{R\+E\+D\+I\+S\+\_\+\+S\+T\+A\+T\+IC} int quicklist\+Del\+Index (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{\hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{node,  }\item[{unsigned char $\ast$$\ast$}]{p }\end{DoxyParamCaption})}
+
+
+
+Definition at line 613 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a1affd656fde2e6d90efcbd4055be0516}\label{quicklist_8c_a1affd656fde2e6d90efcbd4055be0516}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Del\+Range@{quicklist\+Del\+Range}}
+\index{quicklist\+Del\+Range@{quicklist\+Del\+Range}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Del\+Range()}{quicklistDelRange()}}
+{\footnotesize\ttfamily int quicklist\+Del\+Range (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{const long}]{start,  }\item[{const long}]{count }\end{DoxyParamCaption})}
+
+
+
+Definition at line 958 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_acb1f76780ea4375533516e5e3a7a42ac}\label{quicklist_8c_acb1f76780ea4375533516e5e3a7a42ac}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Dup@{quicklist\+Dup}}
+\index{quicklist\+Dup@{quicklist\+Dup}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Dup()}{quicklistDup()}}
+{\footnotesize\ttfamily \hyperlink{structquicklist}{quicklist}$\ast$ quicklist\+Dup (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{orig }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1186 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a905d915ccb297dc9c3f784c82e6e3de0}\label{quicklist_8c_a905d915ccb297dc9c3f784c82e6e3de0}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Get\+Iterator@{quicklist\+Get\+Iterator}}
+\index{quicklist\+Get\+Iterator@{quicklist\+Get\+Iterator}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Get\+Iterator()}{quicklistGetIterator()}}
+{\footnotesize\ttfamily \hyperlink{structquicklist_iter}{quicklist\+Iter}$\ast$ quicklist\+Get\+Iterator (\begin{DoxyParamCaption}\item[{const \hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{int}]{direction }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1048 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a974884cf7beae8bc02d878b86392593e}\label{quicklist_8c_a974884cf7beae8bc02d878b86392593e}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Get\+Iterator\+At\+Idx@{quicklist\+Get\+Iterator\+At\+Idx}}
+\index{quicklist\+Get\+Iterator\+At\+Idx@{quicklist\+Get\+Iterator\+At\+Idx}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Get\+Iterator\+At\+Idx()}{quicklistGetIteratorAtIdx()}}
+{\footnotesize\ttfamily \hyperlink{structquicklist_iter}{quicklist\+Iter}$\ast$ quicklist\+Get\+Iterator\+At\+Idx (\begin{DoxyParamCaption}\item[{const \hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{const int}]{direction,  }\item[{const long long}]{idx }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1071 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a93444cf8ecceea9fd5219fb61b1b06fa}\label{quicklist_8c_a93444cf8ecceea9fd5219fb61b1b06fa}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Get\+Lzf@{quicklist\+Get\+Lzf}}
+\index{quicklist\+Get\+Lzf@{quicklist\+Get\+Lzf}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Get\+Lzf()}{quicklistGetLzf()}}
+{\footnotesize\ttfamily size\+\_\+t quicklist\+Get\+Lzf (\begin{DoxyParamCaption}\item[{const \hyperlink{structquicklist_node}{quicklist\+Node} $\ast$}]{node,  }\item[{void $\ast$$\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+Definition at line 253 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_af46c9fdf5f31023a696fe13edea26f8b}\label{quicklist_8c_af46c9fdf5f31023a696fe13edea26f8b}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Index@{quicklist\+Index}}
+\index{quicklist\+Index@{quicklist\+Index}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Index()}{quicklistIndex()}}
+{\footnotesize\ttfamily int quicklist\+Index (\begin{DoxyParamCaption}\item[{const \hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{const long long}]{idx,  }\item[{\hyperlink{structquicklist_entry}{quicklist\+Entry} $\ast$}]{entry }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1225 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_aa1d031804ea9c034e6d47c2bf70bd8be}\label{quicklist_8c_aa1d031804ea9c034e6d47c2bf70bd8be}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Insert\+After@{quicklist\+Insert\+After}}
+\index{quicklist\+Insert\+After@{quicklist\+Insert\+After}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Insert\+After()}{quicklistInsertAfter()}}
+{\footnotesize\ttfamily void quicklist\+Insert\+After (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{\hyperlink{structquicklist_entry}{quicklist\+Entry} $\ast$}]{entry,  }\item[{void $\ast$}]{value,  }\item[{const size\+\_\+t}]{sz }\end{DoxyParamCaption})}
+
+
+
+Definition at line 947 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a2202631a9ddab5ebc1e4d79ada20cf4a}\label{quicklist_8c_a2202631a9ddab5ebc1e4d79ada20cf4a}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Insert\+Before@{quicklist\+Insert\+Before}}
+\index{quicklist\+Insert\+Before@{quicklist\+Insert\+Before}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Insert\+Before()}{quicklistInsertBefore()}}
+{\footnotesize\ttfamily void quicklist\+Insert\+Before (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{\hyperlink{structquicklist_entry}{quicklist\+Entry} $\ast$}]{entry,  }\item[{void $\ast$}]{value,  }\item[{const size\+\_\+t}]{sz }\end{DoxyParamCaption})}
+
+
+
+Definition at line 942 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_ae51b8e363fbddf50057948ab9d114caa}\label{quicklist_8c_ae51b8e363fbddf50057948ab9d114caa}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+New@{quicklist\+New}}
+\index{quicklist\+New@{quicklist\+New}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+New()}{quicklistNew()}}
+{\footnotesize\ttfamily \hyperlink{structquicklist}{quicklist}$\ast$ quicklist\+New (\begin{DoxyParamCaption}\item[{int}]{fill,  }\item[{int}]{compress }\end{DoxyParamCaption})}
+
+
+
+Definition at line 132 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_afe865dddd6290e0ba65acb2f7ab58345}\label{quicklist_8c_afe865dddd6290e0ba65acb2f7ab58345}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Next@{quicklist\+Next}}
+\index{quicklist\+Next@{quicklist\+Next}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Next()}{quicklistNext()}}
+{\footnotesize\ttfamily int quicklist\+Next (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist_iter}{quicklist\+Iter} $\ast$}]{iter,  }\item[{\hyperlink{structquicklist_entry}{quicklist\+Entry} $\ast$}]{entry }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1117 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_abde314a9e227be736e335d7538b3e171}\label{quicklist_8c_abde314a9e227be736e335d7538b3e171}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Pop@{quicklist\+Pop}}
+\index{quicklist\+Pop@{quicklist\+Pop}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Pop()}{quicklistPop()}}
+{\footnotesize\ttfamily int quicklist\+Pop (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{int}]{where,  }\item[{unsigned char $\ast$$\ast$}]{data,  }\item[{unsigned int $\ast$}]{sz,  }\item[{long long $\ast$}]{slong }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1385 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_ae11fea8766912e472bd7b2adb4c2fade}\label{quicklist_8c_ae11fea8766912e472bd7b2adb4c2fade}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Pop\+Custom@{quicklist\+Pop\+Custom}}
+\index{quicklist\+Pop\+Custom@{quicklist\+Pop\+Custom}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Pop\+Custom()}{quicklistPopCustom()}}
+{\footnotesize\ttfamily int quicklist\+Pop\+Custom (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{int}]{where,  }\item[{unsigned char $\ast$$\ast$}]{data,  }\item[{unsigned int $\ast$}]{sz,  }\item[{long long $\ast$}]{sval,  }\item[{void $\ast$($\ast$)(unsigned char $\ast$data, unsigned int sz)}]{saver }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1324 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a1c1d7987071e6f6b3677c6b6f160687f}\label{quicklist_8c_a1c1d7987071e6f6b3677c6b6f160687f}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Push@{quicklist\+Push}}
+\index{quicklist\+Push@{quicklist\+Push}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Push()}{quicklistPush()}}
+{\footnotesize\ttfamily void quicklist\+Push (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{void $\ast$}]{value,  }\item[{const size\+\_\+t}]{sz,  }\item[{int}]{where }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1404 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a8dd93cf7b4ad7c69ade4685a5cacdf70}\label{quicklist_8c_a8dd93cf7b4ad7c69ade4685a5cacdf70}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Push\+Head@{quicklist\+Push\+Head}}
+\index{quicklist\+Push\+Head@{quicklist\+Push\+Head}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Push\+Head()}{quicklistPushHead()}}
+{\footnotesize\ttfamily int quicklist\+Push\+Head (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{void $\ast$}]{value,  }\item[{size\+\_\+t}]{sz }\end{DoxyParamCaption})}
+
+
+
+Definition at line 480 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_aa730ab21d61270428107b786a635881e}\label{quicklist_8c_aa730ab21d61270428107b786a635881e}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Push\+Tail@{quicklist\+Push\+Tail}}
+\index{quicklist\+Push\+Tail@{quicklist\+Push\+Tail}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Push\+Tail()}{quicklistPushTail()}}
+{\footnotesize\ttfamily int quicklist\+Push\+Tail (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{void $\ast$}]{value,  }\item[{size\+\_\+t}]{sz }\end{DoxyParamCaption})}
+
+
+
+Definition at line 503 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a75c42e6e2bf61575be3806910d0afea2}\label{quicklist_8c_a75c42e6e2bf61575be3806910d0afea2}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Release@{quicklist\+Release}}
+\index{quicklist\+Release@{quicklist\+Release}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Release()}{quicklistRelease()}}
+{\footnotesize\ttfamily void quicklist\+Release (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist }\end{DoxyParamCaption})}
+
+
+
+Definition at line 155 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a518b83659bfbb09c2a7b12eaaa6367fc}\label{quicklist_8c_a518b83659bfbb09c2a7b12eaaa6367fc}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Release\+Iterator@{quicklist\+Release\+Iterator}}
+\index{quicklist\+Release\+Iterator@{quicklist\+Release\+Iterator}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Release\+Iterator()}{quicklistReleaseIterator()}}
+{\footnotesize\ttfamily void quicklist\+Release\+Iterator (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist_iter}{quicklist\+Iter} $\ast$}]{iter }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1089 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_aab0b717b51db00b676037b9ddf509e9e}\label{quicklist_8c_aab0b717b51db00b676037b9ddf509e9e}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Replace\+At\+Index@{quicklist\+Replace\+At\+Index}}
+\index{quicklist\+Replace\+At\+Index@{quicklist\+Replace\+At\+Index}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Replace\+At\+Index()}{quicklistReplaceAtIndex()}}
+{\footnotesize\ttfamily int quicklist\+Replace\+At\+Index (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{long}]{index,  }\item[{void $\ast$}]{data,  }\item[{int}]{sz }\end{DoxyParamCaption})}
+
+
+
+Definition at line 667 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_ad885ad8f7258107ce487524361358805}\label{quicklist_8c_ad885ad8f7258107ce487524361358805}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Rotate@{quicklist\+Rotate}}
+\index{quicklist\+Rotate@{quicklist\+Rotate}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Rotate()}{quicklistRotate()}}
+{\footnotesize\ttfamily void quicklist\+Rotate (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1282 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_a978a05621cd8c696e80704633a76096b}\label{quicklist_8c_a978a05621cd8c696e80704633a76096b}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Set\+Compress\+Depth@{quicklist\+Set\+Compress\+Depth}}
+\index{quicklist\+Set\+Compress\+Depth@{quicklist\+Set\+Compress\+Depth}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Set\+Compress\+Depth()}{quicklistSetCompressDepth()}}
+{\footnotesize\ttfamily void quicklist\+Set\+Compress\+Depth (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{int}]{compress }\end{DoxyParamCaption})}
+
+
+
+Definition at line 107 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_ab92c68077e47c956a9a8ab32e2579947}\label{quicklist_8c_ab92c68077e47c956a9a8ab32e2579947}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Set\+Fill@{quicklist\+Set\+Fill}}
+\index{quicklist\+Set\+Fill@{quicklist\+Set\+Fill}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Set\+Fill()}{quicklistSetFill()}}
+{\footnotesize\ttfamily void quicklist\+Set\+Fill (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{int}]{fill }\end{DoxyParamCaption})}
+
+
+
+Definition at line 117 of file quicklist.\+c.
+
+\mbox{\Hypertarget{quicklist_8c_aba1dc84e8d3aaefa49b9dcfeb6155e59}\label{quicklist_8c_aba1dc84e8d3aaefa49b9dcfeb6155e59}} 
+\index{quicklist.\+c@{quicklist.\+c}!quicklist\+Set\+Options@{quicklist\+Set\+Options}}
+\index{quicklist\+Set\+Options@{quicklist\+Set\+Options}!quicklist.\+c@{quicklist.\+c}}
+\subsubsection{\texorpdfstring{quicklist\+Set\+Options()}{quicklistSetOptions()}}
+{\footnotesize\ttfamily void quicklist\+Set\+Options (\begin{DoxyParamCaption}\item[{\hyperlink{structquicklist}{quicklist} $\ast$}]{quicklist,  }\item[{int}]{fill,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+
+
+Definition at line 126 of file quicklist.\+c.
+

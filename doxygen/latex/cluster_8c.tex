@@ -1,0 +1,1464 @@
+\hypertarget{cluster_8c}{}\section{src/cluster.c File Reference}
+\label{cluster_8c}\index{src/cluster.\+c@{src/cluster.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}cluster.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}endianconv.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$sys/file.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+Include dependency graph for cluster.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{cluster_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structredis_node_flags}{redis\+Node\+Flags}
+\item 
+struct \hyperlink{structmigrate_cached_socket}{migrate\+Cached\+Socket}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{cluster_8c_aa33746b19367347d43a13080ca87b871}{M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL}~1000
+\item 
+\#define \hyperlink{cluster_8c_a8fb5fdcd1cd5787957afc9ea62519937}{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+L\+A\+C\+K\+L\+I\+S\+T\+\_\+\+T\+TL}~60      /$\ast$ 1 minute. $\ast$/
+\item 
+\#define \hyperlink{cluster_8c_af8bfa0b87c4592863c3ece5242dc4dc4}{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+A\+LL}~0
+\item 
+\#define \hyperlink{cluster_8c_a49481f5cedbd75ce025011b331021822}{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+S\+L\+A\+V\+ES}~1
+\item 
+\#define \hyperlink{cluster_8c_adb83a5ca7312d0554348246a2d240bae}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+X\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY}~5000
+\item 
+\#define \hyperlink{cluster_8c_a215c4f74aaedd23cc5c82ea52548eb44}{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+I\+N\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY}~500
+\item 
+\#define \hyperlink{cluster_8c_af5e38d5b0c4ba321bd893835975980b1}{C\+L\+U\+S\+T\+E\+R\+\_\+\+W\+R\+I\+T\+A\+B\+L\+E\+\_\+\+D\+E\+L\+AY}~2000
+\item 
+\#define \hyperlink{cluster_8c_ac30325257580f172bb7885ac10c482f7}{M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+I\+T\+E\+MS}~64 /$\ast$ max num of items in the cache. $\ast$/
+\item 
+\#define \hyperlink{cluster_8c_ad338d1ae62fe93944193ff175f6d6526}{M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+T\+TL}~10 /$\ast$ close cached sockets after 10 sec. $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structmigrate_cached_socket}{migrate\+Cached\+Socket} \hyperlink{cluster_8c_a74dd19aa2ac894218eec087f16fa9c4e}{migrate\+Cached\+Socket}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structcluster_node}{cluster\+Node} $\ast$ \hyperlink{cluster_8c_a6a145bb803096cf813c485fbba43c632}{create\+Cluster\+Node} (char $\ast$nodename, int flags)
+\item 
+int \hyperlink{cluster_8c_aaede9674c2e75b3c250408bc4d875b10}{cluster\+Add\+Node} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node)
+\item 
+void \hyperlink{cluster_8c_a260693bc290f491a02e38b39fec5317a}{cluster\+Accept\+Handler} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$el, int fd, void $\ast$privdata, int mask)
+\item 
+void \hyperlink{cluster_8c_a9dabb856272f6d2ed12f1fcedf2acc07}{cluster\+Read\+Handler} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$el, int fd, void $\ast$privdata, int mask)
+\item 
+void \hyperlink{cluster_8c_a9c32c52fb4146292f68db14905a27e38}{cluster\+Send\+Ping} (\hyperlink{structcluster_link}{cluster\+Link} $\ast$link, int type)
+\item 
+void \hyperlink{cluster_8c_a9d611884e7b2876f25a3415c76a5c5db}{cluster\+Send\+Fail} (char $\ast$nodename)
+\item 
+void \hyperlink{cluster_8c_a053665ed48d837ca411f553dc127457a}{cluster\+Send\+Failover\+Auth\+If\+Needed} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node, \hyperlink{structcluster_msg}{cluster\+Msg} $\ast$request)
+\item 
+void \hyperlink{cluster_8c_a3ddb08e65b20dcf074aaa520dbce2814}{cluster\+Update\+State} (void)
+\item 
+int \hyperlink{cluster_8c_a50b839d8a8b2be02a55ca20aaa5f779b}{cluster\+Node\+Get\+Slot\+Bit} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$n, int slot)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{cluster_8c_a5d2b76fa95bad76c3bf4f768f50f31c1}{cluster\+Gen\+Nodes\+Description} (int filter)
+\item 
+\hyperlink{structcluster_node}{cluster\+Node} $\ast$ \hyperlink{cluster_8c_ae4680ad7875e9aa1851fc2130ee5e41b}{cluster\+Lookup\+Node} (const char $\ast$name)
+\item 
+int \hyperlink{cluster_8c_af1e6cb9695b40fd54074a9038925db94}{cluster\+Node\+Add\+Slave} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$master, \hyperlink{structcluster_node}{cluster\+Node} $\ast$slave)
+\item 
+int \hyperlink{cluster_8c_a6438a31e8585f2cb0190a66cafa29f09}{cluster\+Add\+Slot} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$n, int slot)
+\item 
+int \hyperlink{cluster_8c_ad661d522c87fe46b53cd896fc202a9fe}{cluster\+Del\+Slot} (int slot)
+\item 
+int \hyperlink{cluster_8c_ad51cdeb7dea5f59b3e0ed11ac12674cb}{cluster\+Del\+Node\+Slots} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node)
+\item 
+int \hyperlink{cluster_8c_adc8a1299f2a009f57be19530c79f9ad5}{cluster\+Node\+Set\+Slot\+Bit} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$n, int slot)
+\item 
+void \hyperlink{cluster_8c_aa89268edcf57d5a97efd4f302a114741}{cluster\+Set\+Master} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$n)
+\item 
+void \hyperlink{cluster_8c_a8008900aee20056e6b46c88754eddc70}{cluster\+Handle\+Slave\+Failover} (void)
+\item 
+void \hyperlink{cluster_8c_adc2b9ec7534a7bb3a2ceaaf538c6076a}{cluster\+Handle\+Slave\+Migration} (int max\+\_\+slaves)
+\item 
+int \hyperlink{cluster_8c_a4acd4524918bd38f4e836eb2d526c27b}{bitmap\+Test\+Bit} (unsigned char $\ast$bitmap, int pos)
+\item 
+void \hyperlink{cluster_8c_a6d4ad04640586830e0378e0364b14880}{cluster\+Do\+Before\+Sleep} (int flags)
+\item 
+void \hyperlink{cluster_8c_a1c2fd0cf832ee39c5596f946dd6eef32}{cluster\+Send\+Update} (\hyperlink{structcluster_link}{cluster\+Link} $\ast$link, \hyperlink{structcluster_node}{cluster\+Node} $\ast$node)
+\item 
+void \hyperlink{cluster_8c_ad3f5bbc768430f12c7e680ac2b322c4e}{reset\+Manual\+Failover} (void)
+\item 
+void \hyperlink{cluster_8c_a342294b24e4e355f7475db4b9862b3e6}{cluster\+Close\+All\+Slots} (void)
+\item 
+void \hyperlink{cluster_8c_a90d6bca8d676a59ca47ef5acfa22b0cc}{cluster\+Set\+Node\+As\+Master} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$n)
+\item 
+void \hyperlink{cluster_8c_a8dc04b0ca1605278b55336e2298914e0}{cluster\+Del\+Node} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$delnode)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{cluster_8c_a3697f09d201c8854042d6e088625eee0}{represent\+Cluster\+Node\+Flags} (\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} ci, uint16\+\_\+t flags)
+\item 
+uint64\+\_\+t \hyperlink{cluster_8c_adfe3832b3cec682a484c529e00547d7f}{cluster\+Get\+Max\+Epoch} (void)
+\item 
+int \hyperlink{cluster_8c_a6e56a3fb483aab47c59094deb1ed0355}{cluster\+Bump\+Config\+Epoch\+Without\+Consensus} (void)
+\item 
+void \hyperlink{cluster_8c_aacff623552cb02abc1e49cd68fc7dc9a}{module\+Call\+Cluster\+Receivers} (const char $\ast$sender\+\_\+id, uint64\+\_\+t module\+\_\+id, uint8\+\_\+t type, const unsigned char $\ast$payload, uint32\+\_\+t len)
+\item 
+int \hyperlink{cluster_8c_a8f14757bf4c534e8ac9b81fbb9db49d3}{cluster\+Load\+Config} (char $\ast$filename)
+\item 
+int \hyperlink{cluster_8c_afadb10b9d4bf958b7a154de172e8ad29}{cluster\+Save\+Config} (int do\+\_\+fsync)
+\item 
+void \hyperlink{cluster_8c_a3bf29af18e41c42b87a25d4d84a495a6}{cluster\+Save\+Config\+Or\+Die} (int do\+\_\+fsync)
+\item 
+int \hyperlink{cluster_8c_a6086260ab10a7aa6b561f4f5f16fcb01}{cluster\+Lock\+Config} (char $\ast$filename)
+\item 
+void \hyperlink{cluster_8c_a86e5ed3e74f2e82243c21c9250aa7512}{cluster\+Update\+Myself\+Flags} (void)
+\item 
+void \hyperlink{cluster_8c_acde939ce69844e6df42f0d5887bf970f}{cluster\+Init} (void)
+\item 
+void \hyperlink{cluster_8c_acdc0bb2f834c953867bba5f6bf086f8b}{cluster\+Reset} (int hard)
+\item 
+\hyperlink{structcluster_link}{cluster\+Link} $\ast$ \hyperlink{cluster_8c_adb9a0620eb03479f0d798289cb5f40c2}{create\+Cluster\+Link} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node)
+\item 
+void \hyperlink{cluster_8c_afb9f55087ce42c1ba21e390e371a7eaa}{free\+Cluster\+Link} (\hyperlink{structcluster_link}{cluster\+Link} $\ast$link)
+\item 
+unsigned int \hyperlink{cluster_8c_aa9b8446e0c24c4a6dadadeca47c164d5}{key\+Hash\+Slot} (char $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, int keylen)
+\item 
+int \hyperlink{cluster_8c_abc5cb92911b0956eab58b343514e36e6}{cluster\+Node\+Add\+Failure\+Report} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$failing, \hyperlink{structcluster_node}{cluster\+Node} $\ast$sender)
+\item 
+void \hyperlink{cluster_8c_a32f70650e8dc6fc1e89e14dd9df53558}{cluster\+Node\+Cleanup\+Failure\+Reports} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node)
+\item 
+int \hyperlink{cluster_8c_a68d95b9fb6e193c3c7d774b6276e51bb}{cluster\+Node\+Del\+Failure\+Report} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node, \hyperlink{structcluster_node}{cluster\+Node} $\ast$sender)
+\item 
+int \hyperlink{cluster_8c_a8a40fbc594ee15e76fede337771304fc}{cluster\+Node\+Failure\+Reports\+Count} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node)
+\item 
+int \hyperlink{cluster_8c_aecbefe1b52b0bf42f037803c1d248a88}{cluster\+Node\+Remove\+Slave} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$master, \hyperlink{structcluster_node}{cluster\+Node} $\ast$slave)
+\item 
+int \hyperlink{cluster_8c_a67716e528aa2cd85a254793a050a2e07}{cluster\+Count\+Non\+Failing\+Slaves} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$n)
+\item 
+void \hyperlink{cluster_8c_ae319719847f9753cded1bb76792b6590}{free\+Cluster\+Node} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$n)
+\item 
+void \hyperlink{cluster_8c_a48df2adbd9088bbf8103875489e97abc}{cluster\+Rename\+Node} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node, char $\ast$newname)
+\item 
+void \hyperlink{cluster_8c_a100a5ff47e2cafc68c102776a13ac4ce}{cluster\+Handle\+Config\+Epoch\+Collision} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$sender)
+\item 
+void \hyperlink{cluster_8c_ab562df2f34a01410a57db8693421247c}{cluster\+Blacklist\+Cleanup} (void)
+\item 
+void \hyperlink{cluster_8c_ab7050cb1a105a300735ea82635698a6b}{cluster\+Blacklist\+Add\+Node} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node)
+\item 
+int \hyperlink{cluster_8c_a00b19f5a61e44d17095a20069538186f}{cluster\+Blacklist\+Exists} (char $\ast$nodeid)
+\item 
+void \hyperlink{cluster_8c_ac8d1f0c96667c508e793b1e653fba90f}{mark\+Node\+As\+Failing\+If\+Needed} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node)
+\item 
+void \hyperlink{cluster_8c_a0666f8882d5e1c569f53178dc9d4827f}{clear\+Node\+Failure\+If\+Needed} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node)
+\item 
+int \hyperlink{cluster_8c_a77aa9259929e9c86f9a0113a9becfcfb}{cluster\+Handshake\+In\+Progress} (char $\ast$ip, int port, int cport)
+\item 
+int \hyperlink{cluster_8c_a652bd1d54d873b3424b82058dfccb062}{cluster\+Start\+Handshake} (char $\ast$ip, int port, int cport)
+\item 
+void \hyperlink{cluster_8c_a1ede984e3ae49023f21d3e3e9e133cb4}{cluster\+Process\+Gossip\+Section} (\hyperlink{structcluster_msg}{cluster\+Msg} $\ast$hdr, \hyperlink{structcluster_link}{cluster\+Link} $\ast$link)
+\item 
+void \hyperlink{cluster_8c_af73f2ed6ed6ceb6e49d8d46fbb4d42df}{node\+Ip2\+String} (char $\ast$buf, \hyperlink{structcluster_link}{cluster\+Link} $\ast$link, char $\ast$announced\+\_\+ip)
+\item 
+int \hyperlink{cluster_8c_ad8167ca5f9c174002161219b50de9742}{node\+Update\+Address\+If\+Needed} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node, \hyperlink{structcluster_link}{cluster\+Link} $\ast$link, \hyperlink{structcluster_msg}{cluster\+Msg} $\ast$hdr)
+\item 
+void \hyperlink{cluster_8c_a55154903e277b4bbf0ac3ae9a868d0c2}{cluster\+Update\+Slots\+Config\+With} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$sender, uint64\+\_\+t sender\+Config\+Epoch, unsigned char $\ast$slots)
+\item 
+int \hyperlink{cluster_8c_a856b00bdb66079824520286eaf0692b3}{cluster\+Process\+Packet} (\hyperlink{structcluster_link}{cluster\+Link} $\ast$link)
+\item 
+void \hyperlink{cluster_8c_aaa92d87bfb7cd54b17515747067c78a6}{handle\+Link\+I\+O\+Error} (\hyperlink{structcluster_link}{cluster\+Link} $\ast$link)
+\item 
+void \hyperlink{cluster_8c_a927e03a6c883b750aa237085042653d2}{cluster\+Write\+Handler} (\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$el, int fd, void $\ast$privdata, int mask)
+\item 
+void \hyperlink{cluster_8c_aa9e6a368db7ba14ee6a8dc6bcca4f9d8}{cluster\+Send\+Message} (\hyperlink{structcluster_link}{cluster\+Link} $\ast$link, unsigned char $\ast$msg, size\+\_\+t msglen)
+\item 
+void \hyperlink{cluster_8c_a30ea6bdd7fca405e074df4e52296cf44}{cluster\+Broadcast\+Message} (void $\ast$buf, size\+\_\+t len)
+\item 
+void \hyperlink{cluster_8c_ad1c1685da2295b6f798090e510cde9c8}{cluster\+Build\+Message\+Hdr} (\hyperlink{structcluster_msg}{cluster\+Msg} $\ast$hdr, int type)
+\item 
+int \hyperlink{cluster_8c_af136bdd9f6489b8bdb3886485f90c590}{cluster\+Node\+Is\+In\+Gossip\+Section} (\hyperlink{structcluster_msg}{cluster\+Msg} $\ast$hdr, int count, \hyperlink{structcluster_node}{cluster\+Node} $\ast$n)
+\item 
+void \hyperlink{cluster_8c_a7ac80698a29b9f62568965f1c7a70eb1}{cluster\+Set\+Gossip\+Entry} (\hyperlink{structcluster_msg}{cluster\+Msg} $\ast$hdr, int i, \hyperlink{structcluster_node}{cluster\+Node} $\ast$n)
+\item 
+void \hyperlink{cluster_8c_a25a453e222a92dfda4b01e75cb0fba23}{cluster\+Broadcast\+Pong} (int target)
+\item 
+void \hyperlink{cluster_8c_aad3f1db28559b306342993d891985eac}{cluster\+Send\+Publish} (\hyperlink{structcluster_link}{cluster\+Link} $\ast$link, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$channel, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$message)
+\item 
+void \hyperlink{cluster_8c_a8f06a3d3fe8baaac9fb53a0255b27900}{cluster\+Send\+Module} (\hyperlink{structcluster_link}{cluster\+Link} $\ast$link, uint64\+\_\+t module\+\_\+id, uint8\+\_\+t type, unsigned char $\ast$payload, uint32\+\_\+t len)
+\item 
+int \hyperlink{cluster_8c_a7e406746149eb45297c50479218a47cd}{cluster\+Send\+Module\+Message\+To\+Target} (const char $\ast$target, uint64\+\_\+t module\+\_\+id, uint8\+\_\+t type, unsigned char $\ast$payload, uint32\+\_\+t len)
+\item 
+void \hyperlink{cluster_8c_a3618bff80eac14d88dc89df6d7e40b56}{cluster\+Propagate\+Publish} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$channel, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$message)
+\item 
+void \hyperlink{cluster_8c_a0cd088a0c6d2d11631bf58295cbc84eb}{cluster\+Request\+Failover\+Auth} (void)
+\item 
+void \hyperlink{cluster_8c_a28b794e5333825d0620c7043b8927bb5}{cluster\+Send\+Failover\+Auth} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node)
+\item 
+void \hyperlink{cluster_8c_ae11d7e29ff8f58a8fc6f582ddba67180}{cluster\+Send\+M\+F\+Start} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node)
+\item 
+int \hyperlink{cluster_8c_af52c064c88c237609ae74d370dc081f5}{cluster\+Get\+Slave\+Rank} (void)
+\item 
+void \hyperlink{cluster_8c_aaf949bb905113c0079c8f5b0b7dcf6fd}{cluster\+Log\+Cant\+Failover} (int reason)
+\item 
+void \hyperlink{cluster_8c_ae1b85df7898e40aa261b3d1532095e69}{cluster\+Failover\+Replace\+Your\+Master} (void)
+\item 
+void \hyperlink{cluster_8c_a211da896f796a4b3ba7fcee527e01e75}{manual\+Failover\+Check\+Timeout} (void)
+\item 
+void \hyperlink{cluster_8c_a060299307e89e5c54ccaab2627fe1525}{cluster\+Handle\+Manual\+Failover} (void)
+\item 
+void \hyperlink{cluster_8c_a29d9657a4ac5c0dbe65bb20c36202d43}{cluster\+Cron} (void)
+\item 
+void \hyperlink{cluster_8c_a194aa6e002b5b8eb055233a6f3f8cb3a}{cluster\+Before\+Sleep} (void)
+\item 
+void \hyperlink{cluster_8c_aa482e60887bd27e57833e67e990225db}{bitmap\+Set\+Bit} (unsigned char $\ast$bitmap, int pos)
+\item 
+void \hyperlink{cluster_8c_ab82e681eda7475f12eedc00cb27e32d0}{bitmap\+Clear\+Bit} (unsigned char $\ast$bitmap, int pos)
+\item 
+int \hyperlink{cluster_8c_aea85a0d64dcc3cd6c00eb8ba43bdd682}{cluster\+Masters\+Have\+Slaves} (void)
+\item 
+int \hyperlink{cluster_8c_a95c61af52399a48e48f2a2679449f23f}{cluster\+Node\+Clear\+Slot\+Bit} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$n, int slot)
+\item 
+int \hyperlink{cluster_8c_ac0cb91ed72fe935f5fc0bace6047a779}{verify\+Cluster\+Config\+With\+Data} (void)
+\item 
+\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} \hyperlink{cluster_8c_af2402244ff4c41c4757a175fddc65e9a}{cluster\+Gen\+Node\+Description} (\hyperlink{structcluster_node}{cluster\+Node} $\ast$node)
+\item 
+const char $\ast$ \hyperlink{cluster_8c_aca36619e188606beda8a16910043aa66}{cluster\+Get\+Message\+Type\+String} (int type)
+\item 
+int \hyperlink{cluster_8c_aa8785beea240a77ad81625af8c210fcf}{get\+Slot\+Or\+Reply} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+void \hyperlink{cluster_8c_a7255cbb83d2ce159a1761628792719f9}{cluster\+Reply\+Multi\+Bulk\+Slots} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{cluster_8c_a8d49e8373402fda00571443d463a9ec4}{cluster\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{cluster_8c_a9a8c49cf3c32b61fcce9f989fb2f985b}{create\+Dump\+Payload} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$payload, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+int \hyperlink{cluster_8c_a9bf323a61df7525ed32b63ab5eec415a}{verify\+Dump\+Payload} (unsigned char $\ast$p, size\+\_\+t len)
+\item 
+void \hyperlink{cluster_8c_aca571ae521b349616304e35643826ec6}{dump\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{cluster_8c_a8bbf763a26259982d93a4ed3350267b8}{restore\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+\hyperlink{structmigrate_cached_socket}{migrate\+Cached\+Socket} $\ast$ \hyperlink{cluster_8c_a8fe807a702d4271419cd61ee9829b5a0}{migrate\+Get\+Socket} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$host, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$port, long timeout)
+\item 
+void \hyperlink{cluster_8c_afc4dc68839d724a00b7385050779ad5f}{migrate\+Close\+Socket} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$host, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$port)
+\item 
+void \hyperlink{cluster_8c_a5ceb25441c0355b24f1d991b704cb3b5}{migrate\+Close\+Timedout\+Sockets} (void)
+\item 
+void \hyperlink{cluster_8c_a5cc13836303811438b984932f6fc1b1b}{migrate\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{cluster_8c_ade6a3e195889b66cd73fe6d1b17d7a4a}{asking\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{cluster_8c_a9f6e0de4535394fe6602e3d061055d5a}{readonly\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{cluster_8c_a57e19f9388112556fc5429c2be240f24}{readwrite\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+\hyperlink{structcluster_node}{cluster\+Node} $\ast$ \hyperlink{cluster_8c_aaf79a84dde9b9c47378566b043bcf4b6}{get\+Node\+By\+Query} (\hyperlink{structclient}{client} $\ast$c, struct \hyperlink{structredis_command}{redis\+Command} $\ast$cmd, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$argv, int argc, int $\ast$hashslot, int $\ast$error\+\_\+code)
+\item 
+void \hyperlink{cluster_8c_a173a8e877d27a3850ad4072489e7a44b}{cluster\+Redirect\+Client} (\hyperlink{structclient}{client} $\ast$c, \hyperlink{structcluster_node}{cluster\+Node} $\ast$n, int hashslot, int error\+\_\+code)
+\item 
+int \hyperlink{cluster_8c_a4b2e8f1c74deb908a4af55f7fc20f161}{cluster\+Redirect\+Blocked\+Client\+If\+Needed} (\hyperlink{structclient}{client} $\ast$c)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structcluster_node}{cluster\+Node} $\ast$ \hyperlink{cluster_8c_aff69bee08a3a0a58166a9f85acf12d56}{myself} = N\+U\+LL
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{cluster_8c_a8fb5fdcd1cd5787957afc9ea62519937}\label{cluster_8c_a8fb5fdcd1cd5787957afc9ea62519937}} 
+\index{cluster.\+c@{cluster.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+L\+A\+C\+K\+L\+I\+S\+T\+\_\+\+T\+TL@{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+L\+A\+C\+K\+L\+I\+S\+T\+\_\+\+T\+TL}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+L\+A\+C\+K\+L\+I\+S\+T\+\_\+\+T\+TL@{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+L\+A\+C\+K\+L\+I\+S\+T\+\_\+\+T\+TL}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+L\+A\+C\+K\+L\+I\+S\+T\+\_\+\+T\+TL}{CLUSTER\_BLACKLIST\_TTL}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+L\+A\+C\+K\+L\+I\+S\+T\+\_\+\+T\+TL~60      /$\ast$ 1 minute. $\ast$/}
+
+
+
+Definition at line 1116 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_af8bfa0b87c4592863c3ece5242dc4dc4}\label{cluster_8c_af8bfa0b87c4592863c3ece5242dc4dc4}} 
+\index{cluster.\+c@{cluster.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+A\+LL@{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+A\+LL}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+A\+LL@{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+A\+LL}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+A\+LL}{CLUSTER\_BROADCAST\_ALL}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+A\+LL~0}
+
+
+
+Definition at line 2492 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a49481f5cedbd75ce025011b331021822}\label{cluster_8c_a49481f5cedbd75ce025011b331021822}} 
+\index{cluster.\+c@{cluster.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+S\+L\+A\+V\+ES@{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+S\+L\+A\+V\+ES}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+S\+L\+A\+V\+ES@{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+S\+L\+A\+V\+ES}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+S\+L\+A\+V\+ES}{CLUSTER\_BROADCAST\_LOCAL\_SLAVES}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+B\+R\+O\+A\+D\+C\+A\+S\+T\+\_\+\+L\+O\+C\+A\+L\+\_\+\+S\+L\+A\+V\+ES~1}
+
+
+
+Definition at line 2493 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_adb83a5ca7312d0554348246a2d240bae}\label{cluster_8c_adb83a5ca7312d0554348246a2d240bae}} 
+\index{cluster.\+c@{cluster.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+X\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+X\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+X\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+X\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+X\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY}{CLUSTER\_MAX\_REJOIN\_DELAY}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+A\+X\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY~5000}
+
+
+
+Definition at line 3754 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a215c4f74aaedd23cc5c82ea52548eb44}\label{cluster_8c_a215c4f74aaedd23cc5c82ea52548eb44}} 
+\index{cluster.\+c@{cluster.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+I\+N\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+I\+N\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+I\+N\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+I\+N\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+I\+N\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY}{CLUSTER\_MIN\_REJOIN\_DELAY}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+M\+I\+N\+\_\+\+R\+E\+J\+O\+I\+N\+\_\+\+D\+E\+L\+AY~500}
+
+
+
+Definition at line 3755 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_af5e38d5b0c4ba321bd893835975980b1}\label{cluster_8c_af5e38d5b0c4ba321bd893835975980b1}} 
+\index{cluster.\+c@{cluster.\+c}!C\+L\+U\+S\+T\+E\+R\+\_\+\+W\+R\+I\+T\+A\+B\+L\+E\+\_\+\+D\+E\+L\+AY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+W\+R\+I\+T\+A\+B\+L\+E\+\_\+\+D\+E\+L\+AY}}
+\index{C\+L\+U\+S\+T\+E\+R\+\_\+\+W\+R\+I\+T\+A\+B\+L\+E\+\_\+\+D\+E\+L\+AY@{C\+L\+U\+S\+T\+E\+R\+\_\+\+W\+R\+I\+T\+A\+B\+L\+E\+\_\+\+D\+E\+L\+AY}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{C\+L\+U\+S\+T\+E\+R\+\_\+\+W\+R\+I\+T\+A\+B\+L\+E\+\_\+\+D\+E\+L\+AY}{CLUSTER\_WRITABLE\_DELAY}}
+{\footnotesize\ttfamily \#define C\+L\+U\+S\+T\+E\+R\+\_\+\+W\+R\+I\+T\+A\+B\+L\+E\+\_\+\+D\+E\+L\+AY~2000}
+
+
+
+Definition at line 3756 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aa33746b19367347d43a13080ca87b871}\label{cluster_8c_aa33746b19367347d43a13080ca87b871}} 
+\index{cluster.\+c@{cluster.\+c}!M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL@{M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL}}
+\index{M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL@{M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL}{MAX\_CLUSTER\_ACCEPTS\_PER\_CALL}}
+{\footnotesize\ttfamily \#define M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+A\+C\+C\+E\+P\+T\+S\+\_\+\+P\+E\+R\+\_\+\+C\+A\+LL~1000}
+
+
+
+Definition at line 614 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ac30325257580f172bb7885ac10c482f7}\label{cluster_8c_ac30325257580f172bb7885ac10c482f7}} 
+\index{cluster.\+c@{cluster.\+c}!M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+I\+T\+E\+MS@{M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+I\+T\+E\+MS}}
+\index{M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+I\+T\+E\+MS@{M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+I\+T\+E\+MS}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+I\+T\+E\+MS}{MIGRATE\_SOCKET\_CACHE\_ITEMS}}
+{\footnotesize\ttfamily \#define M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+I\+T\+E\+MS~64 /$\ast$ max num of items in the cache. $\ast$/}
+
+
+
+Definition at line 4944 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ad338d1ae62fe93944193ff175f6d6526}\label{cluster_8c_ad338d1ae62fe93944193ff175f6d6526}} 
+\index{cluster.\+c@{cluster.\+c}!M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+T\+TL@{M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+T\+TL}}
+\index{M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+T\+TL@{M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+T\+TL}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+T\+TL}{MIGRATE\_SOCKET\_CACHE\_TTL}}
+{\footnotesize\ttfamily \#define M\+I\+G\+R\+A\+T\+E\+\_\+\+S\+O\+C\+K\+E\+T\+\_\+\+C\+A\+C\+H\+E\+\_\+\+T\+TL~10 /$\ast$ close cached sockets after 10 sec. $\ast$/}
+
+
+
+Definition at line 4945 of file cluster.\+c.
+
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{cluster_8c_a74dd19aa2ac894218eec087f16fa9c4e}\label{cluster_8c_a74dd19aa2ac894218eec087f16fa9c4e}} 
+\index{cluster.\+c@{cluster.\+c}!migrate\+Cached\+Socket@{migrate\+Cached\+Socket}}
+\index{migrate\+Cached\+Socket@{migrate\+Cached\+Socket}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{migrate\+Cached\+Socket}{migrateCachedSocket}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structmigrate_cached_socket}{migrate\+Cached\+Socket}  \hyperlink{structmigrate_cached_socket}{migrate\+Cached\+Socket}}
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{cluster_8c_ade6a3e195889b66cd73fe6d1b17d7a4a}\label{cluster_8c_ade6a3e195889b66cd73fe6d1b17d7a4a}} 
+\index{cluster.\+c@{cluster.\+c}!asking\+Command@{asking\+Command}}
+\index{asking\+Command@{asking\+Command}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{asking\+Command()}{askingCommand()}}
+{\footnotesize\ttfamily void asking\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5384 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ab82e681eda7475f12eedc00cb27e32d0}\label{cluster_8c_ab82e681eda7475f12eedc00cb27e32d0}} 
+\index{cluster.\+c@{cluster.\+c}!bitmap\+Clear\+Bit@{bitmap\+Clear\+Bit}}
+\index{bitmap\+Clear\+Bit@{bitmap\+Clear\+Bit}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{bitmap\+Clear\+Bit()}{bitmapClearBit()}}
+{\footnotesize\ttfamily void bitmap\+Clear\+Bit (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{bitmap,  }\item[{int}]{pos }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3639 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aa482e60887bd27e57833e67e990225db}\label{cluster_8c_aa482e60887bd27e57833e67e990225db}} 
+\index{cluster.\+c@{cluster.\+c}!bitmap\+Set\+Bit@{bitmap\+Set\+Bit}}
+\index{bitmap\+Set\+Bit@{bitmap\+Set\+Bit}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{bitmap\+Set\+Bit()}{bitmapSetBit()}}
+{\footnotesize\ttfamily void bitmap\+Set\+Bit (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{bitmap,  }\item[{int}]{pos }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3632 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a4acd4524918bd38f4e836eb2d526c27b}\label{cluster_8c_a4acd4524918bd38f4e836eb2d526c27b}} 
+\index{cluster.\+c@{cluster.\+c}!bitmap\+Test\+Bit@{bitmap\+Test\+Bit}}
+\index{bitmap\+Test\+Bit@{bitmap\+Test\+Bit}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{bitmap\+Test\+Bit()}{bitmapTestBit()}}
+{\footnotesize\ttfamily int bitmap\+Test\+Bit (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{bitmap,  }\item[{int}]{pos }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3625 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a0666f8882d5e1c569f53178dc9d4827f}\label{cluster_8c_a0666f8882d5e1c569f53178dc9d4827f}} 
+\index{cluster.\+c@{cluster.\+c}!clear\+Node\+Failure\+If\+Needed@{clear\+Node\+Failure\+If\+Needed}}
+\index{clear\+Node\+Failure\+If\+Needed@{clear\+Node\+Failure\+If\+Needed}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{clear\+Node\+Failure\+If\+Needed()}{clearNodeFailureIfNeeded()}}
+{\footnotesize\ttfamily void clear\+Node\+Failure\+If\+Needed (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1222 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a260693bc290f491a02e38b39fec5317a}\label{cluster_8c_a260693bc290f491a02e38b39fec5317a}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Accept\+Handler@{cluster\+Accept\+Handler}}
+\index{cluster\+Accept\+Handler@{cluster\+Accept\+Handler}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Accept\+Handler()}{clusterAcceptHandler()}}
+{\footnotesize\ttfamily void cluster\+Accept\+Handler (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{el,  }\item[{int}]{fd,  }\item[{void $\ast$}]{privdata,  }\item[{int}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 615 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aaede9674c2e75b3c250408bc4d875b10}\label{cluster_8c_aaede9674c2e75b3c250408bc4d875b10}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Add\+Node@{cluster\+Add\+Node}}
+\index{cluster\+Add\+Node@{cluster\+Add\+Node}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Add\+Node()}{clusterAddNode()}}
+{\footnotesize\ttfamily int cluster\+Add\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 886 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a6438a31e8585f2cb0190a66cafa29f09}\label{cluster_8c_a6438a31e8585f2cb0190a66cafa29f09}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Add\+Slot@{cluster\+Add\+Slot}}
+\index{cluster\+Add\+Slot@{cluster\+Add\+Slot}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Add\+Slot()}{clusterAddSlot()}}
+{\footnotesize\ttfamily int cluster\+Add\+Slot (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{n,  }\item[{int}]{slot }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3704 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a194aa6e002b5b8eb055233a6f3f8cb3a}\label{cluster_8c_a194aa6e002b5b8eb055233a6f3f8cb3a}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Before\+Sleep@{cluster\+Before\+Sleep}}
+\index{cluster\+Before\+Sleep@{cluster\+Before\+Sleep}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Before\+Sleep()}{clusterBeforeSleep()}}
+{\footnotesize\ttfamily void cluster\+Before\+Sleep (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3593 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ab7050cb1a105a300735ea82635698a6b}\label{cluster_8c_ab7050cb1a105a300735ea82635698a6b}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Blacklist\+Add\+Node@{cluster\+Blacklist\+Add\+Node}}
+\index{cluster\+Blacklist\+Add\+Node@{cluster\+Blacklist\+Add\+Node}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Blacklist\+Add\+Node()}{clusterBlacklistAddNode()}}
+{\footnotesize\ttfamily void cluster\+Blacklist\+Add\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1140 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ab562df2f34a01410a57db8693421247c}\label{cluster_8c_ab562df2f34a01410a57db8693421247c}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Blacklist\+Cleanup@{cluster\+Blacklist\+Cleanup}}
+\index{cluster\+Blacklist\+Cleanup@{cluster\+Blacklist\+Cleanup}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Blacklist\+Cleanup()}{clusterBlacklistCleanup()}}
+{\footnotesize\ttfamily void cluster\+Blacklist\+Cleanup (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1125 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a00b19f5a61e44d17095a20069538186f}\label{cluster_8c_a00b19f5a61e44d17095a20069538186f}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Blacklist\+Exists@{cluster\+Blacklist\+Exists}}
+\index{cluster\+Blacklist\+Exists@{cluster\+Blacklist\+Exists}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Blacklist\+Exists()}{clusterBlacklistExists()}}
+{\footnotesize\ttfamily int cluster\+Blacklist\+Exists (\begin{DoxyParamCaption}\item[{char $\ast$}]{nodeid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1158 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a30ea6bdd7fca405e074df4e52296cf44}\label{cluster_8c_a30ea6bdd7fca405e074df4e52296cf44}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Broadcast\+Message@{cluster\+Broadcast\+Message}}
+\index{cluster\+Broadcast\+Message@{cluster\+Broadcast\+Message}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Broadcast\+Message()}{clusterBroadcastMessage()}}
+{\footnotesize\ttfamily void cluster\+Broadcast\+Message (\begin{DoxyParamCaption}\item[{void $\ast$}]{buf,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2229 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a25a453e222a92dfda4b01e75cb0fba23}\label{cluster_8c_a25a453e222a92dfda4b01e75cb0fba23}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Broadcast\+Pong@{cluster\+Broadcast\+Pong}}
+\index{cluster\+Broadcast\+Pong@{cluster\+Broadcast\+Pong}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Broadcast\+Pong()}{clusterBroadcastPong()}}
+{\footnotesize\ttfamily void cluster\+Broadcast\+Pong (\begin{DoxyParamCaption}\item[{int}]{target }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2494 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ad1c1685da2295b6f798090e510cde9c8}\label{cluster_8c_ad1c1685da2295b6f798090e510cde9c8}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Build\+Message\+Hdr@{cluster\+Build\+Message\+Hdr}}
+\index{cluster\+Build\+Message\+Hdr@{cluster\+Build\+Message\+Hdr}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Build\+Message\+Hdr()}{clusterBuildMessageHdr()}}
+{\footnotesize\ttfamily void cluster\+Build\+Message\+Hdr (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_msg}{cluster\+Msg} $\ast$}]{hdr,  }\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2247 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a6e56a3fb483aab47c59094deb1ed0355}\label{cluster_8c_a6e56a3fb483aab47c59094deb1ed0355}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Bump\+Config\+Epoch\+Without\+Consensus@{cluster\+Bump\+Config\+Epoch\+Without\+Consensus}}
+\index{cluster\+Bump\+Config\+Epoch\+Without\+Consensus@{cluster\+Bump\+Config\+Epoch\+Without\+Consensus}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Bump\+Config\+Epoch\+Without\+Consensus()}{clusterBumpConfigEpochWithoutConsensus()}}
+{\footnotesize\ttfamily int cluster\+Bump\+Config\+Epoch\+Without\+Consensus (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1012 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a342294b24e4e355f7475db4b9862b3e6}\label{cluster_8c_a342294b24e4e355f7475db4b9862b3e6}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Close\+All\+Slots@{cluster\+Close\+All\+Slots}}
+\index{cluster\+Close\+All\+Slots@{cluster\+Close\+All\+Slots}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Close\+All\+Slots()}{clusterCloseAllSlots()}}
+{\footnotesize\ttfamily void cluster\+Close\+All\+Slots (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3739 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a8d49e8373402fda00571443d463a9ec4}\label{cluster_8c_a8d49e8373402fda00571443d463a9ec4}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Command@{cluster\+Command}}
+\index{cluster\+Command@{cluster\+Command}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Command()}{clusterCommand()}}
+{\footnotesize\ttfamily void cluster\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4190 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a67716e528aa2cd85a254793a050a2e07}\label{cluster_8c_a67716e528aa2cd85a254793a050a2e07}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Count\+Non\+Failing\+Slaves@{cluster\+Count\+Non\+Failing\+Slaves}}
+\index{cluster\+Count\+Non\+Failing\+Slaves@{cluster\+Count\+Non\+Failing\+Slaves}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Count\+Non\+Failing\+Slaves()}{clusterCountNonFailingSlaves()}}
+{\footnotesize\ttfamily int cluster\+Count\+Non\+Failing\+Slaves (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 852 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a29d9657a4ac5c0dbe65bb20c36202d43}\label{cluster_8c_a29d9657a4ac5c0dbe65bb20c36202d43}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Cron@{cluster\+Cron}}
+\index{cluster\+Cron@{cluster\+Cron}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Cron()}{clusterCron()}}
+{\footnotesize\ttfamily void cluster\+Cron (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3308 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a8dc04b0ca1605278b55336e2298914e0}\label{cluster_8c_a8dc04b0ca1605278b55336e2298914e0}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Del\+Node@{cluster\+Del\+Node}}
+\index{cluster\+Del\+Node@{cluster\+Del\+Node}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Del\+Node()}{clusterDelNode()}}
+{\footnotesize\ttfamily void cluster\+Del\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{delnode }\end{DoxyParamCaption})}
+
+
+
+Definition at line 905 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ad51cdeb7dea5f59b3e0ed11ac12674cb}\label{cluster_8c_ad51cdeb7dea5f59b3e0ed11ac12674cb}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Del\+Node\+Slots@{cluster\+Del\+Node\+Slots}}
+\index{cluster\+Del\+Node\+Slots@{cluster\+Del\+Node\+Slots}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Del\+Node\+Slots()}{clusterDelNodeSlots()}}
+{\footnotesize\ttfamily int cluster\+Del\+Node\+Slots (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3725 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ad661d522c87fe46b53cd896fc202a9fe}\label{cluster_8c_ad661d522c87fe46b53cd896fc202a9fe}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Del\+Slot@{cluster\+Del\+Slot}}
+\index{cluster\+Del\+Slot@{cluster\+Del\+Slot}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Del\+Slot()}{clusterDelSlot()}}
+{\footnotesize\ttfamily int cluster\+Del\+Slot (\begin{DoxyParamCaption}\item[{int}]{slot }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3714 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a6d4ad04640586830e0378e0364b14880}\label{cluster_8c_a6d4ad04640586830e0378e0364b14880}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Do\+Before\+Sleep@{cluster\+Do\+Before\+Sleep}}
+\index{cluster\+Do\+Before\+Sleep@{cluster\+Do\+Before\+Sleep}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Do\+Before\+Sleep()}{clusterDoBeforeSleep()}}
+{\footnotesize\ttfamily void cluster\+Do\+Before\+Sleep (\begin{DoxyParamCaption}\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3615 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ae1b85df7898e40aa261b3d1532095e69}\label{cluster_8c_ae1b85df7898e40aa261b3d1532095e69}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Failover\+Replace\+Your\+Master@{cluster\+Failover\+Replace\+Your\+Master}}
+\index{cluster\+Failover\+Replace\+Your\+Master@{cluster\+Failover\+Replace\+Your\+Master}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Failover\+Replace\+Your\+Master()}{clusterFailoverReplaceYourMaster()}}
+{\footnotesize\ttfamily void cluster\+Failover\+Replace\+Your\+Master (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2908 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_af2402244ff4c41c4757a175fddc65e9a}\label{cluster_8c_af2402244ff4c41c4757a175fddc65e9a}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Gen\+Node\+Description@{cluster\+Gen\+Node\+Description}}
+\index{cluster\+Gen\+Node\+Description@{cluster\+Gen\+Node\+Description}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Gen\+Node\+Description()}{clusterGenNodeDescription()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} cluster\+Gen\+Node\+Description (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3988 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a5d2b76fa95bad76c3bf4f768f50f31c1}\label{cluster_8c_a5d2b76fa95bad76c3bf4f768f50f31c1}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Gen\+Nodes\+Description@{cluster\+Gen\+Nodes\+Description}}
+\index{cluster\+Gen\+Nodes\+Description@{cluster\+Gen\+Nodes\+Description}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Gen\+Nodes\+Description()}{clusterGenNodesDescription()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} cluster\+Gen\+Nodes\+Description (\begin{DoxyParamCaption}\item[{int}]{filter }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4065 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_adfe3832b3cec682a484c529e00547d7f}\label{cluster_8c_adfe3832b3cec682a484c529e00547d7f}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Get\+Max\+Epoch@{cluster\+Get\+Max\+Epoch}}
+\index{cluster\+Get\+Max\+Epoch@{cluster\+Get\+Max\+Epoch}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Get\+Max\+Epoch()}{clusterGetMaxEpoch()}}
+{\footnotesize\ttfamily uint64\+\_\+t cluster\+Get\+Max\+Epoch (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 968 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aca36619e188606beda8a16910043aa66}\label{cluster_8c_aca36619e188606beda8a16910043aa66}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Get\+Message\+Type\+String@{cluster\+Get\+Message\+Type\+String}}
+\index{cluster\+Get\+Message\+Type\+String@{cluster\+Get\+Message\+Type\+String}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Get\+Message\+Type\+String()}{clusterGetMessageTypeString()}}
+{\footnotesize\ttfamily const char$\ast$ cluster\+Get\+Message\+Type\+String (\begin{DoxyParamCaption}\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4088 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_af52c064c88c237609ae74d370dc081f5}\label{cluster_8c_af52c064c88c237609ae74d370dc081f5}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Get\+Slave\+Rank@{cluster\+Get\+Slave\+Rank}}
+\index{cluster\+Get\+Slave\+Rank@{cluster\+Get\+Slave\+Rank}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Get\+Slave\+Rank()}{clusterGetSlaveRank()}}
+{\footnotesize\ttfamily int cluster\+Get\+Slave\+Rank (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2821 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a100a5ff47e2cafc68c102776a13ac4ce}\label{cluster_8c_a100a5ff47e2cafc68c102776a13ac4ce}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Handle\+Config\+Epoch\+Collision@{cluster\+Handle\+Config\+Epoch\+Collision}}
+\index{cluster\+Handle\+Config\+Epoch\+Collision@{cluster\+Handle\+Config\+Epoch\+Collision}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Handle\+Config\+Epoch\+Collision()}{clusterHandleConfigEpochCollision()}}
+{\footnotesize\ttfamily void cluster\+Handle\+Config\+Epoch\+Collision (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{sender }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1077 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a060299307e89e5c54ccaab2627fe1525}\label{cluster_8c_a060299307e89e5c54ccaab2627fe1525}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Handle\+Manual\+Failover@{cluster\+Handle\+Manual\+Failover}}
+\index{cluster\+Handle\+Manual\+Failover@{cluster\+Handle\+Manual\+Failover}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Handle\+Manual\+Failover()}{clusterHandleManualFailover()}}
+{\footnotesize\ttfamily void cluster\+Handle\+Manual\+Failover (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3283 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a8008900aee20056e6b46c88754eddc70}\label{cluster_8c_a8008900aee20056e6b46c88754eddc70}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Handle\+Slave\+Failover@{cluster\+Handle\+Slave\+Failover}}
+\index{cluster\+Handle\+Slave\+Failover@{cluster\+Handle\+Slave\+Failover}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Handle\+Slave\+Failover()}{clusterHandleSlaveFailover()}}
+{\footnotesize\ttfamily void cluster\+Handle\+Slave\+Failover (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2946 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_adc2b9ec7534a7bb3a2ceaaf538c6076a}\label{cluster_8c_adc2b9ec7534a7bb3a2ceaaf538c6076a}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Handle\+Slave\+Migration@{cluster\+Handle\+Slave\+Migration}}
+\index{cluster\+Handle\+Slave\+Migration@{cluster\+Handle\+Slave\+Migration}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Handle\+Slave\+Migration()}{clusterHandleSlaveMigration()}}
+{\footnotesize\ttfamily void cluster\+Handle\+Slave\+Migration (\begin{DoxyParamCaption}\item[{int}]{max\+\_\+slaves }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3143 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a77aa9259929e9c86f9a0113a9becfcfb}\label{cluster_8c_a77aa9259929e9c86f9a0113a9becfcfb}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Handshake\+In\+Progress@{cluster\+Handshake\+In\+Progress}}
+\index{cluster\+Handshake\+In\+Progress@{cluster\+Handshake\+In\+Progress}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Handshake\+In\+Progress()}{clusterHandshakeInProgress()}}
+{\footnotesize\ttfamily int cluster\+Handshake\+In\+Progress (\begin{DoxyParamCaption}\item[{char $\ast$}]{ip,  }\item[{int}]{port,  }\item[{int}]{cport }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1257 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_acde939ce69844e6df42f0d5887bf970f}\label{cluster_8c_acde939ce69844e6df42f0d5887bf970f}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Init@{cluster\+Init}}
+\index{cluster\+Init@{cluster\+Init}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Init()}{clusterInit()}}
+{\footnotesize\ttfamily void cluster\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 429 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a8f14757bf4c534e8ac9b81fbb9db49d3}\label{cluster_8c_a8f14757bf4c534e8ac9b81fbb9db49d3}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Load\+Config@{cluster\+Load\+Config}}
+\index{cluster\+Load\+Config@{cluster\+Load\+Config}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Load\+Config()}{clusterLoadConfig()}}
+{\footnotesize\ttfamily int cluster\+Load\+Config (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Definition at line 90 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a6086260ab10a7aa6b561f4f5f16fcb01}\label{cluster_8c_a6086260ab10a7aa6b561f4f5f16fcb01}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Lock\+Config@{cluster\+Lock\+Config}}
+\index{cluster\+Lock\+Config@{cluster\+Lock\+Config}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Lock\+Config()}{clusterLockConfig()}}
+{\footnotesize\ttfamily int cluster\+Lock\+Config (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename }\end{DoxyParamCaption})}
+
+
+
+Definition at line 375 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aaf949bb905113c0079c8f5b0b7dcf6fd}\label{cluster_8c_aaf949bb905113c0079c8f5b0b7dcf6fd}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Log\+Cant\+Failover@{cluster\+Log\+Cant\+Failover}}
+\index{cluster\+Log\+Cant\+Failover@{cluster\+Log\+Cant\+Failover}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Log\+Cant\+Failover()}{clusterLogCantFailover()}}
+{\footnotesize\ttfamily void cluster\+Log\+Cant\+Failover (\begin{DoxyParamCaption}\item[{int}]{reason }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2860 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ae4680ad7875e9aa1851fc2130ee5e41b}\label{cluster_8c_ae4680ad7875e9aa1851fc2130ee5e41b}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Lookup\+Node@{cluster\+Lookup\+Node}}
+\index{cluster\+Lookup\+Node@{cluster\+Lookup\+Node}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Lookup\+Node()}{clusterLookupNode()}}
+{\footnotesize\ttfamily \hyperlink{structcluster_node}{cluster\+Node} $\ast$ cluster\+Lookup\+Node (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+Definition at line 935 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aea85a0d64dcc3cd6c00eb8ba43bdd682}\label{cluster_8c_aea85a0d64dcc3cd6c00eb8ba43bdd682}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Masters\+Have\+Slaves@{cluster\+Masters\+Have\+Slaves}}
+\index{cluster\+Masters\+Have\+Slaves@{cluster\+Masters\+Have\+Slaves}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Masters\+Have\+Slaves()}{clusterMastersHaveSlaves()}}
+{\footnotesize\ttfamily int cluster\+Masters\+Have\+Slaves (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3648 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_abc5cb92911b0956eab58b343514e36e6}\label{cluster_8c_abc5cb92911b0956eab58b343514e36e6}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Node\+Add\+Failure\+Report@{cluster\+Node\+Add\+Failure\+Report}}
+\index{cluster\+Node\+Add\+Failure\+Report@{cluster\+Node\+Add\+Failure\+Report}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Node\+Add\+Failure\+Report()}{clusterNodeAddFailureReport()}}
+{\footnotesize\ttfamily int cluster\+Node\+Add\+Failure\+Report (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{failing,  }\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{sender }\end{DoxyParamCaption})}
+
+
+
+Definition at line 734 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_af1e6cb9695b40fd54074a9038925db94}\label{cluster_8c_af1e6cb9695b40fd54074a9038925db94}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Node\+Add\+Slave@{cluster\+Node\+Add\+Slave}}
+\index{cluster\+Node\+Add\+Slave@{cluster\+Node\+Add\+Slave}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Node\+Add\+Slave()}{clusterNodeAddSlave()}}
+{\footnotesize\ttfamily int cluster\+Node\+Add\+Slave (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{master,  }\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{slave }\end{DoxyParamCaption})}
+
+
+
+Definition at line 838 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a32f70650e8dc6fc1e89e14dd9df53558}\label{cluster_8c_a32f70650e8dc6fc1e89e14dd9df53558}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Node\+Cleanup\+Failure\+Reports@{cluster\+Node\+Cleanup\+Failure\+Reports}}
+\index{cluster\+Node\+Cleanup\+Failure\+Reports@{cluster\+Node\+Cleanup\+Failure\+Reports}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Node\+Cleanup\+Failure\+Reports()}{clusterNodeCleanupFailureReports()}}
+{\footnotesize\ttfamily void cluster\+Node\+Cleanup\+Failure\+Reports (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 764 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a95c61af52399a48e48f2a2679449f23f}\label{cluster_8c_a95c61af52399a48e48f2a2679449f23f}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Node\+Clear\+Slot\+Bit@{cluster\+Node\+Clear\+Slot\+Bit}}
+\index{cluster\+Node\+Clear\+Slot\+Bit@{cluster\+Node\+Clear\+Slot\+Bit}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Node\+Clear\+Slot\+Bit()}{clusterNodeClearSlotBit()}}
+{\footnotesize\ttfamily int cluster\+Node\+Clear\+Slot\+Bit (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{n,  }\item[{int}]{slot }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3688 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a68d95b9fb6e193c3c7d774b6276e51bb}\label{cluster_8c_a68d95b9fb6e193c3c7d774b6276e51bb}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Node\+Del\+Failure\+Report@{cluster\+Node\+Del\+Failure\+Report}}
+\index{cluster\+Node\+Del\+Failure\+Report@{cluster\+Node\+Del\+Failure\+Report}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Node\+Del\+Failure\+Report()}{clusterNodeDelFailureReport()}}
+{\footnotesize\ttfamily int cluster\+Node\+Del\+Failure\+Report (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node,  }\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{sender }\end{DoxyParamCaption})}
+
+
+
+Definition at line 791 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a8a40fbc594ee15e76fede337771304fc}\label{cluster_8c_a8a40fbc594ee15e76fede337771304fc}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Node\+Failure\+Reports\+Count@{cluster\+Node\+Failure\+Reports\+Count}}
+\index{cluster\+Node\+Failure\+Reports\+Count@{cluster\+Node\+Failure\+Reports\+Count}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Node\+Failure\+Reports\+Count()}{clusterNodeFailureReportsCount()}}
+{\footnotesize\ttfamily int cluster\+Node\+Failure\+Reports\+Count (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 814 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a50b839d8a8b2be02a55ca20aaa5f779b}\label{cluster_8c_a50b839d8a8b2be02a55ca20aaa5f779b}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Node\+Get\+Slot\+Bit@{cluster\+Node\+Get\+Slot\+Bit}}
+\index{cluster\+Node\+Get\+Slot\+Bit@{cluster\+Node\+Get\+Slot\+Bit}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Node\+Get\+Slot\+Bit()}{clusterNodeGetSlotBit()}}
+{\footnotesize\ttfamily int cluster\+Node\+Get\+Slot\+Bit (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{n,  }\item[{int}]{slot }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3696 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_af136bdd9f6489b8bdb3886485f90c590}\label{cluster_8c_af136bdd9f6489b8bdb3886485f90c590}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Node\+Is\+In\+Gossip\+Section@{cluster\+Node\+Is\+In\+Gossip\+Section}}
+\index{cluster\+Node\+Is\+In\+Gossip\+Section@{cluster\+Node\+Is\+In\+Gossip\+Section}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Node\+Is\+In\+Gossip\+Section()}{clusterNodeIsInGossipSection()}}
+{\footnotesize\ttfamily int cluster\+Node\+Is\+In\+Gossip\+Section (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_msg}{cluster\+Msg} $\ast$}]{hdr,  }\item[{int}]{count,  }\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2324 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aecbefe1b52b0bf42f037803c1d248a88}\label{cluster_8c_aecbefe1b52b0bf42f037803c1d248a88}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Node\+Remove\+Slave@{cluster\+Node\+Remove\+Slave}}
+\index{cluster\+Node\+Remove\+Slave@{cluster\+Node\+Remove\+Slave}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Node\+Remove\+Slave()}{clusterNodeRemoveSlave()}}
+{\footnotesize\ttfamily int cluster\+Node\+Remove\+Slave (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{master,  }\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{slave }\end{DoxyParamCaption})}
+
+
+
+Definition at line 819 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_adc8a1299f2a009f57be19530c79f9ad5}\label{cluster_8c_adc8a1299f2a009f57be19530c79f9ad5}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Node\+Set\+Slot\+Bit@{cluster\+Node\+Set\+Slot\+Bit}}
+\index{cluster\+Node\+Set\+Slot\+Bit@{cluster\+Node\+Set\+Slot\+Bit}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Node\+Set\+Slot\+Bit()}{clusterNodeSetSlotBit()}}
+{\footnotesize\ttfamily int cluster\+Node\+Set\+Slot\+Bit (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{n,  }\item[{int}]{slot }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3663 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a1ede984e3ae49023f21d3e3e9e133cb4}\label{cluster_8c_a1ede984e3ae49023f21d3e3e9e133cb4}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Process\+Gossip\+Section@{cluster\+Process\+Gossip\+Section}}
+\index{cluster\+Process\+Gossip\+Section@{cluster\+Process\+Gossip\+Section}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Process\+Gossip\+Section()}{clusterProcessGossipSection()}}
+{\footnotesize\ttfamily void cluster\+Process\+Gossip\+Section (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_msg}{cluster\+Msg} $\ast$}]{hdr,  }\item[{\hyperlink{structcluster_link}{cluster\+Link} $\ast$}]{link }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1338 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a856b00bdb66079824520286eaf0692b3}\label{cluster_8c_a856b00bdb66079824520286eaf0692b3}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Process\+Packet@{cluster\+Process\+Packet}}
+\index{cluster\+Process\+Packet@{cluster\+Process\+Packet}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Process\+Packet()}{clusterProcessPacket()}}
+{\footnotesize\ttfamily int cluster\+Process\+Packet (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_link}{cluster\+Link} $\ast$}]{link }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1635 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a3618bff80eac14d88dc89df6d7e40b56}\label{cluster_8c_a3618bff80eac14d88dc89df6d7e40b56}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Propagate\+Publish@{cluster\+Propagate\+Publish}}
+\index{cluster\+Propagate\+Publish@{cluster\+Propagate\+Publish}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Propagate\+Publish()}{clusterPropagatePublish()}}
+{\footnotesize\ttfamily void cluster\+Propagate\+Publish (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{channel,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{message }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2650 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a9dabb856272f6d2ed12f1fcedf2acc07}\label{cluster_8c_a9dabb856272f6d2ed12f1fcedf2acc07}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Read\+Handler@{cluster\+Read\+Handler}}
+\index{cluster\+Read\+Handler@{cluster\+Read\+Handler}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Read\+Handler()}{clusterReadHandler()}}
+{\footnotesize\ttfamily void cluster\+Read\+Handler (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{el,  }\item[{int}]{fd,  }\item[{void $\ast$}]{privdata,  }\item[{int}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2141 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a4b2e8f1c74deb908a4af55f7fc20f161}\label{cluster_8c_a4b2e8f1c74deb908a4af55f7fc20f161}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Redirect\+Blocked\+Client\+If\+Needed@{cluster\+Redirect\+Blocked\+Client\+If\+Needed}}
+\index{cluster\+Redirect\+Blocked\+Client\+If\+Needed@{cluster\+Redirect\+Blocked\+Client\+If\+Needed}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Redirect\+Blocked\+Client\+If\+Needed()}{clusterRedirectBlockedClientIfNeeded()}}
+{\footnotesize\ttfamily int cluster\+Redirect\+Blocked\+Client\+If\+Needed (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5657 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a173a8e877d27a3850ad4072489e7a44b}\label{cluster_8c_a173a8e877d27a3850ad4072489e7a44b}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Redirect\+Client@{cluster\+Redirect\+Client}}
+\index{cluster\+Redirect\+Client@{cluster\+Redirect\+Client}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Redirect\+Client()}{clusterRedirectClient()}}
+{\footnotesize\ttfamily void cluster\+Redirect\+Client (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{n,  }\item[{int}]{hashslot,  }\item[{int}]{error\+\_\+code }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5622 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a48df2adbd9088bbf8103875489e97abc}\label{cluster_8c_a48df2adbd9088bbf8103875489e97abc}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Rename\+Node@{cluster\+Rename\+Node}}
+\index{cluster\+Rename\+Node@{cluster\+Rename\+Node}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Rename\+Node()}{clusterRenameNode()}}
+{\footnotesize\ttfamily void cluster\+Rename\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node,  }\item[{char $\ast$}]{newname }\end{DoxyParamCaption})}
+
+
+
+Definition at line 949 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a7255cbb83d2ce159a1761628792719f9}\label{cluster_8c_a7255cbb83d2ce159a1761628792719f9}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Reply\+Multi\+Bulk\+Slots@{cluster\+Reply\+Multi\+Bulk\+Slots}}
+\index{cluster\+Reply\+Multi\+Bulk\+Slots@{cluster\+Reply\+Multi\+Bulk\+Slots}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Reply\+Multi\+Bulk\+Slots()}{clusterReplyMultiBulkSlots()}}
+{\footnotesize\ttfamily void cluster\+Reply\+Multi\+Bulk\+Slots (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4116 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a0cd088a0c6d2d11631bf58295cbc84eb}\label{cluster_8c_a0cd088a0c6d2d11631bf58295cbc84eb}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Request\+Failover\+Auth@{cluster\+Request\+Failover\+Auth}}
+\index{cluster\+Request\+Failover\+Auth@{cluster\+Request\+Failover\+Auth}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Request\+Failover\+Auth()}{clusterRequestFailoverAuth()}}
+{\footnotesize\ttfamily void cluster\+Request\+Failover\+Auth (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2664 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_acdc0bb2f834c953867bba5f6bf086f8b}\label{cluster_8c_acdc0bb2f834c953867bba5f6bf086f8b}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Reset@{cluster\+Reset}}
+\index{cluster\+Reset@{cluster\+Reset}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Reset()}{clusterReset()}}
+{\footnotesize\ttfamily void cluster\+Reset (\begin{DoxyParamCaption}\item[{int}]{hard }\end{DoxyParamCaption})}
+
+
+
+Definition at line 531 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_afadb10b9d4bf958b7a154de172e8ad29}\label{cluster_8c_afadb10b9d4bf958b7a154de172e8ad29}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Save\+Config@{cluster\+Save\+Config}}
+\index{cluster\+Save\+Config@{cluster\+Save\+Config}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Save\+Config()}{clusterSaveConfig()}}
+{\footnotesize\ttfamily int cluster\+Save\+Config (\begin{DoxyParamCaption}\item[{int}]{do\+\_\+fsync }\end{DoxyParamCaption})}
+
+
+
+Definition at line 312 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a3bf29af18e41c42b87a25d4d84a495a6}\label{cluster_8c_a3bf29af18e41c42b87a25d4d84a495a6}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Save\+Config\+Or\+Die@{cluster\+Save\+Config\+Or\+Die}}
+\index{cluster\+Save\+Config\+Or\+Die@{cluster\+Save\+Config\+Or\+Die}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Save\+Config\+Or\+Die()}{clusterSaveConfigOrDie()}}
+{\footnotesize\ttfamily void cluster\+Save\+Config\+Or\+Die (\begin{DoxyParamCaption}\item[{int}]{do\+\_\+fsync }\end{DoxyParamCaption})}
+
+
+
+Definition at line 359 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a9d611884e7b2876f25a3415c76a5c5db}\label{cluster_8c_a9d611884e7b2876f25a3415c76a5c5db}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Send\+Fail@{cluster\+Send\+Fail}}
+\index{cluster\+Send\+Fail@{cluster\+Send\+Fail}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Send\+Fail()}{clusterSendFail()}}
+{\footnotesize\ttfamily void cluster\+Send\+Fail (\begin{DoxyParamCaption}\item[{char $\ast$}]{nodename }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2564 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a28b794e5333825d0620c7043b8927bb5}\label{cluster_8c_a28b794e5333825d0620c7043b8927bb5}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Send\+Failover\+Auth@{cluster\+Send\+Failover\+Auth}}
+\index{cluster\+Send\+Failover\+Auth@{cluster\+Send\+Failover\+Auth}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Send\+Failover\+Auth()}{clusterSendFailoverAuth()}}
+{\footnotesize\ttfamily void cluster\+Send\+Failover\+Auth (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2680 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a053665ed48d837ca411f553dc127457a}\label{cluster_8c_a053665ed48d837ca411f553dc127457a}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Send\+Failover\+Auth\+If\+Needed@{cluster\+Send\+Failover\+Auth\+If\+Needed}}
+\index{cluster\+Send\+Failover\+Auth\+If\+Needed@{cluster\+Send\+Failover\+Auth\+If\+Needed}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Send\+Failover\+Auth\+If\+Needed()}{clusterSendFailoverAuthIfNeeded()}}
+{\footnotesize\ttfamily void cluster\+Send\+Failover\+Auth\+If\+Needed (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node,  }\item[{\hyperlink{structcluster_msg}{cluster\+Msg} $\ast$}]{request }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2706 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aa9e6a368db7ba14ee6a8dc6bcca4f9d8}\label{cluster_8c_aa9e6a368db7ba14ee6a8dc6bcca4f9d8}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Send\+Message@{cluster\+Send\+Message}}
+\index{cluster\+Send\+Message@{cluster\+Send\+Message}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Send\+Message()}{clusterSendMessage()}}
+{\footnotesize\ttfamily void cluster\+Send\+Message (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_link}{cluster\+Link} $\ast$}]{link,  }\item[{unsigned char $\ast$}]{msg,  }\item[{size\+\_\+t}]{msglen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2209 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ae11d7e29ff8f58a8fc6f582ddba67180}\label{cluster_8c_ae11d7e29ff8f58a8fc6f582ddba67180}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Send\+M\+F\+Start@{cluster\+Send\+M\+F\+Start}}
+\index{cluster\+Send\+M\+F\+Start@{cluster\+Send\+M\+F\+Start}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Send\+M\+F\+Start()}{clusterSendMFStart()}}
+{\footnotesize\ttfamily void cluster\+Send\+M\+F\+Start (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2693 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a8f06a3d3fe8baaac9fb53a0255b27900}\label{cluster_8c_a8f06a3d3fe8baaac9fb53a0255b27900}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Send\+Module@{cluster\+Send\+Module}}
+\index{cluster\+Send\+Module@{cluster\+Send\+Module}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Send\+Module()}{clusterSendModule()}}
+{\footnotesize\ttfamily void cluster\+Send\+Module (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_link}{cluster\+Link} $\ast$}]{link,  }\item[{uint64\+\_\+t}]{module\+\_\+id,  }\item[{uint8\+\_\+t}]{type,  }\item[{unsigned char $\ast$}]{payload,  }\item[{uint32\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2591 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a7e406746149eb45297c50479218a47cd}\label{cluster_8c_a7e406746149eb45297c50479218a47cd}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Send\+Module\+Message\+To\+Target@{cluster\+Send\+Module\+Message\+To\+Target}}
+\index{cluster\+Send\+Module\+Message\+To\+Target@{cluster\+Send\+Module\+Message\+To\+Target}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Send\+Module\+Message\+To\+Target()}{clusterSendModuleMessageToTarget()}}
+{\footnotesize\ttfamily int cluster\+Send\+Module\+Message\+To\+Target (\begin{DoxyParamCaption}\item[{const char $\ast$}]{target,  }\item[{uint64\+\_\+t}]{module\+\_\+id,  }\item[{uint8\+\_\+t}]{type,  }\item[{unsigned char $\ast$}]{payload,  }\item[{uint32\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2630 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a9c32c52fb4146292f68db14905a27e38}\label{cluster_8c_a9c32c52fb4146292f68db14905a27e38}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Send\+Ping@{cluster\+Send\+Ping}}
+\index{cluster\+Send\+Ping@{cluster\+Send\+Ping}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Send\+Ping()}{clusterSendPing()}}
+{\footnotesize\ttfamily void cluster\+Send\+Ping (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_link}{cluster\+Link} $\ast$}]{link,  }\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2350 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aad3f1db28559b306342993d891985eac}\label{cluster_8c_aad3f1db28559b306342993d891985eac}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Send\+Publish@{cluster\+Send\+Publish}}
+\index{cluster\+Send\+Publish@{cluster\+Send\+Publish}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Send\+Publish()}{clusterSendPublish()}}
+{\footnotesize\ttfamily void cluster\+Send\+Publish (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_link}{cluster\+Link} $\ast$}]{link,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{channel,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{message }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2518 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a1c2fd0cf832ee39c5596f946dd6eef32}\label{cluster_8c_a1c2fd0cf832ee39c5596f946dd6eef32}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Send\+Update@{cluster\+Send\+Update}}
+\index{cluster\+Send\+Update@{cluster\+Send\+Update}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Send\+Update()}{clusterSendUpdate()}}
+{\footnotesize\ttfamily void cluster\+Send\+Update (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_link}{cluster\+Link} $\ast$}]{link,  }\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2576 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a7ac80698a29b9f62568965f1c7a70eb1}\label{cluster_8c_a7ac80698a29b9f62568965f1c7a70eb1}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Set\+Gossip\+Entry@{cluster\+Set\+Gossip\+Entry}}
+\index{cluster\+Set\+Gossip\+Entry@{cluster\+Set\+Gossip\+Entry}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Set\+Gossip\+Entry()}{clusterSetGossipEntry()}}
+{\footnotesize\ttfamily void cluster\+Set\+Gossip\+Entry (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_msg}{cluster\+Msg} $\ast$}]{hdr,  }\item[{int}]{i,  }\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2335 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aa89268edcf57d5a97efd4f302a114741}\label{cluster_8c_aa89268edcf57d5a97efd4f302a114741}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Set\+Master@{cluster\+Set\+Master}}
+\index{cluster\+Set\+Master@{cluster\+Set\+Master}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Set\+Master()}{clusterSetMaster()}}
+{\footnotesize\ttfamily void cluster\+Set\+Master (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3931 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a90d6bca8d676a59ca47ef5acfa22b0cc}\label{cluster_8c_a90d6bca8d676a59ca47ef5acfa22b0cc}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Set\+Node\+As\+Master@{cluster\+Set\+Node\+As\+Master}}
+\index{cluster\+Set\+Node\+As\+Master@{cluster\+Set\+Node\+As\+Master}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Set\+Node\+As\+Master()}{clusterSetNodeAsMaster()}}
+{\footnotesize\ttfamily void cluster\+Set\+Node\+As\+Master (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1503 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a652bd1d54d873b3424b82058dfccb062}\label{cluster_8c_a652bd1d54d873b3424b82058dfccb062}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Start\+Handshake@{cluster\+Start\+Handshake}}
+\index{cluster\+Start\+Handshake@{cluster\+Start\+Handshake}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Start\+Handshake()}{clusterStartHandshake()}}
+{\footnotesize\ttfamily int cluster\+Start\+Handshake (\begin{DoxyParamCaption}\item[{char $\ast$}]{ip,  }\item[{int}]{port,  }\item[{int}]{cport }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1281 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a86e5ed3e74f2e82243c21c9250aa7512}\label{cluster_8c_a86e5ed3e74f2e82243c21c9250aa7512}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Update\+Myself\+Flags@{cluster\+Update\+Myself\+Flags}}
+\index{cluster\+Update\+Myself\+Flags@{cluster\+Update\+Myself\+Flags}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Update\+Myself\+Flags()}{clusterUpdateMyselfFlags()}}
+{\footnotesize\ttfamily void cluster\+Update\+Myself\+Flags (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 417 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a55154903e277b4bbf0ac3ae9a868d0c2}\label{cluster_8c_a55154903e277b4bbf0ac3ae9a868d0c2}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Update\+Slots\+Config\+With@{cluster\+Update\+Slots\+Config\+With}}
+\index{cluster\+Update\+Slots\+Config\+With@{cluster\+Update\+Slots\+Config\+With}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Update\+Slots\+Config\+With()}{clusterUpdateSlotsConfigWith()}}
+{\footnotesize\ttfamily void cluster\+Update\+Slots\+Config\+With (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{sender,  }\item[{uint64\+\_\+t}]{sender\+Config\+Epoch,  }\item[{unsigned char $\ast$}]{slots }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1530 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a3ddb08e65b20dcf074aaa520dbce2814}\label{cluster_8c_a3ddb08e65b20dcf074aaa520dbce2814}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Update\+State@{cluster\+Update\+State}}
+\index{cluster\+Update\+State@{cluster\+Update\+State}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Update\+State()}{clusterUpdateState()}}
+{\footnotesize\ttfamily void cluster\+Update\+State (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3758 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a927e03a6c883b750aa237085042653d2}\label{cluster_8c_a927e03a6c883b750aa237085042653d2}} 
+\index{cluster.\+c@{cluster.\+c}!cluster\+Write\+Handler@{cluster\+Write\+Handler}}
+\index{cluster\+Write\+Handler@{cluster\+Write\+Handler}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{cluster\+Write\+Handler()}{clusterWriteHandler()}}
+{\footnotesize\ttfamily void cluster\+Write\+Handler (\begin{DoxyParamCaption}\item[{\hyperlink{structae_event_loop}{ae\+Event\+Loop} $\ast$}]{el,  }\item[{int}]{fd,  }\item[{void $\ast$}]{privdata,  }\item[{int}]{mask }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2120 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_adb9a0620eb03479f0d798289cb5f40c2}\label{cluster_8c_adb9a0620eb03479f0d798289cb5f40c2}} 
+\index{cluster.\+c@{cluster.\+c}!create\+Cluster\+Link@{create\+Cluster\+Link}}
+\index{create\+Cluster\+Link@{create\+Cluster\+Link}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{create\+Cluster\+Link()}{createClusterLink()}}
+{\footnotesize\ttfamily \hyperlink{structcluster_link}{cluster\+Link}$\ast$ create\+Cluster\+Link (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 589 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a6a145bb803096cf813c485fbba43c632}\label{cluster_8c_a6a145bb803096cf813c485fbba43c632}} 
+\index{cluster.\+c@{cluster.\+c}!create\+Cluster\+Node@{create\+Cluster\+Node}}
+\index{create\+Cluster\+Node@{create\+Cluster\+Node}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{create\+Cluster\+Node()}{createClusterNode()}}
+{\footnotesize\ttfamily \hyperlink{structcluster_node}{cluster\+Node} $\ast$ create\+Cluster\+Node (\begin{DoxyParamCaption}\item[{char $\ast$}]{nodename,  }\item[{int}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 694 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a9a8c49cf3c32b61fcce9f989fb2f985b}\label{cluster_8c_a9a8c49cf3c32b61fcce9f989fb2f985b}} 
+\index{cluster.\+c@{cluster.\+c}!create\+Dump\+Payload@{create\+Dump\+Payload}}
+\index{create\+Dump\+Payload@{create\+Dump\+Payload}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{create\+Dump\+Payload()}{createDumpPayload()}}
+{\footnotesize\ttfamily void create\+Dump\+Payload (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{payload,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4778 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aca571ae521b349616304e35643826ec6}\label{cluster_8c_aca571ae521b349616304e35643826ec6}} 
+\index{cluster.\+c@{cluster.\+c}!dump\+Command@{dump\+Command}}
+\index{dump\+Command@{dump\+Command}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{dump\+Command()}{dumpCommand()}}
+{\footnotesize\ttfamily void dump\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4833 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_afb9f55087ce42c1ba21e390e371a7eaa}\label{cluster_8c_afb9f55087ce42c1ba21e390e371a7eaa}} 
+\index{cluster.\+c@{cluster.\+c}!free\+Cluster\+Link@{free\+Cluster\+Link}}
+\index{free\+Cluster\+Link@{free\+Cluster\+Link}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{free\+Cluster\+Link()}{freeClusterLink()}}
+{\footnotesize\ttfamily void free\+Cluster\+Link (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_link}{cluster\+Link} $\ast$}]{link }\end{DoxyParamCaption})}
+
+
+
+Definition at line 602 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ae319719847f9753cded1bb76792b6590}\label{cluster_8c_ae319719847f9753cded1bb76792b6590}} 
+\index{cluster.\+c@{cluster.\+c}!free\+Cluster\+Node@{free\+Cluster\+Node}}
+\index{free\+Cluster\+Node@{free\+Cluster\+Node}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{free\+Cluster\+Node()}{freeClusterNode()}}
+{\footnotesize\ttfamily void free\+Cluster\+Node (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{n }\end{DoxyParamCaption})}
+
+
+
+Definition at line 861 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aaf79a84dde9b9c47378566b043bcf4b6}\label{cluster_8c_aaf79a84dde9b9c47378566b043bcf4b6}} 
+\index{cluster.\+c@{cluster.\+c}!get\+Node\+By\+Query@{get\+Node\+By\+Query}}
+\index{get\+Node\+By\+Query@{get\+Node\+By\+Query}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{get\+Node\+By\+Query()}{getNodeByQuery()}}
+{\footnotesize\ttfamily \hyperlink{structcluster_node}{cluster\+Node}$\ast$ get\+Node\+By\+Query (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{struct \hyperlink{structredis_command}{redis\+Command} $\ast$}]{cmd,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$$\ast$}]{argv,  }\item[{int}]{argc,  }\item[{int $\ast$}]{hashslot,  }\item[{int $\ast$}]{error\+\_\+code }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5443 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aa8785beea240a77ad81625af8c210fcf}\label{cluster_8c_aa8785beea240a77ad81625af8c210fcf}} 
+\index{cluster.\+c@{cluster.\+c}!get\+Slot\+Or\+Reply@{get\+Slot\+Or\+Reply}}
+\index{get\+Slot\+Or\+Reply@{get\+Slot\+Or\+Reply}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{get\+Slot\+Or\+Reply()}{getSlotOrReply()}}
+{\footnotesize\ttfamily int get\+Slot\+Or\+Reply (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4104 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aaa92d87bfb7cd54b17515747067c78a6}\label{cluster_8c_aaa92d87bfb7cd54b17515747067c78a6}} 
+\index{cluster.\+c@{cluster.\+c}!handle\+Link\+I\+O\+Error@{handle\+Link\+I\+O\+Error}}
+\index{handle\+Link\+I\+O\+Error@{handle\+Link\+I\+O\+Error}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{handle\+Link\+I\+O\+Error()}{handleLinkIOError()}}
+{\footnotesize\ttfamily void handle\+Link\+I\+O\+Error (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_link}{cluster\+Link} $\ast$}]{link }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2113 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aa9b8446e0c24c4a6dadadeca47c164d5}\label{cluster_8c_aa9b8446e0c24c4a6dadadeca47c164d5}} 
+\index{cluster.\+c@{cluster.\+c}!key\+Hash\+Slot@{key\+Hash\+Slot}}
+\index{key\+Hash\+Slot@{key\+Hash\+Slot}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{key\+Hash\+Slot()}{keyHashSlot()}}
+{\footnotesize\ttfamily unsigned int key\+Hash\+Slot (\begin{DoxyParamCaption}\item[{char $\ast$}]{key,  }\item[{int}]{keylen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 662 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a211da896f796a4b3ba7fcee527e01e75}\label{cluster_8c_a211da896f796a4b3ba7fcee527e01e75}} 
+\index{cluster.\+c@{cluster.\+c}!manual\+Failover\+Check\+Timeout@{manual\+Failover\+Check\+Timeout}}
+\index{manual\+Failover\+Check\+Timeout@{manual\+Failover\+Check\+Timeout}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{manual\+Failover\+Check\+Timeout()}{manualFailoverCheckTimeout()}}
+{\footnotesize\ttfamily void manual\+Failover\+Check\+Timeout (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3274 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ac8d1f0c96667c508e793b1e653fba90f}\label{cluster_8c_ac8d1f0c96667c508e793b1e653fba90f}} 
+\index{cluster.\+c@{cluster.\+c}!mark\+Node\+As\+Failing\+If\+Needed@{mark\+Node\+As\+Failing\+If\+Needed}}
+\index{mark\+Node\+As\+Failing\+If\+Needed@{mark\+Node\+As\+Failing\+If\+Needed}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{mark\+Node\+As\+Failing\+If\+Needed()}{markNodeAsFailingIfNeeded()}}
+{\footnotesize\ttfamily void mark\+Node\+As\+Failing\+If\+Needed (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1193 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_afc4dc68839d724a00b7385050779ad5f}\label{cluster_8c_afc4dc68839d724a00b7385050779ad5f}} 
+\index{cluster.\+c@{cluster.\+c}!migrate\+Close\+Socket@{migrate\+Close\+Socket}}
+\index{migrate\+Close\+Socket@{migrate\+Close\+Socket}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{migrate\+Close\+Socket()}{migrateCloseSocket()}}
+{\footnotesize\ttfamily void migrate\+Close\+Socket (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{host,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{port }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5020 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a5ceb25441c0355b24f1d991b704cb3b5}\label{cluster_8c_a5ceb25441c0355b24f1d991b704cb3b5}} 
+\index{cluster.\+c@{cluster.\+c}!migrate\+Close\+Timedout\+Sockets@{migrate\+Close\+Timedout\+Sockets}}
+\index{migrate\+Close\+Timedout\+Sockets@{migrate\+Close\+Timedout\+Sockets}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{migrate\+Close\+Timedout\+Sockets()}{migrateCloseTimedoutSockets()}}
+{\footnotesize\ttfamily void migrate\+Close\+Timedout\+Sockets (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5039 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a5cc13836303811438b984932f6fc1b1b}\label{cluster_8c_a5cc13836303811438b984932f6fc1b1b}} 
+\index{cluster.\+c@{cluster.\+c}!migrate\+Command@{migrate\+Command}}
+\index{migrate\+Command@{migrate\+Command}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{migrate\+Command()}{migrateCommand()}}
+{\footnotesize\ttfamily void migrate\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5061 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a8fe807a702d4271419cd61ee9829b5a0}\label{cluster_8c_a8fe807a702d4271419cd61ee9829b5a0}} 
+\index{cluster.\+c@{cluster.\+c}!migrate\+Get\+Socket@{migrate\+Get\+Socket}}
+\index{migrate\+Get\+Socket@{migrate\+Get\+Socket}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{migrate\+Get\+Socket()}{migrateGetSocket()}}
+{\footnotesize\ttfamily \hyperlink{structmigrate_cached_socket}{migrate\+Cached\+Socket}$\ast$ migrate\+Get\+Socket (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{host,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{port,  }\item[{long}]{timeout }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4964 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_aacff623552cb02abc1e49cd68fc7dc9a}\label{cluster_8c_aacff623552cb02abc1e49cd68fc7dc9a}} 
+\index{cluster.\+c@{cluster.\+c}!module\+Call\+Cluster\+Receivers@{module\+Call\+Cluster\+Receivers}}
+\index{module\+Call\+Cluster\+Receivers@{module\+Call\+Cluster\+Receivers}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{module\+Call\+Cluster\+Receivers()}{moduleCallClusterReceivers()}}
+{\footnotesize\ttfamily void module\+Call\+Cluster\+Receivers (\begin{DoxyParamCaption}\item[{const char $\ast$}]{sender\+\_\+id,  }\item[{uint64\+\_\+t}]{module\+\_\+id,  }\item[{uint8\+\_\+t}]{type,  }\item[{const unsigned char $\ast$}]{payload,  }\item[{uint32\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3971 of file module.\+c.
+
+\mbox{\Hypertarget{cluster_8c_af73f2ed6ed6ceb6e49d8d46fbb4d42df}\label{cluster_8c_af73f2ed6ed6ceb6e49d8d46fbb4d42df}} 
+\index{cluster.\+c@{cluster.\+c}!node\+Ip2\+String@{node\+Ip2\+String}}
+\index{node\+Ip2\+String@{node\+Ip2\+String}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{node\+Ip2\+String()}{nodeIp2String()}}
+{\footnotesize\ttfamily void node\+Ip2\+String (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf,  }\item[{\hyperlink{structcluster_link}{cluster\+Link} $\ast$}]{link,  }\item[{char $\ast$}]{announced\+\_\+ip }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1444 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ad8167ca5f9c174002161219b50de9742}\label{cluster_8c_ad8167ca5f9c174002161219b50de9742}} 
+\index{cluster.\+c@{cluster.\+c}!node\+Update\+Address\+If\+Needed@{node\+Update\+Address\+If\+Needed}}
+\index{node\+Update\+Address\+If\+Needed@{node\+Update\+Address\+If\+Needed}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{node\+Update\+Address\+If\+Needed()}{nodeUpdateAddressIfNeeded()}}
+{\footnotesize\ttfamily int node\+Update\+Address\+If\+Needed (\begin{DoxyParamCaption}\item[{\hyperlink{structcluster_node}{cluster\+Node} $\ast$}]{node,  }\item[{\hyperlink{structcluster_link}{cluster\+Link} $\ast$}]{link,  }\item[{\hyperlink{structcluster_msg}{cluster\+Msg} $\ast$}]{hdr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1465 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a9f6e0de4535394fe6602e3d061055d5a}\label{cluster_8c_a9f6e0de4535394fe6602e3d061055d5a}} 
+\index{cluster.\+c@{cluster.\+c}!readonly\+Command@{readonly\+Command}}
+\index{readonly\+Command@{readonly\+Command}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{readonly\+Command()}{readonlyCommand()}}
+{\footnotesize\ttfamily void readonly\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5396 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a57e19f9388112556fc5429c2be240f24}\label{cluster_8c_a57e19f9388112556fc5429c2be240f24}} 
+\index{cluster.\+c@{cluster.\+c}!readwrite\+Command@{readwrite\+Command}}
+\index{readwrite\+Command@{readwrite\+Command}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{readwrite\+Command()}{readwriteCommand()}}
+{\footnotesize\ttfamily void readwrite\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 5406 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a3697f09d201c8854042d6e088625eee0}\label{cluster_8c_a3697f09d201c8854042d6e088625eee0}} 
+\index{cluster.\+c@{cluster.\+c}!represent\+Cluster\+Node\+Flags@{represent\+Cluster\+Node\+Flags}}
+\index{represent\+Cluster\+Node\+Flags@{represent\+Cluster\+Node\+Flags}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{represent\+Cluster\+Node\+Flags()}{representClusterNodeFlags()}}
+{\footnotesize\ttfamily \hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds} represent\+Cluster\+Node\+Flags (\begin{DoxyParamCaption}\item[{\hyperlink{sds_8h_ad69abac3df4532879db9642c95f5ef6f}{sds}}]{ci,  }\item[{uint16\+\_\+t}]{flags }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3971 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ad3f5bbc768430f12c7e680ac2b322c4e}\label{cluster_8c_ad3f5bbc768430f12c7e680ac2b322c4e}} 
+\index{cluster.\+c@{cluster.\+c}!reset\+Manual\+Failover@{reset\+Manual\+Failover}}
+\index{reset\+Manual\+Failover@{reset\+Manual\+Failover}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{reset\+Manual\+Failover()}{resetManualFailover()}}
+{\footnotesize\ttfamily void reset\+Manual\+Failover (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3262 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a8bbf763a26259982d93a4ed3350267b8}\label{cluster_8c_a8bbf763a26259982d93a4ed3350267b8}} 
+\index{cluster.\+c@{cluster.\+c}!restore\+Command@{restore\+Command}}
+\index{restore\+Command@{restore\+Command}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{restore\+Command()}{restoreCommand()}}
+{\footnotesize\ttfamily void restore\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4854 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_ac0cb91ed72fe935f5fc0bace6047a779}\label{cluster_8c_ac0cb91ed72fe935f5fc0bace6047a779}} 
+\index{cluster.\+c@{cluster.\+c}!verify\+Cluster\+Config\+With\+Data@{verify\+Cluster\+Config\+With\+Data}}
+\index{verify\+Cluster\+Config\+With\+Data@{verify\+Cluster\+Config\+With\+Data}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{verify\+Cluster\+Config\+With\+Data()}{verifyClusterConfigWithData()}}
+{\footnotesize\ttfamily int verify\+Cluster\+Config\+With\+Data (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 3876 of file cluster.\+c.
+
+\mbox{\Hypertarget{cluster_8c_a9bf323a61df7525ed32b63ab5eec415a}\label{cluster_8c_a9bf323a61df7525ed32b63ab5eec415a}} 
+\index{cluster.\+c@{cluster.\+c}!verify\+Dump\+Payload@{verify\+Dump\+Payload}}
+\index{verify\+Dump\+Payload@{verify\+Dump\+Payload}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{verify\+Dump\+Payload()}{verifyDumpPayload()}}
+{\footnotesize\ttfamily int verify\+Dump\+Payload (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{p,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 4811 of file cluster.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{cluster_8c_aff69bee08a3a0a58166a9f85acf12d56}\label{cluster_8c_aff69bee08a3a0a58166a9f85acf12d56}} 
+\index{cluster.\+c@{cluster.\+c}!myself@{myself}}
+\index{myself@{myself}!cluster.\+c@{cluster.\+c}}
+\subsubsection{\texorpdfstring{myself}{myself}}
+{\footnotesize\ttfamily \hyperlink{structcluster_node}{cluster\+Node}$\ast$ myself = N\+U\+LL}
+
+
+
+Definition at line 47 of file cluster.\+c.
+

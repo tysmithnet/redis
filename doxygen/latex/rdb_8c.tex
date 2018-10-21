@@ -1,0 +1,797 @@
+\hypertarget{rdb_8c}{}\section{src/rdb.c File Reference}
+\label{rdb_8c}\index{src/rdb.\+c@{src/rdb.\+c}}
+{\ttfamily \#include \char`\"{}server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lzf.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}zipmap.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}endianconv.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}stream.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/time.\+h$>$}\newline
+{\ttfamily \#include $<$sys/resource.\+h$>$}\newline
+{\ttfamily \#include $<$sys/wait.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$sys/param.\+h$>$}\newline
+Include dependency graph for rdb.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rdb_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{rdb_8c_afb34e310c0e5dfd9f8c2bebbec59c7f7}{rdb\+Exit\+Report\+Corrupt\+R\+DB}(...)~\hyperlink{rdb_8c_a41785db71086c926ae66a6e5fc731929}{rdb\+Check\+Then\+Exit}(\+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+,\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{rdb_8c_a5adb373ff5ec584f810c24e038ceed60}{rdb\+Check\+Error} (const char $\ast$fmt,...)
+\item 
+void \hyperlink{rdb_8c_aeaa1610f1c3775f7496cea0bad6161bc}{rdb\+Check\+Set\+Error} (const char $\ast$fmt,...)
+\item 
+void \hyperlink{rdb_8c_a41785db71086c926ae66a6e5fc731929}{rdb\+Check\+Then\+Exit} (int linenum, char $\ast$reason,...)
+\item 
+void \hyperlink{rdb_8c_a3fff716a214cd9ff29a142aee566627a}{rdb\+Load\+Raw} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, void $\ast$buf, uint64\+\_\+t len)
+\item 
+int \hyperlink{rdb_8c_ad01777762e677ec6e2567cfef68db72f}{rdb\+Save\+Type} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, unsigned char type)
+\item 
+int \hyperlink{rdb_8c_a1cb80830d36da9d4e69fadc683f0f0b2}{rdb\+Load\+Type} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb)
+\item 
+time\+\_\+t \hyperlink{rdb_8c_af8cf8336d4439e03ca86bd2d207227ff}{rdb\+Load\+Time} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb)
+\item 
+int \hyperlink{rdb_8c_a91c76f0db2207eb63ccc1428b5593409}{rdb\+Save\+Millisecond\+Time} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, long long t)
+\item 
+long long \hyperlink{rdb_8c_aed2504fb5378aa1cb6c3a1c3fba73db8}{rdb\+Load\+Millisecond\+Time} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, int rdbver)
+\item 
+int \hyperlink{rdb_8c_ab1039f243e9fe5ac9e39072fae000d89}{rdb\+Save\+Len} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, uint64\+\_\+t len)
+\item 
+int \hyperlink{rdb_8c_ae34e41258ae89cf6eee5575a23b92cf9}{rdb\+Load\+Len\+By\+Ref} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, int $\ast$isencoded, uint64\+\_\+t $\ast$lenptr)
+\item 
+uint64\+\_\+t \hyperlink{rdb_8c_aad5370be64da34d471e513bfe46e9018}{rdb\+Load\+Len} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, int $\ast$isencoded)
+\item 
+int \hyperlink{rdb_8c_a035cc2ccc5738c7f35d491bdcf7db6ce}{rdb\+Encode\+Integer} (long long value, unsigned char $\ast$enc)
+\item 
+void $\ast$ \hyperlink{rdb_8c_a18af0ce3b2297934126c69ec7eeda225}{rdb\+Load\+Integer\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, int enctype, int flags, size\+\_\+t $\ast$lenptr)
+\item 
+int \hyperlink{rdb_8c_aa4fcb5e075050e10a9c954d31c7a03dc}{rdb\+Try\+Integer\+Encoding} (char $\ast$s, size\+\_\+t len, unsigned char $\ast$enc)
+\item 
+ssize\+\_\+t \hyperlink{rdb_8c_a012f90271e306090f50b43cc5a83caff}{rdb\+Save\+Lzf\+Blob} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, void $\ast$data, size\+\_\+t compress\+\_\+len, size\+\_\+t original\+\_\+len)
+\item 
+ssize\+\_\+t \hyperlink{rdb_8c_a15b0ede27800e94cffc7f4f6ed9bddee}{rdb\+Save\+Lzf\+String\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, unsigned char $\ast$s, size\+\_\+t len)
+\item 
+void $\ast$ \hyperlink{rdb_8c_abe2b12cb7ffcc1b8b9a2136336762083}{rdb\+Load\+Lzf\+String\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, int flags, size\+\_\+t $\ast$lenptr)
+\item 
+ssize\+\_\+t \hyperlink{rdb_8c_afaa41a9a32aecd030213a11494110f70}{rdb\+Save\+Raw\+String} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, unsigned char $\ast$s, size\+\_\+t len)
+\item 
+ssize\+\_\+t \hyperlink{rdb_8c_ae59bd829a3da5695cfcb9a65c6851725}{rdb\+Save\+Long\+Long\+As\+String\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, long long value)
+\item 
+ssize\+\_\+t \hyperlink{rdb_8c_a2e9773b8896fe73408de233a23154025}{rdb\+Save\+String\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$obj)
+\item 
+void $\ast$ \hyperlink{rdb_8c_a051e644daa43eec911bde6d61989cd94}{rdb\+Generic\+Load\+String\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, int flags, size\+\_\+t $\ast$lenptr)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{rdb_8c_a02d2eb0fd70dd0a875ae35ca7a730892}{rdb\+Load\+String\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{rdb_8c_a115c5aae4a2363b8924f9bae4420c915}{rdb\+Load\+Encoded\+String\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb)
+\item 
+int \hyperlink{rdb_8c_a337b6196a5b18fc72f24c1a524f6f37f}{rdb\+Save\+Double\+Value} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, double val)
+\item 
+int \hyperlink{rdb_8c_a2eb0b06003fa7ca28136bedf97cfeeaa}{rdb\+Load\+Double\+Value} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, double $\ast$val)
+\item 
+int \hyperlink{rdb_8c_af68fe98aa6c05620a154d7261b607c04}{rdb\+Save\+Binary\+Double\+Value} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, double val)
+\item 
+int \hyperlink{rdb_8c_a2bff3e2588a2fb49723716b1b84b26a4}{rdb\+Load\+Binary\+Double\+Value} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, double $\ast$val)
+\item 
+int \hyperlink{rdb_8c_a6fc6e82cbaed3deb75b2f1fd85341651}{rdb\+Save\+Binary\+Float\+Value} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, float val)
+\item 
+int \hyperlink{rdb_8c_a8447f44e5a164512e73aa9b45c274498}{rdb\+Load\+Binary\+Float\+Value} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, float $\ast$val)
+\item 
+int \hyperlink{rdb_8c_aaccd84b8722df5342fc4c4d7c3d3ce01}{rdb\+Save\+Object\+Type} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+int \hyperlink{rdb_8c_aa333293c5badc88fcc862e3cc24e438a}{rdb\+Load\+Object\+Type} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb)
+\item 
+ssize\+\_\+t \hyperlink{rdb_8c_ae1a62c212084e64b562e09c73d7df545}{rdb\+Save\+Stream\+P\+EL} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, \hyperlink{structrax}{rax} $\ast$pel, int nacks)
+\item 
+size\+\_\+t \hyperlink{rdb_8c_a77fd40e7a45c187f1ea89760d4f689b4}{rdb\+Save\+Stream\+Consumers} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, \hyperlink{structstream_c_g}{stream\+CG} $\ast$cg)
+\item 
+ssize\+\_\+t \hyperlink{rdb_8c_a2c6ee29fccfdf4ca3cbdac548fb0318f}{rdb\+Save\+Object} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+size\+\_\+t \hyperlink{rdb_8c_a45de3a8296db5cec365e60fc3b29f272}{rdb\+Saved\+Object\+Len} (\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$o)
+\item 
+int \hyperlink{rdb_8c_a7f0cbaee96d7ea4346d2804a4f639a66}{rdb\+Save\+Key\+Value\+Pair} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$val, long long expiretime)
+\item 
+ssize\+\_\+t \hyperlink{rdb_8c_a440b41c3ad9df1776056332b6d9ddc0f}{rdb\+Save\+Aux\+Field} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, void $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, size\+\_\+t keylen, void $\ast$val, size\+\_\+t vallen)
+\item 
+ssize\+\_\+t \hyperlink{rdb_8c_a9ba3ed167596695c20447f2e6cc807fa}{rdb\+Save\+Aux\+Field\+Str\+Str} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, char $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, char $\ast$val)
+\item 
+ssize\+\_\+t \hyperlink{rdb_8c_a6aa3c2464719d09f4d43159e876b9305}{rdb\+Save\+Aux\+Field\+Str\+Int} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, char $\ast$\hyperlink{redis-check-rdb_8c_adc0ee0ed345db513fb6fac27511be4f1}{key}, long long val)
+\item 
+int \hyperlink{rdb_8c_a60ceb13900d52fdcd1a721cae8a62f74}{rdb\+Save\+Info\+Aux\+Fields} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, int flags, \hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$rsi)
+\item 
+int \hyperlink{rdb_8c_abfd9d242838e2f51bdb1bda5037d43d0}{rdb\+Save\+Rio} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, int $\ast$\hyperlink{redis-check-rdb_8c_a998302b0b110ee83418a3f0e3ef808d9}{error}, int flags, \hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$rsi)
+\item 
+int \hyperlink{rdb_8c_ac3608cb753b3f7ad02eb849cfb0e5e4f}{rdb\+Save\+Rio\+With\+E\+O\+F\+Mark} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, int $\ast$\hyperlink{redis-check-rdb_8c_a998302b0b110ee83418a3f0e3ef808d9}{error}, \hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$rsi)
+\item 
+int \hyperlink{rdb_8c_a7903dab7103f5acfd30d5f27fdc8cf60}{rdb\+Save} (char $\ast$filename, \hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$rsi)
+\item 
+int \hyperlink{rdb_8c_a375bcef317cf901664d95fad3bfcfd40}{rdb\+Save\+Background} (char $\ast$filename, \hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$rsi)
+\item 
+void \hyperlink{rdb_8c_a17fb24fcbbe9ff8228fa7b24430fea7b}{rdb\+Remove\+Temp\+File} (pid\+\_\+t childpid)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{rdb_8c_a0f01d1906178a4c1516c55a54960181a}{rdb\+Load\+Check\+Module\+Value} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, char $\ast$modulename)
+\item 
+\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$ \hyperlink{rdb_8c_a59738ba244cc42cbbd5f54c96af5a179}{rdb\+Load\+Object} (int rdbtype, \hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb)
+\item 
+void \hyperlink{rdb_8c_aa669b4cbb68199c86bfe7bc74108b37e}{start\+Loading} (F\+I\+LE $\ast$fp)
+\item 
+void \hyperlink{rdb_8c_a2379de906b82bbdcbf947b000c1b4c33}{loading\+Progress} (off\+\_\+t pos)
+\item 
+void \hyperlink{rdb_8c_a0c8f304793dc2099c61a09cd4aaa09f6}{stop\+Loading} (void)
+\item 
+void \hyperlink{rdb_8c_af6d87bf48e4005cb9147af693efba210}{rdb\+Load\+Progress\+Callback} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$r, const void $\ast$buf, size\+\_\+t len)
+\item 
+int \hyperlink{rdb_8c_a9d5d82817cfd25df804b69ec6a5abe10}{rdb\+Load\+Rio} (\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$rdb, \hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$rsi, int loading\+\_\+aof)
+\item 
+int \hyperlink{rdb_8c_ad37871274c208110029a2a99daeba18d}{rdb\+Load} (char $\ast$filename, \hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$rsi)
+\item 
+void \hyperlink{rdb_8c_a0d8e63966f9bb73cb11415d58ce2421c}{background\+Save\+Done\+Handler\+Disk} (int exitcode, int bysignal)
+\item 
+void \hyperlink{rdb_8c_afcd30b84527f152e66c7e550987b961a}{background\+Save\+Done\+Handler\+Socket} (int exitcode, int bysignal)
+\item 
+void \hyperlink{rdb_8c_a08638ef1294c6584df5b54b0ef109a95}{background\+Save\+Done\+Handler} (int exitcode, int bysignal)
+\item 
+int \hyperlink{rdb_8c_adf3bafc83fed576d604494ca0c8f1a5b}{rdb\+Save\+To\+Slaves\+Sockets} (\hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$rsi)
+\item 
+void \hyperlink{rdb_8c_a3ff628b60acf9fd10c77c462417e4d98}{save\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+void \hyperlink{rdb_8c_aab77fdfffc0bf7e912b9a2389c412029}{bgsave\+Command} (\hyperlink{structclient}{client} $\ast$c)
+\item 
+\hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$ \hyperlink{rdb_8c_a4838759ceeea9016784d256d85dc04ea}{rdb\+Populate\+Save\+Info} (\hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$rsi)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{rdb_8c_aefef68276e4a8d9a17eb4850e4e8dc21}{rdb\+Check\+Mode}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{rdb_8c_afb34e310c0e5dfd9f8c2bebbec59c7f7}\label{rdb_8c_afb34e310c0e5dfd9f8c2bebbec59c7f7}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Exit\+Report\+Corrupt\+R\+DB@{rdb\+Exit\+Report\+Corrupt\+R\+DB}}
+\index{rdb\+Exit\+Report\+Corrupt\+R\+DB@{rdb\+Exit\+Report\+Corrupt\+R\+DB}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Exit\+Report\+Corrupt\+R\+DB}{rdbExitReportCorruptRDB}}
+{\footnotesize\ttfamily \#define rdb\+Exit\+Report\+Corrupt\+R\+DB(\begin{DoxyParamCaption}\item[{}]{... }\end{DoxyParamCaption})~\hyperlink{rdb_8c_a41785db71086c926ae66a6e5fc731929}{rdb\+Check\+Then\+Exit}(\+\_\+\+\_\+\+L\+I\+N\+E\+\_\+\+\_\+,\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+)}
+
+
+
+Definition at line 45 of file rdb.\+c.
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{rdb_8c_a08638ef1294c6584df5b54b0ef109a95}\label{rdb_8c_a08638ef1294c6584df5b54b0ef109a95}} 
+\index{rdb.\+c@{rdb.\+c}!background\+Save\+Done\+Handler@{background\+Save\+Done\+Handler}}
+\index{background\+Save\+Done\+Handler@{background\+Save\+Done\+Handler}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{background\+Save\+Done\+Handler()}{backgroundSaveDoneHandler()}}
+{\footnotesize\ttfamily void background\+Save\+Done\+Handler (\begin{DoxyParamCaption}\item[{int}]{exitcode,  }\item[{int}]{bysignal }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2211 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a0d8e63966f9bb73cb11415d58ce2421c}\label{rdb_8c_a0d8e63966f9bb73cb11415d58ce2421c}} 
+\index{rdb.\+c@{rdb.\+c}!background\+Save\+Done\+Handler\+Disk@{background\+Save\+Done\+Handler\+Disk}}
+\index{background\+Save\+Done\+Handler\+Disk@{background\+Save\+Done\+Handler\+Disk}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{background\+Save\+Done\+Handler\+Disk()}{backgroundSaveDoneHandlerDisk()}}
+{\footnotesize\ttfamily void background\+Save\+Done\+Handler\+Disk (\begin{DoxyParamCaption}\item[{int}]{exitcode,  }\item[{int}]{bysignal }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2082 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_afcd30b84527f152e66c7e550987b961a}\label{rdb_8c_afcd30b84527f152e66c7e550987b961a}} 
+\index{rdb.\+c@{rdb.\+c}!background\+Save\+Done\+Handler\+Socket@{background\+Save\+Done\+Handler\+Socket}}
+\index{background\+Save\+Done\+Handler\+Socket@{background\+Save\+Done\+Handler\+Socket}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{background\+Save\+Done\+Handler\+Socket()}{backgroundSaveDoneHandlerSocket()}}
+{\footnotesize\ttfamily void background\+Save\+Done\+Handler\+Socket (\begin{DoxyParamCaption}\item[{int}]{exitcode,  }\item[{int}]{bysignal }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2118 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_aab77fdfffc0bf7e912b9a2389c412029}\label{rdb_8c_aab77fdfffc0bf7e912b9a2389c412029}} 
+\index{rdb.\+c@{rdb.\+c}!bgsave\+Command@{bgsave\+Command}}
+\index{bgsave\+Command@{bgsave\+Command}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{bgsave\+Command()}{bgsaveCommand()}}
+{\footnotesize\ttfamily void bgsave\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2401 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a2379de906b82bbdcbf947b000c1b4c33}\label{rdb_8c_a2379de906b82bbdcbf947b000c1b4c33}} 
+\index{rdb.\+c@{rdb.\+c}!loading\+Progress@{loading\+Progress}}
+\index{loading\+Progress@{loading\+Progress}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{loading\+Progress()}{loadingProgress()}}
+{\footnotesize\ttfamily void loading\+Progress (\begin{DoxyParamCaption}\item[{off\+\_\+t}]{pos }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1815 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a5adb373ff5ec584f810c24e038ceed60}\label{rdb_8c_a5adb373ff5ec584f810c24e038ceed60}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Check\+Error@{rdb\+Check\+Error}}
+\index{rdb\+Check\+Error@{rdb\+Check\+Error}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Check\+Error()}{rdbCheckError()}}
+{\footnotesize\ttfamily void rdb\+Check\+Error (\begin{DoxyParamCaption}\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 100 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_aeaa1610f1c3775f7496cea0bad6161bc}\label{rdb_8c_aeaa1610f1c3775f7496cea0bad6161bc}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Check\+Set\+Error@{rdb\+Check\+Set\+Error}}
+\index{rdb\+Check\+Set\+Error@{rdb\+Check\+Set\+Error}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Check\+Set\+Error()}{rdbCheckSetError()}}
+{\footnotesize\ttfamily void rdb\+Check\+Set\+Error (\begin{DoxyParamCaption}\item[{const char $\ast$}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 142 of file redis-\/check-\/rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a41785db71086c926ae66a6e5fc731929}\label{rdb_8c_a41785db71086c926ae66a6e5fc731929}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Check\+Then\+Exit@{rdb\+Check\+Then\+Exit}}
+\index{rdb\+Check\+Then\+Exit@{rdb\+Check\+Then\+Exit}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Check\+Then\+Exit()}{rdbCheckThenExit()}}
+{\footnotesize\ttfamily void rdb\+Check\+Then\+Exit (\begin{DoxyParamCaption}\item[{int}]{linenum,  }\item[{char $\ast$}]{reason,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Definition at line 51 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a035cc2ccc5738c7f35d491bdcf7db6ce}\label{rdb_8c_a035cc2ccc5738c7f35d491bdcf7db6ce}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Encode\+Integer@{rdb\+Encode\+Integer}}
+\index{rdb\+Encode\+Integer@{rdb\+Encode\+Integer}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Encode\+Integer()}{rdbEncodeInteger()}}
+{\footnotesize\ttfamily int rdb\+Encode\+Integer (\begin{DoxyParamCaption}\item[{long long}]{value,  }\item[{unsigned char $\ast$}]{enc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 234 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a051e644daa43eec911bde6d61989cd94}\label{rdb_8c_a051e644daa43eec911bde6d61989cd94}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Generic\+Load\+String\+Object@{rdb\+Generic\+Load\+String\+Object}}
+\index{rdb\+Generic\+Load\+String\+Object@{rdb\+Generic\+Load\+String\+Object}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Generic\+Load\+String\+Object()}{rdbGenericLoadStringObject()}}
+{\footnotesize\ttfamily void$\ast$ rdb\+Generic\+Load\+String\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{int}]{flags,  }\item[{size\+\_\+t $\ast$}]{lenptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 481 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_ad37871274c208110029a2a99daeba18d}\label{rdb_8c_ad37871274c208110029a2a99daeba18d}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load@{rdb\+Load}}
+\index{rdb\+Load@{rdb\+Load}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load()}{rdbLoad()}}
+{\footnotesize\ttfamily int rdb\+Load (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename,  }\item[{\hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$}]{rsi }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2066 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a2bff3e2588a2fb49723716b1b84b26a4}\label{rdb_8c_a2bff3e2588a2fb49723716b1b84b26a4}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Binary\+Double\+Value@{rdb\+Load\+Binary\+Double\+Value}}
+\index{rdb\+Load\+Binary\+Double\+Value@{rdb\+Load\+Binary\+Double\+Value}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Binary\+Double\+Value()}{rdbLoadBinaryDoubleValue()}}
+{\footnotesize\ttfamily int rdb\+Load\+Binary\+Double\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{double $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 605 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a8447f44e5a164512e73aa9b45c274498}\label{rdb_8c_a8447f44e5a164512e73aa9b45c274498}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Binary\+Float\+Value@{rdb\+Load\+Binary\+Float\+Value}}
+\index{rdb\+Load\+Binary\+Float\+Value@{rdb\+Load\+Binary\+Float\+Value}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Binary\+Float\+Value()}{rdbLoadBinaryFloatValue()}}
+{\footnotesize\ttfamily int rdb\+Load\+Binary\+Float\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{float $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 618 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a0f01d1906178a4c1516c55a54960181a}\label{rdb_8c_a0f01d1906178a4c1516c55a54960181a}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Check\+Module\+Value@{rdb\+Load\+Check\+Module\+Value}}
+\index{rdb\+Load\+Check\+Module\+Value@{rdb\+Load\+Check\+Module\+Value}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Check\+Module\+Value()}{rdbLoadCheckModuleValue()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ rdb\+Load\+Check\+Module\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{char $\ast$}]{modulename }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1346 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a2eb0b06003fa7ca28136bedf97cfeeaa}\label{rdb_8c_a2eb0b06003fa7ca28136bedf97cfeeaa}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Double\+Value@{rdb\+Load\+Double\+Value}}
+\index{rdb\+Load\+Double\+Value@{rdb\+Load\+Double\+Value}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Double\+Value()}{rdbLoadDoubleValue()}}
+{\footnotesize\ttfamily int rdb\+Load\+Double\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{double $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 576 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a115c5aae4a2363b8924f9bae4420c915}\label{rdb_8c_a115c5aae4a2363b8924f9bae4420c915}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Encoded\+String\+Object@{rdb\+Load\+Encoded\+String\+Object}}
+\index{rdb\+Load\+Encoded\+String\+Object@{rdb\+Load\+Encoded\+String\+Object}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Encoded\+String\+Object()}{rdbLoadEncodedStringObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ rdb\+Load\+Encoded\+String\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb }\end{DoxyParamCaption})}
+
+
+
+Definition at line 529 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a18af0ce3b2297934126c69ec7eeda225}\label{rdb_8c_a18af0ce3b2297934126c69ec7eeda225}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Integer\+Object@{rdb\+Load\+Integer\+Object}}
+\index{rdb\+Load\+Integer\+Object@{rdb\+Load\+Integer\+Object}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Integer\+Object()}{rdbLoadIntegerObject()}}
+{\footnotesize\ttfamily void$\ast$ rdb\+Load\+Integer\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{int}]{enctype,  }\item[{int}]{flags,  }\item[{size\+\_\+t $\ast$}]{lenptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 259 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_aad5370be64da34d471e513bfe46e9018}\label{rdb_8c_aad5370be64da34d471e513bfe46e9018}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Len@{rdb\+Load\+Len}}
+\index{rdb\+Load\+Len@{rdb\+Load\+Len}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Len()}{rdbLoadLen()}}
+{\footnotesize\ttfamily uint64\+\_\+t rdb\+Load\+Len (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{int $\ast$}]{isencoded }\end{DoxyParamCaption})}
+
+
+
+Definition at line 223 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_ae34e41258ae89cf6eee5575a23b92cf9}\label{rdb_8c_ae34e41258ae89cf6eee5575a23b92cf9}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Len\+By\+Ref@{rdb\+Load\+Len\+By\+Ref}}
+\index{rdb\+Load\+Len\+By\+Ref@{rdb\+Load\+Len\+By\+Ref}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Len\+By\+Ref()}{rdbLoadLenByRef()}}
+{\footnotesize\ttfamily int rdb\+Load\+Len\+By\+Ref (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{int $\ast$}]{isencoded,  }\item[{uint64\+\_\+t $\ast$}]{lenptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 183 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_abe2b12cb7ffcc1b8b9a2136336762083}\label{rdb_8c_abe2b12cb7ffcc1b8b9a2136336762083}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Lzf\+String\+Object@{rdb\+Load\+Lzf\+String\+Object}}
+\index{rdb\+Load\+Lzf\+String\+Object@{rdb\+Load\+Lzf\+String\+Object}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Lzf\+String\+Object()}{rdbLoadLzfStringObject()}}
+{\footnotesize\ttfamily void$\ast$ rdb\+Load\+Lzf\+String\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{int}]{flags,  }\item[{size\+\_\+t $\ast$}]{lenptr }\end{DoxyParamCaption})}
+
+
+
+Definition at line 362 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_aed2504fb5378aa1cb6c3a1c3fba73db8}\label{rdb_8c_aed2504fb5378aa1cb6c3a1c3fba73db8}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Millisecond\+Time@{rdb\+Load\+Millisecond\+Time}}
+\index{rdb\+Load\+Millisecond\+Time@{rdb\+Load\+Millisecond\+Time}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Millisecond\+Time()}{rdbLoadMillisecondTime()}}
+{\footnotesize\ttfamily long long rdb\+Load\+Millisecond\+Time (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{int}]{rdbver }\end{DoxyParamCaption})}
+
+
+
+Definition at line 129 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a59738ba244cc42cbbd5f54c96af5a179}\label{rdb_8c_a59738ba244cc42cbbd5f54c96af5a179}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Object@{rdb\+Load\+Object}}
+\index{rdb\+Load\+Object@{rdb\+Load\+Object}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Object()}{rdbLoadObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ rdb\+Load\+Object (\begin{DoxyParamCaption}\item[{int}]{rdbtype,  }\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1383 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_aa333293c5badc88fcc862e3cc24e438a}\label{rdb_8c_aa333293c5badc88fcc862e3cc24e438a}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Object\+Type@{rdb\+Load\+Object\+Type}}
+\index{rdb\+Load\+Object\+Type@{rdb\+Load\+Object\+Type}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Object\+Type()}{rdbLoadObjectType()}}
+{\footnotesize\ttfamily int rdb\+Load\+Object\+Type (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb }\end{DoxyParamCaption})}
+
+
+
+Definition at line 667 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_af6d87bf48e4005cb9147af693efba210}\label{rdb_8c_af6d87bf48e4005cb9147af693efba210}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Progress\+Callback@{rdb\+Load\+Progress\+Callback}}
+\index{rdb\+Load\+Progress\+Callback@{rdb\+Load\+Progress\+Callback}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Progress\+Callback()}{rdbLoadProgressCallback()}}
+{\footnotesize\ttfamily void rdb\+Load\+Progress\+Callback (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{r,  }\item[{const void $\ast$}]{buf,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1828 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a3fff716a214cd9ff29a142aee566627a}\label{rdb_8c_a3fff716a214cd9ff29a142aee566627a}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Raw@{rdb\+Load\+Raw}}
+\index{rdb\+Load\+Raw@{rdb\+Load\+Raw}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Raw()}{rdbLoadRaw()}}
+{\footnotesize\ttfamily void rdb\+Load\+Raw (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{void $\ast$}]{buf,  }\item[{uint64\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 81 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a9d5d82817cfd25df804b69ec6a5abe10}\label{rdb_8c_a9d5d82817cfd25df804b69ec6a5abe10}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Rio@{rdb\+Load\+Rio}}
+\index{rdb\+Load\+Rio@{rdb\+Load\+Rio}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Rio()}{rdbLoadRio()}}
+{\footnotesize\ttfamily int rdb\+Load\+Rio (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{\hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$}]{rsi,  }\item[{int}]{loading\+\_\+aof }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1847 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a02d2eb0fd70dd0a875ae35ca7a730892}\label{rdb_8c_a02d2eb0fd70dd0a875ae35ca7a730892}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+String\+Object@{rdb\+Load\+String\+Object}}
+\index{rdb\+Load\+String\+Object@{rdb\+Load\+String\+Object}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+String\+Object()}{rdbLoadStringObject()}}
+{\footnotesize\ttfamily \hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj}$\ast$ rdb\+Load\+String\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb }\end{DoxyParamCaption})}
+
+
+
+Definition at line 525 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_af8cf8336d4439e03ca86bd2d207227ff}\label{rdb_8c_af8cf8336d4439e03ca86bd2d207227ff}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Time@{rdb\+Load\+Time}}
+\index{rdb\+Load\+Time@{rdb\+Load\+Time}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Time()}{rdbLoadTime()}}
+{\footnotesize\ttfamily time\+\_\+t rdb\+Load\+Time (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb }\end{DoxyParamCaption})}
+
+
+
+Definition at line 106 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a1cb80830d36da9d4e69fadc683f0f0b2}\label{rdb_8c_a1cb80830d36da9d4e69fadc683f0f0b2}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Load\+Type@{rdb\+Load\+Type}}
+\index{rdb\+Load\+Type@{rdb\+Load\+Type}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Load\+Type()}{rdbLoadType()}}
+{\footnotesize\ttfamily int rdb\+Load\+Type (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb }\end{DoxyParamCaption})}
+
+
+
+Definition at line 97 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a4838759ceeea9016784d256d85dc04ea}\label{rdb_8c_a4838759ceeea9016784d256d85dc04ea}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Populate\+Save\+Info@{rdb\+Populate\+Save\+Info}}
+\index{rdb\+Populate\+Save\+Info@{rdb\+Populate\+Save\+Info}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Populate\+Save\+Info()}{rdbPopulateSaveInfo()}}
+{\footnotesize\ttfamily \hyperlink{structrdb_save_info}{rdb\+Save\+Info}$\ast$ rdb\+Populate\+Save\+Info (\begin{DoxyParamCaption}\item[{\hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$}]{rsi }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2446 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a17fb24fcbbe9ff8228fa7b24430fea7b}\label{rdb_8c_a17fb24fcbbe9ff8228fa7b24430fea7b}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Remove\+Temp\+File@{rdb\+Remove\+Temp\+File}}
+\index{rdb\+Remove\+Temp\+File@{rdb\+Remove\+Temp\+File}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Remove\+Temp\+File()}{rdbRemoveTempFile()}}
+{\footnotesize\ttfamily void rdb\+Remove\+Temp\+File (\begin{DoxyParamCaption}\item[{pid\+\_\+t}]{childpid }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1335 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a7903dab7103f5acfd30d5f27fdc8cf60}\label{rdb_8c_a7903dab7103f5acfd30d5f27fdc8cf60}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save@{rdb\+Save}}
+\index{rdb\+Save@{rdb\+Save}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save()}{rdbSave()}}
+{\footnotesize\ttfamily int rdb\+Save (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename,  }\item[{\hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$}]{rsi }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1219 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a440b41c3ad9df1776056332b6d9ddc0f}\label{rdb_8c_a440b41c3ad9df1776056332b6d9ddc0f}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Aux\+Field@{rdb\+Save\+Aux\+Field}}
+\index{rdb\+Save\+Aux\+Field@{rdb\+Save\+Aux\+Field}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Aux\+Field()}{rdbSaveAuxField()}}
+{\footnotesize\ttfamily ssize\+\_\+t rdb\+Save\+Aux\+Field (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{void $\ast$}]{key,  }\item[{size\+\_\+t}]{keylen,  }\item[{void $\ast$}]{val,  }\item[{size\+\_\+t}]{vallen }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1046 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a6aa3c2464719d09f4d43159e876b9305}\label{rdb_8c_a6aa3c2464719d09f4d43159e876b9305}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Aux\+Field\+Str\+Int@{rdb\+Save\+Aux\+Field\+Str\+Int}}
+\index{rdb\+Save\+Aux\+Field\+Str\+Int@{rdb\+Save\+Aux\+Field\+Str\+Int}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Aux\+Field\+Str\+Int()}{rdbSaveAuxFieldStrInt()}}
+{\footnotesize\ttfamily ssize\+\_\+t rdb\+Save\+Aux\+Field\+Str\+Int (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{char $\ast$}]{key,  }\item[{long long}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1064 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a9ba3ed167596695c20447f2e6cc807fa}\label{rdb_8c_a9ba3ed167596695c20447f2e6cc807fa}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Aux\+Field\+Str\+Str@{rdb\+Save\+Aux\+Field\+Str\+Str}}
+\index{rdb\+Save\+Aux\+Field\+Str\+Str@{rdb\+Save\+Aux\+Field\+Str\+Str}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Aux\+Field\+Str\+Str()}{rdbSaveAuxFieldStrStr()}}
+{\footnotesize\ttfamily ssize\+\_\+t rdb\+Save\+Aux\+Field\+Str\+Str (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{char $\ast$}]{key,  }\item[{char $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1059 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a375bcef317cf901664d95fad3bfcfd40}\label{rdb_8c_a375bcef317cf901664d95fad3bfcfd40}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Background@{rdb\+Save\+Background}}
+\index{rdb\+Save\+Background@{rdb\+Save\+Background}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Background()}{rdbSaveBackground()}}
+{\footnotesize\ttfamily int rdb\+Save\+Background (\begin{DoxyParamCaption}\item[{char $\ast$}]{filename,  }\item[{\hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$}]{rsi }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1282 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_af68fe98aa6c05620a154d7261b607c04}\label{rdb_8c_af68fe98aa6c05620a154d7261b607c04}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Binary\+Double\+Value@{rdb\+Save\+Binary\+Double\+Value}}
+\index{rdb\+Save\+Binary\+Double\+Value@{rdb\+Save\+Binary\+Double\+Value}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Binary\+Double\+Value()}{rdbSaveBinaryDoubleValue()}}
+{\footnotesize\ttfamily int rdb\+Save\+Binary\+Double\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{double}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 598 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a6fc6e82cbaed3deb75b2f1fd85341651}\label{rdb_8c_a6fc6e82cbaed3deb75b2f1fd85341651}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Binary\+Float\+Value@{rdb\+Save\+Binary\+Float\+Value}}
+\index{rdb\+Save\+Binary\+Float\+Value@{rdb\+Save\+Binary\+Float\+Value}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Binary\+Float\+Value()}{rdbSaveBinaryFloatValue()}}
+{\footnotesize\ttfamily int rdb\+Save\+Binary\+Float\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{float}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 612 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a45de3a8296db5cec365e60fc3b29f272}\label{rdb_8c_a45de3a8296db5cec365e60fc3b29f272}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Saved\+Object\+Len@{rdb\+Saved\+Object\+Len}}
+\index{rdb\+Saved\+Object\+Len@{rdb\+Saved\+Object\+Len}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Saved\+Object\+Len()}{rdbSavedObjectLen()}}
+{\footnotesize\ttfamily size\+\_\+t rdb\+Saved\+Object\+Len (\begin{DoxyParamCaption}\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 998 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a337b6196a5b18fc72f24c1a524f6f37f}\label{rdb_8c_a337b6196a5b18fc72f24c1a524f6f37f}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Double\+Value@{rdb\+Save\+Double\+Value}}
+\index{rdb\+Save\+Double\+Value@{rdb\+Save\+Double\+Value}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Double\+Value()}{rdbSaveDoubleValue()}}
+{\footnotesize\ttfamily int rdb\+Save\+Double\+Value (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{double}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 541 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a60ceb13900d52fdcd1a721cae8a62f74}\label{rdb_8c_a60ceb13900d52fdcd1a721cae8a62f74}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Info\+Aux\+Fields@{rdb\+Save\+Info\+Aux\+Fields}}
+\index{rdb\+Save\+Info\+Aux\+Fields@{rdb\+Save\+Info\+Aux\+Fields}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Info\+Aux\+Fields()}{rdbSaveInfoAuxFields()}}
+{\footnotesize\ttfamily int rdb\+Save\+Info\+Aux\+Fields (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{int}]{flags,  }\item[{\hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$}]{rsi }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1071 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a7f0cbaee96d7ea4346d2804a4f639a66}\label{rdb_8c_a7f0cbaee96d7ea4346d2804a4f639a66}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Key\+Value\+Pair@{rdb\+Save\+Key\+Value\+Pair}}
+\index{rdb\+Save\+Key\+Value\+Pair@{rdb\+Save\+Key\+Value\+Pair}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Key\+Value\+Pair()}{rdbSaveKeyValuePair()}}
+{\footnotesize\ttfamily int rdb\+Save\+Key\+Value\+Pair (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{key,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{val,  }\item[{long long}]{expiretime }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1008 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_ab1039f243e9fe5ac9e39072fae000d89}\label{rdb_8c_ab1039f243e9fe5ac9e39072fae000d89}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Len@{rdb\+Save\+Len}}
+\index{rdb\+Save\+Len@{rdb\+Save\+Len}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Len()}{rdbSaveLen()}}
+{\footnotesize\ttfamily int rdb\+Save\+Len (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{uint64\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 140 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_ae59bd829a3da5695cfcb9a65c6851725}\label{rdb_8c_ae59bd829a3da5695cfcb9a65c6851725}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Long\+Long\+As\+String\+Object@{rdb\+Save\+Long\+Long\+As\+String\+Object}}
+\index{rdb\+Save\+Long\+Long\+As\+String\+Object@{rdb\+Save\+Long\+Long\+As\+String\+Object}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Long\+Long\+As\+String\+Object()}{rdbSaveLongLongAsStringObject()}}
+{\footnotesize\ttfamily ssize\+\_\+t rdb\+Save\+Long\+Long\+As\+String\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{long long}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 438 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a012f90271e306090f50b43cc5a83caff}\label{rdb_8c_a012f90271e306090f50b43cc5a83caff}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Lzf\+Blob@{rdb\+Save\+Lzf\+Blob}}
+\index{rdb\+Save\+Lzf\+Blob@{rdb\+Save\+Lzf\+Blob}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Lzf\+Blob()}{rdbSaveLzfBlob()}}
+{\footnotesize\ttfamily ssize\+\_\+t rdb\+Save\+Lzf\+Blob (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{void $\ast$}]{data,  }\item[{size\+\_\+t}]{compress\+\_\+len,  }\item[{size\+\_\+t}]{original\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 316 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a15b0ede27800e94cffc7f4f6ed9bddee}\label{rdb_8c_a15b0ede27800e94cffc7f4f6ed9bddee}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Lzf\+String\+Object@{rdb\+Save\+Lzf\+String\+Object}}
+\index{rdb\+Save\+Lzf\+String\+Object@{rdb\+Save\+Lzf\+String\+Object}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Lzf\+String\+Object()}{rdbSaveLzfStringObject()}}
+{\footnotesize\ttfamily ssize\+\_\+t rdb\+Save\+Lzf\+String\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{unsigned char $\ast$}]{s,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 341 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a91c76f0db2207eb63ccc1428b5593409}\label{rdb_8c_a91c76f0db2207eb63ccc1428b5593409}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Millisecond\+Time@{rdb\+Save\+Millisecond\+Time}}
+\index{rdb\+Save\+Millisecond\+Time@{rdb\+Save\+Millisecond\+Time}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Millisecond\+Time()}{rdbSaveMillisecondTime()}}
+{\footnotesize\ttfamily int rdb\+Save\+Millisecond\+Time (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{long long}]{t }\end{DoxyParamCaption})}
+
+
+
+Definition at line 112 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a2c6ee29fccfdf4ca3cbdac548fb0318f}\label{rdb_8c_a2c6ee29fccfdf4ca3cbdac548fb0318f}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Object@{rdb\+Save\+Object}}
+\index{rdb\+Save\+Object@{rdb\+Save\+Object}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Object()}{rdbSaveObject()}}
+{\footnotesize\ttfamily ssize\+\_\+t rdb\+Save\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 754 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_aaccd84b8722df5342fc4c4d7c3d3ce01}\label{rdb_8c_aaccd84b8722df5342fc4c4d7c3d3ce01}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Object\+Type@{rdb\+Save\+Object\+Type}}
+\index{rdb\+Save\+Object\+Type@{rdb\+Save\+Object\+Type}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Object\+Type()}{rdbSaveObjectType()}}
+{\footnotesize\ttfamily int rdb\+Save\+Object\+Type (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{o }\end{DoxyParamCaption})}
+
+
+
+Definition at line 625 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_afaa41a9a32aecd030213a11494110f70}\label{rdb_8c_afaa41a9a32aecd030213a11494110f70}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Raw\+String@{rdb\+Save\+Raw\+String}}
+\index{rdb\+Save\+Raw\+String@{rdb\+Save\+Raw\+String}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Raw\+String()}{rdbSaveRawString()}}
+{\footnotesize\ttfamily ssize\+\_\+t rdb\+Save\+Raw\+String (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{unsigned char $\ast$}]{s,  }\item[{size\+\_\+t}]{len }\end{DoxyParamCaption})}
+
+
+
+Definition at line 405 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_abfd9d242838e2f51bdb1bda5037d43d0}\label{rdb_8c_abfd9d242838e2f51bdb1bda5037d43d0}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Rio@{rdb\+Save\+Rio}}
+\index{rdb\+Save\+Rio@{rdb\+Save\+Rio}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Rio()}{rdbSaveRio()}}
+{\footnotesize\ttfamily int rdb\+Save\+Rio (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{int $\ast$}]{error,  }\item[{int}]{flags,  }\item[{\hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$}]{rsi }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1102 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_ac3608cb753b3f7ad02eb849cfb0e5e4f}\label{rdb_8c_ac3608cb753b3f7ad02eb849cfb0e5e4f}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Rio\+With\+E\+O\+F\+Mark@{rdb\+Save\+Rio\+With\+E\+O\+F\+Mark}}
+\index{rdb\+Save\+Rio\+With\+E\+O\+F\+Mark@{rdb\+Save\+Rio\+With\+E\+O\+F\+Mark}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Rio\+With\+E\+O\+F\+Mark()}{rdbSaveRioWithEOFMark()}}
+{\footnotesize\ttfamily int rdb\+Save\+Rio\+With\+E\+O\+F\+Mark (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{int $\ast$}]{error,  }\item[{\hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$}]{rsi }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1200 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a77fd40e7a45c187f1ea89760d4f689b4}\label{rdb_8c_a77fd40e7a45c187f1ea89760d4f689b4}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Stream\+Consumers@{rdb\+Save\+Stream\+Consumers}}
+\index{rdb\+Save\+Stream\+Consumers@{rdb\+Save\+Stream\+Consumers}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Stream\+Consumers()}{rdbSaveStreamConsumers()}}
+{\footnotesize\ttfamily size\+\_\+t rdb\+Save\+Stream\+Consumers (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{\hyperlink{structstream_c_g}{stream\+CG} $\ast$}]{cg }\end{DoxyParamCaption})}
+
+
+
+Definition at line 717 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_ae1a62c212084e64b562e09c73d7df545}\label{rdb_8c_ae1a62c212084e64b562e09c73d7df545}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Stream\+P\+EL@{rdb\+Save\+Stream\+P\+EL}}
+\index{rdb\+Save\+Stream\+P\+EL@{rdb\+Save\+Stream\+P\+EL}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Stream\+P\+E\+L()}{rdbSaveStreamPEL()}}
+{\footnotesize\ttfamily ssize\+\_\+t rdb\+Save\+Stream\+P\+EL (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{\hyperlink{structrax}{rax} $\ast$}]{pel,  }\item[{int}]{nacks }\end{DoxyParamCaption})}
+
+
+
+Definition at line 681 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a2e9773b8896fe73408de233a23154025}\label{rdb_8c_a2e9773b8896fe73408de233a23154025}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+String\+Object@{rdb\+Save\+String\+Object}}
+\index{rdb\+Save\+String\+Object@{rdb\+Save\+String\+Object}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+String\+Object()}{rdbSaveStringObject()}}
+{\footnotesize\ttfamily ssize\+\_\+t rdb\+Save\+String\+Object (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{\hyperlink{server_8h_a540f174d2685422fbd7d12e3cd44c8e2}{robj} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 457 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_adf3bafc83fed576d604494ca0c8f1a5b}\label{rdb_8c_adf3bafc83fed576d604494ca0c8f1a5b}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+To\+Slaves\+Sockets@{rdb\+Save\+To\+Slaves\+Sockets}}
+\index{rdb\+Save\+To\+Slaves\+Sockets@{rdb\+Save\+To\+Slaves\+Sockets}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+To\+Slaves\+Sockets()}{rdbSaveToSlavesSockets()}}
+{\footnotesize\ttfamily int rdb\+Save\+To\+Slaves\+Sockets (\begin{DoxyParamCaption}\item[{\hyperlink{structrdb_save_info}{rdb\+Save\+Info} $\ast$}]{rsi }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2227 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_ad01777762e677ec6e2567cfef68db72f}\label{rdb_8c_ad01777762e677ec6e2567cfef68db72f}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Save\+Type@{rdb\+Save\+Type}}
+\index{rdb\+Save\+Type@{rdb\+Save\+Type}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Save\+Type()}{rdbSaveType()}}
+{\footnotesize\ttfamily int rdb\+Save\+Type (\begin{DoxyParamCaption}\item[{\hyperlink{rio_8h_a048ce06d2f559006ef67f885ceb2c1ca}{rio} $\ast$}]{rdb,  }\item[{unsigned char}]{type }\end{DoxyParamCaption})}
+
+
+
+Definition at line 90 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_aa4fcb5e075050e10a9c954d31c7a03dc}\label{rdb_8c_aa4fcb5e075050e10a9c954d31c7a03dc}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Try\+Integer\+Encoding@{rdb\+Try\+Integer\+Encoding}}
+\index{rdb\+Try\+Integer\+Encoding@{rdb\+Try\+Integer\+Encoding}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Try\+Integer\+Encoding()}{rdbTryIntegerEncoding()}}
+{\footnotesize\ttfamily int rdb\+Try\+Integer\+Encoding (\begin{DoxyParamCaption}\item[{char $\ast$}]{s,  }\item[{size\+\_\+t}]{len,  }\item[{unsigned char $\ast$}]{enc }\end{DoxyParamCaption})}
+
+
+
+Definition at line 300 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a3ff628b60acf9fd10c77c462417e4d98}\label{rdb_8c_a3ff628b60acf9fd10c77c462417e4d98}} 
+\index{rdb.\+c@{rdb.\+c}!save\+Command@{save\+Command}}
+\index{save\+Command@{save\+Command}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{save\+Command()}{saveCommand()}}
+{\footnotesize\ttfamily void save\+Command (\begin{DoxyParamCaption}\item[{\hyperlink{structclient}{client} $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Definition at line 2386 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_aa669b4cbb68199c86bfe7bc74108b37e}\label{rdb_8c_aa669b4cbb68199c86bfe7bc74108b37e}} 
+\index{rdb.\+c@{rdb.\+c}!start\+Loading@{start\+Loading}}
+\index{start\+Loading@{start\+Loading}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{start\+Loading()}{startLoading()}}
+{\footnotesize\ttfamily void start\+Loading (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{fp }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1800 of file rdb.\+c.
+
+\mbox{\Hypertarget{rdb_8c_a0c8f304793dc2099c61a09cd4aaa09f6}\label{rdb_8c_a0c8f304793dc2099c61a09cd4aaa09f6}} 
+\index{rdb.\+c@{rdb.\+c}!stop\+Loading@{stop\+Loading}}
+\index{stop\+Loading@{stop\+Loading}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{stop\+Loading()}{stopLoading()}}
+{\footnotesize\ttfamily void stop\+Loading (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1822 of file rdb.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{rdb_8c_aefef68276e4a8d9a17eb4850e4e8dc21}\label{rdb_8c_aefef68276e4a8d9a17eb4850e4e8dc21}} 
+\index{rdb.\+c@{rdb.\+c}!rdb\+Check\+Mode@{rdb\+Check\+Mode}}
+\index{rdb\+Check\+Mode@{rdb\+Check\+Mode}!rdb.\+c@{rdb.\+c}}
+\subsubsection{\texorpdfstring{rdb\+Check\+Mode}{rdbCheckMode}}
+{\footnotesize\ttfamily int rdb\+Check\+Mode}
+
+
+
+Definition at line 37 of file redis-\/check-\/rdb.\+c.
+
